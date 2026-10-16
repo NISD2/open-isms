@@ -1739,6 +1739,36 @@
       "question": "Ce trebuie, concret, să fac?"
     }
   },
+  "cat:dsgvo": {
+    "fr": {
+      "title": "RGPD et protection des données",
+      "question": "Qu'exige le RGPD de votre entreprise, et comment un assistant IA peut-il aider ?"
+    },
+    "it": {
+      "title": "GDPR e protezione dei dati",
+      "question": "Che cosa chiede il GDPR alla vostra azienda, e come può aiutare un assistente IA?"
+    },
+    "es": {
+      "title": "RGPD y protección de datos",
+      "question": "¿Qué exige el RGPD a su empresa y cómo puede ayudar un asistente de IA?"
+    },
+    "pl": {
+      "title": "RODO i ochrona danych",
+      "question": "Czego RODO wymaga od Twojej firmy i jak może pomóc asystent AI?"
+    },
+    "cs": {
+      "title": "GDPR a ochrana osobních údajů",
+      "question": "Co GDPR vyžaduje od vaší firmy a jak může pomoci AI asistent?"
+    },
+    "pt": {
+      "title": "RGPD e proteção de dados",
+      "question": "O que exige o RGPD da sua empresa, e como pode ajudar um assistente de IA?"
+    },
+    "ro": {
+      "title": "GDPR și protecția datelor",
+      "question": "Ce cere GDPR de la firma dumneavoastră și cum poate ajuta un asistent AI?"
+    }
+  },
   "cat:ki-assistenten": {
     "fr": {
       "title": "Assistants IA et MCP",

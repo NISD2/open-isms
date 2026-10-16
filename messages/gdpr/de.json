@@ -1,0 +1,1477 @@
+{
+  "gdpr": {
+    "related": "Weiterlesen",
+    "waitlist": {
+      "eyebrow": "In Arbeit",
+      "heading": "Der DSGVO Durchgang",
+      "body": "Nach dem NIS 2 Durchgang entsteht auf nisd2.eu ein DSGVO Durchgang. Er wird mit demselben MCP Server arbeiten, sodass Ihr eigener KI Assistent auch dort ausfüllen kann. Einen Termin nennen wir noch nicht. Wenn Sie sich vormerken, schreiben wir Ihnen, sobald er bereitsteht.",
+      "cta": "Vormerken lassen",
+      "note": "Mit einem kostenlosen Konto auf nisd2.eu. Die Vormerkung beenden Sie jederzeit auf derselben Seite."
+    },
+    "waitlistPage": {
+      "title": "Für den DSGVO Durchgang vormerken",
+      "lead": "Der DSGVO Durchgang auf nisd2.eu ist in Arbeit und wird mit demselben MCP Server arbeiten wie der NIS 2 Durchgang. Merken Sie sich vor, dann schreiben wir Ihnen, sobald er bereitsteht.",
+      "register": "Kostenloses Konto anlegen und vormerken",
+      "signIn": "Ich habe schon ein Konto: anmelden",
+      "join": "Vormerken",
+      "joined": "Sie sind seit dem {date} vorgemerkt.",
+      "leave": "Vormerkung beenden",
+      "privacy": "Wir speichern die Vormerkung mit Datum in Ihrem Konto und schreiben Ihnen an dessen E-Mail-Adresse, wenn der DSGVO Durchgang bereitsteht.",
+      "privacyLink": "Datenschutzerklärung"
+    },
+    "chatgptPrivacy": {
+      "meta": {
+        "title": "ChatGPT Datenschutz im Unternehmen: was nach DSGVO gilt",
+        "description": "ChatGPT im Unternehmen nach DSGVO: welcher Plan, welcher Vertrag mit OpenAI, Training und Drittland. Und wo ChatGPT im NIS2 Durchgang hingehört."
+      },
+      "badge": "ChatGPT · DSGVO",
+      "title": "ChatGPT und Datenschutz im Unternehmen: was gilt nach DSGVO?",
+      "subtitle": "Nutzt Ihr Unternehmen ChatGPT mit personenbezogenen Daten, brauchen Sie eine Rechtsgrundlage, einen Vertrag zur Auftragsverarbeitung, wenn OpenAI in Ihrem Auftrag handelt, und eine Grundlage für Übermittlungen außerhalb der EU. Für Business, Enterprise und Edu schreibt OpenAI, dass es die Daten standardmäßig nicht zum Training nutzt. Den Vertrag von OpenAI konnten wir nicht lesen.",
+      "sections": [
+        {
+          "heading": "Darf ein Unternehmen ChatGPT nach der DSGVO nutzen?",
+          "paragraphs": [
+            "Ja, die DSGVO verbietet kein bestimmtes Programm. Sie regelt, wie Ihr Unternehmen personenbezogene Daten verarbeitet, also alle Angaben zu einer bestimmten oder bestimmbaren Person (Art. 4 Nr. 1 DSGVO).",
+            "Solche Daten landen leicht in ChatGPT: eine Kundenmail zum Umformulieren, eine Liste mit Namen, die Konten Ihrer Beschäftigten bei OpenAI. Auch eine Antwort kann personenbezogene Daten enthalten, wenn die Frage keine enthielt, schreibt die Datenschutzkonferenz (DSK) in ihrer Orientierungshilfe zu KI (Rn. 52).",
+            "Für jeden Schritt, in dem ChatGPT personenbezogene Daten verarbeitet, braucht Ihr Unternehmen eine Rechtsgrundlage nach Art. 6 Abs. 1 DSGVO. Für Gesundheitsdaten und die anderen besonderen Kategorien gilt zusätzlich Art. 9."
+          ],
+          "law": "Art. 4 Nr. 1 · Art. 6 Abs. 1 · Art. 9 Abs. 1 DSGVO"
+        },
+        {
+          "heading": "Welcher ChatGPT Plan ist für Firmendaten gedacht?",
+          "paragraphs": [
+            "OpenAI nennt die Pläne Free, Go, Plus, Pro, Business, Edu und Enterprise. Für Arbeitsbereiche in Business, Enterprise und Edu schreibt OpenAI in seiner Dokumentation für Admins: Die Daten sind bei der Übertragung und im Speicher verschlüsselt und werden standardmäßig nicht zum Training der Modelle von OpenAI genutzt (Stand Oktober 2026).",
+            "Für die API, über die eigene Programme die Modelle von OpenAI direkt ansprechen, schreibt OpenAI: Seit dem 1. März 2023 dienen Daten an die API nicht zum Training, es sei denn, Sie stimmen ausdrücklich zu. Protokolle zur Missbrauchskontrolle, die auch Eingaben und Antworten enthalten können, bewahrt OpenAI standardmäßig bis zu 30 Tage auf.",
+            "Für Free, Go, Plus und Pro stehen die Regeln zum Training auf Seiten von OpenAI, die wir am 16. Oktober 2026 nicht öffnen konnten. Die DSK rät ohnehin, für die berufliche Nutzung betriebliche Konten und Geräte bereitzustellen, damit niemand mit privaten Konten arbeiten muss (Rn. 41)."
+          ]
+        },
+        {
+          "heading": "Brauchen Sie einen AVV mit OpenAI?",
+          "paragraphs": [
+            "Verarbeitet OpenAI personenbezogene Daten in Ihrem Auftrag, ist es Ihr Auftragsverarbeiter (Art. 4 Nr. 8 DSGVO). Dann brauchen Sie einen Vertrag nach Art. 28 Abs. 3, kurz AVV, den Sie auch elektronisch schließen können (Art. 28 Abs. 9). Bei KI aus der Cloud sieht die DSK häufig genau dieses Verhältnis (Rn. 32).",
+            "Der Vertrag legt unter anderem fest, dass OpenAI nur auf Ihre dokumentierte Weisung verarbeitet (Art. 28 Abs. 3 Buchst. a). Entscheidet ein Auftragsverarbeiter unter Verstoß gegen die DSGVO selbst über Zwecke und Mittel, gilt er dafür als Verantwortlicher (Art. 28 Abs. 10). Deshalb gehört die Frage nach dem Training zur Prüfung.",
+            "Auf seinem Trust Portal schreibt OpenAI, es könne mit Kunden einen DPA schließen, und verweist auf ein Formular dafür und auf seinen Data Processing Addendum unter openai.com/policies. Den Text konnten wir nicht lesen: openai.com verweigerte uns am 16. und 17. Oktober 2026 den Zugriff. Was er regelt und für welche Pläne er gilt, prüfen Sie in Ihrem Vertrag mit OpenAI."
+          ],
+          "law": "Art. 4 Nr. 8 · Art. 28 Abs. 3, 9 und 10 DSGVO"
+        },
+        {
+          "heading": "Was gilt, wenn die Daten die EU verlassen?",
+          "paragraphs": [
+            "Eine Übermittlung in ein Land außerhalb der EU ist nur unter den Bedingungen der Art. 44 ff. DSGVO erlaubt, etwa mit einem Angemessenheitsbeschluss der Kommission (Art. 45) oder mit ihren Standarddatenschutzklauseln (Art. 46 Abs. 2 Buchst. c), meist Standardvertragsklauseln genannt.",
+            "Für die API bietet OpenAI eine Region „Europe (EEA + Switzerland)“ für Speicherung und Verarbeitung, nach Freigabe durch OpenAI und ohne Systemdaten wie Konto und Abrechnung. Für ChatGPT hängt die Datenresidenz laut OpenAI von Vertrag, Region und Einstellungen ab; die Hilfeseite dazu konnten wir nicht öffnen.",
+            "Auf welche Garantie sich Übermittlungen bei OpenAI stützen, konnten wir nicht prüfen. Fragen Sie danach. Das Drittland gehört in Ihr Verzeichnis der Verarbeitungstätigkeiten (Art. 30 Abs. 1 Buchst. e), die Garantie in Ihre Datenschutzinformation (Art. 13 Abs. 1 Buchst. f)."
+          ],
+          "law": "Art. 44 · Art. 45 Abs. 1 · Art. 46 Abs. 2 Buchst. c · Art. 13 Abs. 1 Buchst. f · Art. 30 Abs. 1 Buchst. e DSGVO"
+        },
+        {
+          "heading": "Ein Beispiel, und was oft schiefgeht",
+          "paragraphs": [
+            "Die Kemper Lohse GmbH, ein erfundener Hersteller von Förderbändern, will ChatGPT im Vertrieb nutzen. Sie richtet einen Business Arbeitsbereich ein und legt schriftlich fest: Angebote und Produkttexte ja, Bewerbungen und Personalakten nein.",
+            "Danach ergänzt sie ihr Verzeichnis der Verarbeitungstätigkeiten um OpenAI als Empfänger und die Übermittlung mit dem Drittland (Art. 30 Abs. 1 Buchst. d und e). Ihre Datenschutzinformation für Kunden nennt die Empfänger und die Garantie für die Übermittlung (Art. 13 Abs. 1 Buchst. e und f).",
+            "Häufige Fehler: Beschäftigte nutzen weiter private Konten. Namen werden gestrichen, als sei der Text damit anonym; die DSK hält das regelmäßig für unzureichend, weil der Zusammenhang die Person verraten kann (Rn. 49). Und eine KI, die Bewerbungen auswertet und Einladungen selbst verschickt, verstößt nach der DSK gegen Art. 22 Abs. 1 (Rn. 13)."
+          ],
+          "law": "Art. 13 Abs. 1 Buchst. e und f · Art. 22 Abs. 1 · Art. 30 Abs. 1 DSGVO"
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein Assistent wie ChatGPT oder Claude kann diese Prüfung vorbereiten. Er gleicht einen Vertrag, der Ihnen vorliegt, mit Art. 28 Abs. 3 ab, entwirft einen Eintrag für Ihr Verzeichnis und formuliert eine Nutzungsregel für Beschäftigte.",
+            "Welcher Plan, welche Daten erlaubt sind und ob der Vertrag passt, entscheidet Ihr Unternehmen als Verantwortlicher (Art. 5 Abs. 2). Geben Sie dem Assistenten dafür Verträge und Richtlinien, keine Personaldaten, denn was er liest, verarbeitet sein Anbieter mit.",
+            "Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang. Über diesen Server trägt ein KI Assistent heute Angaben in den NIS 2 Durchgang ein, mit den Rechten der Person, die ihn verbunden hat."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Ist Ihr Unternehmen von NIS 2 betroffen, steht ChatGPT im Durchgang schon als Programm und OpenAI als Lieferant; für die DSGVO ist das Ausgangsmaterial.",
+        "points": [
+          "2.2 Aufschreiben, was Ihr Unternehmen hat: Auf „Programme, die alle nutzen“ haken Sie „KI-Assistenten (ChatGPT, Microsoft Copilot)“ an. Auf „Welches Programm genau, und von wem?“ schreiben Sie unter „Was genau“ den Plan, etwa ChatGPT Business, und unter „Von wem“ OpenAI.",
+          "5.1 Aufschreiben, wer für Sie arbeitet: Wen Sie in 2.2 als Anbieter nennen, steht schon auf „Ihre Lieferanten“. Unter „Was er für Sie tut“ halten Sie fest, wofür Ihre Leute ChatGPT nutzen und welche Daten es sieht.",
+          "Wo der Durchgang aufhört: Ob OpenAI Ihr Auftragsverarbeiter ist, auf welcher Rechtsgrundlage Sie Daten eingeben und auf welche Garantie sich eine Übermittlung stützt, fragt keiner dieser Bildschirme. Das gehört in Ihr Verzeichnis der Verarbeitungstätigkeiten und Ihre Datenschutzinformation."
+        ],
+        "seeItAlt": "Punkt 2.2 im NIS 2 Durchgang, Bildschirm „Was Ihr Unternehmen jeden Tag tut“ mit „72 Einträge auf Ihrer Liste“: Im Abschnitt „Geschäftsprozesse“ sind 12 von 14 Abläufen angehakt, etwa „Vertrieb und Kundenservice“ und „Personal- und Lohnverwaltung“. Rechts unter „Häufig übersehen“: Auch gemietete Programme aus der Cloud gehören auf die Liste",
+        "next": "ChatGPT in 2.2 festhalten"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Ist ChatGPT DSGVO konform?",
+            "a": "Die DSGVO prüft Verarbeitungen, also wie Ihr Unternehmen ChatGPT einsetzt. Dafür zählen die Rechtsgrundlage, der Vertrag mit OpenAI, Übermittlungen außerhalb der EU und Ihre internen Regeln. Für Business, Enterprise und Edu schreibt OpenAI, dass es die Daten standardmäßig nicht zum Training nutzt; die übrigen Prüfungen bleiben bei Ihnen."
+          },
+          {
+            "q": "Darf ich Kundendaten in ChatGPT eingeben?",
+            "a": "Dafür brauchen Sie eine Rechtsgrundlage (Art. 6 Abs. 1 DSGVO) und, wenn OpenAI in Ihrem Auftrag handelt, einen Vertrag nach Art. 28. Geben Sie nur ein, was der Zweck braucht (Art. 5 Abs. 1 Buchst. c), und nennen Sie die Empfänger in Ihrer Datenschutzinformation (Art. 13 Abs. 1 Buchst. e)."
+          },
+          {
+            "q": "Nutzt OpenAI meine Eingaben zum Training?",
+            "a": "Für ChatGPT Business, Enterprise und Edu schreibt OpenAI: standardmäßig nein. Für die API gilt seit dem 1. März 2023 dasselbe, solange Sie nicht ausdrücklich zustimmen. Für Free, Go, Plus und Pro konnten wir die Regeln nicht lesen, weil die Seiten von OpenAI am 16. Oktober 2026 nicht abrufbar waren."
+          },
+          {
+            "q": "Muss ChatGPT ins Verarbeitungsverzeichnis?",
+            "a": "Ja, wenn Ihr Unternehmen damit personenbezogene Daten verarbeitet und ein Verzeichnis führen muss. Es nennt die Empfänger, auch in Drittländern, und die Übermittlungen dorthin (Art. 30 Abs. 1 Buchst. d und e DSGVO). Wann ein Unternehmen mit weniger als 250 Mitarbeitern davon befreit ist, regelt Art. 30 Abs. 5; unser Artikel zum Verarbeitungsverzeichnis erklärt die Ausnahme."
+          },
+          {
+            "q": "Ist Microsoft Copilot dasselbe wie ChatGPT?",
+            "a": "Nein. Copilot ist ein Dienst von Microsoft, der auch Modelle von OpenAI nutzt; Microsoft nennt OpenAI dafür als Unterauftragsverarbeiter. Für Copilot, wie Organisationen ihn nutzen, gelten laut Microsoft sein Data Protection Addendum und die Product Terms, mit Microsoft als Auftragsverarbeiter (Stand Oktober 2026)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 4, 5, 6, 9, 13, 22, 28, 30 und 44 bis 46, ABl. L 119 vom 4.5.2016, CELEX 32016R0679, publications.europa.eu",
+          "OpenAI, Data controls in the OpenAI platform, developers.openai.com/api/docs/guides/your-data, Stand Oktober 2026",
+          "OpenAI, ChatGPT Work cloud security, learn.chatgpt.com/docs/enterprise/chatgpt-work-cloud-security, und Trust Portal, trust.openai.com, Stand Oktober 2026; openai.com/policies und help.openai.com waren am 16. und 17.10.2026 nicht abrufbar",
+          "Microsoft, Enterprise data protection in Microsoft Copilot und Microsoft Copilot privacy, learn.microsoft.com, Stand Oktober 2026",
+          "Datenschutzkonferenz (DSK), Orientierungshilfe Künstliche Intelligenz und Datenschutz, Version 1.0 vom 6. Mai 2024, Rn. 13, 32, 41, 49 und 52, datenschutzkonferenz-online.de",
+          "open-isms, messages/durchgang (Punkte 2.2 und 5.1) und messages/assetInventory, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "claudeGdpr": {
+      "meta": {
+        "title": "Claude DSGVO: Ist Claude im Unternehmen DSGVO konform?",
+        "description": "Claude und DSGVO: Verbraucherplan oder Claude for Work, AVV mit Anthropic, Training und Speicherort USA. Und wo Claude im NIS2 Durchgang hingehört."
+      },
+      "badge": "Claude · DSGVO",
+      "title": "Ist Claude DSGVO konform?",
+      "subtitle": "Für die Arbeit sieht Anthropic seine Geschäftsangebote vor: Claude for Work mit Team und Enterprise und die Anthropic API. Dort ist Anthropic laut eigenem Vertrag Ihr Auftragsverarbeiter, mit Standardvertragsklauseln für die USA, und nutzt Ihre Eingaben standardmäßig nicht zum Training. Ob Ihre Nutzung der DSGVO entspricht, hängt dann an Rechtsgrundlage und internen Regeln.",
+      "sections": [
+        {
+          "heading": "Welches Claude ist für die Arbeit gedacht?",
+          "paragraphs": [
+            "Anthropic trennt zwei Gruppen. Verbraucherpläne sind Claude Free, Pro und Max. Geschäftsangebote sind Claude for Work mit den Plänen Team und Enterprise und die Anthropic API, über die eigene Programme Claude ansprechen.",
+            "Die Verbraucherbedingungen, die Anthropic für den EWR veröffentlicht, gelten für Menschen, die überwiegend außerhalb ihres Berufs handeln. Darin sagt der Nutzer zu, die Dienste nicht für geschäftliche Zwecke zu verwenden (Fassung vom 8. Oktober 2025).",
+            "Für Ihr Unternehmen kommen deshalb Claude for Work oder die API in Frage. Für sie gelten die Commercial Terms of Service, und Vertragspartner für Kunden im EWR ist dort Anthropic Ireland, Limited."
+          ]
+        },
+        {
+          "heading": "Ist Anthropic Auftragsverarbeiter, und wo ist der AVV?",
+          "paragraphs": [
+            "Bei den Geschäftsangeboten ja. Den AVV nennt Anthropic Data Processing Addendum (DPA). Danach ist der Kunde für personenbezogene Daten Verantwortlicher und Anthropic sein Auftragsverarbeiter (Art. 4 Nr. 7 und 8 DSGVO). Der DPA ist Teil der Commercial Terms: Wer diese annimmt, nimmt laut Anthropic auch den DPA an.",
+            "Die DSGVO erlaubt einen solchen Vertrag in elektronischer Form (Art. 28 Abs. 9). Prüfen Sie trotzdem, ob er die Punkte aus Art. 28 Abs. 3 enthält, und legen Sie die Fassung ab, die bei Abschluss galt.",
+            "Aus der Fassung vom 24. Februar 2025: Anthropic meldet eine Sicherheitsverletzung, die Ihre personenbezogenen Daten betrifft, unverzüglich, spätestens binnen 48 Stunden. Es unterstützt Sie bei einer Datenschutzfolgenabschätzung, und nach Vertragsende löscht es Ihre Daten binnen 30 Tagen, mit Ausnahmen etwa für gesetzliche Pflichten."
+          ],
+          "law": "Art. 4 Nr. 7 und 8 · Art. 28 Abs. 3 und 9 DSGVO"
+        },
+        {
+          "heading": "Trainiert Anthropic mit Ihren Daten?",
+          "paragraphs": [
+            "Für die Geschäftsangebote schreibt Anthropic, dass es Eingaben und Ausgaben standardmäßig nicht zum Training nutzt. Die Commercial Terms sagen es knapper: Anthropic darf nicht mit Kundeninhalten aus den Diensten trainieren.",
+            "Eine Ausnahme ist Feedback. Klickt jemand auf Daumen hoch oder runter, speichert Anthropic das ganze Gespräch bis zu fünf Jahre und kann es nach eigener Angabe auch zum Training nutzen. Owner eines Team oder Enterprise Plans können das unter „Data and Privacy“ mit der Einstellung „Rate chats“ für alle abschalten.",
+            "Bei Free, Pro und Max entscheidet die Person in ihren Einstellungen, ob Anthropic ihre Chats zum Training nutzen darf; dann bewahrt Anthropic sie dafür bis zu fünf Jahre auf. Chats, die Sicherheitsfilter markieren, kann Anthropic auch ohne diese Erlaubnis für seine Sicherheitsmodelle verwenden."
+          ]
+        },
+        {
+          "heading": "Wo verarbeitet und speichert Anthropic die Daten?",
+          "paragraphs": [
+            "Laut Anthropic gehen Anfragen der Geschäftsangebote standardmäßig in ausgewählte Länder in den USA, Europa, Asien und Australien, wenn nichts anderes vereinbart ist. Gespeichert werden die Daten in den USA (Stand Oktober 2026).",
+            "Für die API nennt Anthropic als Ort der Verarbeitung „global“, den Standard, oder „us“, und als Speicherort eines Workspace derzeit nur „us“. Eine Einstellung, die Daten in der EU hält, beschreiben die Seiten nicht, die wir gelesen haben.",
+            "Für die Übermittlung sieht der DPA die Standarddatenschutzklauseln der Kommission vor, meist Standardvertragsklauseln genannt, Modul Zwei und Drei (Art. 46 Abs. 2 Buchst. c DSGVO). Die USA als Ziel gehören in Ihr Verzeichnis der Verarbeitungstätigkeiten (Art. 30 Abs. 1 Buchst. e), die Garantie in Ihre Datenschutzinformation (Art. 13 Abs. 1 Buchst. f)."
+          ],
+          "law": "Art. 44 · Art. 46 Abs. 2 Buchst. c · Art. 13 Abs. 1 Buchst. f · Art. 30 Abs. 1 Buchst. e DSGVO"
+        },
+        {
+          "heading": "Ein Beispiel, und was oft schiefgeht",
+          "paragraphs": [
+            "Die Kemper Lohse GmbH, ein erfundener Hersteller von Förderbändern, will Claude in der Konstruktion nutzen, etwa für Wartungsanleitungen. Sie bucht Claude Team, legt den DPA zu ihren Verträgen und trägt Anthropic mit der Übermittlung in die USA in ihr Verzeichnis ein.",
+            "Ihre interne Regel lautet: technische Unterlagen ja, Personalakten und Gesundheitsdaten nein. Der Owner schaltet „Rate chats“ ab, damit keine Gespräche über den Feedbackknopf bei Anthropic landen.",
+            "Häufige Fehler: Ingenieure arbeiten mit privaten Pro Konten weiter, obwohl die Verbraucherbedingungen geschäftliche Zwecke ausschließen und die Datenschutzkonferenz (DSK) zu betrieblichen Konten rät (Rn. 41). Oder das Firmenkonto steht, aber Verzeichnis und Datenschutzinformation nennen den neuen Empfänger noch nicht (Art. 13 Abs. 1 Buchst. e)."
+          ],
+          "law": "Art. 13 Abs. 1 Buchst. e · Art. 30 Abs. 1 DSGVO"
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein Assistent, auch Claude selbst, kann den DPA von Anthropic mit Art. 28 Abs. 3 abgleichen, einen Eintrag für Ihr Verzeichnis entwerfen und eine Nutzungsregel schreiben.",
+            "Ob das Ergebnis stimmt und welche Daten erlaubt sind, entscheidet und verantwortet Ihr Unternehmen (Art. 5 Abs. 2 DSGVO). Geben Sie dem Assistenten dafür Verträge und Richtlinien, keine Personaldaten, denn was er liest, verarbeitet sein Anbieter mit.",
+            "Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang. Über diesen Server trägt ein KI Assistent heute Angaben in den NIS 2 Durchgang ein, mit den Rechten der Person, die ihn verbunden hat."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Ist Ihr Unternehmen von NIS 2 betroffen, steht Claude im Durchgang als Programm und Anthropic als Lieferant; für die DSGVO ist das Ausgangsmaterial.",
+        "points": [
+          "2.2 Aufschreiben, was Ihr Unternehmen hat: Auf „Programme, die alle nutzen“ haken Sie „KI-Assistenten (ChatGPT, Microsoft Copilot)“ an, auch wenn Sie Claude nutzen. Auf „Welches Programm genau, und von wem?“ schreiben Sie unter „Was genau“ etwa Claude Team und unter „Von wem“ Anthropic.",
+          "5.1 Aufschreiben, wer für Sie arbeitet: Anthropic steht damit schon auf „Ihre Lieferanten“. Unter „Was er für Sie tut“ halten Sie fest, wofür Ihre Leute Claude nutzen und welche Daten es sieht.",
+          "Wo der Durchgang aufhört: Ob ein DPA gilt, auf welcher Rechtsgrundlage Sie Daten eingeben und dass die Daten in den USA liegen, fragt keiner dieser Bildschirme. Das gehört in Ihr Verzeichnis der Verarbeitungstätigkeiten."
+        ],
+        "seeItAlt": "Punkt 2.2 im NIS 2 Durchgang, Bildschirm „Was Ihr Unternehmen jeden Tag tut“ mit „72 Einträge auf Ihrer Liste“: Im Abschnitt „Geschäftsprozesse“ sind 12 von 14 Abläufen angehakt, etwa „Vertrieb und Kundenservice“ und „Personal- und Lohnverwaltung“. Rechts unter „Häufig übersehen“: Auch gemietete Programme aus der Cloud gehören auf die Liste",
+        "next": "Claude in 2.2 festhalten"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Darf ich Claude Pro beruflich nutzen?",
+            "a": "Die Verbraucherbedingungen für den EWR gelten auch für Claude Pro, und darin sagt der Nutzer zu, die Dienste nicht geschäftlich zu verwenden. Für Firmendaten sieht Anthropic Claude for Work oder die API vor, mit DPA und Anthropic als Auftragsverarbeiter."
+          },
+          {
+            "q": "Hat Anthropic einen Sitz in der EU?",
+            "a": "Kunden im EWR schließen die Commercial Terms mit Anthropic Ireland, Limited, und für Verbraucherkonten im EWR ist sie laut Datenschutzerklärung die Verantwortliche. Gespeichert werden die Daten laut Anthropic trotzdem in den USA, deshalb brauchen Übermittlungen weiter eine Grundlage."
+          },
+          {
+            "q": "Muss ich den AVV von Anthropic unterschreiben?",
+            "a": "Anthropic schreibt, der DPA mit Standardvertragsklauseln sei automatisch Teil der Commercial Terms; wer sie annimmt, nimmt auch den DPA an. Ein gesondertes Unterschreiben beschreibt die Seite nicht. Die DSGVO verlangt, dass der Vertrag schriftlich abgefasst ist, was auch elektronisch geschehen kann (Art. 28 Abs. 9)."
+          },
+          {
+            "q": "Gilt die EU Data Boundary für Claude in Microsoft Copilot?",
+            "a": "Laut Microsoft nicht: Modelle, die Anthropic als Unterauftragsverarbeiter in Copilot liefert, sind derzeit von der EU Data Boundary ausgenommen (Stand Oktober 2026). Ob diese Modelle in Copilot genutzt werden, entscheidet laut Microsoft Ihr Admin."
+          },
+          {
+            "q": "Welche Zertifikate hat Anthropic?",
+            "a": "Anthropic nennt im Privacy Center ISO 27001:2022, ISO/IEC 42001:2023 und SOC 2 Typ I und II. Prüfberichte stellt es nach dem DPA auf schriftliche Anfrage bereit. Für Ihre Prüfung nach Art. 28 Abs. 1, ob Anthropic hinreichende Garantien bietet, ist das Material; die Entscheidung bleibt bei Ihnen."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 4, 5, 13, 28, 30, 44 und 46, ABl. L 119 vom 4.5.2016, CELEX 32016R0679, publications.europa.eu",
+          "Anthropic, Commercial Terms of Service (Fassung vom 17. Juni 2025), Data Processing Addendum (24. Februar 2025), Consumer Terms of Service für den EWR (8. Oktober 2025) und Privacy Policy (10. September 2026), anthropic.com/legal, Stand Oktober 2026",
+          "Anthropic Privacy Center, Artikel 7996868, 7996862, 7996890, 9267385, 10015870, 10023548, 10023580 und 12109829, privacy.claude.com, sowie Data residency, platform.claude.com/docs, Stand Oktober 2026",
+          "Microsoft, Microsoft Copilot privacy, Abschnitt zur EU Data Boundary, learn.microsoft.com, Stand Oktober 2026",
+          "Datenschutzkonferenz (DSK), Orientierungshilfe Künstliche Intelligenz und Datenschutz, Version 1.0 vom 6. Mai 2024, Rn. 41, datenschutzkonferenz-online.de",
+          "open-isms, messages/durchgang (Punkte 2.2 und 5.1) und messages/assetInventory, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "aiPrivacy": {
+      "meta": {
+        "title": "KI Datenschutz im Unternehmen: was die DSGVO verlangt",
+        "description": "KI im Unternehmen nach DSGVO: Rechtsgrundlage, AVV, Drittland, Training, Regeln für Beschäftigte und DSFA. Und wo KI im NIS2 Durchgang steht."
+      },
+      "badge": "KI · DSGVO",
+      "title": "KI und Datenschutz im Unternehmen: was die DSGVO verlangt",
+      "subtitle": "Die DSGVO erwähnt KI nicht. Sobald ein KI Werkzeug personenbezogene Daten verarbeitet, gelten ihre allgemeinen Pflichten: eine Rechtsgrundlage, ein Vertrag mit dem Anbieter, die Regeln für Drittländer, Vorgaben für Beschäftigte und bei hohem Risiko eine Datenschutzfolgenabschätzung. Die Datenschutzkonferenz hat dazu 2024 eine Orientierungshilfe veröffentlicht.",
+      "sections": [
+        {
+          "heading": "Wann gilt die DSGVO für KI im Unternehmen?",
+          "paragraphs": [
+            "Die DSGVO gilt für die automatisierte Verarbeitung personenbezogener Daten (Art. 2 Abs. 1), unabhängig vom Werkzeug; ihr Schutz soll technologieneutral sein (Erwägungsgrund 15). Ein KI Assistent fällt darunter, sobald Angaben zu einer bestimmten oder bestimmbaren Person hineingehen oder herauskommen (Art. 4 Nr. 1).",
+            "Das passiert schnell. Schon die Konten der Beschäftigten beim Anbieter enthalten personenbezogene Daten. Und auch eine Frage ohne Namen kann eine Antwort mit Personenbezug erzeugen, schreibt die Datenschutzkonferenz (DSK) in ihrer Orientierungshilfe zu KI vom 6. Mai 2024 (Rn. 52).",
+            "Verantwortlich bleibt Ihr Unternehmen, weil es über Zweck und Mittel entscheidet (Art. 4 Nr. 7), und es muss die Einhaltung nachweisen können (Art. 5 Abs. 2). Jeder Verarbeitungsschritt mit KI braucht eine Rechtsgrundlage (Art. 6 Abs. 1; DSK Rn. 9)."
+          ],
+          "law": "Art. 2 Abs. 1 · Art. 4 Nr. 1 und 7 · Art. 5 Abs. 2 · Art. 6 Abs. 1 DSGVO"
+        },
+        {
+          "heading": "Was prüfen Sie beim KI Anbieter?",
+          "paragraphs": [
+            "Läuft die KI in der Cloud eines Anbieters, ist er nach der DSK häufig Ihr Auftragsverarbeiter, und Sie brauchen einen Vertrag nach Art. 28 Abs. 3 DSGVO, kurz AVV (Rn. 32). Arbeiten dürfen Sie nur mit Anbietern, die hinreichende Garantien bieten (Art. 28 Abs. 1).",
+            "Klären Sie, ob Eingaben und Ausgaben ins Training gehen und ob sich das ausschließen lässt. Vorzuziehen sind nach der DSK Anwendungen, die Ihre Daten nicht zum Training verwenden (Rn. 24).",
+            "Gehen Daten in ein Land außerhalb der EU, braucht es eine Grundlage nach Art. 44 ff., etwa einen Angemessenheitsbeschluss (Art. 45) oder die Standarddatenschutzklauseln der Kommission (Art. 46 Abs. 2 Buchst. c). Empfänger und Übermittlungen gehören ins Verzeichnis der Verarbeitungstätigkeiten (Art. 30 Abs. 1 Buchst. d und e) und in die Datenschutzinformation (Art. 13 Abs. 1 Buchst. e und f).",
+            "Was die Anbieter schreiben (Stand Oktober 2026): OpenAI nutzt Daten aus ChatGPT Business, Enterprise und Edu standardmäßig nicht zum Training; seinen Vertrag zur Auftragsverarbeitung konnten wir nicht lesen. Anthropic handelt bei Claude for Work und der API als Auftragsverarbeiter, Microsoft bei Copilot, wie Organisationen ihn nutzen. Mehr dazu in unseren Artikeln zu ChatGPT und zu Claude."
+          ],
+          "law": "Art. 28 Abs. 1 und 3 · Art. 30 Abs. 1 · Art. 44 bis 46 DSGVO"
+        },
+        {
+          "heading": "Welche Regeln brauchen Ihre Beschäftigten?",
+          "paragraphs": [
+            "Die DSK geht davon aus, dass in vielen Unternehmen Beschäftigte KI eigenmächtig nutzen (Rn. 36). Sie rät zu dokumentierten Weisungen, ob, unter welchen Voraussetzungen und wofür welche KI Anwendung erlaubt ist, am besten mit Beispielen. Die DSGVO verlangt Schritte, damit Beschäftigte personenbezogene Daten nur auf Anweisung verarbeiten (Art. 32 Abs. 4).",
+            "Stellen Sie betriebliche Konten und Geräte bereit, damit niemand mit privaten Konten arbeiten muss (Rn. 41). Als datenschutzfreundliche Voreinstellung nach Art. 25 nennt die DSK Konten, deren Eingaben nicht ins Training gehen und die keine Eingabehistorie über die Sitzung hinaus speichern (Rn. 43).",
+            "Namen zu streichen, reicht nach der DSK regelmäßig nicht, weil der Zusammenhang die Person verraten kann (Rn. 49). Ergebnisse mit Personenbezug müssen geprüft werden, bevor sie weiterverarbeitet werden (Rn. 65).",
+            "Binden Sie den Datenschutzbeauftragten ein, und prüfen Sie, ob der Betriebsrat zu beteiligen ist, falls es einen gibt (Rn. 31). In einigen Fällen löst die Einführung einer KI Anwendung nach der DSK die Mitbestimmung aus (Rn. 37)."
+          ],
+          "law": "Art. 25 · Art. 32 Abs. 4 DSGVO"
+        },
+        {
+          "heading": "Wann braucht KI eine Datenschutzfolgenabschätzung?",
+          "paragraphs": [
+            "Hat eine Verarbeitung, besonders mit neuen Technologien, voraussichtlich ein hohes Risiko für die Rechte und Freiheiten von Personen, schätzt der Verantwortliche vorab die Folgen ab (Art. 35 Abs. 1). Bei KI wird das nach der DSK vielfach der Fall sein (Rn. 39).",
+            "Die sogenannte Muss-Liste der DSK für den nichtöffentlichen Bereich nennt ausdrücklich KI, die die Interaktion mit Betroffenen steuert oder persönliche Aspekte bewertet (Nr. 11), etwa ein System, das Kunden im Gespräch berät und dabei ihre Daten verarbeitet.",
+            "Entscheidungen mit Rechtswirkung dürfen nach Art. 22 Abs. 1 grundsätzlich nur Menschen treffen, und zwar mit echtem Spielraum, schreibt die DSK (Rn. 12). Eine KI, die Bewerbungen auswertet und Einladungen selbst verschickt, nennt sie einen Verstoß (Rn. 13)."
+          ],
+          "law": "Art. 22 Abs. 1 · Art. 35 Abs. 1 DSGVO"
+        },
+        {
+          "heading": "Ein Beispiel, und was oft schiefgeht",
+          "paragraphs": [
+            "Die Kemper Lohse GmbH, ein erfundener Hersteller von Förderbändern, stellt fest, dass im Vertrieb ChatGPT und in der Konstruktion Claude genutzt wird, jeweils mit privaten Konten. Sie wählt ein Werkzeug mit Geschäftsvertrag, legt den AVV ab und schreibt eine Nutzungsregel.",
+            "Die Personalabteilung darf KI für Stellenanzeigen nutzen, für die Auswahl von Bewerbern nicht. Für den geplanten Chatbot auf der Website prüft der Datenschutzbeauftragte, ob eine Datenschutzfolgenabschätzung nötig ist.",
+            "Häufige Fehler sind: keine Regel zu haben, sodass Beschäftigte eigenmächtig private Konten nutzen; den Anbieter zu prüfen, Verzeichnis und Datenschutzinformation aber nicht anzupassen; und Ergebnisse ungeprüft zu übernehmen."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein Assistent kann aus Ihren Unterlagen die Nutzungsregel entwerfen, den AVV eines Anbieters mit Art. 28 Abs. 3 abgleichen und für jedes KI Werkzeug einen Eintrag im Verzeichnis vorbereiten.",
+            "Welche Werkzeuge erlaubt sind, auf welcher Rechtsgrundlage und ob eine Datenschutzfolgenabschätzung nötig ist, entscheidet Ihr Unternehmen mit seinem Datenschutzbeauftragten. Geben Sie dem Assistenten dafür Richtlinien und Verträge, keine Personaldaten, denn was er liest, verarbeitet sein Anbieter mit.",
+            "Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang. Über diesen Server trägt ein KI Assistent heute Angaben in den NIS 2 Durchgang ein, mit den Rechten der Person, die ihn verbunden hat."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Für NIS 2 halten Sie im Durchgang fest, welche KI Werkzeuge Ihr Unternehmen nutzt, wer sie liefert und welche Regeln für Zugänge gelten; für die DSGVO ist das Ausgangsmaterial.",
+        "points": [
+          "2.2 Aufschreiben, was Ihr Unternehmen hat: Auf „Programme, die alle nutzen“ haken Sie „KI-Assistenten (ChatGPT, Microsoft Copilot)“ an. Auf „Welches Programm genau, und von wem?“ nennen Sie unter „Was genau“ jedes Werkzeug und unter „Von wem“ seinen Anbieter.",
+          "5.1 Aufschreiben, wer für Sie arbeitet: Die Anbieter aus 2.2 stehen schon auf „Ihre Lieferanten“. Unter „Was er für Sie tut“ schreiben Sie, wofür Ihre Leute das Werkzeug nutzen.",
+          "10.1 Das Konzept für Personal, Zugänge und IT schreiben: Die Vorlage legt schon fest, dass Neues auf die Liste kommt, bevor es genutzt wird. Unter „Weitere Regelungen“ ergänzen Sie, wer welches KI Werkzeug wofür nutzen darf; die Geschäftsführung gibt das Konzept in 7.3 frei.",
+          "Wo der Durchgang aufhört: Rechtsgrundlage, Auftragsverarbeitung, Übermittlungen und Datenschutzfolgenabschätzung fragt keiner dieser Bildschirme. Das gehört in Ihre Unterlagen zur DSGVO."
+        ],
+        "seeItAlt": "Punkt 2.2 im NIS 2 Durchgang, Bildschirm „Was Ihr Unternehmen jeden Tag tut“ mit „72 Einträge auf Ihrer Liste“: Im Abschnitt „Geschäftsprozesse“ sind 12 von 14 Abläufen angehakt, etwa „Vertrieb und Kundenservice“ und „Personal- und Lohnverwaltung“. Rechts unter „Häufig übersehen“: Auch gemietete Programme aus der Cloud gehören auf die Liste",
+        "next": "KI Werkzeuge in 2.2 festhalten"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Ist KI nach DSGVO erlaubt?",
+            "a": "Die DSGVO verbietet keine Technik; ihr Schutz soll technologieneutral sein (Erwägungsgrund 15). Sie verlangt für jede Verarbeitung personenbezogener Daten eine Rechtsgrundlage und die übrigen Pflichten, gleich ob ein Mensch oder eine KI verarbeitet. Besondere Grenzen ziehen Art. 9 für Gesundheitsdaten und andere besondere Kategorien und Art. 22 für automatisierte Entscheidungen."
+          },
+          {
+            "q": "Dürfen Mitarbeiter private KI Konten nutzen?",
+            "a": "Die DSK rät davon ab: Arbeitgeber sollten Geräte und Konten stellen, damit Beschäftigte nicht mit privaten Konten arbeiten müssen und keine Profile über sie entstehen (Rn. 41). Anthropic schließt in seinen Verbraucherbedingungen für den EWR geschäftliche Zwecke zudem aus."
+          },
+          {
+            "q": "Muss ich Kunden informieren, wenn ich KI nutze?",
+            "a": "Geben Sie personenbezogene Daten in eine KI ein, informieren Sie die Betroffenen transparent darüber (DSK Rn. 48). Ihre Datenschutzinformation nennt die Empfänger und eine Übermittlung in Drittländer mit ihrer Garantie (Art. 13 Abs. 1 Buchst. e und f DSGVO). Erzeugt die KI Angaben zu Personen, die Sie weiterverwenden, kann zusätzlich Art. 14 greifen (Rn. 52)."
+          },
+          {
+            "q": "Gilt neben der DSGVO auch der AI Act?",
+            "a": "Die DSK rät zu prüfen, ob zusätzliche Anforderungen aus der europäischen KI Verordnung erfüllt werden müssen (Rn. 47). Was der AI Act von Unternehmen verlangt, die KI einsetzen, erklärt unser Artikel zu NIS 2 und AI Act."
+          },
+          {
+            "q": "Sind lokale KI Modelle datenschutzfreundlicher?",
+            "a": "Die DSK hält technisch geschlossene Systeme für vorzugswürdig, bei denen die Daten in einer abgegrenzten Umgebung bleiben und nicht ins Training eines Anbieters gehen (Rn. 16 und 20). Betreibt Ihr Unternehmen die KI ausschließlich für eigene Zwecke auf eigenen Servern, ist es in der Regel alleiniger Verantwortlicher (Rn. 32). Die übrigen Pflichten der DSGVO gelten weiter."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Erwägungsgrund 15, Art. 2, 4, 5, 6, 9, 13, 14, 22, 25, 28, 30, 32, 35 und 44 bis 46, ABl. L 119 vom 4.5.2016, CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Orientierungshilfe Künstliche Intelligenz und Datenschutz, Version 1.0 vom 6. Mai 2024, datenschutzkonferenz-online.de",
+          "Datenschutzkonferenz (DSK), Liste der Verarbeitungstätigkeiten, für die eine DSFA durchzuführen ist (nichtöffentlicher Bereich), Version 1.1, Nr. 11, datenschutzkonferenz-online.de",
+          "OpenAI, ChatGPT Work cloud security, learn.chatgpt.com; Anthropic, Data Processing Addendum und Consumer Terms, anthropic.com/legal; Microsoft, Enterprise data protection in Microsoft Copilot, learn.microsoft.com; alle Stand Oktober 2026",
+          "open-isms, messages/durchgang (Punkte 2.2, 5.1 und 10.1), messages/assetInventory und lib/durchgang/nis2.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "dpa": {
+      "meta": {
+        "title": "AVV: wann Sie einen Auftragsverarbeitungsvertrag brauchen",
+        "description": "Wann ein AVV nach Art. 28 DSGVO Pflicht ist, was Punkt für Punkt hineingehört und warum die Lieferantenliste im NIS2 Durchgang keinen AVV ersetzt."
+      },
+      "badge": "AVV · Art. 28 DSGVO",
+      "title": "Auftragsverarbeitungsvertrag (AVV): wann Sie einen brauchen und was hinein muss",
+      "subtitle": "Einen AVV brauchen Sie mit jedem Dienstleister, der personenbezogene Daten in Ihrem Auftrag verarbeitet, etwa mit der Firma, die Ihre Server betreut, oder mit Ihrem Cloudanbieter (Art. 28 DSGVO). Hinein gehören Gegenstand, Dauer, Zweck, Datenarten und Betroffene, dazu acht Pflichten des Dienstleisters aus Art. 28 Abs. 3.",
+      "sections": [
+        {
+          "heading": "Wann brauchen Sie einen AVV?",
+          "paragraphs": [
+            "Ein Auftragsverarbeiter ist eine Stelle außerhalb Ihres Unternehmens, meist eine andere Firma, die personenbezogene Daten in Ihrem Auftrag verarbeitet (Art. 4 Nr. 8 DSGVO). Mit ihm schließen Sie einen Vertrag nach Art. 28 Abs. 3, den AVV. Er muss schriftlich vorliegen, und das darf elektronisch sein (Art. 28 Abs. 9).",
+            "Der Europäische Datenschutzausschuss (EDSA) nennt zwei Bedingungen: Der Dienstleister ist ein eigenes Unternehmen, und er verarbeitet die Daten für Sie statt für eigene Zwecke. Typisch sind die Firma, die Ihre Server und Konten betreut, Ihr Cloudanbieter für E-Mail und Dateien und der Anbieter Ihres Personalprogramms in der Cloud.",
+            "Keinen AVV brauchen Sie, wo jemand nur nebenbei auf Daten stoßen kann. Der EDSA nennt den IT Berater, der einen Programmfehler behebt und dabei kaum an Daten kommt, und die Reinigungsfirma. Mit ihnen vereinbaren Sie Vertraulichkeit und begrenzen den Zugang."
+          ],
+          "law": "Art. 4 Nr. 8 · Art. 28 Abs. 1, 3 und 9 DSGVO"
+        },
+        {
+          "heading": "Was muss in den AVV? Die Punkte aus Art. 28 Abs. 3",
+          "paragraphs": [
+            "Zuerst beschreibt der Vertrag die Verarbeitung: Gegenstand und Dauer, Art und Zweck, die Art der personenbezogenen Daten, die Kategorien betroffener Personen und Ihre Pflichten und Rechte als Verantwortlicher. Danach verpflichtet er den Dienstleister zu acht Punkten.",
+            "Er verarbeitet die Daten nur auf Ihre dokumentierte Weisung, auch bei einer Übermittlung in ein Land außerhalb der EU (Buchst. a). Wer bei ihm mit den Daten arbeitet, ist zur Vertraulichkeit verpflichtet (Buchst. b). Er trifft alle Maßnahmen nach Art. 32, die technischen und organisatorischen Maßnahmen, kurz TOMs (Buchst. c).",
+            "Einen weiteren Auftragsverarbeiter setzt er nur mit Ihrer vorherigen schriftlichen Genehmigung ein und gibt ihm dieselben Pflichten (Buchst. d mit Abs. 2 und 4). Er unterstützt Sie, wenn Betroffene ihre Rechte geltend machen, etwa Auskunft verlangen (Buchst. e). Er unterstützt Sie bei Sicherheit, Datenpannen, Folgenabschätzung und vorheriger Konsultation nach Art. 32 bis 36 (Buchst. f).",
+            "Am Ende des Auftrags löscht er nach Ihrer Wahl alle Daten oder gibt sie zurück und löscht vorhandene Kopien, sofern kein Gesetz das Aufbewahren verlangt (Buchst. g). Die Kopien nennt die deutsche Fassung erst seit einer Berichtigung von 2018. Er stellt Ihnen alle Informationen zum Nachweis bereit und ermöglicht Prüfungen einschließlich Inspektionen (Buchst. h). Hält er eine Weisung für einen Verstoß gegen Datenschutzrecht, sagt er es Ihnen unverzüglich."
+          ],
+          "law": "Art. 28 Abs. 2 bis 4 DSGVO"
+        },
+        {
+          "heading": "Den AVV des Anbieters prüfen",
+          "paragraphs": [
+            "Große Anbieter legen ihren eigenen AVV vor, oft als Teil ihrer Bedingungen. Das ist nach dem EDSA an sich kein Problem. Wer den Dienst nutzt, übernimmt aber die volle Verantwortung, auch wenn er nicht verhandeln konnte. Der EDSA erwartet konkrete Angaben dazu, wie die Pflichten erfüllt werden und welches Sicherheitsniveau gilt.",
+            "Lesen Sie die Liste der Unterauftragsverarbeiter: Bei einer allgemeinen Genehmigung muss der Anbieter Sie über jeden neuen informieren, damit Sie widersprechen können (Art. 28 Abs. 2). Ändert er seinen AVV, soll er Ihnen das nach dem EDSA direkt mitteilen; eine Veröffentlichung nur auf seiner Website reicht nicht."
+          ],
+          "law": "Art. 28 Abs. 2 DSGVO · EDSA Leitlinien 07/2020"
+        },
+        {
+          "heading": "Ein Beispiel: fünf Lieferanten, drei AVV",
+          "paragraphs": [
+            "Die Brandt Metallbau GmbH (ausgedacht, 140 Beschäftigte) geht ihre Kreditorenliste durch. Die Firma, die per Fernzugriff Server, Konten und Datensicherung betreut, kommt laufend an Personal- und Kundendaten: AVV. Der Cloudanbieter für E-Mail und Dateien und der Anbieter der Zeiterfassung: zwei weitere AVV, beide Teil der Bedingungen, gelesen und mit Datum abgelegt.",
+            "Das Steuerbüro macht die Lohnabrechnung, und ein Steuerberater ist nach § 11 Abs. 2 StBerG für die Daten seiner Mandanten selbst Verantwortlicher: kein AVV. Die Firma, die die Fräsmaschinen aus der Ferne wartet, sieht nur Maschinendaten: auch kein AVV. Für NIS 2 zählt sie trotzdem, wegen ihres Fernzugangs."
+          ]
+        },
+        {
+          "heading": "Häufige Fehler beim AVV",
+          "paragraphs": [
+            "Mit jedem Lieferanten einen AVV abschließen, auch mit Steuerbüro oder Reinigungsfirma. Das Papier beschreibt dann Rollen, die es so nicht gibt.",
+            "Den AVV des Anbieters annehmen, ohne die TOMs anzusehen. Eine allgemeine Beschreibung der Maßnahmen ist zu wenig; die Standardvertragsklauseln der EU Kommission verlangen in Anhang III ausdrücklich eine konkrete.",
+            "Den AVV für die Lieferantenvereinbarung nach NIS 2 halten. Seine Pflichten aus Art. 28 Abs. 3 Buchst. c und Art. 33 Abs. 2 betreffen personenbezogene Daten; ein Ausfall oder Angriff ohne solche Daten fällt nicht darunter. Ein Lieferant ohne Zugriff auf solche Daten hat gar keinen AVV."
+          ],
+          "law": "Art. 28 Abs. 3 Buchst. c · Art. 33 Abs. 2 DSGVO · Art. 21 Abs. 2 Buchst. d NIS 2"
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann den AVV eines Anbieters Punkt für Punkt mit Art. 28 Abs. 3 abgleichen und zeigen, wo etwas fehlt, etwa konkrete TOMs oder die Liste der Unterauftragsverarbeiter. Aus Ihrer Lieferantenliste kann er vorsortieren, wer wahrscheinlich Auftragsverarbeiter ist.",
+            "Entscheiden muss Ihr Unternehmen: wer Auftragsverarbeiter ist, ob seine Garantien hinreichen (Art. 28 Abs. 1) und ob Sie einen Vertrag annehmen. Was Sie dem Assistenten zeigen, etwa Verträge mit Namen von Ansprechpartnern, verarbeitet sein Anbieter mit; klären Sie vorher, unter welchem Vertrag das geschieht.",
+            "Verarbeitet der Anbieter Ihres Assistenten selbst personenbezogene Daten in Ihrem Auftrag, brauchen Sie auch mit ihm einen AVV. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ],
+          "law": "Art. 28 Abs. 1 DSGVO"
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Punkt 5.2 hält fest, ob mit einem Lieferanten Sicherheitsanforderungen und die Meldung von Sicherheitsvorfällen geregelt sind; ein AVV ist das nicht.",
+        "points": [
+          "5.1 Aufschreiben, wer für Sie arbeitet: Auf „Ihre Lieferanten“ steht jeder Lieferant mit dem, was er für Sie tut. Ob er Auftragsverarbeiter ist, fragt der Bildschirm nicht; das klären Sie für jeden selbst.",
+          "5.2 Festhalten, was Sie mit Ihren Lieferanten vereinbart haben: Auf „Was mit jedem geregelt ist“ haken Sie pro Lieferant an, ob Vertrag, Auftragsverarbeitung oder Bedingungen „Sicherheitsanforderungen, etwa an Zugänge und Updates“ und die „Meldung von Sicherheitsvorfällen an Sie“ regeln. 5.2 prüft keinen der Punkte aus Art. 28 Abs. 3.",
+          "Neben jedem Namen zeigt 5.2 die Stufe aus Ihrer Risikobewertung in 2.3. Nach unserer Lesart sehen Sie daran, wessen AVV Sie zuerst lesen sollten.",
+          "Ein KI Assistent kann beide Bildschirme ausfüllen, etwa aus Kreditorenliste und Verträgen; der Bildschirm zeigt danach, dass er eingetragen hat. Prüfen und abschließen tun Sie den Punkt selbst."
+        ],
+        "seeItAlt": "Die Startseite des NIS 2 Durchgangs: rechts „Ihr Weg“ mit den Punkten in ihrer Reihenfolge, die ersten drei abgehakt, „Aufschreiben, was Ihr Unternehmen hat“ hervorgehoben und darunter „Aufschreiben, wer für Sie arbeitet“ unter Lieferkettensicherheit",
+        "next": "Lieferanten und Vereinbarungen festhalten"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Gibt es eine offizielle AVV Vorlage?",
+            "a": "Ja. Die EU Kommission hat Standardvertragsklauseln zwischen Verantwortlichen und Auftragsverarbeitern beschlossen (Durchführungsbeschluss (EU) 2021/915). Nach seinem Art. 1 erfüllen sie die Anforderungen von Art. 28 Abs. 3 und 4 DSGVO. Die Anhänge füllen Sie selbst aus, die TOMs in Anhang III konkret."
+          },
+          {
+            "q": "Braucht man mit dem Steuerberater einen AVV?",
+            "a": "Für die Daten, die er als Steuerberater für Sie verarbeitet, nicht: § 11 Abs. 2 StBerG macht ihn dafür zum Verantwortlichen, der weisungsfrei arbeitet. Das gilt für die Berufe und Gesellschaften aus § 3 StBerG, etwa auch Wirtschaftsprüfer. Ein Lohnbüro außerhalb dieser Gruppe prüfen Sie wie jeden anderen Dienstleister."
+          },
+          {
+            "q": "Muss ein AVV unterschrieben werden?",
+            "a": "Die DSGVO verlangt Schriftform, die auch elektronisch sein darf (Art. 28 Abs. 9); eine Unterschrift auf Papier nennt der Text nicht. Halten Sie fest, welche Fassung Sie wann angenommen haben, damit Sie den Vertrag vorzeigen können (Art. 5 Abs. 2)."
+          },
+          {
+            "q": "Wer haftet, wenn ein Unterauftragsverarbeiter seine Pflichten verletzt?",
+            "a": "Gegenüber Ihnen haftet der erste Auftragsverarbeiter voll für ihn (Art. 28 Abs. 4). Er muss dem Unterauftragsverarbeiter dieselben Pflichten auferlegen, die in Ihrem AVV stehen. Lesen Sie deshalb die Liste der Unterauftragsverarbeiter, bevor Sie zustimmen."
+          },
+          {
+            "q": "Braucht man einen AVV mit ChatGPT, Claude oder Copilot?",
+            "a": "Wenn der Anbieter personenbezogene Daten in Ihrem Auftrag verarbeitet, ja: Dann ist er Auftragsverarbeiter (Art. 4 Nr. 8 DSGVO). Ob und für welche Produkte ein Anbieter so handelt, steht in seinen Bedingungen. Was das für die einzelnen Assistenten heißt, behandeln unsere Artikel zu ChatGPT und zu Claude im Unternehmen."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 4 Nr. 8, Art. 5 Abs. 2, Art. 28 und Art. 33 Abs. 2, mit der Berichtigung zu Art. 28 Abs. 3 Buchst. g im ABl. L 127 vom 23.5.2018, CELEX 32016R0679, publications.europa.eu",
+          "Durchführungsbeschluss (EU) 2021/915 der Kommission vom 4. Juni 2021 über Standardvertragsklauseln zwischen Verantwortlichen und Auftragsverarbeitern, CELEX 32021D0915, publications.europa.eu",
+          "Europäischer Datenschutzausschuss, Guidelines 07/2020 on the concepts of controller and processor in the GDPR, Version 2.1 (englische Fassung), Randnummern 76 bis 89, 110 bis 112 und 126, edpb.europa.eu",
+          "Steuerberatungsgesetz (StBerG), § 3 und § 11 Abs. 2, gesetze-im-internet.de",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 21 Abs. 2 Buchst. d, publications.europa.eu, und § 30 Abs. 2 Nr. 4 BSIG, gesetze-im-internet.de",
+          "open-isms, messages/durchgang (Punkte 5.1 und 5.2) und lib/mcp/walk.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "dpia": {
+      "meta": {
+        "title": "DSFA: Wann ist eine Datenschutzfolgenabschätzung Pflicht?",
+        "description": "Wann eine DSFA nach Art. 35 DSGVO Pflicht ist, was die Liste der DSK nennt, was hineingehört und warum die Risikobewertung im NIS2 Durchgang keine ist."
+      },
+      "badge": "DSFA · Art. 35 DSGVO",
+      "title": "Datenschutzfolgenabschätzung (DSFA): wann Pflicht und wie vorgehen",
+      "subtitle": "Eine DSFA ist Pflicht, bevor Sie eine Verarbeitung beginnen, die voraussichtlich ein hohes Risiko für die Rechte und Freiheiten von Personen hat (Art. 35 Abs. 1 DSGVO). Für Unternehmen in Deutschland nennt die Liste der Datenschutzkonferenz 17 solche Fälle, etwa die Ortung von Beschäftigten im Außendienst oder KI im Kundenkontakt.",
+      "sections": [
+        {
+          "heading": "Wann ist eine DSFA Pflicht?",
+          "paragraphs": [
+            "Art. 35 Abs. 1 DSGVO verlangt eine DSFA, wenn eine Verarbeitung voraussichtlich ein hohes Risiko für die Rechte und Freiheiten natürlicher Personen hat, besonders beim Einsatz neuer Technologien. Sie machen sie vorab, also bevor die Verarbeitung beginnt. Mehrere ähnliche Vorgänge mit ähnlich hohen Risiken dürfen Sie gemeinsam bewerten.",
+            "Abs. 3 nennt drei Fälle, in denen sie jedenfalls erforderlich ist: eine systematische und umfassende automatisierte Bewertung von Personen, auf die Entscheidungen mit Rechtswirkung oder ähnlich erheblicher Wirkung gestützt werden; die umfangreiche Verarbeitung besonderer Kategorien von Daten oder von Daten über Straftaten; und die systematische umfangreiche Überwachung öffentlich zugänglicher Bereiche.",
+            "Ob eine Verarbeitung darunter fällt, prüft Ihr Unternehmen selbst. Die Datenschutzkonferenz nennt diesen ersten Schritt Schwellwertanalyse. Nach ihrer Auffassung halten Sie die Entscheidung für oder gegen eine DSFA mit Gründen schriftlich fest."
+          ],
+          "law": "Art. 35 Abs. 1 und 3 DSGVO"
+        },
+        {
+          "heading": "Wann gilt die Liste der DSK, und was steht darauf?",
+          "paragraphs": [
+            "Jede Aufsichtsbehörde veröffentlicht eine Liste der Verarbeitungen, für die eine DSFA durchzuführen ist (Art. 35 Abs. 4). Für Unternehmen in Deutschland ist das die Liste der Datenschutzkonferenz (DSK) für den nichtöffentlichen Bereich, Version 1.1 vom 17.10.2018. Steht Ihre Verarbeitung darauf, ist die DSFA Pflicht.",
+            "Einem Betrieb mit 50 bis 250 Beschäftigten liegen nach unserer Einschätzung drei der 17 Einträge am nächsten. Nr. 8: umfangreiche Daten über das Verhalten von Beschäftigten, mit denen sich ihre Arbeit so bewerten lässt, dass Rechtsfolgen drohen, etwa ihre Ortung im Außendienst. Nr. 11: KI, die personenbezogene Daten verarbeitet, um mit Personen zu interagieren oder sie zu bewerten. Nr. 1: biometrische Erkennung, etwa per Fingerabdruck bei der Zutrittskontrolle, wenn ein weiteres Kriterium hinzukommt.",
+            "Die Liste ist nicht abschließend, schreibt die DSK selbst. Steht eine Verarbeitung nicht darauf, prüfen Sie Art. 35 Abs. 1 mit den neun Kriterien der europäischen Leitlinien WP 248, an denen sich die Liste orientiert: vertrauliche oder höchst persönliche Daten, schutzbedürftige Betroffene wie Arbeitnehmer, große Datenmengen, systematische Überwachung, neue Technik, Bewerten oder Einstufen, Zusammenführen von Datensätzen, automatisierte Entscheidungen mit Rechtswirkung und das Hindern an einem Recht oder Vertrag. Trifft eine Verarbeitung zwei davon, ist nach den Leitlinien in den meisten Fällen eine DSFA nötig.",
+            "Unterliegt eine Ihrer Verarbeitungen einer DSFA, brauchen Sie in Deutschland außerdem einen Datenschutzbeauftragten, unabhängig davon, wie viele Personen mit der Verarbeitung beschäftigt sind (§ 38 Abs. 1 Satz 2 BDSG)."
+          ],
+          "law": "Art. 35 Abs. 4 DSGVO · § 38 Abs. 1 Satz 2 BDSG"
+        },
+        {
+          "heading": "Was in die DSFA hineingehört",
+          "paragraphs": [
+            "Art. 35 Abs. 7 nennt den Mindestinhalt: eine systematische Beschreibung der geplanten Vorgänge und ihrer Zwecke, eine Bewertung, ob sie für den Zweck notwendig und verhältnismäßig sind, eine Bewertung der Risiken für die betroffenen Personen und die geplanten Abhilfemaßnahmen.",
+            "Ist ein Datenschutzbeauftragter benannt, holen Sie seinen Rat ein (Abs. 2). Wo es passt, holen Sie den Standpunkt der Betroffenen oder ihrer Vertreter ein (Abs. 9); die DSK nennt als Beispiel den Betriebsrat.",
+            "Bleibt ein hohes Risiko, das Sie mit geeigneten Maßnahmen nicht eindämmen können, konsultieren Sie vor dem Start die Aufsichtsbehörde (Art. 36 Abs. 1, Erwägungsgrund 84). Für Unternehmen in Deutschland ist das die Behörde ihres Landes (§ 40 BDSG). Ändert sich das Risiko später, prüfen Sie die DSFA erneut (Art. 35 Abs. 11)."
+          ],
+          "law": "Art. 35 Abs. 2, 7, 9 und 11 · Art. 36 Abs. 1 DSGVO"
+        },
+        {
+          "heading": "Ein Beispiel: Ortung der Servicewagen",
+          "paragraphs": [
+            "Die Keller Haustechnik GmbH (ausgedacht, 90 Beschäftigte) will ihre Servicewagen per GPS orten, damit die Disposition Einsätze besser plant. Die Liste der DSK nennt die Ortung von Beschäftigten zur Koordination von Einsätzen im Außendienst unter Nr. 8. Die DSFA ist also vor dem Einbau fällig.",
+            "Die Beschreibung hält fest, welche Daten anfallen (Standort, Zeit, Fahrzeug, wer fährt), wer sie sieht und wie lange sie bleiben. Zur Notwendigkeit fragt Keller: Braucht die Disposition den Standort laufend oder nur während eines Einsatzes, und was gilt nach Feierabend?",
+            "Das Risiko für die Monteure ist ein lückenloses Bewegungsprofil, das sich zur Leistungskontrolle nutzen ließe. Keller beschließt Ortung nur in der Arbeitszeit, eine Taste für private Fahrten, Zugriff nur für die Disposition und Löschung nach einer festen Frist; Betriebsrat und Datenschutzbeauftragte werden gehört. Bleibt danach kein hohes Risiko, startet die Ortung, und die DSFA kommt zu den Unterlagen."
+          ]
+        },
+        {
+          "heading": "Häufige Fehler bei der DSFA",
+          "paragraphs": [
+            "Die DSFA erst schreiben, wenn das System schon läuft. Art. 35 Abs. 1 verlangt sie vorab, und nach der DSK können auch bestehende Verarbeitungen unter die Pflicht fallen.",
+            "Die Risikoanalyse der IT Sicherheit für eine DSFA halten. Die eine fragt, was ein Ausfall oder Angriff Ihren Betrieb kostet. Die DSFA fragt, was eine Verarbeitung für die Menschen bedeutet, deren Daten sie nutzt."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihrer Prozessbeschreibung und dem Angebot des Herstellers die systematische Beschreibung nach Art. 35 Abs. 7 entwerfen. Er kann die Verarbeitung mit der Liste der DSK und WP 248 abgleichen und Fragen für Ihren Datenschutzbeauftragten vorbereiten.",
+            "Ob ein hohes Risiko besteht, welche Maßnahmen Sie treffen und ob Sie die Aufsicht konsultieren, entscheidet Ihr Unternehmen. Geben Sie dem Assistenten Beschreibungen statt echter Personaldaten, denn was Sie ihm zeigen, verarbeitet sein Anbieter mit.",
+            "Einen DSFA Entwurf aus Ihren Unterlagen schreiben zu lassen, fällt nach unserer Lesart nicht unter Nr. 11 der Liste, solange dabei niemand bewertet wird. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Der Durchgang bewertet Risiken für Ihren Betrieb; eine DSFA ersetzt er nicht.",
+        "points": [
+          "2.1 Festlegen, wie Sie Risiken einstufen: Sie können die Methode aus BSI Standard 200-3 übernehmen, eine Matrix aus Häufigkeit und Schaden mit vier Stufen. Die Beispiele dort sind Schäden für den Betrieb, etwa ein Brand im Serverraum oder ein Tag ohne Versand.",
+          "2.3 Risiken bewerten: Für jedes Programm, jedes Gerät und jeden Lieferanten tippen Sie an, wie oft der schlimmste realistische Fall eintritt und wie groß der Schaden wäre. „Ihre Risiken auf einen Blick“ zählt danach die Einträge in jedem Feld der Matrix.",
+          "Wo 2.3 aufhört: Nach den Risiken für die Menschen, deren Daten eine Verarbeitung nutzt, fragt 2.3 nicht. Die Form der Matrix können Sie nach unserer Lesart für die DSFA übernehmen, denn bei der Methode lässt die DSK Spielraum, solange die Anforderungen der DSGVO vorgehen.",
+          "Die Programme in 2.2 sind nach unserer Lesart ein guter Ausgangspunkt, um Verarbeitungen für den Abgleich mit der Liste der DSK zu finden. Ein KI Assistent kann die Bewertungen in 2.3 eintragen; Sie prüfen sie und schließen den Punkt selbst ab."
+        ],
+        "seeItAlt": "Punkt 2.3 im NIS 2 Durchgang, Bildschirm „Ihre Risiken auf einen Blick“: eine Matrix aus „Wie oft es eintritt“ (Selten bis Sehr häufig) und „Wie groß der Schaden wäre“ (Vernachlässigbar bis Existenzbedrohend), in jedem Feld die Zahl der Einträge und die Stufe von Gering bis Sehr hoch, rechts der Kasten „Häufig übersehen“ und die Rechtsgrundlagen",
+        "next": "Risiken im Durchgang bewerten"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Gibt es eine DSFA Vorlage?",
+            "a": "Die DSGVO schreibt kein Formular vor; Art. 35 Abs. 7 legt den Mindestinhalt fest. Das Kurzpapier Nr. 5 der DSK beschreibt die Schritte von der Vorbereitung bis zur Fortschreibung und lässt Ihnen bei der Methode Spielraum. Wer eine Vorlage nutzt, prüft, ob sie alle vier Inhalte aus Abs. 7 abdeckt."
+          },
+          {
+            "q": "Wer muss die DSFA durchführen?",
+            "a": "Der Verantwortliche, also Ihr Unternehmen (Art. 35 Abs. 1). Der Datenschutzbeauftragte berät auf Anfrage und überwacht die Durchführung (Art. 39 Abs. 1 Buchst. c). Nach der DSK braucht es dafür in der Regel ein Team, das Datenschutz, Risikoermittlung und die betroffene Fachabteilung zusammenbringt."
+          },
+          {
+            "q": "Muss die DSFA an die Aufsichtsbehörde geschickt werden?",
+            "a": "Nicht von sich aus. Sie bewahren sie als Nachweis auf und legen sie vor, wenn die Aufsicht Informationen anfordert (Art. 58 Abs. 1 Buchst. a). Vorher konsultieren müssen Sie die Behörde, wenn ein hohes Risiko bleibt, das Sie nicht eindämmen können (Art. 36 Abs. 1)."
+          },
+          {
+            "q": "Braucht der Einsatz von KI eine DSFA?",
+            "a": "Wenn KI personenbezogene Daten verarbeitet, um mit Personen zu interagieren oder persönliche Aspekte zu bewerten, ja: Das steht als Nr. 11 auf der Liste der DSK, mit dem Kundensupport als Beispiel. Für andere Einsätze prüfen Sie Art. 35 Abs. 1, der neue Technologien ausdrücklich nennt."
+          },
+          {
+            "q": "Gilt die DSFA Pflicht auch für kleine Unternehmen?",
+            "a": "Ja. Art. 35 knüpft an das Risiko der Verarbeitung an und nennt keine Größe. Die Ausnahme für Unternehmen unter 250 Beschäftigten in Art. 30 Abs. 5 betrifft das Verzeichnis von Verarbeitungstätigkeiten, nicht die DSFA."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Erwägungsgrund 84, Art. 35, Art. 36, Art. 39 Abs. 1 Buchst. c und Art. 58 Abs. 1 Buchst. a, CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz, Liste von Verarbeitungsvorgängen nach Art. 35 Abs. 4 DS-GVO für den nicht-öffentlichen Bereich, Version 1.1 vom 17.10.2018, datenschutzkonferenz-online.de",
+          "Datenschutzkonferenz, Kurzpapier Nr. 5, Datenschutz-Folgenabschätzung nach Art. 35 DS-GVO, Stand 17.12.2018, datenschutzkonferenz-online.de",
+          "Artikel-29-Datenschutzgruppe, WP 248 Rev. 01, Leitlinien zur Datenschutz-Folgenabschätzung, vom Europäischen Datenschutzausschuss bestätigt, edpb.europa.eu",
+          "Bundesdatenschutzgesetz (BDSG), § 38 Abs. 1 und § 40 Abs. 1, gesetze-im-internet.de",
+          "open-isms, messages/durchgang (Punkte 2.1, 2.2 und 2.3), lib/compliance/bsi-200-3.ts und lib/mcp/walk.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "dpo": {
+      "meta": {
+        "title": "Datenschutzbeauftragter: ab wann ist er Pflicht?",
+        "description": "Pflicht, wenn in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt sind, oder bei DSFA."
+      },
+      "badge": "DSB · § 38 BDSG",
+      "title": "Datenschutzbeauftragter: ab wann ist er Pflicht?",
+      "subtitle": "In Deutschland braucht Ihr Unternehmen einen Datenschutzbeauftragten, soweit es in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt (§ 38 Abs. 1 BDSG). Unabhängig von dieser Zahl gilt die Pflicht bei Verarbeitungen, die eine DSFA brauchen, und in den Fällen von Art. 37 Abs. 1 DSGVO. Er darf extern sein.",
+      "sections": [
+        {
+          "heading": "Ab wann ist ein Datenschutzbeauftragter Pflicht?",
+          "paragraphs": [
+            "Die DSGVO verlangt einen Datenschutzbeauftragten in drei Fällen (Art. 37 Abs. 1): bei Behörden und öffentlichen Stellen, wenn Ihre Kerntätigkeit eine umfangreiche regelmäßige und systematische Überwachung von Personen erfordert, und wenn sie in der umfangreichen Verarbeitung besonderer Kategorien von Daten oder von Daten über Straftaten besteht.",
+            "Weitere Fälle dürfen die Mitgliedstaaten vorschreiben (Art. 37 Abs. 4). Deutschland tut das in § 38 Abs. 1 BDSG mit zwei Regeln.",
+            "Erstens benennen Sie einen Datenschutzbeauftragten, soweit Sie in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigen. Zweitens brauchen Sie unabhängig von dieser Zahl einen, wenn Sie Verarbeitungen vornehmen, die einer Datenschutzfolgenabschätzung unterliegen, oder Daten geschäftsmäßig zur Übermittlung, auch anonymisiert, oder für Zwecke der Marktforschung oder Meinungsforschung verarbeiten."
+          ],
+          "law": "Art. 37 Abs. 1 und 4 DSGVO · § 38 Abs. 1 BDSG"
+        },
+        {
+          "heading": "Wie zählen Sie die 20 Personen?",
+          "paragraphs": [
+            "Der Wortlaut zählt Personen, nicht Vollzeitstellen, und nur die, die ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt sind. Die ganze Belegschaft zählt also nicht automatisch.",
+            "Nach unserer Lesart zählt, wer regelmäßig am Rechner mit solchen Daten arbeitet, etwa mit Kundendaten im Warenwirtschaftsprogramm, mit Lohndaten oder mit E-Mails von Kunden. Wer nur gelegentlich eine solche Liste öffnet, ist nicht ständig damit beschäftigt.",
+            "Ein Beispiel: Die Hofmann Elektrotechnik GmbH (ausgedacht) hat 85 Beschäftigte, davon 60 Monteure und 25 im Büro. Die 25 arbeiten jeden Tag mit Angeboten, Rechnungen, Lohndaten und Kundenmails. Damit sind es mindestens 20, und Hofmann muss einen Datenschutzbeauftragten benennen.",
+            "Ob auch die Monteure zählen, die auf dem Tablet Auftragsberichte mit Kundennamen schreiben, muss Hofmann dafür nicht mehr klären. Bei 15 Leuten im Büro käme es genau darauf an; dann lohnt eine Rückfrage bei der Datenschutzaufsicht des Landes."
+          ],
+          "law": "§ 38 Abs. 1 Satz 1 BDSG"
+        },
+        {
+          "heading": "Eigener Mitarbeiter oder externer Dienstleister?",
+          "paragraphs": [
+            "Beides ist erlaubt: Der Datenschutzbeauftragte kann Beschäftigter sein oder seine Aufgaben auf Grundlage eines Dienstleistungsvertrags erfüllen (Art. 37 Abs. 6). Eine Unternehmensgruppe kann einen gemeinsamen benennen, wenn er von jeder Niederlassung aus leicht erreichbar ist (Abs. 2).",
+            "Benannt wird nach Fachwissen im Datenschutzrecht und in der Praxis und nach der Fähigkeit, die Aufgaben aus Art. 39 zu erfüllen (Abs. 5). Er bekommt keine Anweisungen zu diesen Aufgaben, darf deswegen nicht abberufen oder benachteiligt werden und berichtet direkt der höchsten Managementebene, in einer GmbH also der Geschäftsführung (Art. 38 Abs. 3).",
+            "Ein interner Datenschutzbeauftragter, den Sie benennen müssen, hat in Deutschland besonderen Schutz (§ 38 Abs. 2 mit § 6 Abs. 4 BDSG). Abberufen werden kann er nur entsprechend § 626 BGB, gekündigt nur aus wichtigem Grund, auch noch ein Jahr nach Ende seiner Tätigkeit. Bei einem externen regeln Sie Laufzeit und Kündigung im Dienstleistungsvertrag."
+          ],
+          "law": "Art. 37 Abs. 2, 5 und 6 · Art. 38 Abs. 3 DSGVO · § 38 Abs. 2 und § 6 Abs. 4 BDSG"
+        },
+        {
+          "heading": "Was der Datenschutzbeauftragte tut, und was beim Unternehmen bleibt",
+          "paragraphs": [
+            "Seine Aufgaben stehen in Art. 39 Abs. 1. Er unterrichtet und berät Geschäftsführung und Beschäftigte, überwacht die Einhaltung der DSGVO und Ihrer eigenen Datenschutzregeln samt Schulungen, berät auf Anfrage zur DSFA und ist Anlaufstelle für die Aufsichtsbehörde.",
+            "Ihr Unternehmen bindet ihn frühzeitig in alle Fragen zum Schutz personenbezogener Daten ein und gibt ihm die nötigen Mittel und Zugang zu den Daten (Art. 38 Abs. 1 und 2). Betroffene können sich direkt an ihn wenden (Abs. 4).",
+            "Verantwortlich bleibt Ihr Unternehmen: Es muss die Grundsätze der DSGVO einhalten und das nachweisen können (Art. 5 Abs. 2, Art. 24 Abs. 1). Der Datenschutzbeauftragte berät und kontrolliert; entscheiden muss die Geschäftsführung."
+          ],
+          "law": "Art. 38 und 39 DSGVO"
+        },
+        {
+          "heading": "Häufige Fehler",
+          "paragraphs": [
+            "Den Leiter der IT oder der Personalabteilung benennen. Andere Aufgaben sind erlaubt, solange sie zu keinem Interessenkonflikt führen (Art. 38 Abs. 6). Die europäischen Leitlinien WP 243 zählen solche leitenden Positionen als Faustregel zu den Konfliktfällen, weil sie über Zwecke und Mittel der Verarbeitung entscheiden.",
+            "Die zweite Regel übersehen. Eine Verarbeitung mit DSFA Pflicht, etwa die Ortung von Beschäftigten im Außendienst, macht einen Datenschutzbeauftragten auch unter 20 Personen nötig (§ 38 Abs. 1 Satz 2 BDSG).",
+            "Benennen und vergessen. Ihr Unternehmen veröffentlicht seine Kontaktdaten und teilt sie der Aufsichtsbehörde mit (Art. 37 Abs. 7); in Deutschland ist das für Unternehmen die Behörde ihres Landes (§ 40 BDSG)."
+          ],
+          "law": "Art. 37 Abs. 7 · Art. 38 Abs. 6 DSGVO · § 38 Abs. 1 Satz 2 und § 40 BDSG"
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihrem Organigramm zählen, wer für die 20 Personen in Frage kommt, und die Zweifelsfälle auflisten. Er kann die Benennung, eine Aufgabenbeschreibung nach Art. 39 und den Absatz für Ihre Datenschutzhinweise entwerfen.",
+            "Ob Sie benennen und wen, entscheidet Ihr Unternehmen, und die Aufgaben selbst weist die DSGVO dem Datenschutzbeauftragten zu. Für das Zählen braucht der Assistent Rollen, keine Namen; was Sie ihm zeigen, verarbeitet sein Anbieter mit.",
+            "Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Kann der Geschäftsführer selbst Datenschutzbeauftragter sein?",
+            "a": "Nach den Leitlinien WP 243 gehört die Leitung des Unternehmens als Faustregel zu den Positionen mit Interessenkonflikt. Der Datenschutzbeauftragte darf keine Position haben, in der er Zwecke und Mittel der Verarbeitung festlegt, und genau das tut die Geschäftsführung. Er soll ihr berichten und sie beraten (Art. 38 Abs. 3, Art. 39 Abs. 1)."
+          },
+          {
+            "q": "Zählen Teilzeitkräfte und Auszubildende mit?",
+            "a": "§ 38 BDSG zählt Personen, nicht Stellen, und fragt nicht nach der Art des Vertrags. Nach unserer Lesart zählen deshalb auch Teilzeitkräfte, Auszubildende und Leiharbeiter mit, wenn sie ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt sind."
+          },
+          {
+            "q": "Braucht ein Datenschutzbeauftragter ein Zertifikat?",
+            "a": "Die DSGVO nennt kein bestimmtes Zertifikat. Sie verlangt berufliche Qualifikation, Fachwissen im Datenschutzrecht und in der Praxis und die Fähigkeit, die Aufgaben aus Art. 39 zu erfüllen (Art. 37 Abs. 5). Mittel, um dieses Fachwissen zu halten, stellt Ihr Unternehmen bereit (Art. 38 Abs. 2)."
+          },
+          {
+            "q": "Kann eine KI Datenschutzbeauftragter sein?",
+            "a": "Nach unserer Lesart nicht. Die DSGVO verlangt berufliche Qualifikation (Art. 37 Abs. 5), schützt den Datenschutzbeauftragten vor Abberufung und Benachteiligung und bindet ihn an Verschwiegenheit (Art. 38 Abs. 3 und 5). Das beschreibt eine Person oder einen Dienstleister, der durch Personen handelt. Ein Assistent kann ihm zuarbeiten."
+          },
+          {
+            "q": "Gilt der Datenschutz unter 20 Personen überhaupt?",
+            "a": "Ja. Die Schwelle in § 38 BDSG betrifft nur die Benennung eines Datenschutzbeauftragten. Die Pflichten der DSGVO gelten trotzdem, und Ihr Unternehmen muss ihre Einhaltung nachweisen können (Art. 5 Abs. 2). Einzelne Pflichten haben eigene Schwellen, etwa das Verzeichnis von Verarbeitungstätigkeiten (Art. 30 Abs. 5)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 5 Abs. 2, Art. 24 Abs. 1, Art. 30 Abs. 5, Art. 37, 38 und 39, CELEX 32016R0679, publications.europa.eu",
+          "Bundesdatenschutzgesetz (BDSG), § 6 Abs. 4, § 38 und § 40, gesetze-im-internet.de",
+          "Artikel-29-Datenschutzgruppe, WP 243 rev.01, Leitlinien in Bezug auf Datenschutzbeauftragte, Abschnitt 3.5 zu Interessenkonflikten, vom Europäischen Datenschutzausschuss bestätigt, edpb.europa.eu"
+        ]
+      }
+    },
+    "breach": {
+      "meta": {
+        "title": "Datenpanne melden: was Unternehmen in 72 Stunden tun müssen",
+        "description": "Eine Datenpanne melden Sie der Aufsicht möglichst binnen 72 Stunden. Was hineingehört, wann Betroffene es erfahren und was der NIS2 Durchgang festhält."
+      },
+      "badge": "Art. 33 · Art. 34 DSGVO",
+      "title": "Datenpanne im Unternehmen: was Sie in 72 Stunden melden müssen",
+      "subtitle": "Eine Datenpanne melden Sie der zuständigen Datenschutzaufsicht unverzüglich und möglichst binnen 72 Stunden, nachdem Sie davon wissen. Ausgenommen ist nur eine Panne, die voraussichtlich zu keinem Risiko für die Personen führt. Bei hohem Risiko benachrichtigen Sie auch die Personen selbst. Dokumentieren müssen Sie jede Panne (Art. 33 und 34 DSGVO).",
+      "sections": [
+        {
+          "heading": "Wann müssen Sie eine Datenpanne melden?",
+          "paragraphs": [
+            "Die DSGVO spricht von einer „Verletzung des Schutzes personenbezogener Daten“ (Art. 4 Nr. 12). Gemeint ist eine Verletzung der Sicherheit, durch die personenbezogene Daten vernichtet, verloren, verändert oder unbefugt offengelegt werden oder jemand unbefugt auf sie zugreift. Ein Versehen zählt genauso wie ein Angriff.",
+            "Der Europäische Datenschutzausschuss (EDSA) nennt Beispiele: ein verlorenes Gerät mit Kundendaten, von Ransomware (Erpressersoftware) verschlüsselte Daten, eine Mail an den falschen Verteiler. Auch ein vorübergehender Ausfall zählt, wenn Daten deshalb nicht verfügbar sind.",
+            "Ihr Unternehmen meldet die Panne als Verantwortlicher unverzüglich und möglichst binnen 72 Stunden, nachdem sie ihm bekannt wurde. Das entfällt, wenn sie voraussichtlich zu keinem Risiko für die Rechte und Freiheiten der Personen führt. Wer später meldet, begründet die Verzögerung (Art. 33 Abs. 1)."
+          ],
+          "law": "Art. 4 Nr. 12 · Art. 33 Abs. 1 DSGVO"
+        },
+        {
+          "heading": "Ab wann laufen die 72 Stunden?",
+          "paragraphs": [
+            "Die Frist beginnt, wenn Ihr Unternehmen von der Panne weiß, nicht wenn sie passiert ist. Nach dem EDSA ist das der Fall, sobald Sie mit hinreichender Sicherheit wissen, dass ein Sicherheitsvorfall personenbezogene Daten getroffen hat. Für eine kurze Prüfung bleibt Zeit, sie soll aber sofort beginnen.",
+            "Passiert die Panne bei einem Dienstleister, der Daten in Ihrem Auftrag verarbeitet, informiert er Sie unverzüglich (Art. 33 Abs. 2). Ab seiner Nachricht wissen Sie nach dem EDSA in der Regel davon. Melden müssen dann Sie.",
+            "Fehlt nach 72 Stunden noch ein Teil der Angaben, melden Sie, was Sie wissen, und reichen den Rest schrittweise nach (Art. 33 Abs. 4)."
+          ],
+          "law": "Art. 33 Abs. 2 und 4 DSGVO"
+        },
+        {
+          "heading": "Was gehört in die Meldung, und wer bekommt sie?",
+          "paragraphs": [
+            "Die Meldung nennt mindestens die Art der Panne, wenn möglich mit Kategorien und ungefährer Zahl der Personen und Datensätze. Dazu kommen eine Anlaufstelle wie der Datenschutzbeauftragte, die wahrscheinlichen Folgen und Ihre Maßnahmen (Art. 33 Abs. 3). Fehlende genaue Zahlen sollen die Meldung nach dem EDSA nicht aufhalten.",
+            "Zuständig ist in Deutschland für Unternehmen in der Regel die Datenschutzaufsicht ihres Bundeslandes (§ 40 BDSG). Suchen Sie ihren Meldeweg heraus, bevor Sie ihn brauchen.",
+            "Dokumentieren müssen Sie jede Panne, auch eine, die Sie nicht melden: Fakten, Auswirkungen und Abhilfemaßnahmen (Art. 33 Abs. 5). Der EDSA empfiehlt, auch festzuhalten, warum Sie nicht gemeldet haben."
+          ],
+          "law": "Art. 33 Abs. 3 und 5 DSGVO · § 40 BDSG"
+        },
+        {
+          "heading": "Wann müssen Sie die Betroffenen benachrichtigen?",
+          "paragraphs": [
+            "Führt die Panne voraussichtlich zu einem hohen Risiko für die Personen, benachrichtigen Sie sie unverzüglich selbst (Art. 34 Abs. 1). Diese Schwelle liegt höher als die für die Meldung an die Aufsicht.",
+            "Die Nachricht erklärt in klarer und einfacher Sprache, was passiert ist, und nennt Anlaufstelle, wahrscheinliche Folgen und Ihre Maßnahmen (Art. 34 Abs. 2). Der EDSA rät, auch zu sagen, was die Personen selbst tun können, etwa ihr Passwort ändern.",
+            "Entbehrlich ist sie, wenn die Daten für Unbefugte unzugänglich waren, etwa durch Verschlüsselung, oder wenn Sie das hohe Risiko danach beseitigt haben. Wäre sie unverhältnismäßig aufwendig, tritt eine öffentliche Bekanntmachung an ihre Stelle (Art. 34 Abs. 3)."
+          ],
+          "law": "Art. 34 DSGVO"
+        },
+        {
+          "heading": "Ein Beispiel: Angriff auf den Dateiserver",
+          "paragraphs": [
+            "Die ausgedachte Hansen Logistik GmbH hat 140 Beschäftigte und eine externe Datenschutzbeauftragte. Am Montag um 7:40 Uhr ist ihr Dateiserver verschlüsselt, mit den Personalakten darauf. Damit weiß die Firma von einer Panne, und die 72 Stunden laufen bis Donnerstag, 7:40 Uhr.",
+            "Um 11 Uhr zeigen die Protokolle, dass Bankverbindungen und Krankmeldungen abgeflossen sind. Die Geschäftsführung stuft das Risiko mit der Datenschutzbeauftragten deshalb als hoch ein. Am Dienstag geht die Meldung an die Landesbehörde, und alle Beschäftigten bekommen eine Nachricht in einfacher Sprache.",
+            "Zwei Fehler lägen nahe. Die Firma wartet, bis die Untersuchung fertig ist, obwohl sie Angaben nachreichen darf. Oder sie meldet nur an das BSI. Fällt die Firma unter NIS 2 und ist der Angriff erheblich, verlangt er dort eine frühe Erstmeldung binnen 24 Stunden (Art. 23 Abs. 4 NIS 2, § 32 BSIG). NIS 2 lässt die DSGVO aber unberührt (Erwägungsgrund 14), und die Meldung nach Art. 33 an die Datenschutzaufsicht bleibt Ihre eigene.",
+            "Wie beide Meldungen nebeneinander laufen, erklärt unser Artikel zum Datenleck unter NIS 2 und DSGVO."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihren Notizen zum Vorfall die Meldung nach Art. 33 Abs. 3 entwerfen. Er gliedert den Eintrag für die Dokumentation und bringt die Nachricht an die Betroffenen in einfache Sprache.",
+            "Ob ein Risiko oder ein hohes Risiko besteht, entscheidet Ihr Unternehmen als Verantwortlicher. Ist ein Datenschutzbeauftragter benannt, empfiehlt der EDSA, ihn von Anfang an einzubeziehen.",
+            "Ihre Notizen enthalten oft selbst personenbezogene Daten; prüfen Sie vorher, ob mit dem Anbieter des Assistenten ein Vertrag zur Auftragsverarbeitung besteht (Art. 28 DSGVO). Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Zwei Punkte bereiten den Ernstfall nach NIS 2 vor und verweisen dabei auf Art. 33 DSGVO; die Pflichten aus der DSGVO selbst decken sie nicht ab.",
+        "points": [
+          "3.1 Planen, was bei einem Vorfall passiert: Der Notfallplan, den der Durchgang aus Ihren Antworten schreibt, sagt unter „Meldung an das BSI“, dass Sie einen Vorfall mit personenbezogenen Daten in der Regel auch der Datenschutzaufsicht melden, möglichst binnen 72 Stunden (Art. 33 DSGVO).",
+          "Unter „Ihre Kontakte im Ernstfall“ in 3.1 schlägt der Durchgang die Datenschutzbeauftragte als Kontakt vor. Laut Plan entscheidet die Person, die im Ernstfall führt, ob gemeldet wird, und hält jede Entscheidung mit Uhrzeit fest. Die Geschäftsführung gibt den Plan in 7.3 frei.",
+          "3.3 Wissen, wie Sie einen Vorfall melden: die Fristen für die Meldung an das BSI nach § 32 BSIG. Unter „Häufig übersehen“ steht, dass eine Panne mit personenbezogenen Daten in der Regel auch an die Datenschutzaufsicht geht.",
+          "Nicht im Durchgang: die Dokumentation nach Art. 33 Abs. 5, die Bewertung des Risikos für die Personen und die Nachricht nach Art. 34."
+        ],
+        "seeItAlt": "Startseite des NIS 2 Durchgangs, „Sie sind hier richtig.“: Rechts unter „Ihr Weg“ stehen die Punkte der Reihe nach. „Beim BSI registrieren“, „Die Geschäftsführung schulen lassen“ und „Festlegen, wie Sie Risiken einstufen“ sind abgehakt, „Aufschreiben, was Ihr Unternehmen hat“ ist in Arbeit, weiter unten folgen „Planen, was bei einem Vorfall passiert“ und „Wissen, wie Sie einen Vorfall melden“",
+        "next": "Notfallplan im Durchgang schreiben"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Muss ich eine Datenpanne melden, die beim Dienstleister passiert ist?",
+            "a": "Ja, unter denselben Bedingungen wie bei einer Panne im eigenen Haus, wenn er die Daten in Ihrem Auftrag verarbeitet. Er muss Sie unverzüglich informieren (Art. 33 Abs. 2). Nach dem EDSA kann er für Sie melden, wenn Ihr Vertrag das vorsieht; verantwortlich bleiben Sie."
+          },
+          {
+            "q": "Ist Ransomware immer eine meldepflichtige Datenpanne?",
+            "a": "Eine Panne ist sie, sobald personenbezogene Daten nicht verfügbar sind; ob Sie melden, hängt vom Risiko ab. In einem Beispiel des EDSA verschlüsselt die Schadsoftware lediglich, nichts fließt ab, und die Sicherung stellt alles rechtzeitig wieder her. Dann ist keine Meldung nötig, die Dokumentation schon."
+          },
+          {
+            "q": "Eine Mail ging an den falschen Empfänger: ist das eine Datenpanne?",
+            "a": "Enthielt sie personenbezogene Daten, ja: Das ist eine unbefugte Offenlegung. Ging sie an einen bekannten Lieferanten, der sie auf Ihre Bitte löscht, kann das Risiko nach dem EDSA so gering sein, dass keine Meldung nötig ist. Dokumentiert wird der Fall trotzdem."
+          },
+          {
+            "q": "Was passiert, wenn wir die 72 Stunden nicht schaffen?",
+            "a": "Sie melden trotzdem, sobald Sie können, mit einer Begründung für die Verzögerung (Art. 33 Abs. 1). Mit der Frist endet die Pflicht nicht. Halten Sie fest, warum es länger gedauert hat; das rät auch der EDSA."
+          },
+          {
+            "q": "Gilt die Meldepflicht auch für kleine Unternehmen?",
+            "a": "Ja. Art. 33 DSGVO gilt für jeden Verantwortlichen, ohne Ausnahme nach Größe. Ohne Datenschutzbeauftragten nennen Sie in der Meldung eine andere Anlaufstelle (Art. 33 Abs. 3 Buchst. b)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 4 Nr. 12, Art. 28, 33 und 34, CELEX 32016R0679, publications.europa.eu",
+          "Europäischer Datenschutzausschuss, Guidelines 9/2022 on personal data breach notification under GDPR, Version 2.0 vom 28.03.2023, englische Fassung, edpb.europa.eu",
+          "Bundesdatenschutzgesetz (BDSG), § 40, gesetze-im-internet.de",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Erwägungsgrund 14 und Art. 23 Abs. 4, publications.europa.eu, und BSIG, § 32 Abs. 1, gesetze-im-internet.de",
+          "open-isms, messages/durchgang (Punkte 3.1, 3.3 und 7.3) und lib/durchgang/nis2.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "access": {
+      "meta": {
+        "title": "Auskunftsersuchen nach Art. 15 DSGVO: Frist, Kopie, Grenzen",
+        "description": "Auf ein Auskunftsersuchen nach Art. 15 DSGVO antworten Sie binnen eines Monats: mit Kopie der Daten und Angaben zur Verarbeitung. Was Sie schwärzen dürfen."
+      },
+      "badge": "Art. 15 · Art. 12 DSGVO",
+      "title": "Auskunft nach Art. 15 DSGVO: wie Ihr Unternehmen antwortet",
+      "subtitle": "Wer nach Art. 15 DSGVO Auskunft verlangt, erfährt von Ihrem Unternehmen, ob Sie Daten über ihn verarbeiten. Er bekommt eine Kopie dieser Daten und Angaben zu Zwecken, Empfängern, Speicherdauer und seinen Rechten. Sie antworten unverzüglich, spätestens binnen eines Monats; die erste Kopie ist unentgeltlich.",
+      "sections": [
+        {
+          "heading": "Was müssen Sie auf eine Anfrage nach Art. 15 herausgeben?",
+          "paragraphs": [
+            "Das Auskunftsrecht hat nach dem Europäischen Datenschutzausschuss (EDSA) drei Teile. Sie bestätigen, ob Sie Daten über die Person verarbeiten. Sie geben Zugang zu diesen Daten, in der Regel als Kopie, und informieren über die Verarbeitung (Art. 15 Abs. 1 und 3).",
+            "Zu diesen Informationen gehören Zwecke, Datenkategorien, Empfänger, Speicherdauer, die Rechte der Person, das Beschwerderecht, die Herkunft der Daten und automatisierte Entscheidungen (Art. 15 Abs. 1). Bei einer Übermittlung in ein Drittland nennen Sie auch die Garantien dafür (Art. 15 Abs. 2).",
+            "Einen Grund muss die Person nicht nennen, und Sie prüfen nicht, wozu sie die Auskunft will (EDSA). Die erste Kopie ist unentgeltlich, für weitere dürfen Sie ein angemessenes Entgelt nach Verwaltungskosten verlangen (Art. 15 Abs. 3)."
+          ],
+          "law": "Art. 15 Abs. 1 bis 3 DSGVO"
+        },
+        {
+          "heading": "Welche Frist gilt, und wie prüfen Sie, wer fragt?",
+          "paragraphs": [
+            "Sie antworten unverzüglich, spätestens einen Monat nach Eingang (Art. 12 Abs. 3). Die Frist beginnt, wenn die Anfrage über einen Ihrer offiziellen Wege ankommt, auch wenn sie noch ungelesen ist. Der EDSA rechnet so: Eingang am 5. März, Antwort spätestens am 5. April.",
+            "Bei komplexen oder vielen Anträgen dürfen Sie um zwei Monate verlängern, wenn Sie das im ersten Monat mit Gründen mitteilen. Lehnen Sie ab, nennen Sie binnen eines Monats die Gründe und den Weg zur Aufsicht oder zum Gericht (Art. 12 Abs. 4).",
+            "Bei begründeten Zweifeln an der Identität dürfen Sie zusätzliche Angaben verlangen (Art. 12 Abs. 6). Fragen Sie sofort nach, ruht die Frist nach dem EDSA, bis die Angaben da sind. Eine Ausweiskopie hält er in der Regel für ungeeignet."
+          ],
+          "law": "Art. 12 Abs. 3, 4 und 6 DSGVO"
+        },
+        {
+          "heading": "Wo suchen Sie, und was gehört in die Kopie?",
+          "paragraphs": [
+            "Gemeint sind alle Daten über die Person, solange sie die Anfrage nicht eingrenzt. Der EDSA verlangt, alle Systeme zu durchsuchen, digital und auf Papier, mit Suchbegriffen wie Name und Kundennummer. Dazu zählen auch Mails, Protokolle und Daten, die Sie abgeleitet haben, etwa eine Bewertung.",
+            "Maßgeblich ist der Stand bei Eingang. Auch falsche Daten gehören in die Antwort; was Sie nach Ihren Löschregeln schon gelöscht haben, können Sie nicht mehr herausgeben. Codes und Kürzel erklären Sie.",
+            "Die Antwort kommt in dauerhafter Form, bei einer Anfrage per Mail in einem gängigen elektronischen Format (Art. 15 Abs. 3). Per Mail verschicken dürfen Sie sie nach dem EDSA, wenn die nötigen Schutzmaßnahmen stimmen."
+          ],
+          "law": "Art. 15 Abs. 3 DSGVO"
+        },
+        {
+          "heading": "Wann dürfen Sie die Auskunft einschränken?",
+          "paragraphs": [
+            "Die Kopie darf die Rechte und Freiheiten anderer nicht beeinträchtigen (Art. 15 Abs. 4). Nach dem EDSA schwärzen Sie dann einzelne Stellen, etwa den Namen eines Kollegen, und geben den Rest heraus.",
+            "Offenkundig unbegründete oder exzessive Anträge dürfen Sie ablehnen oder dafür ein Entgelt verlangen (Art. 12 Abs. 5). Der EDSA legt beides eng aus, und den Nachweis führen Sie.",
+            "Nationales Recht kann das Auskunftsrecht beschränken (Art. 23 DSGVO), in Deutschland § 34 BDSG, etwa für Daten, die Sie nur wegen gesetzlicher Aufbewahrungspflichten speichern. Dafür müssen weitere Bedingungen zusammenkommen. Die Gründe einer Verweigerung dokumentieren Sie (§ 34 Abs. 2 BDSG)."
+          ],
+          "law": "Art. 12 Abs. 5 · Art. 15 Abs. 4 · Art. 23 DSGVO · § 34 BDSG"
+        },
+        {
+          "heading": "Ein Beispiel: ein früherer Mitarbeiter fragt an",
+          "paragraphs": [
+            "Die ausgedachte Berger Haustechnik GmbH hat 90 Beschäftigte und keine Rechtsabteilung. Am 5. März schreibt ihr ein Monteur, dem sie vor einer Woche gekündigt hat, an die Datenschutzadresse. Er will alle Daten über sich.",
+            "Die Personalleiterin bestätigt den Eingang und nennt die Frist bis 5. April, wie der EDSA es empfiehlt. Einen Ausweis verlangt sie nicht, denn die Mail kommt von der Adresse aus der Personalakte. Sie sucht im Lohnprogramm, in der Zeiterfassung, in der Personalakte und in den Postfächern.",
+            "In einer Beurteilung schwärzt sie den Namen eines Kollegen. Als Empfänger nennt sie konkret das Steuerbüro, das die Löhne abrechnet. Fehler wären hier, nach dem Grund zu fragen, weil eine Klage droht, oder die Beurteilung ganz zurückzuhalten."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann die Antwort vorbereiten. Er stellt die Angaben aus Art. 15 Abs. 1 aus Ihrem Verzeichnis der Verarbeitungstätigkeiten und Ihrer Datenschutzerklärung zusammen, berechnet die Frist und markiert Stellen über Dritte. Beide Unterlagen nennt auch der EDSA als Grundlage, die Sie auf die Person zuschneiden.",
+            "Ob die Person ist, wer sie zu sein behauptet, was Sie schwärzen und ob eine Beschränkung greift, entscheidet Ihr Unternehmen als Verantwortlicher.",
+            "Die Daten einer Person an einen Assistenten zu geben, ist selbst eine Verarbeitung; prüfen Sie vorher, ob mit seinem Anbieter ein Vertrag zur Auftragsverarbeitung besteht (Art. 28 DSGVO). Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Muss ein Auskunftsersuchen schriftlich oder mit Formular kommen?",
+            "a": "Nein. Eine bestimmte Form verlangt die DSGVO nicht, schreibt der EDSA, und die Person muss Ihr Formular nicht nutzen; eine Mail an eine offizielle Kontaktadresse genügt. Anfragen an zufällige oder offensichtlich falsche Adressen müssen Sie nicht bearbeiten, wenn Sie einen passenden Weg angeboten haben."
+          },
+          {
+            "q": "Was antworten wir, wenn wir keine Daten über die Person haben?",
+            "a": "Das teilen Sie ihr mit, denn die Bestätigung, ob Sie Daten verarbeiten, ist selbst Teil der Auskunft (Art. 15 Abs. 1). Fehlen Angaben, um die Person zu finden, sagen Sie ihr das; sie kann sie nachreichen (EDSA)."
+          },
+          {
+            "q": "Ist das Recht auf eine Kopie ein eigenes Recht neben der Auskunft?",
+            "a": "Nein, sagt der EDSA: Die Kopie ist die Art, wie Sie Zugang geben, kein zusätzliches Recht. Wünscht die Person es, gehen auch eine mündliche Auskunft oder Einsicht vor Ort."
+          },
+          {
+            "q": "Wie oft darf jemand Auskunft verlangen?",
+            "a": "Eine feste Zahl nennt die DSGVO nicht. Exzessiv kann ein Antrag sein, wenn er sich häufig wiederholt (Art. 12 Abs. 5). Der EDSA sagt dazu: Je öfter sich Ihre Daten über die Person ändern, desto öfter darf sie fragen."
+          },
+          {
+            "q": "Müssen wir auch Daten aus der Datensicherung herausgeben?",
+            "a": "Grundsätzlich ja. § 34 Abs. 1 Nr. 2 Buchst. b BDSG nimmt Daten aus, die ausschließlich der Datensicherung dienen. Das gilt aber nur, wenn die Auskunft unverhältnismäßigen Aufwand erfordern würde und eine andere Nutzung technisch und organisatorisch ausgeschlossen ist. Die Gründe dokumentieren Sie (§ 34 Abs. 2 BDSG)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 12, 15, 23 und 28, CELEX 32016R0679, publications.europa.eu",
+          "Europäischer Datenschutzausschuss, Guidelines 01/2022 on data subject rights, Right of access, Version 2.1 (angenommen am 28.03.2023, berichtigt am 30.05.2024), englische Fassung, edpb.europa.eu",
+          "Bundesdatenschutzgesetz (BDSG), § 34, gesetze-im-internet.de"
+        ]
+      }
+    },
+    "rights": {
+      "meta": {
+        "title": "Betroffenenrechte nach DSGVO: Frist, Löschung, Widerspruch",
+        "description": "Auskunft, Berichtigung, Löschung, Widerspruch: welche Betroffenenrechte die DSGVO kennt, welche Frist für Ihre Antwort gilt und wann Sie ablehnen dürfen."
+      },
+      "badge": "Art. 12 bis 22 DSGVO",
+      "title": "Betroffenenrechte nach DSGVO: was Ihr Unternehmen beantworten muss",
+      "subtitle": "Betroffene können von Ihrem Unternehmen Auskunft, Berichtigung, Löschung, Einschränkung und die Übertragung ihrer Daten verlangen. Sie können widersprechen und sich gegen allein automatisierte Entscheidungen wehren (Art. 15 bis 22 DSGVO). Sie antworten unverzüglich, spätestens binnen eines Monats, und grundsätzlich unentgeltlich (Art. 12).",
+      "sections": [
+        {
+          "heading": "Welche Rechte haben Betroffene gegenüber Ihrem Unternehmen?",
+          "paragraphs": [
+            "Jede Person, deren Daten Sie verarbeiten, hat diese Rechte: Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Dazu kommt das Recht, keiner allein automatisierten Entscheidung mit rechtlicher oder ähnlich erheblicher Wirkung unterworfen zu werden (Art. 22).",
+            "Das gilt für Beschäftigte, Bewerber und Kunden genauso wie für Ansprechpartner bei Lieferanten. Berichtigen, löschen oder schränken Sie ein, sagen Sie das allen Empfängern der Daten, außer das ist unmöglich oder unverhältnismäßig aufwendig (Art. 19).",
+            "Wie Sie eine Auskunft beantworten, beschreibt unser Artikel zur Auskunft nach Art. 15 DSGVO."
+          ],
+          "law": "Art. 15 bis 22 DSGVO"
+        },
+        {
+          "heading": "Welche Frist und welche Form gelten für jeden Antrag?",
+          "paragraphs": [
+            "Für alle Anträge nach Art. 15 bis 22 gilt Art. 12. Sie sagen der Person unverzüglich, spätestens einen Monat nach Eingang, was Sie unternommen haben. Bei komplexen oder vielen Anträgen dürfen Sie mit Gründen um zwei Monate verlängern (Art. 12 Abs. 3).",
+            "Lehnen Sie ab, nennen Sie binnen eines Monats die Gründe und den Weg zur Aufsicht oder zum Gericht (Art. 12 Abs. 4). Grundsätzlich antworten Sie unentgeltlich; bei offenkundig unbegründeten oder exzessiven Anträgen dürfen Sie ein angemessenes Entgelt verlangen oder ablehnen (Art. 12 Abs. 5).",
+            "Im Mittelstand heißt das praktisch: Anträge kommen an einer Adresse an, eine Person bearbeitet sie und führt eine Liste mit Eingang und Frist. Für Auskunftsanfragen empfiehlt der Europäische Datenschutzausschuss (EDSA), den Eingang schriftlich mit der Frist zu bestätigen."
+          ],
+          "law": "Art. 12 DSGVO"
+        },
+        {
+          "heading": "Wann müssen Sie löschen, und wann nicht?",
+          "paragraphs": [
+            "Löschen müssen Sie unverzüglich, wenn ein Grund aus Art. 17 Abs. 1 vorliegt. Beispiele: Die Daten sind für ihren Zweck nicht mehr nötig, die Person widerruft ihre Einwilligung, sie widerspricht mit Erfolg, oder die Verarbeitung war unrechtmäßig.",
+            "Die Pflicht entfällt, soweit Sie die Daten für eine rechtliche Verpflichtung oder für Rechtsansprüche brauchen (Art. 17 Abs. 3 Buchst. b und e). Ein Beispiel ist die Aufbewahrung von Geschäftsbriefen und Buchungsbelegen nach § 147 AO.",
+            "Unter den Bedingungen von Art. 23 darf nationales Recht solche Rechte beschränken; der EDSA nennt die §§ 32 bis 37 BDSG als Beispiel. Bei Papierakten oder anderer nicht automatisierter Verarbeitung kann Löschen wegen der Art der Speicherung unverhältnismäßig aufwendig sein. Ist dann auch das Interesse der Person gering, schränken Sie die Verarbeitung ein, statt zu löschen (§ 35 Abs. 1 BDSG). Das gilt nicht für unrechtmäßig verarbeitete Daten.",
+            "Einschränken statt löschen gilt auch, wenn Daten nicht mehr nötig sind, aber vertragliche oder satzungsmäßige Aufbewahrungsfristen entgegenstehen (§ 35 Abs. 3 BDSG). Wie Sie Löschfristen im Voraus festlegen, beschreibt unser Artikel zum Löschkonzept."
+          ],
+          "law": "Art. 17 · Art. 23 DSGVO · § 35 BDSG · § 147 AO"
+        },
+        {
+          "heading": "Was gilt bei Widerspruch, Einschränkung und Datenübertragbarkeit?",
+          "paragraphs": [
+            "Gegen Direktwerbung kann jede Person jederzeit widersprechen; dann verarbeiten Sie ihre Daten dafür nicht mehr (Art. 21 Abs. 2 und 3). Abzuwägen gibt es hier nichts.",
+            "Beruht eine Verarbeitung auf Ihrem berechtigten Interesse (Art. 6 Abs. 1 Buchst. f), kann die Person aus Gründen ihrer besonderen Situation widersprechen. Weiter verarbeiten dürfen Sie, wenn Sie überwiegende zwingende Gründe nachweisen oder die Daten für Rechtsansprüche brauchen (Art. 21 Abs. 1). Auf beide Widerspruchsrechte weisen Sie spätestens bei der ersten Kommunikation gesondert hin (Art. 21 Abs. 4).",
+            "Einschränken heißt: Die Daten bleiben gespeichert, Sie nutzen sie aber nur noch eng begrenzt, etwa mit Einwilligung oder für Rechtsansprüche (Art. 18 Abs. 2). Verlangen kann die Person das zum Beispiel, solange Sie prüfen, ob bestrittene Daten stimmen.",
+            "Die Datenübertragbarkeit gilt für Daten, die die Person Ihnen bereitgestellt hat und die Sie auf Grundlage von Einwilligung oder Vertrag automatisiert verarbeiten. Sie bekommt sie in einem strukturierten, gängigen und maschinenlesbaren Format (Art. 20 Abs. 1)."
+          ],
+          "law": "Art. 18 · Art. 20 · Art. 21 DSGVO"
+        },
+        {
+          "heading": "Ein Beispiel: ein Kunde will gelöscht werden",
+          "paragraphs": [
+            "Ein Kunde der ausgedachten Kraus Elektro GmbH (60 Beschäftigte) schreibt seinem Ansprechpartner im Vertrieb: „Löschen Sie alle meine Daten und schicken Sie mir keinen Newsletter mehr.“ Das sind zwei Anträge: ein Widerspruch gegen Direktwerbung und ein Antrag auf Löschung.",
+            "Der Vertrieb leitet die Mail sofort weiter. Für Auskunftsanfragen an einen festen Ansprechpartner erwartet der EDSA genau das, und wir lesen es für andere Anträge genauso. Die Adresse kommt sofort aus dem Verteiler. Kundenkonto und alte Angebote löscht die Firma und gibt dem Dienstleister Bescheid, der den Newsletter verschickt (Art. 19).",
+            "Die Rechnungen bleiben, weil § 147 AO ihre Aufbewahrung verlangt. Binnen eines Monats schreibt die Firma dem Kunden, was gelöscht ist, was bleibt und warum. Zwei Fehler lägen nahe: auch die Rechnungen zu löschen, oder die Mail im Vertrieb liegen zu lassen."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann eingehende Anträge sortieren: welches Recht gemeint ist, welche Frist läuft, welche Programme betroffen sind. Antworten entwirft er in der klaren Sprache, die Art. 12 Abs. 1 verlangt.",
+            "Abwägen muss Ihr Unternehmen: ob zwingende Gründe einen Widerspruch überwiegen, ob eine Ausnahme von der Löschung greift, ob ein Antrag exzessiv ist.",
+            "Geben Sie einem Assistenten Anträge mit Namen und Daten, verarbeitet sein Anbieter diese mit; prüfen Sie vorher, ob ein Vertrag zur Auftragsverarbeitung besteht (Art. 28 DSGVO). Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Kann man einer Verarbeitung widersprechen, die auf einem Vertrag beruht?",
+            "a": "Nach Art. 21 Abs. 1 nicht. Dieser Widerspruch gilt für Verarbeitungen, die auf einer öffentlichen Aufgabe oder einem berechtigten Interesse beruhen (Art. 6 Abs. 1 Buchst. e oder f). Gegen Direktwerbung kann jede Person widersprechen, gleich worauf sie beruht (Art. 21 Abs. 2)."
+          },
+          {
+            "q": "Was ist der Unterschied zwischen Löschung und Einschränkung?",
+            "a": "Gelöschte Daten sind weg. Eingeschränkte Daten bleiben gespeichert und sind markiert, damit Sie sie künftig nur eingeschränkt verarbeiten (Art. 4 Nr. 3 DSGVO). Bevor Sie eine Einschränkung aufheben, unterrichten Sie die Person (Art. 18 Abs. 3)."
+          },
+          {
+            "q": "Gilt das Recht auf Datenübertragbarkeit auch für Papierakten?",
+            "a": "Nein. Art. 20 Abs. 1 setzt voraus, dass Sie die Daten automatisiert verarbeiten, auf Grundlage einer Einwilligung oder eines Vertrags. Nach dem Wortlaut erfasst es zudem Daten, die die Person Ihnen bereitgestellt hat, nicht solche, die Sie selbst abgeleitet haben."
+          },
+          {
+            "q": "Was gilt bei automatisierten Entscheidungen, etwa durch KI?",
+            "a": "Niemand muss sich einer Entscheidung unterwerfen, die allein auf automatisierter Verarbeitung beruht und rechtlich oder ähnlich erheblich wirkt (Art. 22 Abs. 1). Ausnahmen sind ein Vertrag, für den sie erforderlich ist, eine gesetzliche Erlaubnis oder die ausdrückliche Einwilligung. Bei Vertrag und Einwilligung kann die Person mindestens verlangen, dass ein Mensch eingreift, ihren Standpunkt darlegen und die Entscheidung anfechten (Art. 22 Abs. 3)."
+          },
+          {
+            "q": "Darf ein Unternehmen Anträge von Betroffenen ablehnen?",
+            "a": "In engen Grenzen. Art. 12 Abs. 5 erlaubt es bei offenkundig unbegründeten oder exzessiven Anträgen, und bei der Löschung greifen die Ausnahmen aus Art. 17 Abs. 3. Machen Sie glaubhaft, dass Sie die Person nicht identifizieren können, dürfen Sie ebenfalls ablehnen (Art. 11 Abs. 2 und Art. 12 Abs. 2). Die Ablehnung begründen Sie binnen eines Monats."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 4 Nr. 3, Art. 6, Art. 11 bis 23 und Art. 28, CELEX 32016R0679, publications.europa.eu",
+          "Bundesdatenschutzgesetz (BDSG), § 35, gesetze-im-internet.de",
+          "Abgabenordnung (AO), § 147, gesetze-im-internet.de",
+          "Europäischer Datenschutzausschuss, Guidelines 01/2022 on data subject rights, Right of access, Version 2.1, englische Fassung, edpb.europa.eu"
+        ]
+      }
+    },
+    "ropa": {
+      "meta": {
+        "title": "Verarbeitungsverzeichnis nach Art. 30 DSGVO erstellen",
+        "description": "Was in das Verzeichnis von Verarbeitungstätigkeiten gehört, wann die Ausnahme unter 250 Beschäftigten greift und was der NIS2 Durchgang dafür festhält."
+      },
+      "badge": "Art. 30 DSGVO · Verzeichnis",
+      "title": "Verarbeitungsverzeichnis erstellen: was nach Art. 30 DSGVO hineingehört",
+      "subtitle": "Das Verarbeitungsverzeichnis (Verzeichnis von Verarbeitungstätigkeiten) beschreibt jede Verarbeitung personenbezogener Daten in Ihrem Unternehmen: Zweck, betroffene Personen, Datenkategorien, Empfänger, Drittländer und, wenn möglich, Löschfristen und TOMs (Art. 30 Abs. 1 DSGVO). Die Ausnahme für weniger als 250 Beschäftigte greift nach Einschätzung der Datenschutzkonferenz nur selten.",
+      "sections": [
+        {
+          "heading": "Was gehört in das Verarbeitungsverzeichnis?",
+          "paragraphs": [
+            "Jeder Verantwortliche führt ein Verzeichnis aller Verarbeitungstätigkeiten, die seiner Zuständigkeit unterliegen (Art. 30 Abs. 1 DSGVO). Verantwortlicher ist Ihr Unternehmen, denn es entscheidet über Zwecke und Mittel der Verarbeitung (Art. 4 Nr. 7).",
+            "Es nennt Name und Kontaktdaten Ihres Unternehmens und eines etwaigen Datenschutzbeauftragten. Für jede Tätigkeit nennt es die Zwecke, die Kategorien betroffener Personen und personenbezogener Daten und die Kategorien von Empfängern. Dazu kommen Übermittlungen in Drittländer mit dem jeweiligen Land und, wenn möglich, die Fristen für die Löschung und eine allgemeine Beschreibung der TOMs nach Art. 32 Abs. 1.",
+            "Das Verzeichnis wird schriftlich geführt, auch elektronisch (Art. 30 Abs. 3). Sie legen es der Aufsichtsbehörde auf Anfrage vor (Art. 30 Abs. 4), veröffentlichen müssen Sie es nicht. Arbeitet Ihr Unternehmen selbst im Auftrag anderer, führt es dafür ein zweites Verzeichnis nach Art. 30 Abs. 2."
+          ],
+          "law": "Art. 4 Nr. 7 · Art. 30 Abs. 1 bis 4 DSGVO"
+        },
+        {
+          "heading": "Gilt die Pflicht auch unter 250 Mitarbeitern?",
+          "paragraphs": [
+            "Art. 30 Abs. 5 nimmt Unternehmen mit weniger als 250 Mitarbeitern aus, „es sei denn, die von ihnen vorgenommene Verarbeitung birgt ein Risiko für die Rechte und Freiheiten der betroffenen Personen, die Verarbeitung erfolgt nicht nur gelegentlich oder es erfolgt eine Verarbeitung besonderer Datenkategorien“, etwa von Gesundheitsdaten, oder von Daten über strafrechtliche Verurteilungen und Straftaten.",
+            "Eine dieser Bedingungen genügt. Die Datenschutzkonferenz (DSK) ist die Konferenz der deutschen Datenschutzaufsichtsbehörden von Bund und Ländern. Sie nennt Lohnabrechnungen und Kundendatenverwaltung als Verarbeitungen, die nicht nur gelegentlich erfolgen, und geht davon aus, dass die Ausnahme nur selten greift.",
+            "Wer regelmäßig Löhne abrechnet oder Kundendaten pflegt, fällt nach dieser Lesart nicht unter die Ausnahme. Wir zitieren Abs. 5 in der deutschen Fassung, die 2016 berichtigt wurde (ABl. L 314 vom 22.11.2016); ältere Abdrucke formulieren die Ausnahme anders."
+          ],
+          "law": "Art. 30 Abs. 5 DSGVO"
+        },
+        {
+          "heading": "Was ist eine Verarbeitungstätigkeit? Ein Beispiel",
+          "paragraphs": [
+            "Die DSK versteht unter einer Verarbeitungstätigkeit in der Regel einen Geschäftsprozess auf geeignetem Abstraktionsniveau. Jeder neue Zweck ist eine eigene Tätigkeit. Den Namen leiten Sie aus dem Zweck ab, etwa „Lohn-, Gehalts- und Bezügeabrechnung“. Für das Programm hat das Muster der DSK ein freiwilliges Feld, „Name des eingesetzten Verfahrens“.",
+            "Ein erfundenes Beispiel: Die Muster Metall GmbH hat 80 Beschäftigte. Ihr Eintrag „Lohn- und Gehaltsabrechnung“ nennt als Zweck die Abrechnung der Vergütung, als Betroffene die Beschäftigten und als Daten Stammdaten, Bankverbindung und Steuermerkmale. Empfänger sind Finanzamt, Sozialversicherungsträger und Banken, dazu der Anbieter der Lohnsoftware, wenn er die Daten in seiner Cloud verarbeitet.",
+            "Bei Drittländern steht „keine“, denn die DSK rät, auch das ausdrücklich anzugeben. Die Löschfrist nennt die Vorschrift und den Beginn der Frist. Für die TOMs verweist der Eintrag auf das Kryptokonzept und das Konzept für Personal, Zugänge und IT aus dem NIS 2 Durchgang. Solche Verweise auf Unterlagen der Informationssicherheit sieht die DSK ausdrücklich vor."
+          ]
+        },
+        {
+          "heading": "Welche Fehler Sie beim Verzeichnis vermeiden sollten",
+          "paragraphs": [
+            "Ein Verzeichnis, das nur Programme aufzählt, etwa „Microsoft 365“ oder „DATEV“, beschreibt Werkzeuge statt Zwecke. Ein Programm dient oft mehreren Tätigkeiten, und eine Tätigkeit nutzt oft mehrere Programme.",
+            "Ein Eintrag wie „gesetzliche Aufbewahrungsfristen“ ist ein allgemeiner Verweis, und der genügt nach der DSK nicht: Sie verlangt präzise Angaben. Der Europäische Datenschutzausschuss (EDSA) empfiehlt in seinem Bericht vom Februar 2026, im Verzeichnis anzugeben, ob eine gesetzliche Pflicht zur Aufbewahrung besteht.",
+            "Ein Verzeichnis veraltet mit jedem neuen Programm und jedem neuen Dienstleister. Die DSK empfiehlt, Änderungen zu dokumentieren und diese Dokumentation ein Jahr aufzubewahren."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten: was er für das Verzeichnis vorbereiten kann",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihren eigenen Unterlagen Entwürfe anlegen: aus der Liste Ihrer Abläufe und Programme, Ihrer Lieferantenliste und Ihren Verträgen. Über MCP (Model Context Protocol), einen offenen Standard, liest er auch die Listen aus dem NIS 2 Durchgang. Das gilt für die Bereiche, die der Person zugewiesen sind, die ihn verbunden hat.",
+            "Was nicht in Ihren Unterlagen steht, etwa eine Rechtsgrundlage oder eine Löschfrist, ist im Entwurf ein Vorschlag. Ob ein Eintrag stimmt und welche Frist gilt, entscheidet Ihr Unternehmen als Verantwortlicher, mit Ihrem Datenschutzbeauftragten, wenn einer benannt ist.",
+            "Was Sie dem Assistenten geben, etwa Lohnlisten, verarbeitet sein Anbieter mit. Handelt er dabei als Auftragsverarbeiter, braucht es einen Vertrag nach Art. 28 Abs. 3 DSGVO. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang.",
+            "Ein Auftrag an den Assistenten kann so lauten:"
+          ],
+          "code": "Lies mit get_walkthrough die Punkte 2.2 und 5.1. Lege für jeden angehakten Ablauf, der personenbezogene Daten betrifft, einen Entwurf für das Verzeichnis nach Art. 30 Abs. 1 DSGVO an, mit Zweck, betroffenen Personen, Datenkategorien, Empfängern, Drittland, Löschfrist und TOMs. Markiere jedes Feld, das nicht in den Unterlagen steht, und lass es leer. Trage nichts in den Durchgang ein."
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Punkt 2.2 hält Abläufe, Programme und ihre Anbieter fest: nach unserer Lesart Ausgangsmaterial für das Verzeichnis, aber kein Verzeichnis nach Art. 30 DSGVO.",
+        "points": [
+          "2.2 Aufschreiben, was Ihr Unternehmen hat, Bildschirm „Was Ihr Unternehmen jeden Tag tut“: die Abläufe, die Sie anhaken, etwa „Personal- und Lohnverwaltung“. Aus jedem Ablauf mit Personendaten werden eine oder mehrere Verarbeitungstätigkeiten. Zwecke, Datenkategorien und Löschfristen fragt der Durchgang nicht.",
+          "2.2, „Programme für Kunden, Personal und Geld“ und „Welches Programm genau, und von wem?“: die Programme mit ihrem Anbieter, etwa die Lohnsoftware. Das passt in das freiwillige Feld „Name des eingesetzten Verfahrens“ im Muster der DSK. Ob ein Anbieter Daten in Ihrem Auftrag verarbeitet oder in ein Drittland bringt, steht dort nicht.",
+          "Auf der Seite „Export“ enthält „Alles in einem Dokument“ die Abschnitte „Assets“ und „Lieferanten“. Admins, Prüfer und die Geschäftsführung speichern es als PDF und geben es der Person, die Ihren Datenschutz betreut.",
+          "Diese Person ergänzt je Tätigkeit Zweck, Betroffene, Datenkategorien, Empfänger, Drittland, Löschfrist und TOMs. Ändert sich die Liste in 2.2, ändert sich das Verzeichnis nicht mit: Gleichen Sie beides ab, wenn ein Programm dazukommt."
+        ],
+        "seeItAlt": "Punkt 2.2 im NIS 2 Durchgang, Bildschirm „Was Ihr Unternehmen jeden Tag tut“: Im Abschnitt „Geschäftsprozesse“ sind 12 von 14 Abläufen angehakt, darunter „Vertrieb und Kundenservice“, „Personal- und Lohnverwaltung“ und „Finanzen und Buchhaltung“",
+        "next": "Ihre Abläufe im Durchgang festhalten"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Gibt es ein Muster für das Verarbeitungsverzeichnis?",
+            "a": "Ja. Die DSK stellt auf datenschutzkonferenz-online.de ein „Muster für Verantwortliche gemäß Artikel 30 Abs. 1 DSGVO“ bereit, Stand Februar 2018, dazu Hinweise zum Ausfüllen. Es hat ein Vorblatt für die Angaben zum Unternehmen und je Verarbeitungstätigkeit ein Formular mit den Pflichtangaben."
+          },
+          {
+            "q": "Wer muss das Verarbeitungsverzeichnis führen?",
+            "a": "Der Verantwortliche, also Ihr Unternehmen (Art. 30 Abs. 1). Ein Datenschutzbeauftragter unterrichtet, berät und überwacht die Einhaltung (Art. 39 Abs. 1). Er kann das Verzeichnis betreuen, die Pflicht bleibt beim Unternehmen; legen Sie intern fest, wer es pflegt."
+          },
+          {
+            "q": "Ist die Asset Liste nach NIS 2 dasselbe wie ein Verarbeitungsverzeichnis?",
+            "a": "Nein. Die Liste in 2.2 sagt, womit Ihr Unternehmen arbeitet, damit Sie es schützen können. Das Verzeichnis nach Art. 30 beschreibt je Zweck, wessen Daten Sie verarbeiten, an wen sie gehen und wann sie gelöscht werden. Die eine Liste hilft beim Anlegen der anderen."
+          },
+          {
+            "q": "Wie oft muss man das Verarbeitungsverzeichnis aktualisieren?",
+            "a": "Art. 30 nennt keinen Rhythmus. Das Verzeichnis umfasst aber alle Verarbeitungstätigkeiten, die Ihrer Zuständigkeit unterliegen, also auch neue. Aktualisieren Sie es bei jedem neuen Zweck, Programm oder Dienstleister und dokumentieren Sie die Änderung."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 4 Nr. 7, Art. 28, 30 und 39, mit den deutschen Berichtigungen zu Art. 30 Abs. 5 (ABl. L 314 vom 22.11.2016) und Art. 30 Abs. 2 (ABl. L 74 vom 4.3.2021), CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 1 zum Verzeichnis von Verarbeitungstätigkeiten, Stand 17.12.2018, datenschutzkonferenz-online.de",
+          "DSK, Hinweise zum Verzeichnis von Verarbeitungstätigkeiten und Muster für Verantwortliche nach Art. 30 Abs. 1, beide Stand Februar 2018, datenschutzkonferenz-online.de",
+          "Europäischer Datenschutzausschuss (EDSA), 2025 Coordinated Enforcement Action, Implementation of the right to erasure by controllers, angenommen am 10. Februar 2026, Abschnitt 4.2.5, edpb.europa.eu",
+          "open-isms, lib/durchgang/nis2.ts (Punkt 2.2), lib/asset-inventory/catalog.ts, lib/mcp/tools.ts, messages/durchgang und messages/export, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "toms": {
+      "meta": {
+        "title": "TOMs nach DSGVO: technische und organisatorische Maßnahmen",
+        "description": "Was Art. 32 DSGVO von Ihren TOMs verlangt, wie Sie angemessene Maßnahmen auswählen und beschreiben und welche Angaben der NIS2 Durchgang dazu enthält."
+      },
+      "badge": "Art. 32 DSGVO · TOMs",
+      "title": "TOMs nach DSGVO: technische und organisatorische Maßnahmen",
+      "subtitle": "TOMs sind die technischen und organisatorischen Maßnahmen, mit denen Sie personenbezogene Daten schützen, etwa Verschlüsselung, Zugriffsrechte, Datensicherung und Regeln für Beschäftigte. Art. 32 DSGVO verlangt ein Schutzniveau, das dem Risiko für die betroffenen Menschen angemessen ist. Eine feste Liste schreibt das Gesetz nicht vor.",
+      "sections": [
+        {
+          "heading": "Was verlangt Art. 32 DSGVO?",
+          "paragraphs": [
+            "Verantwortliche und Auftragsverarbeiter treffen geeignete technische und organisatorische Maßnahmen, „um ein dem Risiko angemessenes Schutzniveau zu gewährleisten“ (Art. 32 Abs. 1). Sie berücksichtigen den Stand der Technik, die Kosten, Art, Umfang, Umstände und Zwecke der Verarbeitung und die Wahrscheinlichkeit und Schwere des Risikos für die Rechte und Freiheiten der Menschen.",
+            "Die Maßnahmen schließen „gegebenenfalls unter anderem“ ein: Pseudonymisierung und Verschlüsselung (Buchst. a), die dauerhafte Vertraulichkeit, Integrität, Verfügbarkeit und Belastbarkeit der Systeme (b), die rasche Wiederherstellung nach einem Zwischenfall (c) und ein Verfahren, das die Wirksamkeit regelmäßig überprüft (d). Das Wort „gegebenenfalls“ steht im deutschen Text seit einer Berichtigung von 2018.",
+            "Bei der Bewertung zählen besonders Vernichtung, Verlust, Veränderung, unbefugte Offenlegung und unbefugter Zugang (Abs. 2). Abs. 4 verlangt außerdem Schritte, damit Beschäftigte mit Zugang zu personenbezogenen Daten diese nur auf Anweisung verarbeiten."
+          ],
+          "law": "Art. 32 Abs. 1, 2 und 4 DSGVO"
+        },
+        {
+          "heading": "Wie wählen Sie angemessene Maßnahmen aus?",
+          "paragraphs": [
+            "Maßstab ist das Risiko für die Menschen, deren Daten Sie verarbeiten. Die Datenschutzkonferenz (DSK) ist die Konferenz der deutschen Aufsichtsbehörden. In ihrem Kurzpapier Nr. 18 beschreibt sie das Risiko mit zwei Größen: der Schwere eines möglichen Schadens, etwa einer Rufschädigung oder eines finanziellen Verlusts, und der Wahrscheinlichkeit, dass er eintritt.",
+            "Das Ergebnis ordnet die DSK in die Stufen geringes Risiko, Risiko und hohes Risiko. Ist ein hohes Risiko zu erwarten, bestimmen Sie die Maßnahmen nach ihren Hinweisen zum Verzeichnis schon im Rahmen einer Datenschutzfolgenabschätzung nach Art. 35.",
+            "Für die Auswahl verweist die DSK in denselben Hinweisen auf ihr Standard-Datenschutzmodell (SDM), auf den IT-Grundschutz des BSI und auf ISO Normen. Das SDM, Version 3.1 von 2024, ordnet Maßnahmen sieben Gewährleistungszielen zu, von Datenminimierung bis Intervenierbarkeit, also der Möglichkeit für Betroffene, ihre Rechte durchzusetzen. Es liest diese Ziele aus der Sicht der betroffenen Personen."
+          ],
+          "law": "Art. 32 Abs. 1 · Art. 35 DSGVO"
+        },
+        {
+          "heading": "Wo und wie Sie die TOMs beschreiben",
+          "paragraphs": [
+            "Art. 32 schreibt kein eigenes Dokument vor. Das Verzeichnis von Verarbeitungstätigkeiten soll aber, wenn möglich, eine allgemeine Beschreibung der Maßnahmen enthalten (Art. 30 Abs. 1 Buchst. g), und nach der DSK ist diese Beschreibung trotz „wenn möglich“ der Regelfall.",
+            "Die Beschreibung soll so konkret sein, dass die Aufsichtsbehörde eine erste Prüfung der Rechtmäßigkeit vornehmen kann (DSK, Kurzpapier Nr. 1). Sie dürfen auf vorhandene Unterlagen verweisen, etwa ein Sicherheitskonzept aus Ihrer Informationssicherheit, und ergänzen dann, was für eine Verarbeitung zusätzlich gilt.",
+            "Art. 32 gilt auch für Auftragsverarbeiter, und Ihr Unternehmen arbeitet nur mit solchen, die hinreichende Garantien bieten (Art. 28 Abs. 1). Der Vertrag verpflichtet sie auf alle nach Art. 32 erforderlichen Maßnahmen und darauf, Ihnen die Informationen zum Nachweis zu geben (Art. 28 Abs. 3 Buchst. c und h). Lassen Sie sich ihre Beschreibung geben, bevor Sie sie beauftragen."
+          ],
+          "law": "Art. 28 Abs. 1 und 3 · Art. 30 Abs. 1 Buchst. g DSGVO"
+        },
+        {
+          "heading": "Beispiel: die TOMs eines Betriebs mit 80 Beschäftigten",
+          "paragraphs": [
+            "Die Muster Metall GmbH, ein erfundener Betrieb, beschreibt ihre TOMs nach den Buchstaben von Art. 32 Abs. 1. Ein schwacher Satz wäre: „Wir schützen Daten nach dem Stand der Technik.“ Er sagt nicht, was im Betrieb geschieht.",
+            "Ihre Beschreibung sagt stattdessen: Die Festplatten aller Laptops sind verschlüsselt, der Wiederherstellungsschlüssel liegt getrennt vom Gerät (a). Rechte werden über Rollen vergeben, E-Mail und Fernzugriff verlangen einen zweiten Faktor (b). Der Server wird täglich gesichert, und die letzte geglückte Wiederherstellung ist mit Datum vermerkt (c).",
+            "Zu Buchstabe d steht dort, wer die Maßnahmen wann prüft: die Geschäftsführung mit dem externen Datenschutzbeauftragten. Pseudonymisierung setzt die Firma bisher nicht ein und hält fest, warum."
+          ]
+        },
+        {
+          "heading": "Welche Fehler Sie bei TOMs vermeiden sollten",
+          "paragraphs": [
+            "Übernehmen Sie keine Vorlage unverändert. Sie beschreibt Maßnahmen, die in Ihrem Betrieb vielleicht nicht gelten, und Ihr Unternehmen muss nachweisen können, was es tatsächlich tut (Art. 5 Abs. 2).",
+            "Zählen Sie nicht nur Technik auf. Zu den organisatorischen Maßnahmen gehören etwa die Verpflichtung auf Vertraulichkeit, Anweisungen an Beschäftigte nach Art. 32 Abs. 4 und ein Rollen- und Rechtekonzept.",
+            "Vergessen Sie Buchstabe d nicht. Ohne ein Verfahren, das die Wirksamkeit prüft, bleibt die Beschreibung ein Stand von einem Tag. Art. 24 Abs. 1 verlangt, Maßnahmen erforderlichenfalls zu überprüfen und zu aktualisieren.",
+            "Übernehmen Sie NIS 2 Maßnahmen nicht ungeprüft. Sie schützen Ihre Systeme, Art. 32 fragt nach dem Risiko für die Menschen, deren Daten Sie verarbeiten."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten: was er für die TOMs entwerfen kann",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihren Unterlagen eine Beschreibung nach den Buchstaben a bis d entwerfen und Lücken markieren, etwa fehlende Angaben zur Pseudonymisierung. Über MCP (Model Context Protocol), einen offenen Standard, liest er dafür auch Ihren NIS 2 Durchgang. Wie das geht, zeigt unser Artikel zu TOMs mit KI aus Ihren NIS 2 Unterlagen.",
+            "Ob eine Maßnahme dem Risiko angemessen ist, entscheidet Ihr Unternehmen als Verantwortlicher (Art. 32 Abs. 1). Prüfen Sie jeden Satz des Entwurfs gegen das, was im Betrieb wirklich eingerichtet ist.",
+            "Geben Sie dem Assistenten Unterlagen mit personenbezogenen Daten, verarbeitet sein Anbieter diese mit. Handelt er als Auftragsverarbeiter, braucht es einen Vertrag nach Art. 28 Abs. 3 DSGVO. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Die Gesamtdokumentation aus dem Export enthält Konzepte, auf die Ihre Beschreibung nach Art. 32 verweisen kann; die Beschreibung selbst führen Sie getrennt davon.",
+        "points": [
+          "Auf der Seite „Export“ öffnen Admins, Prüfer und die Geschäftsführung „Alles in einem Dokument“. Das ist die Gesamtdokumentation mit Stand und Datum, die Sie mit „Als PDF speichern“ ablegen.",
+          "Unter „Dokumente“ steht der Wortlaut der Konzepte, die Sie im Durchgang geschrieben haben, darunter das Kryptokonzept aus 9.1, das Konzept für Personal, Zugänge und IT aus 10.1 und der Notfallplan für den Betrieb aus 4.2.",
+          "Ihre Beschreibung kann auf dieses PDF verweisen, wie es die DSK vorsieht. Unterlagen, auf die Sie verweisen, legen Sie der Aufsichtsbehörde nach den Hinweisen der DSK auf Anfrage ebenfalls vor.",
+          "Welcher Punkt zu welchem Buchstaben von Art. 32 Abs. 1 passt, zeigt nach unserer eigenen Zuordnung der Artikel zu TOMs mit KI aus Ihren NIS 2 Unterlagen. Nach dem Risiko für die betroffenen Menschen und nach Pseudonymisierung fragt der Durchgang nicht; das ergänzt Ihr Unternehmen."
+        ],
+        "seeItAlt": "Die „Gesamtdokumentation“ aus dem Export, überschrieben „NIS 2 Dokumentation“, mit den Stammdaten eines Beispielunternehmens, dem Inhalt von „Stand der Umsetzung“ bis „Angaben je Bereich“ und oben dem Knopf „Als PDF speichern“",
+        "next": "Kryptokonzept im Durchgang schreiben"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Welche TOMs sind Pflicht?",
+            "a": "Eine feste Liste gibt es nicht. Art. 32 Abs. 1 nennt Beispiele, die „gegebenenfalls“ gelten, und verlangt ein Schutzniveau, das dem Risiko angemessen ist. Welche Maßnahmen das sind, hängt von Ihren Verarbeitungen ab; halten Sie fest, warum Sie eine genannte Maßnahme nicht einsetzen."
+          },
+          {
+            "q": "Was ist der Unterschied zwischen technischen und organisatorischen Maßnahmen?",
+            "a": "Technische Maßnahmen wirken in Geräten und Programmen, etwa Verschlüsselung, Datensicherung oder ein zweiter Faktor bei der Anmeldung. Organisatorische Maßnahmen regeln, was Menschen tun: Rollen und Rechte, Verpflichtung auf Vertraulichkeit, Anweisungen und Schulung. Art. 32 verlangt beides."
+          },
+          {
+            "q": "Gibt es eine Checkliste für TOMs?",
+            "a": "Die DSK listet in ihren Hinweisen zum Verzeichnis von Verarbeitungstätigkeiten (Stand Februar 2018) typische Maßnahmen für jeden Bereich von Art. 32 Abs. 1, von der Pseudonymisierung bis zum Notfallkonzept. Sie leitet jede Liste mit „u. a.“ ein, die Listen sind also Beispiele. Nutzen Sie sie als Prüfliste und schreiben Sie auf, was bei Ihnen gilt."
+          },
+          {
+            "q": "Wie oft müssen TOMs überprüft werden?",
+            "a": "Einen festen Abstand nennt die DSGVO nicht. Art. 32 Abs. 1 Buchst. d verlangt ein Verfahren zur regelmäßigen Überprüfung, Art. 24 Abs. 1 eine Überprüfung und Aktualisierung „erforderlichenfalls“. Legen Sie den Abstand selbst fest, prüfen Sie zusätzlich, wenn eine neue Verarbeitung oder ein neues Programm dazukommt, und halten Sie Datum und Ergebnis fest."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 5 Abs. 2, Art. 24, 28, 30, 32 und 35, mit der Berichtigung zu Art. 32 Abs. 1 im ABl. L 127 vom 23.5.2018, CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 18 zum Risiko für die Rechte und Freiheiten natürlicher Personen, Stand 26.04.2018, datenschutzkonferenz-online.de",
+          "DSK, Kurzpapier Nr. 1, Stand 17.12.2018, und Hinweise zum Verzeichnis von Verarbeitungstätigkeiten, Stand Februar 2018, datenschutzkonferenz-online.de",
+          "DSK, Das Standard-Datenschutzmodell, Version 3.1, beschlossen am 14. Mai 2024, datenschutzkonferenz-online.de",
+          "open-isms, messages/durchgang (Punkte 4.2, 9.1 und 10.1), messages/export und components/export/CompleteExport.tsx, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "erasure": {
+      "meta": {
+        "title": "Löschkonzept nach DSGVO: was es regeln muss, mit Backups",
+        "description": "Was ein Löschkonzept nach Art. 17 DSGVO regeln muss: Frist, Beginn und Zuständigkeit je Datenart, Backups und was der NIS2 Durchgang dazu festhält."
+      },
+      "badge": "Art. 17 DSGVO · Löschkonzept",
+      "title": "Löschkonzept nach DSGVO: was es regeln muss",
+      "subtitle": "Ein Löschkonzept legt für jede Art personenbezogener Daten fest, wie lange sie bleiben, ab wann die Frist läuft, wer löscht und wie. Es setzt zwei Pflichten um: Daten nicht länger als nötig zu speichern (Art. 5 Abs. 1 Buchst. e DSGVO) und sie unverzüglich zu löschen, wenn ein Grund aus Art. 17 vorliegt. Sicherungskopien gehören dazu.",
+      "sections": [
+        {
+          "heading": "Welche Pflichten stehen hinter dem Löschkonzept?",
+          "paragraphs": [
+            "Das Wort Löschkonzept steht nicht in der DSGVO, die Pflichten dahinter schon. Personenbezogene Daten dürfen nur so lange in einer Form gespeichert werden, die Personen erkennbar macht, „wie es für die Zwecke, für die sie verarbeitet werden, erforderlich ist“ (Art. 5 Abs. 1 Buchst. e).",
+            "Art. 17 Abs. 1 verpflichtet Ihr Unternehmen, Daten unverzüglich zu löschen, wenn ein dort genannter Grund vorliegt, etwa wenn sie für ihren Zweck nicht mehr notwendig sind oder eine Einwilligung widerrufen wurde. Das gilt auf Verlangen und, wie die Datenschutzkonferenz (DSK) in ihrem Kurzpapier Nr. 11 schreibt, auch ohne Verlangen.",
+            "Ausnahmen nennt Art. 17 Abs. 3, etwa eine rechtliche Pflicht zur Aufbewahrung (Buchst. b) oder die Verteidigung von Rechtsansprüchen (Buchst. e). Nach der DSK erlauben auch sie keine zeitlich unbegrenzte Speicherung: Ist ihr Zweck erreicht, wird gelöscht."
+          ],
+          "law": "Art. 5 Abs. 1 Buchst. e · Art. 17 Abs. 1 und 3 DSGVO"
+        },
+        {
+          "heading": "Was ein Löschkonzept regeln muss",
+          "paragraphs": [
+            "Im Kern ist es eine Löschregel je Datenart: die Frist, das Ereignis, ab dem sie läuft, und die Grundlage. Der Europäische Datenschutzausschuss (EDSA) nennt als gute Praxis einzelner Unternehmen eine Tabelle, die Datenart, Rechtsgrundlage und Frist zusammenführt.",
+            "Das Standard-Datenschutzmodell (SDM) der DSK regelt das Löschen in seinem Baustein 60. Danach legen Sie fest, wer Löschungen prüft, anordnet und durchführt. Schnellformatieren oder die bloße Zusage, Daten nicht mehr zu nutzen, reichen dort ausdrücklich nicht aus.",
+            "Gelöscht ist ein Datum nach dem SDM erst, wenn auch keine Kopie mehr bei Ihnen oder einem Auftragsverarbeiter liegt. Auftragsverarbeiter löschen nach Vertragsende die Daten oder geben sie zurück und löschen vorhandene Kopien (Art. 28 Abs. 3 Buchst. g). Empfängern teilen Sie jede Löschung mit, soweit das möglich und verhältnismäßig ist (Art. 19)."
+          ],
+          "law": "Art. 19 · Art. 28 Abs. 3 Buchst. g DSGVO"
+        },
+        {
+          "heading": "Was gilt für Datensicherungen?",
+          "paragraphs": [
+            "Eine Datensicherung ist eine Kopie. Nach dem SDM Baustein 60 betrifft die Löschpflicht grundsätzlich auch Sicherungskopien, aber nicht zwingend im selben Moment wie im laufenden System. Dauert ein sicheres Löschen im Backup so lange, dass es ohnehin mit dem planmäßigen Überschreiben zusammenfiele, kann es in diesem Zuge geschehen.",
+            "Die entscheidende Regel betrifft die Rücksicherung. Spielt Ihre IT Daten aus einer Sicherung zurück, kommen bereits gelöschte Daten wieder. Das SDM verlangt, sie danach unmittelbar erneut zu löschen, und Prozesse, die das überwachen.",
+            "Der EDSA hält es nicht immer für ratsam, Sicherungen zu ändern, weil sie vor Angriffen wie Ransomware schützen. Dann braucht es nach seinem Bericht vom Februar 2026 ein Verfahren, das Löschanträge festhält und auf wiederhergestellten Systemen umsetzt. Die Hälfte der antwortenden Aufsichtsbehörden äußerte dort Bedenken beim Löschen in Sicherungen.",
+            "Ihr Löschkonzept nennt deshalb für jedes Sicherungssystem, wie lange Kopien liegen, und führt eine Liste der Löschungen, die nach einer Rücksicherung erneut abgearbeitet wird. Die Liste nennt, welcher Datensatz zu löschen ist, etwa über eine Kundennummer. Für die Dokumentation von Löschungen verlangt das SDM, dass sie keine Inhaltsdaten enthält, die zu löschen sind."
+          ]
+        },
+        {
+          "heading": "Beispiel: eine Löschregel und eine Rücksicherung",
+          "paragraphs": [
+            "Die Muster Metall GmbH, ein erfundener Betrieb mit 80 Beschäftigten, bewahrt Schriftverkehr zu Aufträgen als Handelsbriefe sechs Jahre auf (§ 257 Abs. 1 und 4 HGB). Die Frist beginnt mit dem Ende des Kalenderjahres, in dem der Brief kam oder ging (Abs. 5). Eine E-Mail vom März 2026 bleibt also bis Ende 2032.",
+            "Ihre tägliche Sicherung hält sie im Beispiel 30 Tage. Nach einem Angriff spielt ihre IT den Stand von vor zwei Wochen zurück. Vor dem Neustart arbeitet sie die Löschliste dieser zwei Wochen erneut ab; dort steht etwa die Kundennummer einer Kundin, die ihre Einwilligung zum Newsletter widerrufen hatte, und ihre Adresse ist danach wieder gelöscht."
+          ]
+        },
+        {
+          "heading": "Welche Fehler Sie beim Löschkonzept vermeiden sollten",
+          "paragraphs": [
+            "Setzen Sie nicht eine Frist für alles, nur weil sie sicher klingt. Daten ohne Aufbewahrungspflicht bleiben dann zu lange, und ein allgemeiner Verweis auf Aufbewahrungspflichten genügt nach der DSK nicht.",
+            "Löschen Sie nicht nur im Hauptsystem. Kopien können auch in Postfächern, auf mobilen Geräten und in Clouddiensten liegen; das SDM verlangt Prozesse, die alle Kopien erfassen. Für ausgemusterte Geräte sieht Punkt 10.1 des NIS 2 Durchgangs sicheres Löschen oder Vernichten vor.",
+            "Aufbewahren heißt nicht weiter nutzen. Die Ausnahme in Art. 17 Abs. 3 Buchst. b gilt nur, „soweit“ die Verarbeitung für die rechtliche Pflicht erforderlich ist."
+          ],
+          "law": "Art. 17 Abs. 3 Buchst. b DSGVO"
+        },
+        {
+          "heading": "Mit einem KI Assistenten: was er für das Löschkonzept vorbereiten kann",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihrem Verzeichnis von Verarbeitungstätigkeiten eine Tabelle aller Datenarten anlegen und je Datenart eine Löschregel vorschlagen. Über MCP (Model Context Protocol), einen offenen Standard, liest er auch, was der NIS 2 Durchgang zu Ihren Sicherungssystemen festhält.",
+            "Prüfen Sie jede vorgeschlagene Frist im aktuellen Gesetzestext. § 257 Abs. 4 HGB etwa gilt seit dem 1. Januar 2025 in neuer Fassung und nennt für Buchungsbelege acht Jahre. Welche Frist gilt, entscheidet Ihr Unternehmen als Verantwortlicher.",
+            "Löschlisten können personenbezogene Daten enthalten, die dann auch der Anbieter des Assistenten verarbeitet. Handelt er als Auftragsverarbeiter, braucht es einen Vertrag nach Art. 28 Abs. 3 DSGVO. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "Was der NIS 2 Durchgang davon schon festhält",
+        "lead": "Punkt 4.4 hält Ihre Sicherungssysteme fest; wie lange Kopien liegen und was nach einer Rücksicherung mit gelöschten Daten geschieht, fragt er nicht.",
+        "points": [
+          "Auf dem Weg des Durchgangs kommt 4.4 Die Datensicherung festhalten weiter unten, direkt nach 4.2 Den Notfallplan für den Betrieb schreiben. In 4.4 tragen Sie je Sicherungssystem ein, wie oft es sichert und wann eine Wiederherstellung daraus zuletzt geklappt hat. Ergänzen Sie in Ihrem Löschkonzept für jedes dieser Systeme, wie lange es Kopien aufbewahrt.",
+          "In 4.4 rät der Durchgang außerdem, jeden Cloud- und Softwareanbieter zu fragen, was er für Sie aufbewahrt. Dieselbe Antwort zeigt, wo Kopien Ihrer Daten liegen, die Ihr Löschkonzept erfassen muss.",
+          "Im Notfallplan aus 4.2 geht ein System laut Abschnitt „Wiederherstellung“ erst nach einer Prüfung wieder in Betrieb. Ergänzen Sie unter „Weitere Regelungen“, dass zu dieser Prüfung das erneute Abarbeiten der Löschliste gehört.",
+          "Ein Assistent kann 4.4 ausfüllen, Sie prüfen und schließen den Punkt ab. Für das Löschkonzept selbst hat der Durchgang keinen Bildschirm."
+        ],
+        "seeItAlt": "Die Startseite des NIS 2 Durchgangs: links „Sie sind hier richtig.“ mit vier Karten, rechts „Ihr Weg“ mit den ersten Punkten von „Beim BSI registrieren“ bis „Wissen, wie Sie einen Vorfall melden“. Die ersten drei sind erledigt, „Aufschreiben, was Ihr Unternehmen hat“ ist begonnen",
+        "next": "Ihre Sicherungen im Durchgang festhalten"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Wie lange darf man personenbezogene Daten speichern?",
+            "a": "So lange, wie sie für ihren Zweck erforderlich sind (Art. 5 Abs. 1 Buchst. e). Verlangt ein Gesetz längere Aufbewahrung, etwa § 257 HGB mit sechs, acht oder zehn Jahren je nach Unterlage, greift für diese Zeit die Ausnahme aus Art. 17 Abs. 3 Buchst. b. Danach wird gelöscht."
+          },
+          {
+            "q": "Was ist der Unterschied zwischen Löschen und Sperren?",
+            "a": "Löschen macht Daten so unkenntlich, dass sich keine Person mehr daraus erkennen lässt (SDM Baustein 60). Sperren heißt in der DSGVO Einschränkung der Verarbeitung (Art. 18): Die Daten bleiben gespeichert, werden aber nur noch eng begrenzt verarbeitet. § 35 BDSG lässt in einigen Fällen die Einschränkung an die Stelle der Löschung treten, etwa bei vertraglichen Aufbewahrungsfristen; die DSK legt diese Regeln eng aus."
+          },
+          {
+            "q": "Gibt es eine DIN Norm für das Löschkonzept?",
+            "a": "Die DIN 66398 von 2016, „Leitlinie zur Entwicklung eines Löschkonzepts mit Ableitung von Löschfristen für personenbezogene Daten“, ist laut DIN Media zurückgezogen und durch die DIN EN ISO/IEC 27555:2025-09 ersetzt, „Leitlinien zur Löschung personenbezogener Daten“. Beide sind kostenpflichtig; ihren Inhalt geben wir hier nicht wieder. Die DSGVO schreibt keine Norm vor."
+          },
+          {
+            "q": "Was tun, wenn jemand die Löschung seiner Daten verlangt?",
+            "a": "Prüfen Sie, ob ein Grund aus Art. 17 Abs. 1 vorliegt und keine Ausnahme aus Abs. 3. Informieren Sie die Person unverzüglich, in jedem Fall innerhalb eines Monats; bei komplexen oder vielen Anträgen lässt sich die Frist um zwei Monate verlängern (Art. 12 Abs. 3). Löschen Sie auch bei Auftragsverarbeitern, informieren Sie Empfänger (Art. 19) und halten Sie fest, dass gelöscht wurde."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 5, 12, 17, 18, 19 und 28, mit der Berichtigung zu Art. 28 Abs. 3 Buchst. g im ABl. L 127 vom 23.5.2018, CELEX 32016R0679, publications.europa.eu",
+          "Bundesdatenschutzgesetz (BDSG), § 35, und Handelsgesetzbuch (HGB), § 257, mit Art. 95 EGHGB, gesetze-im-internet.de",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 11 zum Recht auf Löschung, Stand 17.12.2018, auf der Website der DSK als in Überarbeitung markiert, und Standard-Datenschutzmodell, Baustein 60 „Löschen und Vernichten“, Version 1.0a vom 2. September 2020, datenschutzkonferenz-online.de und datenschutz-mv.de",
+          "Europäischer Datenschutzausschuss (EDSA), 2025 Coordinated Enforcement Action, Implementation of the right to erasure by controllers, angenommen am 10. Februar 2026, Abschnitte 4.2.5 und 4.2.6, edpb.europa.eu",
+          "DIN Media, Einträge zu DIN 66398:2016-05 und DIN EN ISO/IEC 27555:2025-09, dinmedia.de, Stand Oktober 2026",
+          "open-isms, messages/durchgang (Punkte 4.2, 4.4 und 10.1), lib/durchgang, lib/mcp/walk.ts und server/trpc/helpers/durchgang-inputs.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "compliant": {
+      "meta": {
+        "title": "DSGVO konform: was Ihr Unternehmen nachweisen muss",
+        "description": "DSGVO konform heißt: Sie halten die Grundsätze aus Art. 5 ein und können es belegen. Welche Unterlagen das tragen und warum ein Siegel Sie nicht entlastet."
+      },
+      "badge": "DSGVO · Art. 5 Abs. 2",
+      "title": "DSGVO konform: was Ihr Unternehmen nachweisen muss",
+      "subtitle": "Die DSGVO verlangt zweierlei: Ihr Unternehmen hält die Grundsätze aus Art. 5 Abs. 1 ein, und es kann das nachweisen (Art. 5 Abs. 2, Rechenschaftspflicht). Dafür trifft es Maßnahmen, die zu seinen Verarbeitungen und deren Risiken passen, und hält sie aktuell (Art. 24 Abs. 1). Den Nachweis tragen Unterlagen wie Verzeichnis, TOMs und Verträge.",
+      "sections": [
+        {
+          "heading": "Was heißt DSGVO konform?",
+          "paragraphs": [
+            "Das Wort steht nicht in der DSGVO. Gemeint ist, was Art. 5 verlangt: Personenbezogene Daten werden nach sechs Grundsätzen verarbeitet, und der Verantwortliche ist für deren Einhaltung verantwortlich und muss sie nachweisen können.",
+            "Die Grundsätze aus Art. 5 Abs. 1 sind Rechtmäßigkeit, Verarbeitung nach Treu und Glauben und Transparenz; Zweckbindung; Datenminimierung; Richtigkeit; Speicherbegrenzung; Integrität und Vertraulichkeit.",
+            "Abs. 2 nennt die Nachweispflicht Rechenschaftspflicht. Einhalten und Belegen gehören damit zusammen: Wird Ihr Unternehmen gefragt, zeigt es, wie es die Grundsätze umsetzt."
+          ],
+          "law": "Art. 5 Abs. 1 und 2 DSGVO"
+        },
+        {
+          "heading": "Was Art. 24 von Ihrem Unternehmen verlangt",
+          "paragraphs": [
+            "Art. 24 Abs. 1 macht daraus eine Pflicht zum Handeln. Der Verantwortliche setzt geeignete technische und organisatorische Maßnahmen um, damit die Verarbeitung der DSGVO entspricht und er das nachweisen kann. Was geeignet ist, richtet sich nach Art, Umfang, Umständen und Zwecken der Verarbeitung und nach den Risiken für die Rechte und Freiheiten der Menschen.",
+            "Die Maßnahmen werden bei Bedarf überprüft und aktualisiert. Wo es im Verhältnis zur Verarbeitung steht, gehören geeignete Datenschutzvorkehrungen dazu (Abs. 2); die englische Fassung sagt „data protection policies“, nach unserer Lesart also schriftliche Regeln.",
+            "Für ein Unternehmen mit 50 bis 250 Beschäftigten heißt das nach unserer Lesart: Unterlagen für das, was Sie tatsächlich verarbeiten, so ausführlich, wie das Risiko es verlangt. Die Lohnabrechnung braucht andere Vorkehrungen als die Ortung von Beschäftigten."
+          ],
+          "law": "Art. 24 Abs. 1 und 2 DSGVO"
+        },
+        {
+          "heading": "Welche Unterlagen den Nachweis tragen",
+          "paragraphs": [
+            "Das Verzeichnis von Verarbeitungstätigkeiten zeigt, was Sie wozu verarbeiten, und Sie legen es der Aufsichtsbehörde auf Anfrage vor (Art. 30 Abs. 1 und 4). Die TOMs beschreiben, wie Sie die Daten schützen (Art. 32). Verträge zur Auftragsverarbeitung zeigen, dass Ihre Dienstleister gebunden sind (Art. 28).",
+            "Wo eine Datenschutzfolgenabschätzung Pflicht ist, gehört sie dazu (Art. 35). Datenpannen dokumentieren Sie mit Fakten, Auswirkungen und Abhilfe, nach dem Wortlaut auch die, die Sie nicht melden müssen (Art. 33 Abs. 5). Beruht eine Verarbeitung auf Einwilligung, müssen Sie die Einwilligung nachweisen können (Art. 7 Abs. 1).",
+            "Verzeichnis, TOMs, AVV, DSFA und Datenpanne behandeln wir jeweils in einem eigenen Artikel."
+          ],
+          "law": "Art. 7 Abs. 1 · Art. 28 · Art. 30 · Art. 32 · Art. 33 Abs. 5 · Art. 35 DSGVO"
+        },
+        {
+          "heading": "Ein Beispiel: die Aufsicht fragt nach",
+          "paragraphs": [
+            "Die Lenz Kunststofftechnik GmbH (ausgedacht, 160 Beschäftigte) bekommt Post von der Datenschutzaufsicht ihres Landes. Ein früherer Bewerber hat sich beschwert, seine Unterlagen seien noch gespeichert. Die Behörde will wissen, wie Lenz mit Bewerberdaten umgeht.",
+            "Lenz zeigt den Eintrag „Bewerbungen“ aus dem Verzeichnis mit Zweck und Löschfrist, den AVV mit dem Anbieter des Bewerberportals und die TOMs für das Portal. Dazu legt die Firma das Protokoll der letzten Löschung bei.",
+            "Stünde die Löschfrist nur in der Datenschutzerklärung, könnte Lenz sie nennen, aber nicht belegen, dass sie eingehalten wird. Genau diesen Unterschied macht Art. 5 Abs. 2, hier beim Grundsatz der Speicherbegrenzung (Abs. 1 Buchst. e)."
+          ]
+        },
+        {
+          "heading": "Häufige Fehler",
+          "paragraphs": [
+            "Sich auf ein Siegel oder die Aussage eines Anbieters verlassen. Eine Zertifizierung nach Art. 42 bezieht sich auf Verarbeitungsvorgänge und mindert Ihre Verantwortung nicht (Abs. 1 und 4). Die Pflichten der DSGVO treffen Verantwortliche und Auftragsverarbeiter. Ob eine Software passt, hängt davon ab, wie Sie sie einsetzen.",
+            "Unterlagen einmal schreiben und liegen lassen. Art. 24 Abs. 1 verlangt, die Maßnahmen bei Bedarf zu überprüfen und zu aktualisieren; ein altes Verzeichnis belegt einen alten Stand.",
+            "Die Ausnahme für Unternehmen unter 250 Beschäftigten für allgemein halten. Sie betrifft das Verzeichnis und entfällt, sobald eine Verarbeitung nicht nur gelegentlich erfolgt, etwa die monatliche Lohnabrechnung (Art. 30 Abs. 5)."
+          ],
+          "law": "Art. 24 Abs. 1 · Art. 30 Abs. 5 · Art. 42 Abs. 1 und 4 DSGVO"
+        },
+        {
+          "heading": "Mit einem KI Assistenten",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihren vorhandenen Unterlagen eine Übersicht bauen: welche Nachweise es gibt, welche fehlen und welche veraltet sind, sortiert nach den Grundsätzen aus Art. 5 Abs. 1. Er kann Entwürfe für fehlende Einträge schreiben und eine Antwort an die Aufsicht vorbereiten.",
+            "Ob eine Maßnahme angemessen ist und was Sie der Behörde schicken, entscheidet Ihr Unternehmen. Nach unserer Lesart wird ein Entwurf erst zum Nachweis, wenn Sie ihn geprüft und übernommen haben. Was Sie dem Assistenten zeigen, verarbeitet sein Anbieter mit; klären Sie vorher, unter welchem Vertrag das geschieht.",
+            "Der NIS 2 Durchgang auf nisd2.eu deckt die DSGVO nicht ab. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Gibt es ein offizielles DSGVO Zertifikat?",
+            "a": "Die DSGVO sieht freiwillige Zertifizierungsverfahren sowie Datenschutzsiegel und Prüfzeichen vor (Art. 42 Abs. 1 und 3). Sie beziehen sich auf Verarbeitungsvorgänge. Eine Zertifizierung kann helfen, die Erfüllung Ihrer Pflichten zu belegen (Art. 24 Abs. 3), mindert aber nicht Ihre Verantwortung (Art. 42 Abs. 4)."
+          },
+          {
+            "q": "Ab wie vielen Mitarbeitern gilt die DSGVO?",
+            "a": "Die DSGVO kennt keine Mindestgröße: Sie gilt für die ganz oder teilweise automatisierte Verarbeitung personenbezogener Daten und für geordnete Ablagen auf Papier (Art. 2 Abs. 1). Einzelne Pflichten haben Schwellen, etwa das Verzeichnis (Art. 30 Abs. 5). In Deutschland braucht Ihr Unternehmen einen Datenschutzbeauftragten, soweit es in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt (§ 38 Abs. 1 BDSG)."
+          },
+          {
+            "q": "Reicht ein Datenschutzbeauftragter, um DSGVO konform zu sein?",
+            "a": "Nein. Der Datenschutzbeauftragte unterrichtet, berät und überwacht (Art. 39 Abs. 1). Verantwortlich für die Einhaltung und den Nachweis bleibt Ihr Unternehmen (Art. 5 Abs. 2, Art. 24 Abs. 1)."
+          },
+          {
+            "q": "Was gehört in eine DSGVO Checkliste?",
+            "a": "Eine Checkliste hilft, wenn sie nach Ihren eigenen Verarbeitungen fragt. Gehen Sie für jede die sechs Grundsätze aus Art. 5 Abs. 1 durch und notieren Sie, welche Unterlage zeigt, dass Sie sie einhalten. Wo keine Unterlage steht, liegt eine Lücke im Nachweis."
+          },
+          {
+            "q": "Wer prüft, ob ein Unternehmen DSGVO konform ist?",
+            "a": "Die Datenschutzaufsicht, für Unternehmen in Deutschland die Behörde des Landes (§ 40 Abs. 1 BDSG). Sie kann alle Informationen anfordern, die sie für ihre Aufgaben braucht (Art. 58 Abs. 1 Buchst. a), und Ihr Unternehmen arbeitet auf Anfrage mit ihr zusammen (Art. 31)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 2, 5, 7, 24, 28, 30, 31, 32, 33, 35, 39, 42 und 58, CELEX 32016R0679, publications.europa.eu",
+          "Berichtigung der DSGVO im ABl. L 314 vom 22.11.2016, deutsche Fassung von Art. 30 Abs. 5, CELEX 32016R0679R(01), publications.europa.eu",
+          "Bundesdatenschutzgesetz (BDSG), § 38 und § 40, gesetze-im-internet.de"
+        ]
+      }
+    },
+    "dpms": {
+      "meta": {
+        "title": "Datenschutzmanagement Software: worauf es beim Kauf ankommt",
+        "description": "Was ein Datenschutzmanagementsystem leisten sollte: Verzeichnis, TOMs, Verträge, Anfragen und Datenpannen so führen, dass Sie sie nachweisen können."
+      },
+      "badge": "Art. 5 Abs. 2 · Art. 24 DSGVO",
+      "title": "Datenschutzmanagement Software: worauf es ankommt",
+      "subtitle": "Eine Datenschutzmanagement Software führt die Unterlagen, mit denen Ihr Unternehmen nachweist, dass es die DSGVO einhält: Verzeichnis, TOMs, Verträge mit Auftragsverarbeitern, Anfragen Betroffener und Datenpannen. Vorgeschrieben ist sie nicht. Achten Sie beim Kauf auf sichtbare Fristen, eine Änderungshistorie und einen vollständigen Export.",
+      "sections": [
+        {
+          "heading": "Was ist ein Datenschutzmanagementsystem?",
+          "paragraphs": [
+            "Das Wort steht nicht in der DSGVO. Gemeint ist, wie Ihr Unternehmen seine Pflichten aus der DSGVO organisiert und belegt. Der Kern ist die Rechenschaftspflicht: Der Verantwortliche ist für die Einhaltung der Grundsätze verantwortlich und „muss dessen Einhaltung nachweisen können“ (Art. 5 Abs. 2).",
+            "Art. 24 Abs. 1 verlangt geeignete technische und organisatorische Maßnahmen, um sicherzustellen und nachweisen zu können, dass die Verarbeitung der DSGVO entspricht. Diese Maßnahmen werden erforderlichenfalls überprüft und aktualisiert. Wo es verhältnismäßig ist, gehören geeignete Datenschutzvorkehrungen dazu (Abs. 2), in der englischen Fassung „data protection policies“.",
+            "Eine Software ist ein mögliches Werkzeug dafür, das Gesetz verlangt keine bestimmte. Das Verzeichnis von Verarbeitungstätigkeiten etwa wird schriftlich geführt, was auch elektronisch geschehen kann (Art. 30 Abs. 3)."
+          ],
+          "law": "Art. 5 Abs. 2 · Art. 24 Abs. 1 und 2 · Art. 30 Abs. 3 DSGVO"
+        },
+        {
+          "heading": "Welche Pflichten sollte die Software abbilden?",
+          "paragraphs": [
+            "Die Datenschutzkonferenz (DSK) ist die Konferenz der deutschen Aufsichtsbehörden. In ihrem Maßnahmenplan für Unternehmen (Kurzpapier Nr. 8) zählt sie Dokumentationspflichten auf, die zur Rechenschaftspflicht gehören: das Verzeichnis (Art. 30), die Dokumentation von Datenpannen (Art. 33 Abs. 5) und die von Weisungen an Auftragsverarbeiter (Art. 28 Abs. 3 Buchst. a).",
+            "Für eine GmbH mit 50 bis 250 Beschäftigten heißt das im Alltag: ein Verzeichnis von Verarbeitungstätigkeiten, eine Beschreibung der TOMs nach Art. 32, die Verträge mit Auftragsverarbeitern nach Art. 28, die Anfragen Betroffener nach Art. 15 bis 22 und eine Liste der Datenpannen. Wo eine Datenschutzfolgenabschätzung nötig ist, kommt ihre Dokumentation dazu (Art. 35 Abs. 7).",
+            "Zwei Fristen sollte die Software sichtbar machen. Anfragen Betroffener beantworten Sie unverzüglich, in jedem Fall innerhalb eines Monats, verlängerbar bei komplexen oder vielen Anträgen (Art. 12 Abs. 3). Eine meldepflichtige Datenpanne melden Sie unverzüglich und möglichst binnen 72 Stunden (Art. 33 Abs. 1)."
+          ],
+          "law": "Art. 12 Abs. 3 · Art. 28 · Art. 30 · Art. 33 · Art. 35 Abs. 7 DSGVO"
+        },
+        {
+          "heading": "Worauf Sie beim Kauf achten",
+          "paragraphs": [
+            "Die Software sollte den Pflichtangaben aus Art. 30 Abs. 1 folgen und Einträge verknüpfen: einen Dienstleister, seinen Vertrag nach Art. 28 und die Tätigkeiten, für die er arbeitet. Dann tragen Sie eine Änderung einmal ein.",
+            "Sie sollte festhalten, wer was wann geändert hat. Für das Verzeichnis empfiehlt die DSK, Änderungen zu dokumentieren und diese Dokumentation ein Jahr aufzubewahren.",
+            "Ihr externer Datenschutzbeauftragter braucht Zugang, Prüfer brauchen Lesezugang. Alle Daten sollten sich in einem offenen Format exportieren lassen, damit Sie den Anbieter wechseln können, ohne Unterlagen zu verlieren.",
+            "Die Software enthält selbst personenbezogene Daten, etwa Anfragen Betroffener und Datenpannen. Betreibt der Anbieter sie für Sie, verarbeitet er diese Daten in Ihrem Auftrag: Prüfen Sie den Vertrag nach Art. 28 Abs. 3, wo die Daten liegen und welche Unterauftragsverarbeiter beteiligt sind."
+          ]
+        },
+        {
+          "heading": "Beispiel: eine Auswahl mit einem echten Fall",
+          "paragraphs": [
+            "Die Muster Metall GmbH, ein erfundener Betrieb mit 80 Beschäftigten und externem Datenschutzbeauftragten, führt ihr Verzeichnis bisher in einer Tabelle. Verträge liegen in einem Ordner, Anfragen im Postfach der Geschäftsführung.",
+            "Sie spielt in zwei Testzugängen einen Fall durch, den sie im letzten Jahr wirklich hatte: die Auskunftsanfrage eines früheren Mitarbeiters. Sie prüft, ob die Software die Frist zeigt, welche Einträge im Verzeichnis betroffen sind und ob sich die Antwort mit Datum ablegen lässt.",
+            "Am Ende exportiert sie alles und öffnet die Datei. Eine Software, deren Daten sich nicht vollständig exportieren lassen, scheidet aus."
+          ]
+        },
+        {
+          "heading": "Welche Fehler Sie beim Kauf vermeiden sollten",
+          "paragraphs": [
+            "Kaufen Sie keine Software, bevor jemand im Unternehmen zuständig ist. Ohne eine Person, die Einträge pflegt, bleibt sie leer.",
+            "Erwarten Sie nicht, dass die Software Pflichten erfüllt. Sie hält fest, was Ihr Unternehmen entschieden und getan hat, und ihre Vorlagen beschreiben einen anderen Betrieb, bis Sie sie anpassen.",
+            "Entscheiden Sie nicht ohne Ihren Datenschutzbeauftragten. Er soll seine Aufgaben nach Art. 39 damit erfüllen können, etwa die Überwachung der Einhaltung."
+          ]
+        },
+        {
+          "heading": "Mit einem KI Assistenten: was eine Software dafür bieten sollte",
+          "paragraphs": [
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann Einträge für das Verzeichnis entwerfen, Verträge mit den Punkten aus Art. 28 Abs. 3 abgleichen und eine Datenschutzfolgenabschätzung nach Art. 35 Abs. 7 gliedern. Bietet die Software einen MCP Server, also eine Schnittstelle nach dem offenen Model Context Protocol, liest und schreibt er direkt darin.",
+            "Fragen Sie dann, was der Assistent dort darf: lesen, schreiben, auch löschen? Und ob jeder Eintrag zeigt, dass ein Assistent ihn geschrieben hat. Zwecke, Fristen und Meldungen entscheidet weiter Ihr Unternehmen als Verantwortlicher.",
+            "Was der Assistent liest, verarbeitet sein Anbieter mit. Handelt er als Auftragsverarbeiter, braucht es auch mit ihm einen Vertrag nach Art. 28 Abs. 3. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Ist eine Datenschutzmanagement Software Pflicht?",
+            "a": "Nein. Die DSGVO verlangt, dass Sie die Einhaltung nachweisen können (Art. 5 Abs. 2), und für das Verzeichnis die Schriftform, die auch elektronisch sein kann (Art. 30 Abs. 3). Eine bestimmte Software schreibt sie nicht vor."
+          },
+          {
+            "q": "Reicht Excel für den Datenschutz?",
+            "a": "Für das Verzeichnis kann eine Tabelle die Schriftform erfüllen, und die DSK stellt selbst ein Muster bereit. Schwieriger wird es bei Fristen, Verknüpfungen zwischen Verträgen und Tätigkeiten und der Frage, wer wann etwas geändert hat. Dort lohnt der Vergleich mit einer Software."
+          },
+          {
+            "q": "Ersetzt eine Software den Datenschutzbeauftragten?",
+            "a": "Nein. Ob Sie einen benennen müssen, regeln Art. 37 DSGVO und in Deutschland § 38 Abs. 1 BDSG, etwa wenn Sie in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigen. Eine Software kann ihm zuarbeiten, benannt wird eine Person."
+          },
+          {
+            "q": "Datenschutzmanagement und ISMS: braucht man beides?",
+            "a": "Ein ISMS (Informationssicherheitsmanagementsystem) schützt die Informationen und Systeme Ihres Unternehmens, etwa für die Pflichten aus NIS 2. Datenschutzmanagement fragt nach dem Risiko für die Menschen, deren Daten Sie verarbeiten. Die DSK nennt das Verzeichnis ein wesentliches Element eines umfassenden Managementsystems für Datenschutz und Informationssicherheit; einige Unterlagen überschneiden sich, etwa die TOMs."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Verordnung (EU) 2016/679 (DSGVO), Art. 5, 12, 24, 28, 30, 32, 33, 35, 37 und 39, CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 8, Maßnahmenplan für Unternehmen, Stand 17.12.2018, datenschutzkonferenz-online.de",
+          "DSK, Hinweise zum Verzeichnis von Verarbeitungstätigkeiten und Muster für Verantwortliche nach Art. 30 Abs. 1, beide Stand Februar 2018, datenschutzkonferenz-online.de",
+          "Bundesdatenschutzgesetz (BDSG), § 38, gesetze-im-internet.de"
+        ]
+      }
+    }
+  }
+}

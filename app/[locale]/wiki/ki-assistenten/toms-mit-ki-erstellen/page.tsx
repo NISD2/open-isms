@@ -9,6 +9,7 @@ const page = assistantPage({
   level: "Intermediate",
   audienceType: "Datenschutzbeauftragte und IT-Verantwortliche",
   citations: ["gdpr", "nis2"],
+  waitlist: true,
 });
 
 export const generateMetadata = page.metadata;

@@ -71,6 +71,7 @@ export const EXTRA_CATEGORY_SLUGS: Record<WikiTopLevel, Extra> = {
     fr: "assistants-ia",
     it: "assistenti-ia",
   },
+  dsgvo: { pl: "rodo", ro: "gdpr", fr: "rgpd", it: "gdpr" },
   "recht-und-folgen": {
     pl: "prawo-i-konsekwencje",
     ro: "drept-si-consecinte",

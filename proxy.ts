@@ -95,6 +95,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/toms",
   "/vermittlung",
   "/vertrauen",
+  "/vormerken/dsgvo",
   // Public course overview and landing pages. /training itself is the portal's records page.
   "/kurse",
   "/training/cra-sbom",

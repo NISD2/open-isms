@@ -909,7 +909,8 @@
           "auth": "Benutzerauthentifizierung und Kontoverwaltung (Art. 6 Abs. 1 lit. b DSGVO)",
           "security": "Gewährleistung der Sicherheit und Integrität unserer Plattform (Art. 6 Abs. 1 lit. f DSGVO - berechtigtes Interesse)",
           "legal": "Erfüllung rechtlicher Verpflichtungen (Art. 6 Abs. 1 lit. c DSGVO)",
-          "crm": "Betreuung von Kunden und Interessenten in unserem Vertriebssystem, damit wir Sie zu unserem Angebot beraten und Anfragen nachverfolgen können (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse). Sie können dieser Verarbeitung jederzeit widersprechen."
+          "crm": "Betreuung von Kunden und Interessenten in unserem Vertriebssystem, damit wir Sie zu unserem Angebot beraten und Anfragen nachverfolgen können (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse). Sie können dieser Verarbeitung jederzeit widersprechen.",
+          "waitlist": "Vormerkung für den DSGVO Durchgang: Wenn Sie sich unter /vormerken/dsgvo vormerken lassen, speichern wir das mit Datum in Ihrem Konto und schreiben Ihnen an die E-Mail-Adresse Ihres Kontos, sobald der DSGVO Durchgang bereitsteht (Art. 6 Abs. 1 lit. a DSGVO, Einwilligung). Sie können die Vormerkung auf derselben Seite jederzeit beenden; das berührt die Rechtmäßigkeit der Verarbeitung bis dahin nicht."
         }
       },
       "processors": {

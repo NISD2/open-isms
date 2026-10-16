@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import type { ReactNode } from "react";
 import { SignInLink } from "@/components/auth/SignInLink";
 import { Art } from "@/components/durchgang/Art";
 import { MotionProvider } from "@/components/landing/motion";
@@ -20,11 +21,17 @@ export async function WikiAnswerHeader({
   badge,
   title,
   answer,
+  actions,
   ...picture
 }: {
   badge: string;
   title: string;
   answer: string;
+  /**
+   * The way forward for a page whose reader the walkthrough does not serve, in place of the
+   * homepage's two buttons and the page for whoever decides.
+   */
+  actions?: ReactNode;
 } & (
   | {
       /** A picture of the page's one object, under `public/`. */
@@ -50,25 +57,31 @@ export async function WikiAnswerHeader({
         <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {answer}
         </p>
-        <div
-          className={cn(
-            "mt-6 flex flex-col items-start gap-3 print:hidden",
-            // Beside the shot the column is too narrow for both: they stack, as on the homepage.
-            !picture.shot && "sm:flex-row sm:items-center",
-          )}
-        >
-          <Button
-            asChild
-            size="lg"
-            className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
-          >
-            <SignInLink query={{ mode: "register" }}>{t("guided.cta")}</SignInLink>
-          </Button>
-          <TalkFirst size="button" />
-        </div>
-        <div className="mt-3 print:hidden">
-          <ApprovalLink />
-        </div>
+        {actions ? (
+          <div className="mt-6 print:hidden">{actions}</div>
+        ) : (
+          <>
+            <div
+              className={cn(
+                "mt-6 flex flex-col items-start gap-3 print:hidden",
+                // Beside the shot the column is too narrow for both: they stack, as on the homepage.
+                !picture.shot && "sm:flex-row sm:items-center",
+              )}
+            >
+              <Button
+                asChild
+                size="lg"
+                className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
+              >
+                <SignInLink query={{ mode: "register" }}>{t("guided.cta")}</SignInLink>
+              </Button>
+              <TalkFirst size="button" />
+            </div>
+            <div className="mt-3 print:hidden">
+              <ApprovalLink />
+            </div>
+          </>
+        )}
       </div>
       {picture.shot ? (
         <div className="print:hidden">

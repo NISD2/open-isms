@@ -909,7 +909,8 @@
           "auth": "User authentication and account management (Art. 6(1)(b) GDPR)",
           "security": "Ensuring the security and integrity of our platform (Art. 6(1)(f) GDPR - legitimate interest)",
           "legal": "Compliance with legal obligations (Art. 6(1)(c) GDPR)",
-          "crm": "Looking after customers and prospects in our sales system, so we can advise you about our offer and follow up on requests (Art. 6(1)(f) GDPR, legitimate interest). You can object to this processing at any time."
+          "crm": "Looking after customers and prospects in our sales system, so we can advise you about our offer and follow up on requests (Art. 6(1)(f) GDPR, legitimate interest). You can object to this processing at any time.",
+          "waitlist": "Waitlist for the DSGVO Durchgang: if you join the waitlist at /vormerken/dsgvo, we store that with its date on your account and write to your account's email address once the DSGVO Durchgang is available (Art. 6(1)(a) GDPR, consent). You can leave the waitlist on the same page at any time; this does not affect the lawfulness of processing before you leave."
         }
       },
       "processors": {

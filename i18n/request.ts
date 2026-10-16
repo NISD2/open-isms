@@ -21,6 +21,7 @@ const namespaces = [
   "export",
   "funnel",
   "gap-assessment",
+  "gdpr",
   "guide",
   "help",
   "grcComparison",

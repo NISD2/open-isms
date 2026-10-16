@@ -1,0 +1,1477 @@
+{
+  "gdpr": {
+    "related": "Read next",
+    "waitlist": {
+      "eyebrow": "In the works",
+      "heading": "The GDPR walkthrough",
+      "body": "After the NIS 2 walkthrough, nisd2.eu is building a GDPR walkthrough. It will work with the same MCP server, so your own AI assistant can fill it in too. We are not naming a date yet. Join the waitlist and we will write to you once it is ready.",
+      "cta": "Join the waitlist",
+      "note": "With a free account on nisd2.eu. You can leave the waitlist at any time on the same page."
+    },
+    "waitlistPage": {
+      "title": "Join the GDPR walkthrough waitlist",
+      "lead": "A GDPR walkthrough on nisd2.eu is in the works and will work with the same MCP server as the NIS 2 walkthrough. Join the waitlist and we will write to you once it is ready.",
+      "register": "Create a free account and join",
+      "signIn": "I already have an account: sign in",
+      "join": "Join the waitlist",
+      "joined": "You have been on the waitlist since {date}.",
+      "leave": "Leave the waitlist",
+      "privacy": "We store your place on the waitlist with its date on your account and write to its email address once the GDPR walkthrough is ready.",
+      "privacyLink": "Privacy policy"
+    },
+    "chatgptPrivacy": {
+      "meta": {
+        "title": "ChatGPT data protection at work: what the GDPR requires",
+        "description": "ChatGPT at work under the GDPR: which plan, which contract with OpenAI, training and transfers. And where ChatGPT belongs in the NIS2 walkthrough."
+      },
+      "badge": "ChatGPT · GDPR",
+      "title": "ChatGPT and data protection at work: what does the GDPR require?",
+      "subtitle": "If your company uses ChatGPT with personal data, you need a legal basis, a data processing agreement where OpenAI acts on your behalf, and a basis for transfers outside the EU. For Business, Enterprise and Edu, OpenAI writes that it does not use the data for training by default. We could not read OpenAI's contract.",
+      "sections": [
+        {
+          "heading": "May a company use ChatGPT under the GDPR?",
+          "paragraphs": [
+            "Yes, the GDPR bans no particular program. It governs how your company processes personal data, meaning any information about an identified or identifiable person (Art. 4(1) GDPR).",
+            "Such data gets into ChatGPT easily: a customer email to rephrase, a list of names, your staff's accounts with OpenAI. An answer can contain personal data even when the question did not, as Germany's data protection authorities (DSK) note in their AI guidance (para. 52).",
+            "Every step in which ChatGPT processes personal data needs a legal basis under Art. 6(1) GDPR. Health data and the other special categories are also covered by Art. 9."
+          ],
+          "law": "Art. 4(1) · Art. 6(1) · Art. 9(1) GDPR"
+        },
+        {
+          "heading": "Which ChatGPT plan is meant for company data?",
+          "paragraphs": [
+            "OpenAI names the plans Free, Go, Plus, Pro, Business, Edu and Enterprise. For Business, Enterprise and Edu workspaces, OpenAI's admin documentation says the data is encrypted in transit and at rest and is not used to train OpenAI models by default (as of October 2026).",
+            "For the API, through which your own software calls OpenAI's models directly, OpenAI writes that since 1 March 2023 data sent to the API is not used for training unless you explicitly opt in. Abuse monitoring logs, which can contain prompts and responses, are kept for up to 30 days by default.",
+            "For Free, Go, Plus and Pro, the training rules sit on OpenAI pages we could not open on 16 October 2026. The DSK advises providing work accounts and devices for professional use in any case, so nobody has to work with a private account (para. 41)."
+          ]
+        },
+        {
+          "heading": "Do you need a DPA with OpenAI?",
+          "paragraphs": [
+            "If OpenAI processes personal data on your behalf, it is your processor (Art. 4(8) GDPR). You then need a contract under Art. 28(3), usually called a DPA, which may be concluded electronically (Art. 28(9)). For cloud AI, the DSK often sees exactly this relationship (para. 32).",
+            "Among other things, the contract states that OpenAI processes only on your documented instructions (Art. 28(3)(a)). A processor that infringes the GDPR by deciding purposes and means itself is treated as a controller for that processing (Art. 28(10)). That is why the training question belongs in the check.",
+            "On its trust portal OpenAI writes that it can sign a DPA with customers, and points to a form for this and to its Data Processing Addendum under openai.com/policies. We could not read the text: openai.com refused us access on 16 and 17 October 2026. Check what it settles and which plans it covers in your contract with OpenAI."
+          ],
+          "law": "Art. 4(8) · Art. 28(3), (9) and (10) GDPR"
+        },
+        {
+          "heading": "What applies when the data leaves the EU?",
+          "paragraphs": [
+            "A transfer to a country outside the EU is allowed only under the conditions of Art. 44 onwards, for example with a Commission adequacy decision (Art. 45) or the Commission's standard data protection clauses (Art. 46(2)(c)), usually called standard contractual clauses.",
+            "For the API, OpenAI offers a region “Europe (EEA + Switzerland)” for storage and processing, subject to OpenAI's approval and excluding system data such as account and billing data. For ChatGPT, OpenAI says data residency depends on the agreement, region and configuration; we could not open its help page on this.",
+            "Which safeguard OpenAI relies on for transfers we could not check. Ask for it. The third country goes into your record of processing activities (Art. 30(1)(e)), the safeguard into your privacy notice (Art. 13(1)(f))."
+          ],
+          "law": "Art. 44 · Art. 45(1) · Art. 46(2)(c) · Art. 13(1)(f) · Art. 30(1)(e) GDPR"
+        },
+        {
+          "heading": "An example, and what often goes wrong",
+          "paragraphs": [
+            "Kemper Lohse GmbH, a made-up maker of conveyor belts, wants to use ChatGPT in sales. It sets up a Business workspace and puts in writing: quotes and product texts yes, applications and personnel files no.",
+            "It then adds OpenAI as a recipient to its record of processing activities, together with the transfer and the third country (Art. 30(1)(d) and (e)). Its privacy notice for customers names the recipients and the safeguard for the transfer (Art. 13(1)(e) and (f)).",
+            "Common mistakes: staff keep using private accounts. Names are deleted as if that made the text anonymous; the DSK considers that usually insufficient, because the context can give the person away (para. 49). And an AI that evaluates applications and sends the invitations itself infringes Art. 22(1), according to the DSK (para. 13)."
+          ],
+          "law": "Art. 13(1)(e) and (f) · Art. 22(1) · Art. 30(1) GDPR"
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An assistant such as ChatGPT or Claude can prepare this check. It compares a contract you hold with Art. 28(3), drafts an entry for your record and words a usage rule for staff.",
+            "Which plan, which data is allowed and whether the contract fits is decided by your company as controller (Art. 5(2)). Give the assistant contracts and policies for this, not personnel data, because its provider processes whatever it reads.",
+            "A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough. Through that server an AI assistant already enters information into the NIS 2 walkthrough today, with the rights of the person who connected it."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "If your company falls under NIS 2, the walkthrough already holds ChatGPT as software and OpenAI as a supplier; for the GDPR that is starting material.",
+        "points": [
+          "2.2 Write down what your company has: on “Software everyone uses” you tick “AI assistants (ChatGPT, Microsoft Copilot)”. On “Which software exactly, and from whom?” you enter the plan under “What exactly”, for example ChatGPT Business, and OpenAI under “From whom”.",
+          "5.1 Write down who works for you: whoever you named as provider in 2.2 is already on “Your suppliers”. Under “What they do for you” you record what your people use ChatGPT for and which data it sees.",
+          "Where the walkthrough stops: none of these screens asks whether OpenAI is your processor, on which legal basis you enter data or which safeguard a transfer relies on. That belongs in your record of processing activities and your privacy notice."
+        ],
+        "seeItAlt": "Item 2.2 in the NIS 2 walkthrough, screen “What your company does every day” with “72 entries on your list”: in the section “Business processes” 12 of 14 processes are ticked, for example “Sales and customer service” and “HR and payroll administration”. On the right under “Often missed”: software you rent from the cloud belongs on the list too",
+        "next": "Record ChatGPT in 2.2"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Is ChatGPT GDPR compliant?",
+            "a": "The GDPR assesses processing, meaning how your company uses ChatGPT. What counts is the legal basis, the contract with OpenAI, transfers outside the EU and your internal rules. For Business, Enterprise and Edu, OpenAI writes that it does not use the data for training by default; the other checks stay with you."
+          },
+          {
+            "q": "Can I enter customer data into ChatGPT?",
+            "a": "You need a legal basis (Art. 6(1) GDPR) and, where OpenAI acts on your behalf, a contract under Art. 28. Enter only what the purpose needs (Art. 5(1)(c)) and name the recipients in your privacy notice (Art. 13(1)(e))."
+          },
+          {
+            "q": "Does OpenAI use my prompts for training?",
+            "a": "For ChatGPT Business, Enterprise and Edu, OpenAI says not by default. For the API the same has applied since 1 March 2023 unless you explicitly opt in. For Free, Go, Plus and Pro we could not read the rules, because OpenAI's pages could not be opened on 16 October 2026."
+          },
+          {
+            "q": "Does ChatGPT go into the record of processing activities?",
+            "a": "Yes, if your company processes personal data with it and has to keep a record. The record lists the recipients, including those in third countries, and transfers there (Art. 30(1)(d) and (e) GDPR). When a company with fewer than 250 employees is exempt is set out in Art. 30(5); our article on the record of processing activities explains the exception."
+          },
+          {
+            "q": "Is Microsoft Copilot the same as ChatGPT?",
+            "a": "No. Copilot is a Microsoft service that also uses models from OpenAI, which Microsoft names as a subprocessor for this. For Copilot as organisations use it, Microsoft says its Data Protection Addendum and Product Terms apply, with Microsoft acting as processor (as of October 2026)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 4, 5, 6, 9, 13, 22, 28, 30 and 44 to 46, OJ L 119 of 4.5.2016, CELEX 32016R0679, publications.europa.eu",
+          "OpenAI, Data controls in the OpenAI platform, developers.openai.com/api/docs/guides/your-data, as of October 2026",
+          "OpenAI, ChatGPT Work cloud security, learn.chatgpt.com/docs/enterprise/chatgpt-work-cloud-security, and trust portal, trust.openai.com, as of October 2026; openai.com/policies and help.openai.com could not be opened on 16 and 17 October 2026",
+          "Microsoft, Enterprise data protection in Microsoft Copilot and Microsoft Copilot privacy, learn.microsoft.com, as of October 2026",
+          "Datenschutzkonferenz (DSK), Orientierungshilfe Künstliche Intelligenz und Datenschutz, version 1.0 of 6 May 2024, paras. 13, 32, 41, 49 and 52, datenschutzkonferenz-online.de",
+          "open-isms, messages/durchgang (items 2.2 and 5.1) and messages/assetInventory, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "claudeGdpr": {
+      "meta": {
+        "title": "Claude GDPR: is Claude GDPR compliant for companies?",
+        "description": "Claude and the GDPR: consumer plan or Claude for Work, DPA with Anthropic, training and US storage. And where Claude belongs in the NIS2 walkthrough."
+      },
+      "badge": "Claude · GDPR",
+      "title": "Is Claude GDPR compliant?",
+      "subtitle": "For work, Anthropic provides its business offerings: Claude for Work with Team and Enterprise, and the Anthropic API. There Anthropic is your processor under its own contract, with standard contractual clauses for the US, and does not use your inputs for training by default. Whether your use meets the GDPR then depends on your legal basis and internal rules.",
+      "sections": [
+        {
+          "heading": "Which Claude is meant for work?",
+          "paragraphs": [
+            "Anthropic separates two groups. The consumer plans are Claude Free, Pro and Max. The business offerings are Claude for Work with the Team and Enterprise plans, and the Anthropic API, through which your own software calls Claude.",
+            "The consumer terms Anthropic publishes for the EEA apply to people acting mainly outside their trade or profession. In them the user agrees not to use the services for business purposes (version of 8 October 2025).",
+            "For your company, that leaves Claude for Work or the API. Both are governed by the Commercial Terms of Service, under which the contracting party for customers in the EEA is Anthropic Ireland, Limited."
+          ]
+        },
+        {
+          "heading": "Is Anthropic a processor, and where is the DPA?",
+          "paragraphs": [
+            "For the business offerings, yes. Under Anthropic's Data Processing Addendum (DPA), the customer is the controller of personal data and Anthropic its processor (Art. 4(7) and (8) GDPR). The DPA is part of the Commercial Terms: according to Anthropic, accepting them means accepting the DPA.",
+            "The GDPR allows such a contract in electronic form (Art. 28(9)). Still check that it covers the points of Art. 28(3), and file the version that applied when you signed up.",
+            "From the version of 24 February 2025: Anthropic notifies a security breach affecting your personal data without undue delay and within 48 hours at the latest. It assists you with a data protection impact assessment, and after the contract ends it deletes your data within 30 days, with exceptions such as legal obligations."
+          ],
+          "law": "Art. 4(7) and (8) · Art. 28(3) and (9) GDPR"
+        },
+        {
+          "heading": "Does Anthropic train on your data?",
+          "paragraphs": [
+            "For the business offerings, Anthropic writes that it does not use inputs and outputs for training by default. The Commercial Terms put it more briefly: Anthropic may not train models on customer content from the services.",
+            "Feedback is an exception. When someone clicks thumbs up or down, Anthropic stores the whole conversation for up to five years and, by its own account, may also use it for training. Owners of a Team or Enterprise plan can switch this off for everyone with the “Rate chats” setting under “Data and Privacy”.",
+            "On Free, Pro and Max, each person decides in their settings whether Anthropic may use their chats for training; if so, Anthropic keeps them for that purpose for up to five years. Chats flagged by safety classifiers may be used for Anthropic's safety models even without that permission."
+          ]
+        },
+        {
+          "heading": "Where does Anthropic process and store the data?",
+          "paragraphs": [
+            "According to Anthropic, traffic from the business offerings is routed by default to select countries in the US, Europe, Asia and Australia unless agreed otherwise. The data is stored in the US (as of October 2026).",
+            "For the API, Anthropic names “global”, the default, or “us” as the place of processing, and currently only “us” as a workspace's storage location. The pages we read describe no setting that keeps data in the EU.",
+            "For the transfer, the DPA incorporates the Commission's standard data protection clauses, usually called standard contractual clauses, Modules Two and Three (Art. 46(2)(c) GDPR). The US as destination belongs in your record of processing activities (Art. 30(1)(e)), the safeguard in your privacy notice (Art. 13(1)(f))."
+          ],
+          "law": "Art. 44 · Art. 46(2)(c) · Art. 13(1)(f) · Art. 30(1)(e) GDPR"
+        },
+        {
+          "heading": "An example, and what often goes wrong",
+          "paragraphs": [
+            "Kemper Lohse GmbH, a made-up maker of conveyor belts, wants to use Claude in engineering, for example for maintenance manuals. It books Claude Team, files the DPA with its contracts and enters Anthropic, with the transfer to the US, in its record.",
+            "Its internal rule says: technical documents yes, personnel files and health data no. The owner switches off “Rate chats” so that no conversations reach Anthropic through the feedback button.",
+            "Common mistakes: engineers keep working with private Pro accounts, although the consumer terms exclude business purposes and Germany's data protection authorities (DSK) advise work accounts (para. 41). Or the company account is in place, but the record and the privacy notice do not yet name the new recipient (Art. 13(1)(e))."
+          ],
+          "law": "Art. 13(1)(e) · Art. 30(1) GDPR"
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An assistant, Claude itself included, can compare Anthropic's DPA with Art. 28(3), draft an entry for your record and write a usage rule.",
+            "Whether the result is right and which data is allowed is decided and answered for by your company (Art. 5(2) GDPR). Give the assistant contracts and policies for this, not personnel data, because its provider processes whatever it reads.",
+            "A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough. Through that server an AI assistant already enters information into the NIS 2 walkthrough today, with the rights of the person who connected it."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "If your company falls under NIS 2, the walkthrough holds Claude as software and Anthropic as a supplier; for the GDPR that is starting material.",
+        "points": [
+          "2.2 Write down what your company has: on “Software everyone uses” you tick “AI assistants (ChatGPT, Microsoft Copilot)”, also if you use Claude. On “Which software exactly, and from whom?” you enter, for example, Claude Team under “What exactly” and Anthropic under “From whom”.",
+          "5.1 Write down who works for you: Anthropic is then already on “Your suppliers”. Under “What they do for you” you record what your people use Claude for and which data it sees.",
+          "Where the walkthrough stops: none of these screens asks whether a DPA applies, on which legal basis you enter data or that the data is stored in the US. That belongs in your record of processing activities."
+        ],
+        "seeItAlt": "Item 2.2 in the NIS 2 walkthrough, screen “What your company does every day” with “72 entries on your list”: in the section “Business processes” 12 of 14 processes are ticked, for example “Sales and customer service” and “HR and payroll administration”. On the right under “Often missed”: software you rent from the cloud belongs on the list too",
+        "next": "Record Claude in 2.2"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Can I use Claude Pro for work?",
+            "a": "The consumer terms for the EEA also cover Claude Pro, and in them the user agrees not to use the services for business purposes. For company data, Anthropic provides Claude for Work or the API, with a DPA and Anthropic as processor."
+          },
+          {
+            "q": "Does Anthropic have an EU entity?",
+            "a": "Customers in the EEA conclude the Commercial Terms with Anthropic Ireland, Limited, and for consumer accounts in the EEA it is the controller according to the privacy policy. Even so, Anthropic says the data is stored in the US, so transfers still need a basis."
+          },
+          {
+            "q": "Do I have to sign Anthropic's DPA?",
+            "a": "Anthropic writes that the DPA with standard contractual clauses is automatically part of the Commercial Terms; accepting them means accepting the DPA. The page describes no separate signature. The GDPR requires the contract to be in writing, which may be in electronic form (Art. 28(9))."
+          },
+          {
+            "q": "Does the EU Data Boundary cover Claude in Microsoft Copilot?",
+            "a": "Not according to Microsoft: models provided by Anthropic as a subprocessor in Copilot are currently excluded from the EU Data Boundary (as of October 2026). According to Microsoft, your admin decides whether these models are used in Copilot."
+          },
+          {
+            "q": "Which certifications does Anthropic hold?",
+            "a": "Anthropic's privacy center lists ISO 27001:2022, ISO/IEC 42001:2023 and SOC 2 Type I and II. Under the DPA it provides audit reports on written request. That is material for your check under Art. 28(1) of whether Anthropic gives sufficient guarantees; the decision stays with you."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 4, 5, 13, 28, 30, 44 and 46, OJ L 119 of 4.5.2016, CELEX 32016R0679, publications.europa.eu",
+          "Anthropic, Commercial Terms of Service (version of 17 June 2025), Data Processing Addendum (24 February 2025), Consumer Terms of Service for the EEA (8 October 2025) and Privacy Policy (10 September 2026), anthropic.com/legal, as of October 2026",
+          "Anthropic Privacy Center, articles 7996868, 7996862, 7996890, 9267385, 10015870, 10023548, 10023580 and 12109829, privacy.claude.com, and Data residency, platform.claude.com/docs, as of October 2026",
+          "Microsoft, Microsoft Copilot privacy, section on the EU Data Boundary, learn.microsoft.com, as of October 2026",
+          "Datenschutzkonferenz (DSK), Orientierungshilfe Künstliche Intelligenz und Datenschutz, version 1.0 of 6 May 2024, para. 41, datenschutzkonferenz-online.de",
+          "open-isms, messages/durchgang (items 2.2 and 5.1) and messages/assetInventory, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "aiPrivacy": {
+      "meta": {
+        "title": "AI data protection at work: what the GDPR requires",
+        "description": "AI at work under the GDPR: legal basis, DPA, transfers, training, rules for staff and DPIA. And where AI tools appear in the NIS2 walkthrough."
+      },
+      "badge": "AI · GDPR",
+      "title": "AI and data protection at work: what the GDPR requires",
+      "subtitle": "The GDPR does not mention AI. As soon as an AI tool processes personal data, its general duties apply: a legal basis, a contract with the provider, the rules for third countries, instructions for staff and, where the risk is high, a data protection impact assessment. Germany's data protection authorities published guidance on this in 2024.",
+      "sections": [
+        {
+          "heading": "When does the GDPR apply to AI at work?",
+          "paragraphs": [
+            "The GDPR applies to the automated processing of personal data (Art. 2(1)), whatever the tool; the protection is meant to be technologically neutral (recital 15). An AI assistant falls under it as soon as information about an identified or identifiable person goes in or comes out (Art. 4(1)).",
+            "That happens quickly. Your staff's accounts with the provider already contain personal data. And a question without names can produce an answer that refers to a person, as Germany's data protection authorities (DSK) note in their AI guidance of 6 May 2024 (para. 52).",
+            "Your company remains the controller because it decides on purpose and means (Art. 4(7)), and it must be able to demonstrate compliance (Art. 5(2)). Every processing step involving AI needs a legal basis (Art. 6(1); DSK para. 9)."
+          ],
+          "law": "Art. 2(1) · Art. 4(1) and (7) · Art. 5(2) · Art. 6(1) GDPR"
+        },
+        {
+          "heading": "What do you check with the AI provider?",
+          "paragraphs": [
+            "If the AI runs in a provider's cloud, the DSK says the provider is often your processor, and you need a contract under Art. 28(3) GDPR, usually called a DPA (para. 32). You may use only providers that give sufficient guarantees (Art. 28(1)).",
+            "Find out whether inputs and outputs go into training and whether that can be excluded. The DSK prefers applications that do not use your data for training (para. 24).",
+            "If data goes to a country outside the EU, you need a basis under Art. 44 onwards, for example an adequacy decision (Art. 45) or the Commission's standard data protection clauses (Art. 46(2)(c)). Recipients and transfers belong in the record of processing activities (Art. 30(1)(d) and (e)) and in the privacy notice (Art. 13(1)(e) and (f)).",
+            "What the providers say (as of October 2026): OpenAI does not use data from ChatGPT Business, Enterprise and Edu for training by default; we could not read its data processing agreement. Anthropic acts as processor for Claude for Work and the API, and Microsoft does for Copilot as organisations use it. More in our articles on ChatGPT and on Claude."
+          ],
+          "law": "Art. 28(1) and (3) · Art. 30(1) · Art. 44 to 46 GDPR"
+        },
+        {
+          "heading": "Which rules do your staff need?",
+          "paragraphs": [
+            "The DSK assumes that in many companies staff use AI on their own initiative (para. 36). It recommends documented instructions on whether, under which conditions and for what purposes which AI application is allowed, ideally with examples. The GDPR requires steps so that staff process personal data only on instructions (Art. 32(4)).",
+            "Provide work accounts and devices so nobody has to work with a private account (para. 41). As a privacy-friendly default under Art. 25, the DSK names accounts whose inputs are not used for training and which keep no input history beyond the session (para. 43).",
+            "Deleting names is usually not enough, the DSK says, because the context can give the person away (para. 49). Results that refer to people must be checked before they are processed further (para. 65).",
+            "Involve the data protection officer, and check whether the works council should take part, where there is one (para. 31). In some cases, introducing an AI application triggers the works council's co-determination right, according to the DSK (para. 37)."
+          ],
+          "law": "Art. 25 · Art. 32(4) GDPR"
+        },
+        {
+          "heading": "When does AI need a data protection impact assessment?",
+          "paragraphs": [
+            "Where processing, in particular using new technologies, is likely to result in a high risk to the rights and freedoms of people, the controller assesses the impact beforehand (Art. 35(1)). For AI, the DSK expects this to be the case in many instances (para. 39).",
+            "The DSK's list of processing that requires a DPIA in the private sector, the “Muss-Liste”, expressly names AI that steers the interaction with data subjects or evaluates personal aspects (no. 11), for example a system that advises customers in conversation and processes their data.",
+            "Decisions with legal effect may in principle be taken only by people under Art. 22(1), and with real room to decide, the DSK writes (para. 12). It calls an AI that evaluates applications and sends the invitations itself an infringement (para. 13)."
+          ],
+          "law": "Art. 22(1) · Art. 35(1) GDPR"
+        },
+        {
+          "heading": "An example, and what often goes wrong",
+          "paragraphs": [
+            "Kemper Lohse GmbH, a made-up maker of conveyor belts, finds that sales uses ChatGPT and engineering uses Claude, each on private accounts. It chooses one tool with a business contract, files the DPA and writes a usage rule.",
+            "HR may use AI for job ads but not for selecting applicants. For the planned chatbot on the website, the data protection officer checks whether a data protection impact assessment is needed.",
+            "Common mistakes are: having no rule, so staff use private accounts on their own; checking the provider but not updating the record and the privacy notice; and taking over results unchecked."
+          ]
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An assistant can draft the usage rule from your documents, compare a provider's DPA with Art. 28(3) and prepare an entry in the record for each AI tool.",
+            "Which tools are allowed, on which legal basis and whether a data protection impact assessment is needed is decided by your company with its data protection officer. Give the assistant policies and contracts for this, not personnel data, because its provider processes whatever it reads.",
+            "A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough. Through that server an AI assistant already enters information into the NIS 2 walkthrough today, with the rights of the person who connected it."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "For NIS 2, the walkthrough records which AI tools your company uses, who provides them and which rules apply to access; for the GDPR that is starting material.",
+        "points": [
+          "2.2 Write down what your company has: on “Software everyone uses” you tick “AI assistants (ChatGPT, Microsoft Copilot)”. On “Which software exactly, and from whom?” you name each tool under “What exactly” and its provider under “From whom”.",
+          "5.1 Write down who works for you: the providers from 2.2 are already on “Your suppliers”. Under “What they do for you” you write what your people use the tool for.",
+          "10.1 Write the staff, access and asset policy: the template already says that anything new goes on the list before it is used. Under “Further rules” you add who may use which AI tool for what; management approves the policy in 7.3.",
+          "Where the walkthrough stops: none of these screens asks about the legal basis, processing on your behalf, transfers or a data protection impact assessment. That belongs in your GDPR records."
+        ],
+        "seeItAlt": "Item 2.2 in the NIS 2 walkthrough, screen “What your company does every day” with “72 entries on your list”: in the section “Business processes” 12 of 14 processes are ticked, for example “Sales and customer service” and “HR and payroll administration”. On the right under “Often missed”: software you rent from the cloud belongs on the list too",
+        "next": "Record AI tools in 2.2"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Is AI allowed under the GDPR?",
+            "a": "The GDPR bans no technology; its protection is meant to be technologically neutral (recital 15). It requires a legal basis and the other duties for any processing of personal data, whether a person or an AI does the processing. Particular limits are set by Art. 9 for health data and the other special categories and by Art. 22 for automated decisions."
+          },
+          {
+            "q": "Can employees use private AI accounts for work?",
+            "a": "The DSK advises against it: employers should provide devices and accounts so staff do not have to work with private accounts and no profiles of them are built (para. 41). Anthropic's consumer terms for the EEA also exclude business purposes."
+          },
+          {
+            "q": "Do I have to tell customers that I use AI?",
+            "a": "If you enter personal data into an AI, inform the people concerned transparently (DSK para. 48). Your privacy notice names the recipients and any transfer to third countries with its safeguard (Art. 13(1)(e) and (f) GDPR). If the AI produces information about people that you use further, Art. 14 can also apply (para. 52)."
+          },
+          {
+            "q": "Does the AI Act apply on top of the GDPR?",
+            "a": "The DSK advises checking whether additional requirements from the European AI Regulation have to be met (para. 47). What the AI Act asks of companies that use AI is explained in our article on NIS 2 and the AI Act."
+          },
+          {
+            "q": "Are local AI models better for data protection?",
+            "a": "The DSK prefers technically closed systems, where the data stays in a contained environment and does not go into a provider's training (paras. 16 and 20). If your company runs the AI solely for its own purposes on its own servers, it is usually the sole controller (para. 32). The other GDPR duties still apply."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), recital 15, Art. 2, 4, 5, 6, 9, 13, 14, 22, 25, 28, 30, 32, 35 and 44 to 46, OJ L 119 of 4.5.2016, CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Orientierungshilfe Künstliche Intelligenz und Datenschutz, version 1.0 of 6 May 2024, datenschutzkonferenz-online.de",
+          "Datenschutzkonferenz (DSK), Liste der Verarbeitungstätigkeiten, für die eine DSFA durchzuführen ist (private sector), version 1.1, no. 11, datenschutzkonferenz-online.de",
+          "OpenAI, ChatGPT Work cloud security, learn.chatgpt.com; Anthropic, Data Processing Addendum and Consumer Terms, anthropic.com/legal; Microsoft, Enterprise data protection in Microsoft Copilot, learn.microsoft.com; all as of October 2026",
+          "open-isms, messages/durchgang (items 2.2, 5.1 and 10.1), messages/assetInventory and lib/durchgang/nis2.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "dpa": {
+      "meta": {
+        "title": "Data processing agreement (DPA): when you need one",
+        "description": "When a DPA under Art. 28 GDPR is required, what has to go in it point by point, and why the supplier list in the NIS2 walkthrough is not a DPA."
+      },
+      "badge": "DPA · Art. 28 GDPR",
+      "title": "Data processing agreement (DPA): when you need one and what goes in it",
+      "subtitle": "You need a DPA with every service provider that processes personal data on your behalf, such as the company that looks after your servers or your cloud provider (Art. 28 GDPR). It sets out subject-matter, duration, purpose, types of data and data subjects, plus eight duties of the provider from Art. 28(3).",
+      "sections": [
+        {
+          "heading": "When do you need a DPA?",
+          "paragraphs": [
+            "A processor is a body outside your company, usually another firm, that processes personal data on your behalf (Art. 4(8) GDPR). With it you conclude a contract under Art. 28(3), the DPA. It has to be in writing, and electronic form is allowed (Art. 28(9)).",
+            "The European Data Protection Board (EDPB) names two conditions: the provider is a separate company, and it processes the data for you rather than for its own purposes. Typical cases are the company that looks after your servers and accounts, your cloud provider for email and files, and the vendor of your HR software in the cloud.",
+            "You need no DPA where someone may only come across data in passing. The EDPB names the IT consultant who fixes a software bug and barely touches any data, and the cleaning company. With them you agree confidentiality and limit access."
+          ],
+          "law": "Art. 4(8) · Art. 28(1), (3) and (9) GDPR"
+        },
+        {
+          "heading": "What has to go in a DPA? The points of Art. 28(3)",
+          "paragraphs": [
+            "First the contract describes the processing: subject-matter and duration, nature and purpose, the type of personal data, the categories of data subjects, and your obligations and rights as controller. Then it binds the provider to eight points.",
+            "It processes the data only on your documented instructions, including for transfers to a country outside the EU (point a). Whoever handles the data at the provider is bound to confidentiality (point b). It takes all measures required by Art. 32, the technical and organisational measures, TOMs for short (point c).",
+            "It engages another processor only with your prior written authorisation and passes on the same obligations (point d with paragraphs 2 and 4). It helps you when data subjects exercise their rights, for example by asking for access (point e). It helps you with security, breaches, impact assessments and prior consultation under Art. 32 to 36 (point f).",
+            "At the end of the service it deletes or returns all data, at your choice, and deletes existing copies, unless the law requires them to be kept (point g). The German text has named the copies only since a correction in 2018. It makes available all information needed to demonstrate compliance and allows audits, including inspections (point h). If it thinks an instruction infringes data protection law, it tells you immediately."
+          ],
+          "law": "Art. 28(2) to (4) GDPR"
+        },
+        {
+          "heading": "Checking the vendor's own DPA",
+          "paragraphs": [
+            "Large vendors put forward their own DPA, often as part of their terms. According to the EDPB that is not a problem in itself. Whoever uses the service still takes on full responsibility, even if they could not negotiate. The EDPB expects concrete information on how the obligations will be met and which level of security applies.",
+            "Read the list of sub-processors: under a general authorisation the vendor has to inform you of each new one so that you can object (Art. 28(2)). If it changes its DPA, the EDPB says it should notify you directly; publishing the change only on its website is not enough."
+          ],
+          "law": "Art. 28(2) GDPR · EDPB Guidelines 07/2020"
+        },
+        {
+          "heading": "An example: five suppliers, three DPAs",
+          "paragraphs": [
+            "Brandt Metallbau GmbH (made up, 140 staff) goes through its list of creditors. The company that runs its servers, accounts and backups by remote access handles staff and customer data all the time: DPA. The cloud provider for email and files and the vendor of the time recording system: two more DPAs, both part of the terms, read and filed with their date.",
+            "The tax adviser's office runs payroll, and in Germany § 11(2) StBerG makes a tax adviser a controller in its own right for its clients' data: no DPA. The company that maintains the milling machines remotely sees only machine data: no DPA either. It still counts for NIS 2, because of its remote access."
+          ]
+        },
+        {
+          "heading": "Common DPA mistakes",
+          "paragraphs": [
+            "Signing a DPA with every supplier, including the tax adviser or the cleaning company. The paper then describes roles that do not exist.",
+            "Accepting the vendor's DPA without looking at the TOMs. A generic description of the measures falls short; the European Commission's standard contractual clauses expressly require a concrete one in Annex III.",
+            "Taking the DPA for your NIS 2 supplier agreement. Its duties under Art. 28(3)(c) and Art. 33(2) concern personal data; an outage or attack without such data is not covered. A supplier with no access to such data has no DPA at all."
+          ],
+          "law": "Art. 28(3)(c) · Art. 33(2) GDPR · Art. 21(2)(d) NIS 2"
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can compare a vendor's DPA with Art. 28(3) point by point and show what is missing, such as concrete TOMs or the list of sub-processors. From your supplier list it can pre-sort who is likely to be a processor.",
+            "Your company has to decide: who is a processor, whether its guarantees are sufficient (Art. 28(1)) and whether you accept a contract. Whatever you show the assistant, such as contracts with contact names, its vendor processes too; settle first under which agreement that happens.",
+            "If your assistant's vendor itself processes personal data on your behalf, you need a DPA with it as well. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ],
+          "law": "Art. 28(1) GDPR"
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "Item 5.2 records whether security requirements and the reporting of security incidents are agreed with a supplier; that is not a DPA.",
+        "points": [
+          "5.1 Write down who works for you: on “Your suppliers” each supplier is listed with what it does for you. Whether it is a processor is not something the screen asks; you settle that for each one yourself.",
+          "5.2 Record what you have agreed with your suppliers: on “What each one has agreed” you tick, per supplier, whether the contract, the data processing agreement or the terms settle “Security requirements, for example on access and updates” and “Reporting security incidents to you”. 5.2 checks none of the points of Art. 28(3).",
+          "Next to each name, 5.2 shows the level from your risk assessment in 2.3. In our reading, that tells you whose DPA to read first.",
+          "An AI assistant can fill in both screens, for example from your list of creditors and your contracts; the screen then shows that it filled them in. You check the item and finish it yourself."
+        ],
+        "seeItAlt": "The start page of the NIS 2 walkthrough: on the right, “Your path” lists the items in order, the first three ticked, “Write down what your company has” highlighted and below it “Write down who works for you” under Supply Chain Security",
+        "next": "Record suppliers and agreements"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Is there an official DPA template?",
+            "a": "Yes. The European Commission has adopted standard contractual clauses between controllers and processors (Implementing Decision (EU) 2021/915). Under its Art. 1 they fulfil the requirements of Art. 28(3) and (4) GDPR. You fill in the annexes yourself, the TOMs in Annex III in concrete terms."
+          },
+          {
+            "q": "Do you need a DPA with your tax adviser?",
+            "a": "In Germany, not for the data it processes for you as a tax adviser: § 11(2) StBerG makes it a controller for that data, working free of instructions. This applies to the professions and firms listed in § 3 StBerG, auditors among them. A payroll bureau outside that group you check like any other provider."
+          },
+          {
+            "q": "Does a DPA have to be signed?",
+            "a": "The GDPR requires writing, which may be electronic (Art. 28(9)); the text does not mention a signature on paper. Record which version you accepted and when, so you can produce the contract (Art. 5(2))."
+          },
+          {
+            "q": "Who is liable if a sub-processor fails its obligations?",
+            "a": "Towards you, the initial processor remains fully liable for it (Art. 28(4)). It has to impose on the sub-processor the same obligations that are in your DPA. So read the list of sub-processors before you agree."
+          },
+          {
+            "q": "Do you need a DPA with ChatGPT, Claude or Copilot?",
+            "a": "If the vendor processes personal data on your behalf, yes: it is then your processor (Art. 4(8) GDPR). Whether and for which products a vendor acts that way is in its terms. What that means for each assistant is covered in our articles on ChatGPT and on Claude at work."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 4(8), Art. 5(2), Art. 28 and Art. 33(2), with the German corrigendum to Art. 28(3)(g) in OJ L 127 of 23.5.2018, CELEX 32016R0679, publications.europa.eu",
+          "Commission Implementing Decision (EU) 2021/915 of 4 June 2021 on standard contractual clauses between controllers and processors, CELEX 32021D0915, publications.europa.eu",
+          "European Data Protection Board, Guidelines 07/2020 on the concepts of controller and processor in the GDPR, Version 2.1, paragraphs 76 to 89, 110 to 112 and 126, edpb.europa.eu",
+          "German Tax Advisory Act (Steuerberatungsgesetz, StBerG), § 3 and § 11(2), gesetze-im-internet.de",
+          "Directive (EU) 2022/2555 (NIS 2), Art. 21(2)(d), publications.europa.eu, and § 30(2) no. 4 BSIG, gesetze-im-internet.de",
+          "open-isms, messages/durchgang (items 5.1 and 5.2) and lib/mcp/walk.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "dpia": {
+      "meta": {
+        "title": "DPIA: when is a data protection impact assessment required?",
+        "description": "When a DPIA under Art. 35 GDPR is required, what Germany's DSK list names, what goes in it, and why the risk assessment in the NIS2 walkthrough is not one."
+      },
+      "badge": "DPIA · Art. 35 GDPR",
+      "title": "Data protection impact assessment (DPIA): when it is required and how to do it",
+      "subtitle": "A DPIA is required before you start any processing that is likely to result in a high risk to the rights and freedoms of people (Art. 35(1) GDPR). For companies in Germany, the list of the Data Protection Conference names 17 such cases, such as locating field staff or AI in customer contact.",
+      "sections": [
+        {
+          "heading": "When is a DPIA required?",
+          "paragraphs": [
+            "Art. 35(1) GDPR requires a DPIA where a processing is likely to result in a high risk to the rights and freedoms of natural persons, in particular when using new technologies. You carry it out beforehand, before the processing starts. Several similar operations with similarly high risks may be assessed together.",
+            "Paragraph 3 names three cases where it is required in any event: a systematic and extensive automated evaluation of people on which decisions with legal or similarly significant effects are based; large-scale processing of special categories of data or of data on criminal offences; and systematic large-scale monitoring of a publicly accessible area.",
+            "Whether a processing falls under this, your company checks itself. Germany's Data Protection Conference calls this first step a threshold analysis. In its view you record the decision for or against a DPIA, with reasons, in writing."
+          ],
+          "law": "Art. 35(1) and (3) GDPR"
+        },
+        {
+          "heading": "When does the DSK list apply, and what is on it?",
+          "paragraphs": [
+            "Each supervisory authority publishes a list of the kinds of processing that require a DPIA (Art. 35(4)). For companies in Germany that is the list of the Data Protection Conference (DSK) for the non-public sector, version 1.1 of 17.10.2018. If your processing is on it, the DPIA is mandatory.",
+            "In our assessment, three of the 17 entries are the closest to a business with 50 to 250 staff. No. 8: large-scale data on employees' behaviour that can be used to assess their work with legal consequences, such as locating them in the field. No. 11: AI that processes personal data to interact with people or to evaluate them. No. 1: biometric identification, for example by fingerprint for access control, where one more criterion applies.",
+            "The list is not exhaustive, as the DSK itself says. If a processing is not on it, you check Art. 35(1) with the nine criteria of the European guidelines WP 248 that the list follows: sensitive or highly personal data, vulnerable data subjects such as employees, large-scale processing, systematic monitoring, new technology, evaluation or scoring, matching or combining datasets, automated decisions with legal effect, and preventing people from exercising a right or using a contract. If a processing meets two of them, the guidelines say a DPIA is required in most cases.",
+            "If any of your processing is subject to a DPIA, in Germany you also need a data protection officer, regardless of the number of persons employed in processing (§ 38(1), second sentence, BDSG)."
+          ],
+          "law": "Art. 35(4) GDPR · § 38(1) BDSG"
+        },
+        {
+          "heading": "What goes into a DPIA",
+          "paragraphs": [
+            "Art. 35(7) sets the minimum content: a systematic description of the envisaged operations and their purposes, an assessment of whether they are necessary and proportionate for the purpose, an assessment of the risks to the data subjects, and the measures envisaged to address them.",
+            "If a data protection officer is designated, you seek their advice (paragraph 2). Where appropriate you seek the views of the data subjects or their representatives (paragraph 9); the DSK gives the works council as an example.",
+            "If a high risk remains that you cannot mitigate with appropriate measures, you consult the supervisory authority before you start (Art. 36(1), recital 84). For companies in Germany that is the authority of their federal state (§ 40 BDSG). If the risk changes later, you review the DPIA (Art. 35(11))."
+          ],
+          "law": "Art. 35(2), (7), (9) and (11) · Art. 36(1) GDPR"
+        },
+        {
+          "heading": "An example: tracking the service vans",
+          "paragraphs": [
+            "Keller Haustechnik GmbH (made up, 90 staff) wants to track its service vans by GPS so that dispatch can plan jobs better. The DSK list names locating employees to coordinate field work under no. 8. So the DPIA is due before installation.",
+            "The description records which data arise (location, time, vehicle, who is driving), who sees them and how long they are kept. On necessity Keller asks: does dispatch need the location all the time or only during a job, and what happens after hours?",
+            "The risk for the technicians is a complete movement profile that could be used to monitor performance. Keller decides on tracking only during working hours, a button for private trips, access for dispatch only and deletion after a fixed period; the works council and the data protection officer are heard. If no high risk remains after that, tracking starts and the DPIA goes into the records."
+          ]
+        },
+        {
+          "heading": "Common DPIA mistakes",
+          "paragraphs": [
+            "Writing the DPIA once the system is already running. Art. 35(1) requires it beforehand, and according to the DSK existing processing can also fall under the duty.",
+            "Taking the IT security risk analysis for a DPIA. One asks what an outage or attack costs your business. The DPIA asks what a processing means for the people whose data it uses."
+          ]
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can draft the systematic description under Art. 35(7) from your process description and the vendor's offer. It can check the processing against the DSK list and WP 248 and prepare questions for your data protection officer.",
+            "Whether there is a high risk, which measures you take and whether you consult the authority is your company's decision. Give the assistant descriptions instead of real staff data, because whatever you show it, its vendor processes too.",
+            "In our reading, having an assistant draft a DPIA from your own records does not fall under no. 11 of the list, as long as nobody is evaluated in the process. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "The walkthrough rates risks to your business; it does not replace a DPIA.",
+        "points": [
+          "2.1 Decide how you rate risks: you can adopt the method from BSI Standard 200-3, a matrix of frequency and damage with four levels. Its examples are damage to the business, such as a fire in the server room or a day without shipping.",
+          "2.3 Rate your risks: for each program, each device and each supplier you tap how often the worst realistic case happens and how big the damage would be. “Your risks at a glance” then counts the entries in each field of the matrix.",
+          "Where 2.3 stops: it does not ask about the risks to the people whose data a processing uses. In our reading you can reuse the matrix format for a DPIA, because the DSK leaves room on the method as long as the GDPR's requirements come first.",
+          "In our reading, the software in 2.2 is a good starting point for finding processing to check against the DSK list. An AI assistant can enter the ratings in 2.3; you check them and finish the item yourself."
+        ],
+        "seeItAlt": "Item 2.3 of the NIS 2 walkthrough, screen “Your risks at a glance”: a matrix of “How often it happens” (Rarely to Very frequently) against “How big the damage would be” (Negligible to Threatening the existence of the organisation), each field showing the number of entries and the level from Low to Very high, with the “Often missed” box and the legal basis on the right",
+        "next": "Rate your risks in the walkthrough"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Is there a DPIA template?",
+            "a": "The GDPR prescribes no form; Art. 35(7) sets the minimum content. The DSK's short paper no. 5 describes the steps from preparation to updating the assessment and leaves you room on the method. If you use a template, check that it covers all four contents of paragraph 7."
+          },
+          {
+            "q": "Who has to carry out the DPIA?",
+            "a": "The controller, which means your company (Art. 35(1)). The data protection officer advises where requested and monitors its performance (Art. 39(1)(c)). According to the DSK it generally takes a team that brings together data protection, risk assessment and the business unit concerned."
+          },
+          {
+            "q": "Does the DPIA have to be sent to the supervisory authority?",
+            "a": "Not of your own accord. You keep it as evidence and produce it when the authority asks for information (Art. 58(1)(a)). You have to consult the authority beforehand if a high risk remains that you cannot mitigate (Art. 36(1))."
+          },
+          {
+            "q": "Does using AI require a DPIA?",
+            "a": "Where AI processes personal data to interact with people or to evaluate personal aspects, yes: that is no. 11 on the DSK list, with customer support as an example. For other uses you check Art. 35(1), which expressly names new technologies."
+          },
+          {
+            "q": "Does the DPIA duty apply to small companies too?",
+            "a": "Yes. Art. 35 turns on the risk of the processing and names no company size. The exemption for organisations with fewer than 250 employees in Art. 30(5) concerns the record of processing activities, not the DPIA."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), recital 84, Art. 35, Art. 36, Art. 39(1)(c) and Art. 58(1)(a), CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Liste von Verarbeitungsvorgängen nach Art. 35 Abs. 4 DS-GVO für den nicht-öffentlichen Bereich, version 1.1 of 17.10.2018, datenschutzkonferenz-online.de",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 5, Datenschutz-Folgenabschätzung nach Art. 35 DS-GVO, as of 17.12.2018, datenschutzkonferenz-online.de",
+          "Article 29 Working Party, WP 248 rev.01, Guidelines on Data Protection Impact Assessment, endorsed by the European Data Protection Board, edpb.europa.eu",
+          "German Federal Data Protection Act (BDSG), § 38(1) and § 40(1), gesetze-im-internet.de",
+          "open-isms, messages/durchgang (items 2.1, 2.2 and 2.3), lib/compliance/bsi-200-3.ts and lib/mcp/walk.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "dpo": {
+      "meta": {
+        "title": "Data protection officer: when is one required?",
+        "description": "Required in Germany if you constantly employ as a rule at least 20 persons dealing with the automated processing of personal data, or run a DPIA."
+      },
+      "badge": "DPO · § 38 BDSG",
+      "title": "Data protection officer: when is one mandatory?",
+      "subtitle": "In Germany your company needs a data protection officer if it constantly employs as a rule at least 20 persons dealing with the automated processing of personal data (§ 38(1) BDSG). Regardless of that number, the duty applies to processing that needs a DPIA and in the cases of Art. 37(1) GDPR. The officer may be external.",
+      "sections": [
+        {
+          "heading": "When is a data protection officer mandatory?",
+          "paragraphs": [
+            "The GDPR requires a data protection officer in three cases (Art. 37(1)): for public authorities and bodies, where your core activities require regular and systematic monitoring of people on a large scale, and where they consist of large-scale processing of special categories of data or of data on criminal offences.",
+            "Member States may require further cases (Art. 37(4)). Germany does so in § 38(1) BDSG with two rules.",
+            "First, you designate a data protection officer if you constantly employ as a rule at least 20 persons dealing with the automated processing of personal data. Second, regardless of that number you need one if you carry out processing subject to a data protection impact assessment, or process data commercially for transfer, including anonymised transfer, or for market or opinion research."
+          ],
+          "law": "Art. 37(1) and (4) GDPR · § 38(1) BDSG"
+        },
+        {
+          "heading": "How do you count the 20 people?",
+          "paragraphs": [
+            "The wording counts people, not full-time posts, and only those constantly involved in the automated processing of personal data. The whole workforce does not count automatically.",
+            "In our reading, anyone who regularly works with such data on a computer counts, for example with customer data in the ERP system, with payroll data or with customer emails. Someone who opens such a list only occasionally is not constantly involved.",
+            "An example: Hofmann Elektrotechnik GmbH (made up) has 85 staff, 60 of them electricians on site and 25 in the office. The 25 work every day with quotes, invoices, payroll data and customer emails. That makes at least 20, so Hofmann has to designate a data protection officer.",
+            "Whether the electricians who write job reports with customer names on a tablet also count, Hofmann no longer needs to settle. With 15 people in the office it would turn on exactly that; then it is worth asking the data protection authority of its federal state."
+          ],
+          "law": "§ 38(1), first sentence, BDSG"
+        },
+        {
+          "heading": "Own employee or external service provider?",
+          "paragraphs": [
+            "Both are allowed: the data protection officer may be a staff member or fulfil the tasks on the basis of a service contract (Art. 37(6)). A group of undertakings may appoint a single one, provided they are easily accessible from each establishment (paragraph 2).",
+            "The officer is designated on the basis of expert knowledge of data protection law and practice and the ability to fulfil the tasks in Art. 39 (paragraph 5). They receive no instructions on those tasks, may not be dismissed or penalised for performing them, and report directly to the highest management level, which in a GmbH means the managing directors (Art. 38(3)).",
+            "In Germany an internal data protection officer whom you are required to designate has special protection (§ 38(2) with § 6(4) BDSG). They can be removed only by analogy with § 626 BGB and dismissed only for good cause, which still holds for one year after the role ends. With an external officer you settle term and termination in the service contract."
+          ],
+          "law": "Art. 37(2), (5) and (6) · Art. 38(3) GDPR · § 38(2) and § 6(4) BDSG"
+        },
+        {
+          "heading": "What the data protection officer does, and what stays with the company",
+          "paragraphs": [
+            "The tasks are set out in Art. 39(1). The officer informs and advises management and staff, monitors compliance with the GDPR and with your own data protection policies including training, advises on the DPIA where requested, and is the contact point for the supervisory authority.",
+            "Your company involves them early in all issues relating to the protection of personal data and gives them the resources and access to data they need (Art. 38(1) and (2)). Data subjects can contact them directly (paragraph 4).",
+            "Your company remains responsible: it has to comply with the GDPR's principles and be able to demonstrate it (Art. 5(2), Art. 24(1)). The data protection officer advises and monitors; management has to decide."
+          ],
+          "law": "Art. 38 and 39 GDPR"
+        },
+        {
+          "heading": "Common mistakes",
+          "paragraphs": [
+            "Designating the head of IT or of HR. Other tasks are allowed as long as they do not lead to a conflict of interests (Art. 38(6)). The European guidelines WP 243 list such senior positions as a rule of thumb among the conflicting ones, because they determine the purposes and means of processing.",
+            "Overlooking the second rule. A processing that requires a DPIA, such as locating field staff, makes a data protection officer necessary even below 20 people (§ 38(1), second sentence, BDSG).",
+            "Designating and forgetting. Your company publishes the officer's contact details and communicates them to the supervisory authority (Art. 37(7)); in Germany, for companies, that is the authority of their federal state (§ 40 BDSG)."
+          ],
+          "law": "Art. 37(7) · Art. 38(6) GDPR · § 38(1) and § 40 BDSG"
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can count from your organisation chart who may fall within the 20 people and list the borderline cases. It can draft the designation, a description of the tasks under Art. 39 and the paragraph for your privacy notice.",
+            "Whether you designate and whom is your company's decision, and the GDPR assigns the tasks themselves to the data protection officer. For counting, the assistant needs roles, not names; whatever you show it, its vendor processes too.",
+            "A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Can the managing director be the data protection officer?",
+            "a": "Under the guidelines WP 243, heading the company is, as a rule of thumb, one of the positions with a conflict of interests. The data protection officer may not hold a position in which they determine the purposes and means of processing, and that is exactly what management does. The officer is meant to report to it and advise it (Art. 38(3), Art. 39(1))."
+          },
+          {
+            "q": "Do part-time staff and apprentices count?",
+            "a": "§ 38 BDSG counts people, not posts, and does not ask about the type of contract. In our reading, part-time staff, apprentices and agency workers therefore count too if they are constantly involved in the automated processing of personal data."
+          },
+          {
+            "q": "Does a data protection officer need a certificate?",
+            "a": "The GDPR names no particular certificate. It requires professional qualities, expert knowledge of data protection law and practice, and the ability to fulfil the tasks in Art. 39 (Art. 37(5)). Your company provides the resources to maintain that knowledge (Art. 38(2))."
+          },
+          {
+            "q": "Can an AI be the data protection officer?",
+            "a": "In our reading, no. The GDPR requires professional qualities (Art. 37(5)), protects the data protection officer against dismissal and penalties, and binds them to secrecy (Art. 38(3) and (5)). That describes a person, or a service provider acting through people. An assistant can support them."
+          },
+          {
+            "q": "Does data protection apply at all below 20 people?",
+            "a": "Yes. The threshold in § 38 BDSG concerns only the designation of a data protection officer. The GDPR's obligations still apply, and your company has to be able to demonstrate compliance (Art. 5(2)). Some obligations have their own thresholds, such as the record of processing activities (Art. 30(5))."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 5(2), Art. 24(1), Art. 30(5), Art. 37, 38 and 39, with the corrigendum to Art. 37(1)(c) in OJ L 127 of 23.5.2018, CELEX 32016R0679, publications.europa.eu",
+          "German Federal Data Protection Act (BDSG), § 6(4), § 38 and § 40, with the official English translation, gesetze-im-internet.de",
+          "Article 29 Working Party, WP 243 rev.01, Guidelines on Data Protection Officers, section 3.5 on conflict of interests, endorsed by the European Data Protection Board, edpb.europa.eu"
+        ]
+      }
+    },
+    "breach": {
+      "meta": {
+        "title": "Personal data breach: what your company reports in 72 hours",
+        "description": "Notify a personal data breach to the authority within 72 hours where feasible. What goes in, when people are told, and what the NIS2 walkthrough records."
+      },
+      "badge": "Art. 33 · Art. 34 GDPR",
+      "title": "Personal data breach at your company: what to report within 72 hours",
+      "subtitle": "You notify a personal data breach to the competent supervisory authority without undue delay and, where feasible, within 72 hours of becoming aware of it. The only exception is a breach unlikely to result in a risk to people. If the risk is high, you also tell the people yourself. You document every breach (Art. 33 and 34 GDPR).",
+      "sections": [
+        {
+          "heading": "When do you have to report a data breach?",
+          "paragraphs": [
+            "The GDPR calls it a “personal data breach” (Art. 4(12)). It means a breach of security that leads to personal data being destroyed, lost, altered or disclosed without authorisation, or to someone accessing it without authorisation. A mistake counts as much as an attack.",
+            "The European Data Protection Board (EDPB) gives examples: a lost device with customer data, data encrypted by ransomware, an email sent to the wrong mailing list. A temporary outage counts too if it leaves data unavailable.",
+            "As controller, your company notifies the breach without undue delay and, where feasible, within 72 hours of becoming aware of it. That does not apply if the breach is unlikely to result in a risk to people's rights and freedoms. If you notify later, give the reasons for the delay (Art. 33(1))."
+          ],
+          "law": "Art. 4(12) · Art. 33(1) GDPR"
+        },
+        {
+          "heading": "When do the 72 hours start?",
+          "paragraphs": [
+            "The clock starts when your company becomes aware of the breach, not when it happened. According to the EDPB, that is the moment you have a reasonable degree of certainty that a security incident has compromised personal data. A short investigation is allowed, but it should start at once.",
+            "If the breach happens at a service provider that processes data on your behalf, it tells you without undue delay (Art. 33(2)). According to the EDPB you are, in principle, aware once it has told you. Then it is for you to notify.",
+            "If part of the information is still missing after 72 hours, notify what you know and provide the rest in phases (Art. 33(4))."
+          ],
+          "law": "Art. 33(2) and (4) GDPR"
+        },
+        {
+          "heading": "What goes into the notification, and who receives it?",
+          "paragraphs": [
+            "The notification states at least the nature of the breach, where possible with the categories and approximate number of people and records concerned. It also names a contact point such as the data protection officer, the likely consequences and your measures (Art. 33(3)). According to the EDPB, missing exact figures should not hold up the notification.",
+            "In Germany, companies usually notify the data protection authority of their federal state (§ 40 BDSG). Look up its reporting channel before you need it.",
+            "You document every breach, including one you do not notify: the facts, its effects and the remedial action taken (Art. 33(5)). The EDPB recommends also recording why you did not notify."
+          ],
+          "law": "Art. 33(3) and (5) GDPR · § 40 BDSG"
+        },
+        {
+          "heading": "When do you have to tell the people affected?",
+          "paragraphs": [
+            "If the breach is likely to result in a high risk to people, you tell them yourself without undue delay (Art. 34(1)). That threshold is higher than the one for notifying the authority.",
+            "The message explains in clear and plain language what happened and names the contact point, the likely consequences and your measures (Art. 34(2)). The EDPB advises also saying what people can do themselves, such as changing their password.",
+            "It is not needed if the data was unintelligible to anyone unauthorised, for example through encryption, or if you have since removed the high risk. If it would take disproportionate effort, a public communication takes its place (Art. 34(3))."
+          ],
+          "law": "Art. 34 GDPR"
+        },
+        {
+          "heading": "An example: an attack on the file server",
+          "paragraphs": [
+            "The fictional Hansen Logistik GmbH has 140 staff and an external data protection officer. On Monday at 7:40 its file server is encrypted, personnel files included. So the company is aware of a breach, and the 72 hours run until Thursday, 7:40.",
+            "At 11:00 the logs show that bank details and sick notes were taken. Management and the data protection officer therefore rate the risk as high. On Tuesday the notification goes to the state authority, and every employee gets a message in plain language.",
+            "Two mistakes would be easy here. The company waits for the investigation to finish, although it may add details later. Or it reports only to the BSI. If the company falls under NIS 2 and the attack is significant, it calls for an early warning there within 24 hours (Art. 23(4) NIS 2, § 32 BSIG). But NIS 2 leaves the GDPR untouched (Recital 14), and the notification under Art. 33 to the data protection authority remains your own.",
+            "Our article on a data leak under NIS 2 and the GDPR explains how the two notifications run side by side."
+          ]
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can draft the notification under Art. 33(3) from your incident notes. It structures the entry for your documentation and puts the message to the people affected into plain language.",
+            "Whether there is a risk or a high risk is your company's decision as controller. Where a data protection officer is designated, the EDPB recommends involving them from the start.",
+            "Your notes often contain personal data themselves; check first that a data processing agreement with the assistant's vendor is in place (Art. 28 GDPR). A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "Two items prepare for an emergency under NIS 2 and point to Art. 33 GDPR along the way; they do not cover the GDPR duties themselves.",
+        "points": [
+          "3.1 Plan what happens in an incident: the incident response plan the walkthrough writes from your answers says under “Reporting to the authority” that if personal data is affected, you usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR).",
+          "Under “Your emergency contacts” in 3.1, the walkthrough suggests the data protection officer as a contact. According to the plan, the person who leads in an emergency decides whether to report and notes every decision with the time. Management approves the plan in 7.3.",
+          "3.3 Know how to report an incident: the deadlines for reporting to the authority under Art. 23(4) NIS 2. Under “Often missed” it says that a personal data breach usually also goes to the data protection authority.",
+          "Not in the walkthrough: the documentation under Art. 33(5), the assessment of the risk to people and the message under Art. 34."
+        ],
+        "seeItAlt": "Start page of the NIS 2 walkthrough, “You are in the right place.”: on the right, “Your path” lists the items in order. “Register with your authority”, “Get management trained” and “Decide how you rate risks” are ticked, “Write down what your company has” is in progress, and further down come “Plan what happens in an incident” and “Know how to report an incident”",
+        "next": "Write your incident response plan"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Do I have to report a data breach that happened at our service provider?",
+            "a": "Yes, on the same conditions as a breach in your own house, if the provider processes the data on your behalf. It must tell you without undue delay (Art. 33(2)). According to the EDPB it can notify for you if your contract provides for it; the responsibility stays with you."
+          },
+          {
+            "q": "Is ransomware always a reportable data breach?",
+            "a": "It is a breach as soon as personal data becomes unavailable; whether you notify depends on the risk. In one EDPB example the malware merely encrypts, nothing is taken, and the backup restores everything in good time. Then no notification is needed, but documentation is."
+          },
+          {
+            "q": "An email went to the wrong recipient: is that a data breach?",
+            "a": "If it contained personal data, yes: it is an unauthorised disclosure. If it went to a known supplier who deletes it at your request, the EDPB says the risk may be low enough that no notification is needed. The case is documented all the same."
+          },
+          {
+            "q": "What happens if we miss the 72 hours?",
+            "a": "You notify anyway, as soon as you can, with the reasons for the delay (Art. 33(1)). The duty does not end with the deadline. Record why it took longer; the EDPB advises that too."
+          },
+          {
+            "q": "Does the notification duty apply to small companies too?",
+            "a": "Yes. Art. 33 GDPR applies to every controller, with no exception by size. Without a data protection officer, you name another contact point in the notification (Art. 33(3)(b))."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 4(12), Art. 28, 33 and 34, CELEX 32016R0679, publications.europa.eu",
+          "European Data Protection Board, Guidelines 9/2022 on personal data breach notification under GDPR, version 2.0 of 28 March 2023, edpb.europa.eu",
+          "Federal Data Protection Act (BDSG), § 40, gesetze-im-internet.de",
+          "Directive (EU) 2022/2555 (NIS 2), Recital 14 and Art. 23(4), publications.europa.eu, and BSI Act (BSIG), § 32(1), gesetze-im-internet.de",
+          "open-isms, messages/durchgang (items 3.1, 3.3 and 7.3) and lib/durchgang/nis2.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "access": {
+      "meta": {
+        "title": "Subject access request under Art. 15 GDPR: how to respond",
+        "description": "Answer a subject access request under Art. 15 GDPR within one month, with a copy of the data and the information on processing. What you may redact."
+      },
+      "badge": "Art. 15 · Art. 12 GDPR",
+      "title": "Subject access request under Art. 15 GDPR: how your company responds",
+      "subtitle": "Anyone who asks for access under Art. 15 GDPR learns from your company whether you process data about them. They get a copy of that data and information on purposes, recipients, storage period and their rights. You answer without undue delay, within one month at the latest; the first copy is free of charge.",
+      "sections": [
+        {
+          "heading": "What do you have to provide on a request under Art. 15?",
+          "paragraphs": [
+            "According to the European Data Protection Board (EDPB), the right of access has three parts. You confirm whether you process data about the person. You give access to that data, usually as a copy, and inform them about the processing (Art. 15(1) and (3)).",
+            "That information covers purposes, categories of data, recipients, storage period, the person's rights, the right to complain, the source of the data and automated decisions (Art. 15(1)). If you transfer data to a third country, also name the safeguards for it (Art. 15(2)).",
+            "The person does not have to give a reason, and you do not check what they want the information for (EDPB). The first copy is free of charge; for further copies you may charge a reasonable fee based on administrative costs (Art. 15(3))."
+          ],
+          "law": "Art. 15(1) to (3) GDPR"
+        },
+        {
+          "heading": "Which deadline applies, and how do you check who is asking?",
+          "paragraphs": [
+            "You answer without undue delay and within one month of receipt at the latest (Art. 12(3)). The period starts when the request reaches you through one of your official channels, even if nobody has read it yet. The EDPB counts like this: received on 5 March, answered by 5 April at the latest.",
+            "If requests are complex or numerous, you may extend by two months, provided you say so with reasons within the first month. If you refuse, give the reasons within one month and point to the authority and the courts (Art. 12(4)).",
+            "If you have reasonable doubts about identity, you may ask for additional information (Art. 12(6)). If you ask straight away, the EDPB says the period is suspended until you have it. It generally considers a copy of an ID document unsuitable."
+          ],
+          "law": "Art. 12(3), (4) and (6) GDPR"
+        },
+        {
+          "heading": "Where do you search, and what goes into the copy?",
+          "paragraphs": [
+            "The request covers all data about the person unless they narrow it. The EDPB expects you to search all systems, digital and on paper, with search terms such as name and customer number. That includes emails, logs and data you have derived, such as an assessment.",
+            "What counts is the state of things on receipt. Inaccurate data belongs in the answer too; data you have already deleted under your retention rules cannot be provided. Explain codes and abbreviations.",
+            "The answer comes in a lasting form, and for a request by email in a commonly used electronic format (Art. 15(3)). According to the EDPB you may send it by email if the necessary safeguards are in place."
+          ],
+          "law": "Art. 15(3) GDPR"
+        },
+        {
+          "heading": "When may you limit access?",
+          "paragraphs": [
+            "The copy must not adversely affect the rights and freedoms of others (Art. 15(4)). According to the EDPB you then redact individual passages, such as a colleague's name, and hand over the rest.",
+            "You may refuse manifestly unfounded or excessive requests, or charge a fee for them (Art. 12(5)). The EDPB reads both narrowly, and the burden of proof is yours.",
+            "National law may restrict the right of access (Art. 23 GDPR), in Germany § 34 BDSG, for example for data you keep only because of statutory retention duties. Further conditions have to be met as well. You document the reasons for a refusal (§ 34(2) BDSG)."
+          ],
+          "law": "Art. 12(5) · Art. 15(4) · Art. 23 GDPR · § 34 BDSG"
+        },
+        {
+          "heading": "An example: a former employee asks",
+          "paragraphs": [
+            "The fictional Berger Haustechnik GmbH has 90 staff and no legal department. On 5 March a fitter it dismissed a week earlier writes to its data protection address. He wants all the data about him.",
+            "The head of HR confirms receipt and gives the deadline of 5 April, as the EDPB recommends. She does not ask for ID, because the email comes from the address in his personnel file. She searches the payroll software, the time recording, the personnel file and the mailboxes.",
+            "In one performance review she redacts a colleague's name. As a recipient she names the specific tax adviser's office that runs payroll. Mistakes here would be asking for the reason because a lawsuit looms, or holding back the whole review."
+          ]
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can prepare the answer. It compiles the information under Art. 15(1) from your record of processing activities and your privacy notice, works out the deadline and marks passages about third parties. The EDPB also names both documents as a basis that you tailor to the person.",
+            "Whether the person is who they claim to be, what you redact and whether a restriction applies is your company's decision as controller.",
+            "Giving a person's data to an assistant is itself processing; check first that a data processing agreement with its vendor is in place (Art. 28 GDPR). A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Does a subject access request have to be in writing or on a form?",
+            "a": "No. The GDPR sets no particular form, the EDPB says, and the person does not have to use your form; an email to an official contact address is enough. You do not have to act on requests sent to random or clearly wrong addresses if you have offered a suitable channel."
+          },
+          {
+            "q": "What do we answer if we hold no data about the person?",
+            "a": "You tell them so, because confirming whether you process data is itself part of access (Art. 15(1)). If details are missing to find the person, tell them; they can provide them (EDPB)."
+          },
+          {
+            "q": "Is the right to a copy a separate right alongside access?",
+            "a": "No, says the EDPB: the copy is how you give access, not an additional right. If the person wishes, information given orally or inspection on site are possible too."
+          },
+          {
+            "q": "How often can someone request access?",
+            "a": "The GDPR sets no fixed number. A request can be excessive if it is repeated often (Art. 12(5)). The EDPB adds: the more often your data about the person changes, the more often they may ask."
+          },
+          {
+            "q": "Do we also have to provide data from backups?",
+            "a": "In principle, yes. § 34(1) no. 2(b) BDSG exempts data that serves only backup purposes. That applies only if answering would take disproportionate effort and any other use is ruled out by technical and organisational measures. You document the reasons (§ 34(2) BDSG)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 12, 15, 23 and 28, CELEX 32016R0679, publications.europa.eu",
+          "European Data Protection Board, Guidelines 01/2022 on data subject rights, Right of access, version 2.1 (adopted 28 March 2023, corrected 30 May 2024), edpb.europa.eu",
+          "Federal Data Protection Act (BDSG), § 34, gesetze-im-internet.de"
+        ]
+      }
+    },
+    "rights": {
+      "meta": {
+        "title": "Data subject rights under the GDPR: deadlines and duties",
+        "description": "Access, rectification, erasure, objection: which data subject rights the GDPR grants, which deadline applies to your answer and when you may refuse."
+      },
+      "badge": "Art. 12 to 22 GDPR",
+      "title": "Data subject rights under the GDPR: what your company has to answer",
+      "subtitle": "People can ask your company for access, rectification, erasure, restriction and the transfer of their data. They can object and resist decisions made solely by automated means (Art. 15 to 22 GDPR). You answer without undue delay, within one month at the latest, and in principle free of charge (Art. 12).",
+      "sections": [
+        {
+          "heading": "Which rights do people have against your company?",
+          "paragraphs": [
+            "Everyone whose data you process has these rights: access (Art. 15), rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and objection (Art. 21). There is also the right not to be subject to a decision made solely by automated means with legal or similarly significant effects (Art. 22).",
+            "That applies to employees, applicants and customers just as to contacts at suppliers. When you rectify, erase or restrict, tell every recipient of the data, unless that is impossible or takes disproportionate effort (Art. 19).",
+            "How to answer an access request is covered in our article on access under Art. 15 GDPR."
+          ],
+          "law": "Art. 15 to 22 GDPR"
+        },
+        {
+          "heading": "Which deadline and form apply to every request?",
+          "paragraphs": [
+            "Art. 12 governs all requests under Art. 15 to 22. You tell the person what you have done without undue delay and within one month of receipt at the latest. If requests are complex or numerous, you may extend by two months, giving reasons (Art. 12(3)).",
+            "If you refuse, give the reasons within one month and point to the authority and the courts (Art. 12(4)). In principle you answer free of charge; for manifestly unfounded or excessive requests you may charge a reasonable fee or refuse (Art. 12(5)).",
+            "For a mid-sized company this means in practice: requests arrive at one address, one person handles them and keeps a list with date of receipt and deadline. For access requests the European Data Protection Board (EDPB) recommends confirming receipt in writing, with the deadline."
+          ],
+          "law": "Art. 12 GDPR"
+        },
+        {
+          "heading": "When do you have to erase data, and when not?",
+          "paragraphs": [
+            "You must erase without undue delay if a ground in Art. 17(1) applies. Examples: the data is no longer needed for its purpose, the person withdraws consent, they object successfully, or the processing was unlawful.",
+            "The duty does not apply to the extent you need the data for a legal obligation or for legal claims (Art. 17(3)(b) and (e)). One example is keeping business letters and accounting vouchers under § 147 of the German Fiscal Code (AO).",
+            "On the conditions of Art. 23, national law may restrict such rights; the EDPB names §§ 32 to 37 BDSG as an example. With paper files or other non-automated processing, erasure can take disproportionate effort because of how the data is stored. If the person's interest is also low, you restrict processing instead of erasing (§ 35(1) BDSG). That does not apply to unlawfully processed data.",
+            "Restriction instead of erasure also applies where data is no longer needed but retention periods set by contract or by the organisation's articles stand in the way (§ 35(3) BDSG). How to set erasure periods in advance is covered in our article on the deletion concept."
+          ],
+          "law": "Art. 17 · Art. 23 GDPR · § 35 BDSG · § 147 AO"
+        },
+        {
+          "heading": "What applies to objection, restriction and data portability?",
+          "paragraphs": [
+            "Anyone can object to direct marketing at any time; you then stop processing their data for it (Art. 21(2) and (3)). There is nothing to weigh up here.",
+            "If processing is based on your legitimate interest (Art. 6(1)(f)), the person can object on grounds relating to their particular situation. You may continue if you demonstrate compelling legitimate grounds that override, or need the data for legal claims (Art. 21(1)). You point out both rights to object separately, at the latest at your first communication (Art. 21(4)).",
+            "Restriction means the data stays stored, but you use it only in narrow cases, such as with consent or for legal claims (Art. 18(2)). The person can ask for it, for example, while you check whether contested data is accurate.",
+            "Data portability covers data the person has provided to you and that you process by automated means on the basis of consent or a contract. They receive it in a structured, commonly used and machine-readable format (Art. 20(1))."
+          ],
+          "law": "Art. 18 · Art. 20 · Art. 21 GDPR"
+        },
+        {
+          "heading": "An example: a customer wants to be deleted",
+          "paragraphs": [
+            "A customer of the fictional Kraus Elektro GmbH (60 staff) writes to his contact in sales: “Delete all my data and stop sending me the newsletter.” That is two requests: an objection to direct marketing and a request for erasure.",
+            "Sales forwards the email at once. For access requests sent to an assigned regular contact, the EDPB expects exactly that, and we read it the same way for other requests. The address comes off the mailing list immediately. The company deletes the customer account and old quotes and tells the service provider that sends the newsletter (Art. 19).",
+            "The invoices stay, because § 147 AO requires keeping them. Within one month the company writes to the customer what has been deleted, what stays and why. Two mistakes would be easy: deleting the invoices too, or leaving the email lying in sales."
+          ]
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can sort incoming requests: which right is meant, which deadline is running, which software is affected. It drafts answers in the clear language Art. 12(1) asks for.",
+            "The weighing is your company's: whether compelling grounds override an objection, whether an exception to erasure applies, whether a request is excessive.",
+            "If you give an assistant requests with names and data, its vendor processes them too; check first that a data processing agreement is in place (Art. 28 GDPR). A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Can you object to processing that is based on a contract?",
+            "a": "Not under Art. 21(1). That objection applies to processing based on a public task or a legitimate interest (Art. 6(1)(e) or (f)). Anyone can object to direct marketing, whatever it is based on (Art. 21(2))."
+          },
+          {
+            "q": "What is the difference between erasure and restriction?",
+            "a": "Erased data is gone. Restricted data stays stored and is marked so that you process it only in a limited way from then on (Art. 4(3) GDPR). Before you lift a restriction, you inform the person (Art. 18(3))."
+          },
+          {
+            "q": "Does the right to data portability apply to paper files?",
+            "a": "No. Art. 20(1) requires that you process the data by automated means, on the basis of consent or a contract. On its wording it also covers data the person provided to you, not data you derived yourself."
+          },
+          {
+            "q": "What applies to automated decisions, for example by AI?",
+            "a": "Nobody has to be subject to a decision based solely on automated processing that has legal or similarly significant effects (Art. 22(1)). The exceptions are a contract for which it is necessary, a legal authorisation, or explicit consent. With contract and consent, the person can at least demand human intervention, express their point of view and contest the decision (Art. 22(3))."
+          },
+          {
+            "q": "May a company refuse requests from data subjects?",
+            "a": "Within narrow limits. Art. 12(5) allows it for manifestly unfounded or excessive requests, and for erasure the exceptions in Art. 17(3) apply. If you can demonstrate that you cannot identify the person, you may refuse as well (Art. 11(2) and Art. 12(2)). You give the reasons for refusing within one month."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 4(3), Art. 6, Art. 11 to 23 and Art. 28, CELEX 32016R0679, publications.europa.eu",
+          "Federal Data Protection Act (BDSG), § 35, gesetze-im-internet.de",
+          "Fiscal Code (Abgabenordnung, AO), § 147, gesetze-im-internet.de",
+          "European Data Protection Board, Guidelines 01/2022 on data subject rights, Right of access, version 2.1, edpb.europa.eu"
+        ]
+      }
+    },
+    "ropa": {
+      "meta": {
+        "title": "GDPR records of processing (ROPA): what Art. 30 requires",
+        "description": "What goes into a record of processing activities, when the under-250 exemption applies, and what the NIS2 walkthrough already records for it."
+      },
+      "badge": "Art. 30 GDPR · Records",
+      "title": "Creating a record of processing activities: what Art. 30 GDPR requires",
+      "subtitle": "The record of processing activities (ROPA) describes every processing of personal data in your company: purpose, data subjects, categories of data, recipients, third countries and, where possible, erasure time limits and TOMs (Art. 30(1) GDPR). In the view of Germany's data protection conference, the exemption for fewer than 250 employees rarely applies.",
+      "sections": [
+        {
+          "heading": "What goes into a record of processing activities?",
+          "paragraphs": [
+            "Each controller maintains a record of all processing activities under its responsibility (Art. 30(1) GDPR). The controller is your company, because it determines the purposes and means of the processing (Art. 4(7)).",
+            "It gives the name and contact details of your company and of any data protection officer. For each activity it states the purposes, the categories of data subjects and of personal data, and the categories of recipients. It adds transfers to third countries, naming the country, and, where possible, the time limits for erasure and a general description of the TOMs under Art. 32(1).",
+            "The record is kept in writing, which includes electronic form (Art. 30(3)). You make it available to the supervisory authority on request (Art. 30(4)); you do not have to publish it. If your company itself processes data on behalf of others, it keeps a second record for that under Art. 30(2)."
+          ],
+          "law": "Art. 4(7) · Art. 30(1) to (4) GDPR"
+        },
+        {
+          "heading": "Does the duty apply under 250 employees?",
+          "paragraphs": [
+            "Art. 30(5) exempts organisations employing fewer than 250 persons “unless the processing it carries out is likely to result in a risk to the rights and freedoms of data subjects, the processing is not occasional, or the processing includes special categories of data”, such as health data, or data relating to criminal convictions and offences.",
+            "One of these conditions is enough. The DSK is the conference of Germany's federal and state data protection authorities. It names payroll and customer data management as processing that is not occasional, and it expects the exemption to apply only rarely.",
+            "On that reading, a company that runs payroll or maintains customer data regularly is not exempt. The German wording of paragraph 5 was corrected in 2016 (OJ L 314, 22.11.2016), so German quotes of the original version word the exemption differently."
+          ],
+          "law": "Art. 30(5) GDPR"
+        },
+        {
+          "heading": "What is a processing activity? An example",
+          "paragraphs": [
+            "The DSK generally treats a processing activity as a business process at a suitable level of abstraction. Each new purpose is a separate activity. Name it after its purpose, such as “payroll and salary accounting”. For the software, the DSK template has an optional field, “Name des eingesetzten Verfahrens” (name of the procedure used).",
+            "A made-up example: Muster Metall GmbH has 80 employees. Its entry “payroll” gives the purpose as paying wages, the data subjects as employees, and the data as master data, bank details and tax attributes. Recipients are the tax office, social insurance bodies and banks, plus the payroll software vendor where it processes the data in its cloud.",
+            "Under third countries it says “none”, because the DSK advises stating that explicitly too. The erasure time limit names the legal provision and when the period starts. For TOMs, the entry refers to the cryptography policy and the staff, access and asset policy from the NIS 2 walkthrough. The DSK expressly allows such references to information security documents."
+          ]
+        },
+        {
+          "heading": "Which mistakes to avoid in the record",
+          "paragraphs": [
+            "A record that only lists software, such as “Microsoft 365” or “DATEV”, describes tools instead of purposes. One program often serves several activities, and one activity often uses several programs.",
+            "An entry such as “statutory retention periods” is a general reference, and in the DSK's view that is not enough: it asks for precise information. The European Data Protection Board (EDPB) recommends in its February 2026 report that the record state whether a legal obligation to retain the data exists.",
+            "A record goes out of date with every new program and every new service provider. The DSK recommends documenting changes and keeping that documentation for one year."
+          ]
+        },
+        {
+          "heading": "With an AI assistant: what it can prepare for the record",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can draft entries from your own documents: the list of your processes and software, your supplier list and your contracts. Through MCP (Model Context Protocol), an open standard, it also reads the lists in the NIS 2 walkthrough. That covers the areas assigned to the person who connected it.",
+            "Anything your documents do not state, such as a legal basis or an erasure time limit, is a suggestion in the draft. Whether an entry is correct and which time limit applies is for your company to decide as controller, with your data protection officer where one is designated.",
+            "Whatever you hand the assistant, such as payroll lists, its vendor processes too. Where the vendor acts as a processor, a contract under Art. 28(3) GDPR is required. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough.",
+            "A request to the assistant can read like this:"
+          ],
+          "code": "Use get_walkthrough to read items 2.2 and 5.1. For every ticked process that involves personal data, draft an entry for the record of processing activities under Art. 30(1) GDPR, with purpose, data subjects, categories of data, recipients, third country, erasure time limit and TOMs. Flag every field the records do not state and leave it empty. Do not enter anything in the walkthrough."
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "Item 2.2 records processes, software and their vendors: in our reading, source material for the record, but not a record under Art. 30 GDPR.",
+        "points": [
+          "2.2 Write down what your company has, screen “What your company does every day”: the processes you tick, such as “HR and payroll administration”. Each process involving personal data becomes one or more processing activities. The walkthrough does not ask for purposes, categories of data or erasure time limits.",
+          "2.2, “Software for customers, staff and money” and “Which software exactly, and from whom?”: each program with its vendor, such as the payroll software. That fits the optional field “Name des eingesetzten Verfahrens” in the DSK template. Whether a vendor processes data on your behalf or moves it to a third country is not recorded there.",
+          "On the “Export” page, “Everything in one document” contains the sections “Assets” and “Suppliers”. Admins, reviewers and management save it as a PDF and pass it to whoever handles your data protection.",
+          "That person adds purpose, data subjects, categories of data, recipients, third country, erasure time limit and TOMs per activity. If the list in 2.2 changes, the record does not change with it: compare the two whenever a program is added."
+        ],
+        "seeItAlt": "Item 2.2 of the NIS 2 walkthrough, screen “What your company does every day”: under “Business processes” 12 of 14 processes are ticked, among them “Sales and customer service”, “HR and payroll administration” and “Finance and accounting”",
+        "next": "Record your processes in the walkthrough"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Is there a template for the record of processing activities?",
+            "a": "Yes. The DSK publishes a template for controllers under Art. 30(1) GDPR on datenschutzkonferenz-online.de, dated February 2018, with notes on filling it in. It is in German and has a cover sheet for your company's details and one form per processing activity with the required information."
+          },
+          {
+            "q": "Who has to keep the record of processing activities?",
+            "a": "The controller, meaning your company (Art. 30(1)). A data protection officer informs, advises and monitors compliance (Art. 39(1)). They can look after the record, but the duty stays with the company; decide internally who maintains it."
+          },
+          {
+            "q": "Is a NIS 2 asset list the same as a record of processing activities?",
+            "a": "No. The list in 2.2 says what your company works with, so you can protect it. The Art. 30 record describes, per purpose, whose data you process, where it goes and when it is erased. One list helps you build the other."
+          },
+          {
+            "q": "How often should the record of processing activities be updated?",
+            "a": "Art. 30 sets no interval. The record covers all processing activities under your responsibility, which includes new ones. Update it whenever a new purpose, program or service provider comes in, and document the change."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 4(7), Art. 28, 30 and 39, with the German corrigenda to Art. 30(5) (OJ L 314, 22.11.2016) and Art. 30(2) (OJ L 74, 4.3.2021), CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 1 on the record of processing activities, as of 17.12.2018, datenschutzkonferenz-online.de",
+          "DSK, Hinweise zum Verzeichnis von Verarbeitungstätigkeiten and template for controllers under Art. 30(1), both February 2018, datenschutzkonferenz-online.de",
+          "European Data Protection Board (EDPB), 2025 Coordinated Enforcement Action, Implementation of the right to erasure by controllers, adopted 10 February 2026, section 4.2.5, edpb.europa.eu",
+          "open-isms, lib/durchgang/nis2.ts (item 2.2), lib/asset-inventory/catalog.ts, lib/mcp/tools.ts, messages/durchgang and messages/export, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "toms": {
+      "meta": {
+        "title": "GDPR TOMs: technical and organisational measures",
+        "description": "What Art. 32 GDPR asks of your TOMs, how to choose and describe appropriate measures, and which records in the NIS2 walkthrough already cover part of it."
+      },
+      "badge": "Art. 32 GDPR · TOMs",
+      "title": "GDPR TOMs: technical and organisational measures under Art. 32",
+      "subtitle": "TOMs are the technical and organisational measures you use to protect personal data, such as encryption, access rights, backups and rules for staff. Art. 32 GDPR requires a level of security appropriate to the risk for the people concerned. The law prescribes no fixed list.",
+      "sections": [
+        {
+          "heading": "What does Art. 32 GDPR require?",
+          "paragraphs": [
+            "Controllers and processors implement appropriate technical and organisational measures “to ensure a level of security appropriate to the risk” (Art. 32(1)). They take into account the state of the art, the costs, the nature, scope, context and purposes of processing, and the likelihood and severity of the risk for the rights and freedoms of people.",
+            "The measures include “inter alia as appropriate”: pseudonymisation and encryption (point (a)), the ongoing confidentiality, integrity, availability and resilience of systems (b), timely restoration after an incident (c), and a process for regularly testing the effectiveness (d). In the German text, the word “gegebenenfalls” (as appropriate) was added by a correction in 2018.",
+            "In the assessment, destruction, loss, alteration, unauthorised disclosure and unauthorised access weigh in particular (para. 2). Para. 4 also requires steps to ensure that staff with access to personal data process it only on instructions."
+          ],
+          "law": "Art. 32(1), (2) and (4) GDPR"
+        },
+        {
+          "heading": "How do you choose appropriate measures?",
+          "paragraphs": [
+            "The yardstick is the risk to the people whose data you process. The DSK is the conference of Germany's data protection authorities. In its Kurzpapier Nr. 18 it describes the risk with two dimensions: the severity of possible harm, such as damage to reputation or financial loss, and the likelihood that it occurs.",
+            "The DSK sorts the result into low risk, risk and high risk. Where a high risk is likely, its notes on the record of processing say you determine the measures as part of a data protection impact assessment under Art. 35.",
+            "For choosing measures, the same notes refer to the DSK's Standard Data Protection Model (SDM), to the BSI's IT-Grundschutz and to ISO standards. SDM version 3.1 of 2024 maps measures to seven protection goals, from data minimisation to intervenability, meaning that data subjects can exercise their rights. It reads these goals from the data subject's point of view."
+          ],
+          "law": "Art. 32(1) · Art. 35 GDPR"
+        },
+        {
+          "heading": "Where and how to describe your TOMs",
+          "paragraphs": [
+            "Art. 32 prescribes no separate document. The record of processing activities should, however, contain a general description of the measures where possible (Art. 30(1)(g)), and in the DSK's view that description is the rule despite “where possible”.",
+            "It should be concrete enough for the supervisory authority to make a first assessment of lawfulness (DSK, Kurzpapier Nr. 1). You may refer to existing documents, such as a security concept from your information security work, and then add what applies to a particular processing.",
+            "Art. 32 applies to processors too, and your company uses only processors that provide sufficient guarantees (Art. 28(1)). The contract binds them to all measures required under Art. 32 and to giving you the information needed to demonstrate compliance (Art. 28(3)(c) and (h)). Ask for their description before you engage them."
+          ],
+          "law": "Art. 28(1) and (3) · Art. 30(1)(g) GDPR"
+        },
+        {
+          "heading": "Example: the TOMs of a company with 80 employees",
+          "paragraphs": [
+            "Muster Metall GmbH, a made-up company, describes its TOMs along the points of Art. 32(1). A weak sentence would be: “We protect data in line with the state of the art.” It says nothing about what actually happens.",
+            "Its description says instead: the disks of all laptops are encrypted, and the recovery key is kept apart from the device (a). Rights are assigned through roles, and email and remote access require a second factor (b). The server is backed up daily, and the date of the last restore that worked is recorded (c).",
+            "For point (d) it states who reviews the measures and when: management together with the external data protection officer. The company does not use pseudonymisation so far and records why."
+          ]
+        },
+        {
+          "heading": "Which mistakes to avoid with TOMs",
+          "paragraphs": [
+            "Do not copy a template unchanged. It describes measures that may not apply in your business, and your company must be able to demonstrate what it actually does (Art. 5(2)).",
+            "Do not list only technology. Organisational measures include binding staff to confidentiality, instructions to staff under Art. 32(4) and a concept for roles and access rights.",
+            "Do not forget point (d). Without a process that tests effectiveness, the description is a snapshot of one day. Art. 24(1) requires measures to be reviewed and updated where necessary.",
+            "Do not take over NIS 2 measures unchecked. They protect your systems, while Art. 32 asks about the risk to the people whose data you process."
+          ]
+        },
+        {
+          "heading": "With an AI assistant: what it can draft for your TOMs",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can draft a description along points (a) to (d) from your documents and flag gaps, such as missing information on pseudonymisation. Through MCP (Model Context Protocol), an open standard, it can also read your NIS 2 walkthrough. Our article on drafting TOMs with AI from your NIS 2 records shows how.",
+            "Whether a measure is appropriate to the risk is for your company to decide as controller (Art. 32(1)). Check every sentence of the draft against what is actually set up in your business.",
+            "If you give the assistant documents containing personal data, its vendor processes them too. Where the vendor acts as a processor, a contract under Art. 28(3) GDPR is required. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "The complete documentation from the export holds policies your Art. 32 description can refer to; you keep the description itself separately.",
+        "points": [
+          "On the “Export” page, admins, reviewers and management open “Everything in one document”. That is the complete documentation with its as-of date, which you file with “Save as PDF”.",
+          "Under “Documents” it prints the full text of the policies you wrote in the walkthrough, among them the cryptography policy from 9.1, the staff, access and asset policy from 10.1 and the business continuity plan from 4.2.",
+          "Your description can refer to this PDF, as the DSK provides for. According to the DSK's notes, any document you refer to also goes to the supervisory authority on request.",
+          "Which item fits which point of Art. 32(1) is set out, in our own mapping, in the article on drafting TOMs with AI from your NIS 2 records. The walkthrough does not ask about the risk to the people concerned or about pseudonymisation; your company adds those."
+        ],
+        "seeItAlt": "The “Complete documentation” from the export, headed “NIS 2 documentation”, with a sample company's details, the contents from “Implementation status” to “Answers by area”, and the “Save as PDF” button at the top",
+        "next": "Write the cryptography policy"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Which TOMs are mandatory?",
+            "a": "There is no fixed list. Art. 32(1) gives examples that apply “as appropriate” and requires a level of security appropriate to the risk. Which measures that means depends on your processing; record why you do not use a measure the article names."
+          },
+          {
+            "q": "What is the difference between technical and organisational measures?",
+            "a": "Technical measures work in devices and software, such as encryption, backups or a second factor at sign-in. Organisational measures govern what people do: roles and rights, confidentiality obligations, instructions and training. Art. 32 requires both."
+          },
+          {
+            "q": "Is there a checklist for TOMs?",
+            "a": "In its notes on the record of processing activities (February 2018, in German), the DSK lists typical measures for each area of Art. 32(1), from pseudonymisation to an emergency concept. It opens each list with “u. a.” (among others), so the lists are examples. Use them as a checklist and write down what applies in your company."
+          },
+          {
+            "q": "How often do TOMs have to be reviewed?",
+            "a": "The GDPR sets no fixed interval. Art. 32(1)(d) requires a process for regularly testing effectiveness, and Art. 24(1) requires review and updating “where necessary”. Set the interval yourself, review as well whenever a new processing or a new program comes in, and record the date and the result."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 5(2), Art. 24, 28, 30, 32 and 35, with the German corrigendum to Art. 32(1) in OJ L 127, 23.5.2018, CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 18 on risk to the rights and freedoms of natural persons, as of 26.04.2018, datenschutzkonferenz-online.de",
+          "DSK, Kurzpapier Nr. 1, as of 17.12.2018, and Hinweise zum Verzeichnis von Verarbeitungstätigkeiten, February 2018, datenschutzkonferenz-online.de",
+          "DSK, Das Standard-Datenschutzmodell, version 3.1, adopted 14 May 2024, datenschutzkonferenz-online.de",
+          "open-isms, messages/durchgang (items 4.2, 9.1 and 10.1), messages/export and components/export/CompleteExport.tsx, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "erasure": {
+      "meta": {
+        "title": "GDPR deletion concept and retention policy: what it covers",
+        "description": "What a deletion concept under Art. 17 GDPR must settle: time limit, start and owner per type of data, backups, and what the NIS2 walkthrough records."
+      },
+      "badge": "Art. 17 GDPR · Deletion concept",
+      "title": "GDPR deletion concept: what it must settle",
+      "subtitle": "A deletion concept (a retention and deletion policy) sets, for each type of personal data, how long it stays, when the period starts, who deletes it and how. It puts two duties into practice: keeping data no longer than necessary (Art. 5(1)(e) GDPR) and erasing it without undue delay when Art. 17 applies. Backups are included.",
+      "sections": [
+        {
+          "heading": "Which duties sit behind a deletion concept?",
+          "paragraphs": [
+            "The GDPR does not use the term, but the duties behind it are there. Personal data may be kept in a form that permits identification “for no longer than is necessary for the purposes for which the personal data are processed” (Art. 5(1)(e)).",
+            "Art. 17(1) obliges your company to erase data without undue delay where one of the listed grounds applies, for example when the data is no longer necessary for its purpose or consent has been withdrawn. That applies on request and, as the German Data Protection Conference (DSK) writes in its Kurzpapier Nr. 11, without one too.",
+            "Art. 17(3) lists exceptions, such as a legal obligation to retain the data (point (b)) or the defence of legal claims (point (e)). In the DSK's view, these do not allow unlimited storage either: once their purpose is met, the data is erased."
+          ],
+          "law": "Art. 5(1)(e) · Art. 17(1) and (3) GDPR"
+        },
+        {
+          "heading": "What a deletion concept must settle",
+          "paragraphs": [
+            "At its core it is one deletion rule per type of data: the time limit, the event that starts it, and the basis for it. The European Data Protection Board (EDPB) names as a good practice of some controllers a table that brings together type of data, legal basis and retention period.",
+            "The DSK's Standard Data Protection Model (SDM) covers deletion in its building block 60. Under it, you settle who checks, orders and carries out deletions. It expressly lists quick formatting and a mere promise not to use the data any more as not enough.",
+            "According to the SDM, a piece of data is erased only once no copy remains with you or a processor. Processors delete or return the data at the end of the service and delete existing copies (Art. 28(3)(g)). You tell recipients about each erasure unless that proves impossible or involves disproportionate effort (Art. 19)."
+          ],
+          "law": "Art. 19 · Art. 28(3)(g) GDPR"
+        },
+        {
+          "heading": "What applies to backups?",
+          "paragraphs": [
+            "A backup is a copy. According to SDM building block 60, the duty to erase in principle covers backup copies too, though not necessarily at the same moment as in the live system. If deleting safely in the backup would take so long that it coincides with the scheduled overwrite anyway, it can happen then.",
+            "The rule that matters most concerns restores. When your IT restores data from a backup, data already erased comes back. The SDM requires that it be erased again immediately afterwards, and processes that monitor this.",
+            "The EDPB does not consider it always advisable to modify backups, because they protect against attacks such as ransomware. In that case, its February 2026 report says, you need a procedure that keeps track of erasure requests and applies them to restored systems. Half of the responding supervisory authorities raised concerns about deletion in backups.",
+            "So your deletion concept states, for each backup system, how long copies are kept, and keeps a list of erasures that is worked through again after a restore. The list names which record is to be erased, for example by a customer number. For documentation of erasures, the SDM requires that it contain no content data that has to be erased."
+          ]
+        },
+        {
+          "heading": "Example: one deletion rule and one restore",
+          "paragraphs": [
+            "Muster Metall GmbH, a made-up company with 80 employees, keeps correspondence on orders as commercial letters for six years under the German Commercial Code (§ 257(1) and (4) HGB). The period starts at the end of the calendar year in which the letter was received or sent (para. 5). An email from March 2026 therefore stays until the end of 2032.",
+            "In the example, its daily backup is kept for 30 days. After an attack, its IT restores the state from two weeks earlier. Before the restart it works through that fortnight's erasure list again; it holds, for example, the customer number of a customer who had withdrawn her consent to the newsletter, and her address is erased again afterwards."
+          ]
+        },
+        {
+          "heading": "Which mistakes to avoid in a deletion concept",
+          "paragraphs": [
+            "Do not set one time limit for everything just because it sounds safe. Data without a retention duty then stays too long, and in the DSK's view a general reference to retention duties is not enough.",
+            "Do not delete only in the main system. Copies can also sit in mailboxes, on mobile devices and in cloud services; the SDM requires processes that catch every copy. For retired devices, item 10.1 of the NIS 2 walkthrough provides for secure wiping or destruction.",
+            "Retaining is not continuing to use. The exception in Art. 17(3)(b) applies only “to the extent that” processing is necessary for the legal obligation."
+          ],
+          "law": "Art. 17(3)(b) GDPR"
+        },
+        {
+          "heading": "With an AI assistant: what it can prepare for the deletion concept",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can build a table of all types of data from your record of processing activities and propose a deletion rule for each. Through MCP (Model Context Protocol), an open standard, it also reads what the NIS 2 walkthrough records about your backup systems.",
+            "Check every proposed time limit in the current statute. § 257(4) HGB, for example, has applied in a new version since 1 January 2025 and gives eight years for accounting vouchers. Which time limit applies is for your company to decide as controller.",
+            "Erasure lists can contain personal data, which the assistant's vendor then processes too. Where the vendor acts as a processor, a contract under Art. 28(3) GDPR is required. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "What the NIS 2 walkthrough already records",
+        "lead": "Item 4.4 records your backup systems; it does not ask how long copies are kept or what happens to erased data after a restore.",
+        "points": [
+          "On the walkthrough's path, 4.4 Record your backups comes further down, straight after 4.2 Write the business continuity plan. In 4.4 you enter, per backup system, how often it backs up and when a restore from it last worked. In your deletion concept, add for each of these systems how long it keeps copies.",
+          "In 4.4 the walkthrough also advises asking each cloud and software provider what they keep for you. The same answer shows where copies of your data sit that your deletion concept must cover.",
+          "In the business continuity plan from 4.2, the “Recovery” section puts a system back into use only once it has been checked. Add under “Further rules” that this check includes working through the erasure list again.",
+          "An assistant can fill in 4.4, and you check and finish the item. The walkthrough has no screen for the deletion concept itself."
+        ],
+        "seeItAlt": "The start page of the NIS 2 walkthrough: on the left “You are in the right place.” with four cards, on the right “Your path” with the first items from “Register with your authority” to “Know how to report an incident”. The first three are done and “Write down what your company has” is started",
+        "next": "Record your backups in the walkthrough"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "How long can personal data be kept?",
+            "a": "As long as it is necessary for its purpose (Art. 5(1)(e)). Where a law requires longer retention, such as § 257 HGB in Germany with six, eight or ten years depending on the document, the exception in Art. 17(3)(b) applies for that period. After that, the data is erased."
+          },
+          {
+            "q": "What is the difference between erasure and restriction?",
+            "a": "Erasure makes data unrecognisable, so that no person can be identified from it (SDM building block 60). Restriction of processing (Art. 18) keeps the data stored but allows only narrowly limited processing. In Germany, § 35 BDSG lets restriction take the place of erasure in some cases, such as contractual retention periods; the DSK reads these rules narrowly."
+          },
+          {
+            "q": "Is there a DIN or ISO standard for a deletion concept?",
+            "a": "The German standard DIN 66398 of 2016, “Leitlinie zur Entwicklung eines Löschkonzepts mit Ableitung von Löschfristen für personenbezogene Daten”, is withdrawn according to DIN Media and replaced by DIN EN ISO/IEC 27555:2025-09, “Guidelines on personally identifiable information deletion”. Both are paid documents, so we do not reproduce their content. The GDPR prescribes no standard."
+          },
+          {
+            "q": "What do you do when someone asks for their data to be erased?",
+            "a": "Check whether a ground in Art. 17(1) applies and no exception in paragraph 3. Inform the person without undue delay and in any event within one month; for complex or numerous requests the period can be extended by two months (Art. 12(3)). Erase at processors too, inform recipients (Art. 19) and record that the erasure was done."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 5, 12, 17, 18, 19 and 28, with the German corrigendum to Art. 28(3)(g) in OJ L 127, 23.5.2018, CELEX 32016R0679, publications.europa.eu",
+          "German Federal Data Protection Act (BDSG), § 35, and Commercial Code (HGB), § 257, with Art. 95 EGHGB, gesetze-im-internet.de",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 11 on the right to erasure, as of 17.12.2018, marked as under revision on the DSK website, and Standard Data Protection Model, building block 60 “Löschen und Vernichten”, version 1.0a of 2 September 2020, datenschutzkonferenz-online.de and datenschutz-mv.de",
+          "European Data Protection Board (EDPB), 2025 Coordinated Enforcement Action, Implementation of the right to erasure by controllers, adopted 10 February 2026, sections 4.2.5 and 4.2.6, edpb.europa.eu",
+          "DIN Media, entries for DIN 66398:2016-05 and DIN EN ISO/IEC 27555:2025-09, dinmedia.de, as of October 2026",
+          "open-isms, messages/durchgang (items 4.2, 4.4 and 10.1), lib/durchgang, lib/mcp/walk.ts and server/trpc/helpers/durchgang-inputs.ts, github.com/NISD2/open-isms"
+        ]
+      }
+    },
+    "compliant": {
+      "meta": {
+        "title": "GDPR compliant: what your company has to be able to prove",
+        "description": "GDPR compliant means you keep to the principles in Art. 5 and can prove it. Which records carry that proof, and why a seal does not take the duty off you."
+      },
+      "badge": "GDPR · Art. 5(2)",
+      "title": "GDPR compliant: what your company has to be able to demonstrate",
+      "subtitle": "The GDPR asks two things: your company complies with the principles in Art. 5(1), and it can demonstrate that (Art. 5(2), accountability). To do so it takes measures that fit its processing and the risks involved, and keeps them up to date (Art. 24(1)). The proof rests on records such as the record of processing, the TOMs and the contracts.",
+      "sections": [
+        {
+          "heading": "What does GDPR compliant mean?",
+          "paragraphs": [
+            "The word does not appear in the GDPR. What it means is what Art. 5 requires: personal data is processed according to six principles, and the controller is responsible for complying with them and must be able to demonstrate it.",
+            "The principles in Art. 5(1) are lawfulness, fairness and transparency; purpose limitation; data minimisation; accuracy; storage limitation; integrity and confidentiality.",
+            "Paragraph 2 calls the duty to demonstrate accountability. Complying and proving it therefore go together: when your company is asked, it shows how it puts the principles into practice."
+          ],
+          "law": "Art. 5(1) and (2) GDPR"
+        },
+        {
+          "heading": "What Art. 24 asks of your company",
+          "paragraphs": [
+            "Art. 24(1) turns this into a duty to act. The controller implements appropriate technical and organisational measures to ensure that processing complies with the GDPR and to be able to demonstrate it. What is appropriate depends on the nature, scope, context and purposes of the processing and on the risks to people's rights and freedoms.",
+            "The measures are reviewed and updated where necessary. Where proportionate to the processing, they include appropriate data protection policies (paragraph 2); the German text says “Datenschutzvorkehrungen”, in our reading written rules either way.",
+            "For a company with 50 to 250 staff this means, in our reading: records for what you actually process, as detailed as the risk requires. Payroll needs different safeguards from tracking employees' locations."
+          ],
+          "law": "Art. 24(1) and (2) GDPR"
+        },
+        {
+          "heading": "Which records carry the proof",
+          "paragraphs": [
+            "The record of processing activities shows what you process and why, and you make it available to the supervisory authority on request (Art. 30(1) and (4)). The TOMs describe how you protect the data (Art. 32). Data processing agreements show that your service providers are bound (Art. 28).",
+            "Where a data protection impact assessment is required, it belongs here too (Art. 35). You document personal data breaches with the facts, effects and remedial action, by the wording including those you do not have to notify (Art. 33(5)). Where processing is based on consent, you must be able to demonstrate the consent (Art. 7(1)).",
+            "We cover the record of processing, TOMs, DPAs, the DPIA and data breaches in an article each."
+          ],
+          "law": "Art. 7(1) · Art. 28 · Art. 30 · Art. 32 · Art. 33(5) · Art. 35 GDPR"
+        },
+        {
+          "heading": "An example: the authority asks",
+          "paragraphs": [
+            "Lenz Kunststofftechnik GmbH (made up, 160 staff) gets a letter from the data protection authority of its federal state. A former applicant has complained that his documents are still stored. The authority wants to know how Lenz handles applicant data.",
+            "Lenz produces the entry “Applications” from its record of processing with purpose and erasure period, the DPA with the vendor of its applicant portal, and the TOMs for the portal. The company adds the log of the last deletion run.",
+            "Had the erasure period only been in its privacy notice, Lenz could have named it but not proven that it is kept. That is exactly the difference Art. 5(2) makes, here for the principle of storage limitation (paragraph 1(e))."
+          ]
+        },
+        {
+          "heading": "Common mistakes",
+          "paragraphs": [
+            "Relying on a seal or on a vendor's claim. A certification under Art. 42 relates to processing operations and does not reduce your responsibility (paragraphs 1 and 4). The GDPR's obligations fall on controllers and processors. Whether a piece of software fits depends on how you use it.",
+            "Writing the records once and leaving them. Art. 24(1) requires the measures to be reviewed and updated where necessary; an old record proves an old state.",
+            "Taking the exemption for organisations with fewer than 250 employees as a general one. It concerns the record of processing and falls away once a processing is not occasional, such as the monthly payroll (Art. 30(5))."
+          ],
+          "law": "Art. 24(1) · Art. 30(5) · Art. 42(1) and (4) GDPR"
+        },
+        {
+          "heading": "With an AI assistant",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can build an overview from the records you already have: which proof exists, which is missing and which is out of date, sorted by the principles in Art. 5(1). It can draft missing entries and prepare a reply to the authority.",
+            "Whether a measure is appropriate and what you send the authority is your company's decision. In our reading, a draft becomes proof only once you have checked it and adopted it. Whatever you show the assistant, its vendor processes too; settle first under which agreement that happens.",
+            "The NIS 2 walkthrough on nisd2.eu does not cover the GDPR. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Is there an official GDPR certificate?",
+            "a": "The GDPR provides for voluntary certification mechanisms and data protection seals and marks (Art. 42(1) and (3)). They relate to processing operations. A certification can help demonstrate that you meet your obligations (Art. 24(3)), but it does not reduce your responsibility (Art. 42(4))."
+          },
+          {
+            "q": "From how many employees does the GDPR apply?",
+            "a": "The GDPR has no minimum size: it applies to the processing of personal data wholly or partly by automated means and to structured paper files (Art. 2(1)). Some obligations have thresholds, such as the record of processing (Art. 30(5)). In Germany your company needs a data protection officer if it constantly employs as a rule at least 20 persons dealing with the automated processing of personal data (§ 38(1) BDSG)."
+          },
+          {
+            "q": "Is a data protection officer enough to be GDPR compliant?",
+            "a": "No. The data protection officer informs, advises and monitors (Art. 39(1)). Your company remains responsible for compliance and for demonstrating it (Art. 5(2), Art. 24(1))."
+          },
+          {
+            "q": "What belongs in a GDPR checklist?",
+            "a": "A checklist helps if it asks about your own processing. For each one, go through the six principles in Art. 5(1) and note which record shows that you comply. Where no record is listed, there is a gap in your proof."
+          },
+          {
+            "q": "Who checks whether a company is GDPR compliant?",
+            "a": "The data protection authority; for companies in Germany, the authority of the federal state (§ 40(1) BDSG). It can order you to provide any information it needs for its tasks (Art. 58(1)(a)), and your company cooperates with it on request (Art. 31)."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 2, 5, 7, 24, 28, 30, 31, 32, 33, 35, 39, 42 and 58, CELEX 32016R0679, publications.europa.eu",
+          "Corrigendum to the GDPR in OJ L 314 of 22.11.2016, German text of Art. 30(5), CELEX 32016R0679R(01), publications.europa.eu",
+          "German Federal Data Protection Act (BDSG), § 38 and § 40, with the official English translation, gesetze-im-internet.de"
+        ]
+      }
+    },
+    "dpms": {
+      "meta": {
+        "title": "Privacy management software: what to look for under GDPR",
+        "description": "What privacy management software should do for Art. 5(2) and Art. 24 GDPR: records of processing, TOMs, contracts, requests, breaches and evidence."
+      },
+      "badge": "Art. 5(2) · Art. 24 GDPR",
+      "title": "Privacy management software: what matters",
+      "subtitle": "Privacy management software keeps the records your company uses to demonstrate that it complies with the GDPR: the record of processing, TOMs, contracts with processors, data subject requests and personal data breaches. No law requires it. When buying, look for visible deadlines, a change history and a complete export.",
+      "sections": [
+        {
+          "heading": "What is a privacy management system?",
+          "paragraphs": [
+            "The term does not appear in the GDPR. It means the way your company organises its GDPR obligations and the evidence for them. At its core is accountability: the controller is responsible for compliance with the principles and must “be able to demonstrate compliance” (Art. 5(2)).",
+            "Art. 24(1) requires appropriate technical and organisational measures to ensure and be able to demonstrate that processing complies with the GDPR. Those measures are reviewed and updated where necessary. Where proportionate, they include appropriate data protection policies (para. 2).",
+            "Software is one possible tool for this; the law requires none in particular. The record of processing activities, for example, is kept in writing, which includes electronic form (Art. 30(3))."
+          ],
+          "law": "Art. 5(2) · Art. 24(1) and (2) · Art. 30(3) GDPR"
+        },
+        {
+          "heading": "Which obligations should the software cover?",
+          "paragraphs": [
+            "The DSK is the conference of Germany's data protection authorities. In its action plan for companies (Kurzpapier Nr. 8) it lists documentation duties that belong to accountability: the record of processing (Art. 30), the documentation of personal data breaches (Art. 33(5)) and of instructions to processors (Art. 28(3)(a)).",
+            "For a company with 50 to 250 staff, that means in daily practice: a record of processing activities, a description of TOMs under Art. 32, contracts with processors under Art. 28, data subject requests under Art. 15 to 22, and a breach log. Where a data protection impact assessment is needed, its documentation comes on top (Art. 35(7)).",
+            "Two deadlines should be visible in the software. You answer data subject requests without undue delay and in any event within one month, extendable for complex or numerous requests (Art. 12(3)). You notify a reportable breach without undue delay and, where feasible, within 72 hours (Art. 33(1))."
+          ],
+          "law": "Art. 12(3) · Art. 28 · Art. 30 · Art. 33 · Art. 35(7) GDPR"
+        },
+        {
+          "heading": "What to look for when buying",
+          "paragraphs": [
+            "The software should follow the required contents of Art. 30(1) and link entries: a service provider, its contract under Art. 28 and the activities it works on. Then you enter a change only once.",
+            "It should record who changed what and when. For the record of processing, the DSK recommends documenting changes and keeping that documentation for one year.",
+            "Your external data protection officer needs access, auditors need read access. All data should export in an open format, so you can switch vendors without losing records.",
+            "The software itself holds personal data, such as data subject requests and breaches. If the vendor runs it for you, it processes that data on your behalf: check the contract under Art. 28(3), where the data is stored and which sub-processors are involved."
+          ]
+        },
+        {
+          "heading": "Example: choosing with a real case",
+          "paragraphs": [
+            "Muster Metall GmbH, a made-up company with 80 employees and an external data protection officer, keeps its record of processing in a spreadsheet so far. Contracts sit in a folder, requests in the management mailbox.",
+            "In two trial accounts it runs through a case it actually had last year: an access request from a former employee. It checks whether the software shows the deadline, which entries in the record are affected, and whether the reply can be filed with its date.",
+            "Finally it exports everything and opens the file. Software whose data cannot be exported completely is ruled out."
+          ]
+        },
+        {
+          "heading": "Which mistakes to avoid when buying",
+          "paragraphs": [
+            "Do not buy software before someone in the company is responsible. Without a person who maintains the entries, it stays empty.",
+            "Do not expect the software to fulfil obligations. It records what your company decided and did, and its templates describe another business until you adapt them.",
+            "Do not decide without your data protection officer. They should be able to carry out their tasks under Art. 39 with it, such as monitoring compliance."
+          ]
+        },
+        {
+          "heading": "With an AI assistant: what the software should offer",
+          "paragraphs": [
+            "An AI assistant such as Claude, ChatGPT or Copilot can draft entries for the record of processing, compare contracts with the points in Art. 28(3) and structure a data protection impact assessment along Art. 35(7). If the software offers an MCP server, an interface following the open Model Context Protocol, the assistant reads and writes in it directly.",
+            "Then ask what the assistant may do there: read, write, delete as well? And whether each entry shows that an assistant wrote it. Purposes, time limits and notifications remain your company's decisions as controller.",
+            "Whatever the assistant reads, its vendor processes too. Where the vendor acts as a processor, a contract under Art. 28(3) is required with it as well. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough."
+          ]
+        }
+      ],
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Is privacy management software mandatory?",
+            "a": "No. The GDPR requires that you can demonstrate compliance (Art. 5(2)) and, for the record of processing, written form, which can be electronic (Art. 30(3)). It does not prescribe any particular software."
+          },
+          {
+            "q": "Is a spreadsheet enough for GDPR records?",
+            "a": "For the record of processing, a spreadsheet can meet the written form, and the DSK itself publishes a template. It gets harder with deadlines, links between contracts and activities, and the question of who changed what and when. That is where comparing software pays off."
+          },
+          {
+            "q": "Does software replace the data protection officer?",
+            "a": "No. Whether you must designate one is set by Art. 37 GDPR and, in Germany, by § 38(1) BDSG, for example where you as a rule constantly employ at least 20 persons in the automated processing of personal data. Software can support the officer, but a person is designated."
+          },
+          {
+            "q": "Privacy management and an ISMS: do you need both?",
+            "a": "An ISMS (information security management system) protects your company's information and systems, for example for your NIS 2 obligations. Privacy management asks about the risk to the people whose data you process. The DSK calls the record of processing an essential element of a comprehensive management system for data protection and information security; some records overlap, such as the TOMs."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Regulation (EU) 2016/679 (GDPR), Art. 5, 12, 24, 28, 30, 32, 33, 35, 37 and 39, CELEX 32016R0679, publications.europa.eu",
+          "Datenschutzkonferenz (DSK), Kurzpapier Nr. 8, action plan for companies, as of 17.12.2018, datenschutzkonferenz-online.de",
+          "DSK, Hinweise zum Verzeichnis von Verarbeitungstätigkeiten and template for controllers under Art. 30(1), both February 2018, datenschutzkonferenz-online.de",
+          "German Federal Data Protection Act (BDSG), § 38, gesetze-im-internet.de"
+        ]
+      }
+    }
+  }
+}

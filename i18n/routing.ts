@@ -193,6 +193,9 @@ export const routing = defineRouting({
       en: "/trust",
       nl: "/vertrouwen",
     },
+    // The DSGVO Durchgang's waitlist: one slug everywhere, so the sign-in's callbackUrl can name
+    // it without knowing the locale's pathnames.
+    "/vormerken/dsgvo": "/vormerken/dsgvo",
     "/subprozessoren": {
       de: "/subprozessoren",
       en: "/subprocessors",

@@ -26,7 +26,15 @@ const dataTypes = [
   "billing",
   "advisory",
 ] as const;
-const purposeKeys = ["contract", "billing", "auth", "security", "crm", "legal"] as const;
+const purposeKeys = [
+  "contract",
+  "billing",
+  "auth",
+  "security",
+  "crm",
+  "waitlist",
+  "legal",
+] as const;
 const processorKeys = ["google", "aws", "resend", "close", "calcom", "qonto"] as const;
 const rightKeys = [
   "access",
