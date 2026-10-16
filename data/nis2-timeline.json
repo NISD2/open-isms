@@ -3333,7 +3333,91 @@
       "sourceId": "slov-lex",
       "sourceUrl": "https://static.slov-lex.sk/static/SK/ZZ/2025/227/vyhlasene_znenie.html",
       "addedAt": "2026-10-04T17:49:46Z"
+    },
+    {
+      "id": "2026-10-01-de-bsi-classic-mceliece-cryptanalysis",
+      "date": "2026-10-01",
+      "category": "de",
+      "tags": ["guidance", "post-quantum"],
+      "type": "update",
+      "title": "BSI advises against Classic McEliece for new developments after cryptanalysis progress",
+      "titleDe": "BSI raet bei Neuentwicklungen von Classic McEliece ab, nachdem die Kryptoanalyse Fortschritte macht",
+      "summary": "The BSI reports that structural attacks on the Classic McEliece key encapsulation method have improved markedly, so its security may be substantially lower than assumed, and recommends not using it for new developments for now. Hybrid use together with a classical key agreement is described as still offering protection today. The BSI will revise its Classic McEliece guidance in Technical Guideline TR-02102 in early 2027 and names FrodoKEM, ML-KEM and HQC as unaffected alternatives. It states that the finding does not reduce the urgency of migrating to quantum safe cryptography. This is non-binding BSI guidance and adds no duty under NIS 2, but it is a reference point for entities that set their cryptography policy under Art. 21(2)(h).",
+      "summaryDe": "Das BSI berichtet, dass strukturelle Angriffe auf das Schluesselkapselungsverfahren Classic McEliece deutlich besser geworden sind und seine Sicherheit daher moeglicherweise erheblich niedriger liegt als angenommen; es empfiehlt, das Verfahren derzeit nicht fuer Neuentwicklungen zu verwenden. Ein hybrider Einsatz zusammen mit einem klassischen Schluesselaustausch bietet nach Angabe des BSI derzeit weiterhin Schutz. Seine Aussagen zu Classic McEliece in der Technischen Richtlinie TR-02102 will das BSI Anfang 2027 ueberarbeiten; FrodoKEM, ML-KEM und HQC bleiben nach seiner Darstellung unberuehrt. Die Dringlichkeit des Umstiegs auf quantensichere Kryptografie sinkt dadurch nicht. Es handelt sich um eine unverbindliche Empfehlung des BSI, die keine Pflicht aus NIS 2 begruendet, aber ein Bezugspunkt fuer Einrichtungen ist, die ihre Vorgaben zur Kryptografie nach Art. 21 Abs. 2 Buchstabe h festlegen.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/Classic-McEliece_261001.html",
+      "addedAt": "2026-10-08T09:12:00Z"
+    },
+    {
+      "id": "2026-09-25-de-bsi-dakks-cra-conformity-assessment",
+      "date": "2026-09-25",
+      "category": "de",
+      "tags": ["certification", "publication"],
+      "type": "update",
+      "title": "BSI and DAkkS update their cooperation on accrediting CRA conformity assessment bodies",
+      "titleDe": "BSI und DAkkS aktualisieren ihre Zusammenarbeit bei der Akkreditierung von Konformitaetsbewertungsstellen fuer den CRA",
+      "summary": "The BSI and the German accreditation body DAkkS have updated their administrative agreement so that the BSI supplies technical assessors for DAkkS accreditation procedures of conformity assessment bodies that carry out cybersecurity testing. The announcement presents this as groundwork for the Cyber Resilience Act: products with digital elements must meet its cybersecurity requirements from the end of 2027 (the CRA applies in full from 11 December 2027), certain product categories need an assessment by an accredited and notified body, and the BSI opened its CRA notification procedure on 11 June 2026. The CRA is a separate regulation from NIS 2, and this is an administrative arrangement, not new law.",
+      "summaryDe": "Das BSI und die Deutsche Akkreditierungsstelle DAkkS haben ihre Verwaltungsvereinbarung aktualisiert: Das BSI stellt fuer Akkreditierungsverfahren der DAkkS technische Begutachter fuer Konformitaetsbewertungsstellen bereit, die Cybersicherheitspruefungen durchfuehren. Die Meldung stellt dies als Grundlage fuer den Cyber Resilience Act dar: Produkte mit digitalen Elementen muessen dessen Cybersicherheitsanforderungen ab Ende 2027 erfuellen (der CRA gilt ab dem 11. Dezember 2027 vollstaendig), fuer bestimmte Produktkategorien ist eine Bewertung durch eine akkreditierte und notifizierte Stelle noetig, und das BSI hat sein Notifizierungsverfahren fuer den CRA am 11. Juni 2026 gestartet. Der CRA ist eine eigene Verordnung neben NIS 2, und die Vereinbarung ist eine Verwaltungsabsprache, kein neues Recht.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/CRA-Konformitaet_BSI_DAkkS_260925.html",
+      "addedAt": "2026-10-08T09:12:00Z"
+    },
+    {
+      "id": "2026-09-30-de-bsi-nis2-in-zahlen-30-september",
+      "date": "2026-09-30",
+      "category": "de",
+      "tags": ["registration", "publication"],
+      "type": "update",
+      "title": "BSI NIS-2 dashboard: 20,141 entities registered in the BSI portal as at 30 September 2026",
+      "titleDe": "BSI-Dashboard NIS-2 in Zahlen: 20.141 im BSI-Portal registrierte Einrichtungen zum 30. September 2026",
+      "summary": "The BSI page NIS-2 in Zahlen now reports 20,141 entities registered in the BSI portal as at 30 September 2026, of which 13,252 wichtige and 6,837 besonders wichtige Einrichtungen, and 20,373 registrations once the 232 registered cross-border branches are counted. It also lists 1,447 KRITIS operators, 1,272 initial reports under NIS 2 and 3,070 NIS 2 notifications of all kinds submitted through the portal. The previous Stand was 30 June 2026 with 17,729 entities and 692 initial reports, and the page now announces its next update for 31 January 2027 instead of 31 October 2026. The BSI gives no publication date for this update, so the event is dated to the Stand. These are registrations, not a count of entities in scope: the federal government calls the roughly 29,500 figure an ex ante cost estimate (Bundestag printed paper 21/7573).",
+      "summaryDe": "Die BSI-Seite NIS-2 in Zahlen weist zum 30. September 2026 insgesamt 20.141 im BSI-Portal registrierte Einrichtungen aus, davon 13.252 wichtige und 6.837 besonders wichtige Einrichtungen; zusammen mit den 232 registrierten Nebenniederlassungen sind es 20.373 Registrierungen. Hinzu kommen 1.447 KRITIS-Betreiber, 1.272 Erstmeldungen nach NIS-2 und 3.070 NIS-2-Meldungen aller Art ueber das Portal. Der vorige Stand war der 30. Juni 2026 mit 17.729 Einrichtungen und 692 Erstmeldungen; die naechste Aktualisierung kuendigt die Seite nun fuer den 31. Januar 2027 an statt fuer den 31. Oktober 2026. Das BSI nennt kein Veroeffentlichungsdatum der Aktualisierung, daher ist der Eintrag auf den Stand datiert. Es handelt sich um Registrierungen, nicht um die Zahl der Einrichtungen im Anwendungsbereich: Die Bundesregierung bezeichnet die rund 29.500 als Kostenschaetzung ex ante (Bundestagsdrucksache 21/7573).",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Themen/Regulierte-Wirtschaft/NIS-2-regulierte-Unternehmen/NIS-2-in-Zahlen/nis-2-in-zahlen.html",
+      "addedAt": "2026-10-16T11:37:24Z"
+    },
+    {
+      "id": "2026-10-06-national-transposition-fr-assemblee-bill-withdrawn",
+      "date": "2026-10-06",
+      "category": "national-transposition",
+      "tags": ["fr", "transposition", "legislation"],
+      "type": "update",
+      "title": "France: the Assemblee nationale withdraws the NIS 2 transposition bill from its 7 and 9 October floor sessions",
+      "titleDe": "Frankreich: Die Assemblee nationale nimmt das NIS-2-Umsetzungsgesetz von den Plenarterminen am 7. und 9. Oktober ab",
+      "summary": "The relevé de conclusions of the Conference des presidents of 6 October 2026 records the withdrawal of the projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite from the sessions of 7 and 9 October, which the Conference had scheduled on 22 September. The relevé names no new date, and the conclusions of the 13 October meeting do not mention the bill; the next Conference is set for 20 October. The French trade press quotes the rapporteur Eric Bothorel as hoping to re-list the text within fifteen days or three weeks, which is an expectation, not a decision. The bill has still had no floor debate: the legislative dossier lists no step after the committee text of 10 September 2025. France remains the subject of the Commission's referral to the CJEU of 8 July 2026 for non transposition.",
+      "summaryDe": "Das Protokoll der Conference des presidents vom 6. Oktober 2026 (relevé de conclusions) vermerkt den Rueckzug des Projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite von den Sitzungen am 7. und 9. Oktober, die die Conference am 22. September angesetzt hatte. Einen neuen Termin nennt das Protokoll nicht, und das Protokoll der Sitzung vom 13. Oktober erwaehnt das Gesetz nicht; die naechste Conference ist fuer den 20. Oktober angesetzt. Die franzoesische Fachpresse zitiert den Berichterstatter Eric Bothorel mit der Hoffnung, den Text innerhalb von fuenfzehn Tagen oder drei Wochen erneut auf die Tagesordnung zu setzen; das ist eine Erwartung, keine Entscheidung. Das Gesetz wurde weiterhin nicht im Plenum beraten: Das Gesetzgebungsdossier weist nach dem Kommissionstext vom 10. September 2025 keinen weiteren Schritt aus. Frankreich bleibt Gegenstand der Klage der Kommission beim EuGH vom 8. Juli 2026 wegen Nichtumsetzung.",
+      "sourceId": "assemblee-nationale",
+      "sourceUrl": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-6-octobre-2026",
+      "addedAt": "2026-10-16T11:37:24Z"
+    },
+    {
+      "id": "2026-10-07-national-transposition-nl-ncsc-supervisor-cooperation-agreements",
+      "date": "2026-10-07",
+      "category": "national-transposition",
+      "tags": ["nl", "organisational"],
+      "type": "update",
+      "title": "Netherlands: the NCSC publishes its cooperation agreements with the supervisors under the Cyberbeveiligingswet",
+      "titleDe": "Niederlande: Das NCSC veroeffentlicht seine Kooperationsvereinbarungen mit den Aufsichtsbehoerden nach der Cyberbeveiligingswet",
+      "summary": "On 7 October 2026 the NCSC published the document Samenwerkafspraken tussen toezichthouders en het NCSC, the cooperation agreements between the supervisors and the NCSC. The NCSC states their purpose as establishing and recording the cooperation so that the powers arising from the Cyberbeveiligingswet, the Dutch NIS 2 transposition in force since 15 August 2026, are exercised effectively and efficiently. Dutch trade press reports that the NCSC, RDI, ILT, ANVS and NVWA signed them at the ONE Conference that day and that they cover aligning supervisory activities and exchanging information; the NCSC page text does not name the signatories, and the content sits in the linked PDF, which was not reviewed for this entry. The agreements arrange cooperation between authorities, sit alongside the supervision protocol tracked on 10 September and set no duties for entities.",
+      "summaryDe": "Am 7. Oktober 2026 hat das NCSC das Dokument Samenwerkafspraken tussen toezichthouders en het NCSC veroeffentlicht, die Kooperationsvereinbarungen zwischen den Aufsichtsbehoerden und dem NCSC. Das NCSC nennt als Zweck, die Zusammenarbeit festzulegen und festzuhalten, damit die Befugnisse aus der Cyberbeveiligingswet, der niederlaendischen NIS-2-Umsetzung, die seit dem 15. August 2026 gilt, wirksam und effizient ausgeuebt werden. Die niederlaendische Fachpresse berichtet, dass NCSC, RDI, ILT, ANVS und NVWA die Vereinbarungen an diesem Tag auf der ONE Conference unterzeichnet haben und dass sie die Abstimmung der Aufsichtstaetigkeiten und den Informationsaustausch regeln; der Text der NCSC-Seite nennt die Unterzeichner nicht, und der Inhalt steht im verlinkten PDF, das fuer diesen Eintrag nicht ausgewertet wurde. Die Vereinbarungen ordnen die Zusammenarbeit zwischen Behoerden, stehen neben dem am 10. September erfassten Aufsichtsprotokoll und begruenden keine Pflichten fuer Einrichtungen.",
+      "sourceId": "ncsc-nl",
+      "sourceUrl": "https://www.ncsc.nl/cyberbeveiligingswet-nis2/samenwerkafspraken-tussen-toezichthouders-en-het-ncsc",
+      "addedAt": "2026-10-16T11:37:24Z"
+    },
+    {
+      "id": "2026-10-15-national-transposition-fi-traficom-telecom-disruption-reporting",
+      "date": "2026-10-15",
+      "category": "national-transposition",
+      "tags": ["fi", "incident-reporting"],
+      "type": "update",
+      "title": "Finland: Traficom replaces its telecom disruption reporting regulation, one notification can also cover the Cybersecurity Act duty",
+      "titleDe": "Finnland: Traficom ersetzt seine Meldevorgabe fuer Stoerungen in der Telekommunikation, eine Meldung kann auch die Pflicht nach dem Cybersicherheitsgesetz abdecken",
+      "summary": "Traficom announced on 15 October 2026 an updated regulation on disruption situations in telecommunications, in force from 1 January 2027 and replacing the regulation that has applied since the start of 2020. Telecom operators must also report threats to functionality and cybersecurity that have not yet disrupted services, and possible sabotage; the four step severity scale A to D is replaced by one reporting threshold. Traficom says the update takes the later Cybersecurity Act (Kyberturvallisuuslaki 124/2025, Finland's NIS 2 transposition) into account, so that one notification can satisfy both the regulation and the operator's reporting duty under that Act and the same case is not reported several times. This is a binding national regulation for telecom operators, not an EU-wide rule.",
+      "summaryDe": "Traficom hat am 15. Oktober 2026 eine aktualisierte Vorgabe zu Stoerungssituationen in der Telekommunikation angekuendigt, die am 1. Januar 2027 in Kraft tritt und die seit Anfang 2020 geltende Vorgabe ersetzt. Telekommunikationsunternehmen muessen auch Gefahren fuer Funktionsfaehigkeit und Cybersicherheit melden, die Dienste noch nicht gestoert haben, sowie moegliche Sabotage; die vierstufige Schweregradskala A bis D wird durch eine einheitliche Meldeschwelle ersetzt. Traficom gibt an, dass die Aktualisierung das spaeter in Kraft getretene Cybersicherheitsgesetz (Kyberturvallisuuslaki 124/2025, die finnische NIS-2-Umsetzung) beruecksichtigt, sodass eine Meldung sowohl die Vorgabe als auch die Meldepflicht des Unternehmens nach diesem Gesetz erfuellen kann und derselbe Fall nicht mehrfach gemeldet wird. Es handelt sich um eine verbindliche nationale Vorgabe fuer Telekommunikationsunternehmen, nicht um eine EU-weite Regel.",
+      "sourceId": "traficom",
+      "sourceUrl": "https://www.traficom.fi/fi/uutiset/teletoiminnan-hairiotilanteista-ilmoittaminen-muuttuu",
+      "addedAt": "2026-10-16T11:37:24Z"
     }
   ],
-  "lastUpdated": "2026-10-04T17:49:46Z"
+  "lastUpdated": "2026-10-16T11:37:24Z"
 }
