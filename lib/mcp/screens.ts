@@ -1,10 +1,16 @@
 import "@/lib/server-guard";
 import { z } from "zod";
-import { CATALOG } from "@/lib/asset-inventory/catalog";
+import {
+  CATALOG,
+  CATALOG_BY_ID,
+  GROUP_TO_DEFAULT_LAYER,
+} from "@/lib/asset-inventory/catalog";
 import { CATALOG_LABELS } from "@/lib/asset-inventory/catalog-labels";
 import type { CountableModule } from "@/lib/compliance/module-tables";
 import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import type { ScreenKind, WalkLocale } from "@/lib/durchgang";
+import { type AssetSlice, sliceOf } from "@/lib/durchgang/ratings";
+import type { AnyScreen } from "@/lib/durchgang/types";
 import {
   addAssetsInput,
   rateInput,
@@ -36,20 +42,57 @@ export interface ScreenFill {
     language: WalkLocale,
   ) => Promise<unknown>;
   readonly save: (caller: Caller, code: string, input: unknown) => Promise<unknown>;
+  /**
+   * Which of the item's screens of this kind a save wrote, for the walkthrough's mark (fills.ts).
+   * An item shows some kinds once per slice (2.2's four asset lists, 2.3's three ratings), and the
+   * rows sent say which, by the rule each screen picks its rows with.
+   */
+  readonly wrote: (
+    caller: Caller,
+    input: unknown,
+  ) => Promise<(screen: AnyScreen) => boolean>;
 }
 
-/** A screen fill whose save receives what its own schema parsed. */
+/**
+ * A screen fill whose save receives what its own schema parsed. Without `wrote`, a save wrote
+ * every screen of its kind: an item shows such a kind once.
+ */
 const fill = <S extends z.ZodType>(screen: {
   readonly input: S;
   readonly modules: readonly CountableModule[];
   readonly shows: ScreenFill["shows"];
   readonly save: (caller: Caller, code: string, input: z.output<S>) => Promise<unknown>;
-}): ScreenFill => ({
-  ...screen,
-  save: (caller, code, input) => screen.save(caller, code, screen.input.parse(input)),
-});
+  readonly wrote?: (
+    caller: Caller,
+    input: z.output<S>,
+  ) => Promise<(screen: AnyScreen) => boolean>;
+}): ScreenFill => {
+  const { wrote } = screen;
+  return {
+    ...screen,
+    save: (caller, code, input) => screen.save(caller, code, screen.input.parse(input)),
+    wrote: wrote
+      ? (caller, input) => wrote(caller, screen.input.parse(input))
+      : async () => () => true,
+  };
+};
 
 const nothing = z.object({});
+
+/** The slices the company's assets with these ids show on (`sliceOf`). */
+async function slicesOf(
+  caller: Caller,
+  ids: readonly string[],
+): Promise<ReadonlySet<AssetSlice>> {
+  if (ids.length === 0) return new Set();
+  const sent = new Set(ids);
+  return new Set(
+    (await caller.asset.list()).flatMap((asset) => {
+      const slice = sent.has(asset.id) ? sliceOf(asset.type) : null;
+      return slice ? [slice] : [];
+    }),
+  );
+}
 
 /** Provider names one `specify` call may carry, each a supplier when the list lacks it. */
 const MAX_NEW_SUPPLIERS = 50;
@@ -96,6 +139,19 @@ export const SCREEN_FILLS = {
       assets: await assetsOf(caller),
     }),
     save: (caller, _code, input) => caller.durchgang.addAssets(input),
+    // A catalogue entry shows under its group, an entry of the company's own under every group
+    // of its layer (BigChecklist).
+    wrote: async (_caller, input) => {
+      const groups = new Set(
+        input.catalogIds.flatMap((id) => CATALOG_BY_ID.get(id)?.group ?? []),
+      );
+      const layers = new Set(input.custom.map((entry) => entry.layer));
+      return (screen) =>
+        screen.kind === "assets" &&
+        screen.groups.some(
+          (group) => groups.has(group) || layers.has(GROUP_TO_DEFAULT_LAYER[group]),
+        );
+    },
   }),
   specify: fill({
     // A provider name the company's list lacks becomes a new supplier, so one call names at most
@@ -119,6 +175,13 @@ export const SCREEN_FILLS = {
       };
     },
     save: (caller, _code, input) => caller.durchgang.specifyAssets(input),
+    wrote: async (caller, input) => {
+      const slices = await slicesOf(
+        caller,
+        input.rows.map((row) => row.id),
+      );
+      return (screen) => screen.kind === "specify" && slices.has(screen.slice);
+    },
   }),
   rate: fill({
     input: rateInput,
@@ -137,6 +200,16 @@ export const SCREEN_FILLS = {
       };
     },
     save: (caller, _code, input) => caller.durchgang.rate(input),
+    wrote: async (caller, input) => {
+      const assets = await slicesOf(
+        caller,
+        input.rows.flatMap((row) => (row.kind === "asset" ? [row.id] : [])),
+      );
+      const suppliers = input.rows.some((row) => row.kind === "supplier");
+      return (screen) =>
+        screen.kind === "rate" &&
+        (screen.targets === "suppliers" ? suppliers : assets.has(screen.targets));
+    },
   }),
   agreements: fill({
     input: recordAgreementsInput.omit({ code: true }),

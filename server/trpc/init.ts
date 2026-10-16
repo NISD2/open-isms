@@ -131,8 +131,9 @@ export const reviewerProcedure = setup.reviewerProcedure.use(({ ctx, path, next 
 
 /**
  * The company tiers WITHOUT the access gate, for what an account that has not paid must still
- * reach: billing and ordering, notifications, its own company master data, and the supplier
- * portal (suppliers answer for paying customers). Nothing else uses these.
+ * reach: billing and ordering, notifications, its own company master data, the supplier portal
+ * (suppliers answer for paying customers), and the list of its connected AI assistants, each to
+ * end. Nothing else uses these.
  */
 export const accountProcedure = setup.companyProcedure.use(({ ctx, path, next }) => {
   refuseUnlistedKeyCall(ctx.viaKey, path);

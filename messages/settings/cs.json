@@ -48,7 +48,9 @@
         "lastUsed": "naposledy použito {date}",
         "neverUsed": "zatím nepoužito",
         "end": "Odpojit",
-        "ended": "Odpojeno: {name}."
+        "endNamed": "Odpojit: {name}",
+        "ended": "Odpojeno: {name}.",
+        "loadFailed": "Připojené asistenty se nepodařilo načíst. Načtěte stránku znovu."
       },
       "failed": "To se nepovedlo. Zkuste to prosím znovu.",
       "companyChanged": "V jiné záložce jste otevřeli jinou společnost. Načtěte tuto stránku znovu a připojte asistenta ve společnosti, kterou máte otevřenou.",

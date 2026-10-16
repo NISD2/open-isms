@@ -46,7 +46,10 @@ export const mcpConnection = pgTable(
   },
   (table) => [
     index("idx_mcp_connection_user_company").on(table.userId, table.companyId),
-    check("mcp_connection_kind", sql`${table.kind} in ('key', 'signin')`),
+    check(
+      "mcp_connection_kind",
+      sql`${table.kind} in (${sql.raw(MCP_CONNECTION_KINDS.map((kind) => `'${kind}'`).join(", "))})`,
+    ),
     check(
       "mcp_connection_client_on_signin",
       sql`${table.kind} = 'signin' or ${table.client} is null`,

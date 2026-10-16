@@ -63,6 +63,18 @@ describe("the screens an assistant wrote", () => {
     expect(marks[4]?.client).toBe("Claude");
   });
 
+  test("of an item's screens of one kind, only the one the fill saved is marked", () => {
+    const ratings = [
+      screen({ kind: "rate", id: "software", targets: "software" }),
+      screen({ kind: "rate", id: "technology", targets: "technology" }),
+      screen({ kind: "rate", id: "suppliers", targets: "suppliers" }),
+    ];
+    const marks = assistantMarks(ratings, [
+      fill("Claude", "2026-10-16", { screens: ["suppliers"] }),
+    ]);
+    expect(marks.map((m) => m?.client ?? null)).toEqual([null, null, "Claude"]);
+  });
+
   test("no fills, no marks", () => {
     expect(assistantMarks(SCREENS, []).every((m) => m === null)).toBe(true);
   });

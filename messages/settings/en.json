@@ -48,7 +48,9 @@
         "lastUsed": "last used {date}",
         "neverUsed": "not used yet",
         "end": "Disconnect",
-        "ended": "{name} is disconnected."
+        "endNamed": "Disconnect {name}",
+        "ended": "Disconnected: {name}.",
+        "loadFailed": "The connected assistants could not be loaded. Reload the page."
       },
       "failed": "That did not work. Please try again.",
       "companyChanged": "You opened another company in a different tab. Reload this page to connect in the company you have open.",

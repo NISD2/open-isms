@@ -7,13 +7,30 @@
 const PREFIX = "mcp: ";
 
 /**
+ * A character that could reorder the sentence a name is put in (a bidi override) or start a line
+ * of its own: control, format and line separator characters.
+ */
+export const UNPRINTABLE = /[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/u;
+
+/** As long as a name an assistant goes by may be. */
+export const MAX_NAME = 100;
+
+/** A user agent as the name the walkthrough and the log show: printable, and as long as a name. */
+const asName = (userAgent: string): string =>
+  [...userAgent.trim()]
+    .filter((char) => !UNPRINTABLE.test(char))
+    .slice(0, MAX_NAME)
+    .join("")
+    .trim();
+
+/**
  * The user agent of a change made with a key: the name the person allowed, else the assistant's
  * own user agent, else "key". Never blank, which the log would read as no assistant at all.
  */
 export const assistantAgent = (
   client: string | undefined,
   userAgent: string | null,
-): string => `${PREFIX}${client?.trim() || userAgent?.trim() || "key"}`;
+): string => `${PREFIX}${client?.trim() || asName(userAgent ?? "") || "key"}`;
 
 /** The assistant that made an audited change, or null when a person made it in the app. */
 export const assistantOf = (userAgent: string | null): string | null =>

@@ -10,9 +10,10 @@ const BERLIN = "Europe/Berlin";
 
 /**
  * The person's connected assistants in this company, each with its own way out: the pasted key
- * and every assistant that signed in. Ending one leaves the others connected.
+ * and every assistant that signed in. Ending one leaves the others connected; ending the key
+ * calls `onKeyEnded`, so a key still shown above goes with it.
  */
-export function McpConnections() {
+export function McpConnections({ onKeyEnded }: { onKeyEnded: () => void }) {
   const t = useTranslations("settings.mcp.connections");
   const tm = useTranslations("settings.mcp");
   const locale = useLocale();
@@ -36,7 +37,9 @@ export function McpConnections() {
   return (
     <div className="mb-4">
       <h3 className="mb-2 text-sm font-medium">{t("title")}</h3>
-      {rows.length === 0 ? (
+      {connections.isError ? (
+        <p className="text-sm text-muted-foreground">{t("loadFailed")}</p>
+      ) : rows.length === 0 ? (
         <p className="text-sm text-muted-foreground">{t("none")}</p>
       ) : (
         <ul className="divide-y rounded-lg border">
@@ -60,11 +63,17 @@ export function McpConnections() {
                   type="button"
                   variant="outline"
                   size="sm"
-                  disabled={end.isPending}
+                  aria-label={t("endNamed", { name })}
+                  disabled={end.isPending && end.variables?.id === row.id}
                   onClick={() =>
                     end.mutate(
                       { id: row.id },
-                      { onSuccess: () => toast.success(t("ended", { name })) },
+                      {
+                        onSuccess: () => {
+                          if (row.kind === "key") onKeyEnded();
+                          toast.success(t("ended", { name }));
+                        },
+                      },
                     )
                   }
                 >

@@ -7,6 +7,8 @@ import { describe, expect, mock, test } from "bun:test";
 
 /** Signed items the register's sign-off check finds; `openFor` checks pass first, unsigned. */
 const signedElsewhere: { codes: string[]; openFor: number } = { codes: [], openFor: 0 };
+/** The item's own status row: open for `openFor` reads, then signed by management. */
+const ownRow = { openFor: Number.POSITIVE_INFINITY };
 // The tools reach lib/db and lib/auth, which read a validated env as they load; CI has none.
 mock.module("@/lib/env", () => ({
   env: {
@@ -43,9 +45,13 @@ const { fillItem, uploadFile } = await import("./tools");
 const { getDefaultPolicyConfig } = await import(
   "@/lib/compliance/policy-config-defaults"
 );
+const { FREQUENCIES, IMPACTS } = await import("@/lib/compliance/bsi-200-3");
 type KeyHolder = import("./context").KeyHolder;
 
 const SINCE = new Date("2026-10-01T00:00:00Z");
+const SERVER = "33333333-3333-4333-8333-333333333333";
+const PROCESS = "44444444-4444-4444-8444-444444444444";
+const SUPPLIER = "55555555-5555-4555-8555-555555555555";
 
 /** A caller over one item of the walk, recording every procedure the tool calls. */
 function holderOf(
@@ -67,6 +73,7 @@ function holderOf(
       walk: record("durchgang.walk", [{ code, state }]),
       resume: record("durchgang.resume", undefined),
       addAssets: record("durchgang.addAssets", { added: 1 }),
+      rate: record("durchgang.rate", { rated: 1 }),
       writePolicy: record("durchgang.writePolicy", undefined),
       walkPolicies: record("durchgang.walkPolicies", policies),
       adoptCrypto: record("durchgang.adoptCrypto", { adopted: true }),
@@ -107,12 +114,25 @@ function holderOf(
       getActiveAssessment: record("assessment.getActiveAssessment", {
         id: "assessment-1",
       }),
-      getStatusesByCategory: record("assessment.getStatusesByCategory", [
-        {
-          requirementId: "req-1",
-          requirementCode: code,
-          status: { id: "status-1", status: "in_progress", signedOffAt: null },
-        },
+      getStatusesByCategory: async () => {
+        called.push("assessment.getStatusesByCategory");
+        const signed = ownRow.openFor <= 0;
+        ownRow.openFor -= 1;
+        return [
+          {
+            requirementId: "req-1",
+            requirementCode: code,
+            status: signed
+              ? { id: "status-1", status: "approved", signedOffAt: SINCE }
+              : { id: "status-1", status: "in_progress", signedOffAt: null },
+          },
+        ];
+      },
+    },
+    asset: {
+      list: record("asset.list", [
+        { id: SERVER, type: "server" },
+        { id: PROCESS, type: "process" },
       ]),
     },
     intake: {
@@ -178,8 +198,8 @@ describe("a plan without the walkthrough", () => {
       rows: [{ name: "Hoster" }],
     });
     expect(outcome).toMatchObject({ ok: false });
-    expect(outcome.ok ? "" : outcome.message).toContain("není součástí plánu");
-    expect(outcome.ok ? "" : outcome.message).toContain("/cs/");
+    expect(outcome.ok ? "" : outcome.message).toContain("zatím není odemčen");
+    expect(outcome.ok ? "" : outcome.message).toContain("/cs/walkthrough/nis2");
     expect(called).toEqual([]);
   });
 });
@@ -290,6 +310,42 @@ describe("fill_walkthrough_item fills an item's other screens through their own 
     });
     expect(outcome).toMatchObject({ ok: true });
     expect(writesIn(called)).toEqual(["durchgang.addAssets"]);
+  });
+
+  test("assets are recorded on the slices they show on, not on every asset screen", async () => {
+    audited.length = 0;
+    const { holder } = holderOf("2.2", "admin", { kind: "open" });
+    await fillScreens(holder, "2.2", {
+      assets: {
+        catalogIds: ["cf-website"],
+        custom: [{ name: "Leitstand", layer: "it-system" }],
+      },
+    });
+    expect(audited).toEqual([
+      expect.objectContaining({
+        newValue: expect.objectContaining({ screens: ["business_apps", "technology"] }),
+      }),
+    ]);
+  });
+
+  test("ratings are recorded on the screens of what was rated", async () => {
+    audited.length = 0;
+    const { holder } = holderOf("2.3", "admin", { kind: "open" });
+    const rating = { frequency: FREQUENCIES[0], impact: IMPACTS[0] };
+    await fillScreens(holder, "2.3", {
+      rate: {
+        rows: [
+          { kind: "asset", id: SERVER, ...rating },
+          { kind: "asset", id: PROCESS, ...rating },
+          { kind: "supplier", id: SUPPLIER, ...rating },
+        ],
+      },
+    });
+    expect(audited).toEqual([
+      expect.objectContaining({
+        newValue: expect.objectContaining({ screens: ["technology", "suppliers"] }),
+      }),
+    ]);
   });
 
   test("an asset that would take back another item's signature is added in the app", async () => {
@@ -414,6 +470,33 @@ describe("upload_file gives an upload address after the same checks as filling",
     });
     expect(attached).toMatchObject({ ok: true });
     expect(writesIn(called)).toContain("evidence.confirmUpload");
+  });
+
+  test("a signature on the item while the call runs stops the files still to come", async () => {
+    // Open for the item's check and the one before the first write; signed for the file.
+    ownRow.openFor = 2;
+    try {
+      const { holder, called } = holderOf("8.2", "admin", { kind: "open" });
+      const outcome = await fillItem(holder, {
+        code: "8.2",
+        language: "en",
+        files: [{ evidenceId: "ev-1" }],
+      });
+      expect(outcome).toMatchObject({
+        ok: true,
+        data: {
+          files: [
+            {
+              evidenceId: "ev-1",
+              refused: expect.stringContaining("Management has signed 8.2"),
+            },
+          ],
+        },
+      });
+      expect(writesIn(called)).not.toContain("evidence.confirmUpload");
+    } finally {
+      ownRow.openFor = Number.POSITIVE_INFINITY;
+    }
   });
 
   test("only a draft this item started is attached; others are refused, nothing confirmed", async () => {

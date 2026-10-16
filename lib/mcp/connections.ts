@@ -1,7 +1,7 @@
 import "@/lib/server-guard";
 import { and, desc, eq, gt, isNull } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { type McpConnectionKind, mcpConnection } from "@/schema";
+import { mcpConnection } from "@/schema";
 
 /** Whose connection, in which company: every read and write here is held to both. */
 interface Owner {
@@ -15,15 +15,18 @@ const owned = ({ userId, companyId }: Owner) =>
 const open = (now: Date) =>
   and(isNull(mcpConnection.endedAt), gt(mcpConnection.expiresAt, now));
 
+/** What a connection is opened with; when it was made is `now`, the rest comes with its use. */
+type NewConnection = Readonly<
+  Pick<
+    typeof mcpConnection.$inferInsert,
+    "userId" | "companyId" | "kind" | "client" | "keyVersion" | "expiresAt"
+  >
+>;
+
 /** A new connection's row; its id goes into every key and sign-in token it is given. */
 export async function openConnection(
   db: DbOrTx,
-  connection: Owner & {
-    readonly kind: McpConnectionKind;
-    readonly client: string | null;
-    readonly keyVersion: number;
-    readonly expiresAt: Date;
-  },
+  connection: NewConnection,
   now: Date,
 ): Promise<string> {
   const [row] = await db

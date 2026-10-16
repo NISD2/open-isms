@@ -202,7 +202,7 @@
       },
       "andMore": "{names} and {count} more",
       "comesNext": "Next",
-      "byAssistant": "Entered by {client} on {date}",
+      "byAssistant": "Filled in by the assistant {client} on {date}",
       "saveFailed": "That was not saved. What you entered is still here. Please try again.",
       "uploadFirst": "Upload the file here. If you do not have it yet, choose \"Not possible yet\".",
       "decline": {

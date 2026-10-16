@@ -45,10 +45,12 @@
         "key": "Geplakte sleutel",
         "unnamed": "Een assistent",
         "since": "gekoppeld op {date}",
-        "lastUsed": "laatst gebruikt {date}",
+        "lastUsed": "laatst gebruikt op {date}",
         "neverUsed": "nog niet gebruikt",
         "end": "Ontkoppelen",
-        "ended": "{name} is ontkoppeld."
+        "endNamed": "{name} ontkoppelen",
+        "ended": "Ontkoppeld: {name}.",
+        "loadFailed": "De gekoppelde assistenten konden niet worden geladen. Laad de pagina opnieuw."
       },
       "failed": "Dat is niet gelukt. Probeer het opnieuw.",
       "companyChanged": "U hebt in een ander tabblad een ander bedrijf geopend. Laad deze pagina opnieuw om te koppelen in het bedrijf dat u open hebt.",

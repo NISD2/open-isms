@@ -202,7 +202,7 @@
       },
       "andMore": "{names} und {count} weitere",
       "comesNext": "Als Nächstes",
-      "byAssistant": "Eingetragen von {client} am {date}",
+      "byAssistant": "Am {date} vom Assistenten {client} eingetragen",
       "saveFailed": "Das wurde nicht gespeichert. Ihre Eingaben sind noch da. Bitte versuchen Sie es noch einmal.",
       "uploadFirst": "Laden Sie die Datei hier hoch. Haben Sie sie noch nicht, wählen Sie „Geht noch nicht“.",
       "decline": {

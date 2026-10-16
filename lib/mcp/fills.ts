@@ -13,7 +13,10 @@ export const FillRecord = z.object({
   code: z.string(),
   /** The fields answered. */
   answers: z.array(z.string()),
-  /** The screens saved through their own procedure. */
+  /**
+   * The ids of the screens saved through their own procedure: an item can show a kind on several
+   * screens, one per slice, and a save writes only the slices its rows are on (screens.ts `wrote`).
+   */
   screens: z.array(z.string()),
   /** Whether a register row was added or corrected. */
   register: z.boolean(),
@@ -48,7 +51,7 @@ export function wroteScreen(screen: AnyScreen, record: FillRecord): boolean {
     case "register":
       return record.register;
     default:
-      return record.screens.includes(screen.kind);
+      return record.screens.includes(screen.id);
   }
 }
 

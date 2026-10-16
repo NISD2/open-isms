@@ -18,6 +18,7 @@ import {
   type Undo,
   undoAll,
 } from "../lib/durchgang";
+import { E2E_USER_EMAIL } from "../lib/env";
 
 const ASSET = "E2E MCP Buchhaltung";
 const FILE_NAME = "e2e-mcp-inventar.pdf";
@@ -108,6 +109,35 @@ const removeOurFiles = (tenant: Tenant) =>
     [tenant.company_id, FILE_NAME],
   );
 
+/** Removes the tenant's records of what an assistant filled, so a mark seen comes from this run. */
+const removeOurFills = (tenant: Tenant) =>
+  e2eQuery(`DELETE FROM audit_log WHERE company_id = $1 AND action = 'mcp.item_filled'`, [
+    tenant.company_id,
+  ]);
+
+const SIGNED_IN = "E2E Assistent";
+
+/**
+ * An assistant the e2e user signed in to the tenant, as the token endpoint opens it, under the
+ * user's current key version; and its removal.
+ */
+async function signInAssistant(tenant: Tenant): Promise<{ id: string; undo: Undo }> {
+  const [row] = await e2eQuery<{ id: string }>(
+    `INSERT INTO mcp_connection (user_id, company_id, kind, client, key_version, expires_at)
+     SELECT id, $2, 'signin', $3, mcp_key_version, NOW() + interval '1 day'
+       FROM "user" WHERE email = $1
+     RETURNING id`,
+    [E2E_USER_EMAIL, tenant.company_id, SIGNED_IN],
+  );
+  if (!row) throw new Error("the e2e user is missing");
+  return {
+    id: row.id,
+    undo: async () => {
+      await e2eQuery(`DELETE FROM mcp_connection WHERE id = $1`, [row.id]);
+    },
+  };
+}
+
 /** Lets the tenant's people connect assistants, as its admin does in Settings, and undoes it. */
 async function allowAssistants(tenant: Tenant): Promise<Undo> {
   const [before] = await e2eQuery<{ assistants_allowed: boolean }>(
@@ -144,6 +174,7 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
   test.beforeAll(async () => {
     tenant = await e2eTenant();
     await removeOurAssets(tenant);
+    await removeOurFills(tenant);
     undos = [
       await keepSignOffs(tenant),
       await payFor(tenant),
@@ -153,17 +184,32 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
       await setAsideWalkItem(tenant, "2.3"),
       () => removeOurAssets(tenant),
       () => removeOurFiles(tenant).then(() => {}),
+      () => removeOurFills(tenant).then(() => {}),
     ];
   });
 
   test.afterAll(() => undoAll(undos));
 
-  test("the person makes a key for their assistant in Settings", async ({ page }) => {
+  test("the person makes a key in Settings; an assistant signed in stays connected", async ({
+    page,
+  }) => {
+    const signedIn = await signInAssistant(tenant);
+    undos = [...undos, signedIn.undo];
     await page.goto("/de/settings");
     await page.getByRole("button", { name: "Schlüssel erzeugen" }).click();
     const field = page.getByLabel("Schlüssel", { exact: true });
     await expect(field).toHaveValue(/\S{20,}/);
     key = await field.inputValue();
+
+    // A new key ends only the key before it.
+    const [row] = await e2eQuery<{ ended_at: Date | null }>(
+      `SELECT ended_at FROM mcp_connection WHERE id = $1`,
+      [signedIn.id],
+    );
+    expect(row).toEqual({ ended_at: null });
+    await expect(page.getByRole("listitem").filter({ hasText: SIGNED_IN })).toHaveCount(
+      1,
+    );
   });
 
   test("the assistant adds an asset and rates it, and signs nothing", async ({
@@ -211,26 +257,30 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     for (const row of statuses) expect(row.status, row.code).not.toBe("completed");
   });
 
-  test("the walkthrough marks the screen the assistant wrote", async ({
+  test("the walkthrough marks the screen the assistant wrote, and only that one", async ({
     page,
     request,
   }) => {
-    // The tool lists the item's screens as its page shows them, in the same order.
+    // The tool lists the item's screens as its page shows them, in the same order. 2.2 lists its
+    // assets on four screens: business processes first, then the business applications the
+    // assistant's own entry (an application) shows on.
     const read = await callTool(request, key, "get_walkthrough", { code: "2.2" });
     const screens = read.ok
       ? (read.data.screens as ReadonlyArray<{ readonly kind: string }>)
       : [];
-    const assets = screens.findIndex((s) => s.kind === "assets");
-    expect(assets).toBeGreaterThan(-1);
-    await page.goto(`/de/durchgang/nis2/2.2?s=${assets}`);
-    await expect(page.getByText(/Eingetragen von .+ am /)).toBeVisible({
-      timeout: 20_000,
-    });
+    const [processes, applications] = screens.flatMap((s, index) =>
+      s.kind === "assets" ? [index] : [],
+    );
+    expect(processes).toBeDefined();
+    expect(applications).toBeDefined();
+    const mark = page.getByText(/vom Assistenten .+ eingetragen/);
+    await page.goto(`/de/durchgang/nis2/2.2?s=${applications}`);
+    await expect(mark).toBeVisible({ timeout: 20_000 });
 
-    // A screen it did not write carries no mark.
-    await page.goto("/de/durchgang/nis2/2.2?s=0");
+    // A screen of the same kind whose list it did not touch carries no mark.
+    await page.goto(`/de/durchgang/nis2/2.2?s=${processes}`);
     await expect(page.locator("[data-dg-item]")).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText(/Eingetragen von .+ am /)).toHaveCount(0);
+    await expect(mark).toHaveCount(0);
   });
 
   test("the assistant uploads a file as the item's evidence; one never sent is refused", async ({
@@ -328,7 +378,7 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     await page.goto("/de/settings");
     const row = page.getByRole("listitem").filter({ hasText: "Eingefügter Schlüssel" });
     await expect(row).toHaveCount(1, { timeout: 20_000 });
-    await row.getByRole("button", { name: "Trennen" }).click();
+    await row.getByRole("button", { name: "Eingefügter Schlüssel trennen" }).click();
     await expect(row).toHaveCount(0, { timeout: 20_000 });
 
     const response = await request.post("/api/mcp", {

@@ -40,6 +40,7 @@ import { getAppUrl } from "@/lib/utils";
 import { company, user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
 import {
+  accountProcedure,
   companyProcedure,
   protectedProcedure,
   publicProcedure,
@@ -150,6 +151,13 @@ export const userRouter = router({
     const nowS = epochSeconds(now);
     const owner = { userId: ctx.userId, companyId: ctx.companyId };
     const con = await ctx.db.transaction(async (tx) => {
+      // Two keys made at once (two tabs) wait here for each other, so the later one ends the
+      // earlier; without the lock neither sees the other's row and both stay open.
+      await tx
+        .select({ id: user.id })
+        .from(user)
+        .where(eq(user.id, ctx.userId))
+        .for("update");
       await endKeys(tx, owner, now);
       return openConnection(
         tx,
@@ -213,8 +221,12 @@ export const userRouter = router({
     return { disconnected: true };
   }),
 
-  /** The person's connected assistants in the company open now: their key and each sign-in. */
-  mcpConnections: companyProcedure.query(async ({ ctx }) => {
+  /**
+   * The person's connected assistants in the company open now: their key and each sign-in. On
+   * the account tier, as disconnecting all is unguarded: connections made while the plan
+   * included the walkthrough stay listed, and endable, after it lapses.
+   */
+  mcpConnections: accountProcedure.query(async ({ ctx }) => {
     const version = await mcpKeyVersionOf(ctx.db, ctx.userId);
     if (version === null) return [];
     return connectionsOf(
@@ -229,7 +241,7 @@ export const userRouter = router({
    * Ends one connected assistant, the others stay. Its keys stop at the next call: the endpoint
    * and the token endpoint read the connection every time.
    */
-  endMcpConnection: companyProcedure
+  endMcpConnection: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const ended = await endConnection(

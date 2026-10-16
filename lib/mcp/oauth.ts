@@ -10,6 +10,7 @@
  */
 import { createHash, randomBytes } from "node:crypto";
 import { z } from "zod";
+import { MAX_NAME, UNPRINTABLE } from "./agent";
 import {
   type KeyClaims,
   type KeySubject,
@@ -96,8 +97,8 @@ const CLIENT_NAME = z
   .string()
   .trim()
   .min(1)
-  .max(100)
-  .refine((name) => !/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/u.test(name), {
+  .max(MAX_NAME)
+  .refine((name) => !UNPRINTABLE.test(name), {
     message: "client_name holds a control or format character.",
   });
 

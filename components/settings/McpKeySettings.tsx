@@ -131,7 +131,7 @@ export function McpKeySettings({
         </p>
       )}
 
-      <McpConnections />
+      <McpConnections onKeyEnded={() => setKey(null)} />
 
       <div className="flex flex-wrap gap-2">
         {usable && needsSignIn && (

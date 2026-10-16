@@ -120,3 +120,56 @@ test("cross-tenant: one company cannot read, update or delete another's asset", 
   expect(rows.length, "Rival asset was deleted across tenants").toBe(1);
   expect(rows[0].name, "Rival asset was renamed across tenants").toBe(RIVAL_ASSET_NAME);
 });
+
+test("cross-tenant: a person ends only their own AI assistant, in their own company", async ({
+  request,
+}) => {
+  const [attacker] = await e2eQuery<{ id: string; company_id: string }>(
+    `SELECT id, company_id FROM "user" WHERE email = 'dev@nis2.local'`,
+  );
+  const [rival] = await e2eQuery<{ id: string }>(
+    `WITH account AS (INSERT INTO billing_account DEFAULT VALUES RETURNING id)
+     INSERT INTO company (name, sector, entity_type, activated_at, acts_as_nis2_entity, billing_account_id)
+     SELECT 'Rival Assistenten GmbH (Testdaten)', 'energy', 'important', NOW(), true, account.id FROM account
+     RETURNING id`,
+  );
+  const [colleague] = await e2eQuery<{ id: string }>(
+    `INSERT INTO "user" (email, name) VALUES ($1, 'E2E Kollegin') RETURNING id`,
+    [`e2e-colleague-${Date.now()}@nis2.local`],
+  );
+  const connect = async (userId: string, companyId: string) => {
+    const [row] = await e2eQuery<{ id: string }>(
+      `INSERT INTO mcp_connection (user_id, company_id, kind, key_version, expires_at)
+       VALUES ($1, $2, 'key', 1, NOW() + interval '1 day') RETURNING id`,
+      [userId, companyId],
+    );
+    return row.id;
+  };
+  const endedAt = async (id: string) => {
+    const [row] = await e2eQuery<{ ended_at: Date | null }>(
+      `SELECT ended_at FROM mcp_connection WHERE id = $1`,
+      [id],
+    );
+    return row?.ended_at ?? null;
+  };
+  const own = await connect(attacker.id, attacker.company_id);
+  const elsewhere = await connect(attacker.id, rival.id);
+  const colleagues = await connect(colleague.id, attacker.company_id);
+  try {
+    // Positive control: the person's own connection here ends, so the path is live.
+    await trpcMutation(request, "user.endMcpConnection", { id: own });
+    expect(await endedAt(own), "own connection did not end (path is dead)").not.toBeNull();
+
+    // Their own connection in another company, and a colleague's here, stay open.
+    await trpcMutation(request, "user.endMcpConnection", { id: elsewhere });
+    await trpcMutation(request, "user.endMcpConnection", { id: colleagues });
+    expect(await endedAt(elsewhere), "ended a connection in another company").toBeNull();
+    expect(await endedAt(colleagues), "ended another person's connection").toBeNull();
+  } finally {
+    await e2eQuery(`DELETE FROM mcp_connection WHERE id = ANY($1::uuid[])`, [
+      [own, elsewhere, colleagues],
+    ]);
+    await e2eQuery(`DELETE FROM company WHERE id = $1`, [rival.id]);
+    await e2eQuery(`DELETE FROM "user" WHERE id = $1`, [colleague.id]);
+  }
+});

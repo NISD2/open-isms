@@ -25,6 +25,22 @@ export const FUNCTIONAL_GROUPS = [
 
 export type FunctionalGroup = (typeof FUNCTIONAL_GROUPS)[number];
 
+/** The layer an entry the person adds under a group gets, and under which groups it shows. */
+export const GROUP_TO_DEFAULT_LAYER: Record<FunctionalGroup, AssetLayer> = {
+  "business-processes": "geschaeftsprozess",
+  "customer-facing": "anwendung",
+  sales: "anwendung",
+  "customer-service": "anwendung",
+  "hr-payroll": "anwendung",
+  finance: "anwendung",
+  "it-applications": "anwendung",
+  "it-infrastructure": "it-system",
+  endpoints: "it-system",
+  locations: "raum",
+  network: "kommunikation",
+  "sector-specific": "anwendung",
+};
+
 export interface CatalogItem {
   id: string;
   group: FunctionalGroup;

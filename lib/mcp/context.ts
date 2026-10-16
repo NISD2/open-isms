@@ -42,11 +42,12 @@ async function holderOf(claims: KeyClaims) {
     },
   });
   if (!row || row.mcpKeyVersion !== claims.ver) return null;
-  const owner = { userId: row.id, companyId: claims.cid };
-  if (!(await admitConnection(db, claims.con, owner, new Date()))) return null;
   const company = await companySession(row.id, claims.cid, row.grandfatheredAt !== null);
   if (!company.companyId || !(await assistantsAllowed(db, company.companyId)))
     return null;
+  // Last, as it records the call as the connection's last use: a refused call is no use.
+  const owner = { userId: row.id, companyId: claims.cid };
+  if (!(await admitConnection(db, claims.con, owner, new Date()))) return null;
   return { row, company, companyId: company.companyId };
 }
 

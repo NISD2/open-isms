@@ -320,23 +320,28 @@ async function readItem(
   };
 }
 
-/** What an assistant is told when the company's plan does not include the walkthrough yet. */
+/**
+ * What an assistant is told when the walkthrough is not unlocked for the account yet, as Settings
+ * says it (`settings.mcp.locked`). The link is the walkthrough's own page, which shows each
+ * account its next step (`walkLockFor`): the offer, the order page, or only the journey where
+ * nothing can be ordered.
+ */
 const NOT_IN_PLAN: Record<WalkLocale, (link: string) => string> = {
   en: (link) =>
-    `The NIS 2 walkthrough is not part of this company's plan yet, so an assistant can read and fill in nothing. The person unlocks it here: ${link}`,
+    `The NIS 2 walkthrough is not unlocked for this account yet. Until it is, an assistant can read and fill in nothing. Its page in the app shows the person the next step: ${link}`,
   de: (link) =>
-    `Der NIS 2 Durchgang ist noch nicht Teil des Plans dieses Unternehmens, deshalb kann ein Assistent nichts lesen und nichts ausfüllen. Freischalten lässt er sich hier: ${link}`,
+    `Der NIS 2 Durchgang ist für dieses Konto noch nicht freigeschaltet. Bis dahin kann ein Assistent nichts lesen und nichts ausfüllen. Seine Seite in der App zeigt den nächsten Schritt: ${link}`,
   cs: (link) =>
-    `Průvodce NIS 2 zatím není součástí plánu této společnosti, proto asistent nemůže nic číst ani vyplňovat. Odemknout ho lze zde: ${link}`,
+    `Průvodce NIS 2 pro tento účet zatím není odemčen. Do té doby asistent nemůže nic číst ani vyplňovat. Jeho stránka v aplikaci ukazuje další krok: ${link}`,
 };
 
-/** The refusal for a plan without the walkthrough, in the assistant's language, or null. */
+/** The refusal for an account the walkthrough is locked for, in the assistant's language, or null. */
 const notInPlan = (holder: KeyHolder, language: WalkLocale): ToolOutcome | null =>
   holder.mayWalk
     ? null
     : refuse(
         NOT_IN_PLAN[language](
-          `${getAppUrl()}${getPathname({ href: "/pricing", locale: language })}`,
+          `${getAppUrl()}${getPathname({ href: "/durchgang/nis2", locale: language })}`,
         ),
       );
 
@@ -464,11 +469,13 @@ function screensOf(
 }
 
 /**
- * Why a write would take a signature or an approval back now, or null. fillItem asks before the
- * first write and again right before each one, so management signing while a call runs stops the
- * writes still to come. What remains is one write's own few milliseconds: a signature landing
- * inside one is taken back as the person's own save would take it, and the audit entry names the
- * assistant. Closing that too needs the check inside each procedure's transaction.
+ * Why a write would take a signature or an approval back now, or null: the item's own signature,
+ * one on an item relying on a register the write changes, or the approval of the policy it
+ * rewrites. fillItem asks before the first write and again right before each one, files
+ * included, so management signing while a call runs stops the writes still to come. What remains
+ * is one write's own few milliseconds: a signature landing inside one is taken back as the
+ * person's own save would take it, and the audit entry names the assistant. Closing that too
+ * needs the check inside each procedure's transaction.
  */
 type Guard = (modules: readonly string[], policy: boolean) => Promise<string | null>;
 
@@ -508,6 +515,25 @@ async function saveScreens(
     }
   }
   return results;
+}
+
+/** The ids of the item's screens the saved screens wrote (`ScreenFill.wrote`). */
+async function screensWritten(
+  holder: KeyHolder,
+  item: AnyItem,
+  screens: ReadonlyArray<[FillableKind, unknown]>,
+  results: ReadonlyArray<{ readonly kind: FillableKind }>,
+): Promise<string[]> {
+  const saved = new Set(results.flatMap((r) => ("saved" in r ? [r.kind] : [])));
+  const written = await Promise.all(
+    screens
+      .filter(([kind]) => saved.has(kind))
+      .map(async ([kind, input]) => {
+        const wrote = await SCREEN_FILLS[kind].wrote(holder.caller, input);
+        return item.screens.filter((s) => s.kind === kind && wrote(s)).map((s) => s.id);
+      }),
+  );
+  return written.flat();
 }
 
 /**
@@ -614,13 +640,14 @@ async function saveChanges(
 
 /**
  * The uploaded files, each confirmed as the item's evidence or refused on its own. Only a file
- * started for this item (`upload_file` on this code) and not confirmed yet is attached: the item's
- * own checks, closed and signed among them, are the ones that ran for this call.
+ * started for this item (`upload_file` on this code) and not confirmed yet is attached, and none
+ * once the item is signed.
  */
 async function confirmFiles(
   holder: KeyHolder,
   statusRowId: string | null,
   files: ReadonlyArray<{ readonly evidenceId: string; readonly contentHash?: string }>,
+  guard: Guard,
 ) {
   const drafts = statusRowId
     ? new Set(
@@ -642,6 +669,11 @@ async function confirmFiles(
         evidenceId,
         refused: "Not a file upload_file started for this item, or already attached.",
       });
+      continue;
+    }
+    const takesBack = await guard([], false);
+    if (takesBack) {
+      results.push({ evidenceId, refused: takesBack });
       continue;
     }
     try {
@@ -739,6 +771,7 @@ export async function fillItem(
     ]),
   ];
   const guard: Guard = async (checked, policy) =>
+    refusalOf(found, await statusOf(holder, found), link) ??
     (checked.length > 0 ? await signaturesTakenBack(holder, checked, link) : null) ??
     (policy ? await approvalTakenBack(holder, code, link) : null);
   const takesBack = await guard(
@@ -768,12 +801,12 @@ export async function fillItem(
     screens.length > 0 ? await saveScreens(holder, code, screens, guard) : null;
   const attached =
     files.length > 0
-      ? await confirmFiles(holder, allowed.statusRow?.id ?? null, files)
+      ? await confirmFiles(holder, allowed.statusRow?.id ?? null, files, guard)
       : null;
   await recordFill(holder, found.req.id, {
     code,
     answers: answering ? Object.keys(answers) : [],
-    screens: (saved ?? []).flatMap((s) => ("saved" in s ? [s.kind] : [])),
+    screens: saved ? await screensWritten(holder, item, screens, saved) : [],
     register: [...(added ?? []), ...(changed ?? [])].some((r) => !("refused" in r)),
     files: (attached ?? []).filter((f) => "attached" in f).length,
   });

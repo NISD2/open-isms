@@ -8,6 +8,7 @@ import {
   type CATALOG,
   FUNCTIONAL_GROUPS,
   type FunctionalGroup,
+  GROUP_TO_DEFAULT_LAYER,
   visibleCatalog,
 } from "@/lib/asset-inventory/catalog";
 import type { AssetLayer } from "@/lib/asset-inventory/types";
@@ -25,21 +26,6 @@ interface BigChecklistProps {
   onCheckedChange: (next: string[]) => void;
   onCustomChange: (next: Array<{ name: string; layer: AssetLayer }>) => void;
 }
-
-const GROUP_TO_DEFAULT_LAYER: Record<FunctionalGroup, AssetLayer> = {
-  "business-processes": "geschaeftsprozess",
-  "customer-facing": "anwendung",
-  sales: "anwendung",
-  "customer-service": "anwendung",
-  "hr-payroll": "anwendung",
-  finance: "anwendung",
-  "it-applications": "anwendung",
-  "it-infrastructure": "it-system",
-  endpoints: "it-system",
-  locations: "raum",
-  network: "kommunikation",
-  "sector-specific": "anwendung",
-};
 
 // Groups collapsed by default for users who want to scan headers first.
 // Empty set = all expanded.
