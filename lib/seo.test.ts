@@ -1,7 +1,7 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { routing } from "@/i18n/routing";
-import { HELP_LOCALES, pageAlternates } from "./seo";
+import { HELP_LOCALES, pageAlternates, pageUrl } from "./seo";
 import { relatedPathname } from "./seo-related";
 
 /**
@@ -95,10 +95,47 @@ describe("pageAlternates", () => {
     for (const locale of outside) {
       const alternates = pageAlternates("toms", locale, NARROWED);
       expect(languagesOf(alternates)).toBeNull();
-      expect(alternates.canonical).toBe(
-        pageAlternates("toms", "en", NARROWED).canonical,
-      );
+      expect(alternates.canonical).toBe(pageAlternates("toms", "en", NARROWED).canonical);
     }
+  });
+});
+
+describe("pageAlternates and measured copies", () => {
+  const pathOf = (slug: string, locale: string) =>
+    new URL(pageUrl(slug, locale)).pathname;
+  const copies = new Map<string, "de" | "en">([
+    [pathOf("wiki/grundlagen", "fr"), "de"],
+    [pathOf("wiki/grundlagen", "nl"), "en"],
+  ]);
+
+  test("a copy names the language it copies as its canonical, and heads no cluster", () => {
+    const french = pageAlternates("wiki/grundlagen", "fr", routing.locales, copies);
+    expect(languagesOf(french)).toBeNull();
+    expect(french.canonical).toBe(pageUrl("wiki/grundlagen", "de"));
+
+    const dutch = pageAlternates("wiki/grundlagen", "nl", routing.locales, copies);
+    expect(dutch.canonical).toBe(pageUrl("wiki/grundlagen", "en"));
+  });
+
+  test("the other languages drop the copies from their hreflang set, as the sitemap does", () => {
+    for (const locale of ["de", "en", "cs"]) {
+      const alternates = pageAlternates(
+        "wiki/grundlagen",
+        locale,
+        routing.locales,
+        copies,
+      );
+      if (!("languages" in alternates)) throw new Error("expected a cluster");
+      expect(Object.keys(alternates.languages)).not.toContain("fr");
+      expect(Object.keys(alternates.languages)).not.toContain("nl");
+      expect(Object.values(alternates.languages)).toContain(alternates.canonical);
+    }
+  });
+
+  test("a page with no copy is unchanged", () => {
+    expect(pageAlternates("about", "fr", routing.locales, copies)).toEqual(
+      pageAlternates("about", "fr", routing.locales, new Map()),
+    );
   });
 });
 

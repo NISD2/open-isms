@@ -1,4 +1,5 @@
 import { routing } from "@/i18n/routing";
+import { languageCopies } from "@/lib/content/language-copies";
 import { isLocaleCode, type LocaleCode } from "@/lib/locale";
 import { ogCard } from "./og-card";
 
@@ -109,26 +110,40 @@ const I18N_FALLBACK_LOCALE: Locale = "en";
  * `x-default` value is what Google serves when no locale match is
  * found, so we point it at DE (our primary market).
  *
- * `locales` narrows that set for a page that does not exist in all of them --
+ * `allLocales` narrows that set for a page that does not exist in all of them --
  * see HELP_LOCALES above. It must be passed the same list the sitemap uses for
  * that page, or the two disagree and the hreflang stops being reciprocal.
  *
- * RETURN SHAPE IS A UNION. For a locale inside `locales` you get
- * `{ canonical, languages }`. For one outside it you get `{ canonical }` and
- * nothing else -- that page is a duplicate of the English original and says
- * so, rather than heading a cluster it is not a member of. Destructuring
+ * `copies` are the URLs measured as another language's text (languageCopies). The sitemap
+ * leaves them out, so they leave every hreflang set here too, and a copy itself names the
+ * language it copies as its canonical.
+ *
+ * RETURN SHAPE IS A UNION. For a locale inside `allLocales` you get
+ * `{ canonical, languages }`. For one outside it, or a measured copy, you get
+ * `{ canonical }` and nothing else -- that page is a duplicate of an original
+ * and says so, rather than heading a cluster it is not a member of. Destructuring
  * `languages` unconditionally will not compile, which is the intended
  * reminder; narrow on `"languages" in alternates` if a caller needs both.
  */
 export function pageAlternates(
   slug: string,
   locale: string,
-  locales: readonly Locale[] = routing.locales,
+  allLocales: readonly Locale[] = routing.locales,
+  copies: ReadonlyMap<string, "de" | "en"> = languageCopies,
 ) {
   const canonical = slug ? `/${slug}` : "/";
   const safeLocale: Locale = isLocaleCode(locale) ? locale : routing.defaultLocale;
+  const copyOf = (l: Locale) =>
+    copies.get(new URL(localizedAbsoluteUrl(canonical, l)).pathname);
 
-  // A locale outside `locales` still resolves -- the route exists in all ten
+  // Text measured as a copy of German or English: one canonical on the original, no cluster.
+  const original = copyOf(safeLocale);
+  if (original) return { canonical: localizedAbsoluteUrl(canonical, original) };
+
+  // The cluster: the locales the page exists in, less the measured copies.
+  const locales = allLocales.filter((l) => !copyOf(l));
+
+  // A locale outside `allLocales` still resolves -- the route exists in all ten
   // and i18n/request.ts fills the namespace from English -- so what it serves
   // is the English page under a localized URL. It says exactly that: one
   // canonical pointing at the English original, and no hreflang set of its
@@ -137,7 +152,7 @@ export function pageAlternates(
   // discards the whole set for, and dropping it from the sitemap alone never
   // stopped it being crawled: the pricing cards and /vermittlung link /hilfe
   // in every locale, and layout.tsx indexes everything by default.
-  if (!locales.includes(safeLocale)) {
+  if (!allLocales.includes(safeLocale)) {
     return { canonical: localizedAbsoluteUrl(canonical, I18N_FALLBACK_LOCALE) };
   }
 

@@ -1,7 +1,7 @@
 import { isNotNull } from "drizzle-orm";
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import languageCopies from "@/lib/content/sitemap-language-copies.json";
+import { languageCopies } from "@/lib/content/language-copies";
 import { wikiSitemapPaths } from "@/lib/content/wiki-toc";
 import { db } from "@/lib/db";
 import { DOCS_REVISED, docsUrl } from "@/lib/docs/seo";
@@ -101,7 +101,7 @@ const pathOf = (url: string) => new URL(url).pathname;
  * language and Google finds the same text it already has, which is the "duplicate" and
  * "crawled, not indexed" it reports for those URLs.
  */
-const COPIED_PATHS: ReadonlySet<string> = new Set(Object.keys(languageCopies.copies));
+const COPIED_PATHS: ReadonlySet<string> = new Set(languageCopies.keys());
 
 const rewrittenOn = (url: string): string | undefined =>
   Object.entries(LOCALE_REWRITTEN_ON).find(
