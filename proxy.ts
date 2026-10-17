@@ -304,7 +304,7 @@ async function route(request: NextRequest) {
     // links to the wedge landing is the safe default.
     const localeMatch = pathname.match(NON_DEFAULT_LOCALE_PREFIX);
     const localePrefix = localeMatch ? `/${localeMatch[1].toLowerCase()}` : "";
-    const target = new URL(`https://www.nisd2.eu${localePrefix}/sicherheitsfragebogen`);
+    const target = new URL(`https://nisd2.eu${localePrefix}/sicherheitsfragebogen`);
     target.search = request.nextUrl.search;
     return NextResponse.redirect(target, 301);
   }

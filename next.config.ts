@@ -151,6 +151,16 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // One host: www.nisd2.eu answers 308 for every path, files included. The
+      // proxy matcher skips robots.txt, the sitemap and images, so this has to
+      // live here, where redirects run first. Exact host match, query string kept.
+      // It only fires once Coolify forwards www to the app ("Allow www & non-www").
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.nisd2.eu" }],
+        destination: "https://nisd2.eu/:path*",
+        permanent: true,
+      },
       // RFC 8615 well-known: password managers (iOS/Safari, Chrome, 1Password)
       // deep-link here to send a user to the change-password flow. There is no
       // logged-in change-password page yet, so point at the email reset flow.
