@@ -87,6 +87,16 @@ export function DurchgangHome({
   const next = resumeAt(steps, (w) => w.state);
   const [flash, setFlash] = useState<string | null>(null);
 
+  /** What a click on a locked step offers under its screenshot: the way on the big button gives. */
+  const wayOn = lock && (
+    <Button asChild size="lg" className="h-11 rounded-xl px-6">
+      <Link href={lock.orderAt ?? "/journey"}>
+        {lock.orderAt ? t("ui.home.unlock") : t("ui.home.toJourney")}
+        <ArrowRight />
+      </Link>
+    </Button>
+  );
+
   /** A small sign-off tick leads to the step where management signs, and lights it briefly. */
   const showSignOff = () => {
     const code = APPROVAL_SCREEN?.code;
@@ -342,14 +352,14 @@ export function DurchgangHome({
                   )}
                   {/* A locked step does not open, it shows itself: the whole card is the trigger,
                       so the preview sits beside the card, and the eye tells a phone user that a
-                      tap shows it. */}
+                      tap shows it. A click or a tap keeps it open with the way on under it. */}
                   {shot && (
                     <>
                       <Eye
                         aria-hidden
                         className="size-4 shrink-0 text-muted-foreground"
                       />
-                      <ImagePreview image={shot}>
+                      <ImagePreview image={shot} footer={wayOn || undefined}>
                         <button
                           type="button"
                           aria-label={t("ui.home.preview", { step: entry.headline })}

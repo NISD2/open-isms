@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 export interface PreviewImage {
   readonly src: string;
@@ -61,20 +62,32 @@ export const zoomTo = ({ x, y, scale }: NonNullable<PreviewImage["focus"]>) => {
 export function ImagePreview({
   image,
   children,
+  footer,
 }: {
   image: PreviewImage;
   children: React.ReactElement;
+  /**
+   * The one thing to do next, under the image. It shows once the preview is pinned: a click with
+   * a mouse, a tap, or the keyboard keeps it open and lets the pointer reach it. Hover alone
+   * still previews without it, so the preview never holds the hover.
+   */
+  footer?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const [pinned, setPinned] = useState(false);
   const [side, setSide] = useState<"right" | "bottom">("right");
   const [zoomed, setZoomed] = useState(false);
   const pointer = useRef("");
   const trigger = useRef<HTMLButtonElement>(null);
   const { focus } = image;
+  const interactive = footer !== undefined && pinned;
 
   const show = (next: boolean) => {
     if (next) setSide(sideFor(trigger.current));
+    else setPinned(false);
     setOpen(next);
+    // Opened by anything but a mouse hovering over it: a tap or a key press.
+    if (next && footer !== undefined && pointer.current !== "mouse") setPinned(true);
   };
 
   useEffect(() => {
@@ -92,15 +105,24 @@ export function ImagePreview({
       <PopoverTrigger
         ref={trigger}
         asChild
-        onPointerEnter={(e) => e.pointerType === "mouse" && show(true)}
-        onPointerLeave={(e) => e.pointerType === "mouse" && show(false)}
+        onPointerEnter={(e) => {
+          if (e.pointerType !== "mouse") return;
+          pointer.current = "mouse";
+          show(true);
+        }}
+        onPointerLeave={(e) => e.pointerType === "mouse" && !pinned && show(false)}
         onPointerDown={(e) => {
           pointer.current = e.pointerType;
         }}
-        // With a mouse the hover owns the preview, so a click must not toggle it shut. A click from
-        // the keyboard (detail 0) still toggles it.
+        // With a mouse the hover owns the preview, so a click must not toggle it shut. With a
+        // footer the click pins it instead. A click from the keyboard (detail 0) still toggles it.
         onClick={(e) => {
-          if (e.detail > 0 && pointer.current === "mouse") e.preventDefault();
+          if (e.detail === 0) {
+            pointer.current = "keyboard";
+          } else if (pointer.current === "mouse") {
+            e.preventDefault();
+            if (footer !== undefined) setPinned(true);
+          }
         }}
       >
         {children}
@@ -110,24 +132,33 @@ export function ImagePreview({
         align="start"
         sideOffset={OFFSET}
         collisionPadding={EDGE}
-        onOpenAutoFocus={(e) => e.preventDefault()}
+        onOpenAutoFocus={(e) => !interactive && e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
-        className="w-[min(40rem,calc(100vw-2rem))] overflow-hidden p-0 [@media(hover:hover)]:pointer-events-none"
+        className={cn(
+          "w-[min(40rem,calc(100vw-2rem))] overflow-hidden p-0",
+          !interactive && "[@media(hover:hover)]:pointer-events-none",
+        )}
       >
-        <Image
-          src={image.src}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          sizes={`${Math.ceil(PREVIEW_WIDTH * (focus?.scale ?? 1))}px`}
-          style={
-            focus && {
-              ...zoomTo(focus),
-              ...(zoomed ? {} : { transform: "none" }),
+        {/* The zoom is clipped to the image's own box, or it paints over the footer under it. */}
+        <div className="overflow-hidden">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            sizes={`${Math.ceil(PREVIEW_WIDTH * (focus?.scale ?? 1))}px`}
+            style={
+              focus && {
+                ...zoomTo(focus),
+                ...(zoomed ? {} : { transform: "none" }),
+              }
             }
-          }
-          className="h-auto w-full transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
-        />
+            className="h-auto w-full transition-transform duration-[900ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none"
+          />
+        </div>
+        {interactive && (
+          <div className="flex justify-end border-t bg-card p-3">{footer}</div>
+        )}
       </PopoverContent>
     </Popover>
   );
