@@ -10,8 +10,9 @@
  *   bun run build && bun run start          # in another shell
  *   bun scripts/measure-language-copies.ts http://localhost:3000
  *
- * Re-run it after translating a page. A page that now has its own text drops out of the file and
- * back into the sitemap. A stale file only leaves a translated page unlisted, never the reverse.
+ * Re-run it after translating a page, and after publishing new pages. A page that now has its own
+ * text drops out of the file and back into the sitemap. A stale file errs both ways: a page
+ * translated since stays unlisted, and a page added since is listed until it has been measured.
  */
 import { writeFile } from "node:fs/promises";
 import { allSitemapEntries } from "../app/sitemap";

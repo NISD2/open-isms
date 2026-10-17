@@ -104,7 +104,9 @@ const pathOf = (url: string) => new URL(url).pathname;
 const COPIED_PATHS: ReadonlySet<string> = new Set(Object.keys(languageCopies.copies));
 
 const rewrittenOn = (url: string): string | undefined =>
-  LOCALE_REWRITTEN_ON[pathOf(url).split("/")[1] as Locale];
+  Object.entries(LOCALE_REWRITTEN_ON).find(
+    ([locale]) => pathOf(url).split("/")[1] === locale,
+  )?.[1];
 
 const latest = (a: SitemapEntry["lastModified"], b: string) =>
   a && String(a) > b ? a : b;
