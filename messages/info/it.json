@@ -1469,8 +1469,8 @@
     },
     "features": {
       "meta": {
-        "title": "Software di conformità NIS2: piattaforma gratuita: funzionalità",
-        "description": "Software gratuito di conformità NIS2 con tutti i 49 requisiti BSIG, monitoraggio delle scadenze, audit trail, protezione dalla responsabilità degli organi di gestione. Valido in tutta l'UE, senza lock-in."
+        "title": "Software di conformità NIS2: funzionalità",
+        "description": "Software di conformità NIS2 con tutti i 49 requisiti BSIG, monitoraggio delle scadenze, audit trail. Valido in tutta l'UE, senza lock-in."
       },
       "title": "Funzionalità della piattaforma",
       "subtitle": "Passo dopo passo attraverso ogni requisito NIS2. Non serve alcuna preparazione in materia di conformità: basta iniziare e ti guidiamo fino al traguardo.",
@@ -3252,7 +3252,7 @@
     "isoMapping": {
       "meta": {
         "title": "ISO 27001 vs NIS2 - Analisi delle lacune",
-        "description": "La ISO 27001 copre circa il 70% di NIS2 ma tralascia la registrazione presso il BSI, le tempistiche di notifica degli incidenti, la responsabilità personale e i requisiti della catena di fornitura."
+        "description": "La ISO 27001 tralascia la registrazione presso il BSI, le tempistiche di notifica degli incidenti, la responsabilità personale e i requisiti della catena di fornitura."
       },
       "title": "Analisi delle lacune da ISO 27001 a NIS2",
       "subtitle": "Una certificazione ISO 27001 copre all'incirca il 70% dei requisiti tecnici di NIS2, ma il restante 30% comprende le aree con il maggiore rischio sanzionatorio: registrazione, tempistiche di notifica degli incidenti e responsabilità personale della direzione.",
@@ -4614,7 +4614,7 @@
     "kritisComparison": {
       "meta": {
         "title": "NIS2 vs KRITIS: cosa è cambiato",
-        "description": "NIS2 estende KRITIS da 2.000 a 30.000 aziende con nuovi settori, responsabilità personale e notifiche più rigorose. Cosa è cambiato e cosa è rimasto."
+        "description": "NIS2 estende KRITIS con nuovi settori, responsabilità personale e notifiche più rigorose. Cosa è cambiato e cosa è rimasto."
       },
       "title": "NIS2 vs KRITIS: cosa è cambiato davvero",
       "subtitle": "NIS2 non sostituisce KRITIS: lo estende in modo drastico. Da circa 2.000 operatori a circa 30.000 soggetti, sette nuovi settori, responsabilità personale degli organi di gestione e scadenze di notifica più rigorose.",
@@ -7333,7 +7333,7 @@
     "teamPage": {
       "meta": {
         "title": "Team - NISD2.eu",
-        "description": "Conosci il team dietro NISD2.eu. Due fondatori che dimezzano il conto della conformità NIS2 in Europa."
+        "description": "Conosci il team dietro NISD2.eu."
       },
       "badge": "Team",
       "title": "Chi siamo",

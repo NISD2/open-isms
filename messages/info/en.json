@@ -1718,8 +1718,8 @@
     },
     "features": {
       "meta": {
-        "title": "NIS2 Compliance Software: Free Platform: Features",
-        "description": "Free NIS2 compliance software with all 49 BSIG requirements, deadline tracking, audit trail, management liability protection. EU-wide, no lock-in."
+        "title": "NIS2 Compliance Software: Features",
+        "description": "NIS2 compliance software with all 49 BSIG requirements, deadline tracking, audit trail. EU-wide, no lock-in."
       },
       "title": "Platform Features",
       "subtitle": "Step-by-step through every NIS2 requirement. No compliance background needed, just start and we guide you to the finish line.",
@@ -3092,7 +3092,7 @@
     "isoMapping": {
       "meta": {
         "title": "ISO 27001 vs NIS2 - Gap Analysis",
-        "description": "ISO 27001 covers about 70% of NIS2 but misses BSI registration, incident timelines, personal liability, and supply chain requirements."
+        "description": "ISO 27001 misses BSI registration, incident timelines, personal liability, and supply chain requirements."
       },
       "title": "ISO 27001 to NIS2 Gap Analysis",
       "subtitle": "An ISO 27001 certification covers roughly 70% of NIS2 technical requirements - but the remaining 30% includes the areas with the highest enforcement risk: registration, incident reporting timelines, and management personal liability.",
@@ -4454,7 +4454,7 @@
     "kritisComparison": {
       "meta": {
         "title": "NIS2 vs KRITIS - What Changed",
-        "description": "NIS2 extends KRITIS from 2,000 to 30,000 companies with new sectors, personal liability, and tighter reporting. What changed and what stayed."
+        "description": "NIS2 extends KRITIS with new sectors, personal liability, and tighter reporting. What changed and what stayed."
       },
       "title": "NIS2 vs KRITIS: What Actually Changed",
       "subtitle": "NIS2 does not replace KRITIS - it extends it dramatically. From roughly 2,000 operators to about 30,000 entities, seven new sectors, personal management liability, and tighter reporting deadlines.",
@@ -7595,7 +7595,7 @@
     "teamPage": {
       "meta": {
         "title": "Team - NISD2.eu",
-        "description": "Meet the team behind NISD2.eu. Two founders cutting Europe's NIS2 compliance bill in half."
+        "description": "Meet the team behind NISD2.eu."
       },
       "badge": "Team",
       "website": "Website",

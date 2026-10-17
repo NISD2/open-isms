@@ -1469,8 +1469,8 @@
     },
     "features": {
       "meta": {
-        "title": "Software de conformitate NIS2: platformă gratuită: funcții",
-        "description": "Software gratuit de conformitate NIS2 cu toate cele 49 de cerințe BSIG, urmărirea termenelor, pistă de audit, protecția răspunderii conducerii. La nivelul întregii UE, fără lock-in."
+        "title": "Software de conformitate NIS2: funcții",
+        "description": "Software de conformitate NIS2 cu toate cele 49 de cerințe BSIG, urmărirea termenelor, pistă de audit. La nivelul întregii UE, fără lock-in."
       },
       "title": "Funcțiile platformei",
       "subtitle": "Pas cu pas prin fiecare cerință NIS2. Nu este nevoie de cunoștințe de conformitate, doar începeți și vă ghidăm până la final.",
@@ -2839,7 +2839,7 @@
     "isoMapping": {
       "meta": {
         "title": "ISO 27001 vs NIS2. Analiză de lacune",
-        "description": "ISO 27001 acoperă aproximativ 70% din NIS2, dar nu acoperă înregistrarea la BSI, termenele de raportare a incidentelor, răspunderea personală și cerințele privind lanțul de aprovizionare."
+        "description": "ISO 27001 nu acoperă înregistrarea la BSI, termenele de raportare a incidentelor, răspunderea personală și cerințele privind lanțul de aprovizionare."
       },
       "title": "Analiză de lacune de la ISO 27001 la NIS2",
       "subtitle": "O certificare ISO 27001 acoperă aproximativ 70% din cerințele tehnice ale NIS2, dar cele 30% rămase includ domeniile cu cel mai mare risc de aplicare a sancțiunilor: înregistrarea, termenele de raportare a incidentelor și răspunderea personală a conducerii.",
@@ -4201,7 +4201,7 @@
     "kritisComparison": {
       "meta": {
         "title": "NIS2 vs KRITIS - ce s-a schimbat",
-        "description": "NIS2 extinde KRITIS de la 2.000 la 30.000 de companii, cu sectoare noi, răspundere personală și raportare mai strictă. Ce s-a schimbat și ce a rămas."
+        "description": "NIS2 extinde KRITIS cu sectoare noi, răspundere personală și raportare mai strictă. Ce s-a schimbat și ce a rămas."
       },
       "title": "NIS2 vs KRITIS: ce s-a schimbat de fapt",
       "subtitle": "NIS2 nu înlocuiește KRITIS, ci îl extinde dramatic. De la aproximativ 2.000 de operatori la circa 30.000 de entități, șapte sectoare noi, răspundere personală a conducerii și termene de raportare mai stricte.",
@@ -6920,7 +6920,7 @@
     "teamPage": {
       "meta": {
         "title": "Echipă: NISD2.eu",
-        "description": "Faceți cunoștință cu echipa din spatele NISD2.eu. Doi fondatori care reduc la jumătate factura de conformitate NIS2 a Europei."
+        "description": "Faceți cunoștință cu echipa din spatele NISD2.eu."
       },
       "badge": "Echipă",
       "title": "Cine suntem",

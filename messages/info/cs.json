@@ -1487,8 +1487,8 @@
     },
     "features": {
       "meta": {
-        "title": "Software pro NIS2 compliance: Bezplatná platforma: Funkce",
-        "description": "Bezplatný software pro NIS2 compliance se všemi 49 požadavky NIS 2, sledováním lhůt, auditní stopou a ochranou před odpovědností vedení. Pro celou EU, bez lock-inu."
+        "title": "Software pro NIS2 compliance: Funkce",
+        "description": "Software pro NIS2 compliance se všemi 49 požadavky NIS 2, sledováním lhůt a auditní stopou. Pro celou EU, bez lock-inu."
       },
       "title": "Funkce platformy",
       "subtitle": "Krok za krokem každým požadavkem NIS2. Nepotřebujete žádné předchozí znalosti compliance, stačí začít a my vás dovedeme až do cíle.",
@@ -2861,7 +2861,7 @@
     "isoMapping": {
       "meta": {
         "title": "ISO 27001 vs NIS2: analýza nedostatků",
-        "description": "ISO 27001 pokrývá zhruba 70 % NIS2, ale chybí v ní ohlášení služby NÚKIB, lhůty pro hlášení incidentů, povinnosti vedení a požadavky na dodavatelský řetězec."
+        "description": "V ISO 27001 chybí ohlášení služby NÚKIB, lhůty pro hlášení incidentů, povinnosti vedení a požadavky na dodavatelský řetězec."
       },
       "title": "Analýza nedostatků mezi ISO 27001 a NIS2",
       "subtitle": "Certifikace ISO 27001 pokrývá zhruba 70 % technických požadavků NIS2. Zbývajících 30 % ale zahrnuje oblasti s nejvyšším rizikem při kontrole: ohlášení služby, lhůty pro hlášení incidentů a povinnosti vedení.",
@@ -7355,7 +7355,7 @@
     "teamPage": {
       "meta": {
         "title": "Tým, NISD2.eu",
-        "description": "Seznamte se s týmem za NISD2.eu. Dva zakladatelé, kteří snižují evropský účet za NIS2 compliance na polovinu."
+        "description": "Seznamte se s týmem za NISD2.eu."
       },
       "badge": "Tým",
       "website": "Web",

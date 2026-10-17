@@ -1718,8 +1718,8 @@
     },
     "features": {
       "meta": {
-        "title": "NIS2 Compliance Software: Kostenlose Plattform: Funktionen",
-        "description": "Kostenlose NIS2-Compliance-Software mit allen 49 BSIG-Anforderungen, Fristenüberwachung, Audit-Trail, Geschäftsführerhaftung. EU-weit, ohne Lock-in."
+        "title": "NIS2 Compliance Software: Funktionen",
+        "description": "NIS2-Compliance-Software mit allen 49 BSIG-Anforderungen, Fristenüberwachung, Audit-Trail. EU-weit, ohne Lock-in."
       },
       "title": "Plattform-Funktionen",
       "subtitle": "Schritt für Schritt durch jede NIS2-Anforderung. Kein Compliance-Vorwissen nötig, einfach starten und wir führen Sie ans Ziel.",
@@ -3091,7 +3091,7 @@
     "isoMapping": {
       "meta": {
         "title": "ISO 27001 vs NIS2 - Lückenanalyse und Mapping",
-        "description": "ISO 27001 deckt ca. 70% der NIS2-Anforderungen ab. Lückenanalyse: was fehlt, was passt und wie Sie ISO-Zertifizierungen für NIS2 nutzen."
+        "description": "Lückenanalyse: was fehlt, was passt und wie Sie ISO-Zertifizierungen für NIS2 nutzen."
       },
       "title": "ISO 27001 vs NIS2",
       "subtitle": "ISO 27001:2022 bietet eine solide Grundlage - deckt aber nur rund 70% der NIS2-Anforderungen ab. Eine systematische Lückenanalyse.",
@@ -7593,7 +7593,7 @@
     "teamPage": {
       "meta": {
         "title": "Team - NISD2.eu",
-        "description": "Das Team hinter NISD2.eu. Zwei Gründer, die Europas NIS2-Compliance-Kosten halbieren."
+        "description": "Das Team hinter NISD2.eu."
       },
       "badge": "Team",
       "website": "Website",

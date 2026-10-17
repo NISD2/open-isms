@@ -6,11 +6,11 @@ const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://nisd2.eu";
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "NIS2 Compliance Platform. Free, EU-wide, no lock-in",
+    default: "NIS2 software: step by step, for companies with 50 to 150 employees",
     template: "%s",
   },
   description:
-    "Free NIS2 compliance platform for European companies. All 10 BSIG measures, audit trail, management liability protection, BSI registration guide. No lock-in.",
+    "You fill it in, we explain every point in plain words, and at the end management signs. For companies without their own security department.",
   keywords: [
     "NIS2",
     "NIS2 Richtlinie",
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     locale: "de_DE",
     alternateLocale: "en_US",
     siteName: "nisd2.eu",
-    title: "NIS2 Compliance Platform. Free, EU-wide",
+    title: "NIS2 software: step by step, for companies with 50 to 150 employees",
     description:
-      "Free NIS2 compliance platform for European companies. All 10 BSIG measures, audit trail, management liability protection, BSI registration guide. No lock-in.",
+      "You fill it in, we explain every point in plain words, and at the end management signs. For companies without their own security department.",
   },
   twitter: {
     card: "summary_large_image",
