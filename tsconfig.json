@@ -54,6 +54,7 @@
     "apps",
     "scripts/publish-all.ts",
     "scripts/audit-dep-graph.ts",
+    "scripts/measure-language-copies.ts",
     "scripts/i18n",
     "**/*.test.ts",
     "**/*.test.tsx"

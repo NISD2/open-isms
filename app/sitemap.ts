@@ -1,6 +1,7 @@
 import { isNotNull } from "drizzle-orm";
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import languageCopies from "@/lib/content/sitemap-language-copies.json";
 import { wikiSitemapPaths } from "@/lib/content/wiki-toc";
 import { db } from "@/lib/db";
 import { DOCS_REVISED, docsUrl } from "@/lib/docs/seo";
@@ -85,7 +86,61 @@ function singleLocaleEntry(
   };
 }
 
+/**
+ * The day a language's pages last changed in a way a crawler should notice. The page entries
+ * carry their own review dates, which say nothing about a translation that was rewritten
+ * afterwards: Czech became a full language on 15.10.2026, after Google's only crawl of it.
+ */
+const LOCALE_REWRITTEN_ON: Partial<Record<Locale, string>> = { cs: "2026-10-15" };
+
+const pathOf = (url: string) => new URL(url).pathname;
+
+/**
+ * URLs whose text is a copy of the English or German page, as measured by
+ * scripts/measure-language-copies.ts. Listing one tells Google there is a page in that
+ * language and Google finds the same text it already has, which is the "duplicate" and
+ * "crawled, not indexed" it reports for those URLs.
+ */
+const COPIED_PATHS: ReadonlySet<string> = new Set(Object.keys(languageCopies.copies));
+
+const rewrittenOn = (url: string): string | undefined =>
+  LOCALE_REWRITTEN_ON[pathOf(url).split("/")[1] as Locale];
+
+const latest = (a: SitemapEntry["lastModified"], b: string) =>
+  a && String(a) > b ? a : b;
+
+export function listOnlyOwnText(
+  entries: MetadataRoute.Sitemap,
+  copies: ReadonlySet<string> = COPIED_PATHS,
+): MetadataRoute.Sitemap {
+  const isCopy = (url: string) => copies.has(pathOf(url));
+  return entries
+    .filter((entry) => !isCopy(entry.url))
+    .map((entry) => {
+      const languages = entry.alternates?.languages;
+      const rewritten = rewrittenOn(entry.url);
+      return {
+        ...entry,
+        ...(rewritten ? { lastModified: latest(entry.lastModified, rewritten) } : {}),
+        ...(languages
+          ? {
+              alternates: {
+                languages: Object.fromEntries(
+                  Object.entries(languages).filter(([, url]) => !isCopy(String(url))),
+                ),
+              },
+            }
+          : {}),
+      };
+    });
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  return listOnlyOwnText(await allSitemapEntries());
+}
+
+/** Every page in every language the routes serve, before copies are taken out. */
+export async function allSitemapEntries(): Promise<MetadataRoute.Sitemap> {
   // Published newsletter issues — only those with publishedAt set are public.
   // Degrade to an empty list if the DB is unreachable so the rest of the
   // sitemap (all the static routes) still renders.
