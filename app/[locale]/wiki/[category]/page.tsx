@@ -31,6 +31,11 @@ function isTopLevel(value: string): value is WikiTopLevel {
   return (WIKI_TOP_LEVEL as readonly string[]).includes(value);
 }
 
+/** A category with at least one page past its publish slot, so its index is never empty. */
+function isLive(value: string): value is WikiTopLevel {
+  return isTopLevel(value) && publishedEntries(value).length > 0;
+}
+
 /** A category's title and question in the wiki's language. */
 function categoryText(category: WikiTopLevel, locale: WikiLocale) {
   const meta = WIKI_TOC[category];
@@ -72,7 +77,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; category: string }>;
 }): Promise<Metadata> {
   const { locale, category } = await params;
-  if (!isTopLevel(category)) return {};
+  if (!isLive(category)) return {};
   const { title, question } = categoryText(category, wikiLocale(locale));
   return {
     title: `${title} — NIS 2`,
@@ -87,7 +92,7 @@ export default async function WikiCategoryPage({
   params: Promise<{ locale: string; category: string }>;
 }) {
   const { locale, category } = await params;
-  if (!isTopLevel(category)) notFound();
+  if (!isLive(category)) notFound();
   const wiki = wikiLocale(locale);
   const { title, question } = categoryText(category, wiki);
 

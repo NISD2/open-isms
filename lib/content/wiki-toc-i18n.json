@@ -1769,6 +1769,36 @@
       "question": "Ce cere GDPR de la firma dumneavoastră și cum poate ajuta un asistent AI?"
     }
   },
+  "cat:richtlinien": {
+    "fr": {
+      "title": "Rédiger vos politiques",
+      "question": "Comment rédiger les politiques que NIS 2 demande à votre entreprise ?"
+    },
+    "it": {
+      "title": "Scrivere le vostre policy",
+      "question": "Come scrivere le policy che NIS 2 chiede alla vostra azienda?"
+    },
+    "es": {
+      "title": "Redactar sus políticas",
+      "question": "¿Cómo redactar las políticas que NIS 2 exige a su empresa?"
+    },
+    "pl": {
+      "title": "Pisanie polityk",
+      "question": "Jak napisać polityki, których NIS 2 wymaga od Twojej firmy?"
+    },
+    "cs": {
+      "title": "Psaní politik",
+      "question": "Jak napsat politiky, které NIS 2 od vaší firmy vyžaduje?"
+    },
+    "pt": {
+      "title": "Redigir as suas políticas",
+      "question": "Como redigir as políticas que a NIS 2 exige da sua empresa?"
+    },
+    "ro": {
+      "title": "Redactarea politicilor",
+      "question": "Cum redactați politicile pe care NIS 2 le cere firmei dumneavoastră?"
+    }
+  },
   "cat:ki-assistenten": {
     "fr": {
       "title": "Assistants IA et MCP",

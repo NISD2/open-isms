@@ -39,6 +39,7 @@ const namespaces = [
   "organization",
   "patches",
   "policies",
+  "policyGuides",
   "policy-config",
   "pricing",
   "portal",

@@ -36,6 +36,7 @@ export const WIKI_TOP_LEVEL = [
   "umsetzung",
   "ki-assistenten",
   "dsgvo",
+  "richtlinien",
   "recht-und-folgen",
   "vergleich",
   "open-source",
@@ -223,6 +224,7 @@ const CATEGORY_SLUGS: Record<WikiTopLevel, PerLocaleSlug> = {
   umsetzung: { de: "umsetzung", en: "implementation", nl: "implementatie" },
   "ki-assistenten": { de: "ki-assistenten", en: "ai-assistants", nl: "ai-assistenten" },
   dsgvo: { de: "dsgvo", en: "gdpr", nl: "avg" },
+  richtlinien: { de: "richtlinien", en: "policies", nl: "beleid" },
   "recht-und-folgen": {
     de: "recht-und-folgen",
     en: "law-and-consequences",
@@ -865,6 +867,18 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
       { slug: "datenschutzmanagement-software", slugs: { de: "datenschutzmanagement-software", en: "privacy-management-software", nl: "privacybeheer-software" }, titleDe: "Datenschutzmanagement Software: worauf es ankommt", titleEn: "Privacy management software: what matters", summaryDe: "Was eine Software für den Datenschutz leisten sollte: Verzeichnis, TOMs, Verträge, Anfragen, Datenpannen, Nachweise. Worauf Sie bei der Auswahl achten.", summaryEn: "What privacy software should do: records, TOMs, contracts, requests, breaches, evidence. What to look for when choosing.", authorSlug: "simon-orzel", lastReviewedAt: "2026-10-16", tags: ["regulation:gdpr", "topic:data-protection", "topic:software", "audience:dpo", "audience:ceo", "level:beginner"], subCategory: "Grundlagen", audience: ["dpo", "ceo"], relatedSlugs: ["dsgvo-konform", "verarbeitungsverzeichnis", "dsgvo-mit-ki-assistent"] },
     ],
   },
+  richtlinien: {
+    slug: "richtlinien",
+    slugs: CATEGORY_SLUGS.richtlinien,
+    titleDe: "Richtlinien schreiben",
+    titleEn: "Writing your policies",
+    questionDe: "Wie schreiben Sie die Richtlinien, die NIS 2 von Ihrem Unternehmen verlangt?",
+    questionEn: "How do you write the policies NIS 2 asks of your company?",
+    textLocales: ["de", "en"],
+    entries: [
+      { slug: "risikobewertung-methodik", slugs: { de: "risikobewertung-methodik", en: "risk-assessment-methodology", nl: "risicobeoordeling-methodiek" }, titleDe: "Risikobewertung schreiben: die Methodik nach § 30 BSIG", titleEn: "Writing your risk assessment methodology under NIS 2", summaryDe: "Was die Methodik der Risikoanalyse festlegen muss, wie eine verhältnismäßige Fassung aussieht und was die Geschäftsleitung daran abzeichnet.", summaryEn: "What the risk assessment methodology must settle, what a proportionate version looks like and what management signs off.", authorSlug: "simon-orzel", lastReviewedAt: "2026-10-19", tags: ["regulation:nis2", "regulation:cir-2024-2690", "topic:risk-management", "audience:ciso", "audience:it-leiter", "level:intermediate"], subCategory: "Risikomanagement", audience: ["ciso", "it-leiter"], relatedSlugs: ["nis2-risikomanagement"] },
+    ],
+  },
   "recht-und-folgen": {
     slug: "recht-und-folgen",
     slugs: CATEGORY_SLUGS["recht-und-folgen"],
@@ -1281,8 +1295,10 @@ export function wikiSitemapPaths(): Array<{
 }> {
   const out: ReturnType<typeof wikiSitemapPaths> = [{ path: "/wiki", priority: 0.8 }];
   for (const cat of WIKI_TOP_LEVEL) {
-    out.push({ path: `/wiki/${cat}`, priority: 0.7 });
-    for (const entry of publishedEntries(cat)) {
+    const entries = publishedEntries(cat);
+    // A category whose first page is still waiting for its slot has no index page yet.
+    if (entries.length > 0) out.push({ path: `/wiki/${cat}`, priority: 0.7 });
+    for (const entry of entries) {
       const lastModified = [getPublishAt(entry.slug)?.slice(0, 10), entry.lastReviewedAt]
         .filter((date): date is string => Boolean(date))
         .sort()

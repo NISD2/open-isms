@@ -1,0 +1,133 @@
+{
+  "policyGuides": {
+    "related": "Weiterlesen",
+    "riskMethodology": {
+      "meta": {
+        "title": "Risikobewertung nach NIS 2: die Methodik schreiben",
+        "description": "Methodik zur Risikobewertung nach NIS 2: eine Skala, die alle gleich anwenden, ein Gerüst zum Abschreiben und wer das Restrisiko annimmt."
+      },
+      "badge": "Art. 21 Abs. 2 Buchst. a NIS 2 · Risikoanalyse",
+      "title": "Risikobewertung nach NIS 2: so schreiben Sie die Methodik",
+      "subtitle": "Die Methodik legt fest, nach welchen Regeln Ihr Unternehmen Risiken für seine IT bewertet: welche Skala, welche Stufen, was behandelt wird und wer annimmt, was übrig bleibt. Das Gesetz verlangt die Maßnahme und ihre Dokumentation, kein bestimmtes Dokument und keine Länge. Schreiben Sie eine Skala auf, mit der zwei Ihrer Leute dasselbe Risiko gleich einstufen, und lassen Sie die Geschäftsleitung sie freigeben.",
+      "sections": [
+        {
+          "heading": "Was verlangt das Gesetz?",
+          "paragraphs": [
+            "Art. 21 Abs. 2 Buchst. a NIS 2 nennt unter den Maßnahmen jeder wesentlichen und wichtigen Einrichtung „Konzepte in Bezug auf die Risikoanalyse und Sicherheit für Informationssysteme“. In Deutschland setzt § 30 Abs. 2 Nr. 1 BSIG das um als „Konzepte in Bezug auf die Risikoanalyse und auf die Sicherheit in der Informationstechnik“.",
+            "Keiner der beiden Texte schreibt eine Form, eine Länge oder ein Verfahren vor. Die Maßnahmen müssen geeignet, verhältnismäßig und wirksam sein, und Sie dokumentieren, dass Sie die Pflicht einhalten (§ 30 Abs. 1 Satz 3 BSIG). Was verhältnismäßig ist, hängt vom Ausmaß Ihrer Risikoexposition ab, von Ihrer Größe, den Umsetzungskosten sowie von Eintrittswahrscheinlichkeit und Schwere von Sicherheitsvorfällen mit ihren gesellschaftlichen und wirtschaftlichen Auswirkungen (Art. 21 Abs. 1 NIS 2, § 30 Abs. 1 Satz 2 BSIG).",
+            "Mit der Methodik beginnt diese Dokumentation. Sie zeigt, wie Sie Risiken finden, bewerten und behandeln, sodass sich jede Bewertung in Ihrem Risikoregister auf Regeln zurückführen lässt, die eine verantwortliche Person freigegeben hat."
+          ],
+          "law": "Art. 21 Abs. 1 und Abs. 2 Buchst. a NIS 2 · § 30 Abs. 1 und Abs. 2 Nr. 1 BSIG"
+        },
+        {
+          "heading": "Was muss die Methodik beantworten?",
+          "paragraphs": [
+            "Am genauesten beschreibt es die Durchführungsverordnung (EU) 2024/2690 der Kommission. Punkt 2.1.2 ihres Anhangs verlangt eine Risikomanagementmethodik, eine Risikotoleranzschwelle im Einklang mit der Risikobereitschaft des Unternehmens und Risikokriterien, die eingeführt und gepflegt werden.",
+            "Dann folgen die Arbeitsschritte. Die Risiken werden nach einem gefahrenübergreifenden Ansatz ermittelt und dokumentiert, besonders solche in Bezug auf Dritte und solche, die Verfügbarkeit, Integrität, Authentizität oder Vertraulichkeit stören könnten, punktuelle Ausfälle eingeschlossen. Jedes Risiko wird nach Bedrohung, Wahrscheinlichkeit, Auswirkung und Risikoniveau analysiert, mit dem, was Sie über Cyberbedrohungen und Schwachstellen wissen. Danach wird es an Ihren Kriterien gemessen, und Sie wählen, wie Sie es behandeln.",
+            "Zum Schluss die Umsetzung: die Behandlung fortlaufend überwachen, für jede Maßnahme festhalten, wer verantwortlich ist und bis wann, die Maßnahmen in einem Risikobehandlungsplan dokumentieren und die Gründe für das Eingehen von Restrisiken umfassend erläutern.",
+            "Die Verordnung bindet nur die Einrichtungsarten, die sie nennt, etwa DNS Diensteanbieter, Anbieter von Cloud Computing Diensten, Rechenzentrumsdiensten und Managed Services (ihr Art. 1; für Deutschland § 30 Abs. 3 BSIG). Für alle anderen Unternehmen ist sie nicht verbindlich. Sie ist trotzdem die vollständigste Liste dessen, was eine Methodik beantworten muss, und taugt deshalb als Prüfliste für Ihre."
+          ],
+          "law": "DVO (EU) 2024/2690, Art. 1 und Anhang Punkt 2.1.2 · § 30 Abs. 3 BSIG"
+        },
+        {
+          "heading": "Eine Skala, die alle gleich anwenden",
+          "paragraphs": [
+            "Kern der Methodik ist die Skala. Der BSI-Standard 200-3, die Methode des Bundesamts für Sicherheit in der Informationstechnik zur Risikoanalyse, bewertet jedes Risiko in zwei Dimensionen: wie oft es eintreten kann und wie groß der Schaden wäre. Er empfiehlt Kategorien in Worten statt Zahlen, weil für eine genaue Berechnung meist die Statistik fehlt, und nicht mehr als fünf Kategorien je Dimension.",
+            "Als Beispiel nutzt das BSI je vier Stufen. Eintrittshäufigkeit: selten (höchstens alle fünf Jahre), mittel (einmal alle fünf Jahre bis einmal im Jahr), häufig (einmal im Jahr bis einmal pro Monat), sehr häufig (mehrmals im Monat). Schadenshöhe: vernachlässigbar, begrenzt, beträchtlich, existenzbedrohend. Eine Matrix verbindet beides zu vier Risikokategorien, von gering bis sehr hoch. Das BSI schreibt dazu, die Matrix veranschauliche nur seine Beispiele und solle an die eigenen Bedürfnisse angepasst werden, und jede Institution könne Anzahl der Stufen und Kriterien selbst festlegen.",
+            "Welche Skala Sie auch wählen: Beschreiben Sie jede Stufe in Worten, die Ihre Leute wiedererkennen, und stimmen Sie die Beschreibungen mit den Fachabteilungen ab, die sie anwenden. Den Prüfstein des BSI können Sie direkt in Ihr Dokument übernehmen: Stufen zwei Mitarbeiter dasselbe Risiko ein, soll dasselbe Ergebnis herauskommen.",
+            "Halten Sie Methode und Ergebnisse getrennt. Die Methodik sagt, wie Sie bewerten. Das Risikoregister enthält, was Sie bewertet haben. Das Register ändert sich oft, die Methodik sollte stabil bleiben."
+          ],
+          "law": "BSI-Standard 200-3, Kapitel 5"
+        },
+        {
+          "heading": "Wie ausführlich soll sie sein?",
+          "paragraphs": [
+            "So ausführlich, wie Ihr Unternehmen es braucht. Die Verhältnismäßigkeit gilt für die Methodik wie für jede andere Maßnahme. Ein Betrieb mit einem Standort und wenigen Systemen braucht nicht den Apparat eines Konzerns mit vielen Tochtergesellschaften.",
+            "Ein gutes Zeichen, dass sie zu groß ist: Außer der Person, die sie geschrieben hat, kann sie niemand anwenden. Ein gutes Zeichen, dass sie zu klein ist: Sie hat keine beschriebenen Stufen, und jede Bewertung ist ein Bauchgefühl, das sich nicht wiederholen lässt."
+          ]
+        },
+        {
+          "heading": "Ein Gerüst zum Abschreiben",
+          "paragraphs": [
+            "Unten steht eine Gliederung, die Sie in Ihr eigenes Dokument übernehmen können. Unter jeder Überschrift steht ein Beispielsatz mit den Beispielkategorien des BSI. Ersetzen Sie die Teile in Klammern durch Ihre eigenen Angaben und passen Sie die Stufen an, wenn sie nicht zu Ihrem Unternehmen passen."
+          ],
+          "code": "1. Zweck und Geltungsbereich\n   Diese Methodik legt fest, wie [Unternehmen] Risiken für die Netz- und Informationssysteme ermittelt, bewertet und behandelt, die es für seine Dienste nutzt.\n\n2. Rollen\n   [Rolle] führt die Bewertung durch. [Geschäftsleitung] gibt diese Methodik frei und nimmt Restrisiken ab Stufe [hoch] an.\n\n3. Eintrittshäufigkeit\n   Selten: höchstens alle fünf Jahre. Mittel: einmal alle fünf Jahre bis einmal im Jahr. Häufig: einmal im Jahr bis einmal pro Monat. Sehr häufig: mehrmals im Monat.\n\n4. Schadenshöhe\n   Vernachlässigbar, begrenzt, beträchtlich, existenzbedrohend, jeweils so beschrieben: [Beschreibungen in Ihren Worten, etwa Ausfallzeit, Kosten, betroffene Daten].\n\n5. Risikostufen und Toleranz\n   Die Matrix in Anlage [x] ordnet jedem Risiko eine Stufe von gering bis sehr hoch zu. Risiken ab Stufe [mittel] werden behandelt. Geringe Risiken werden akzeptiert, festgehalten und beobachtet.\n\n6. Risiken ermitteln\n   Wir betrachten alle Gefahren, auch den Ausfall von Lieferanten, Feuer, Wasser, Stromausfall und punktuelle Ausfälle, nicht nur Angriffe.\n\n7. Risiken behandeln\n   Für jedes Risiko über der Toleranz entscheiden wir: vermindern, übertragen, vermeiden oder akzeptieren, und halten fest, wer was bis wann tut.\n\n8. Restrisiko annehmen\n   [Geschäftsleitung] nimmt das Verbleibende schriftlich an, mit Begründung und Datum.\n\n9. Überprüfung\n   Wir wiederholen die Bewertung einmal im Jahr und nach jedem erheblichen Vorfall oder jeder wesentlichen Änderung."
+        },
+        {
+          "heading": "Wer gibt sie frei, und wer nimmt das Restrisiko an?",
+          "paragraphs": [
+            "Nach Art. 20 Abs. 1 NIS 2 billigen die Leitungsorgane die Risikomanagementmaßnahmen im Bereich der Cybersicherheit und überwachen ihre Umsetzung. Das BSIG formuliert in § 38 Abs. 1 die Pflicht der Geschäftsleitungen, die Maßnahmen umzusetzen und ihre Umsetzung zu überwachen. In der Praxis gibt die Geschäftsleitung die Methodik frei und sieht die Ergebnisse jeder Bewertung.",
+            "Für die Einrichtungen unter der Verordnung (EU) 2024/2690 ergänzt Punkt 2.1.1: Ergebnisse der Risikobewertung und Restrisiken werden von den Leitungsorganen akzeptiert oder von Personen, die für das Risikomanagement rechenschaftspflichtig und befugt sind, sofern die Leitung angemessen unterrichtet wird. Für jedes Unternehmen eine gute Regel: Ein Restrisiko, das keine benannte Person angenommen hat, gehört niemandem.",
+            "Wie das in der Praxis aussieht, beschreibt das BSI bei seinen vier Risikokategorien: Geringe Risiken werden üblicherweise akzeptiert und die Gefährdung trotzdem beobachtet, sehr hohe Risiken werden selten akzeptiert."
+          ],
+          "law": "Art. 20 Abs. 1 NIS 2 · § 38 Abs. 1 BSIG · DVO 2.1.1 · BSI-Standard 200-3, Tabelle 10"
+        },
+        {
+          "heading": "Wann gehen Sie sie wieder durch?",
+          "paragraphs": [
+            "NIS 2 und das BSIG nennen kein Intervall. Für die Einrichtungsarten unter der Verordnung (EU) 2024/2690 verlangt Punkt 2.1.4, die Ergebnisse der Risikobewertung und den Risikobehandlungsplan in geplanten Zeitabständen und mindestens jährlich zu bewerten, außerdem bei wesentlichen Änderungen der Betriebsabläufe oder der Risiken und bei erheblichen Sicherheitsvorfällen.",
+            "Allen anderen Unternehmen schlagen wir dieselben zwei Auslöser vor: einen festen Termin einmal im Jahr und jede wesentliche Änderung oder jeden erheblichen Vorfall dazwischen. Schreiben Sie beides in die Methodik, damit die nächste Überprüfung nicht davon abhängt, dass jemand daran denkt."
+          ],
+          "law": "DVO 2.1.4"
+        },
+        {
+          "heading": "Häufige Fehler",
+          "paragraphs": [
+            "Stufen ohne Beschreibung. Wenn „hoch“ heißt, was die bewertende Person an dem Tag empfindet, lassen sich Bewertungen weder zwischen Personen noch von Jahr zu Jahr vergleichen.",
+            "Nur Angriffe und nur IT. Der gefahrenübergreifende Ansatz umfasst auch Feuer, Wasser, Stromausfall, den Ausfall eines Lieferanten und die eine Person, die als Einzige weiß, wie ein System funktioniert.",
+            "Behandlung ohne Verantwortliche und Termin. Eine Maßnahme, für die niemand benannt ist, wird nicht erledigt.",
+            "Restrisiko, das niemand angenommen hat. Das Register führt es auf, aber niemand mit der Befugnis dazu hat es angenommen.",
+            "Einmal für ein Projekt geschrieben und nie wieder geöffnet. Nach der ersten Änderung bei Systemen oder Lieferanten beschreiben Methodik und Register ein Unternehmen, das es so nicht mehr gibt."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "So macht es der NIS 2 Durchgang",
+        "lead": "Im Durchgang auf nisd2.eu ist die Methodik Schritt 2.1, und die Schritte danach bauen darauf auf.",
+        "points": [
+          "2.1 Festlegen, wie Sie Risiken einstufen: Der Durchgang bietet Ihnen die Methode aus dem BSI-Standard 200-3 als Vorlage an. Mit einem Klick wird sie die Methode Ihres Unternehmens. In Ihren Unterlagen steht dann „Risikoanalyse nach BSI-Standard 200-3“, je vier Stufen für Häufigkeit und Schaden, vier Risikostufen und eine Zeile für die Freigabe durch die Geschäftsführung.",
+          "2.3 Risiken bewerten: Sie stufen jedes Programm, jedes Gerät und jeden Lieferanten in dieser Matrix ein, sodass jede Bewertung in Ihren Unterlagen der Methode folgt, die Sie festgelegt haben.",
+          "2.4 Die Leitlinie schreiben: ein kurzes Grundsatzdokument, dessen Abschnitt zum Vorgehen festhält, dass Sie Risiken nach einer festgelegten Methode bewerten. Die Geschäftsführung gibt es in der App frei.",
+          "Im Risikoregister halten Sie je Risiko fest, wie es behandelt wird, wem es gehört und wie hoch das Restrisiko ist, und markieren es mit Datum als akzeptiert."
+        ],
+        "seeItAlt": "Schritt 2.1 des NIS 2 Durchgangs, „Methode zur Risikobewertung übernehmen“: Der Eintrag in den Unterlagen lautet „Risikoanalyse nach BSI-Standard 200-3“, vier Stufen für die Häufigkeit, vier für den Schaden, vier Risikostufen, die Zuordnung aus Abbildung 3 des Standards, und die Freigabe durch die Geschäftsführung steht aus. Rechts der häufig übersehene Punkt zum gefahrenübergreifenden Ansatz und die Rechtsgrundlagen",
+        "next": "Ihre Methode zur Risikobewertung im Durchgang festlegen"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Brauchen wir ein eigenes Dokument für die Methodik?",
+            "a": "Das Gesetz verlangt die Maßnahme und die Dokumentation, dass Sie die Pflicht einhalten (§ 30 Abs. 1 Satz 3 BSIG). Ein eigenständiges Dokument verlangt es nicht. Die Methodik kann ein Kapitel Ihrer Leitlinie zur Informationssicherheit sein, solange sie die Punkte oben beantwortet und man sie findet."
+          },
+          {
+            "q": "Welche Methode zur Risikobewertung müssen wir nehmen?",
+            "a": "Keine ist vorgeschrieben. Die Verordnung (EU) 2024/2690 verlangt in Punkt 2.1.2 Buchst. a, einer Risikomanagementmethodik zu folgen, und nennt keine. Der BSI-Standard 200-3 und ISO/IEC 27005 sind zwei etablierte Beispiele. Wählen Sie eine, die Ihre Leute durchgehend gleich anwenden können."
+          },
+          {
+            "q": "Wie viele Risikostufen sollten wir nehmen?",
+            "a": "Das Gesetz nennt keine Zahl. Der BSI-Standard 200-3 empfiehlt höchstens fünf Kategorien je Dimension und nutzt als Beispiel vier. Wenige Stufen lassen sich leichter gleich anwenden; mehr Stufen helfen nur, wenn Ihre Leute sie auseinanderhalten können."
+          },
+          {
+            "q": "Reicht eine Tabelle?",
+            "a": "Die Texte nennen kein Werkzeug. Risiken müssen ermittelt, analysiert, bewertet und behandelt werden, und die Gründe für ein angenommenes Restrisiko müssen erläutert sein. Eine Tabelle kann das leisten, wenn sie aktuell gehalten wird und jemand dafür benannt ist."
+          },
+          {
+            "q": "Wer darf ein Restrisiko annehmen?",
+            "a": "Nach der Verordnung (EU) 2024/2690, Punkt 2.1.1, die Leitungsorgane oder Personen, die für das Risikomanagement rechenschaftspflichtig und befugt sind, sofern die Leitung angemessen unterrichtet wird. Benennen Sie die Person oder Rolle in Ihrer Methodik."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 20 Abs. 1 und Art. 21 Abs. 1 und 2 Buchst. a, CELEX 32022L2555, eur-lex.europa.eu, gelesen am 19.10.2026",
+          "BSI-Gesetz (BSIG) in der seit 6.12.2025 geltenden Fassung, § 30 Abs. 1 bis 3 und § 38 Abs. 1, gesetze-im-internet.de/bsig_2025, gelesen am 19.10.2026",
+          "Durchführungsverordnung (EU) 2024/2690 der Kommission, Art. 1 und Anhang Punkte 2.1.1 bis 2.1.4, CELEX 32024R2690, eur-lex.europa.eu, gelesen am 19.10.2026",
+          "BSI-Standard 200-3, Risikoanalyse auf der Basis von IT-Grundschutz, Version 1.0 vom Oktober 2017, Kapitel 5, Tabellen 8 bis 10 und Abbildung 3, bsi.bund.de, gelesen am 19.10.2026",
+          "ISO/IEC 27005:2022, Information security, cybersecurity and privacy protection: guidance on managing information security risks"
+        ]
+      }
+    }
+  }
+}

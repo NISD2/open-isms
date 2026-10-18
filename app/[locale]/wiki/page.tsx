@@ -298,7 +298,8 @@ export default async function DocsHubPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const summary = topLevelSummary();
+  // A category shows once its first page is live; until then its index would 404.
+  const summary = topLevelSummary().filter((cat) => cat.count > 0);
 
   // The child component picks German for de and the "localized" slot for any
   // other locale. So we resolve fr/it/es/pl into the localized slot here via

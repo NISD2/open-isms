@@ -1,0 +1,133 @@
+{
+  "policyGuides": {
+    "related": "Read next",
+    "riskMethodology": {
+      "meta": {
+        "title": "Risk assessment methodology under NIS 2: how to write it",
+        "description": "What your NIS 2 risk assessment methodology must settle: a scale your staff apply alike, a skeleton to copy, and who accepts the residual risk."
+      },
+      "badge": "Art. 21(2)(a) NIS 2 · Risk analysis",
+      "title": "How to write your risk assessment methodology under NIS 2",
+      "subtitle": "The methodology sets the rules by which your company rates risks to its IT: which scale, which levels, what gets treated, and who accepts what is left. The law asks for the measure and for its documentation, not for a set document or length. Write down a scale that two of your people would apply to the same risk with the same result, and have management sign it off.",
+      "sections": [
+        {
+          "heading": "What does the law ask for?",
+          "paragraphs": [
+            "Art. 21(2)(a) NIS 2 lists “policies on risk analysis and information system security” among the measures every essential and important entity takes. In Germany, § 30(2) Nr. 1 BSIG transposes this as “Konzepte in Bezug auf die Risikoanalyse und auf die Sicherheit in der Informationstechnik”.",
+            "Neither text prescribes a form, a length or a method. The measures must be appropriate, proportionate and effective, and you document that you meet the duty (§ 30(1) sentence 3 BSIG). What is proportionate depends on your exposure to risks, your size, the cost of implementation, and how likely and how severe incidents are, including their societal and economic impact (Art. 21(1) NIS 2, § 30(1) sentence 2 BSIG).",
+            "The methodology is where that documentation starts. It shows how you find, rate and treat risks, so that the ratings in your risk register can be traced back to rules someone responsible has approved."
+          ],
+          "law": "Art. 21(1) and (2)(a) NIS 2 · § 30(1) and (2) Nr. 1 BSIG"
+        },
+        {
+          "heading": "What does the methodology have to answer?",
+          "paragraphs": [
+            "Commission Implementing Regulation (EU) 2024/2690 spells it out most precisely. Point 2.1.2 of its annex asks for a risk management methodology, a risk tolerance level in line with the company's risk appetite, and risk criteria that are set and kept up to date.",
+            "Then come the working steps. Identify and document the risks on an all-hazards basis, in particular those involving third parties and those that could disrupt availability, integrity, authenticity or confidentiality, single points of failure included. Analyse each risk by threat, likelihood, impact and risk level, using what you know about cyber threats and vulnerabilities. Evaluate it against your criteria and choose how to treat it.",
+            "Finally, the follow-through: monitor the treatment, name who is responsible for each measure and by when, and record the measures in a risk treatment plan with the reasons for accepting any residual risk “in a comprehensible manner”.",
+            "The regulation binds only the entity types it names, such as DNS service providers, cloud computing service providers, data centre service providers and managed service providers (its Art. 1; for Germany § 30(3) BSIG). For every other company it is not binding. It is still the most complete list of what a methodology has to answer, so it makes a good checklist for yours."
+          ],
+          "law": "CIR (EU) 2024/2690, Art. 1 and Annex point 2.1.2 · § 30(3) BSIG"
+        },
+        {
+          "heading": "A scale everyone applies the same way",
+          "paragraphs": [
+            "The core of the methodology is the scale. BSI Standard 200-3, the risk analysis method of Germany's Federal Office for Information Security, rates every risk on two dimensions: how often it can happen and how big the damage would be. It recommends qualitative categories over figures, because the statistics for a precise calculation are usually missing, and no more than five categories per dimension.",
+            "As an example, the BSI uses four levels each. Frequency: rare (at most every five years), medium (every five years to once a year), frequent (once a year to once a month), very frequent (several times a month). Damage: negligible, limited, considerable, threatening the existence of the organisation. A matrix combines both into four risk levels, from low to very high. The BSI states that the matrix only illustrates its examples and should be adapted to your own needs, and that every organisation may set both the number of levels and the criteria itself.",
+            "Whatever scale you choose, define each level in words your staff recognise and agree the definitions with the departments that will use them. The BSI's test is a good one to write into your own document: if two employees rate the same risk, they should reach the same result.",
+            "Keep the method and the results apart. The methodology says how you rate. The risk register holds what you rated. The register changes often; the methodology should stay stable."
+          ],
+          "law": "BSI Standard 200-3, chapter 5"
+        },
+        {
+          "heading": "How detailed should it be?",
+          "paragraphs": [
+            "As detailed as your company needs. The proportionality test applies to the methodology like any other measure. A firm with one site and a few systems does not need the apparatus of a group with many subsidiaries.",
+            "A good sign the methodology is too large: no one outside the person who wrote it can apply it. A good sign it is too small: it has no defined levels, so every rating is a judgement call that cannot be repeated."
+          ]
+        },
+        {
+          "heading": "A skeleton to write from",
+          "paragraphs": [
+            "Below is an outline you can copy into your own document. Each heading carries one sentence of example wording, using the BSI's example categories. Replace the bracketed parts with your own facts and adapt the levels if they do not fit your company."
+          ],
+          "code": "1. Purpose and scope\n   This methodology sets how [company] identifies, rates and treats risks to the network and information systems it uses for its services.\n\n2. Roles\n   [Role] runs the assessment. [Management] approves this methodology and accepts residual risks from level [high] up.\n\n3. Frequency\n   Rare: at most every five years. Medium: every five years to once a year. Frequent: once a year to once a month. Very frequent: several times a month.\n\n4. Damage\n   Negligible, limited, considerable, threatening the existence of [company], each defined as follows: [definitions in your terms, for example downtime, cost, data affected].\n\n5. Risk levels and tolerance\n   The matrix in annex [x] gives each risk a level from low to very high. Risks rated [medium] or above are treated. Low risks are accepted, recorded and watched.\n\n6. Identifying risks\n   We consider all hazards, including supplier failures, fire, water, power cuts and single points of failure, not only attacks.\n\n7. Treating risks\n   For each risk above tolerance we decide to reduce, transfer, avoid or accept it, and record who does what by when.\n\n8. Accepting residual risk\n   [Management] accepts what remains, in writing, with the reason and the date.\n\n9. Review\n   We repeat the assessment once a year and after any significant incident or significant change."
+        },
+        {
+          "heading": "Who approves it, and who accepts residual risk?",
+          "paragraphs": [
+            "Art. 20(1) NIS 2 has the management bodies approve the cybersecurity risk-management measures and oversee their implementation. The German text in § 38(1) BSIG puts it as a duty to implement the measures and oversee their implementation. In practice, management signs off the methodology and sees the results of each assessment.",
+            "For the entities under Regulation (EU) 2024/2690, point 2.1.1 adds that risk assessment results and residual risks are accepted by the management bodies, or by persons who are accountable for risk management and have the authority to manage risks, provided management is adequately informed. It is a sound rule for any company: a residual risk that no named person has accepted belongs to no one.",
+            "The BSI's description of its four risk levels gives a sense of practice: low risks are commonly accepted while the threat is kept under watch, and very high risks are rarely accepted."
+          ],
+          "law": "Art. 20(1) NIS 2 · § 38(1) BSIG · CIR 2.1.1 · BSI Standard 200-3, table 10"
+        },
+        {
+          "heading": "When do you revisit it?",
+          "paragraphs": [
+            "NIS 2 and the BSIG set no interval. For the entity types under Regulation (EU) 2024/2690, point 2.1.4 requires the assessment results and the treatment plan to be reviewed at planned intervals and at least annually, and when operations or risks change significantly or a significant incident occurs.",
+            "For every other company we suggest the same two triggers: a fixed date once a year, and any significant change or incident in between. Write both into the methodology, so the next review does not depend on someone remembering it."
+          ],
+          "law": "CIR 2.1.4"
+        },
+        {
+          "heading": "Common mistakes",
+          "paragraphs": [
+            "Levels without definitions. If “high” means whatever the person rating it feels that day, ratings cannot be compared from one person or one year to the next.",
+            "Only attacks and only IT. The all-hazards approach includes fire, water, power cuts, the failure of a supplier, and the one person who alone knows how a system works.",
+            "Treatment without an owner and a date. A measure nobody is named for does not get done.",
+            "Residual risk nobody accepted. The register lists it, but no one with the authority to accept it has done so.",
+            "Written once for a project and never reopened. After the first change in your systems or suppliers, an unreviewed methodology and register describe a company that no longer exists."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "How the NIS 2 walkthrough does this",
+        "lead": "In the walkthrough on nisd2.eu the methodology is step 2.1, and the steps after it build on it.",
+        "points": [
+          "2.1 Decide how you rate risks: the walkthrough offers the method from BSI Standard 200-3 as your template. One click makes it your company's method. Your records then show “Risk analysis according to BSI Standard 200-3”, four levels each for frequency and damage, four risk levels, and a line for management's approval.",
+          "2.3 Rate your risks: you place every piece of software, every device and every supplier on that matrix, so every rating in your records follows the method you set.",
+          "2.4 Write the security policy: a short policy whose approach section says that you assess risks by a defined method. Management approves it in the app.",
+          "In the risk register you record for each risk how it is treated, who owns it and the residual risk, and mark it accepted with the date."
+        ],
+        "seeItAlt": "Step 2.1 of the NIS 2 walkthrough, “Adopt the risk assessment method”: the entry in the records reads “Risk analysis according to BSI Standard 200-3”, four levels for frequency, four for damage and four risk levels, the matrix from figure 3 of the standard, and approval by management still pending. On the right, the commonly missed point on the all-hazards approach and the legal references",
+        "next": "Set your risk assessment method in the walkthrough"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Do we need a separate document for the methodology?",
+            "a": "The law requires the measure and documentation that you meet the duty (§ 30(1) sentence 3 BSIG). It does not require a stand-alone document. The methodology can be a chapter of your information security policy, as long as it answers the points above and people can find it."
+          },
+          {
+            "q": "Which risk assessment method do we have to use?",
+            "a": "None is prescribed. Regulation (EU) 2024/2690, point 2.1.2(a), asks you to follow a risk management methodology without naming one. BSI Standard 200-3 and ISO/IEC 27005 are two established examples. Choose one your staff can apply consistently."
+          },
+          {
+            "q": "How many risk levels should we use?",
+            "a": "The law sets no number. BSI Standard 200-3 recommends no more than five categories per dimension and uses four as its example. Fewer levels are easier to apply the same way; more levels only help if your staff can tell them apart."
+          },
+          {
+            "q": "Is a spreadsheet enough?",
+            "a": "The texts name no tool. Risks must be identified, analysed, evaluated and treated, and the reasons for accepting residual risk documented comprehensibly. A spreadsheet can do that if it is kept current and someone is named for it."
+          },
+          {
+            "q": "Who may accept a residual risk?",
+            "a": "Under Regulation (EU) 2024/2690, point 2.1.1, the management bodies, or persons accountable for risk management with the authority to manage risks, provided management is adequately informed. Name the person or role in your methodology."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "Directive (EU) 2022/2555 (NIS 2), Art. 20(1) and Art. 21(1) and (2)(a), CELEX 32022L2555, eur-lex.europa.eu, read 19.10.2026",
+          "German BSI Act (BSIG) as in force since 6.12.2025, § 30(1) to (3) and § 38(1), gesetze-im-internet.de/bsig_2025, read 19.10.2026",
+          "Commission Implementing Regulation (EU) 2024/2690, Art. 1 and Annex points 2.1.1 to 2.1.4, CELEX 32024R2690, eur-lex.europa.eu, read 19.10.2026",
+          "BSI Standard 200-3, Risikoanalyse auf der Basis von IT-Grundschutz, version 1.0 of October 2017, chapter 5, tables 8 to 10 and figure 3, bsi.bund.de, read 19.10.2026",
+          "ISO/IEC 27005:2022, Information security, cybersecurity and privacy protection: guidance on managing information security risks"
+        ]
+      }
+    }
+  }
+}
