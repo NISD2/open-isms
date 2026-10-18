@@ -107,6 +107,27 @@ cp .env.example .env      # set AUTH_SECRET via `openssl rand -base64 32`
 docker compose up --build # http://localhost:3000
 ```
 
+## Connect an AI assistant (MCP)
+
+Every instance, nisd2.eu and each self-hosted one, serves an MCP endpoint at
+`/api/mcp`. A connected assistant reads the company's NIS 2 walkthrough and
+fills in what its items ask for: fields, registers, the asset list, ratings,
+agreements and evidence uploads. It never signs. Finishing an item, deciding it
+is not applicable and management's approval stay with people in the app.
+
+It is off until a company admin turns on *Allow AI assistants for this company*
+in Settings. Each person then connects their own assistant by signing in through
+the browser or by pasting a key.
+
+```bash
+claude mcp add --transport http nisd2 https://isms.example.com/api/mcp
+```
+
+Tools, connection steps per client, and what the assistant is refused:
+[nisd2.eu/docs/self-hosting/mcp](https://www.nisd2.eu/docs/self-hosting/mcp),
+source in [`content/docs/self-hosting/mcp.md`](./content/docs/self-hosting/mcp.md)
+and [`lib/mcp/`](./lib/mcp/).
+
 ## Quick start (just the schema packages)
 
 The framework data and schemas are published to npm on their own, so you can
