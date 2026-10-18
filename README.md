@@ -14,7 +14,7 @@
 
 ---
 
-The platform behind [nisd2.eu](https://www.nisd2.eu): a self-hostable Information Security Management System built for the EU NIS 2 Directive, with GDPR, the EU AI Act, and the CRA alongside it.
+The platform behind [nisd2.eu](https://www.nisd2.eu): a self-hostable Information Security Management System built for the EU NIS 2 Directive, with GDPR, the EU AI Act, and the CRA alongside it. An MCP endpoint lets your own AI assistant fill the walkthrough ([see below](#connect-an-ai-assistant-mcp)); people still sign.
 
 Most compliance tooling treats evidence as a folder of PDFs you assemble the week before an audit. open-isms inverts that. Every requirement carries an owner, a deadline, and a sign-off, so assignments, approvals, and an append-only audit trail become your evidence as you operate, not something you reconstruct after the fact.
 
@@ -38,6 +38,7 @@ packages/
 
 app/                              # the production SaaS — marketing + portal + supplier + training
 components/  lib/  schema/  server/  drizzle/  messages/  i18n/   # SaaS app code
+lib/mcp/  app/api/mcp/            # MCP server: tools, sign-in, per-company switch
 courses/                          # NIS 2 CEO course content + tabletop exercises + CRA SBOM
 data/  docs/                      # public reference data + deployment docs
 public/                           # static assets
@@ -172,7 +173,7 @@ Per framework: NIS 2 12 categories / 49 requirements, GDPR 6 / 9, EU AI Act
 | API | tRPC 11 |
 | Auth | Auth.js v5 (email and password, one-time code verification, optional Google OAuth) |
 | i18n | next-intl, 10 locales (DE/EN/NL/FR/IT/ES/PL/CS/PT/RO) |
-| AI | Vercel AI SDK + xAI Grok for form prefill |
+| AI | Vercel AI SDK + xAI Grok for form prefill; MCP server (`/api/mcp`) for your own assistant |
 | Runtime | Bun 1.3+ |
 | Hosting | Coolify (self-hosted) |
 
