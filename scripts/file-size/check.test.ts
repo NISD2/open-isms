@@ -4,7 +4,7 @@
 
 import { afterEach, describe, expect, test } from "bun:test";
 import { execFileSync, spawnSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -117,10 +117,49 @@ describe("staged changes, as the pre-commit hook runs it", () => {
     expect(check(dir).code).toBe(0);
   });
 
+  test("skips a dataset marked size-check-exempt", () => {
+    const dir = repo();
+    put(dir, ".gitattributes", "data/*.json size-check-exempt\n");
+    mkdirSync(join(dir, "data"));
+    put(dir, "data/timeline.json", "x".repeat(OVER));
+    commit(dir);
+    put(dir, "data/timeline.json", "x".repeat(OVER + 100));
+    expect(check(dir).code).toBe(0);
+  });
+
   test("skips binary files", () => {
     const dir = repo();
     put(dir, "image.png", new Uint8Array(OVER).fill(0));
     expect(check(dir).code).toBe(0);
+  });
+
+  test("refuses a symlink replaced by a file over the limit", () => {
+    const dir = repo();
+    put(dir, "seed.ts", "x");
+    symlinkSync("seed.ts", join(dir, "link.ts"));
+    git(dir, "add", "link.ts");
+    commit(dir);
+    rmSync(join(dir, "link.ts"));
+    put(dir, "link.ts", "x".repeat(OVER));
+    expect(check(dir).code).toBe(1);
+  });
+
+  // During a merge the other branch's growth is not this branch's: a file is
+  // measured against the larger of the two parents.
+  test("measures a merge against both parents", () => {
+    const dir = repo();
+    put(dir, "big.json", "a".repeat(OVER));
+    commit(dir);
+    git(dir, "switch", "--quiet", "-c", "other");
+    put(dir, "big.json", "a".repeat(OVER + 50));
+    git(dir, "commit", "--quiet", "--no-verify", "-m", "other grew it");
+    git(dir, "switch", "--quiet", "main");
+    put(dir, "small.ts", "x");
+    commit(dir);
+    git(dir, "merge", "--quiet", "--no-commit", "--no-ff", "other");
+    expect(check(dir).code).toBe(0);
+    put(dir, "big.json", "a".repeat(OVER + 51));
+    expect(check(dir).code).toBe(1);
   });
 });
 

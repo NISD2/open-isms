@@ -10,7 +10,8 @@
  * About 180 files were already over the limit when the check arrived. Each may stay as large as it
  * is or shrink, never grow, so every change to one of them is a chance to move a part out.
  * Lockfiles, generated output and vendored data are not written by hand and are skipped: they are
- * marked `linguist-generated` or `linguist-vendored` in `.gitattributes`.
+ * marked `linguist-generated` or `linguist-vendored` in `.gitattributes`. Datasets that grow one
+ * record at a time by design (data/*.json) are marked `size-check-exempt`.
  */
 
 export const TOKEN_LIMIT = 5_000;
@@ -150,7 +151,7 @@ export const report = (
       ]),
       "",
       "A file that was already over the limit may stay as large as it is or shrink: move a part out in this commit, then make your change.",
-      "A file nobody writes by hand (a lockfile, generated output, vendored data) belongs in .gitattributes as linguist-generated or linguist-vendored, with a comment naming what writes it.",
+      "A file nobody writes by hand (a lockfile, generated output, vendored data) belongs in .gitattributes as linguist-generated or linguist-vendored, with a comment naming what writes it. A dataset that grows one record at a time is marked size-check-exempt, with a comment saying why.",
     ],
   };
 };

@@ -34,3 +34,8 @@ public/images/**/*.svg linguist-generated
 
 # scripts/sync-disposable-domains.ts, from an upstream list
 lib/auth/disposable-domains.txt linguist-vendored
+
+# Datasets, not code: one record per event, release, vendor or country, added or corrected one
+# entry at a time and read by code, never edited as a whole. They grow by design, so the size
+# check skips them. Not linguist-generated: people write them, and their diffs stay expanded.
+data/*.json size-check-exempt

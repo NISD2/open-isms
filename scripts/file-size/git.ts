@@ -8,8 +8,11 @@ import { execFileSync } from "node:child_process";
 
 /** Which change to measure, and how to name a file's content before and after it. */
 export interface Scope {
-  /** The revision the change is compared with; null for the first commit of a repository. */
-  readonly base: string | null;
+  /**
+   * The revisions the change is compared with: one, or both parents of a merge, so a file the
+   * other branch grew does not count against this one. Empty for the first commit of a repository.
+   */
+  readonly bases: readonly string[];
   /** The object name of a path after the change: in the index, or in a commit. */
   readonly after: (path: string) => string;
   /** How `git diff` selects the change. */
@@ -36,9 +39,14 @@ const resolves = (revision: string): boolean => {
   }
 };
 
-/** What is staged for the next commit, measured against HEAD: the pre-commit hook. */
+/**
+ * What is staged for the next commit, measured against HEAD and, while a merge is in progress,
+ * against the branch being merged as well: the pre-commit and pre-merge-commit hooks.
+ */
 export const stagedScope = (): Scope => ({
-  base: resolves("HEAD") ? "HEAD" : null,
+  bases: resolves("HEAD")
+    ? ["HEAD", ...(resolves("MERGE_HEAD") ? ["MERGE_HEAD"] : [])]
+    : [],
   after: (path) => `:${path}`,
   diff: ["--cached"],
   attributes: ["--cached"],
@@ -48,7 +56,7 @@ export const stagedScope = (): Scope => ({
 export const sinceScope = (ref: string): Scope => {
   if (!resolves(ref)) throw new Error(`--since ${ref}: no such commit`);
   return {
-    base: ref,
+    bases: [ref],
     after: (path) => `HEAD:${path}`,
     diff: [ref, "HEAD"],
     attributes: ["--source", "HEAD"],
@@ -82,13 +90,20 @@ export const parseNameStatus = (output: string): readonly ChangedPath[] => {
   return changed;
 };
 
-/** Added, copied, modified and renamed files; a deletion has nothing left to measure. */
+/**
+ * Added, copied, modified, renamed and retyped files (a symlink that became a file); a deletion
+ * has nothing left to measure.
+ */
 export const changedPaths = (scope: Scope): readonly ChangedPath[] =>
   parseNameStatus(
-    git(["diff", ...scope.diff, "--name-status", "-z", "-M", "--diff-filter=ACMR"]),
+    git(["diff", ...scope.diff, "--name-status", "-z", "-M", "--diff-filter=ACMRT"]),
   );
 
-const NOT_HAND_WRITTEN = ["linguist-generated", "linguist-vendored"] as const;
+/**
+ * The attributes that take a path out of the check: written by no person or agent (generated,
+ * vendored), or a dataset that grows one record at a time by design.
+ */
+const SKIPPED = ["linguist-generated", "linguist-vendored", "size-check-exempt"] as const;
 
 /**
  * Parses `git check-attr -z`: path, attribute and value triples, each NUL-terminated. Returns the
@@ -106,7 +121,7 @@ export const parseCheckAttr = (output: string): ReadonlySet<string> => {
   );
 };
 
-/** The paths `.gitattributes` marks as written by no person or agent. */
+/** The paths `.gitattributes` takes out of the check (SKIPPED). */
 export const notHandWritten = (
   scope: Scope,
   paths: readonly string[],
@@ -115,7 +130,7 @@ export const notHandWritten = (
     ? new Set()
     : parseCheckAttr(
         git(
-          ["check-attr", ...scope.attributes, "--stdin", "-z", ...NOT_HAND_WRITTEN],
+          ["check-attr", ...scope.attributes, "--stdin", "-z", ...SKIPPED],
           paths.map((path) => `${path}\0`).join(""),
         ),
       );

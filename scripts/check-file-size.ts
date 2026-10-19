@@ -28,6 +28,18 @@ const scopeOf = (args: readonly string[]): Scope => {
   return sinceScope(ref);
 };
 
+/**
+ * A file's size before the change: the largest among the bases, so in a merge a file the other
+ * branch grew is measured against what that branch already had. Null when no base has it.
+ */
+const before = (scope: Scope, from: string): number | null => {
+  const sizes = scope.bases.flatMap((base) => {
+    const bytes = sizeOf(`${base}:${from}`);
+    return bytes === null ? [] : [bytes];
+  });
+  return sizes.length === 0 ? null : Math.max(...sizes);
+};
+
 /** The changed hand-written text files over the limit, each with its verdict. */
 const findingsOf = (scope: Scope): readonly Finding[] => {
   const changed = changedPaths(scope);
@@ -40,8 +52,9 @@ const findingsOf = (scope: Scope): readonly Finding[] => {
     .flatMap(({ path, from }: ChangedPath): Finding[] => {
       const bytes = sizeOf(scope.after(path)) ?? 0;
       if (!isOverLimit(bytes) || isBinary(scope.after(path))) return [];
-      const previousBytes = scope.base === null ? null : sizeOf(`${scope.base}:${from}`);
-      return [{ path, verdict: verdictOf({ path, bytes, previousBytes }) }];
+      return [
+        { path, verdict: verdictOf({ path, bytes, previousBytes: before(scope, from) }) },
+      ];
     });
 };
 

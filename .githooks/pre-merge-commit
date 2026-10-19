@@ -1,0 +1,6 @@
+#!/bin/sh
+# Git runs this before the commit of a merge that needed no conflict resolution, which skips
+# pre-commit. The same size check applies; during a merge it measures each file against both
+# parents (scripts/file-size/git.ts).
+
+exec "$(dirname "$0")/pre-commit"
