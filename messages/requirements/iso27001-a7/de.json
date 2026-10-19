@@ -1,7 +1,7 @@
 {
   "requirements": {
     "A_7_1": {
-      "title": "Physische Sicherheitszonen",
+      "title": "Physische Sicherheitsperimeter",
       "description": "Physische Sicherheitszonen zum Schutz sensibler Bereiche mit Informationen und Verarbeitungseinrichtungen definieren und umsetzen."
     },
     "A_7_2": {
@@ -9,7 +9,7 @@
       "description": "Sichere Bereiche mit angemessenen Zutrittskontrollmaßnahmen sichern, damit nur autorisierte Personen Zutritt erhalten."
     },
     "A_7_3": {
-      "title": "Absicherung von Büros, Räumen und Einrichtungen",
+      "title": "Sichern von Büros, Räumen und Einrichtungen",
       "description": "Physische Sicherheit für Büros, Räume und Einrichtungen verhältnismäßig zur Sensitivität der dort verarbeiteten Informationen anwenden."
     },
     "A_7_4": {
@@ -21,19 +21,19 @@
       "description": "Schutz vor physischen und umweltbedingten Bedrohungen wie Brand, Überschwemmung, Erdbeben und vorsätzlicher Beschädigung."
     },
     "A_7_6": {
-      "title": "Arbeiten in sicheren Bereichen",
+      "title": "Arbeiten in Sicherheitsbereichen",
       "description": "Verfahren für das Arbeiten in sicheren Bereichen definieren und anwenden, um unbefugten Zugang, Fotografie oder Datenexfiltration zu verhindern."
     },
     "A_7_7": {
-      "title": "Clean-Desk- und Clean-Screen-Richtlinie",
+      "title": "Aufgeräumte Arbeitsumgebung und Bildschirmsperren",
       "description": "Clean-Desk-Richtlinie für Papiere und Wechseldatenträger sowie Clean-Screen-Richtlinie für Informationsverarbeitungseinrichtungen anwenden."
     },
     "A_7_8": {
-      "title": "Aufstellung und Schutz von Geräten",
+      "title": "Platzierung und Schutz von Geräten und Betriebsmitteln",
       "description": "Geräte so aufstellen und schützen, dass Risiken durch Umweltbedrohungen, unbefugten Zugang und Interferenzen reduziert werden."
     },
     "A_7_9": {
-      "title": "Sicherheit von Assets außerhalb des Betriebsgeländes",
+      "title": "Sicherheit von Werten außerhalb der Räumlichkeiten",
       "description": "Maßnahmen für außerhalb des Betriebsgeländes mitgenommene Assets verhältnismäßig zu den Risiken des externen Betriebs anwenden."
     },
     "A_7_10": {
@@ -45,15 +45,15 @@
       "description": "Informationsverarbeitungseinrichtungen vor Stromausfällen und anderen Störungen durch Versorgungseinrichtungen schützen."
     },
     "A_7_12": {
-      "title": "Verkabelungssicherheit",
+      "title": "Sicherheit der Verkabelung",
       "description": "Strom- und Telekommunikationskabel vor Abhören, Interferenz oder Beschädigung schützen."
     },
     "A_7_13": {
-      "title": "Gerätewartung",
+      "title": "Instandhaltung von Geräten und Betriebsmitteln",
       "description": "Geräte korrekt warten, um dauerhafte Verfügbarkeit und Integrität der Informationsverarbeitungseinrichtungen sicherzustellen."
     },
     "A_7_14": {
-      "title": "Sichere Entsorgung oder Wiederverwendung von Geräten",
+      "title": "Sichere Entsorgung oder Wiederverwendung von Geräten und Betriebsmitteln",
       "description": "Vor der Entsorgung oder Wiederverwendung sicherstellen, dass alle sensiblen Daten und Lizenzsoftware entfernt oder überschrieben wurden."
     }
   }

@@ -1,96 +1,52 @@
 {
   "requirements": {
-    "IS-4_1": {
-      "title": "Contexto da Organização",
-      "description": "Determine as questões externas e internas relevantes para a finalidade do ISMS e que afetam a sua capacidade de alcançar os resultados pretendidos."
-    },
-    "IS-4_2": {
-      "title": "Necessidades das Partes Interessadas",
-      "description": "Identifique as partes interessadas (clientes, reguladores, pessoal, fornecedores) e os seus requisitos relevantes para a segurança da informação."
-    },
-    "IS-4_3": {
-      "title": "Âmbito do ISMS",
-      "description": "Defina e documente os limites do ISMS: que sistemas, localizações e atividades estão incluídos e excluídos, e porquê."
-    },
     "IS-4_4": {
-      "title": "Sistema de Gestão da Segurança da Informação",
-      "description": "Estabeleça, implemente, mantenha e melhore continuamente um ISMS em conformidade com os requisitos da ISO 27001."
+      "title": "Sistema de Gestão da Segurança da Informação"
     },
     "IS-5_1": {
-      "title": "Liderança e Compromisso",
-      "description": "A gestão de topo deve demonstrar compromisso: aprovar a política de SI, assegurar os recursos do ISMS e integrar a segurança nos processos de negócio."
-    },
-    "IS-5_2": {
-      "title": "Política de Segurança da Informação",
-      "description": "Estabeleça, documente e comunique uma política de SI assinada pela gestão de topo, incluindo objetivos e compromisso de melhoria contínua."
-    },
-    "IS-5_3": {
-      "title": "Papéis, Responsabilidades e Autoridades",
-      "description": "Atribua e comunique as responsabilidades dos papéis de segurança da informação, incluindo CISO/responsável pelo ISMS, proprietários de ativos e proprietários de processos."
-    },
-    "IS-6_1": {
-      "title": "Processo de Avaliação de Riscos",
-      "description": "Defina e aplique uma metodologia documentada de avaliação de riscos que inclua identificação, análise, avaliação de riscos e critérios de aceitação."
-    },
-    "IS-6_2": {
-      "title": "Objetivos de Segurança da Informação",
-      "description": "Estabeleça objetivos de SI mensuráveis alinhados com a política de SI, documente os planos para os alcançar e acompanhe o progresso."
+      "title": "Liderança e Compromisso"
     },
     "IS-6_3": {
-      "title": "Planeamento de Alterações",
-      "description": "Quando forem necessárias alterações ao ISMS, planeie-as de forma controlada: avalie a finalidade, as consequências, a integridade, os recursos e as responsabilidades."
+      "title": "Planeamento de Alterações"
     },
     "IS-7_1": {
-      "title": "Recursos",
-      "description": "Determine e disponibilize os recursos necessários para estabelecer, implementar, manter e melhorar continuamente o ISMS."
+      "title": "Recursos"
     },
     "IS-7_2": {
-      "title": "Competência",
-      "description": "Determine os requisitos de competência para os papéis relevantes do ISMS, proporcione formação e conserve a prova de competência (registos de formação, certificados)."
+      "title": "Competência"
     },
     "IS-7_3": {
-      "title": "Sensibilização",
-      "description": "Assegure que as pessoas que realizam trabalho sob o controlo da organização conhecem a política de SI, o seu contributo para a eficácia do ISMS e as implicações do incumprimento."
+      "title": "Sensibilização"
     },
     "IS-7_4": {
-      "title": "Comunicação",
-      "description": "Determine as comunicações internas e externas relevantes para o ISMS: o quê, quando, com quem, como e por quem."
+      "title": "Comunicação"
     },
     "IS-7_5": {
-      "title": "Informação Documentada",
-      "description": "Crie e mantenha a informação documentada exigida pela ISO 27001 e controle a sua criação, atualização, distribuição e conservação."
+      "title": "Informação Documentada"
     },
     "IS-8_1": {
-      "title": "Planeamento e Controlo Operacional",
-      "description": "Planeie, implemente e controle os processos necessários para cumprir os requisitos de SI e implemente as ações determinadas na Cláusula 6."
+      "title": "Planeamento e Controlo Operacional"
     },
     "IS-8_2": {
-      "title": "Avaliação de Riscos de Segurança da Informação",
-      "description": "Realize avaliações de riscos a intervalos planeados ou quando ocorrerem alterações significativas; documente os resultados num registo de riscos."
+      "title": "Avaliação de Riscos de Segurança da Informação"
     },
     "IS-8_3": {
-      "title": "Tratamento de Riscos de Segurança da Informação",
-      "description": "Selecione e implemente opções de tratamento de riscos; elabore um plano de tratamento de riscos e uma Declaração de Aplicabilidade (SoA)."
+      "title": "Tratamento de Riscos de Segurança da Informação"
     },
     "IS-9_1": {
-      "title": "Monitorização, Medição, Análise e Avaliação",
-      "description": "Defina o que monitorizar e medir, como, quando e por quem; analise e avalie os resultados face aos objetivos de SI."
+      "title": "Monitorização, Medição, Análise e Avaliação"
     },
     "IS-9_2": {
-      "title": "Auditoria Interna",
-      "description": "Realize auditorias internas a intervalos planeados para verificar se o ISMS está em conformidade com os requisitos e se está implementado de forma eficaz."
+      "title": "Auditoria Interna"
     },
     "IS-9_3": {
-      "title": "Revisão pela Gestão",
-      "description": "A gestão de topo revê o ISMS a intervalos planeados, abrangendo resultados de auditorias, KPIs, incidentes, alterações e oportunidades de melhoria."
+      "title": "Revisão pela Gestão"
     },
     "IS-10_1": {
-      "title": "Melhoria Contínua",
-      "description": "Melhore continuamente a adequação, a suficiência e a eficácia do ISMS."
+      "title": "Melhoria Contínua"
     },
     "IS-10_2": {
-      "title": "Não Conformidade e Ação Corretiva",
-      "description": "Quando ocorrer uma não conformidade: reaja, investigue a causa raiz, implemente a ação corretiva e verifique a sua eficácia."
+      "title": "Não Conformidade e Ação Corretiva"
     }
   }
 }

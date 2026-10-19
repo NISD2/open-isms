@@ -1,96 +1,52 @@
 {
   "requirements": {
-    "IS-4_1": {
-      "title": "Contextul organizației",
-      "description": "Determinați aspectele externe și interne relevante pentru scopul ISMS și care vă afectează capacitatea de a obține rezultatele urmărite."
-    },
-    "IS-4_2": {
-      "title": "Nevoile părților interesate",
-      "description": "Identificați părțile interesate (clienți, autorități de reglementare, personal, furnizori) și cerințele acestora relevante pentru securitatea informației."
-    },
-    "IS-4_3": {
-      "title": "Perimetrul ISMS",
-      "description": "Definiți și documentați limitele ISMS: ce sisteme, locații și activități sunt incluse și excluse, și de ce."
-    },
     "IS-4_4": {
-      "title": "Sistemul de management al securității informației",
-      "description": "Stabiliți, implementați, mențineți și îmbunătățiți continuu un ISMS în conformitate cu cerințele ISO 27001."
+      "title": "Sistemul de management al securității informației"
     },
     "IS-5_1": {
-      "title": "Leadership și angajament",
-      "description": "Conducerea de vârf trebuie să demonstreze angajament: să aprobe politica de securitate a informației, să asigure resursele ISMS și să integreze securitatea în procesele de afaceri."
-    },
-    "IS-5_2": {
-      "title": "Politica de securitate a informației",
-      "description": "Stabiliți, documentați și comunicați o politică de securitate a informației semnată de conducerea de vârf, care include obiectivele și angajamentul pentru îmbunătățire continuă."
-    },
-    "IS-5_3": {
-      "title": "Roluri, responsabilități și autorități",
-      "description": "Atribuiți și comunicați responsabilitățile pentru rolurile de securitate a informației, inclusiv CISO/proprietarul ISMS, proprietarii activelor și proprietarii proceselor."
-    },
-    "IS-6_1": {
-      "title": "Procesul de evaluare a riscurilor",
-      "description": "Definiți și aplicați o metodologie documentată de evaluare a riscurilor, care include identificarea, analiza, evaluarea riscurilor și criteriile de acceptare."
-    },
-    "IS-6_2": {
-      "title": "Obiectivele de securitate a informației",
-      "description": "Stabiliți obiective măsurabile de securitate a informației aliniate cu politica de securitate a informației, documentați planurile de realizare a acestora și urmăriți progresul."
+      "title": "Leadership și angajament"
     },
     "IS-6_3": {
-      "title": "Planificarea modificărilor",
-      "description": "Când sunt necesare modificări ale ISMS, planificați-le într-un mod controlat: evaluați scopul, consecințele, integritatea, resursele și răspunderea."
+      "title": "Planificarea modificărilor"
     },
     "IS-7_1": {
-      "title": "Resurse",
-      "description": "Determinați și furnizați resursele necesare pentru stabilirea, implementarea, menținerea și îmbunătățirea continuă a ISMS."
+      "title": "Resurse"
     },
     "IS-7_2": {
-      "title": "Competență",
-      "description": "Determinați cerințele de competență pentru rolurile relevante pentru ISMS, asigurați instruirea și păstrați dovezi ale competenței (evidențe de instruire, certificate)."
+      "title": "Competență"
     },
     "IS-7_3": {
-      "title": "Conștientizare",
-      "description": "Asigurați-vă că persoanele care desfășoară activități sub controlul organizației cunosc politica de securitate a informației, contribuția lor la eficacitatea ISMS și consecințele neconformității."
+      "title": "Conștientizare"
     },
     "IS-7_4": {
-      "title": "Comunicare",
-      "description": "Determinați comunicările interne și externe relevante pentru ISMS: ce, când, cu cine, cum și de către cine."
+      "title": "Comunicare"
     },
     "IS-7_5": {
-      "title": "Informații documentate",
-      "description": "Creați și mențineți informațiile documentate cerute de ISO 27001 și controlați crearea, actualizarea, distribuirea și păstrarea acestora."
+      "title": "Informații documentate"
     },
     "IS-8_1": {
-      "title": "Planificarea și controlul operațional",
-      "description": "Planificați, implementați și controlați procesele necesare pentru a îndeplini cerințele de securitate a informației și pentru a pune în aplicare acțiunile stabilite în Clauza 6."
+      "title": "Planificarea și controlul operațional"
     },
     "IS-8_2": {
-      "title": "Evaluarea riscurilor de securitate a informației",
-      "description": "Efectuați evaluări ale riscurilor la intervale planificate sau atunci când apar modificări semnificative; documentați rezultatele într-un registru al riscurilor."
+      "title": "Evaluarea riscurilor de securitate a informației"
     },
     "IS-8_3": {
-      "title": "Tratarea riscurilor de securitate a informației",
-      "description": "Selectați și implementați opțiunile de tratare a riscurilor; elaborați un plan de tratare a riscurilor și o Declarație de aplicabilitate (SoA)."
+      "title": "Tratarea riscurilor de securitate a informației"
     },
     "IS-9_1": {
-      "title": "Monitorizare, măsurare, analiză și evaluare",
-      "description": "Definiți ce să monitorizați și să măsurați, cum, când și de către cine; analizați și evaluați rezultatele în raport cu obiectivele de securitate a informației."
+      "title": "Monitorizare, măsurare, analiză și evaluare"
     },
     "IS-9_2": {
-      "title": "Audit intern",
-      "description": "Efectuați audituri interne la intervale planificate pentru a evalua dacă ISMS este conform cu cerințele și este implementat eficient."
+      "title": "Audit intern"
     },
     "IS-9_3": {
-      "title": "Analiza efectuată de conducere",
-      "description": "Conducerea de vârf analizează ISMS la intervale planificate, acoperind rezultatele auditurilor, indicatorii, incidentele, modificările și oportunitățile de îmbunătățire."
+      "title": "Analiza efectuată de conducere"
     },
     "IS-10_1": {
-      "title": "Îmbunătățire continuă",
-      "description": "Îmbunătățiți continuu gradul de adecvare, suficiență și eficacitate al ISMS."
+      "title": "Îmbunătățire continuă"
     },
     "IS-10_2": {
-      "title": "Neconformitate și acțiune corectivă",
-      "description": "Atunci când apare o neconformitate: reacționați, investigați cauza-rădăcină, implementați acțiunea corectivă și verificați eficacitatea acesteia."
+      "title": "Neconformitate și acțiune corectivă"
     }
   }
 }

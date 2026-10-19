@@ -1,96 +1,96 @@
 {
   "requirements": {
     "IS-4_1": {
-      "title": "Context of the Organization",
-      "description": "Determine external and internal issues relevant to the ISMS purpose and that affect your ability to achieve intended outcomes."
+      "title": "Understanding the Organization and Its Context",
+      "description": "The company names what inside it and around it bears on its information security: what it does and where, the laws and contracts it answers to, and the threats it faces. Scope, risks and objectives are planned against this picture."
     },
     "IS-4_2": {
-      "title": "Needs of Interested Parties",
-      "description": "Identify interested parties (customers, regulators, staff, suppliers) and their requirements relevant to information security."
+      "title": "Understanding the Needs and Expectations of Interested Parties",
+      "description": "The company lists who has a stake in its information security, such as customers, authorities, staff, suppliers and owners, what each of them expects of it, and which of those expectations its ISMS takes on."
     },
     "IS-4_3": {
-      "title": "ISMS Scope",
-      "description": "Define and document the boundaries of the ISMS: which systems, locations, and activities are included and excluded, and why."
+      "title": "Determining the Scope of the Information Security Management System",
+      "description": "The company sets the boundaries of its ISMS: which sites, systems, teams and services it covers, which it leaves out, and why. The scope is written down so that staff and auditors work from the same one."
     },
     "IS-4_4": {
       "title": "Information Security Management System",
-      "description": "Establish, implement, maintain, and continually improve an ISMS in accordance with ISO 27001 requirements."
+      "description": "Information security is run as a managed system that is set up, operated, kept current and improved over time. The clauses that follow are its parts."
     },
     "IS-5_1": {
       "title": "Leadership and Commitment",
-      "description": "Top management must demonstrate commitment: approve the IS policy, ensure ISMS resources, and integrate security into business processes."
+      "description": "Top management leads the ISMS: it backs the policy and the objectives, provides people and budget, makes security part of how the business runs and holds the people involved to it."
     },
     "IS-5_2": {
-      "title": "Information Security Policy",
-      "description": "Establish, document, and communicate an IS policy signed by top management, including objectives and commitment to continual improvement."
+      "title": "Policy",
+      "description": "Top management sets the information security policy: what security means for this company, the frame for its objectives and the commitment to keep improving. Staff know the policy. Recommendation: one or two pages, reviewed together with the management review."
     },
     "IS-5_3": {
-      "title": "Roles, Responsibilities and Authorities",
-      "description": "Assign and communicate responsibilities for information security roles including CISO/ISMS owner, asset owners, and process owners."
+      "title": "Organizational Roles, Responsibilities and Authorities",
+      "description": "Top management decides who is responsible for what in information security, including who runs the ISMS and who reports on it, and tells the people concerned."
     },
     "IS-6_1": {
-      "title": "Risk Assessment Process",
-      "description": "Define and apply a documented risk assessment methodology including risk identification, analysis, evaluation, and acceptance criteria."
+      "title": "Actions to Address Risks and Opportunities",
+      "description": "The company plans how it deals with risks and opportunities for its information security: the method for assessing risks (how they are found, analysed and rated, and when a risk is acceptable), the treatment chosen for each risk, and the Statement of Applicability (SoA), which lists the controls the company applies and those it leaves out. Recommendation: give a reason for every control left out."
     },
     "IS-6_2": {
-      "title": "Information Security Objectives",
-      "description": "Establish measurable IS objectives aligned to the IS policy, document plans to achieve them, and track progress."
+      "title": "Information Security Objectives and Planning to Achieve Them",
+      "description": "The company sets measurable information security objectives that follow from the policy, and plans how, by whom and by when each one is reached and checked."
     },
     "IS-6_3": {
       "title": "Planning of Changes",
-      "description": "When changes to the ISMS are needed, plan them in a controlled manner: assess purpose, consequences, integrity, resources, and accountability."
+      "description": "When the ISMS itself has to change, the change is planned before it is made."
     },
     "IS-7_1": {
       "title": "Resources",
-      "description": "Determine and provide the resources needed to establish, implement, maintain, and continually improve the ISMS."
+      "description": "The company provides the people, time, money and tools the ISMS needs to work and to improve."
     },
     "IS-7_2": {
       "title": "Competence",
-      "description": "Determine competence requirements for ISMS-relevant roles, provide training, and retain evidence of competence (training records, certificates)."
+      "description": "The company decides what people with security tasks need to know and be able to do, closes gaps through training, hiring or outside help, and keeps proof of their competence."
     },
     "IS-7_3": {
       "title": "Awareness",
-      "description": "Ensure persons doing work under the organization's control are aware of the IS policy, their contribution to ISMS effectiveness, and the implications of non-conformity."
+      "description": "Everyone working for the company knows the security policy, their own part in it, and what follows when the rules are not kept."
     },
     "IS-7_4": {
       "title": "Communication",
-      "description": "Determine the internal and external communications relevant to the ISMS: what, when, with whom, how, and by whom."
+      "description": "The company agrees who communicates which security matters, to whom and how, inside the company and to the outside."
     },
     "IS-7_5": {
       "title": "Documented Information",
-      "description": "Create and maintain documented information required by ISO 27001, and control its creation, update, distribution, and retention."
+      "description": "The company keeps the documents and records its ISMS needs and manages them: who writes and approves them, where the current version is, who may see them and how long they are kept."
     },
     "IS-8_1": {
       "title": "Operational Planning and Control",
-      "description": "Plan, implement, and control the processes needed to meet IS requirements and implement the actions determined in Clause 6."
+      "description": "The plans from clause 6 are carried out in daily operation, including work done by suppliers, with records that show the processes ran as intended."
     },
     "IS-8_2": {
       "title": "Information Security Risk Assessment",
-      "description": "Perform risk assessments at planned intervals or when significant changes occur; document results in a risk register."
+      "description": "The company assesses its information security risks with the method set under 6.1, repeats the assessment regularly and after significant changes, and keeps the results."
     },
     "IS-8_3": {
       "title": "Information Security Risk Treatment",
-      "description": "Select and implement risk treatment options; produce a risk treatment plan and Statement of Applicability (SoA)."
+      "description": "The company carries out its risk treatment plan and keeps the results."
     },
     "IS-9_1": {
       "title": "Monitoring, Measurement, Analysis and Evaluation",
-      "description": "Define what to monitor and measure, how, when, and by whom; analyse and evaluate results against IS objectives."
+      "description": "The company decides what it measures about information security and how, collects the figures, and evaluates whether the ISMS and its controls work."
     },
     "IS-9_2": {
       "title": "Internal Audit",
-      "description": "Conduct internal audits at planned intervals to assess whether the ISMS conforms to requirements and is effectively implemented."
+      "description": "The company audits its ISMS internally on a regular basis, with auditors who do not audit their own work, and keeps the audit programme and the results."
     },
     "IS-9_3": {
       "title": "Management Review",
-      "description": "Top management reviews the ISMS at planned intervals covering audit results, KPIs, incidents, changes, and improvement opportunities."
+      "description": "Top management reviews the ISMS regularly, based on audit results, measurements, incidents and changes, and decides what to improve."
     },
     "IS-10_1": {
       "title": "Continual Improvement",
-      "description": "Continually improve the suitability, adequacy, and effectiveness of the ISMS."
+      "description": "The company keeps making its ISMS a better fit and more effective, using what audits, reviews and incidents show."
     },
     "IS-10_2": {
       "title": "Nonconformity and Corrective Action",
-      "description": "When nonconformity occurs: react, investigate root cause, implement corrective action, and verify its effectiveness."
+      "description": "When something does not meet a requirement, the company fixes it, deals with the consequences, removes the cause so that it does not recur, checks that the fix worked and keeps a record."
     }
   }
 }

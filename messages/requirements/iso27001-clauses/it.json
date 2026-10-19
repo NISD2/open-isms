@@ -1,96 +1,52 @@
 {
   "requirements": {
-    "IS-4_1": {
-      "title": "Contesto dell'organizzazione",
-      "description": "Determina le questioni esterne e interne rilevanti per le finalità dell'ISMS e che incidono sulla capacità di conseguire i risultati attesi."
-    },
-    "IS-4_2": {
-      "title": "Esigenze delle parti interessate",
-      "description": "Individua le parti interessate (clienti, autorità di regolamentazione, personale, fornitori) e i loro requisiti rilevanti per la sicurezza delle informazioni."
-    },
-    "IS-4_3": {
-      "title": "Ambito dell'ISMS",
-      "description": "Definisci e documenta i confini dell'ISMS: quali sistemi, sedi e attività sono inclusi ed esclusi, e perché."
-    },
     "IS-4_4": {
-      "title": "Sistema di gestione della sicurezza delle informazioni",
-      "description": "Stabilisci, attua, mantieni e migliora continuamente un ISMS in conformità ai requisiti della ISO 27001."
+      "title": "Sistema di gestione della sicurezza delle informazioni"
     },
     "IS-5_1": {
-      "title": "Leadership e impegno",
-      "description": "L'alta direzione deve dimostrare il proprio impegno: approvare la policy di sicurezza delle informazioni, garantire le risorse per l'ISMS e integrare la sicurezza nei processi aziendali."
-    },
-    "IS-5_2": {
-      "title": "Policy di sicurezza delle informazioni",
-      "description": "Stabilisci, documenta e comunica una policy di sicurezza delle informazioni firmata dall'alta direzione, comprensiva di obiettivi e impegno al miglioramento continuo."
-    },
-    "IS-5_3": {
-      "title": "Ruoli, responsabilità e autorità",
-      "description": "Assegna e comunica le responsabilità per i ruoli relativi alla sicurezza delle informazioni, tra cui il CISO/responsabile dell'ISMS, i proprietari degli asset e i proprietari dei processi."
-    },
-    "IS-6_1": {
-      "title": "Processo di valutazione del rischio",
-      "description": "Definisci e applica una metodologia documentata di valutazione del rischio, comprensiva di criteri di identificazione, analisi, ponderazione e accettazione del rischio."
-    },
-    "IS-6_2": {
-      "title": "Obiettivi di sicurezza delle informazioni",
-      "description": "Stabilisci obiettivi misurabili di sicurezza delle informazioni allineati alla relativa policy, documenta i piani per conseguirli e monitora i progressi."
+      "title": "Leadership e impegno"
     },
     "IS-6_3": {
-      "title": "Pianificazione delle modifiche",
-      "description": "Quando sono necessarie modifiche all'ISMS, pianificale in modo controllato: valuta finalità, conseguenze, integrità, risorse e attribuzione delle responsabilità."
+      "title": "Pianificazione delle modifiche"
     },
     "IS-7_1": {
-      "title": "Risorse",
-      "description": "Determina e fornisci le risorse necessarie a stabilire, attuare, mantenere e migliorare continuamente l'ISMS."
+      "title": "Risorse"
     },
     "IS-7_2": {
-      "title": "Competenza",
-      "description": "Determina i requisiti di competenza per i ruoli rilevanti per l'ISMS, fornisci la formazione e conserva le evidenze della competenza (registri della formazione, certificati)."
+      "title": "Competenza"
     },
     "IS-7_3": {
-      "title": "Consapevolezza",
-      "description": "Assicura che le persone che svolgono attività sotto il controllo dell'organizzazione siano consapevoli della policy di sicurezza delle informazioni, del proprio contributo all'efficacia dell'ISMS e delle implicazioni della non conformità."
+      "title": "Consapevolezza"
     },
     "IS-7_4": {
-      "title": "Comunicazione",
-      "description": "Determina le comunicazioni interne ed esterne rilevanti per l'ISMS: cosa, quando, con chi, come e da parte di chi."
+      "title": "Comunicazione"
     },
     "IS-7_5": {
-      "title": "Informazioni documentate",
-      "description": "Crea e mantieni le informazioni documentate richieste dalla ISO 27001 e tieni sotto controllo la loro creazione, aggiornamento, distribuzione e conservazione."
+      "title": "Informazioni documentate"
     },
     "IS-8_1": {
-      "title": "Pianificazione e controllo operativi",
-      "description": "Pianifica, attua e tieni sotto controllo i processi necessari a soddisfare i requisiti di sicurezza delle informazioni e ad attuare le azioni determinate al Punto 6."
+      "title": "Pianificazione e controllo operativi"
     },
     "IS-8_2": {
-      "title": "Valutazione del rischio per la sicurezza delle informazioni",
-      "description": "Esegui valutazioni del rischio a intervalli pianificati o al verificarsi di modifiche significative; documenta i risultati in un registro dei rischi."
+      "title": "Valutazione del rischio per la sicurezza delle informazioni"
     },
     "IS-8_3": {
-      "title": "Trattamento del rischio per la sicurezza delle informazioni",
-      "description": "Seleziona e attua le opzioni di trattamento del rischio; redigi un piano di trattamento del rischio e una Dichiarazione di Applicabilità (SoA)."
+      "title": "Trattamento del rischio per la sicurezza delle informazioni"
     },
     "IS-9_1": {
-      "title": "Monitoraggio, misurazione, analisi e valutazione",
-      "description": "Definisci cosa monitorare e misurare, come, quando e da parte di chi; analizza e valuta i risultati rispetto agli obiettivi di sicurezza delle informazioni."
+      "title": "Monitoraggio, misurazione, analisi e valutazione"
     },
     "IS-9_2": {
-      "title": "Audit interno",
-      "description": "Conduci audit interni a intervalli pianificati per valutare se l'ISMS è conforme ai requisiti ed è attuato in modo efficace."
+      "title": "Audit interno"
     },
     "IS-9_3": {
-      "title": "Riesame della direzione",
-      "description": "L'alta direzione riesamina l'ISMS a intervalli pianificati, considerando risultati degli audit, KPI, incidenti, modifiche e opportunità di miglioramento."
+      "title": "Riesame della direzione"
     },
     "IS-10_1": {
-      "title": "Miglioramento continuo",
-      "description": "Migliora continuamente l'idoneità, l'adeguatezza e l'efficacia dell'ISMS."
+      "title": "Miglioramento continuo"
     },
     "IS-10_2": {
-      "title": "Non conformità e azione correttiva",
-      "description": "Quando si verifica una non conformità: reagisci, indaga la causa radice, attua l'azione correttiva e verificane l'efficacia."
+      "title": "Non conformità e azione correttiva"
     }
   }
 }
