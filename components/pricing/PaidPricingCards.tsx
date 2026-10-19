@@ -516,8 +516,8 @@ export function PaidPricingCards({
         {/* order-first: on a phone the paid tier is the first card, not the second. Built like
             the learning card beside it, same type sizes and order (name, price, action, what is
             included), so the two read as one table; the border alone marks the offer. No
-            "recommended" badge (one offer), and one action (Simon, 19.10.2026): no call card and
-            no approval link beside the order button. The approval page stays in the FAQ. */}
+            "recommended" badge (one offer). Under the order button only the call (Simon,
+            19.10.2026); the approval page is linked from the FAQ instead. */}
         <Card
           id={PAID_CARD_ID}
           className="order-first h-full scroll-mt-24 border-2 border-primary shadow-sm lg:order-none"
@@ -548,7 +548,12 @@ export function PaidPricingCards({
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3">
-              <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
+              {/* Order and the call side by side, the call in the homepage hero's one-line form;
+                  stacked on a phone. */}
+              <div className="grid gap-3 sm:grid-cols-2">
+                <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
+                <TalkFirst size="button" className="h-12 w-full" />
+              </div>
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t("paid.terms")}{" "}
                 <Link
