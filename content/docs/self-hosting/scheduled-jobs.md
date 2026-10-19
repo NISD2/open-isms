@@ -4,7 +4,7 @@ Five endpoints do scheduled work. Two of them run by themselves inside the app o
 |---|---|---|
 | `/api/cron/deadlines` | none, runs itself | the daily heartbeat, eight phases; an outside call runs it only if it has not run that day |
 | `/api/cron/course-reminders` | `0 7 * * *` | follow-ups for people who started a course and have not finished |
-| `/api/cron/lifecycle` | `0 8 * * *` | one-time re-engagement emails, e.g. the activation nudge for quiet accounts with open path steps |
+| `/api/cron/lifecycle` | `0 8 * * *` | one-time re-engagement emails, e.g. the activation nudge for quiet accounts with a step left on the NIS 2 walkthrough |
 | `/api/cron/indexnow` | `0 5 * * *` | only if you set an IndexNow key: tells Bing and others which public pages changed |
 | `/api/cron/close-sync` | none, runs itself | only if you use the Close CRM: keeps a lead per account there, up to date |
 
@@ -29,7 +29,7 @@ Scheduling this one is optional, and nisd2.eu deliberately does not. Re-engageme
 
 `/api/cron/lifecycle` sends the one-shot re-engagement emails. Each user receives each email type at most once, ever: the send is recorded in the database before the email goes out, and a unique index makes a second send impossible even if two runs overlap. On an instance with no mail transport configured, meaning neither `SMTP_HOST` nor `RESEND_API_KEY`, the endpoint reports `skipped` and records nothing, so enabling email later starts with a clean slate. Users with `emailFollowupsDisabled` are never selected, and every one of these emails carries an unsubscribe link that sets exactly that flag.
 
-Who gets the first campaign (the activation nudge): accounts with a verified email, a company, at least one open step on the NIS 2 path, and no sign-in or recorded activity for 3 days or more. Selection runs oldest-dormant first.
+Who gets the first campaign (the activation nudge): accounts with a verified email, a company, at least one step left on the NIS 2 walkthrough, and no sign-in or recorded activity for 3 days or more. Selection runs oldest-dormant first. An account that may walk gets its progress and the step the walkthrough's Continue button opens; any other account sees the walkthrough locked, so its email names the first step and says the page shows how to unlock it. Both link to the walkthrough's home. An instance that sells nothing, which a self-hosted one does, has no way to unlock it, so there a locked account gets no nudge.
 
 Reading the response. `{"skipped": ...}` means the run did nothing on purpose (no mail transport, or another run was still in flight). Otherwise you get per-type stats:
 

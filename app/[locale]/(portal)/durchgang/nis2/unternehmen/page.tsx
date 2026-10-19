@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { SETUP_STEP } from "@/components/durchgang/setup";
 import { CompanySetup } from "@/components/organization/CompanySetup";
 import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
-import { resumeAt } from "@/lib/durchgang";
+import { resumeAt, SETUP_STEP } from "@/lib/durchgang";
 import { walkAccess } from "../../gate";
 import { loadWalk } from "../load";
 

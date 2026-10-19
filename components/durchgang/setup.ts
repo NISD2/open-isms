@@ -1,10 +1,7 @@
 import { useTranslations } from "next-intl";
-import { withSetup } from "@/lib/durchgang";
+import { SETUP_STEP, withSetup } from "@/lib/durchgang";
 import { SETUP_ART } from "./Art";
 import type { WalkEntry } from "./view";
-
-/** Setting up the company, as a step of the walk. It has no item code, so it carries its own. */
-export const SETUP_STEP = "unternehmen";
 
 /** Where a step of the walk opens: setting up the company has a page of its own. */
 export const hrefOf = (code: string) =>

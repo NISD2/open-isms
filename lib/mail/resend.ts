@@ -97,9 +97,9 @@ export async function sendViaResend(mail: OutgoingMail): Promise<TransportResult
  * It used to be "NIS2 Compliance", which names a topic rather than a sender.
  * A recipient scanning an inbox reads that as a vendor blast about
  * compliance, not as mail from a product they signed up to — and mail
- * nobody recognises is mail people report. "NISD2" is the name on the site
- * they registered with and the name in the footer, so the From line, the
- * body and the link all agree.
+ * nobody recognises is mail people report. "nisd2.eu" is the address they
+ * registered at and the domain the mail comes from, so the From line, the
+ * address behind it and the link all agree.
  */
 export const FROM_NAME = preferConfigured(env.MAIL_FROM_NAME, env.RESEND_FROM_NAME);
 

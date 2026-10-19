@@ -8,6 +8,8 @@
  */
 
 import { describeSignupCampaign } from "@/lib/auth/signup-campaign";
+import { isSellerInstance } from "@/lib/billing/seller";
+import { CALENDAR_URL } from "@/lib/booking";
 import type { WalkLocale } from "@/lib/durchgang/types";
 import { mailSupportEmail } from "@/lib/env";
 import type { Locale } from "@/lib/seo";
@@ -54,7 +56,7 @@ import {
   SupplierInviteEmail,
 } from "./emails/supplier-mails";
 import WeeklyDigestEmail, { WEEKLY_DIGEST_COPY } from "./emails/weekly-digest";
-import WelcomeEmail, { linkedText, WELCOME_COPY } from "./emails/welcome";
+import WelcomeEmail, { WELCOME_COPY, welcomeText } from "./emails/welcome";
 import {
   type EmailContent,
   letterReplyTo,
@@ -102,21 +104,17 @@ export async function welcomeEmail(opts: {
   locale: EmailLocale;
 }): Promise<EmailContent & { readonly replyTo?: string }> {
   const replyTo = letterReplyTo();
-  const contact = replyAddress();
-  const locale = workflowMailLocaleOf(opts.locale);
-  const copy = WELCOME_COPY[locale];
+  const props = {
+    locale: workflowMailLocaleOf(opts.locale),
+    name: opts.name,
+    contact: replyAddress(),
+    // Only the seller has a calendar to offer.
+    bookingUrl: isSellerInstance() ? CALENDAR_URL : null,
+  };
   return {
-    subject: copy.subject,
-    html: await renderEmail(WelcomeEmail, { locale, name: opts.name, contact }),
-    text: [
-      copy.hello(opts.name),
-      copy.thanks,
-      linkedText(copy.mission, false),
-      linkedText(copy.course, true),
-      `${copy.questions}${contact}`,
-      "Cory Hisey\nNISD2.eu",
-      copy.reason,
-    ].join("\n\n"),
+    subject: WELCOME_COPY[props.locale].subject,
+    html: await renderEmail(WelcomeEmail, props),
+    text: welcomeText(props),
     ...(replyTo ? { replyTo } : {}),
   };
 }

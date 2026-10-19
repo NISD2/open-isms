@@ -13,116 +13,119 @@ mock.module("../../env", () => ({
   mailSupportEmail: () => "support@example.com",
 }));
 
-const { displayableFirstName, renderActivationNudge } = await import(
-  "./activation-nudge"
-);
+const { renderActivationNudge } = await import("./activation-nudge");
 
 function input(overrides: Partial<ActivationNudgeInput> = {}): ActivationNudgeInput {
   return {
     name: "Simon Orzel",
     locale: "de",
-    done: 3,
-    total: 49,
-    nextStepTitle: "Risikoanalyse dokumentieren",
-    journeyUrl: "https://nisd2.eu/journey",
+    walk: { kind: "open", done: 3, total: 20 },
+    nextStepTitle: "Aufschreiben, was Ihr Unternehmen hat",
+    walkUrl: "https://nisd2.eu/durchgang/nis2",
     unsubscribeUrl: "https://nisd2.eu/api/email/unsubscribe?u=x&t=y",
     ...overrides,
   };
 }
 
-describe("displayableFirstName", () => {
-  test("takes the first token of a real name", () => {
-    expect(displayableFirstName("Simon Orzel")).toBe("Simon");
-    expect(displayableFirstName("  Anna-Lena Schmidt ")).toBe("Anna-Lena");
+describe("renderActivationNudge, walkthrough open", () => {
+  test("subject names the step Continue opens", async () => {
+    const email = await renderActivationNudge(input());
+    expect(email.subject).toBe(
+      "Ihr nächster Schritt: Aufschreiben, was Ihr Unternehmen hat",
+    );
   });
 
-  test("raises the initial of lower-cased names", () => {
-    expect(displayableFirstName("simon")).toBe("Simon");
+  test("progress copy carries the real numbers, and the button the home's own label", async () => {
+    const email = await renderActivationNudge(input());
+    expect(email.text).toContain("3 von 20 Punkten bearbeitet");
+    expect(email.html).toContain("3 von 20 Punkten bearbeitet");
+    expect(email.text).toContain(
+      "NIS 2 Umsetzung fortsetzen: https://nisd2.eu/durchgang/nis2",
+    );
+    expect(email.text).not.toContain("freischalten");
   });
 
-  test("rejects email local parts and other non-names", () => {
-    expect(displayableFirstName("j.mueller")).toBeNull();
-    expect(displayableFirstName("info42")).toBeNull();
-    expect(displayableFirstName("a@b")).toBeNull();
-    expect(displayableFirstName(null)).toBeNull();
-    expect(displayableFirstName("  ")).toBeNull();
+  test("nothing done yet: the first step, no zero-of-20 line, the home's start label", async () => {
+    const email = await renderActivationNudge(
+      input({ walk: { kind: "open", done: 0, total: 20 } }),
+    );
+    expect(email.subject).toStartWith("Ihr erster Schritt:");
+    expect(email.text).toContain("ist freigeschaltet: 20 Punkte");
+    expect(email.text).not.toContain("0 von 20");
+    expect(email.text).toContain("Los geht's: https://nisd2.eu/durchgang/nis2");
   });
 });
 
-describe("renderActivationNudge", () => {
-  test("subject names the concrete next step", async () => {
-    const email = await renderActivationNudge(input());
-    expect(email.subject).toBe("Ihr nächster Schritt: Risikoanalyse dokumentieren");
+describe("renderActivationNudge, walkthrough locked", () => {
+  const locked = () => input({ walk: { kind: "locked", total: 21 } });
+
+  test("names the first step and says the page shows how to unlock it", async () => {
+    const email = await renderActivationNudge(locked());
+    expect(email.subject).toBe(
+      "Ihr erster Schritt: Aufschreiben, was Ihr Unternehmen hat",
+    );
+    expect(email.text).toContain("Punkt für Punkt durch: 21 Punkte");
+    expect(email.text).toContain("wie Sie den Durchgang freischalten");
+    expect(email.text).toContain("Durchgang ansehen: https://nisd2.eu/durchgang/nis2");
   });
 
-  test("progress copy carries the real numbers", async () => {
-    const email = await renderActivationNudge(input());
-    expect(email.text).toContain("3 von 49");
-    expect(email.html).toContain("3 von 49");
+  test("never claims progress or an open walkthrough", async () => {
+    const email = await renderActivationNudge(locked());
+    expect(email.text).not.toContain("bearbeitet");
+    expect(email.text).not.toContain("ist freigeschaltet");
   });
 
-  test("zero progress gets the fresh-start intro, no zero-of-49 line", async () => {
-    const email = await renderActivationNudge(input({ done: 0 }));
-    expect(email.text).toContain("steht bereit");
-    expect(email.text).not.toContain("0 von 49");
-  });
+  test("en and cs render their own copy", async () => {
+    const en = await renderActivationNudge({ ...locked(), locale: "en" });
+    expect(en.subject).toStartWith("Your first step:");
+    expect(en.text).toContain("how to unlock the walkthrough");
+    expect(en.text).toContain("See the walkthrough:");
 
-  test("html and text both link the journey and the unsubscribe", async () => {
+    const cs = await renderActivationNudge({ ...locked(), locale: "cs" });
+    expect(cs.subject).toStartWith("Váš první krok:");
+    expect(cs.text).toContain("jak průvodce odemknout");
+    expect(cs.html).toContain('lang="cs"');
+  });
+});
+
+describe("renderActivationNudge, every version", () => {
+  test("html and text both link the walkthrough and the unsubscribe", async () => {
     const email = await renderActivationNudge(input());
-    expect(email.text).toContain("https://nisd2.eu/journey");
+    expect(email.text).toContain("https://nisd2.eu/durchgang/nis2");
     expect(email.text).toContain("https://nisd2.eu/api/email/unsubscribe?u=x&t=y");
-    expect(email.html).toContain('href="https://nisd2.eu/journey"');
+    expect(email.html).toContain('href="https://nisd2.eu/durchgang/nis2"');
     // An ampersand in an attribute is written &amp;, which every mail client reads back as &.
     expect(email.html).toContain(
       'href="https://nisd2.eu/api/email/unsubscribe?u=x&amp;t=y"',
     );
+    expect(email.text).not.toContain("/journey");
   });
 
-  test("en and nl render their own copy", async () => {
+  test("en and cs open versions use the home's labels in their language", async () => {
     const en = await renderActivationNudge(input({ locale: "en" }));
-    expect(en.subject).toContain("Your next step:");
-    expect(en.text).toContain("3 of 49");
+    expect(en.subject).toStartWith("Your next step:");
+    expect(en.text).toContain("3 of 20 items are dealt with");
+    expect(en.text).toContain("Continue your NIS 2 implementation:");
 
-    const nl = await renderActivationNudge(input({ locale: "nl" }));
-    expect(nl.subject).toContain("Uw volgende stap:");
-    expect(nl.text).toContain("3 van de 49");
-    expect(nl.text).toContain("De volgende stap:");
-  });
-
-  test("cs renders its own copy, with a bare greeting and a Czech link", async () => {
-    const cs = await renderActivationNudge(
-      input({
-        locale: "cs",
-        nextStepTitle: "Hodnocení rizik",
-        journeyUrl: "https://nisd2.eu/cs/journey",
-      }),
-    );
-    expect(cs.subject).toBe("Váš další krok: Hodnocení rizik");
+    const cs = await renderActivationNudge(input({ locale: "cs" }));
+    expect(cs.subject).toStartWith("Váš další krok:");
     expect(cs.text).toContain("Dobrý den,");
     expect(cs.text).not.toContain("Simon");
-    expect(cs.text).toContain("hotovo 3 z celkem 49 požadavků");
-    expect(cs.text).toContain("https://nisd2.eu/cs/journey");
-    expect(cs.html).toContain('lang="cs"');
+    expect(cs.text).toContain("zpracováno 3 z 20 bodů");
+    expect(cs.text).toContain("Pokračovat v zavádění NIS 2:");
     expect(cs.html).toContain("Odhlásit připomínky e-mailem");
-
-    const fresh = await renderActivationNudge(input({ locale: "cs", done: 0 }));
-    expect(fresh.text).toContain("První krok:");
   });
 
-  test("named greetings per locale: DE vocative comma, NL switches to Beste", async () => {
+  test("named greetings per locale", async () => {
     expect((await renderActivationNudge(input({ locale: "de" }))).text).toContain(
       "Guten Tag, Simon,",
     );
     expect((await renderActivationNudge(input({ locale: "en" }))).text).toContain(
       "Hello Simon,",
     );
-    expect((await renderActivationNudge(input({ locale: "nl" }))).text).toContain(
-      "Beste Simon,",
-    );
-    // Bare NL greeting stays Goedendag (Beste needs a name after it).
     expect(
-      (await renderActivationNudge(input({ locale: "nl", name: null }))).text,
-    ).toContain("Goedendag,");
+      (await renderActivationNudge(input({ locale: "en", name: null }))).text,
+    ).toStartWith("Hello,");
   });
 
   test("interpolated content is HTML-escaped", async () => {

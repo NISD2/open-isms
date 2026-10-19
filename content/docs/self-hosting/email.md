@@ -69,7 +69,7 @@ SMTP_PASSWORD=...
 MAIL_FROM_EMAIL=noreply@example.com
 ```
 
-`MAIL_FROM_EMAIL` is not optional here, and the app refuses to send without it rather than falling back. The fallback would be this project's own `noreply@nisd2.eu`, which is a domain you do not own: your relay would either reject the message or deliver mail your recipients cannot reply to. The refusal names the variable, and shows up in the log and on the platform-admin email page. `MAIL_FROM_NAME` is worth setting too, since it is the first thing a recipient reads; it defaults to `NISD2`, which will mean nothing to your colleagues.
+`MAIL_FROM_EMAIL` is not optional here, and the app refuses to send without it rather than falling back. The fallback would be this project's own `noreply@nisd2.eu`, which is a domain you do not own: your relay would either reject the message or deliver mail your recipients cannot reply to. The refusal names the variable, and shows up in the log and on the platform-admin email page. `MAIL_FROM_NAME` is worth setting too, since it is the first thing a recipient reads; it defaults to `nisd2.eu`, which will mean nothing to your colleagues.
 
 Port 587 opens in the clear and upgrades with STARTTLS, which is what most relays want and what happens by default. Port 465 turns on implicit TLS by itself. `SMTP_SECURE` overrides that pairing for a relay that disagrees.
 

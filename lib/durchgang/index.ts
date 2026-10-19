@@ -90,6 +90,7 @@ export type {
 export {
   awaitingSignature,
   DURCHGANG_ACTIONS,
+  isSettled,
   itemState,
   resumeAt,
   reviewedWithinYear,
@@ -161,6 +162,9 @@ export const WALK: readonly AnyItem[] = [
  * will actually know what to fill out here").
  */
 export const SETUP_AFTER = "12.2";
+
+/** Setting up the company, as a step of the walk. It has no item code, so it carries its own. */
+export const SETUP_STEP = "unternehmen";
 
 /** Whether a company not set up yet may open this item: the walk up to the registration. */
 export const opensBeforeSetup = (code: string): boolean => {

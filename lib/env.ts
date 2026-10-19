@@ -38,9 +38,9 @@ const envSchema = z.object({
    * instance should set this to their own organisation, since the recipient
    * has never heard of NISD2.
    */
-  RESEND_FROM_NAME: z.string().default("NISD2"),
+  RESEND_FROM_NAME: z.string().default("nisd2.eu"),
   /** From display name for mail written in a person's voice. */
-  RESEND_FROM_NAME_PERSONAL: z.string().default("Simon von NISD2"),
+  RESEND_FROM_NAME_PERSONAL: z.string().default("Simon von nisd2.eu"),
   // Separate From for the newsletter so lifecycle email can send from a
   // distinct mailbox (e.g. newsletter@nisd2.eu) while auth/transactional
   // email stays on RESEND_FROM_EMAIL. Falls back to RESEND_FROM_EMAIL.

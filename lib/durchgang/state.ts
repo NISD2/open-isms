@@ -234,6 +234,10 @@ const POLICY_STATE: Readonly<Record<ItemState["kind"], PolicyState>> = {
   not_applicable: "settled",
 };
 
+/** Whether an item is finished for the person doing the work, the same rule Continue follows. */
+export const isSettled = (state: ItemState): boolean =>
+  POLICY_STATE[state.kind] === "settled";
+
 /**
  * Where Continue goes: the first open item, else the first one waiting, else nowhere. A filled
  * item is finished for the person doing the work; the signature is the Geschäftsführung's step.

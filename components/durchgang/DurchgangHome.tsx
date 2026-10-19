@@ -18,12 +18,12 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
 import type { WalkLock } from "@/lib/billing/access";
-import { APPROVAL_SCREEN, resumeAt } from "@/lib/durchgang";
+import { APPROVAL_SCREEN, resumeAt, SETUP_STEP } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
 import { itemShot } from "./itemShots";
 import { PromiseCard } from "./PromiseCard";
-import { hrefOf, SETUP_STEP, useSteps } from "./setup";
+import { hrefOf, useSteps } from "./setup";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
 

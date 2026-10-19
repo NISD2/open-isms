@@ -1,48 +1,72 @@
 /**
- * Activation nudge: the first lifecycle email. Sent once, ever, to a user
- * who signed up, went quiet, and still has open steps on their NIS 2
- * implementation path. The email names their real progress and the concrete
- * next step, and links straight back to the journey.
+ * Activation nudge: the first lifecycle email. Sent once, ever, to a user who signed up, went
+ * quiet, and still has a step open on their company's NIS 2 walkthrough. It names the step the
+ * walkthrough's home would open and links to that home, in one of two versions:
+ *
+ *   - open: the account may walk (paid). The email gives the real progress, and the step is the
+ *     one its Continue button opens.
+ *   - locked: every other account (free, or grandfathered with the journey). The walkthrough is
+ *     locked for it, so the email names its first step and says the page shows how to unlock it.
+ *     The home shows the same: every step, the price and the way to order. Where nothing can be
+ *     ordered (a self-hosted instance), a locked account gets no nudge.
  *
  * Eligibility (all must hold):
  *   - email proved (emailVerifiedAt set), not a disposable domain
  *   - not opted out: neither the all-off flag (emailFollowupsDisabled) nor
  *     a preference-centre row covering this email
- *   - has a company (draft shells INCLUDED — a drive-by signup with a seeded
- *     path is exactly who this email is for; contrast the digests, which
- *     exclude drafts)
+ *   - has a company (draft shells INCLUDED — a drive-by signup is exactly who
+ *     this email is for; contrast the digests, which exclude drafts)
  *   - quiet for NUDGE_AFTER_DAYS or more: last sign-in (or, for accounts
  *     predating the lastLoginAt column, verification/signup) is older than
  *     the cutoff, AND no audit-logged activity by this user since the
  *     cutoff. "Or more" is deliberate: long-dormant accounts qualify the
  *     first time the cron runs, and the once-ever claim row keeps that from
  *     ever repeating.
- *   - the NIS 2 path has at least one open step
+ *   - the walkthrough has a step left to do
  */
 import { and, asc, eq, gt, inArray, isNotNull, notExists, sql } from "drizzle-orm";
+import { effectiveAccessLevel, mayWalkDurchgang } from "@/lib/billing/access";
+import { mayOrderIn, orderingMode } from "@/lib/billing/ordering";
 import type { DbOrTx } from "@/lib/db";
+import {
+  resolveItem,
+  SETUP_STEP,
+  type WalkLocale,
+  walkLocaleOf,
+  walkOf,
+} from "@/lib/durchgang";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { env } from "@/lib/env";
 import { categoryScope, SCOPE_ALL, typeScope } from "@/lib/mail/consent-rules";
 import { emailTypeCategory } from "@/lib/mail/email-types";
 import ActivationNudgeEmail from "@/lib/mail/emails/activation-nudge";
+import { displayableFirstName } from "@/lib/mail/first-name";
 import { type EmailContent, safeHeader } from "@/lib/mail/layout";
-import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { renderEmail } from "@/lib/mail/render";
-import { getRequirementsMessages, getRequirementTitle } from "@/lib/messages";
-import { getAppUrl } from "@/lib/utils";
-import { auditLog, company, emailPreference, notification, user } from "@/schema";
-import { journeyStatesByCompany } from "@/server/trpc/helpers/durchgang";
-import { type JourneySummary, summarizeJourneys } from "../journey-progress";
+import { localizedAbsoluteUrl } from "@/lib/seo";
+import {
+  auditLog,
+  billingAccount,
+  company,
+  emailPreference,
+  notification,
+  user,
+} from "@/schema";
+import { walkStates } from "@/server/trpc/helpers/durchgang";
 import {
   LIFECYCLE_ENTITY_TYPE,
   type LifecycleEmailType,
   type PreparedLifecycleEmail,
 } from "../types";
+import { type WalkProgress, type WalkStep, walkProgress } from "../walk-progress";
+import { NUDGE_COPY, WALK_COPY } from "./activation-nudge-copy";
 
 // Campaign identifier, not a credential — the "KEY" in the name is the
 // notification.triggerField dedup key. `gitleaks:allow` suppresses the
 // generic-api-key false positive (same precedent as the share-password
-// alphabet in platform-admin.ts).
+// alphabet in platform-admin.ts). Kept at v1 when the email moved from the journey to the
+// walkthrough: a new key would mail everyone who already had the journey version a second time.
 export const ACTIVATION_NUDGE_KEY = "activation_nudge_v1"; // gitleaks:allow
 
 /**
@@ -58,115 +82,53 @@ export const NUDGE_AFTER_DAYS = 3;
 /** The message type the dispatcher sends this campaign as. */
 const NUDGE_EMAIL_TYPE = "product.lifecycle_nudge";
 
-// ---------------------------------------------------------------------------
-// Copy (de primary, en, nl, cs: the email locales)
-// ---------------------------------------------------------------------------
+/** The walkthrough's home, where both versions link: it shows each account its own way on. */
+const WALK_HOME = "/durchgang/nis2";
 
-interface NudgeCopy {
-  subjectPrefix: string;
-  /** Salutation line including the trailing comma; NL needs a different word with vs without a name. */
-  greeting: (firstName: string | null) => string;
-  introProgress: (done: number, total: number) => string;
-  introFresh: string;
-  mechanism: string;
-  cta: string;
-  /**
-   * The link flips user.emailFollowupsDisabled, which stops ALL soft-touch
-   * follow-up email (digests, course follow-ups, lifecycle nudges) — so the
-   * label stays category-wide, never "these" emails only.
-   */
-  unsubscribe: string;
-}
-
-const COPY: Record<EmailLocale, NudgeCopy> = {
-  de: {
-    subjectPrefix: "Ihr nächster Schritt",
-    greeting: (firstName) => (firstName ? `Guten Tag, ${firstName},` : "Guten Tag,"),
-    introProgress: (done, total) =>
-      `Sie haben ${done} von ${total} Anforderungen auf Ihrem Umsetzungspfad abgeschlossen. Als Nächstes steht an:`,
-    introFresh: "Ihr Umsetzungspfad auf nisd2.eu steht bereit. Der erste Schritt:",
-    mechanism:
-      "Jeder Schritt wird beim Abschluss direkt dokumentiert. So entsteht der Nachweis während der Arbeit, nicht erst kurz vor einer Prüfung.",
-    cta: "Im Pfad weitermachen",
-    unsubscribe: "Erinnerungen per E-Mail abbestellen",
-  },
-  en: {
-    subjectPrefix: "Your next step",
-    greeting: (firstName) => (firstName ? `Hello ${firstName},` : "Hello,"),
-    introProgress: (done, total) =>
-      `You have completed ${done} of ${total} requirements on your implementation path. Up next:`,
-    introFresh: "Your implementation path on nisd2.eu is ready. The first step:",
-    mechanism:
-      "Each step is documented the moment you complete it, so the evidence builds while you work instead of shortly before an audit.",
-    cta: "Continue the path",
-    unsubscribe: "Unsubscribe from reminder emails",
-  },
-  nl: {
-    subjectPrefix: "Uw volgende stap",
-    greeting: (firstName) => (firstName ? `Beste ${firstName},` : "Goedendag,"),
-    introProgress: (done, total) =>
-      `U heeft ${done} van de ${total} vereisten op uw implementatiepad afgerond. De volgende stap:`,
-    introFresh: "Uw implementatiepad op nisd2.eu staat klaar. De eerste stap:",
-    mechanism:
-      "Elke stap wordt bij afronding direct gedocumenteerd. Zo bouwt het bewijs zich op tijdens het werk, niet pas vlak voor een audit.",
-    cta: "Verder met het pad",
-    unsubscribe: "Afmelden voor e-mailherinneringen",
-  },
-  // Bare greeting: Czech addresses a person in the vocative, which a stored name does not give us.
-  cs: {
-    subjectPrefix: "Váš další krok",
-    greeting: () => "Dobrý den,",
-    introProgress: (done, total) =>
-      `při zavádění NIS 2 máte hotovo ${done} z celkem ${total} požadavků. Na řadě je:`,
-    introFresh: "vaše cesta zavádění NIS 2 na nisd2.eu je připravená. První krok:",
-    mechanism:
-      "Každý krok se zdokumentuje hned při dokončení. Doklady tak vznikají průběžně při práci, ne až těsně před kontrolou nebo auditem.",
-    cta: "Pokračovat v cestě",
-    unsubscribe: "Odhlásit připomínky e-mailem",
-  },
-};
-
-/**
- * First token of the display name, but only when it reads as a name.
- * Registration defaults `name` to the email local part ("j.mueller",
- * "info42"), which would make an awkward greeting — those fall back to the
- * bare greeting. Lower-cased real names ("simon") get their initial raised.
- */
-const NAME_PATTERN = /^\p{L}[\p{L}' -]*$/u;
-
-export function displayableFirstName(name: string | null): string | null {
-  const first = name?.trim().split(/\s+/)[0] ?? "";
-  if (!first || first.length > 40 || !NAME_PATTERN.test(first)) return null;
-  return first.charAt(0).toUpperCase() + first.slice(1);
-}
+/** Where the reader's walkthrough stands, as the email tells it. */
+export type NudgeWalk =
+  | { readonly kind: "open"; readonly done: number; readonly total: number }
+  | { readonly kind: "locked"; readonly total: number };
 
 export interface ActivationNudgeInput {
   name: string | null;
-  locale: EmailLocale;
-  done: number;
-  total: number;
+  locale: WalkLocale;
+  walk: NudgeWalk;
   nextStepTitle: string;
-  journeyUrl: string;
+  walkUrl: string;
   unsubscribeUrl: string;
 }
 
 export async function renderActivationNudge(
   input: ActivationNudgeInput,
 ): Promise<EmailContent> {
-  const copy = COPY[input.locale];
+  const copy = NUDGE_COPY[input.locale];
+  const { ui } = WALK_COPY[input.locale];
+  const { walk } = input;
+  const started = walk.kind === "open" && walk.done > 0;
   const greeting = copy.greeting(displayableFirstName(input.name));
   const intro =
-    input.done > 0 ? copy.introProgress(input.done, input.total) : copy.introFresh;
-  const subject = safeHeader(`${copy.subjectPrefix}: ${input.nextStepTitle}`);
+    walk.kind === "locked"
+      ? copy.locked(walk.total)
+      : started
+        ? copy.progress(walk.done, walk.total)
+        : copy.fresh(walk.total);
+  const notes = walk.kind === "locked" ? [copy.promise, copy.unlock] : [copy.promise];
+  // The open version's button says what the button it lands on says.
+  const cta =
+    walk.kind === "locked" ? copy.see : started ? ui.home.continue : ui.intro.start;
+  const subject = safeHeader(
+    `${started ? copy.subjectNext : copy.subjectFirst}: ${input.nextStepTitle}`,
+  );
 
   const html = await renderEmail(ActivationNudgeEmail, {
     locale: input.locale,
     greeting,
     intro,
     nextStepTitle: input.nextStepTitle,
-    journeyUrl: input.journeyUrl,
-    mechanism: copy.mechanism,
-    cta: copy.cta,
+    walkUrl: input.walkUrl,
+    notes,
+    cta,
     unsubscribeLabel: copy.unsubscribe,
     unsubscribeUrl: input.unsubscribeUrl,
   });
@@ -176,11 +138,10 @@ export async function renderActivationNudge(
     "",
     intro,
     "",
-    `${input.nextStepTitle}: ${input.journeyUrl}`,
+    `${input.nextStepTitle}: ${input.walkUrl}`,
     "",
-    copy.mechanism,
-    "",
-    `${copy.cta}: ${input.journeyUrl}`,
+    ...notes.flatMap((note) => [note, ""]),
+    `${cta}: ${input.walkUrl}`,
     "",
     `${copy.unsubscribe}: ${input.unsubscribeUrl}`,
   ].join("\n");
@@ -188,27 +149,111 @@ export async function renderActivationNudge(
   return { subject, html, text };
 }
 
+/** A step's title as the walkthrough's home shows it; null if its copy does not parse. */
+function stepTitle(step: WalkStep, locale: WalkLocale): string | null {
+  if (step.kind === "setup") return WALK_COPY[locale].ui.home.setupHeadline;
+  const words = resolveItem(WALK_COPY[locale], step.item);
+  return words.ok ? words.value.headline : null;
+}
+
+// ---------------------------------------------------------------------------
+// One recipient
+// ---------------------------------------------------------------------------
+
+/** What the email needs to know about a person and the company they have open. */
+const RECIPIENT = {
+  userId: user.id,
+  email: user.email,
+  name: user.name,
+  locale: user.locale,
+  grandfatheredAt: user.grandfatheredAt,
+  companyId: company.id,
+  country: company.country,
+  entityType: company.entityType,
+  criticalInstallation: company.criticalInstallation,
+  activatedAt: company.activatedAt,
+  accessLevel: billingAccount.accessLevel,
+};
+
+type Recipient = Awaited<ReturnType<typeof buildCandidateQuery>>[number];
+
+/**
+ * Where the recipient's walkthrough stands, the way its home shows it to them: progress if their
+ * account may walk, otherwise every step open. Platform admins are not let in here: the email
+ * goes to customers, and an operator's account reads as the level it has.
+ */
+async function walkOfRecipient(
+  db: DbOrTx,
+  r: Recipient,
+): Promise<{ readonly mayWalk: boolean; readonly progress: WalkProgress }> {
+  const mayWalk = mayWalkDurchgang(
+    effectiveAccessLevel(r.accessLevel, r.grandfatheredAt !== null),
+    false,
+  );
+  const states = mayWalk
+    ? new Map((await walkStates(db, r.companyId)).map((s) => [s.code, s.state]))
+    : null;
+  return {
+    mayWalk,
+    progress: walkProgress({ walk: walkOf(r), states, setUp: r.activatedAt !== null }),
+  };
+}
+
+type NudgeEmail = EmailContent & {
+  readonly walkUrl: string;
+  /** The step the email names, kept on the claim row for the admin view. */
+  readonly nextCode: string;
+  readonly unsubscribeUrl: string;
+};
+
+/** The recipient's email, or null when nothing is left to name. */
+async function emailFor(
+  db: DbOrTx,
+  r: Recipient,
+  opts: { readonly fromStart?: boolean } = {},
+): Promise<NudgeEmail | null> {
+  const { mayWalk, progress } = await walkOfRecipient(db, r);
+  // A locked walkthrough is worth an email only where it can be unlocked: a deployment that sells
+  // nothing (a self-hosted instance) shows a locked home with no way to order.
+  if (!mayWalk && !mayOrderIn(orderingMode(env), false)) return null;
+  const shown =
+    opts.fromStart && !progress.next
+      ? walkProgress({ walk: walkOf(r), states: null, setUp: r.activatedAt !== null })
+      : progress;
+  if (!shown.next) return null;
+  const locale = walkLocaleOf(resolveEmailLocale(r.locale, r.country));
+  const nextStepTitle = stepTitle(shown.next, locale);
+  if (!nextStepTitle) return null;
+  // The link carries the language (German is the unprefixed default): the
+  // recipient has been away long enough for the NEXT_LOCALE cookie to be gone,
+  // so a bare path would renegotiate from Accept-Language.
+  const walkUrl = localizedAbsoluteUrl(WALK_HOME, locale);
+  const unsubscribeUrl = buildUnsubscribeUrl(r.userId);
+  const walk: NudgeWalk = mayWalk
+    ? { kind: "open", done: shown.done, total: shown.total }
+    : { kind: "locked", total: shown.total };
+  const email = await renderActivationNudge({
+    name: r.name,
+    locale,
+    walk,
+    nextStepTitle,
+    walkUrl,
+    unsubscribeUrl,
+  });
+  const nextCode = shown.next.kind === "item" ? shown.next.item.code : SETUP_STEP;
+  return { ...email, walkUrl, nextCode, unsubscribeUrl };
+}
+
 // ---------------------------------------------------------------------------
 // Test send (platform admin "send me this email")
 // ---------------------------------------------------------------------------
 
 /**
- * Placeholder next-step title for a test send when the target user has no
- * NIS 2 path (or a finished one). Clearly marked as a sample so a test
- * email can never be mistaken for real guidance.
- */
-const SAMPLE_STEP_TITLE: Record<EmailLocale, string> = {
-  de: "(Beispiel) Risikoanalyse dokumentieren",
-  en: "(Sample) Document the risk analysis",
-  nl: "(Voorbeeld) Risicoanalyse documenteren",
-  cs: "(Ukázka) Zdokumentovat hodnocení rizik",
-};
-
-/**
- * Render this campaign for ONE user, ignoring eligibility — the platform
- * admin's "send me a test" path. Uses the user's real journey numbers when
- * their company has an open NIS 2 path, sample values otherwise. Claims
- * nothing and checks no dormancy; the caller decides where the result goes.
+ * Render this campaign for ONE user, ignoring eligibility — the platform admin's "send me a
+ * test" path. The user's own version, from their own walkthrough; if every step of it is
+ * finished, the version from its start, so there is always something to look at. Claims nothing
+ * and checks no dormancy; the caller decides where the result goes. Null when the user has no
+ * company to walk for.
  */
 export async function prepareActivationNudgeSample(
   db: DbOrTx,
@@ -220,54 +265,23 @@ export async function prepareActivationNudgeSample(
   text: string;
   unsubscribeUrl: string;
 } | null> {
-  const rows = await db
-    .select({
-      email: user.email,
-      name: user.name,
-      locale: user.locale,
-      companyId: user.companyId,
-      country: company.country,
-    })
+  const [target] = await db
+    .select(RECIPIENT)
     .from(user)
-    .leftJoin(company, eq(user.companyId, company.id))
+    .innerJoin(company, eq(user.companyId, company.id))
+    .innerJoin(billingAccount, eq(company.billingAccountId, billingAccount.id))
     .where(eq(user.id, userId))
     .limit(1);
-  const target = rows[0];
   if (!target) return null;
-
-  const locale = resolveEmailLocale(target.locale, target.country);
-
-  let done = 3;
-  let total = 49;
-  let nextCode: string | null = null;
-  if (target.companyId) {
-    const journey = summarizeJourneys(
-      await journeyStatesByCompany(db, [target.companyId]),
-    ).get(target.companyId);
-    if (journey && journey.total > 0) {
-      done = journey.done;
-      total = journey.total;
-      nextCode = journey.nextCode;
-    }
-  }
-
-  const nextStepTitle = nextCode
-    ? getRequirementTitle(await getRequirementsMessages(locale), nextCode)
-    : SAMPLE_STEP_TITLE[locale];
-  const appUrl = getAppUrl();
-  const journeyUrl =
-    locale === "de" ? `${appUrl}/journey` : `${appUrl}/${locale}/journey`;
-  const unsubUrl = buildUnsubscribeUrl(userId);
-  const email = await renderActivationNudge({
-    name: target.name,
-    locale,
-    done,
-    total,
-    nextStepTitle,
-    journeyUrl,
-    unsubscribeUrl: unsubUrl,
-  });
-  return { to: target.email, ...email, unsubscribeUrl: unsubUrl };
+  const email = await emailFor(db, target, { fromStart: true });
+  if (!email) return null;
+  return {
+    to: target.email,
+    subject: email.subject,
+    html: email.html,
+    text: email.text,
+    unsubscribeUrl: email.unsubscribeUrl,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -319,16 +333,11 @@ export function buildCandidateQuery(db: DbOrTx, cutoff: Date) {
 
   return (
     db
-      .select({
-        userId: user.id,
-        email: user.email,
-        name: user.name,
-        companyId: company.id,
-        locale: user.locale,
-        country: company.country,
-      })
+      .select(RECIPIENT)
       .from(user)
       .innerJoin(company, eq(user.companyId, company.id))
+      // Whether the walkthrough is open is the account's: every company has a billing account.
+      .innerJoin(billingAccount, eq(company.billingAccountId, billingAccount.id))
       .where(
         and(
           isNotNull(user.emailVerifiedAt),
@@ -353,7 +362,7 @@ export function buildCandidateQuery(db: DbOrTx, cutoff: Date) {
 export const activationNudge: LifecycleEmailType = {
   key: ACTIVATION_NUDGE_KEY,
   description:
-    "One-time re-engagement email for quiet accounts with open NIS 2 path steps",
+    "One-time email for quiet accounts with a step left on their NIS 2 walkthrough",
 
   async prepare(db: DbOrTx): Promise<PreparedLifecycleEmail[]> {
     const cutoff = new Date(Date.now() - NUDGE_AFTER_DAYS * 24 * 60 * 60 * 1000);
@@ -375,42 +384,14 @@ export const activationNudge: LifecycleEmailType = {
       .where(and(gt(auditLog.createdAt, cutoff), isNotNull(auditLog.userId)));
     const activeIds = new Set(recentlyActive.map((r) => r.userId));
     const quiet = candidates.filter((c) => !activeIds.has(c.userId));
-    if (quiet.length === 0) return [];
 
-    // One bulk read of every candidate company's NIS 2 path, summarized in
-    // memory (~49 rows per company).
-    const companyIds = Array.from(new Set(quiet.map((c) => c.companyId)));
-    const journeys = summarizeJourneys(await journeyStatesByCompany(db, companyIds));
-
-    const appUrl = getAppUrl();
+    // One by one: a locked walkthrough needs no query, an open one reads its states.
     const prepared: PreparedLifecycleEmail[] = [];
     for (const candidate of quiet) {
-      const journey: JourneySummary | undefined = journeys.get(candidate.companyId);
-      // No path or nothing open: nothing to nudge toward. The claim stays
-      // unspent, so the user becomes eligible again if steps reopen later.
-      if (!journey || journey.total === 0 || !journey.nextCode) continue;
-
-      const locale = resolveEmailLocale(candidate.locale, candidate.country);
-      // Locale-prefixed link (de is the unprefixed canonical): routing is
-      // "as-needed" and the recipient has been away long enough for the
-      // NEXT_LOCALE session cookie to be gone, so a bare /journey would
-      // renegotiate from Accept-Language and can land an en/nl reader on
-      // the German page.
-      const journeyUrl =
-        locale === "de" ? `${appUrl}/journey` : `${appUrl}/${locale}/journey`;
-      const requirementsMessages = await getRequirementsMessages(locale);
-      const nextStepTitle = getRequirementTitle(requirementsMessages, journey.nextCode);
-      const unsubscribeUrl = buildUnsubscribeUrl(candidate.userId);
-      const email = await renderActivationNudge({
-        name: candidate.name,
-        locale,
-        done: journey.done,
-        total: journey.total,
-        nextStepTitle,
-        journeyUrl,
-        unsubscribeUrl,
-      });
-
+      // Nothing left to name: the claim stays unspent, so the user becomes
+      // eligible again if a step reopens later.
+      const email = await emailFor(db, candidate);
+      if (!email) continue;
       prepared.push({
         userId: candidate.userId,
         companyId: candidate.companyId,
@@ -418,9 +399,9 @@ export const activationNudge: LifecycleEmailType = {
         subject: email.subject,
         html: email.html,
         text: email.text,
-        linkUrl: journeyUrl,
-        note: journey.nextCode,
-        unsubscribeUrl,
+        linkUrl: email.walkUrl,
+        note: email.nextCode,
+        unsubscribeUrl: email.unsubscribeUrl,
       });
     }
     return prepared;

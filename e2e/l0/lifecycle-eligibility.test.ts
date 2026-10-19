@@ -76,6 +76,14 @@ describe("activation-nudge candidate query", () => {
     expect(orderBy).toContain("coalesce");
     expect(orderBy).toContain("asc");
   });
+
+  test("reads whether the walkthrough is open from the company's billing account", () => {
+    expect(compiled.sql).toContain(
+      'inner join "billing_account" on "company"."billing_account_id" = "billing_account"."id"',
+    );
+    expect(compiled.sql).toContain('"billing_account"."access_level"');
+    expect(compiled.sql).toContain('"user"."grandfathered_at"');
+  });
 });
 
 describe("uq_notification_lifecycle_once stays aligned with the code", () => {

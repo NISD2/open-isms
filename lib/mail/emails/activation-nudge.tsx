@@ -9,8 +9,9 @@ export interface ActivationNudgeEmailProps {
   readonly greeting: string;
   readonly intro: string;
   readonly nextStepTitle: string;
-  readonly journeyUrl: string;
-  readonly mechanism: string;
+  readonly walkUrl: string;
+  /** How the walkthrough works, and for a locked one what the page shows. */
+  readonly notes: readonly string[];
   readonly cta: string;
   readonly unsubscribeLabel: string;
   readonly unsubscribeUrl: string;
@@ -18,7 +19,7 @@ export interface ActivationNudgeEmailProps {
 
 /**
  * The first lifecycle email (lib/lifecycle/emails/activation-nudge.ts decides who gets it and
- * writes the copy): real progress, the concrete next step, a link straight back.
+ * writes the copy): where the walkthrough stands, the concrete next step, a link to its home.
  */
 export default function ActivationNudgeEmail(props: ActivationNudgeEmailProps) {
   const spaced = { margin: "0 0 16px" } as const;
@@ -35,18 +36,22 @@ export default function ActivationNudgeEmail(props: ActivationNudgeEmailProps) {
         }}
       >
         <Link
-          href={props.journeyUrl}
+          href={props.walkUrl}
           style={{ color: BRAND.primary, textDecoration: "none", fontWeight: 600 }}
         >
           {props.nextStepTitle}
         </Link>
       </div>
-      <Para style={{ margin: "0 0 24px" }}>{props.mechanism}</Para>
-      <p style={{ margin: "0 0 8px" }}>
-        <CtaButton
-          href={props.journeyUrl}
-          style={{ padding: "10px 20px", fontWeight: 600 }}
+      {props.notes.map((note, i) => (
+        <Para
+          key={note}
+          style={{ margin: i === props.notes.length - 1 ? "0 0 24px" : "0 0 16px" }}
         >
+          {note}
+        </Para>
+      ))}
+      <p style={{ margin: "0 0 8px" }}>
+        <CtaButton href={props.walkUrl} style={{ padding: "10px 20px", fontWeight: 600 }}>
           {props.cta}
         </CtaButton>
       </p>
@@ -60,13 +65,13 @@ export default function ActivationNudgeEmail(props: ActivationNudgeEmailProps) {
 ActivationNudgeEmail.PreviewProps = {
   locale: "de",
   greeting: "Guten Tag, Jan,",
-  intro:
-    "Sie haben 3 von 10 Anforderungen auf Ihrem Umsetzungspfad abgeschlossen. Als Nächstes steht an:",
-  nextStepTitle: "Risikoanalyse dokumentieren",
-  journeyUrl: "https://nisd2.eu/journey",
-  mechanism:
-    "Jeder Schritt wird beim Abschluss direkt dokumentiert. So entsteht der Nachweis während der Arbeit, nicht erst kurz vor einer Prüfung.",
-  cta: "Im Pfad weitermachen",
+  intro: "Im NIS 2 Durchgang sind 3 von 20 Punkten bearbeitet. Als Nächstes steht an:",
+  nextStepTitle: "Aufschreiben, was Ihr Unternehmen hat",
+  walkUrl: "https://nisd2.eu/durchgang/nis2",
+  notes: [
+    "Sie sehen immer nur einen Punkt, und was noch nicht geht, legen Sie zur Seite. Am Ende sieht die Geschäftsführung alles durch und unterschreibt.",
+  ],
+  cta: "NIS 2 Umsetzung fortsetzen",
   unsubscribeLabel: "Erinnerungen per E-Mail abbestellen",
   unsubscribeUrl: "https://nisd2.eu/u",
 } satisfies ActivationNudgeEmailProps;

@@ -1504,7 +1504,7 @@ export const platformAdminRouter = router({
   /**
    * Send the activation nudge to the CALLING platform admin's own mailbox,
    * subject-prefixed [Test]. Renders through the real campaign code (their
-   * own journey numbers when available, marked sample values otherwise) but
+   * own walkthrough, from its start when every step is finished) but
    * writes NO claim row and checks NO eligibility — the once-ever guarantee
    * for the real campaign is untouched, and the admin can send themselves
    * as many tests as they like. Same shape as newsletter.sendTest. Note the
@@ -1514,7 +1514,7 @@ export const platformAdminRouter = router({
   sendLifecycleTestEmail: platformAdminProcedure.mutation(async ({ ctx }) => {
     const sample = await prepareActivationNudgeSample(ctx.db, ctx.userId);
     if (!sample) {
-      throw new TRPCError({ code: "NOT_FOUND", message: "Calling user not found." });
+      throw new TRPCError({ code: "NOT_FOUND", message: "No company found." });
     }
     // Sent as the REAL message type, so the consent gate applies exactly as it
     // would to a customer. An earlier version sent this as internal.test_send
@@ -1804,7 +1804,7 @@ export const platformAdminRouter = router({
       if (input.template === "activation-nudge") {
         const sample = await prepareActivationNudgeSample(ctx.db, ctx.userId);
         if (!sample) {
-          return { html: null, subject: null, reason: "Calling user not found." };
+          return { html: null, subject: null, reason: "No company found." };
         }
         return { html: sample.html, subject: sample.subject, reason: null };
       }

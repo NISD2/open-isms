@@ -5,6 +5,9 @@ export const BOOKING_CAL_LINK = "nisd2/qc";
 
 export const BOOKING_URL = `https://cal.com/${BOOKING_CAL_LINK}`;
 
+/** The calendar's front page, where the visitor picks the kind of call; the welcome email links here. */
+export const CALENDAR_URL = "https://cal.com/nisd2";
+
 /**
  * The booking page with the visitor's campaign tags handed on, so cal.com can record which
  * campaign a booking came from (hidden booking questions named after each utm_* key). Only campaign tags
