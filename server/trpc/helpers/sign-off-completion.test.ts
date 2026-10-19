@@ -2,9 +2,7 @@ import { describe, expect, test } from "bun:test";
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import {
   completedSignOffValues,
-  effectiveSignOffRole,
   reopenedSignOffValues,
-  signerMeetsRequiredRole,
   snapshotForVersion,
 } from "./sign-off-completion";
 
@@ -163,50 +161,5 @@ describe("snapshotForVersion", () => {
     snapshotForVersion(base, 9);
 
     expect(base.templateVersion).toBe(1);
-  });
-});
-
-describe("effectiveSignOffRole", () => {
-  test("uses the role the requirement names", () => {
-    expect(effectiveSignOffRole("ceo")).toBe("ceo");
-  });
-
-  // An unnamed signer must not mean "anyone may sign".
-  test("falls back to the platform default when none is named", () => {
-    expect(effectiveSignOffRole(null)).toBe("ciso");
-  });
-});
-
-describe("signerMeetsRequiredRole", () => {
-  const check = (
-    signerRole: string,
-    requiredSignOffRole: string | null,
-    sessionRole = "member",
-  ) => signerMeetsRequiredRole({ sessionRole, signerRole, requiredSignOffRole });
-
-  test("admits the named signer", () => {
-    expect(check("ceo", "ceo")).toBe(true);
-  });
-
-  test("refuses a signer who does not hold the named role", () => {
-    expect(check("ciso", "ceo")).toBe(false);
-  });
-
-  test("applies the default when the requirement names no role", () => {
-    expect(check("ciso", null)).toBe(true);
-    expect(check("ceo", null)).toBe(false);
-  });
-
-  // Matches the single sign-off path, which lets an admin close a
-  // requirement without holding its role.
-  test("lets an admin session bypass the role", () => {
-    expect(check("ciso", "ceo", "admin")).toBe(true);
-  });
-
-  // getSignerRole returns user.jobTitle, which is free text. An arbitrary
-  // job title must not satisfy a named role.
-  test("does not admit an arbitrary job title", () => {
-    expect(check("Head of Everything", "ceo")).toBe(false);
-    expect(check("Head of Everything", null)).toBe(false);
   });
 });

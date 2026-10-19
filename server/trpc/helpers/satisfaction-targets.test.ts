@@ -28,11 +28,15 @@ const EDGES = [
 ];
 
 describe("satisfactionTargets", () => {
-  test("credits the other framework's linked requirements", () => {
-    expect(satisfactionTargets(EDGES, "nis2-2.1", frameworkOf).sort()).toEqual([
-      "iso-6.1",
-      "iso-8.2",
-    ]);
+  // The same record, signed once, counts in the other framework.
+  test("credits the other framework's requirement on the same record", () => {
+    expect(satisfactionTargets(EDGES, "nis2-2.1", frameworkOf)).toEqual(["iso-6.1"]);
+  });
+
+  // A partial overlap leaves a gap the other framework still asks for.
+  test("credits nothing through an overlapping edge", () => {
+    expect(satisfactionTargets(EDGES, "nis2-2.1", frameworkOf)).not.toContain("iso-8.2");
+    expect(satisfactionTargets(EDGES, "nis2-2.4", frameworkOf)).toEqual([]);
   });
 
   test("never comes back into the source's own framework through a bridge", () => {
@@ -40,9 +44,18 @@ describe("satisfactionTargets", () => {
   });
 
   test("works the same from the other framework's side", () => {
-    expect(satisfactionTargets(EDGES, "iso-6.1", frameworkOf).sort()).toEqual([
-      "nis2-2.1",
-      "nis2-2.4",
+    expect(satisfactionTargets(EDGES, "iso-6.1", frameworkOf)).toEqual(["nis2-2.1"]);
+  });
+
+  test("chains through the same record into a third framework", () => {
+    const chain = [
+      edge("nis2-2.1", "iso-6.1", "equivalent"),
+      edge("iso-6.1", "gdpr-32", "equivalent"),
+    ];
+    const frameworks = { ...FRAMEWORK, "gdpr-32": "gdpr" };
+    expect(satisfactionTargets(chain, "nis2-2.1", (id) => frameworks[id])).toEqual([
+      "iso-6.1",
+      "gdpr-32",
     ]);
   });
 
@@ -52,9 +65,7 @@ describe("satisfactionTargets", () => {
       edge("iso-5.2", "iso-9.3", "equivalent"),
     ];
     const frameworks = { ...FRAMEWORK, "iso-9.3": "other" };
-    expect(satisfactionTargets(chain, "nis2-2.4", (id) => frameworks[id])).toEqual([
-      "iso-5.2",
-    ]);
+    expect(satisfactionTargets(chain, "nis2-2.4", (id) => frameworks[id])).toEqual([]);
   });
 
   test("does not walk through a requirement of the source's own framework", () => {

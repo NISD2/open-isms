@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/i18n/navigation";
+import { MIN_DECLINE_REASON } from "@/lib/compliance/sign-off-state";
 import { WAIT_REASONS, type WaitReason } from "@/lib/durchgang";
 
 const isWaitReason = (value: string): value is WaitReason =>
@@ -35,9 +36,6 @@ const REASON_ICON: Readonly<Record<WaitReason, LucideIcon>> = {
   decide: Users,
   unclear: CircleHelp,
 };
-
-/** The shortest reason that can stand as a record of a decision. The router checks it too. */
-const MIN_DECLINE_REASON = 20;
 
 type Mode = "wait" | "decline";
 

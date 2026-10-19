@@ -27,6 +27,8 @@ import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import { seedLocale } from "@/lib/compliance/seed-locale";
+import { MAX_DECLINE_REASON, MIN_DECLINE_REASON } from "@/lib/compliance/sign-off-state";
+import { signerRoleOf } from "@/lib/compliance/signer-role";
 import type { DbOrTx } from "@/lib/db";
 import {
   type AnyScreen,
@@ -106,7 +108,7 @@ import {
   supplier,
 } from "@/schema";
 import { improvementItemInsertSchema } from "@/schema/validators";
-import { signerRoleOf, verifyMemberReferences } from "../guards";
+import { verifyMemberReferences } from "../guards";
 import {
   propagateSatisfaction,
   recalculateProgress,
@@ -139,7 +141,8 @@ import {
   specifyAssetsInput,
   writePolicyInput,
 } from "../helpers/durchgang-inputs";
-import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
+import { rosteredOf } from "../helpers/roster";
+import { signOffRows } from "../helpers/sign-off-rows";
 import {
   activatedCompanyProcedure,
   companyProcedure,
@@ -745,7 +748,12 @@ export const durchgangRouter = router({
    * free text.
    */
   decline: durchgangProcedure
-    .input(z.object({ code, reason: z.string().trim().min(20).max(2000) }))
+    .input(
+      z.object({
+        code,
+        reason: z.string().trim().min(MIN_DECLINE_REASON).max(MAX_DECLINE_REASON),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       if (itemOf(input.code).mustDo) {
         throw new TRPCError({

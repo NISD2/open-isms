@@ -1,5 +1,7 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
+import { DONE_STATUS_LIST, DONE_STATUSES } from "@/lib/compliance/journey-position";
+import { signerMeetsRequiredRole } from "@/lib/compliance/signer-role";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   company,
@@ -8,6 +10,7 @@ import {
   requirement,
   requirementCategory,
 } from "@/schema";
+import { rosteredOf } from "./roster";
 import { satisfactionTargets } from "./satisfaction-targets";
 import { recordSignOffChainEntry } from "./sign-off-chain";
 import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
@@ -92,13 +95,12 @@ export async function recalculateProgress(db: Database, assessmentId: string) {
  *   - `equivalent` pairs share the same underlying artefact (same supplier
  *     register, same incident row, same methodology). BFS continues through
  *     these edges so a chain X-eq-Y-eq-Z credits all three.
- *   - `overlapping` pairs only justify direct credit. BFS does NOT continue
- *     past them, so partial conceptual overlap cannot smuggle unrelated
- *     requirements into the credited set.
+ *   - `overlapping` pairs credit nothing: the other framework still asks for
+ *     what the overlap leaves out.
  *
  * Role gate (audit B-4, 2026-06-10): a credit is only applied when the
- * target's `requiredSignOffRole` matches the source signer's role (or the
- * source signer was admin). Without the gate, signing a CISO-required
+ * source signer could have signed the target directly
+ * (`signerMeetsRequiredRole`). Without the gate, signing a CISO-required
  * requirement (e.g. SUP-5.1) was crediting linked CEO-required requirements
  * with `signedOffRole=ciso`, which a §38 BSIG auditor reads as a CISO
  * signing for the board.
@@ -171,22 +173,30 @@ export async function propagateSatisfaction(
   const propagated: string[] = [];
   const assessmentsToRecalculate = new Set<string>();
   const now = new Date();
-  const signerIsAdmin = signedOffRole === "admin";
 
   // Same stable lock order as the bulk sign-off loops. This one is the reason
   // they need it: propagation runs inside an ordinary sign-off request, so it
   // is the loop most likely to be holding a row a concurrent bulk call wants.
   const orderedTargets = [...targetStatuses].sort((a, b) => a.id.localeCompare(b.id));
+  // A target whose assigned signers still owe a signature is theirs to sign.
+  const rostered = await rosteredOf(
+    db,
+    orderedTargets.map((t) => t.id),
+  );
 
   await db.transaction(async (tx) => {
     for (const target of orderedTargets) {
-      if (target.status === "completed" || target.status === "approved") continue;
+      // Done, set aside or waiting for its own signers: credit writes over none of them.
+      if (DONE_STATUSES.has(target.status) || rostered.has(target.id)) continue;
 
-      const required = target.requirement.requiredSignOffRole;
-      // Skip if the target requires a specific role that the source signer
-      // did not satisfy. Admin sign-off bypasses for parity with signOff,
-      // which lets admins close requirements without a role match.
-      if (required && required !== signedOffRole && !signerIsAdmin) {
+      // The target is signed under the same rule as a direct sign-off: its
+      // required role, the default when it names none, or management.
+      if (
+        !signerMeetsRequiredRole({
+          signerRole: signedOffRole,
+          requiredSignOffRole: target.requirement.requiredSignOffRole,
+        })
+      ) {
         continue;
       }
 
@@ -200,7 +210,9 @@ export async function propagateSatisfaction(
         target.requirement.templateVersion,
       );
 
-      await tx
+      // The status guard repeats on the write, as in signOffRows: a row someone
+      // signed or set aside since the read keeps what they recorded.
+      const [updated] = await tx
         .update(companyRequirementStatus)
         .set(
           completedSignOffValues({
@@ -211,7 +223,14 @@ export async function propagateSatisfaction(
             now,
           }),
         )
-        .where(eq(companyRequirementStatus.id, target.id));
+        .where(
+          and(
+            eq(companyRequirementStatus.id, target.id),
+            notInArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
+          ),
+        )
+        .returning({ id: companyRequirementStatus.id });
+      if (!updated) continue;
 
       await recordSignOffChainEntry(tx as unknown as Database, {
         companyId,

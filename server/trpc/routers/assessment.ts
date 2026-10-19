@@ -1,19 +1,30 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, asc, eq, inArray, ne, or, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, isNull, notInArray, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
 import { createBillingAccount } from "@/lib/billing/accounts";
 import { toDateString } from "@/lib/compliance/deadlines";
-import { DONE_STATUSES } from "@/lib/compliance/journey-position";
+import { DONE_STATUS_LIST, DONE_STATUSES } from "@/lib/compliance/journey-position";
 import {
   backfillInitialDeadlines,
   scheduleDeadlineReminders,
 } from "@/lib/compliance/schedule-notifications";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
-import { reopenChange } from "@/lib/compliance/sign-off-state";
+import {
+  hasSignOffToWithdraw,
+  MAX_DECLINE_REASON,
+  MIN_DECLINE_REASON,
+  reopenChange,
+} from "@/lib/compliance/sign-off-state";
+import {
+  requiredRoleRefusal,
+  signerMeetsRequiredRole,
+  signerRoleOf,
+} from "@/lib/compliance/signer-role";
 import type { Database } from "@/lib/db";
+import { leavesNoChoice } from "@/lib/durchgang";
 import { accountEmailLocale, contactEmailChangedEmail, sendMail } from "@/lib/mail";
 import { bumpMcpKeyVersion } from "@/lib/mcp/key-version";
 import { joinCompany } from "@/lib/organization/membership";
@@ -33,25 +44,26 @@ import {
   requirementSatisfaction,
   user,
 } from "@/schema";
-import { enforceAssignment, signerRoleOf, verifyAssessmentOwnership } from "../guards";
+import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
 import {
   buildSignOffSnapshot,
   propagateSatisfaction,
   recalculateProgress,
 } from "../helpers/assessment-helpers";
-import { MANUAL_STATUSES, REOPEN_APPROVED_FIRST } from "../helpers/manual-status";
+import {
+  REOPEN_APPROVED_FIRST,
+  REOPEN_SIGNED_FIRST,
+  WORK_STATUSES,
+} from "../helpers/manual-status";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
+import { rosteredOf } from "../helpers/roster";
 import {
   createAssessmentsForFrameworks,
   processTeamRoleAssignments,
 } from "../helpers/setup-helpers";
 import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
-import {
-  completedSignOffValues,
-  effectiveSignOffRole,
-  signerMeetsRequiredRole,
-} from "../helpers/sign-off-completion";
-import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
+import { completedSignOffValues } from "../helpers/sign-off-completion";
+import { signOffRows } from "../helpers/sign-off-rows";
 import { lockStatusRow } from "../helpers/status-lock";
 import {
   announceWithdrawal,
@@ -438,21 +450,44 @@ export const assessmentRouter = router({
       return rows;
     }),
 
+  /**
+   * The hand-set status change: back to work, or set aside as not applicable.
+   * Done is not a status anyone sets; it is a signature (`signOff`). Setting a
+   * requirement aside is a decision that stands in its place, so it takes what
+   * a signature takes: the requirement's role or management, and a written
+   * reason. The walk's decline holds the same rules.
+   */
   updateRequirementStatus: companyProcedure
     .input(
-      z.object({
-        statusId: z.string().uuid(),
-        status: z.enum(MANUAL_STATUSES),
-        isApplicable: z.boolean().optional(),
-        notApplicableReason: z.string().optional(),
-      }),
+      z.discriminatedUnion("status", [
+        z.object({
+          statusId: z.string().uuid(),
+          status: z.enum(WORK_STATUSES),
+        }),
+        z.object({
+          statusId: z.string().uuid(),
+          status: z.literal("not_applicable"),
+          notApplicableReason: z
+            .string()
+            .trim()
+            .min(MIN_DECLINE_REASON)
+            .max(MAX_DECLINE_REASON),
+        }),
+      ]),
     )
     .mutation(async ({ ctx, input }) => {
-      const { statusId, ...updates } = input;
-
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
-        where: eq(companyRequirementStatus.id, statusId),
-        with: { requirement: { columns: { id: true, categoryId: true } } },
+        where: eq(companyRequirementStatus.id, input.statusId),
+        with: {
+          requirement: {
+            columns: {
+              id: true,
+              categoryId: true,
+              code: true,
+              requiredSignOffRole: true,
+            },
+          },
+        },
       });
       if (!statusRow) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Status not found" });
@@ -466,54 +501,74 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const values: Record<string, unknown> = { ...updates, updatedAt: new Date() };
-      if (input.status === "not_applicable") {
-        const now = new Date();
-        values.isApplicable = false;
-        values.nextReviewDate = toDateString(addYears(now, 1));
-        values.lastReviewedAt = now;
-        values.notApplicableBy = ctx.userId;
-        values.notApplicableAt = now;
+      if (statusRow.status === "approved") {
+        throw new TRPCError({ code: "FORBIDDEN", message: REOPEN_APPROVED_FIRST });
       }
-      if (input.status === "completed") {
-        values.completedAt = new Date();
-        values.completedBy = ctx.userId;
-        if (statusRow.status === "rejected") {
-          values.reviewedBy = null;
-          values.reviewedAt = null;
-          values.reviewFeedback = null;
+      if (hasSignOffToWithdraw(statusRow)) {
+        throw new TRPCError({ code: "FORBIDDEN", message: REOPEN_SIGNED_FIRST });
+      }
+
+      if (input.status === "not_applicable") {
+        if (leavesNoChoice(statusRow.requirement.code)) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: `${statusRow.requirement.code} is a duty the law leaves no choice on.`,
+          });
+        }
+        if (
+          !signerMeetsRequiredRole({
+            signerRole: signerRoleOf(ctx.session),
+            requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
+          })
+        ) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: requiredRoleRefusal(statusRow.requirement.requiredSignOffRole),
+          });
+        }
+        // Set aside past the people still to sign it, one decision would
+        // stand in for several signatures.
+        if ((await rosteredOf(ctx.db, [statusRow.id])).has(statusRow.id)) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Assigned signers have not signed this requirement yet.",
+          });
         }
       }
 
-      // An approved row carries a reviewer's approval next to the signer's
-      // attestation, and overwriting only its status left the attestation on
-      // a row that read in progress. reopenRequirement is the way out of
-      // approved. The condition sits in the UPDATE itself so an approval that
-      // lands after the read above is not overwritten either.
+      const now = new Date();
+      const values =
+        input.status === "not_applicable"
+          ? {
+              status: input.status,
+              isApplicable: false,
+              notApplicableReason: input.notApplicableReason,
+              notApplicableBy: ctx.userId,
+              notApplicableAt: now,
+              lastReviewedAt: now,
+              nextReviewDate: toDateString(addYears(now, 1)),
+              updatedAt: now,
+            }
+          : { status: input.status, updatedAt: now };
+
+      // The condition sits in the UPDATE itself, so a sign-off or an approval
+      // that lands after the read above is not written over either.
       const [updated] = await ctx.db
         .update(companyRequirementStatus)
         .set(values)
         .where(
           and(
-            eq(companyRequirementStatus.id, statusId),
-            ne(companyRequirementStatus.status, "approved"),
+            eq(companyRequirementStatus.id, input.statusId),
+            notInArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
+            isNull(companyRequirementStatus.signedOffAt),
           ),
         )
         .returning();
       if (!updated) {
-        throw new TRPCError({ code: "FORBIDDEN", message: REOPEN_APPROVED_FIRST });
+        throw new TRPCError({ code: "FORBIDDEN", message: REOPEN_SIGNED_FIRST });
       }
 
       await recalculateProgress(ctx.db, updated.assessmentId);
-      if (input.status === "completed" && ctx.companyId) {
-        scheduleDeadlineReminders(ctx.db, {
-          statusId: updated.id,
-          anchorDate: new Date(),
-          companyId: ctx.companyId,
-          userId: ctx.userId,
-        }).catch((err) => console.error("[background] deadlines:", err));
-      }
-
       return updated;
     }),
 
@@ -646,6 +701,24 @@ export const assessmentRouter = router({
         // one and cannot offer what this would refuse.
         const pendingSigners = pendingSignersOf(lockedAssignments);
 
+        // Every signer meets the required role, on a roster or alone. Being
+        // assigned says who signs, not that they may: an admin could otherwise
+        // assign themselves and sign in a role they do not hold. Checked on
+        // the re-sign too, so a requirement whose required role changed is
+        // not signed again by its original signer under the old rule.
+        // Refuse loudly. See signerMeetsRequiredRole.
+        if (
+          !signerMeetsRequiredRole({
+            signerRole: signedOffRole,
+            requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
+          })
+        ) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: requiredRoleRefusal(statusRow.requirement.requiredSignOffRole),
+          });
+        }
+
         if (pendingSigners.length > 0) {
           const myAssignment = pendingSigners.find((a) => a.userId === ctx.userId);
           if (!myAssignment) {
@@ -681,31 +754,8 @@ export const assessmentRouter = router({
           }
         } else {
           // Single-requirement path: nobody is pending, so this requirement
-          // has no roster — either it never had one, or every assignee has
-          // already signed and their rows are receipts. Both are signed under
-          // the required role, which is also what restores the gate on a
-          // re-sign: reaching here through `length > 0` previously skipped
-          // signerMeetsRequiredRole entirely, so a requirement whose required
-          // role had since changed could be re-signed by its original signer
-          // without ever meeting the new rule.
-          //
-          // Refuse loudly. See signerMeetsRequiredRole.
-          if (
-            !signerMeetsRequiredRole({
-              sessionRole: ctx.session.role,
-              signerRole: signedOffRole,
-              requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
-            })
-          ) {
-            const required = effectiveSignOffRole(
-              statusRow.requirement.requiredSignOffRole,
-            );
-            throw new TRPCError({
-              code: "FORBIDDEN",
-              message: `This requirement requires sign-off by ${required.toUpperCase()}.`,
-            });
-          }
-
+          // has no roster: either it never had one, or every assignee has
+          // already signed and their rows are receipts.
           await tx
             .insert(requirementAssignment)
             .values({
@@ -919,8 +969,8 @@ export const assessmentRouter = router({
       const result = await ctx.db.transaction(async (tx) => {
         // Same guard pair as signOff: an N-of-M requirement belongs to the
         // assignment flow (each signer signs individually), and an unassigned
-        // requirement completes only with the required signer role (admin
-        // bypass). FOR UPDATE matches signOff's locking, status row first;
+        // requirement completes only with the required signer role or
+        // management. FOR UPDATE matches signOff's locking, status row first;
         // like there, it locks existing signer rows only, so a concurrent
         // first assignment can still race the empty read.
         await lockStatusRow(tx, input.statusId);
@@ -943,17 +993,13 @@ export const assessmentRouter = router({
         // Single-requirement path: refuse loudly. See signerMeetsRequiredRole.
         if (
           !signerMeetsRequiredRole({
-            sessionRole: ctx.session.role,
             signerRole: signedOffRole,
             requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
           })
         ) {
-          const required = effectiveSignOffRole(
-            statusRow.requirement.requiredSignOffRole,
-          );
           throw new TRPCError({
             code: "FORBIDDEN",
-            message: `This requirement requires sign-off by ${required.toUpperCase()}.`,
+            message: requiredRoleRefusal(statusRow.requirement.requiredSignOffRole),
           });
         }
 
@@ -1065,7 +1111,7 @@ export const assessmentRouter = router({
       // Confirming a module writes a completed sign-off, so it is subject to
       // the same per-requirement guards as signOff: it cannot complete a
       // requirement whose required signer role the caller does not hold
-      // (admin bypass matches signOff), nor an N-of-M requirement whose
+      // (management excepted, as in signOff), nor an N-of-M requirement whose
       // assigned signers must sign individually. See bulkSignOffCategory.
       const confirmerRole = signerRoleOf(ctx.session);
       // not_applicable is excluded here as it is in bulkSignOffCategory:
@@ -1090,7 +1136,6 @@ export const assessmentRouter = router({
           !rostered.has(r.statusId) &&
           // Bulk path: skip, don't throw. See signerMeetsRequiredRole.
           signerMeetsRequiredRole({
-            sessionRole: ctx.session.role,
             signerRole: confirmerRole,
             requiredSignOffRole: r.requiredSignOffRole,
           }),
@@ -1176,14 +1221,13 @@ export const assessmentRouter = router({
       // Bulk sign-off must not be a back door around the per-requirement
       // guards the single signOff path enforces. Two things it cannot
       // shortcut: (1) a required signer role (e.g. CEO for the §38 duties) —
-      // same admin-bypass rule as signOff; (2) N-of-M requirements, whose
+      // same rule as signOff; (2) N-of-M requirements, whose
       // assigned signers must each sign through the assignment flow
       // (signOffRows leaves those out). Rows failing either check are left
       // untouched, not silently completed.
       const permitted = rows.filter((row) =>
         // Bulk path: skip, don't throw. See signerMeetsRequiredRole.
         signerMeetsRequiredRole({
-          sessionRole: ctx.session.role,
           signerRole: signedOffRole,
           requiredSignOffRole: row.requiredSignOffRole,
         }),

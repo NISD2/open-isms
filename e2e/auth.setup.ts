@@ -89,6 +89,14 @@ setup("provision and authenticate", async ({ page, browser }) => {
      ON CONFLICT (user_id, company_id) DO UPDATE SET role = EXCLUDED.role`,
     [E2E_MANAGER_EMAIL],
   );
+  // Both harness users are management (job title ceo). A requirement is signed by the role it
+  // names or by management (lib/compliance/signer-role.ts); being the account's admin is no role,
+  // so without this the suite could sign nothing.
+  await e2eQuery(
+    `UPDATE company_membership m SET job_title = 'ceo' FROM "user" u
+      WHERE u.id = m.user_id AND m.company_id = u.company_id AND u.email = ANY($1::text[])`,
+    [[E2E_USER_EMAIL, E2E_MANAGER_EMAIL]],
+  );
 
   // Retire the one-time onboarding surfaces for both harness users. The tour
   // is a blocking overlay on /journey and on every requirement page, i.e. on

@@ -14,6 +14,7 @@ export { coveredState, journeyStates } from "./coverage";
 export type { Gap, GapFacts, ShownGap } from "./gaps";
 export { GAP_STEP, gapLines, gapsOf, withPlanSlot } from "./gaps";
 export { dutyHref } from "./law";
+export { leavesNoChoice } from "./must-do";
 export {
   agreementsNote,
   approvedNote,

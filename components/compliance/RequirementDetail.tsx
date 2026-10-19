@@ -35,7 +35,12 @@ import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
-import { hasSignOffToWithdraw, reopenChange } from "@/lib/compliance/sign-off-state";
+import {
+  hasSignOffToWithdraw,
+  MIN_DECLINE_REASON,
+  reopenChange,
+} from "@/lib/compliance/sign-off-state";
+import { leavesNoChoice } from "@/lib/durchgang/must-do";
 import { walkLocaleOf } from "@/lib/durchgang/types";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
@@ -149,6 +154,10 @@ export interface RequirementDetailProps {
   currentUserId: string;
   guidance: RequirementGuidanceData | null;
   requiredSignOffRole: RoleKey;
+  /** Whether the viewer holds the role to sign this requirement or set it
+   *  aside (signerMeetsRequiredRole), so the page offers only what the server
+   *  accepts. */
+  mayDecide: boolean;
   assignments: AssignmentRow[];
   editorInitialData: Record<string, unknown> | null;
   prerequisites?: PrerequisiteStatus[];
@@ -208,6 +217,7 @@ export function RequirementDetail({
   currentUserId,
   guidance,
   requiredSignOffRole,
+  mayDecide,
   assignments,
   editorInitialData,
   prerequisites = [],
@@ -425,9 +435,11 @@ export function RequirementDetail({
     });
   }
 
+  const naReasonReady = naReason.trim().length >= MIN_DECLINE_REASON;
+
   function handleNotApplicable() {
     const statusId = status.statusId;
-    if (!statusId || !naReason.trim()) return;
+    if (!statusId || !naReasonReady) return;
     startTransition(async () => {
       try {
         await updateStatus.mutateAsync({
@@ -964,16 +976,30 @@ export function RequirementDetail({
               )
             ) : (
               <>
-                <Button variant="outline" size="sm" onClick={() => setNaOpen(true)}>
-                  <Ban className="mr-1.5 h-3.5 w-3.5" />
-                  {t("notApplicable")}
-                </Button>
+                {!mayDecide && isAdmin && (
+                  <Link
+                    href="/team"
+                    className="text-sm text-primary underline-offset-4 hover:underline"
+                  >
+                    {t("setYourRole")}
+                  </Link>
+                )}
+                {mayDecide && !leavesNoChoice(requirement.code) && (
+                  <Button variant="outline" size="sm" onClick={() => setNaOpen(true)}>
+                    <Ban className="mr-1.5 h-3.5 w-3.5" />
+                    {t("notApplicable")}
+                  </Button>
+                )}
                 <SignOffButton
                   isSubmitting={isPending}
                   disabledReason={
-                    blockedByRoster
-                      ? t("assignedTo", { name: awaitedSigners })
-                      : undefined
+                    !mayDecide
+                      ? t("signerRoleNeeded", {
+                          role: tTeam(`roles.${requiredSignOffRole}`),
+                        })
+                      : blockedByRoster
+                        ? t("assignedTo", { name: awaitedSigners })
+                        : undefined
                   }
                   onSignOff={handleSignOff}
                 />
@@ -1002,12 +1028,13 @@ export function RequirementDetail({
             rows={3}
             autoFocus
           />
+          <p className="text-muted-foreground text-xs">{t("notApplicableHint")}</p>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => setNaReason("")}>
               {tc("cancel")}
             </AlertDialogCancel>
             <AlertDialogAction
-              disabled={!naReason.trim() || isPending}
+              disabled={!naReasonReady || isPending}
               onClick={handleNotApplicable}
             >
               {t("confirmNotApplicable")}

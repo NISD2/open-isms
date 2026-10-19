@@ -552,6 +552,18 @@ async function seed() {
     }
 
     await joinCompany(db, { userId, companyId: co.id, role: "admin" });
+    // The seeded founder is management, so the seeded account can sign: a requirement is signed
+    // by the role it names or by management, and being the account's admin is no role
+    // (lib/compliance/signer-role.ts).
+    await db
+      .update(schema.companyMembership)
+      .set({ jobTitle: "ceo" })
+      .where(
+        and(
+          eq(schema.companyMembership.userId, userId),
+          eq(schema.companyMembership.companyId, co.id),
+        ),
+      );
     await db
       .update(schema.billingAccount)
       .set({ ownerUserId: userId })

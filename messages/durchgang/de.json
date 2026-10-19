@@ -894,7 +894,8 @@
         "headline": "Beim {authority} registrieren",
         "teaser": "Ihr Unternehmen meldet sich einmal beim {authority} an.",
         "missed": [
-          "Ein neues Organisationszertifikat braucht einen Aktivierungsbrief, der per Post kommt. Das dauert nach Angabe von Mein Unternehmenskonto mindestens fünf Werktage. Beantragen Sie es früh."
+          "Ein neues Organisationszertifikat braucht einen Aktivierungsbrief, der per Post kommt. Das dauert nach Angabe von Mein Unternehmenskonto mindestens fünf Werktage. Beantragen Sie es früh.",
+          "Gelten für Ihr Telekommunikations- oder Energieunternehmen nach § 28 Abs. 5 BSIG die §§ 30, 32 und 38 BSIG nicht, registrieren müssen Sie sich trotzdem: § 33 BSIG steht nicht auf der Liste dieser Ausnahme."
         ],
         "screens": {
           "learn": {
@@ -1975,7 +1976,7 @@
         "headline": "Angriffe erkennen und dem BSI nachweisen",
         "teaser": "Nur für Betreiber kritischer Anlagen: Angriffserkennung und der Nachweis alle drei Jahre.",
         "missed": [
-          "Betreibt Ihr Unternehmen Energieversorgungsnetze oder Energieanlagen und unterliegt dafür den §§ 5c bis 5e des Energiewirtschaftsgesetzes, gelten §§ 31 und 39 BSIG für diese Anlagen nicht. Für weitere kritische Anlagen, die Sie daneben betreiben, gelten sie (§ 28 Abs. 5 BSIG).",
+          "Betreibt Ihr Unternehmen ein öffentliches Telekommunikationsnetz, erbringt es öffentlich zugängliche Telekommunikationsdienste oder betreibt es Energieversorgungsnetze oder Energieanlagen nach den §§ 5c bis 5e des Energiewirtschaftsgesetzes, gelten die §§ 30, 31, 32, 35, 36, 38, 39, 61 und 62 BSIG für Sie nicht. Ihre Sicherheitspflichten stehen dann im TKG (§ 165) oder im EnWG. Das gilt nicht, soweit Sie daneben weitere kritische Anlagen betreiben oder mit anderen Tätigkeiten unter das BSIG fallen (§ 28 Abs. 5 BSIG).",
           "Waren Sie schon nach dem alten BSI-Gesetz Betreiber einer Kritischen Infrastruktur, legt das BSI den Termin frühestens drei Jahre nach Ihrem letzten Nachweis nach altem Recht fest (§ 39 Abs. 3 BSIG)."
         ],
         "screens": {
@@ -2140,6 +2141,11 @@
                     "basis": "§ 35 Abs. 1 BSIG"
                   },
                   {
+                    "name": "Eine erhebliche Cyberbedrohung, in bestimmten Sektoren",
+                    "detail": "Gehört Ihr Unternehmen zu Finanzwesen, Sozialversicherung und Grundsicherung für Arbeitsuchende, digitaler Infrastruktur, Verwaltung von IKT-Diensten oder Digitalen Diensten: den möglicherweise betroffenen Empfängern Ihrer Dienste und dem BSI unverzüglich mitteilen, was die Empfänger dagegen tun können, und sie über die Bedrohung selbst informieren. Das gilt nur, wenn die Interessen der Empfänger die Ihres Unternehmens überwiegen.",
+                    "basis": "§ 35 Abs. 2 BSIG"
+                  },
+                  {
                     "name": "Ein neues Programm oder ein neuer Dienstleister",
                     "detail": "In die Liste aufnehmen und das Risiko bewerten, wie es Ihre Leitlinie unter „Vorgehen“ festlegt.",
                     "basis": "Ihre Leitlinie"
@@ -2177,7 +2183,7 @@
                   {
                     "name": "Die offenen Punkte schließen",
                     "detail": "Was die Freigabe als noch offen gezeigt hat, unverzüglich angehen.",
-                    "basis": "Art. 21 Abs. 4 NIS 2"
+                    "basis": "Art. 21 Abs. 4 NIS 2 (Richtlinie, das BSIG hat keinen eigenen Satz dazu)"
                   }
                 ]
               }

@@ -1,42 +1,4 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
-
-/**
- * The role that must sign a requirement off. Requirements that do not name one
- * fall back to the platform default rather than accepting any signer.
- */
-export function effectiveSignOffRole(requiredSignOffRole: string | null): RoleKey {
-  return (requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE;
-}
-
-/**
- * Whether this signer may complete a requirement on their own.
- *
- * Admins bypass, matching the single sign-off path. The four sign-off entry
- * points share this predicate but react differently: the single-requirement
- * paths throw FORBIDDEN, because the caller asked for that specific row and
- * silence would look like success; the bulk paths filter the row out, because
- * a batch spans requirements with different required signers and one
- * unsignable row should not fail the rest. That difference is deliberate and
- * stays visible at each call site.
- */
-export function signerMeetsRequiredRole(args: {
-  sessionRole: string;
-  /**
-   * What the signer actually holds, from getSignerRole: their job title if
-   * they set one, otherwise their session role. Deliberately a plain string,
-   * not a RoleKey — job titles are user-entered free text, and the stored
-   * `signed_off_role` column is varchar. Only the *required* side is a
-   * closed set.
-   */
-  signerRole: string;
-  requiredSignOffRole: string | null;
-}): boolean {
-  return (
-    args.sessionRole === "admin" ||
-    args.signerRole === effectiveSignOffRole(args.requiredSignOffRole)
-  );
-}
 
 /**
  * The column values that mark a requirement signed off.
@@ -49,9 +11,9 @@ export function signerMeetsRequiredRole(args: {
  * Going through one function makes that class of omission a type error
  * instead of a silent gap in the audit trail.
  *
- * Not every terminal write is a sign-off. `updateRequirementStatus` moves a
- * requirement to completed without signing it, and intake derives progress
- * from saved answers without a signer. Those deliberately do not call this.
+ * No other path in the app writes completed: `updateRequirementStatus` sets only work
+ * statuses and "not applicable", and saving intake answers moves rows back to
+ * in progress, never forward.
  *
  * `now` is passed in rather than read here so every column on a row, and every
  * row in a batch, carries the same instant.

@@ -8,6 +8,7 @@ import { czechRefOf } from "@/lib/compliance/czech-law";
 import { PLATFORM_DEFAULTS } from "@/lib/compliance/platform-defaults";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
+import { signerMeetsRequiredRole, signerRoleOf } from "@/lib/compliance/signer-role";
 import { type FieldMeta, introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
 import type { Asset } from "@/schema/types";
@@ -279,6 +280,10 @@ export async function loadRequirementDetail(
     guidance,
     requiredSignOffRole:
       (req.requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE,
+    mayDecide: signerMeetsRequiredRole({
+      signerRole: signerRoleOf({ jobTitle: session?.jobTitle ?? null, role }),
+      requiredSignOffRole: req.requiredSignOffRole,
+    }),
     assignments,
     editorInitialData,
     prerequisites: prerequisites.map((p) => ({

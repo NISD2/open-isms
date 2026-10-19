@@ -43,9 +43,9 @@ import { recalculateProgress } from "@/server/trpc/helpers/assessment-helpers";
 import { recordSignOffChainEntry } from "@/server/trpc/helpers/sign-off-chain";
 import {
   completedSignOffValues,
-  effectiveSignOffRole,
   snapshotForVersion,
 } from "@/server/trpc/helpers/sign-off-completion";
+import { effectiveSignOffRole } from "@/lib/compliance/signer-role";
 import type { Database } from "@/lib/db";
 
 async function seed() {

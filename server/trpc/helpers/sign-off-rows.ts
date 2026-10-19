@@ -1,8 +1,9 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import { and, eq, inArray, isNull, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
-import { companyRequirementStatus, requirementAssignment } from "@/schema";
+import { companyRequirementStatus } from "@/schema";
 import { buildSignOffSnapshot } from "./assessment-helpers";
+import { rosteredOf } from "./roster";
 import { type RecordSignOffParams, recordSignOffChainEntry } from "./sign-off-chain";
 import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
 
@@ -15,28 +16,6 @@ export type SignableRow = {
 
 /** A row as signed: the snapshot it was signed against comes back with it. */
 export type Signed<R extends SignableRow> = R & { readonly snapshot: SignOffSnapshot };
-
-/**
- * The status rows among these whose assigned signers still owe a signature: the SQL spelling of
- * pendingSignersOf in lib/compliance/sign-off-roster. A receipt from a past sign-off is not a
- * roster. Those rows are signed one by one through the assignment flow, never in a batch.
- */
-export async function rosteredOf(
-  db: DbOrTx,
-  statusIds: readonly string[],
-): Promise<ReadonlySet<string>> {
-  if (statusIds.length === 0) return new Set();
-  const rows = await db
-    .select({ statusId: requirementAssignment.statusId })
-    .from(requirementAssignment)
-    .where(
-      and(
-        inArray(requirementAssignment.statusId, [...statusIds]),
-        isNull(requirementAssignment.signedOffAt),
-      ),
-    );
-  return new Set(rows.map((a) => a.statusId));
-}
 
 /**
  * Sign several requirements at once, as one person: the category bulk sign-off, the bulk module

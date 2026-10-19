@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "@/i18n/navigation";
 import { exceedsUploadLimit, MAX_UPLOAD_MB } from "@/lib/storage/limits";
 import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
@@ -43,6 +44,7 @@ export function FileUpload({
   const createUploadUrl = trpc.evidence.createUploadUrl.useMutation();
   const confirmUpload = trpc.evidence.confirmUpload.useMutation();
   const deleteEvidence = trpc.evidence.deleteEvidence.useMutation();
+  const router = useRouter();
 
   const handleFileChange = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,11 +122,14 @@ export function FileUpload({
         utils.evidence.listByRequirementStatus.invalidate({
           requirementStatusId,
         });
+        // A signed requirement goes back to needs review when its evidence
+        // is deleted; the status on the page comes from the server render.
+        router.refresh();
       } catch {
         toast.error(t("deleteFailed"));
       }
     },
-    [deleteEvidence, utils, requirementStatusId, t],
+    [deleteEvidence, utils, requirementStatusId, t, router],
   );
 
   return (

@@ -23,6 +23,15 @@ export type StatusChange =
   | { ok: false; code: "BAD_REQUEST" | "FORBIDDEN"; message: string };
 
 /**
+ * The shortest and longest reason that can stand as the record of a decision
+ * not to do a requirement, wherever it is taken: the walk's decline and the
+ * requirement page's "not applicable". The forms read it so they never offer
+ * what the server refuses.
+ */
+export const MIN_DECLINE_REASON = 20;
+export const MAX_DECLINE_REASON = 2000;
+
+/**
  * Whether a row carries a sign-off that putting it back in progress has to
  * withdraw: a done status, or a signature on it whatever its status says.
  *

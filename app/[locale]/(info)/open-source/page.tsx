@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { CopyProtected } from "@/components/CopyProtected";
-import { pageAlternates } from "@/lib/seo";
+import { GetStarted } from "@/components/GetStarted";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { ogImages } from "@/lib/og-card";
+import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("info");
   return {
@@ -62,84 +62,90 @@ export default async function OpenSourcePage() {
   const t = await getTranslations("info");
 
   return (
-    <CopyProtected><article>
-      <header className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">{t("openSource.title")}</h1>
-        <p className="text-lg text-muted-foreground">{t("openSource.subtitle")}</p>
-      </header>
+    <CopyProtected>
+      <article>
+        <header className="space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight">{t("openSource.title")}</h1>
+          <p className="text-lg text-muted-foreground">{t("openSource.subtitle")}</p>
+        </header>
 
-      <Separator className="my-8" />
+        <Separator className="my-8" />
 
-      <section id="why">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("openSource.why.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("openSource.why.p1")}</p>
-            <p>{t("openSource.why.p2")}</p>
-          </CardContent>
-        </Card>
-      </section>
-
-      <section id="repos" className="mt-8 space-y-4">
-        <h2 className="text-2xl font-semibold">{t("openSource.repos.heading")}</h2>
-        {repos.map((repo) => (
-          <Card key={repo.name}>
+        <section id="why">
+          <Card>
             <CardHeader>
-              <CardTitle className="font-mono text-lg">
-                <a
-                  href={repo.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-foreground"
-                >
-                  NISD2/{repo.name}
-                </a>
-              </CardTitle>
+              <CardTitle>{t("openSource.why.heading")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p className="font-medium text-foreground">
-                {t(`openSource.${repo.titleKey}`)}
-              </p>
-              <p>{t(`openSource.${repo.descKey}`)}</p>
-              <p>
-                <a
-                  href={repo.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted"
-                >
-                  {t("openSource.viewOnGitHub")}
-                </a>
-              </p>
+              <p>{t("openSource.why.p1")}</p>
+              <p>{t("openSource.why.p2")}</p>
             </CardContent>
           </Card>
-        ))}
-      </section>
+        </section>
 
-      <section id="licence" className="mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("openSource.licence.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("openSource.licence.p1")}</p>
-            <p>{t("openSource.licence.p2")}</p>
-          </CardContent>
-        </Card>
-      </section>
+        <section id="repos" className="mt-8 space-y-4">
+          <h2 className="text-2xl font-semibold">{t("openSource.repos.heading")}</h2>
+          {repos.map((repo) => (
+            <Card key={repo.name}>
+              <CardHeader>
+                <CardTitle className="font-mono text-lg">
+                  <a
+                    href={repo.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-foreground"
+                  >
+                    NISD2/{repo.name}
+                  </a>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm text-muted-foreground">
+                <p className="font-medium text-foreground">
+                  {t(`openSource.${repo.titleKey}`)}
+                </p>
+                <p>{t(`openSource.${repo.descKey}`)}</p>
+                <p>
+                  <a
+                    href={repo.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted"
+                  >
+                    {t("openSource.viewOnGitHub")}
+                  </a>
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </section>
 
-      <section id="contribute" className="mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("openSource.contribute.heading")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("openSource.contribute.p1")}</p>
-          </CardContent>
-        </Card>
-      </section>
-    </article></CopyProtected>
+        <section id="licence" className="mt-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("openSource.licence.heading")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>{t("openSource.licence.p1")}</p>
+              <p>{t("openSource.licence.p2")}</p>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section id="contribute" className="mt-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("openSource.contribute.heading")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>{t("openSource.contribute.p1")}</p>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* GitHub is the way on for a developer; this is the way on for whoever came to see whether
+          the open code is something their company can use, and would rather not run it. */}
+        <GetStarted variant="funnel" className="mt-16" />
+      </article>
+    </CopyProtected>
   );
 }

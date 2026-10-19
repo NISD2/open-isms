@@ -894,7 +894,8 @@
         "headline": "Register with {authority}",
         "teaser": "Your company registers once with {authority}.",
         "missed": [
-          "After registering, you report any change to these details within two weeks (Art. 3(4) NIS 2)."
+          "After registering, you report any change to these details within two weeks (Art. 3(4) NIS 2).",
+          "If § 28(5) BSIG lifts §§ 30, 32 and 38 BSIG for your telecommunications or energy company, you still register: § 33 BSIG is not on the list of that exception."
         ],
         "screens": {
           "learn": {
@@ -1978,7 +1979,7 @@
         "headline": "Detect attacks and prove it to the BSI",
         "teaser": "Operators of critical facilities only: attack detection and the evidence every three years.",
         "missed": [
-          "If your company runs energy supply networks or energy installations and is subject to §§ 5c to 5e of the German Energy Industry Act (EnWG) for them, §§ 31 and 39 BSIG do not apply to those installations. They do apply to any other critical facility you run alongside (§ 28(5) BSIG).",
+          "If your company runs a public telecommunications network, provides publicly available telecommunications services, or runs energy supply networks or energy installations under §§ 5c to 5e of the German Energy Industry Act (EnWG), §§ 30, 31, 32, 35, 36, 38, 39, 61 and 62 BSIG do not apply to it. Your security duties are then in the Telecommunications Act (§ 165 TKG) or the EnWG. This does not hold where you also run other critical facilities or fall under the BSIG through other activities (§ 28(5) BSIG).",
           "If you were already an operator of critical infrastructure under the old BSI Act, the BSI sets the date at the earliest three years after your last evidence under the old law (§ 39(3) BSIG)."
         ],
         "screens": {
@@ -2143,6 +2144,11 @@
                     "basis": "§ 35(1) BSIG"
                   },
                   {
+                    "name": "A significant cyber threat, in certain sectors",
+                    "detail": "If your company is in finance, social security and basic income support for jobseekers, digital infrastructure, ICT service management or digital providers: tell the recipients of your services who may be affected, and the BSI, without undue delay what the recipients can do in response, and inform them of the threat itself. This applies only where the recipients' interests outweigh your company's.",
+                    "basis": "§ 35(2) BSIG"
+                  },
+                  {
                     "name": "A new program or a new service provider",
                     "detail": "Add it to the list and assess its risk, as your security policy sets out under “Approach”.",
                     "basis": "Your security policy"
@@ -2180,7 +2186,7 @@
                   {
                     "name": "Close the open points",
                     "detail": "Act without undue delay on what the approval showed as still open.",
-                    "basis": "Art. 21(4) NIS 2"
+                    "basis": "Art. 21(4) NIS 2 (directive, the BSIG has no sentence of its own for it)"
                   }
                 ]
               }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Copyable, CopyProtected } from "@/components/CopyProtected";
+import { GetStarted } from "@/components/GetStarted";
 import { AdvisoryRequestForm } from "@/components/help/AdvisoryRequestForm";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { Button } from "@/components/ui/button";
@@ -262,6 +263,11 @@ export default async function HelpPage({
             </CardContent>
           </Card>
         </section>
+
+        {/* Tier 1 above describes the walkthrough without a way into it. A reader who would rather
+            start, talk or train their management than send a request finds the homepage hero's
+            ways forward here. */}
+        <GetStarted variant="funnel" className="mt-16" />
       </article>
     </CopyProtected>
   );

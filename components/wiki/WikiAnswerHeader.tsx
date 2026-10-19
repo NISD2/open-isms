@@ -5,13 +5,15 @@ import { Art } from "@/components/durchgang/Art";
 import { MotionProvider } from "@/components/landing/motion";
 import { WalkHomeShot } from "@/components/landing/WalkHomeShot";
 import { ApprovalLink, TalkFirst } from "@/components/pricing/PaidPricingCards";
+import { ManagementCourseLink } from "@/components/training/ManagementCourseLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 /**
  * The head of a wiki page that answers one search: the search in the H1, the plain answer under it,
- * then the homepage hero's two ways forward and a page for whoever decides. On a phone these fit
+ * then the homepage hero's ways forward (start, a call, the free management course) and a page for
+ * whoever decides. On a phone these fit
  * the first screen, so the picture of the page's one object shows from the small breakpoint up.
  *
  * With `shot` it opens like the homepage instead: the app itself, moving, beside the text on a
@@ -77,8 +79,12 @@ export async function WikiAnswerHeader({
               </Button>
               <TalkFirst size="button" />
             </div>
-            <div className="mt-3 print:hidden">
+            <div className="mt-3 flex flex-col items-start gap-2 print:hidden">
               <ApprovalLink />
+              <ManagementCourseLink
+                icon
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:text-foreground hover:decoration-foreground"
+              />
             </div>
           </>
         )}
