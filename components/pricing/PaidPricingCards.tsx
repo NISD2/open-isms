@@ -2,7 +2,6 @@ import {
   Building2,
   Check,
   ChevronRight,
-  Code2,
   FileText,
   Info,
   Receipt,
@@ -48,10 +47,8 @@ const paidFeatures = [
   "suppliers",
   "export",
   "updates",
-  "call",
 ] as const;
 
-const SOURCE_URL = "https://github.com/NISD2/open-isms";
 const PAID_CARD_ID = "durchgang";
 
 // From the LICENSE files and package.json licence fields (the README's table is older than
@@ -406,11 +403,7 @@ export function PaidFeatureList({ className }: { className?: string }) {
               </InfoPanel>
             </Tooltip>
           ) : (
-            t.rich(`paid.features.${key}`, {
-              cal: (chunks) => (
-                <BookingLink className={externalLink}>{chunks}</BookingLink>
-              ),
-            })
+            t(`paid.features.${key}`)
           )}
         </FeatureItem>
       ))}
@@ -626,40 +619,25 @@ export function PaidPricingCards({
         </Link>
       </p>
 
-      <ul className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground sm:flex-row sm:flex-wrap">
-        <li className="flex items-center gap-2">
-          <Receipt className="size-4 text-primary" />
-          {t("trust.invoice")}
-        </li>
-        <li className="flex items-center gap-2">
-          <FileText className="size-4 text-primary" />
-          <span>
-            {t.rich("trust.documents", {
-              terms: (chunks) => (
-                <Link href="/terms" className={externalLink}>
-                  {chunks}
-                </Link>
-              ),
-              avv: (chunks) => (
-                <Link href="/avv" className={externalLink}>
-                  {chunks}
-                </Link>
-              ),
-            })}
-          </span>
-        </li>
-        <li className="flex items-center gap-2">
-          <Code2 className="size-4 text-primary" />
-          <a
-            href={SOURCE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={externalLink}
-          >
-            {t("trust.openSource")}
-          </a>
-        </li>
-      </ul>
+      {/* Only the terms here: "by invoice" is under the order button and the open source
+          under the self-hosting line, both directly above. */}
+      <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+        <FileText className="size-4 text-primary" />
+        <span>
+          {t.rich("trust.documents", {
+            terms: (chunks) => (
+              <Link href="/terms" className={externalLink}>
+                {chunks}
+              </Link>
+            ),
+            avv: (chunks) => (
+              <Link href="/avv" className={externalLink}>
+                {chunks}
+              </Link>
+            ),
+          })}
+        </span>
+      </p>
 
       {/* Only for someone signed in: a visitor arriving cold would read the earlier price as
           "others pay half" right under the offer. */}
