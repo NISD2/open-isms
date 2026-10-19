@@ -520,14 +520,12 @@ export function PaidPricingCards({
           }))}
         />
 
-        {/* order-first: on a phone the paid tier is the first card, not the third. */}
+        {/* order-first: on a phone the paid tier is the first card, not the second. No
+            "recommended" badge: there is one offer, so there is nothing to recommend it over. */}
         <Card
           id={PAID_CARD_ID}
           className="@container/paid relative order-first scroll-mt-24 border-2 border-primary shadow-xl shadow-primary/10 lg:order-none lg:-mt-4"
         >
-          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1">
-            {t("recommended")}
-          </Badge>
           {/* When the card is wide, the price and the ways to order stand side by side, and what
               is included runs in two columns under both, so the whole offer fits the first screen
               of a laptop without tightening the spacing inside the card. Measured on the card,
