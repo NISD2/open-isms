@@ -30,7 +30,7 @@
     },
     "2_4": {
       "title": "Risikoakzeptanz & IS-Leitlinie",
-      "description": "Die Geschäftsleitung billigt die Informationssicherheitsleitlinie und akzeptiert die Restrisiken aus dem Risikoregister (2.3). Nach Art. 20(1) NIS2 billigen die Leitungsorgane die Maßnahmen und überwachen sie; nach §38(1) BSIG setzt die Geschäftsleitung sie um und überwacht ihre Umsetzung. Für Einrichtungen, für die die CIR gilt, überprüft die Leitung die Leitlinie mindestens jährlich sowie bei erheblichen Sicherheitsvorfällen oder wesentlichen Änderungen der Betriebsabläufe oder Risiken (CIR 1.1.2), Risikobewertung und Behandlungsplan werden zu denselben Anlässen überprüft (CIR 2.1.4), und Restrisiken können auch verantwortliche Personen akzeptieren, die der Leitung berichten (CIR 2.1.1)."
+      "description": "In dieser App billigt die Geschäftsleitung die Informationssicherheitsleitlinie und akzeptiert die Restrisiken aus dem Risikoregister (2.3). Nach Art. 20(1) NIS2 billigen die Leitungsorgane die Maßnahmen und überwachen sie; nach §38(1) BSIG setzt die Geschäftsleitung sie um und überwacht ihre Umsetzung. Für Einrichtungen, für die die CIR gilt, überprüft die Leitung die Leitlinie mindestens jährlich sowie bei erheblichen Sicherheitsvorfällen oder wesentlichen Änderungen der Betriebsabläufe oder Risiken (CIR 1.1.2), Risikobewertung und Behandlungsplan werden zu denselben Anlässen überprüft (CIR 2.1.4), und Restrisiken akzeptieren die Leitungsorgane oder Personen, die für die Risiken verantwortlich und zu ihrer Steuerung befugt sind, sofern das Unternehmen der Leitung angemessen berichtet (CIR 2.1.1)."
     },
     "3_1": {
       "title": "Vorfallbehandlungsplan & Team",
@@ -118,7 +118,7 @@
     },
     "7_3": {
       "title": "Managementbewertung",
-      "description": "Die Geschäftsleitung überwacht die Umsetzung der Maßnahmen (§38 Abs. 1 BSIG), und ihre Wirksamkeit wird nach einem festgelegten Verfahren bewertet (§30 Abs. 2 Nr. 6 BSIG). Für die Einrichtungsarten der CIR überprüft das Unternehmen außerdem regelmäßig die Einhaltung seiner Leitlinien, und die Geschäftsleitung lässt sich den Stand der Informationssicherheit regelmäßig berichten (CIR 2.2.1). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Lückenanalyse."
+      "description": "Die Geschäftsleitung überwacht die Umsetzung der Maßnahmen (§38 Abs. 1 BSIG), und ihre Wirksamkeit wird nach einem festgelegten Verfahren bewertet (§30 Abs. 2 Nr. 6 BSIG). Für die Einrichtungsarten der CIR überprüft das Unternehmen außerdem die Einhaltung seiner Leitlinien in geplanten Abständen sowie nach erheblichen Sicherheitsvorfällen oder wesentlichen Änderungen der Betriebsabläufe oder Risiken, und die Geschäftsleitung lässt sich den Stand der Informationssicherheit regelmäßig berichten (CIR 2.2.1, 2.2.3). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Lückenanalyse."
     },
     "7_4": {
       "title": "Korrekturmaßnahmen & kontinuierliche Verbesserung",

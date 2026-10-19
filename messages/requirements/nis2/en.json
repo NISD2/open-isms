@@ -30,7 +30,7 @@
     },
     "2_4": {
       "title": "Risk Acceptance & IS Policy Approval",
-      "description": "Management approves the information security policy and accepts the residual risks from the risk register (2.3). Art. 20(1) NIS2 has management bodies approve the measures and oversee them; §38(1) BSIG has them implement and oversee them. For the entity types the CIR covers, management bodies review the policy at least annually and after significant incidents or significant changes to operations or risks (CIR 1.1.2), the risk assessment and treatment plan are reviewed on the same occasions (CIR 2.1.4), and residual risks may also be accepted by accountable persons who report to management (CIR 2.1.1)."
+      "description": "In this app, management approves the information security policy and accepts the residual risks from the risk register (2.3). Art. 20(1) NIS2 has management bodies approve the measures and oversee them; §38(1) BSIG has them implement and oversee them. For the entity types the CIR covers, management bodies review the policy at least annually and after significant incidents or significant changes to operations or risks (CIR 1.1.2), the risk assessment and treatment plan are reviewed on the same occasions (CIR 2.1.4), and residual risks are accepted by management bodies or by persons accountable for and authorised to manage the risks, if the company reports adequately to management (CIR 2.1.1)."
     },
     "3_1": {
       "title": "Incident Response Plan & Team",
@@ -118,7 +118,7 @@
     },
     "7_3": {
       "title": "Management Review",
-      "description": "Management oversees the implementation of the measures (§38(1) BSIG), and their effectiveness is assessed by a set procedure (§30(2) Nr. 6 BSIG). For the entity types the CIR covers, the company also regularly reviews compliance with its policies, and management receives regular reports on the state of information security (CIR 2.2.1). No fixed interval is prescribed; recommendation: an annual management review with a gap analysis."
+      "description": "Management oversees the implementation of the measures (§38(1) BSIG), and their effectiveness is assessed by a set procedure (§30(2) Nr. 6 BSIG). For the entity types the CIR covers, the company also reviews compliance with its policies at planned intervals and after significant incidents or significant changes to operations or risks, and management receives regular reports on the state of information security (CIR 2.2.1, 2.2.3). No fixed interval is prescribed; recommendation: an annual management review with a gap analysis."
     },
     "7_4": {
       "title": "Corrective Actions & Continuous Improvement",

@@ -111,14 +111,14 @@
         "description": "Leitungsverantwortung, persönliche Haftung und organisatorische Steuerung der Cybersicherheit",
         "legalBasis": "Art. 20 NIS2 · §38 BSIG",
         "threatLandscape": "Ohne klare Governance fehlt Cybersicherheitsmaßnahmen die Richtung und Verantwortlichkeit. Eine Geschäftsleitung, die sich nicht mit Sicherheit befasst, schafft eine Kultur der Nachlässigkeit und macht die Organisation anfällig für systematische Fehler.",
-        "bsiGuidance": "Das BSI erwartet, dass die Geschäftsleitung Cybersicherheits-Risikomaßnahmen formell genehmigt, verantwortliche Personen benennt, ausreichendes Budget bereitstellt und regelmäßig an Cybersicherheitsschulungen teilnimmt (§38 BSIG). Die persönliche Haftung gilt für Geschäftsführer."
+        "bsiGuidance": "Nach § 38 Abs. 1 BSIG setzt die Geschäftsleitung die Maßnahmen nach § 30 um und überwacht ihre Umsetzung; nach § 38 Abs. 3 werden ihre Mitglieder regelmäßig geschult. Nach Art. 20 Abs. 1 NIS 2 billigen die Leitungsorgane die Maßnahmen."
       },
       "RSK": {
         "name": "Risikomanagement",
         "description": "Risiken identifizieren, bewerten und behandeln nach dem Gefahrenübergreifenden Ansatz (Cyber, physisch, Umwelt) - Grundlage aller weiteren Maßnahmen",
         "legalBasis": "Art. 21(2)(a) NIS2 · §30(2) Nr. 1 BSIG",
         "threatLandscape": "Organisationen ohne strukturierten Risikobewertungsprozess können Sicherheitsinvestitionen nicht effektiv priorisieren, was dazu führt, dass kritische Systeme ungeschützt bleiben, während Ressourcen in risikoarme Bereiche fließen.",
-        "bsiGuidance": "Das BSI erwartet eine dokumentierte Risikobewertungsmethodik, ein vollständiges Risikoregister, einen Behandlungsplan mit von der Geschäftsleitung genehmigter Risikoakzeptanz und einen regelmäßigen Überprüfungszyklus (mindestens jährlich). Muss alle kritischen Informationssysteme mit einem gefahrenübergreifenden Ansatz abdecken."
+        "bsiGuidance": "§ 30 BSIG verlangt geeignete, verhältnismäßige und wirksame Maßnahmen auf Grundlage der Risiken und eines gefahrenübergreifenden Ansatzes. Für die Einrichtungsarten der CIR akzeptieren die Leitung oder verantwortliche Personen die Restrisiken, und die Bewertung wird mindestens jährlich überprüft (CIR 2.1.1, 2.1.4)."
       },
       "INC": {
         "name": "Vorfallbehandlung",

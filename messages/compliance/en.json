@@ -111,14 +111,14 @@
         "description": "Management oversight, personal liability, and organizational governance",
         "legalBasis": "Art. 20 NIS2 · §38 BSIG",
         "threatLandscape": "Without clear governance, cybersecurity measures lack direction and accountability. Management that does not engage with security creates a culture of neglect, leaving the organization vulnerable to systematic failures.",
-        "bsiGuidance": "BSI expects management to formally approve cybersecurity risk measures, appoint responsible persons, allocate adequate budget, and complete regular cybersecurity training (§38 BSIG). Personal liability applies to managing directors."
+        "bsiGuidance": "§ 38(1) BSIG has management implement and oversee the § 30 measures; § 38(3) has its members trained regularly. Art. 20(1) NIS 2 has management bodies approve the measures."
       },
       "RSK": {
         "name": "Risk Management",
         "description": "Risk identification, assessment, and treatment using an all-hazards approach (cyber, physical, environmental)",
         "legalBasis": "Art. 21(2)(a) NIS2 · §30(2) Nr. 1 BSIG",
         "threatLandscape": "Organizations that lack a structured risk assessment process cannot prioritize security investments effectively, leading to critical systems being left unprotected while resources are wasted on low-risk areas.",
-        "bsiGuidance": "BSI expects a documented risk assessment methodology, complete risk register, treatment plan with management-approved risk acceptance, and regular review cycle (at least annual). Must cover all critical information systems using an all-hazards approach."
+        "bsiGuidance": "§ 30 BSIG asks for appropriate, proportionate and effective measures based on the risks and an all-hazards approach. For the CIR's entity types, management or accountable persons accept residual risks and the assessment is reviewed at least annually (CIR 2.1.1, 2.1.4)."
       },
       "INC": {
         "name": "Incident Handling",
