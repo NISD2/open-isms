@@ -51,18 +51,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   czechRefColumns,
-  euAiActCategories,
-  euCraCategories,
-  type FrameworkCategory,
-  type FrameworkRequirement,
-  gdprCategories,
-  getEuAiActRequirementsForCategory,
-  getEuCraRequirementsForCategory,
-  getGdprRequirementsForCategory,
-  getIso27001RequirementsForCategory,
-  getNis2RequirementsForCategory,
-  iso27001Categories,
-  nis2Categories,
+  FRAMEWORK_DATA,
+  type FrameworkData,
 } from "@nisd2/grc-data-model/frameworks";
 import { allSatisfactionPairs } from "@nisd2/grc-data-model/satisfaction-pairs";
 
@@ -84,43 +74,6 @@ const sqlLiteral = (v: string | null): string =>
   v === null ? "NULL" : `'${v.replace(/'/g, "''")}'`;
 
 /**
- * Every framework whose reference data is generated from this package, keyed
- * by its `compliance_framework.code`. Adding a framework here is all it takes
- * for its data to be carried into existing databases.
- */
-const FRAMEWORKS: readonly {
-  code: string;
-  categories: FrameworkCategory[];
-  getRequirements: (slug: string) => FrameworkRequirement[];
-}[] = [
-  {
-    code: "nis2",
-    categories: nis2Categories,
-    getRequirements: getNis2RequirementsForCategory,
-  },
-  {
-    code: "gdpr",
-    categories: gdprCategories,
-    getRequirements: getGdprRequirementsForCategory,
-  },
-  {
-    code: "iso27001",
-    categories: iso27001Categories,
-    getRequirements: getIso27001RequirementsForCategory,
-  },
-  {
-    code: "eu_ai_act",
-    categories: euAiActCategories,
-    getRequirements: getEuAiActRequirementsForCategory,
-  },
-  {
-    code: "eu_cra",
-    categories: euCraCategories,
-    getRequirements: getEuCraRequirementsForCategory,
-  },
-] as const;
-
-/**
  * --only <code>[,<code>] narrows the migration to specific frameworks. Ship
  * the delta you have actually reviewed: emitting a framework whose difference
  * from the target database is unknown is how a reference-data migration turns
@@ -130,16 +83,20 @@ const onlyIndex = process.argv.indexOf("--only");
 const onlyArg = onlyIndex === -1 ? null : process.argv[onlyIndex + 1];
 const only = onlyArg ? new Set(onlyArg.split(",").map((c) => c.trim())) : null;
 
-const selected = only ? FRAMEWORKS.filter((f) => only.has(f.code)) : FRAMEWORKS;
+// Every framework in the package's FRAMEWORK_DATA is generated: adding one there is all it takes
+// for its data to be carried into existing databases.
+const selected: readonly FrameworkData[] = only
+  ? FRAMEWORK_DATA.filter((f) => only.has(f.code))
+  : FRAMEWORK_DATA;
 if (selected.length === 0) {
   throw new Error(
-    `--only ${onlyArg} matched no framework in ${FRAMEWORKS.map((f) => f.code).join(", ")}`,
+    `--only ${onlyArg} matched no framework in ${FRAMEWORK_DATA.map((f) => f.code).join(", ")}`,
   );
 }
 
 /** Which framework each requirement code belongs to, for scoping pairs. */
 const frameworkByCode = new Map(
-  FRAMEWORKS.flatMap((f) =>
+  FRAMEWORK_DATA.flatMap((f) =>
     f.categories.flatMap((c) =>
       f.getRequirements(c.slug).map((r) => [r.code, f.code] as const),
     ),

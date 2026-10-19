@@ -4,4 +4,5 @@ export { gdprCategories, getGdprRequirementsForCategory } from "./gdpr";
 export { getIso27001RequirementsForCategory, iso27001Categories } from "./iso27001";
 export { getNis2CzechRef, getNis2RequirementsForCategory, nis2Categories } from "./nis2";
 export { NIS2_PREREQUISITES, type Prerequisite } from "./nis2-prerequisites";
+export { FRAMEWORK_DATA, type FrameworkData } from "./registry";
 export * from "./types";
