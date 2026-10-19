@@ -190,6 +190,13 @@
       "when": 1792082496239,
       "tag": "0026_partner_contract_signed_reading",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1792370298056,
+      "tag": "0027_framework_data_sync",
+      "breakpoints": true
     }
   ]
 }

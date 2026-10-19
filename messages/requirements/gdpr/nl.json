@@ -1,40 +1,32 @@
 {
   "requirements": {
     "G-DPA_1": {
-      "title": "Data Processing Agreements",
-      "description": "Houd een register bij van elke verwerker die persoonsgegevens namens u verwerkt, met een ondertekende verwerkersovereenkomst. Art. 28, lid 3 vereist dat de overeenkomst het onderwerp en de duur van de verwerking, de aard en het doel, het soort persoonsgegevens en de categorieën betrokkenen vastlegt, voordat de acht bepalingen onder a tot en met h aan de orde komen."
+      "title": "Data Processing Agreements"
     },
     "G-DPA_2": {
-      "title": "Sub-processor Authorisation",
-      "description": "Houd de subverwerkers van elke verwerker bij. Art. 28, lid 2 vereist de voorafgaande specifieke of algemene schriftelijke toestemming van de verwerkingsverantwoordelijke voordat een verwerker een andere verwerker inschakelt. Art. 28, lid 4 is een tweede verplichting: dezelfde verplichtingen uit art. 28, lid 3 moeten bij overeenkomst aan de subverwerker worden opgelegd, en de eerste verwerker blijft volledig aansprakelijk voor diens uitvoering."
+      "title": "Sub-processor Authorisation"
     },
     "G-ROP_1": {
-      "title": "Records of Processing Activities",
-      "description": "Leg elke verwerkingsactiviteit vast met de zeven gegevens van art. 30, lid 1: contactgegevens van de verwerkingsverantwoordelijke en de functionaris voor gegevensbescherming, doeleinden, categorieën betrokkenen en persoonsgegevens, categorieën ontvangers, doorgiften naar derde landen met waarborgen en, indien mogelijk, termijnen voor het wissen en een beschrijving van de maatregelen. Art. 30, lid 5 stelt organisaties met minder dan 250 personen in dienst vrij, maar alleen wanneer de verwerking incidenteel is, waarschijnlijk geen risico voor rechten en vrijheden inhoudt en geen bijzondere categorieën of strafrechtelijke gegevens omvat. Doorlopende personeelsadministratie en salarisverwerking zijn niet incidenteel, dus in de praktijk blijft het register verplicht."
+      "title": "Records of Processing Activities"
     },
     "G-TOM_1": {
-      "title": "Technical and Organisational Measures",
-      "description": "Documenteer de maatregelen die persoonsgegevens beschermen: pseudonimisering en versleuteling, permanente vertrouwelijkheid, integriteit, beschikbaarheid en veerkracht, tijdig herstel na een incident en een procedure om de doeltreffendheid op gezette tijdstippen te testen en te evalueren (art. 32, lid 1)."
+      "title": "Technical and Organisational Measures"
     },
     "G-BRC_1": {
       "title": "Personal Data Breach Response Process",
       "description": "Stel een schriftelijke procedure vast om inbreuken in verband met persoonsgegevens te beoordelen en zonder onredelijke vertraging, indien mogelijk binnen 72 uur, aan de toezichthoudende autoriteit te melden (art. 33, lid 1). Melding blijft achterwege wanneer het niet waarschijnlijk is dat de inbreuk een risico inhoudt voor de rechten en vrijheden van natuurlijke personen; die beoordeling moet hoe dan ook worden vastgelegd. Een melding na 72 uur gaat vergezeld van een motivering voor de vertraging."
     },
     "G-BRC_2": {
-      "title": "Personal Data Breach Documentation",
-      "description": "Internally document every personal data breach (notifiable or not) for supervisory-authority verification (Art. 33(5))."
+      "title": "Personal Data Breach Documentation"
     },
     "G-DSR_1": {
-      "title": "Data Subject Rights Workflow",
-      "description": "Proces voor het afhandelen van verzoeken om inzage, wissing, rectificatie, overdraagbaarheid, beperking en bezwaar binnen één maand (art. 12-22). Voor een Duitse verwerkingsverantwoordelijke beperkt §34 BDSG het inzagerecht van art. 15, en vervangt §35 de wissing van art. 17 door beperking van de verwerking wanneer wissen bij niet-geautomatiseerde opslag onevenredig is. §34, lid 2 verlangt dat de redenen voor een weigering worden vastgelegd."
+      "title": "Data Subject Rights Workflow"
     },
     "G-BRC_3": {
-      "title": "Mededeling aan betrokkenen",
-      "description": "Leg het proces vast om betrokkenen een inbreuk in verband met persoonsgegevens mee te delen wanneer die waarschijnlijk een hoog risico inhoudt voor hun rechten en vrijheden (art. 34, lid 1). De melding aan de toezichthoudende autoriteit op grond van art. 33 komt daarvoor niet in de plaats. De mededeling gebeurt in duidelijke en eenvoudige taal en bevat de gegevens van art. 33, lid 3, onder b) tot en met d). Zij is niet vereist wanneer de gegevens onbegrijpelijk zijn gemaakt (bijvoorbeeld door versleuteling), wanneer het hoge risico achteraf is weggenomen of wanneer zij onevenredige inspanningen zou vergen; in dat geval is een openbare mededeling verplicht (art. 34, lid 3)."
+      "title": "Mededeling aan betrokkenen"
     },
     "G-DPO_1": {
-      "title": "Aanwijzing van de functionaris voor gegevensbescherming",
-      "description": "Beoordeel en documenteer of een functionaris voor gegevensbescherming moet worden aangewezen. In Duitsland geldt de plicht vanaf 20 personen die zich voortdurend bezighouden met de geautomatiseerde verwerking van persoonsgegevens (§38(1) BDSG) en, ongeacht het aantal personen, ook wanneer de verwerking een gegevensbeschermingseffectbeoordeling vereist of bedrijfsmatig plaatsvindt met het oog op doorgifte of op markt- en opinieonderzoek. Positie en taken volgen uit de artikelen 38 en 39 AVG; de contactgegevens moeten worden bekendgemaakt en meegedeeld aan de toezichthoudende autoriteit (art. 37, lid 7)."
+      "title": "Aanwijzing van de functionaris voor gegevensbescherming"
     }
   }
 }

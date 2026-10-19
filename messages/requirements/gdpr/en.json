@@ -2,19 +2,19 @@
   "requirements": {
     "G-DPA_1": {
       "title": "Data Processing Agreements",
-      "description": "Maintain a register of every processor that handles personal data on your behalf, with a signed DPA. Art. 28(3) requires the contract to set out the subject-matter and duration of the processing, its nature and purpose, the type of personal data and the categories of data subjects, before it reaches the eight clauses in points (a) to (h)."
+      "description": "Maintain a register of every processor that handles personal data on your behalf, each with a processing agreement in writing, which may be electronic (Art. 28(9)). Art. 28(3) requires the contract to set out the subject-matter and duration of the processing, its nature and purpose, the type of personal data and the categories of data subjects, before it reaches the eight clauses in points (a) to (h)."
     },
     "G-DPA_2": {
       "title": "Sub-processor Authorisation",
-      "description": "Track each processor's sub-processors. Art. 28(2) requires the controller's prior specific or general written authorisation before a processor engages another one. Art. 28(4) is a second duty: the same Art. 28(3) obligations must be imposed on the sub-processor by contract, and the initial processor stays fully liable for its performance."
+      "description": "Track each processor's sub-processors. Art. 28(2) requires the controller's prior specific or general written authorisation before a processor engages another one. The contract binds the processor to respect that rule and to impose the same data protection obligations on any sub-processor (Art. 28(3)(d), referring to Art. 28(2) and (4))."
     },
     "G-ROP_1": {
       "title": "Records of Processing Activities",
-      "description": "Record each processing activity with the seven Art. 30(1) entries: controller and DPO contacts, purposes, categories of data subjects and of personal data, recipient categories, third-country transfers with safeguards and, where possible, erasure periods and a description of the measures. Art. 30(5) exempts organisations employing fewer than 250 persons, but only where the processing is occasional, is unlikely to result in a risk to rights and freedoms, and involves no special categories or criminal conviction data. Regular personnel and payroll processing is not occasional, so in practice the record is still owed."
+      "description": "Record each processing activity with the seven Art. 30(1) entries: the name and contact details of the controller and, where applicable, the joint controller, the controller's representative and the data protection officer; purposes; categories of data subjects and of personal data, recipient categories, third-country transfers with safeguards and, where possible, erasure periods and a description of the measures. Art. 30(5) exempts organisations employing fewer than 250 persons, but only where the processing is occasional, is unlikely to result in a risk to rights and freedoms, and involves no special categories or criminal conviction data. Regular personnel and payroll processing is not occasional, so in practice the record is still owed."
     },
     "G-TOM_1": {
       "title": "Technical and Organisational Measures",
-      "description": "Document the measures protecting personal data: pseudonymisation and encryption, lasting confidentiality, integrity, availability and resilience, timely restoration after an incident, and a process for regularly testing and evaluating their effectiveness (Art. 32(1))."
+      "description": "Implement measures that protect personal data at a level appropriate to the risk, and document them so that you can demonstrate them: pseudonymisation and encryption, lasting confidentiality, integrity, availability and resilience, timely restoration after an incident, and a process for regularly testing and evaluating their effectiveness (Art. 32(1); demonstrating them: Art. 5(2), 24(1))."
     },
     "G-BRC_1": {
       "title": "Personal Data Breach Response Process",
@@ -22,19 +22,19 @@
     },
     "G-BRC_2": {
       "title": "Personal Data Breach Documentation",
-      "description": "Internally document every personal data breach (notifiable or not) for supervisory-authority verification (Art. 33(5))."
+      "description": "Document every personal data breach, notifiable or not: the facts relating to it, its effects and the remedial action taken, so that the supervisory authority can verify compliance (Art. 33(5))."
     },
     "G-DSR_1": {
       "title": "Data Subject Rights Workflow",
-      "description": "Process for handling access, erasure, rectification, portability, restriction and objection requests within one month (Art. 12-22). For a German controller §34 BDSG restricts the Art. 15 right of access, and §35 substitutes restriction of processing for Art. 17 erasure where non-automated storage makes deletion disproportionate. §34(2) requires the reasons for refusing access to be documented."
+      "description": "Process for handling access, erasure, rectification, portability, restriction and objection requests within one month of receipt (Art. 12(3), Art. 15 to 22). Where the complexity and number of requests make it necessary, the period may be extended by two further months; the data subject is told of the extension and the reasons within the first month. For a German controller §34 BDSG restricts the Art. 15 right of access, and §35 BDSG replaces Art. 17 erasure with restriction of processing where, in non-automated processing, erasure is impossible or disproportionately costly because of the way the data is stored and the data subject's interest in erasure is minor; never for data processed unlawfully. §34(2) BDSG requires the reasons for refusing access to be documented."
     },
     "G-BRC_3": {
       "title": "Communication to affected data subjects",
-      "description": "Define the process for telling affected individuals about a breach that is likely to result in a high risk to them (Art. 34(1)). Notifying the supervisory authority under Art. 33 does not discharge it. The communication uses clear and plain language and carries the information in Art. 33(3)(b) to (d). It is not required where the data was rendered unintelligible (for example by encryption), where the high risk has since been mitigated, or where the effort would be disproportionate, in which case a public communication is required instead (Art. 34(3))."
+      "description": "Define the process for telling affected individuals about a breach that is likely to result in a high risk to them (Art. 34(1)). Notifying the supervisory authority under Art. 33 does not discharge it. The communication uses clear and plain language and carries the information in Art. 33(3)(b) to (d). It is not required where the data was rendered unintelligible (for example by encryption), where the high risk has since been mitigated, or where the effort would be disproportionate, in which case a public communication or a similar measure that informs them equally effectively is required instead (Art. 34(3))."
     },
     "G-DPO_1": {
       "title": "Designate a data protection officer",
-      "description": "Assess and document whether a data protection officer must be designated. In Germany the duty starts at 20 persons constantly engaged in the automated processing of personal data (§38(1) BDSG), and applies regardless of headcount where processing requires a data protection impact assessment or is carried out commercially for the purpose of transfer or of market and opinion research. Position and tasks follow Art. 38 and 39 GDPR; the contact details must be published and communicated to the supervisory authority (Art. 37(7))."
+      "description": "Assess and document whether a data protection officer must be designated. The GDPR requires one for public bodies, and where the core activities consist of regular and systematic monitoring of data subjects on a large scale, or of processing special categories of data and data on criminal convictions on a large scale (Art. 37(1); the German text of point (c) joins the two with \"oder\", or). In Germany the duty also applies where, as a rule, at least 20 persons are constantly engaged in the automated processing of personal data (§38(1) BDSG), and regardless of headcount where processing is subject to a data protection impact assessment or personal data are processed commercially for transfer, anonymised transfer or market or opinion research. Position and tasks follow Art. 38 and 39 GDPR; the contact details must be published and communicated to the supervisory authority (Art. 37(7))."
     }
   }
 }

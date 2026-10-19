@@ -4,7 +4,7 @@
 // - NIS 2: Directive (EU) 2022/2555, EUR-Lex CELEX 32022L2555
 // - GDPR: Regulation (EU) 2016/679, EUR-Lex CELEX 32016R0679
 // - ENISA Technical Implementation Guidance v1.0 (June 2025)
-// - EDPB-EDPS Joint Opinion 4/2026 (Cybersecurity Act 2 + NIS 2 amendments)
+// Rechecked against the Official Journal texts on 17.10.2026.
 //
 // Single most important cross-reference: NIS 2 Article 35 ("Infringements
 // entailing a personal data breach") is the directive-level explicit link
@@ -53,10 +53,9 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
       "Infringements entailing a personal data breach — competent authority must inform DPA; ne bis in idem on fines",
     linkType: "directive_explicit",
     notes:
-      "Art. 35(1) NIS 2 (verbatim): where competent authorities become aware in supervision or enforcement that an infringement of Art. 21 or Art. 23 NIS 2 by an essential or important entity can entail a personal data breach as defined in Art. 4(12) GDPR which is to be notified pursuant to Art. 33 GDPR, they shall without undue delay inform the supervisory authorities referred to in Art. 55 or 56 GDPR. Art. 35(2): where DPA imposes an Art. 58(2)(i) GDPR fine, the NIS 2 competent authority shall not impose an Art. 34 NIS 2 administrative fine for an infringement arising from the same conduct. Art. 35(3): where the GDPR supervisory authority is established in another Member State, the NIS 2 competent authority informs the supervisory authority established in its own Member State.",
-    eurLexCitation:
-      "https://eur-lex.europa.eu/eli/dir/2022/2555/oj (Art. 35)",
-    nis2RecitalRef: "Recitals 106, 108",
+      "Art. 35(1) NIS 2 (paraphrased): where competent authorities become aware in supervision or enforcement that an infringement of Articles 21 and 23 NIS 2 by an essential or important entity can entail a personal data breach as defined in Art. 4(12) GDPR which is to be notified pursuant to Art. 33 GDPR, they shall without undue delay inform the supervisory authorities referred to in Art. 55 or 56 GDPR. Art. 35(2): where DPA imposes an Art. 58(2)(i) GDPR fine, the NIS 2 competent authority shall not impose an Art. 34 NIS 2 administrative fine for an infringement arising from the same conduct. Art. 35(3): where the GDPR supervisory authority is established in another Member State, the NIS 2 competent authority informs the supervisory authority established in its own Member State.",
+    eurLexCitation: "https://eur-lex.europa.eu/eli/dir/2022/2555/oj (Art. 35)",
+    nis2RecitalRef: "Recitals 108, 136",
   },
 
   // ---------------------------------------------------------------------
@@ -93,19 +92,16 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
     linkType: "shared_data",
     notes:
       "Same TOMs entry tagged with both regimes. Note: GDPR Art. 32(1)(a) names pseudonymisation alongside encryption — NIS 2 Art. 21(2)(h) does not.",
-    eurLexCitation:
-      "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(a))",
+    eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(a))",
   },
   {
     nis2Article: "Art. 21(2)(c)",
     gdprArticle: "Art. 32(1)(c)",
-    concept:
-      "Business continuity, recovery from incident, availability and resilience",
+    concept: "Business continuity, recovery from incident, availability and resilience",
     linkType: "shared_data",
     notes:
       "GDPR Art. 32(1)(c): 'the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident'. NIS 2 Art. 21(2)(c) covers BCP + crisis management more broadly.",
-    eurLexCitation:
-      "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(c))",
+    eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(c))",
   },
   {
     nis2Article: "Art. 21(2)(f)",
@@ -114,27 +110,24 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
     linkType: "shared_data",
     notes:
       "GDPR Art. 32(1)(d): 'a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures'. NIS 2 Art. 21(2)(f) requires the same in the cybersecurity context. Same operational artefact satisfies both.",
-    eurLexCitation:
-      "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(d))",
+    eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(d))",
   },
   {
     nis2Article: "Art. 21(2)(i)",
-    gdprArticle: "Art. 28(3)(b), Art. 32",
+    gdprArticle: "Art. 29, Art. 32(4)",
     concept: "HR security, confidentiality, access control",
     linkType: "shared_data",
     notes:
-      "Art. 28(3)(b) GDPR requires persons authorised to process to be bound by confidentiality. NIS 2 Art. 21(2)(i) covers HR security + access control + asset management as the cybersecurity equivalent.",
-    eurLexCitation:
-      "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 28(3)(b))",
+      "For the company's own staff, Art. 29 GDPR: persons acting under the authority of the controller 'shall not process those data except on instructions from the controller', and Art. 32(4): the controller takes steps to ensure they do not. NIS 2 Art. 21(2)(i) covers HR security + access control + asset management as the cybersecurity equivalent. Art. 28(3)(b), confidentiality of the processor's staff, is a clause in the processor contract and belongs to the supply-chain row.",
+    eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 29, Art. 32(4))",
   },
   {
     nis2Article: "Art. 21(2)(j)",
     gdprArticle: "Art. 32 (implicit)",
-    concept:
-      "MFA, continuous authentication, secure communications and emergency comms",
+    concept: "MFA, continuous authentication, secure communications and emergency comms",
     linkType: "structural_overlap",
     notes:
-      "GDPR Art. 32 does not name MFA explicitly. The 'appropriate measures' clause implicitly covers it. CIR 2024/2690 explicitly mandates MFA for 11 digital-service-provider categories. For other entities, Art. 21(1) proportionality applies.",
+      "GDPR Art. 32 does not name MFA explicitly. The 'appropriate measures' clause implicitly covers it. CIR 2024/2690 Annex 11.7.1, for the entity types the CIR covers, asks for multiple authentication factors or continuous authentication 'where appropriate, in accordance with the classification of the asset to be accessed'. For other entities, Art. 21(1) proportionality applies.",
   },
 
   // ---------------------------------------------------------------------
@@ -146,9 +139,8 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
     concept: "Management body training",
     linkType: "structural_overlap",
     notes:
-      "NIS 2 Art. 20(2) requires management body training; non-delegable per §38(3) BSIG. GDPR Art. 39(1)(b) tasks the DPO with awareness-raising and training of staff (including management). Different audiences, distinct obligations.",
-    eurLexCitation:
-      "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 39(1)(b))",
+      "NIS 2 Art. 20(2) requires management body training; non-delegable per §38(3) BSIG. GDPR Art. 39(1)(b) tasks the DPO with monitoring compliance, including the awareness-raising and training of staff involved in processing operations. Different audiences, distinct obligations.",
+    eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 39(1)(b))",
   },
   {
     nis2Article: "Art. 21(2)(g)",
@@ -157,8 +149,7 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
     linkType: "structural_overlap",
     notes:
       "NIS 2 Art. 21(2)(g): cyber hygiene + training for all staff. GDPR Art. 39(1)(b): DPO oversees awareness-raising and training 'of staff involved in processing operations'. GDPR scope is data-protection-specific and may be a staff subset; NIS 2 scope is broader.",
-    eurLexCitation:
-      "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 39(1)(b))",
+    eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 39(1)(b))",
   },
 
   // ---------------------------------------------------------------------
@@ -170,7 +161,7 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
     concept: "Incident notification (parallel workflows)",
     linkType: "parallel_workflow",
     notes:
-      "Same incident may trigger both: NIS 2 Art. 23 24h/72h/intermediate/1mo to CSIRT; GDPR Art. 33 72h to supervisory authority; GDPR Art. 34 to data subjects when high risk. Different recipients, thresholds, and content. Until Art. 23a NIS 2 (Digital Omnibus 2026) Single Entry Point applies (~2028), both notifications must be filed in parallel.",
+      "Same incident may trigger both: NIS 2 Art. 23 24h/72h/intermediate/1mo to CSIRT; GDPR Art. 33 72h to supervisory authority; GDPR Art. 34 to data subjects when high risk. Different recipients, thresholds, and content. Recital 106 asks Member States to provide technical means such as a single entry point; that eases filing but merges neither duty into the other, so both notifications are owed.",
     eurLexCitation:
       "https://eur-lex.europa.eu/eli/dir/2022/2555/oj (Art. 23) and https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 33, Art. 34)",
     nis2RecitalRef: "Recital 106 (single entry point)",
@@ -182,8 +173,7 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
   {
     nis2Article: "(none)",
     gdprArticle: "Art. 30",
-    concept:
-      "Records of processing activities — explicitly NOT a supplier register",
+    concept: "Records of processing activities — explicitly NOT a supplier register",
     linkType: "no_mapping",
     notes:
       "GDPR Art. 30 requires the controller's records of its own processing activities (purposes, data categories, recipients, retention, security summary). Art. 30(1)(d) describes CATEGORIES of recipients, not a list of individual suppliers. The correct GDPR analog for NIS 2 Art. 21(2)(d) supply-chain security is Art. 28 (Processor), not Art. 30. This row exists to prevent future authors from re-introducing this common error.",
