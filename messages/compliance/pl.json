@@ -79,7 +79,7 @@
       "needsReview": "Wymaga przeglądu: termin minął albo zmieniły się dane operacyjne, na których opiera się to wymaganie.",
       "moduleData": "Dane operacyjne",
       "goToRegister": "Przejdź do rejestru",
-      "requiredRole": "W tej aplikacji zatwierdza: {role}",
+      "requiredRole": "W tej aplikacji zatwierdza: {role} lub kierownictwo",
       "signOffProgress": "Ukończono {signed} z {total} zatwierdzeń",
       "details": "Szczegóły",
       "priority": "Priorytet",

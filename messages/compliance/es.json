@@ -79,7 +79,7 @@
       "needsReview": "Requiere revisión: el plazo ha vencido o han cambiado los datos operativos en los que se basa este requisito.",
       "moduleData": "Datos operativos",
       "goToRegister": "Ir al registro",
-      "requiredRole": "En esta aplicación lo aprueba: {role}",
+      "requiredRole": "En esta aplicación lo aprueba: {role} o la dirección",
       "signOffProgress": "{signed} de {total} aprobaciones completadas",
       "details": "Detalles",
       "priority": "Prioridad",

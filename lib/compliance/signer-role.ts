@@ -60,5 +60,5 @@ export function signerMeetsRequiredRole(args: {
 
 /** What a caller who fails `signerMeetsRequiredRole` on a single requirement is told. */
 export function requiredRoleRefusal(requiredSignOffRole: string | null): string {
-  return `This requirement requires sign-off by ${effectiveSignOffRole(requiredSignOffRole).toUpperCase()} or management.`;
+  return `In this app, ${effectiveSignOffRole(requiredSignOffRole).toUpperCase()} or management signs this off or sets it aside.`;
 }

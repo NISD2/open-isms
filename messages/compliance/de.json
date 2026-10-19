@@ -86,7 +86,7 @@
       "needsReview": "Überprüfung fällig: Die Frist ist abgelaufen, oder die operativen Daten, auf denen diese Anforderung beruht, haben sich geändert.",
       "moduleData": "Operative Daten",
       "goToRegister": "Zum Register",
-      "requiredRole": "Freigabe in dieser App durch: {role}",
+      "requiredRole": "Freigabe in dieser App durch: {role} oder die Geschäftsführung",
       "signOffProgress": "{signed} von {total} Freigaben abgeschlossen",
       "details": "Details",
       "priority": "Priorität",
