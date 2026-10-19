@@ -1,0 +1,11 @@
+#!/bin/sh
+# Git runs this before every commit once core.hooksPath points here, which `bun install` sets
+# (package.json "prepare"). It refuses a staged hand-written file over 5,000 tokens; the rule and
+# how to split a file are in scripts/file-size/policy.ts.
+
+if ! command -v bun >/dev/null 2>&1; then
+  echo "pre-commit: bun is not installed (https://bun.sh); it runs scripts/check-file-size.ts." >&2
+  exit 1
+fi
+
+exec bun scripts/check-file-size.ts

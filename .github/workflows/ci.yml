@@ -66,7 +66,7 @@ jobs:
       - name: shell scripts pass shellcheck
         run: |
           docker run --rm -v "$PWD:/mnt" -w /mnt koalaman/shellcheck:v0.10.0 \
-            install.sh scripts/ci/*.sh scripts/*.sh e2e/*.sh
+            install.sh scripts/ci/*.sh scripts/*.sh e2e/*.sh .githooks/pre-commit
 
       # db/framework-seed.sql is what a self-hoster runs to fill a fresh
       # database, and what drizzle/seed.ts applies for the satisfaction pairs.
@@ -118,6 +118,13 @@ jobs:
             exit 1
           }
           bun run lint:ci
+
+      # The pre-commit hook refuses a hand-written file over 5,000 tokens, but a hook only runs
+      # where `bun install` set it up and nobody passed --no-verify. This checks what the branch
+      # changed against where it left main, by the same rule: a file already over the limit may
+      # shrink but not grow. The biome step above has already proven origin/main resolves.
+      - name: no hand-written file grows past 5,000 tokens
+        run: bun run check:file-size --since "$(git merge-base origin/main HEAD)"
 
       - run: bun run typecheck
 

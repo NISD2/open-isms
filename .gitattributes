@@ -1,0 +1,36 @@
+# Files no person or agent writes by hand. The size check (scripts/check-file-size.ts, run by the
+# pre-commit hook and by CI) skips every path marked linguist-generated or linguist-vendored.
+# GitHub also leaves these out of the language statistics and collapses generated files in pull
+# request diffs, one click to expand. Each entry names what writes it.
+
+# bun install
+bun.lock linguist-generated
+
+# drizzle-kit generate, and scripts/generate-framework-migration.ts for framework data. An applied
+# migration never changes (check:migration-immutability), so a size limit cannot apply to it.
+drizzle/*.sql linguist-generated
+drizzle/meta/** linguist-generated
+packages/*/drizzle/*.sql linguist-generated
+packages/*/drizzle/meta/** linguist-generated
+
+# scripts/generate-framework-migration.ts --seed-file (bun run db:seed:file)
+db/framework-seed.sql linguist-generated
+
+# packages/grc-data-model/scripts/generate-reference.ts (bun run docs:reference)
+packages/grc-data-model/REFERENCE.md linguist-generated
+
+# packages/nis2-supply-chain-questionnaire-schema/scripts/build-json.ts (bun run build:json)
+packages/nis2-supply-chain-questionnaire-schema/data/*.json linguist-generated
+packages/nis2-supply-chain-questionnaire-schema/schema/*.json linguist-generated
+
+# scripts/schedule-pages.ts (bun run schedule:pages)
+lib/content/wiki-publish-schedule.json linguist-generated
+
+# scripts/generate-german-pdf.ts
+courses/nis2-ceo/pdf-book/nis2-management-training-de.tex linguist-generated
+
+# Recraft vector illustrations, finished by scripts/guided-step-art/cli.ts; served to <img>
+public/images/**/*.svg linguist-generated
+
+# scripts/sync-disposable-domains.ts, from an upstream list
+lib/auth/disposable-domains.txt linguist-vendored

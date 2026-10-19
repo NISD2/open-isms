@@ -30,6 +30,7 @@ The Drizzle migration chain runs against a local Postgres (see `docs/coolify-dep
 - **TypeScript strict mode** — no `as any`, no non-null assertions (`!`). Use explicit checks or narrowing.
 - **Bun-only** — no `npm`, `yarn`, `pnpm` in commits.
 - **No `drizzle-kit push`** — always `bun db:generate` then `bun db:migrate`.
+- **No hand-written file over 5,000 tokens** (bytes / 4). `bun install` installs a pre-commit hook that refuses one, and CI checks the branch. A file already over the limit may shrink but not grow. The message says how to split the file; generated and vendored files are marked in `.gitattributes` and skipped.
 - **No emojis** in code or commit messages.
 - **No em-dashes** in user-facing copy (reads as AI-generated).
 - **Conventional-style commits**: `feat(area):`, `fix(area):`, `docs:`, `refactor:`, `chore:`. Past tense optional.
