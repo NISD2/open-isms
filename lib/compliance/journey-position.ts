@@ -28,11 +28,9 @@ import type { CoveredBy, ItemState } from "@/lib/durchgang";
  * something to withdraw. A status that counted as done but was not
  * reopenable would be a dead end in the UI.
  */
-export const DONE_STATUSES: ReadonlySet<string> = new Set([
-  "completed",
-  "approved",
-  "not_applicable",
-]);
+export const DONE_STATUS_LIST = ["completed", "approved", "not_applicable"] as const;
+
+export const DONE_STATUSES: ReadonlySet<string> = new Set(DONE_STATUS_LIST);
 
 export function isDoneStatus(status: string | null | undefined): boolean {
   return DONE_STATUSES.has(status ?? "not_started");

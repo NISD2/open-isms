@@ -42,6 +42,7 @@
     "notApplicable": "Nevztahuje se",
     "notApplicablePlaceholder": "Vysvětlete, proč se tento požadavek na vaši organizaci nevztahuje (přiměřenost podle § 13 odst. 2 zákona č. 264/2025 Sb.)...",
     "confirmNotApplicable": "Potvrdit nevztahuje se",
+    "notApplicableHint": "Alespoň 20 znaků. Odůvodnění se uloží s datem do vaší dokumentace.",
     "exportPolicy": "Exportovat zásadu",
     "completedSectionCount": "Schváleno ({count})",
     "implementationGuide": "Návod k implementaci",

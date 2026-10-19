@@ -10,7 +10,11 @@ import {
 } from "@/schema";
 import { satisfactionTargets } from "./satisfaction-targets";
 import { recordSignOffChainEntry } from "./sign-off-chain";
-import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
+import {
+  completedSignOffValues,
+  signerMeetsRequiredRole,
+  snapshotForVersion,
+} from "./sign-off-completion";
 
 /** Build a sign-off snapshot capturing company profile + operational counts at sign-off time */
 export async function buildSignOffSnapshot(
@@ -171,7 +175,6 @@ export async function propagateSatisfaction(
   const propagated: string[] = [];
   const assessmentsToRecalculate = new Set<string>();
   const now = new Date();
-  const signerIsAdmin = signedOffRole === "admin";
 
   // Same stable lock order as the bulk sign-off loops. This one is the reason
   // they need it: propagation runs inside an ordinary sign-off request, so it
@@ -182,11 +185,14 @@ export async function propagateSatisfaction(
     for (const target of orderedTargets) {
       if (target.status === "completed" || target.status === "approved") continue;
 
-      const required = target.requirement.requiredSignOffRole;
-      // Skip if the target requires a specific role that the source signer
-      // did not satisfy. Admin sign-off bypasses for parity with signOff,
-      // which lets admins close requirements without a role match.
-      if (required && required !== signedOffRole && !signerIsAdmin) {
+      // The target is signed under the same rule as a direct sign-off: its
+      // required role, the default when it names none, or management.
+      if (
+        !signerMeetsRequiredRole({
+          signerRole: signedOffRole,
+          requiredSignOffRole: target.requirement.requiredSignOffRole,
+        })
+      ) {
         continue;
       }
 

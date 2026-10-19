@@ -1,8 +1,10 @@
 /**
  * `updateRequirementStatus` is the hand-set status change. It must not touch a
- * requirement a reviewer approved (reopenRequirement is the way out of that),
- * including one approved after the procedure read the row, and it must not
- * accept needs_review, which only the deadline cron writes.
+ * requirement that carries a sign-off or an approval (reopenRequirement is the
+ * way out of that), including one signed after the procedure read the row. It
+ * must not accept completed, which only a signature writes, nor needs_review,
+ * which only the deadline cron writes. "Not applicable" takes a written reason
+ * and the requirement's signer, and never on a duty the law leaves no choice on.
  */
 import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
@@ -14,21 +16,28 @@ mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 
 const { createCallerFactory } = await import("../init");
 const { assessmentRouter } = await import("./assessment");
-const { REOPEN_APPROVED_FIRST } = await import("../helpers/manual-status");
+const { REOPEN_APPROVED_FIRST, REOPEN_SIGNED_FIRST } = await import(
+  "../helpers/manual-status"
+);
 type TRPCContext = import("../init").TRPCContext;
 
 const COMPANY = "company-1";
 const USER = "11111111-1111-4111-8111-111111111111";
 const STATUS = "22222222-2222-4222-8222-222222222222";
+const REASON = "We run no network and information systems of our own.";
 
 /**
  * `readStatus` is what the procedure reads first; `rowStillMatches` is whether
- * the guarded UPDATE finds the row, which is false once it is approved.
+ * the guarded UPDATE finds the row, which is false once it is signed or approved.
  */
 function setup(opts: {
   readStatus: string;
   rowStillMatches: boolean;
   role?: "admin" | "member";
+  jobTitle?: string | null;
+  signedOffAt?: Date | null;
+  code?: string;
+  requiredSignOffRole?: string | null;
 }) {
   const statusWrites: { values: unknown; where: SQL }[] = [];
   const reads: string[] = [];
@@ -41,7 +50,13 @@ function setup(opts: {
             id: STATUS,
             assessmentId: "assessment-1",
             status: opts.readStatus,
-            requirement: { id: "requirement-1", categoryId: "category-1" },
+            signedOffAt: opts.signedOffAt ?? null,
+            requirement: {
+              id: "requirement-1",
+              categoryId: "category-1",
+              code: opts.code ?? "5.1",
+              requiredSignOffRole: opts.requiredSignOffRole ?? null,
+            },
           };
         },
         // recalculateProgress, after a write that went through.
@@ -71,7 +86,7 @@ function setup(opts: {
     session: {
       role: opts.role ?? "admin",
       accessLevel: "full",
-      jobTitle: null,
+      jobTitle: opts.jobTitle ?? null,
     } as TRPCContext["session"],
     userId: USER,
     companyId: COMPANY,
@@ -81,16 +96,23 @@ function setup(opts: {
   return { caller, statusWrites, reads };
 }
 
+type StatusInput = Parameters<
+  ReturnType<typeof setup>["caller"]["updateRequirementStatus"]
+>[0];
+
 describe("assessment.updateRequirementStatus", () => {
-  test("guards the write itself against an approved row", async () => {
+  test("guards the write itself against a signed, approved or set-aside row", async () => {
     const { caller, statusWrites } = setup({
       readStatus: "not_started",
       rowStillMatches: true,
     });
     await caller.updateRequirementStatus({ statusId: STATUS, status: "in_progress" });
     expect(statusWrites).toHaveLength(1);
-    const { params } = new PgDialect().sqlToQuery(statusWrites[0].where);
-    expect(params).toContain("approved");
+    const { sql, params } = new PgDialect().sqlToQuery(statusWrites[0].where);
+    expect(params).toEqual(
+      expect.arrayContaining(["completed", "approved", "not_applicable"]),
+    );
+    expect(sql).toContain('"signed_off_at" is null');
   });
 
   test("refuses an approved requirement, even for an admin", async () => {
@@ -100,36 +122,121 @@ describe("assessment.updateRequirementStatus", () => {
     ).rejects.toMatchObject({ code: "FORBIDDEN", message: REOPEN_APPROVED_FIRST });
   });
 
-  // The race: the row read as in progress, then a reviewer approved it before
-  // the write. The guarded UPDATE matches nothing and the caller is told so.
-  test("refuses when an approval lands between the read and the write", async () => {
+  // The module recheck leaves a signed row in needs_review with its signature;
+  // a status set over it would leave that signature on a row reading otherwise.
+  test("refuses a row that still carries a signature", async () => {
+    const { caller, statusWrites } = setup({
+      readStatus: "needs_review",
+      signedOffAt: new Date("2026-09-01"),
+      rowStillMatches: true,
+    });
+    await expect(
+      caller.updateRequirementStatus({ statusId: STATUS, status: "in_progress" }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN", message: REOPEN_SIGNED_FIRST });
+    expect(statusWrites).toEqual([]);
+  });
+
+  // The race: the row read as in progress, then someone signed it before the
+  // write. The guarded UPDATE matches nothing and the caller is told so.
+  test("refuses when a sign-off lands between the read and the write", async () => {
     const { caller } = setup({
       readStatus: "in_progress",
       rowStillMatches: false,
       role: "member",
+      jobTitle: "ciso",
     });
+    await expect(
+      caller.updateRequirementStatus({
+        statusId: STATUS,
+        status: "not_applicable",
+        notApplicableReason: REASON,
+      }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN", message: REOPEN_SIGNED_FIRST });
+  });
+
+  test.each(["needs_review", "completed"])(
+    "refuses %s as a target before reading anything",
+    async (status) => {
+      const { caller, statusWrites, reads } = setup({
+        readStatus: "in_progress",
+        rowStillMatches: true,
+      });
+      await expect(
+        caller.updateRequirementStatus({
+          statusId: STATUS,
+          status,
+        } as unknown as StatusInput),
+      ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+      expect(reads).toEqual([]);
+      expect(statusWrites).toEqual([]);
+    },
+  );
+
+  test("refuses not applicable without a reason that can stand as the record", async () => {
+    const { caller, reads } = setup({ readStatus: "in_progress", rowStillMatches: true });
     await expect(
       caller.updateRequirementStatus({
         statusId: STATUS,
         status: "not_applicable",
         notApplicableReason: "No suppliers",
       }),
-    ).rejects.toMatchObject({ code: "FORBIDDEN", message: REOPEN_APPROVED_FIRST });
-  });
-
-  test("refuses needs_review as a target before reading anything", async () => {
-    const { caller, statusWrites, reads } = setup({
-      readStatus: "completed",
-      rowStillMatches: true,
-    });
-    const input = { statusId: STATUS, status: "needs_review" };
-    await expect(
-      caller.updateRequirementStatus(
-        input as unknown as Parameters<typeof caller.updateRequirementStatus>[0],
-      ),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
     expect(reads).toEqual([]);
+  });
+
+  test("refuses not applicable on a duty the law leaves no choice on", async () => {
+    const { caller, statusWrites } = setup({
+      readStatus: "in_progress",
+      rowStillMatches: true,
+      jobTitle: "ceo",
+      code: "7.3",
+    });
+    await expect(
+      caller.updateRequirementStatus({
+        statusId: STATUS,
+        status: "not_applicable",
+        notApplicableReason: REASON,
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
     expect(statusWrites).toEqual([]);
+  });
+
+  // An admin without the requirement's role sets nothing aside in its place.
+  test("refuses not applicable from someone without the requirement's role", async () => {
+    const { caller, statusWrites } = setup({
+      readStatus: "in_progress",
+      rowStillMatches: true,
+      role: "admin",
+      requiredSignOffRole: "ceo",
+    });
+    await expect(
+      caller.updateRequirementStatus({
+        statusId: STATUS,
+        status: "not_applicable",
+        notApplicableReason: REASON,
+      }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(statusWrites).toEqual([]);
+  });
+
+  test("records the reason and who set it aside", async () => {
+    const { caller, statusWrites } = setup({
+      readStatus: "in_progress",
+      rowStillMatches: true,
+      role: "member",
+      jobTitle: "ciso",
+    });
+    await caller.updateRequirementStatus({
+      statusId: STATUS,
+      status: "not_applicable",
+      notApplicableReason: `  ${REASON}  `,
+    });
+    expect(statusWrites[0].values).toMatchObject({
+      status: "not_applicable",
+      isApplicable: false,
+      notApplicableReason: REASON,
+      notApplicableBy: USER,
+    });
   });
 });
 

@@ -3,6 +3,7 @@ import {
   answerSaveChange,
   MANUAL_STATUSES,
   REOPEN_APPROVED_FIRST,
+  WORK_STATUSES,
 } from "./manual-status";
 
 describe("MANUAL_STATUSES", () => {
@@ -14,11 +15,18 @@ describe("MANUAL_STATUSES", () => {
     }
   });
 
-  // sign-off-completion.ts documents completing without a signature as
-  // intended, so the rule must not quietly take it away.
-  test("still lets a person mark a requirement completed or not applicable", () => {
-    expect(MANUAL_STATUSES).toContain("completed");
+  // Done is a signature, never a status someone sets.
+  test("leaves out completed", () => {
+    expect(MANUAL_STATUSES).not.toContain("completed");
+  });
+
+  test("keeps not applicable, which needs a reason and a signer", () => {
     expect(MANUAL_STATUSES).toContain("not_applicable");
+    expect(WORK_STATUSES).not.toContain("not_applicable");
+  });
+
+  test("lists every work status as a hand-set status", () => {
+    for (const status of WORK_STATUSES) expect(MANUAL_STATUSES).toContain(status);
   });
 });
 

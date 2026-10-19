@@ -1,5 +1,6 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
+import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
 
 /**
  * The role that must sign a requirement off. Requirements that do not name one
@@ -10,18 +11,23 @@ export function effectiveSignOffRole(requiredSignOffRole: string | null): RoleKe
 }
 
 /**
- * Whether this signer may complete a requirement on their own.
+ * Whether this signer may complete a requirement on their own: they hold the
+ * role it names, or they are management, who may sign anything (§ 38 Abs. 1
+ * BSIG has management implement and oversee the measures).
  *
- * Admins bypass, matching the single sign-off path. The four sign-off entry
- * points share this predicate but react differently: the single-requirement
- * paths throw FORBIDDEN, because the caller asked for that specific row and
- * silence would look like success; the bulk paths filter the row out, because
- * a batch spans requirements with different required signers and one
- * unsignable row should not fail the rest. That difference is deliberate and
- * stays visible at each call site.
+ * Being an admin is no role here. Admin is what an account may manage in the
+ * app; a signature records who answers for a requirement, so an admin without
+ * the role signing in its place would put a name on the record that the
+ * requirement does not ask for.
+ *
+ * The four sign-off entry points share this predicate but react differently:
+ * the single-requirement paths throw FORBIDDEN, because the caller asked for
+ * that specific row and silence would look like success; the bulk paths filter
+ * the row out, because a batch spans requirements with different required
+ * signers and one unsignable row should not fail the rest. That difference is
+ * deliberate and stays visible at each call site.
  */
 export function signerMeetsRequiredRole(args: {
-  sessionRole: string;
   /**
    * What the signer actually holds, from getSignerRole: their job title if
    * they set one, otherwise their session role. Deliberately a plain string,
@@ -33,9 +39,14 @@ export function signerMeetsRequiredRole(args: {
   requiredSignOffRole: string | null;
 }): boolean {
   return (
-    args.sessionRole === "admin" ||
+    args.signerRole === MANAGEMENT_ROLE ||
     args.signerRole === effectiveSignOffRole(args.requiredSignOffRole)
   );
+}
+
+/** What a caller who fails `signerMeetsRequiredRole` on a single requirement is told. */
+export function requiredRoleRefusal(requiredSignOffRole: string | null): string {
+  return `This requirement requires sign-off by ${effectiveSignOffRole(requiredSignOffRole).toUpperCase()}.`;
 }
 
 /**
@@ -49,9 +60,9 @@ export function signerMeetsRequiredRole(args: {
  * Going through one function makes that class of omission a type error
  * instead of a silent gap in the audit trail.
  *
- * Not every terminal write is a sign-off. `updateRequirementStatus` moves a
- * requirement to completed without signing it, and intake derives progress
- * from saved answers without a signer. Those deliberately do not call this.
+ * No other path in the app writes completed: `updateRequirementStatus` sets only work
+ * statuses and "not applicable", and saving intake answers moves rows back to
+ * in progress, never forward.
  *
  * `now` is passed in rather than read here so every column on a row, and every
  * row in a batch, carries the same instant.
