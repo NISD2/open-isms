@@ -28,7 +28,7 @@ export const nis2GdprSatisfactionPairs: SatisfactionPair[] = [
   [
     "5.1",
     "G-DPA.1",
-    "Same supplier rows feed both; the Art. 28 DPA itself is evidenced by the 5.2 contract clauses, not by the register alone.",
+    "Same supplier rows feed both; neither the register nor the 5.2 clauses is the Art. 28 agreement.",
   ],
   [
     "5.2",
@@ -38,14 +38,13 @@ export const nis2GdprSatisfactionPairs: SatisfactionPair[] = [
   [
     "5.2",
     "G-DPA.2",
-    "Sub-processor lists live on the same supplier rows used for NIS2 governance and Art. 28(2)/(4).",
-    "equivalent",
+    "Same supplier rows hold sub-processor lists; the Art. 28(2) authorisation is not recorded.",
   ],
 
   [
     "2.1",
     "G-ROP.1",
-    "Asset classification methodology defines the systems recorded in the Art. 30 register.",
+    "The 2.1 method rates assets; Art. 30 records processing activities.",
   ],
   [
     "2.2",
@@ -55,25 +54,23 @@ export const nis2GdprSatisfactionPairs: SatisfactionPair[] = [
   [
     "2.3",
     "G-ROP.1",
-    "Asset criticality under NIS2 informs Art. 30/35 high-risk processing.",
+    "Asset ratings can point to high-risk processing (Art. 35); Art. 30 records no risk.",
   ],
 
   [
     "3.1",
     "G-BRC.1",
-    "Same incident response procedure satisfies the NIS2 detection-to-notification flow and the GDPR Art. 33 breach response.",
-    "equivalent",
+    "The incident plan can carry the Art. 33 notification but lacks its risk test and the late-filing reasons.",
   ],
   [
     "3.2",
     "G-BRC.2",
-    "Same incident rows; NIS2 detection/logging ↔ Art. 33(5) breach documentation.",
-    "equivalent",
+    "Incident rows can hold Art. 33(5) facts, effects and remedy, but only for IT incidents; Art. 4(12) is wider.",
   ],
   [
     "3.3",
     "G-BRC.1",
-    "Same underlying event, separate filings: the NIS2 24h/72h/1-month cascade goes to the BSI/BBK Meldestelle, the GDPR Art. 33 single 72h notification to the data protection authority.",
+    "Same underlying event, separate filings: the NIS2 24h/72h/1-month cascade goes to the BSI/BBK Meldestelle, the GDPR Art. 33 notification, in phases if need be (Art. 33(4)), to the data protection authority.",
   ],
   [
     "3.5",
@@ -93,7 +90,7 @@ export const nis2GdprSatisfactionPairs: SatisfactionPair[] = [
   [
     "2.4",
     "G-TOM.1",
-    "CEO sign-off on the Art. 21(2) risk treatment plan attests the TOMs posture Art. 32 requires.",
+    "The risk treatment plan lists measures Art. 32 asks for too; Art. 32 asks for the measures, not an approval.",
   ],
   [
     "9.1",
@@ -133,18 +130,18 @@ export const nis2GdprSatisfactionPairs: SatisfactionPair[] = [
   [
     "11.1",
     "G-TOM.1",
-    "Art. 21(2)(j) ↔ Art. 32 by implication: Art. 32 nowhere names MFA, and its 'appropriate measures' clause is what carries it. CIR 11.7 mandates MFA outright for the eleven digital-service entity types; for everyone else Art. 21(1) proportionality decides, exactly as Art. 32(1) does. Never 'equivalent': one is a named control, the other an open standard that the control happens to meet.",
+    "Art. 21(2)(j) ↔ Art. 32 by implication: Art. 32 nowhere names MFA, and its 'appropriate measures' clause is what carries it. CIR 11.7.1 asks for MFA or continuous authentication where appropriate, for the CIR's entity types; for everyone else Art. 21(1) proportionality decides, exactly as Art. 32(1) does. Never 'equivalent': one is a named control, the other an open standard that the control happens to meet.",
   ],
 
   // Art. 34 had no pair at all, though NIS2 carries the same duty shape: Art.
-  // 23(1) second subparagraph has entities notify the recipients of their
+  // 23(1) has entities notify the recipients of their
   // services of significant incidents likely to adversely affect service
   // provision. Tell the affected people, not only the authority. The triggers
   // and the addressees are different, so this is where the pair stops.
   [
     "3.5",
     "G-BRC.3",
-    "Art. 23(1) subpara. 2 ↔ Art. 34: both require telling people outside the authority about an incident, and the post-incident communication is where a company decides who hears what. The duties do not merge. NIS2 addresses the recipients of the service when provision is adversely affected; Art. 34 addresses the data subjects when the breach is likely to result in a high risk to their rights and freedoms, and the Art. 34(3) carve-outs apply to the GDPR side only.",
+    "Art. 23(1) ↔ Art. 34: both require telling people outside the authority about an incident, and the post-incident communication is where a company decides who hears what. The duties do not merge. NIS2 addresses the recipients of the service when provision is adversely affected; Art. 34 addresses the data subjects when the breach is likely to result in a high risk to their rights and freedoms, and the Art. 34(3) carve-outs apply to the GDPR side only.",
   ],
 ];
 

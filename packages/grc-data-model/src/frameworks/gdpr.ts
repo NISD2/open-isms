@@ -5,6 +5,13 @@
  * anything below, run `bun db:framework-migration` to emit the data
  * migration that carries it forward. `bun db:generate` will not: it diffs
  * the schema, and row content is not schema.
+ *
+ * Scope: selected duties of a controller, not the whole GDPR. Not modelled:
+ * lawfulness (Art. 6), information to data subjects (Art. 13, 14), data
+ * protection by design and by default (Art. 25), joint controllers (Art. 26),
+ * the impact assessment (Art. 35), transfers (Art. 44 to 49), and every duty
+ * of a company acting as a processor. Every row here signed is therefore not
+ * the GDPR met, and nothing built on these rows may say it is.
  */
 import type { FrameworkCategory, FrameworkRequirement } from "./types";
 import { makeRequirementFactory } from "./types";
@@ -51,7 +58,9 @@ export const gdprCategories: FrameworkCategory[] = [
     code: "BRC",
     slug: "gdpr-breach-response",
     referenceUrl: eurLex("art_33"),
-    nationalUrl: "",
+    // §29(1) sentence 3 BDSG adds an exception to the Art. 34 communication
+    // (information that must be kept secret by law or by its nature).
+    nationalUrl: "https://www.gesetze-im-internet.de/bdsg_2018/__29.html",
     sortOrder: 4,
     estimatedMinutes: 45,
     relevantRoles: ["ciso", "legal"],
@@ -61,14 +70,14 @@ export const gdprCategories: FrameworkCategory[] = [
     code: "DSR",
     slug: "gdpr-data-subject-rights",
     // Chapter III, not Art. 15 alone: this category spans Art. 12-22.
-    // nationalUrl is set here and nowhere else in this framework, because this
-    // is the only category a German provision actually modifies: §34 BDSG
-    // restricts the Art. 15 right of access, §35 substitutes restriction of
+    // nationalUrl is set on the categories a German provision modifies, this one
+    // and breach response (§29(1) BDSG on Art. 34). Here §34(1) BDSG removes the
+    // Art. 15 right of access in two narrow cases, §35 substitutes restriction of
     // processing for Art. 17 erasure where, in non-automated processing, erasure
     // is impossible or disproportionate because of the way the data is stored
     // AND the data subject's interest in erasure is minor (never for data
     // processed unlawfully), and §34(2) adds a duty to document the reasons for a
-    // refusal that has no GDPR equivalent. Arts. 28, 30, 32 and 33 have no such
+    // refusal that has no GDPR equivalent. Arts. 28, 30 and 32 have no such
     // German overlay, so their categories keep nationalUrl empty.
     referenceUrl: eurLex("cpt_III"),
     nationalUrl: "https://www.gesetze-im-internet.de/bdsg_2018/__34.html",
@@ -103,8 +112,9 @@ export const gdprCategories: FrameworkCategory[] = [
  */
 const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   "gdpr-processor-agreements": () => [
+    // (1) is the choice of processor, (3) the contract, (9) its written form.
     mkReq("G-DPA.1", "document", {
-      legalRef: "GDPR Art. 28(3)",
+      legalRef: "GDPR Art. 28(1), (3), (9)",
       frameworkRef: "Art. 28",
       moduleRef: "supplier",
       priority: "P1",
@@ -117,7 +127,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // processor liable. The controller's hook on (4) is the contract term in
     // (3)(d), that the processor "respects the conditions referred to in
     // paragraphs 2 and 4". The processor's own duties belong to the company in
-    // the processor role, a requirement of its own.
+    // the processor role, which this framework does not model.
     mkReq("G-DPA.2", "document", {
       legalRef: "GDPR Art. 28(2), 28(3)(d)",
       frameworkRef: "Art. 28",
@@ -159,8 +169,8 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // (1), (3) and (4) rather than a bare "Art. 33", so this requirement and
     // G-BRC.2 below divide the controller's part of the article between them.
     // (2) is left out: "The processor shall notify the controller" binds the
-    // company in the processor role, a requirement of its own; a controller's
-    // procedure only receives such notices. The two clauses that decide what
+    // company in the processor role, which this framework does not model; a
+    // controller's procedure only receives such notices. The two clauses that decide what
     // the procedure actually does both live in (1): notification is owed
     // "unless the personal data breach is unlikely to result in a risk to the
     // rights and freedoms of natural persons", and a filing made after 72 hours
@@ -187,7 +197,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // Art. 34(3) carve-outs (data rendered unintelligible, risk since
     // mitigated, disproportionate effort) are decided per breach.
     mkReq("G-BRC.3", "document", {
-      legalRef: "GDPR Art. 34",
+      legalRef: "GDPR Art. 34, §29(1) BDSG",
       frameworkRef: "Art. 34",
       moduleRef: "policy",
       priority: "P1",
@@ -210,10 +220,12 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   "gdpr-data-protection-officer": () => [
     // The GDPR compels appointment in the three Art. 37(1) cases. Point (c)
     // reads "special categories of data pursuant to Article 9 and personal data
-    // relating to criminal convictions" in English, and "oder" in German, so in
-    // the German text large-scale processing of health data as a core activity
-    // is enough. Our reading: that can catch NIS 2 entities in health care
-    // whatever the headcount. §38(1) BDSG uses the Art. 37(4) opening clause to add a German
+    // relating to criminal convictions" in English, and "oder" in German. The
+    // Article 29 Working Party's DPO guidelines (WP243 rev.01) read "or": "there
+    // is no policy reason for the two criteria having to be applied
+    // simultaneously". So large-scale processing of health data as a core
+    // activity is enough, which can catch NIS 2 entities in health care whatever
+    // the headcount. §38(1) BDSG uses the Art. 37(4) opening clause to add a German
     // threshold: "in der Regel mindestens 20 Personen ständig mit der
     // automatisierten Verarbeitung personenbezogener Daten" employed, plus two
     // headcount-independent triggers (processing subject to a DPIA, and
