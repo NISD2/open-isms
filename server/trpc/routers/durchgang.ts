@@ -522,7 +522,7 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
  *
  * Management signs every walk item, whatever role a single sign-off names: the walk ends in one
  * signature. § 38 Abs. 1 BSIG grounds that for the § 30 measures; for 1.1, 3.3 and 12.2 to 12.4
- * it is our practice.
+ * it is ours.
  *
  * An item the company decided not to do is signed as that decision: recorded not applicable,
  * with its written reason and management as the one who decided (`signDeclined`).
