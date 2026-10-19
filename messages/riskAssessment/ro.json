@@ -77,8 +77,12 @@
       },
       "scenariosLabel": "Scenarii de daună (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Încălcarea legilor, reglementărilor, contractelor" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Afectarea dreptului la autodeterminare informațională (date cu caracter personal)" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Încălcarea legilor, reglementărilor, contractelor"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Afectarea dreptului la autodeterminare informațională (date cu caracter personal)"
+        },
         "persoenlicheUnversehrtheit": { "label": "Afectarea integrității personale" },
         "aufgabenerfuellung": { "label": "Afectarea îndeplinirii sarcinilor" },
         "innenAussenwirkung": { "label": "Impact negativ intern sau extern (reputație)" },

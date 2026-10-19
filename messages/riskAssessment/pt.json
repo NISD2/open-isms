@@ -77,11 +77,19 @@
       },
       "scenariosLabel": "Cenários de dano (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Violação de leis, regulamentos, contratos" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Lesão do direito à autodeterminação informativa (dados pessoais)" },
-        "persoenlicheUnversehrtheit": { "label": "Lesão da integridade física das pessoas" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Violação de leis, regulamentos, contratos"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Lesão do direito à autodeterminação informativa (dados pessoais)"
+        },
+        "persoenlicheUnversehrtheit": {
+          "label": "Lesão da integridade física das pessoas"
+        },
         "aufgabenerfuellung": { "label": "Prejuízo no cumprimento de tarefas" },
-        "innenAussenwirkung": { "label": "Impacto interno ou externo negativo (reputação)" },
+        "innenAussenwirkung": {
+          "label": "Impacto interno ou externo negativo (reputação)"
+        },
         "finanziell": { "label": "Impacto financeiro" }
       },
       "gesamtLabel": "Gesamt-Schutzbedarf",

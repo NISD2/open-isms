@@ -77,11 +77,19 @@
       },
       "scenariosLabel": "Schadescenario's (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Schending van wetten, voorschriften, contracten" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Aantasting van het recht op informationele zelfbeschikking" },
-        "persoenlicheUnversehrtheit": { "label": "Aantasting van de persoonlijke veiligheid" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Schending van wetten, voorschriften, contracten"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Aantasting van het recht op informationele zelfbeschikking"
+        },
+        "persoenlicheUnversehrtheit": {
+          "label": "Aantasting van de persoonlijke veiligheid"
+        },
         "aufgabenerfuellung": { "label": "Aantasting van de taakuitvoering" },
-        "innenAussenwirkung": { "label": "Negatieve interne of externe uitwerking (reputatie)" },
+        "innenAussenwirkung": {
+          "label": "Negatieve interne of externe uitwerking (reputatie)"
+        },
         "finanziell": { "label": "Financiële gevolgen" }
       },
       "gesamtLabel": "Gesamt-Schutzbedarf",

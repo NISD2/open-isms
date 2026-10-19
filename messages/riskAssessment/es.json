@@ -77,11 +77,19 @@
       },
       "scenariosLabel": "Escenarios de daño (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Infracción de leyes, normativas y contratos" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Menoscabo de la autodeterminación informativa (datos personales)" },
-        "persoenlicheUnversehrtheit": { "label": "Menoscabo de la integridad física de las personas" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Infracción de leyes, normativas y contratos"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Menoscabo de la autodeterminación informativa (datos personales)"
+        },
+        "persoenlicheUnversehrtheit": {
+          "label": "Menoscabo de la integridad física de las personas"
+        },
         "aufgabenerfuellung": { "label": "Menoscabo del cumplimiento de las funciones" },
-        "innenAussenwirkung": { "label": "Impacto interno o externo negativo (reputación)" },
+        "innenAussenwirkung": {
+          "label": "Impacto interno o externo negativo (reputación)"
+        },
         "finanziell": { "label": "Impacto financiero" }
       },
       "gesamtLabel": "Gesamt-Schutzbedarf",

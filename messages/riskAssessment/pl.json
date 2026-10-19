@@ -77,11 +77,17 @@
       },
       "scenariosLabel": "Scenariusze szkód (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Naruszenie przepisów prawa, regulacji, umów" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Naruszenie prawa do informacyjnego samostanowienia (dane osobowe)" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Naruszenie przepisów prawa, regulacji, umów"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Naruszenie prawa do informacyjnego samostanowienia (dane osobowe)"
+        },
         "persoenlicheUnversehrtheit": { "label": "Naruszenie bezpieczeństwa osobistego" },
         "aufgabenerfuellung": { "label": "Naruszenie wykonywania zadań" },
-        "innenAussenwirkung": { "label": "Negatywny wpływ wewnętrzny lub zewnętrzny (reputacja)" },
+        "innenAussenwirkung": {
+          "label": "Negatywny wpływ wewnętrzny lub zewnętrzny (reputacja)"
+        },
         "finanziell": { "label": "Skutek finansowy" }
       },
       "gesamtLabel": "Gesamt-Schutzbedarf",

@@ -30,9 +30,7 @@ export const REQUIREMENT_FIELD_MAP: Record<string, RequirementFieldInfo> =
 function buildInvertedMap(): Record<string, RequirementFieldInfo> {
   const result: Record<string, RequirementFieldInfo> = {};
 
-  for (const [categoryCode, fieldMap] of Object.entries(
-    CATEGORY_FIELD_MAPPING
-  )) {
+  for (const [categoryCode, fieldMap] of Object.entries(CATEGORY_FIELD_MAPPING)) {
     for (const [fieldKey, reqCodes] of Object.entries(fieldMap)) {
       for (const reqCode of reqCodes) {
         if (!result[reqCode]) {
@@ -77,47 +75,174 @@ export type CustomEditorKey = (typeof CUSTOM_EDITOR_KEYS)[number];
 /** Field metadata for requirements with custom editors (not schema-form).
  *  Guidance generation only; a subset of CUSTOM_EDITOR_KEYS because some
  *  editors (2.3, 2.4, 5.3) present module data and define no fields. */
-export const CUSTOM_EDITOR_FIELDS: Record<string, Array<{
-  key: string;
-  label: string;
-  type: string;
-  required: boolean;
-}>> = {
+export const CUSTOM_EDITOR_FIELDS: Record<
+  string,
+  Array<{
+    key: string;
+    label: string;
+    type: string;
+    required: boolean;
+  }>
+> = {
   "2.1": [
-    { key: "methodologyName", label: "Risk Methodology Name", type: "text", required: true },
-    { key: "likelihoodScale", label: "Likelihood Scale (levels with labels and descriptions)", type: "scale_table", required: true },
-    { key: "impactScale", label: "Impact Scale (levels with labels and descriptions)", type: "scale_table", required: true },
-    { key: "acceptanceThreshold", label: "Risk Acceptance Threshold (max score to accept without treatment)", type: "number", required: true },
-    { key: "otIcsCoverage", label: "OT/ICS Coverage (methodology covers operational technology)", type: "checkbox", required: false },
+    {
+      key: "methodologyName",
+      label: "Risk Methodology Name",
+      type: "text",
+      required: true,
+    },
+    {
+      key: "likelihoodScale",
+      label: "Likelihood Scale (levels with labels and descriptions)",
+      type: "scale_table",
+      required: true,
+    },
+    {
+      key: "impactScale",
+      label: "Impact Scale (levels with labels and descriptions)",
+      type: "scale_table",
+      required: true,
+    },
+    {
+      key: "acceptanceThreshold",
+      label: "Risk Acceptance Threshold (max score to accept without treatment)",
+      type: "number",
+      required: true,
+    },
+    {
+      key: "otIcsCoverage",
+      label: "OT/ICS Coverage (methodology covers operational technology)",
+      type: "checkbox",
+      required: false,
+    },
   ],
   "9.1": [
-    { key: "algorithms", label: "Approved & Prohibited Algorithms (table of cryptographic algorithms with status)", type: "algorithm_table", required: true },
-    { key: "minTlsVersion", label: "Minimum TLS Version", type: "select", required: true },
-    { key: "keyRotation", label: "Key Rotation Frequency (years)", type: "number", required: true },
-    { key: "postQuantumReadiness", label: "Post-Quantum Readiness", type: "checkbox", required: false },
+    {
+      key: "algorithms",
+      label:
+        "Approved & Prohibited Algorithms (table of cryptographic algorithms with status)",
+      type: "algorithm_table",
+      required: true,
+    },
+    {
+      key: "minTlsVersion",
+      label: "Minimum TLS Version",
+      type: "select",
+      required: true,
+    },
+    {
+      key: "keyRotation",
+      label: "Key Rotation Frequency (years)",
+      type: "number",
+      required: true,
+    },
+    {
+      key: "postQuantumReadiness",
+      label: "Post-Quantum Readiness",
+      type: "checkbox",
+      required: false,
+    },
   ],
   "10.1": [
-    { key: "accessModel", label: "Access Control Model (RBAC, ABAC, or hybrid)", type: "select", required: true },
-    { key: "reviewFrequency", label: "Access Review Frequency (standard and privileged accounts)", type: "text_pair", required: true },
-    { key: "deprovisioningSla", label: "De-provisioning SLA (hours to revoke access after termination)", type: "number", required: true },
-    { key: "sharedAccountPolicy", label: "Shared/generic account policy (prohibited or documented exceptions)", type: "select", required: true },
-    { key: "authReviewCycle", label: "Authentication methods review cycle (years)", type: "number", required: true },
+    {
+      key: "accessModel",
+      label: "Access Control Model (RBAC, ABAC, or hybrid)",
+      type: "select",
+      required: true,
+    },
+    {
+      key: "reviewFrequency",
+      label: "Access Review Frequency (standard and privileged accounts)",
+      type: "text_pair",
+      required: true,
+    },
+    {
+      key: "deprovisioningSla",
+      label: "De-provisioning SLA (hours to revoke access after termination)",
+      type: "number",
+      required: true,
+    },
+    {
+      key: "sharedAccountPolicy",
+      label: "Shared/generic account policy (prohibited or documented exceptions)",
+      type: "select",
+      required: true,
+    },
+    {
+      key: "authReviewCycle",
+      label: "Authentication methods review cycle (years)",
+      type: "number",
+      required: true,
+    },
   ],
   "6.1": [
-    { key: "threshold", label: "Procurement Security Threshold (EUR amount above which security review is required)", type: "number", required: true },
-    { key: "requiredClauses", label: "Required Contract Clauses (8 cybersecurity clauses per CIR Annex point 5.1.4)", type: "checkbox_group", required: true },
-    { key: "evaluationCriteria", label: "Vendor Evaluation Criteria (weighted scoring criteria for supplier assessment)", type: "criteria_table", required: true },
-    { key: "reviewFrequency", label: "Policy Review Frequency", type: "text", required: true },
+    {
+      key: "threshold",
+      label:
+        "Procurement Security Threshold (EUR amount above which security review is required)",
+      type: "number",
+      required: true,
+    },
+    {
+      key: "requiredClauses",
+      label:
+        "Required Contract Clauses (8 cybersecurity clauses per CIR Annex point 5.1.4)",
+      type: "checkbox_group",
+      required: true,
+    },
+    {
+      key: "evaluationCriteria",
+      label:
+        "Vendor Evaluation Criteria (weighted scoring criteria for supplier assessment)",
+      type: "criteria_table",
+      required: true,
+    },
+    {
+      key: "reviewFrequency",
+      label: "Policy Review Frequency",
+      type: "text",
+      required: true,
+    },
   ],
   "6.2": [
-    { key: "sdlcFramework", label: "Secure Development Lifecycle Framework", type: "select", required: true },
-    { key: "hardeningBaseline", label: "System Hardening Baseline", type: "select", required: true },
-    { key: "testingRequirements", label: "Security Testing Requirements (SAST, DAST, SCA, pentest, code review)", type: "checkbox_group", required: true },
-    { key: "environmentSegregation", label: "Environment Segregation (dev/test/prod separation)", type: "checkbox", required: true },
+    {
+      key: "sdlcFramework",
+      label: "Secure Development Lifecycle Framework",
+      type: "select",
+      required: true,
+    },
+    {
+      key: "hardeningBaseline",
+      label: "System Hardening Baseline",
+      type: "select",
+      required: true,
+    },
+    {
+      key: "testingRequirements",
+      label: "Security Testing Requirements (SAST, DAST, SCA, pentest, code review)",
+      type: "checkbox_group",
+      required: true,
+    },
+    {
+      key: "environmentSegregation",
+      label: "Environment Segregation (dev/test/prod separation)",
+      type: "checkbox",
+      required: true,
+    },
   ],
   "6.4": [
-    { key: "patchSlaHours", label: "Patch SLA by Severity (hours per severity level)", type: "sla_table", required: true },
-    { key: "reviewCycleYears", label: "Review Cycle (years)", type: "number", required: true },
+    {
+      key: "patchSlaHours",
+      label: "Patch SLA by Severity (hours per severity level)",
+      type: "sla_table",
+      required: true,
+    },
+    {
+      key: "reviewCycleYears",
+      label: "Review Cycle (years)",
+      type: "number",
+      required: true,
+    },
   ],
 };
 
@@ -131,7 +256,7 @@ export const CUSTOM_EDITOR_FIELDS: Record<string, Array<{
  * (sign-off-only or module-backed requirements).
  */
 export function getFieldsForRequirement(
-  reqCode: string
+  reqCode: string,
 ): { fieldKeys: string[]; schema: z.ZodObject<z.ZodRawShape> } | null {
   const info = REQUIREMENT_FIELD_MAP[reqCode];
   if (!info) return null;
@@ -146,8 +271,7 @@ export function getFieldsForRequirement(
     if (shape[key]) {
       // Make all fields optional in per-requirement context so partial saves work
       const field = shape[key];
-      const defType = (field as unknown as { _def: { type: string } })._def
-        ?.type;
+      const defType = (field as unknown as { _def: { type: string } })._def?.type;
       const isAlreadyOptional =
         defType === "optional" || defType === "nullable" || defType === "default";
       subShape[key] = isAlreadyOptional ? field : field.optional();

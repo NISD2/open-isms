@@ -77,11 +77,19 @@
       },
       "scenariosLabel": "Scénarios de dommage (§8.2.1)",
       "scenarios": {
-        "gesetzeVorschriftenVertraege": { "label": "Violation de lois, règlements, contrats" },
-        "informationellesSelbstbestimmungsrecht": { "label": "Atteinte au droit à l'autodétermination informationnelle (données à caractère personnel)" },
-        "persoenlicheUnversehrtheit": { "label": "Atteinte à l'intégrité physique des personnes" },
+        "gesetzeVorschriftenVertraege": {
+          "label": "Violation de lois, règlements, contrats"
+        },
+        "informationellesSelbstbestimmungsrecht": {
+          "label": "Atteinte au droit à l'autodétermination informationnelle (données à caractère personnel)"
+        },
+        "persoenlicheUnversehrtheit": {
+          "label": "Atteinte à l'intégrité physique des personnes"
+        },
         "aufgabenerfuellung": { "label": "Atteinte à l'accomplissement des missions" },
-        "innenAussenwirkung": { "label": "Impact négatif interne ou externe (réputation)" },
+        "innenAussenwirkung": {
+          "label": "Impact négatif interne ou externe (réputation)"
+        },
         "finanziell": { "label": "Impact financier" }
       },
       "gesamtLabel": "Gesamt-Schutzbedarf",
