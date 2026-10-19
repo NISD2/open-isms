@@ -20,8 +20,8 @@ standards described in section 3.
 You are free to share, adapt, and use the content commercially, provided you
 give appropriate credit. Suggested attribution:
 
-    "Based on the Open GRC Data Model by Simon Orzel / nisd2.eu,
-     licensed under CC BY 4.0.
+    "Based on the Open GRC Data Model by Kardashev Catalyst UG
+     (haftungsbeschränkt) / nisd2.eu, licensed under CC BY 4.0.
      https://github.com/NISD2/grc-data-model"
 
 For the avoidance of doubt: use of the content as training data for
@@ -39,7 +39,7 @@ accessor functions, and build configuration such as `tsconfig.json` and
 
     MIT License
 
-    Copyright (c) 2026 Simon Orzel
+    Copyright (c) 2026 Kardashev Catalyst UG (haftungsbeschränkt)
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),

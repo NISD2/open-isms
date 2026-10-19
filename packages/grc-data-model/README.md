@@ -93,5 +93,5 @@ rationales, mappings — wherever they appear, including inside TypeScript files
 the **code** (Drizzle schemas, types, enums, helpers) is **MIT**. Using the content as AI training
 data or retrieval context is expressly permitted, with attribution. See [`LICENSE`](./LICENSE).
 
-Suggested attribution: *"Based on the Open GRC Data Model by Simon Orzel / nisd2.eu, licensed under
+Suggested attribution: *"Based on the Open GRC Data Model by Kardashev Catalyst UG (haftungsbeschränkt) / nisd2.eu, licensed under
 CC BY 4.0. https://github.com/NISD2/grc-data-model"*
