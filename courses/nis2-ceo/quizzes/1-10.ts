@@ -7,16 +7,16 @@ const quiz = quizSchema.parse({
     {
       id: "1.10.1",
       question: {
-        en: "What does the 'all-hazards approach' in Article 21(1) require?",
-        de: "Was verlangt der 'gefahrenübergreifende Ansatz' in Artikel 21 Absatz 1?",
-        nl: "Wat vereist de 'all-hazards benadering' in artikel 21(1)?",
-        fr: "Qu'exige l'« approche tous risques » de l'article 21(1) ?",
-        it: "Cosa richiede l'«approccio multirischio» dell'articolo 21(1)?",
-        es: "¿Qué exige el «enfoque de todos los peligros» del artículo 21(1)?",
-        pl: "Czego wymaga „podejście uwzględniające wszystkie zagrożenia” z artykułu 21(1)?",
+        en: "What does the 'all-hazards approach' in Article 21(2) require?",
+        de: "Was verlangt der 'gefahrenübergreifende Ansatz' in Artikel 21 Absatz 2?",
+        nl: "Wat vereist de 'all-hazards benadering' in artikel 21(2)?",
+        fr: "Qu'exige l'« approche tous risques » de l'article 21(2) ?",
+        it: "Cosa richiede l'«approccio multirischio» dell'articolo 21(2)?",
+        es: "¿Qué exige el «enfoque de todos los peligros» del artículo 21(2)?",
+        pl: "Czego wymaga „podejście uwzględniające wszystkie zagrożenia” z artykułu 21(2)?",
         cs: "Co vyžaduje „přístup zohledňující všechny druhy rizik“ v článku 21(2)?",
-        pt: "O que exige a 'abordagem de todos os perigos' no artigo 21(1)?",
-        ro: "Ce impune 'abordarea bazată pe toate pericolele' din articolul 21(1)?",
+        pt: "O que exige a 'abordagem de todos os perigos' no artigo 21(2)?",
+        ro: "Ce impune 'abordarea bazată pe toate pericolele' din articolul 21(2)?",
       },
       options: [
         {
