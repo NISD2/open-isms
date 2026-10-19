@@ -30,6 +30,21 @@ asks are excluded from this repository's licences. All rights in the standards r
 IEC. A company implementing or certifying against a standard needs the standard itself, from ISO
 or a national standards body.
 
+## ENISA mapping table
+
+The links between NIS2 requirements and ISO/IEC 27001:2022 that are marked as an overlap come from
+the ISO/IEC 27001:2022 column of ENISA's mapping table for Implementing Regulation (EU) 2024/2690:
+ENISA, Technical Implementation Guidance, mapping table version 1.2 (21.08.2025),
+https://www.enisa.europa.eu/publications/nis2-technical-implementation-guidance, licensed under
+CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). The column is held in
+`packages/grc-data-model/src/mappings/enisa-iso27001.ts`.
+
+Changes made: only that column is taken; spacing and letter forms in the references are
+normalised; each table point is joined to the NIS2 requirements that cite it, giving one link per
+pair with a rationale naming the points behind it. ENISA states the table is not a measure of
+equivalence, so none of these links carries a sign-off from one framework to the other. The links
+marked as the same record are our own assessment, not ENISA's.
+
 ## BSI IT-Grundschutz
 
 Identifiers, grades and numbering of the IT-Grundschutz-Kompendium are facts and are held as such

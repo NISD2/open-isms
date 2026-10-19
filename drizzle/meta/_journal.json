@@ -204,6 +204,20 @@
       "when": 1792408061427,
       "tag": "0028_framework_data_sync",
       "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1792410516127,
+      "tag": "0029_framework_data_sync",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1792410600000,
+      "tag": "0030_iso27001_links_from_enisa",
+      "breakpoints": true
     }
   ]
 }

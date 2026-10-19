@@ -25,10 +25,10 @@ BSI IT-Grundschutz module: `ISMS.1`. Estimated effort: 30 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `12.1` | document | P0 | on-change | Art. 3(1)-(2) | §28, §33(1) BSIG | A.5.31 |
+| `12.1` | document | P0 | on-change | Art. 3(1)-(2) | §28, §33(1) BSIG | none |
 | `12.2` | proof | P0 | one-time | Art. 3(3)-(4) | §33(1) BSIG | none |
 | `12.3` | proof | P1 | on-change | Art. 3(4) | §33(5) BSIG | none |
-| `12.4` | proof | P2 | ongoing | none | §30(1) S. 3, §31(2), §39, §34 BSIG | none |
+| `12.4` | proof | P2 | ongoing | none | §30(1) S. 3, §31(2), §39, §34 BSIG | IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3 |
 
 ### GOV: governance
 
@@ -37,9 +37,9 @@ BSI IT-Grundschutz module: `ISMS.1`. Estimated effort: 45 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `1.1` | training | P0 | every-3-years | Art. 20(2) | §38(3) BSIG | AI-LIT.2 |
-| `1.2` | proof | P1 | annual | Art. 21(2)(a) | §30(1) BSIG, CIR 1.2, CIR 10.1.3 | IS-5.2, IS-5.3, A.5.1, A.5.2, A.5.31 |
-| `1.3` | proof | P1 | annual | Art. 20(1) | §38(1) BSIG, CIR 1.1.1(e) | IS-5.1, IS-9.3 |
-| `1.4` | sign-off | P1 | on-change | Art. 20(1) | §38(2) BSIG | IS-5.1 |
+| `1.2` | proof | P1 | annual | Art. 21(2)(a) | §30(1) BSIG, CIR 1.2, CIR 10.1.3 | A.5.2, IS-5.3, A.5.3, A.5.4, IS-7.1, IS-7.2, A.6.2, A.6.3 |
+| `1.3` | proof | P1 | annual | Art. 20(1) | §38(1) BSIG, CIR 1.1.1(e) | IS-5.1, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3 |
+| `1.4` | sign-off | P1 | on-change | Art. 20(1) | §38(2) BSIG | none |
 
 ### RSK: risk-management
 
@@ -47,10 +47,10 @@ BSI IT-Grundschutz module: `BSI-200-3`. Estimated effort: 60 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `2.1` | document | P0 | on-change | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.2 | G-ROP.1, AI-RSK.1, CRA-MFG.1, IS-6.1, IS-8.2, IS-8.3 |
-| `2.2` | technical | P0 | ongoing | Art. 21(2)(a), Art. 21(2)(i) | §30(2) Nr. 1 und 9 BSIG, CIR 12 | G-ROP.1, AI-INV.1, A.5.9, A.8.1, A.8.10 |
-| `2.3` | technical | P1 | annual | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.1, 2.1.4 | G-ROP.1, AI-RSK.2, IS-8.2, IS-8.3, A.5.12, A.5.13 |
-| `2.4` | sign-off | P0 | annual | Art. 20(1), Art. 21(2)(a) | §38(1) BSIG, CIR 1.1.1(k), 1.1.2, 2.1.1, 2.1.4 | G-TOM.1, CRA-MFG.2, IS-5.2, IS-6.1, IS-6.2 |
+| `2.1` | document | P0 | on-change | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.2 | G-ROP.1, AI-RSK.1, CRA-MFG.1, IS-6.1, IS-6.2, IS-8.2, IS-8.3, A.5.7, A.5.19, A.5.20, A.5.21 |
+| `2.2` | technical | P0 | ongoing | Art. 21(2)(a), Art. 21(2)(i) | §30(2) Nr. 1 und 9 BSIG, CIR 12 | G-ROP.1, AI-INV.1, A.5.9, A.5.12, A.5.13 |
+| `2.3` | technical | P1 | annual | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.1, 2.1.4 | G-ROP.1, AI-RSK.2, IS-8.2, IS-8.3, IS-6.1, IS-6.2, A.5.7, A.5.19, A.5.20, A.5.21 |
+| `2.4` | sign-off | P0 | annual | Art. 20(1), Art. 21(2)(a) | §38(1) BSIG, CIR 1.1.1(k), 1.1.2, 2.1.1, 2.1.4 | G-TOM.1, CRA-MFG.2, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3, IS-6.1, IS-6.2, IS-8.2, IS-8.3, A.5.7, A.5.19, A.5.20, A.5.21 |
 
 ### SUP: supply-chain
 
@@ -58,10 +58,10 @@ BSI IT-Grundschutz module: `OPS.2.3`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `5.1` | document | P0 | annual | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1-5.2 | G-DPA.1, CRA-IMP.1, A.5.19 |
-| `5.2` | document | P1 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4 | G-DPA.1, G-DPA.2, CRA-IMP.2, A.5.20, A.5.21, A.5.23 |
-| `5.3` | proof | P1 | annual | Art. 21(3) | §30(2) Nr. 4 BSIG, CIR 5.1.6, 5.1.7 | A.5.21, A.5.22 |
-| `5.4` | proof | P1 | ongoing | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4(d) | A.5.22 |
+| `5.1` | document | P0 | annual | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1-5.2 | G-DPA.1, CRA-IMP.1, A.5.19, A.5.20, A.5.21, A.8.30, A.5.22 |
+| `5.2` | document | P1 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4 | G-DPA.1, G-DPA.2, CRA-IMP.2, A.5.20, A.5.19, A.5.21, A.8.30 |
+| `5.3` | proof | P1 | annual | Art. 21(3) | §30(2) Nr. 4 BSIG, CIR 5.1.6, 5.1.7 | A.5.21, A.5.19, A.5.20, A.8.30 |
+| `5.4` | proof | P1 | ongoing | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4(d) | A.5.19, A.5.20, A.5.21, A.8.30 |
 
 ### INC: incident-handling
 
@@ -70,9 +70,9 @@ BSI IT-Grundschutz module: `DER.2.1`. Estimated effort: 50 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `3.1` | document | P0 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.1 | G-BRC.1, AI-INC.1, CRA-INC.1, A.5.24, A.5.26 |
-| `3.2` | document | P1 | quarterly | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2, A.5.25, A.6.8, A.8.15, A.8.16 |
+| `3.2` | document | P1 | quarterly | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2, A.5.25, A.5.28, A.8.15, A.8.16, A.8.17, A.6.8 |
 | `3.3` | proof | P0 | annual | Art. 23(4) | §32(1) Nr. 1-4, §32(2) BSIG | G-BRC.1, AI-INC.2, CRA-INC.2, A.5.26 |
-| `3.4` | proof | P2 | annual | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | none |
+| `3.4` | proof | P2 | annual | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | A.5.26 |
 | `3.5` | document | P1 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.6 | G-BRC.2, G-BRC.3, CRA-INC.3, A.5.27 |
 
 ### CRY: cryptography
@@ -81,8 +81,8 @@ BSI IT-Grundschutz module: `CON.1`. Estimated effort: 30 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `9.1` | document | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102 | G-TOM.1, A.8.24 |
-| `9.2` | technical | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(a) | G-TOM.1, A.8.5, A.8.3 |
+| `9.1` | document | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102 | G-TOM.1, A.8.24, A.5.31 |
+| `9.2` | technical | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(a) | G-TOM.1 |
 | `9.3` | technical | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(c) | none |
 
 ### ACC: access-control
@@ -91,10 +91,10 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `10.1` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.1 | G-TOM.1, A.5.15, A.8.3 |
-| `10.2` | technical | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2, CIR 11.3 | A.5.16, A.5.17, A.8.18 |
-| `10.3` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3 | A.5.18, A.8.18, A.6.1, A.6.5, A.8.2 |
-| `10.4` | proof | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3 | A.5.18 |
+| `10.1` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.1 | G-TOM.1, A.5.15, A.7.2, A.8.3, A.8.21 |
+| `10.2` | technical | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2, CIR 11.3 | A.5.16, A.5.3, A.5.18, A.8.2, A.8.18 |
+| `10.3` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3 | A.5.18, A.6.1, A.6.5, A.8.2, A.8.18 |
+| `10.4` | proof | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3 | A.5.3, A.5.18, A.8.2, A.8.18 |
 
 ### AUT: authentication
 
@@ -102,9 +102,9 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 35 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `11.1` | technical | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.7 | G-TOM.1, A.8.5, A.8.2 |
-| `11.2` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG | A.5.16, A.5.14, A.8.20, A.8.21, A.8.22 |
-| `11.3` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B | none |
+| `11.1` | technical | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.7 | G-TOM.1, A.8.5 |
+| `11.2` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG | none |
+| `11.3` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B | A.5.17 |
 
 ### PRO: procurement
 
@@ -112,11 +112,11 @@ BSI IT-Grundschutz module: `OPS.1.1.3`. Estimated effort: 45 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `6.1` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.1 | none |
-| `6.2` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.2, 6.3 | A.5.7, A.5.5, A.8.9, A.8.25 |
-| `6.3` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.5, 6.10 | CRA-VLN.1, A.8.8 |
-| `6.4` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.6 | CRA-VLN.3, A.8.8 |
-| `6.5` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.4 | A.8.25, A.8.29, A.8.31, A.8.32 |
+| `6.1` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.1 | A.5.21, A.5.23 |
+| `6.2` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.2, 6.3 | A.8.25, A.8.31, A.8.9 |
+| `6.3` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.5, 6.10 | CRA-VLN.1, A.8.8, A.8.29, A.8.33, A.8.34 |
+| `6.4` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.6 | CRA-VLN.3, A.8.8, A.8.31, A.8.32 |
+| `6.5` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.4 | A.8.32, IS-6.3, IS-8.1, A.7.13 |
 
 ### BCP: business-continuity
 
@@ -124,11 +124,11 @@ BSI IT-Grundschutz module: `DER.4`. Estimated effort: 50 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `4.1` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.3 | A.5.29 |
-| `4.2` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1, 4.3 | A.5.29 |
-| `4.3` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.2 | G-TOM.1, A.5.30, A.8.14 |
-| `4.4` | technical | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.2 | G-TOM.1, A.8.13 |
-| `4.5` | proof | P1 | annual | Art. 21(2)(c), Art. 21(2)(f) | §30(2) Nr. 3+6 BSIG, CIR 4.1.4, 4.3.4 | A.5.29, A.8.6 |
+| `4.1` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.3 | A.5.29, A.5.30 |
+| `4.2` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1, 4.3 | A.5.29, A.5.30, A.5.26 |
+| `4.3` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.2 | G-TOM.1, A.5.30, A.5.29 |
+| `4.4` | technical | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.2 | G-TOM.1, A.8.13, A.8.14 |
+| `4.5` | proof | P1 | annual | Art. 21(2)(c), Art. 21(2)(f) | §30(2) Nr. 3+6 BSIG, CIR 4.1.4, 4.3.4 | A.5.29, A.5.30, A.8.13, A.8.14, A.5.26 |
 
 ### TRN: training
 
@@ -136,10 +136,10 @@ BSI IT-Grundschutz module: `ORP.3`. Estimated effort: 35 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `8.1` | document | P1 | annual | Art. 21(2)(a), Art. 21(2)(g) | §30(2) Nr. 1+7 BSIG, CIR 1.1.1(i), 1.2.2 | AI-LIT.1, A.6.3, A.5.10 |
-| `8.2` | training | P1 | annual | Art. 21(2)(g) | §30(2) Nr. 7 BSIG, CIR 8.1 | A.6.3, IS-7.2 |
+| `8.1` | document | P1 | annual | Art. 21(2)(a), Art. 21(2)(g) | §30(2) Nr. 1+7 BSIG, CIR 1.1.1(i), 1.2.2 | AI-LIT.1, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3, IS-5.3, A.5.2, A.5.3 |
+| `8.2` | training | P1 | annual | Art. 21(2)(g) | §30(2) Nr. 7 BSIG, CIR 8.1 | A.6.3, IS-7.2, IS-7.3, A.8.7 |
 | `8.3` | training | P1 | annual | Art. 21(2)(g) | §30(2) Nr. 7 BSIG, CIR 8.2 | IS-7.2, A.6.3 |
-| `8.4` | proof | P2 | annual | Art. 21(2)(g), Art. 21(2)(f) | §30(2) Nr. 6+7 BSIG, CIR 8.1.3, 8.2.3 | none |
+| `8.4` | proof | P2 | annual | Art. 21(2)(g), Art. 21(2)(f) | §30(2) Nr. 6+7 BSIG, CIR 8.1.3, 8.2.3 | IS-7.3, A.6.3, A.8.7, IS-7.2 |
 
 ### EFF: effectiveness
 
@@ -147,10 +147,10 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `7.1` | proof | P1 | quarterly | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 7.1, 7.2 | G-TOM.1, IS-9.1, A.5.36 |
-| `7.2` | proof | P1 | annual | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 2.3 | G-TOM.1, IS-9.2, A.5.35 |
-| `7.3` | sign-off | P1 | annual | Art. 21(2)(f), Art. 20(1) | §30(2) Nr. 6 BSIG, CIR 2.2.1, §38(1) | IS-9.3 |
-| `7.4` | document | P1 | ongoing | Art. 21(2)(f), Art. 21(4) | §30(2) Nr. 6 BSIG, CIR 2.3.3, Art. 21(4) | IS-10.1 |
+| `7.1` | proof | P1 | quarterly | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 7.1, 7.2 | G-TOM.1, IS-9.1, IS-6.2, IS-9.3 |
+| `7.2` | proof | P1 | annual | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 2.3 | G-TOM.1, IS-9.2, A.5.35, IS-10.1, A.8.34 |
+| `7.3` | sign-off | P1 | annual | Art. 21(2)(f), Art. 20(1) | §30(2) Nr. 6 BSIG, CIR 2.2.1, §38(1) | IS-9.3, IS-9.2, A.5.31, A.5.35, A.5.36 |
+| `7.4` | document | P1 | ongoing | Art. 21(2)(f), Art. 21(4) | §30(2) Nr. 6 BSIG, CIR 2.3.3, Art. 21(4) | IS-9.2, IS-10.1, A.5.35, A.8.34 |
 
 ## GDPR
 
@@ -207,66 +207,66 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | `IS-4.2` | document | P0 | annual | 4.2 | ISO 27001:2022 Cl. 4.2 | none |
 | `IS-4.3` | document | P0 | on-change | 4.3 | ISO 27001:2022 Cl. 4.3 | none |
 | `IS-4.4` | document | P0 | on-change | 4.4 | ISO 27001:2022 Cl. 4.4 | none |
-| `IS-5.1` | sign-off | P0 | annual | 5.1 | ISO 27001:2022 Cl. 5.1 | 1.3, 1.4 |
-| `IS-5.2` | document | P0 | annual | 5.2 | ISO 27001:2022 Cl. 5.2 | 1.2, 2.4 |
-| `IS-5.3` | document | P0 | on-change | 5.3 | ISO 27001:2022 Cl. 5.3 | 1.2 |
-| `IS-6.1` | document | P0 | annual | 6.1 | ISO 27001:2022 Cl. 6.1 | 2.1, 2.4 |
-| `IS-6.2` | document | P1 | annual | 6.2 | ISO 27001:2022 Cl. 6.2 | 2.4 |
-| `IS-6.3` | document | P1 | on-change | 6.3 | ISO 27001:2022 Cl. 6.3 | none |
-| `IS-7.1` | document | P1 | annual | 7.1 | ISO 27001:2022 Cl. 7.1 | none |
-| `IS-7.2` | training | P1 | annual | 7.2 | ISO 27001:2022 Cl. 7.2 | 8.2, 8.3 |
-| `IS-7.3` | training | P1 | annual | 7.3 | ISO 27001:2022 Cl. 7.3 | none |
+| `IS-5.1` | sign-off | P0 | annual | 5.1 | ISO 27001:2022 Cl. 5.1 | 1.3 |
+| `IS-5.2` | document | P0 | annual | 5.2 | ISO 27001:2022 Cl. 5.2 | 1.3, 2.4, 8.1, 12.4 |
+| `IS-5.3` | document | P0 | on-change | 5.3 | ISO 27001:2022 Cl. 5.3 | 1.2, 8.1 |
+| `IS-6.1` | document | P0 | annual | 6.1 | ISO 27001:2022 Cl. 6.1 | 2.1, 2.3, 2.4 |
+| `IS-6.2` | document | P1 | annual | 6.2 | ISO 27001:2022 Cl. 6.2 | 2.1, 2.3, 2.4, 7.1 |
+| `IS-6.3` | document | P1 | on-change | 6.3 | ISO 27001:2022 Cl. 6.3 | 6.5 |
+| `IS-7.1` | document | P1 | annual | 7.1 | ISO 27001:2022 Cl. 7.1 | 1.2 |
+| `IS-7.2` | training | P1 | annual | 7.2 | ISO 27001:2022 Cl. 7.2 | 8.2, 1.2, 8.3, 8.4 |
+| `IS-7.3` | training | P1 | annual | 7.3 | ISO 27001:2022 Cl. 7.3 | 8.2, 8.4 |
 | `IS-7.4` | document | P2 | on-change | 7.4 | ISO 27001:2022 Cl. 7.4 | none |
 | `IS-7.5` | document | P1 | on-change | 7.5 | ISO 27001:2022 Cl. 7.5 | none |
-| `IS-8.1` | document | P0 | on-change | 8.1 | ISO 27001:2022 Cl. 8.1 | none |
-| `IS-8.2` | document | P0 | annual | 8.2 | ISO 27001:2022 Cl. 8.2 | 2.1, 2.3 |
-| `IS-8.3` | document | P0 | annual | 8.3 | ISO 27001:2022 Cl. 8.3 | 2.3, 2.1 |
+| `IS-8.1` | document | P0 | on-change | 8.1 | ISO 27001:2022 Cl. 8.1 | 6.5 |
+| `IS-8.2` | document | P0 | annual | 8.2 | ISO 27001:2022 Cl. 8.2 | 2.3, 2.1, 2.4 |
+| `IS-8.3` | document | P0 | annual | 8.3 | ISO 27001:2022 Cl. 8.3 | 2.3, 2.1, 2.4 |
 | `IS-9.1` | proof | P1 | monthly | 9.1 | ISO 27001:2022 Cl. 9.1 | 7.1 |
-| `IS-9.2` | proof | P0 | annual | 9.2 | ISO 27001:2022 Cl. 9.2 | 7.2 |
-| `IS-9.3` | sign-off | P0 | annual | 9.3 | ISO 27001:2022 Cl. 9.3 | 1.3, 7.3 |
-| `IS-10.1` | proof | P1 | ongoing | 10.1 | ISO 27001:2022 Cl. 10.1 | 7.4 |
+| `IS-9.2` | proof | P0 | annual | 9.2 | ISO 27001:2022 Cl. 9.2 | 7.2, 7.3, 7.4 |
+| `IS-9.3` | sign-off | P0 | annual | 9.3 | ISO 27001:2022 Cl. 9.3 | 7.3, 1.3, 2.4, 7.1, 8.1, 12.4 |
+| `IS-10.1` | proof | P1 | ongoing | 10.1 | ISO 27001:2022 Cl. 10.1 | 7.2, 7.4 |
 | `IS-10.2` | document | P1 | on-change | 10.2 | ISO 27001:2022 Cl. 10.2 | none |
 
 ### ORG: organizational-controls
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `A.5.1` | document | P0 | annual | A.5.1 | ISO 27001:2022 A.5.1 | 1.2 |
-| `A.5.2` | document | P0 | on-change | A.5.2 | ISO 27001:2022 A.5.2 | 1.2 |
-| `A.5.3` | document | P1 | on-change | A.5.3 | ISO 27001:2022 A.5.3 | none |
-| `A.5.4` | proof | P1 | annual | A.5.4 | ISO 27001:2022 A.5.4 | none |
-| `A.5.5` | proof | P1 | annual | A.5.5 | ISO 27001:2022 A.5.5 | 6.2 |
+| `A.5.1` | document | P0 | annual | A.5.1 | ISO 27001:2022 A.5.1 | 1.3, 2.4, 8.1, 12.4 |
+| `A.5.2` | document | P0 | on-change | A.5.2 | ISO 27001:2022 A.5.2 | 1.2, 8.1 |
+| `A.5.3` | document | P1 | on-change | A.5.3 | ISO 27001:2022 A.5.3 | 1.2, 8.1, 10.2, 10.4 |
+| `A.5.4` | proof | P1 | annual | A.5.4 | ISO 27001:2022 A.5.4 | 1.2, 1.3, 2.4, 8.1, 12.4 |
+| `A.5.5` | proof | P1 | annual | A.5.5 | ISO 27001:2022 A.5.5 | none |
 | `A.5.6` | proof | P2 | annual | A.5.6 | ISO 27001:2022 A.5.6 | none |
-| `A.5.7` | proof | P1 | ongoing | A.5.7 | ISO 27001:2022 A.5.7 | 6.2 |
+| `A.5.7` | proof | P1 | ongoing | A.5.7 | ISO 27001:2022 A.5.7 | 2.1, 2.3, 2.4 |
 | `A.5.8` | document | P1 | on-change | A.5.8 | ISO 27001:2022 A.5.8 | none |
 | `A.5.9` | technical | P0 | ongoing | A.5.9 | ISO 27001:2022 A.5.9 | 2.2 |
-| `A.5.10` | document | P1 | annual | A.5.10 | ISO 27001:2022 A.5.10 | 8.1 |
+| `A.5.10` | document | P1 | annual | A.5.10 | ISO 27001:2022 A.5.10 | none |
 | `A.5.11` | document | P1 | on-change | A.5.11 | ISO 27001:2022 A.5.11 | none |
-| `A.5.12` | document | P1 | annual | A.5.12 | ISO 27001:2022 A.5.12 | 2.3 |
-| `A.5.13` | technical | P2 | on-change | A.5.13 | ISO 27001:2022 A.5.13 | 2.3 |
-| `A.5.14` | document | P1 | on-change | A.5.14 | ISO 27001:2022 A.5.14 | 11.2 |
+| `A.5.12` | document | P1 | annual | A.5.12 | ISO 27001:2022 A.5.12 | 2.2 |
+| `A.5.13` | technical | P2 | on-change | A.5.13 | ISO 27001:2022 A.5.13 | 2.2 |
+| `A.5.14` | document | P1 | on-change | A.5.14 | ISO 27001:2022 A.5.14 | none |
 | `A.5.15` | document | P0 | annual | A.5.15 | ISO 27001:2022 A.5.15 | 10.1 |
-| `A.5.16` | technical | P0 | on-change | A.5.16 | ISO 27001:2022 A.5.16 | 10.2, 11.2 |
-| `A.5.17` | technical | P0 | on-change | A.5.17 | ISO 27001:2022 A.5.17 | 10.2 |
-| `A.5.18` | proof | P0 | quarterly | A.5.18 | ISO 27001:2022 A.5.18 | 10.3, 10.4 |
-| `A.5.19` | document | P0 | annual | A.5.19 | ISO 27001:2022 A.5.19 | 5.1 |
-| `A.5.20` | document | P0 | on-change | A.5.20 | ISO 27001:2022 A.5.20 | 5.2 |
-| `A.5.21` | proof | P1 | annual | A.5.21 | ISO 27001:2022 A.5.21 | 5.2, 5.3 |
-| `A.5.22` | proof | P1 | annual | A.5.22 | ISO 27001:2022 A.5.22 | 5.3, 5.4 |
-| `A.5.23` | document | P0 | annual | A.5.23 | ISO 27001:2022 A.5.23 | 5.2 |
+| `A.5.16` | technical | P0 | on-change | A.5.16 | ISO 27001:2022 A.5.16 | 10.2 |
+| `A.5.17` | technical | P0 | on-change | A.5.17 | ISO 27001:2022 A.5.17 | 11.3 |
+| `A.5.18` | proof | P0 | quarterly | A.5.18 | ISO 27001:2022 A.5.18 | 10.3, 10.2, 10.4 |
+| `A.5.19` | document | P0 | annual | A.5.19 | ISO 27001:2022 A.5.19 | 5.1, 2.1, 2.3, 2.4, 5.2, 5.3, 5.4 |
+| `A.5.20` | document | P0 | on-change | A.5.20 | ISO 27001:2022 A.5.20 | 5.2, 2.1, 2.3, 2.4, 5.1, 5.3, 5.4 |
+| `A.5.21` | proof | P1 | annual | A.5.21 | ISO 27001:2022 A.5.21 | 5.3, 2.1, 2.3, 2.4, 5.1, 5.2, 5.4, 6.1 |
+| `A.5.22` | proof | P1 | annual | A.5.22 | ISO 27001:2022 A.5.22 | 5.1 |
+| `A.5.23` | document | P0 | annual | A.5.23 | ISO 27001:2022 A.5.23 | 6.1 |
 | `A.5.24` | document | P0 | annual | A.5.24 | ISO 27001:2022 A.5.24 | 3.1 |
 | `A.5.25` | document | P0 | on-change | A.5.25 | ISO 27001:2022 A.5.25 | 3.2 |
-| `A.5.26` | proof | P0 | on-change | A.5.26 | ISO 27001:2022 A.5.26 | 3.1, 3.3 |
+| `A.5.26` | proof | P0 | on-change | A.5.26 | ISO 27001:2022 A.5.26 | 3.1, 3.3, 3.4, 4.2, 4.5 |
 | `A.5.27` | proof | P1 | on-change | A.5.27 | ISO 27001:2022 A.5.27 | 3.5 |
-| `A.5.28` | document | P2 | on-change | A.5.28 | ISO 27001:2022 A.5.28 | none |
-| `A.5.29` | document | P1 | annual | A.5.29 | ISO 27001:2022 A.5.29 | 4.1, 4.2, 4.5 |
-| `A.5.30` | technical | P1 | annual | A.5.30 | ISO 27001:2022 A.5.30 | 4.3 |
-| `A.5.31` | document | P1 | annual | A.5.31 | ISO 27001:2022 A.5.31 | 1.2, 12.1 |
+| `A.5.28` | document | P2 | on-change | A.5.28 | ISO 27001:2022 A.5.28 | 3.2 |
+| `A.5.29` | document | P1 | annual | A.5.29 | ISO 27001:2022 A.5.29 | 4.1, 4.2, 4.3, 4.5 |
+| `A.5.30` | technical | P1 | annual | A.5.30 | ISO 27001:2022 A.5.30 | 4.3, 4.1, 4.2, 4.5 |
+| `A.5.31` | document | P1 | annual | A.5.31 | ISO 27001:2022 A.5.31 | 7.3, 9.1 |
 | `A.5.32` | proof | P2 | annual | A.5.32 | ISO 27001:2022 A.5.32 | none |
 | `A.5.33` | technical | P1 | ongoing | A.5.33 | ISO 27001:2022 A.5.33 | none |
 | `A.5.34` | document | P0 | annual | A.5.34 | ISO 27001:2022 A.5.34 | none |
-| `A.5.35` | proof | P0 | annual | A.5.35 | ISO 27001:2022 A.5.35 | 7.2 |
-| `A.5.36` | proof | P1 | annual | A.5.36 | ISO 27001:2022 A.5.36 | 7.1 |
+| `A.5.35` | proof | P0 | annual | A.5.35 | ISO 27001:2022 A.5.35 | 7.2, 7.3, 7.4 |
+| `A.5.36` | proof | P1 | annual | A.5.36 | ISO 27001:2022 A.5.36 | 1.3, 2.4, 7.3, 8.1, 12.4 |
 | `A.5.37` | document | P1 | on-change | A.5.37 | ISO 27001:2022 A.5.37 | none |
 
 ### PPL: people-controls
@@ -274,8 +274,8 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `A.6.1` | proof | P1 | on-change | A.6.1 | ISO 27001:2022 A.6.1 | 10.3 |
-| `A.6.2` | document | P1 | on-change | A.6.2 | ISO 27001:2022 A.6.2 | none |
-| `A.6.3` | training | P0 | annual | A.6.3 | ISO 27001:2022 A.6.3 | 8.1, 8.2, 8.3 |
+| `A.6.2` | document | P1 | on-change | A.6.2 | ISO 27001:2022 A.6.2 | 1.2 |
+| `A.6.3` | training | P0 | annual | A.6.3 | ISO 27001:2022 A.6.3 | 8.2, 1.2, 8.3, 8.4 |
 | `A.6.4` | document | P2 | on-change | A.6.4 | ISO 27001:2022 A.6.4 | none |
 | `A.6.5` | document | P1 | on-change | A.6.5 | ISO 27001:2022 A.6.5 | 10.3 |
 | `A.6.6` | document | P1 | on-change | A.6.6 | ISO 27001:2022 A.6.6 | none |
@@ -287,7 +287,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `A.7.1` | document | P1 | annual | A.7.1 | ISO 27001:2022 A.7.1 | none |
-| `A.7.2` | proof | P1 | annual | A.7.2 | ISO 27001:2022 A.7.2 | none |
+| `A.7.2` | proof | P1 | annual | A.7.2 | ISO 27001:2022 A.7.2 | 10.1 |
 | `A.7.3` | document | P1 | annual | A.7.3 | ISO 27001:2022 A.7.3 | none |
 | `A.7.4` | technical | P2 | ongoing | A.7.4 | ISO 27001:2022 A.7.4 | none |
 | `A.7.5` | document | P1 | annual | A.7.5 | ISO 27001:2022 A.7.5 | none |
@@ -298,47 +298,47 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | `A.7.10` | proof | P1 | on-change | A.7.10 | ISO 27001:2022 A.7.10 | none |
 | `A.7.11` | proof | P2 | annual | A.7.11 | ISO 27001:2022 A.7.11 | none |
 | `A.7.12` | proof | P2 | annual | A.7.12 | ISO 27001:2022 A.7.12 | none |
-| `A.7.13` | proof | P1 | annual | A.7.13 | ISO 27001:2022 A.7.13 | none |
+| `A.7.13` | proof | P1 | annual | A.7.13 | ISO 27001:2022 A.7.13 | 6.5 |
 | `A.7.14` | proof | P1 | on-change | A.7.14 | ISO 27001:2022 A.7.14 | none |
 
 ### TEC: technological-controls
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `A.8.1` | technical | P0 | annual | A.8.1 | ISO 27001:2022 A.8.1 | 2.2 |
-| `A.8.2` | proof | P0 | quarterly | A.8.2 | ISO 27001:2022 A.8.2 | 11.1, 10.3 |
-| `A.8.3` | technical | P0 | on-change | A.8.3 | ISO 27001:2022 A.8.3 | 9.2, 10.1 |
+| `A.8.1` | technical | P0 | annual | A.8.1 | ISO 27001:2022 A.8.1 | none |
+| `A.8.2` | proof | P0 | quarterly | A.8.2 | ISO 27001:2022 A.8.2 | 10.2, 10.3, 10.4 |
+| `A.8.3` | technical | P0 | on-change | A.8.3 | ISO 27001:2022 A.8.3 | 10.1 |
 | `A.8.4` | technical | P0 | on-change | A.8.4 | ISO 27001:2022 A.8.4 | none |
-| `A.8.5` | technical | P0 | annual | A.8.5 | ISO 27001:2022 A.8.5 | 9.2, 11.1 |
-| `A.8.6` | proof | P1 | ongoing | A.8.6 | ISO 27001:2022 A.8.6 | 4.5 |
-| `A.8.7` | technical | P0 | ongoing | A.8.7 | ISO 27001:2022 A.8.7 | none |
+| `A.8.5` | technical | P0 | annual | A.8.5 | ISO 27001:2022 A.8.5 | 11.1 |
+| `A.8.6` | proof | P1 | ongoing | A.8.6 | ISO 27001:2022 A.8.6 | none |
+| `A.8.7` | technical | P0 | ongoing | A.8.7 | ISO 27001:2022 A.8.7 | 8.2, 8.4 |
 | `A.8.8` | technical | P0 | ongoing | A.8.8 | ISO 27001:2022 A.8.8 | 6.3, 6.4 |
 | `A.8.9` | document | P1 | on-change | A.8.9 | ISO 27001:2022 A.8.9 | 6.2 |
-| `A.8.10` | proof | P1 | on-change | A.8.10 | ISO 27001:2022 A.8.10 | 2.2 |
+| `A.8.10` | proof | P1 | on-change | A.8.10 | ISO 27001:2022 A.8.10 | none |
 | `A.8.11` | technical | P2 | on-change | A.8.11 | ISO 27001:2022 A.8.11 | none |
 | `A.8.12` | technical | P1 | ongoing | A.8.12 | ISO 27001:2022 A.8.12 | none |
-| `A.8.13` | technical | P0 | annual | A.8.13 | ISO 27001:2022 A.8.13 | 4.4 |
-| `A.8.14` | proof | P1 | annual | A.8.14 | ISO 27001:2022 A.8.14 | 4.3 |
+| `A.8.13` | technical | P0 | annual | A.8.13 | ISO 27001:2022 A.8.13 | 4.4, 4.5 |
+| `A.8.14` | proof | P1 | annual | A.8.14 | ISO 27001:2022 A.8.14 | 4.4, 4.5 |
 | `A.8.15` | technical | P0 | ongoing | A.8.15 | ISO 27001:2022 A.8.15 | 3.2 |
 | `A.8.16` | technical | P0 | ongoing | A.8.16 | ISO 27001:2022 A.8.16 | 3.2 |
-| `A.8.17` | technical | P2 | ongoing | A.8.17 | ISO 27001:2022 A.8.17 | none |
-| `A.8.18` | proof | P1 | on-change | A.8.18 | ISO 27001:2022 A.8.18 | 10.2, 10.3 |
+| `A.8.17` | technical | P2 | ongoing | A.8.17 | ISO 27001:2022 A.8.17 | 3.2 |
+| `A.8.18` | proof | P1 | on-change | A.8.18 | ISO 27001:2022 A.8.18 | 10.2, 10.3, 10.4 |
 | `A.8.19` | document | P1 | on-change | A.8.19 | ISO 27001:2022 A.8.19 | none |
-| `A.8.20` | technical | P0 | annual | A.8.20 | ISO 27001:2022 A.8.20 | 11.2 |
-| `A.8.21` | document | P1 | annual | A.8.21 | ISO 27001:2022 A.8.21 | 11.2 |
-| `A.8.22` | technical | P1 | on-change | A.8.22 | ISO 27001:2022 A.8.22 | 11.2 |
+| `A.8.20` | technical | P0 | annual | A.8.20 | ISO 27001:2022 A.8.20 | none |
+| `A.8.21` | document | P1 | annual | A.8.21 | ISO 27001:2022 A.8.21 | 10.1 |
+| `A.8.22` | technical | P1 | on-change | A.8.22 | ISO 27001:2022 A.8.22 | none |
 | `A.8.23` | technical | P2 | annual | A.8.23 | ISO 27001:2022 A.8.23 | none |
 | `A.8.24` | document | P0 | annual | A.8.24 | ISO 27001:2022 A.8.24 | 9.1 |
-| `A.8.25` | document | P1 | annual | A.8.25 | ISO 27001:2022 A.8.25 | 6.2, 6.5 |
+| `A.8.25` | document | P1 | annual | A.8.25 | ISO 27001:2022 A.8.25 | 6.2 |
 | `A.8.26` | document | P1 | on-change | A.8.26 | ISO 27001:2022 A.8.26 | none |
 | `A.8.27` | document | P1 | on-change | A.8.27 | ISO 27001:2022 A.8.27 | none |
 | `A.8.28` | proof | P1 | ongoing | A.8.28 | ISO 27001:2022 A.8.28 | none |
-| `A.8.29` | technical | P1 | on-change | A.8.29 | ISO 27001:2022 A.8.29 | 6.5 |
-| `A.8.30` | document | P2 | on-change | A.8.30 | ISO 27001:2022 A.8.30 | none |
-| `A.8.31` | technical | P1 | on-change | A.8.31 | ISO 27001:2022 A.8.31 | 6.5 |
-| `A.8.32` | proof | P0 | on-change | A.8.32 | ISO 27001:2022 A.8.32 | 6.5 |
-| `A.8.33` | proof | P1 | on-change | A.8.33 | ISO 27001:2022 A.8.33 | none |
-| `A.8.34` | document | P2 | on-change | A.8.34 | ISO 27001:2022 A.8.34 | none |
+| `A.8.29` | technical | P1 | on-change | A.8.29 | ISO 27001:2022 A.8.29 | 6.3 |
+| `A.8.30` | document | P2 | on-change | A.8.30 | ISO 27001:2022 A.8.30 | 5.1, 5.2, 5.3, 5.4 |
+| `A.8.31` | technical | P1 | on-change | A.8.31 | ISO 27001:2022 A.8.31 | 6.2, 6.4 |
+| `A.8.32` | proof | P0 | on-change | A.8.32 | ISO 27001:2022 A.8.32 | 6.5, 6.4 |
+| `A.8.33` | proof | P1 | on-change | A.8.33 | ISO 27001:2022 A.8.33 | 6.3 |
+| `A.8.34` | document | P2 | on-change | A.8.34 | ISO 27001:2022 A.8.34 | 6.3, 7.2, 7.4 |
 
 ## EU AI Act
 
@@ -495,7 +495,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 ## Cross-Framework Satisfaction Pairs
 
-134 pairs. `equivalent` marks the same record in both frameworks; `overlapping` marks a partial overlap, where the other framework still asks for more.
+212 pairs. `equivalent` marks the same record in both frameworks; `overlapping` marks a partial overlap, where the other framework still asks for more.
 
 ### NIS2 and GDPR (20)
 
@@ -574,97 +574,175 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | `CRA-ESS.1` | `G-TOM.1` | overlapping | Essential cybersecurity requirements (Annex I) overlap with the technical and organisational measures GDPR Art. 32 requires when the product processes personal data. |
 | `CRA-VLN.1` | `G-BRC.1` | overlapping | Vulnerability handling procedures feed the GDPR Art. 33 breach response when a vulnerability leads to a personal-data breach. |
 
-### ISO/IEC 27001:2022 and NIS2 (87)
+### ISO/IEC 27001:2022 and NIS2 (165)
 
 | First | Second | Kind | Rationale |
 |---|---|---|---|
 | `IS-5.1` | `1.3` | equivalent | Cl. 5.1(c) resource commitment is the same resourcing decision the 1.3 budget sign-off evidences (CIR 1.1.1(e)). |
-| `IS-5.1` | `1.4` | overlapping | Leadership commitment under Cl. 5.1 supports the liability briefing 1.4 documents; ISO defines no liability-acknowledgment artefact (§38(2) BSIG is a liability rule, not a sign-off duty). |
-| `IS-5.2` | `1.2` | overlapping | The Cl. 5.2 policy assigns responsibilities that 1.2's team mapping reflects; the policy document itself is a different artefact (see 2.4). |
-| `IS-5.2` | `2.4` | overlapping | The Cl. 5.2 information security policy is the document the 2.4 IS-Leitlinie sign-off approves; scopes differ (full ISMS policy vs risk-acceptance sign-off). |
-| `IS-5.3` | `1.2` | overlapping | Cl. 5.3 assigns and communicates roles and authorities, which is what 1.2 records under §30(1) BSIG and CIR 1.2 (Art. 21(2)(a)). Art. 20(1) is a separate duty: management-body approval of the risk management measures, oversight of implementation and liability, tracked in 1.3 and 1.4. |
-| `A.5.1` | `1.2` | overlapping | Policies for information security (A.5.1) overlap with the governance framework NIS2 §30(1) requires. |
 | `A.5.2` | `1.2` | equivalent | Same roles artefact: A.5.2 information security roles and responsibilities is the role assignment 1.2 records (CIR 1.2). |
-| `A.5.31` | `1.2` | overlapping | The legal-requirements register (A.5.31) keeps regulatory duties owned by named roles; its NIS2 home is the 12.1 classification step. |
-| `A.5.31` | `12.1` | overlapping | Same determine-your-legal-position work: the A.5.31 register documents the NIS2/BSIG applicability that 12.1 assesses. |
-| `IS-9.3` | `1.3` | overlapping | Management review records (Cl. 9.3) evidence the resourcing oversight the 1.3 budget sign-off documents (CIR 1.1.1(e)). |
 | `IS-6.1` | `2.1` | equivalent | Same methodology document: the Cl. 6.1 risk assessment methodology is the risk management methodology NIS2 CIR 2.1 requires. |
-| `IS-6.1` | `2.4` | overlapping | Cl. 6.1.3's risk treatment plan with risk-owner approval of residual risks is what the 2.4 sign-off accepts. |
-| `IS-8.2` | `2.1` | overlapping | Cl. 8.2 re-runs the 2.1 methodology; its artefact is the recurring assessment results, which live in the 2.3 register. |
 | `IS-8.2` | `2.3` | equivalent | Same risk register: Cl. 8.2 operational risk assessment results are the 2.3 register rows. |
 | `IS-8.3` | `2.3` | equivalent | Same treatment records: Cl. 8.3 risk treatment implements the 2.3 register's treatment decisions. |
-| `IS-6.2` | `2.4` | overlapping | Cl. 6.2 sets security objectives that the signed IS-Leitlinie carries; the risk treatment plan with owner approval is Cl. 6.1.3 (in IS-6.1's scope). |
-| `IS-8.3` | `2.1` | overlapping | Operational risk treatment (Cl. 8.3) implements the plan required by NIS2 CIR 2.1. |
 | `A.5.9` | `2.2` | equivalent | Asset inventory (A.5.9) is the same register NIS2 CIR 12.4 / §30(2) Nr. 9 BSIG requires for asset identification. |
-| `A.8.1` | `2.2` | overlapping | User endpoint device protection (A.8.1) presupposes the endpoint entries in the same asset register NIS2 mandates. |
-| `A.8.10` | `2.2` | overlapping | Information deletion (A.8.10) is exercised against the retention data of the asset register (CIR 12.2/12.5 territory). |
-| `A.5.12` | `2.3` | overlapping | Information classification scheme (A.5.12) drives the asset classification CIR 12.1 requires; CIR 2.1.3 feeds that classification into risk treatment prioritisation, and 2.3 records the resulting criticality ratings. |
-| `A.5.13` | `2.3` | overlapping | Information labelling (A.5.13) implements the classification that underpins NIS2 asset classification. |
 | `A.5.24` | `3.1` | equivalent | Same incident response procedure: A.5.24 incident management planning produces the policy NIS2 CIR 3.1 requires. |
 | `A.5.25` | `3.2` | equivalent | Same event assessment process: A.5.25 covers the detection and logging NIS2 CIR 3.2/3.4 expects. |
 | `A.5.26` | `3.1` | equivalent | Response to IS incidents (A.5.26) implements the same response procedure; same incident record. |
 | `A.5.26` | `3.3` | equivalent | Response execution under A.5.26 and the NIS2 24h/72h CSIRT cascade share the same underlying event record. |
 | `A.5.27` | `3.5` | equivalent | Same lessons-learned report: A.5.27 output is the post-incident review NIS2 CIR 3.6 requires. |
-| `A.6.8` | `3.2` | overlapping | IS event reporting channel (A.6.8) is the employee/supplier/customer reporting mechanism NIS2 CIR 3.3 requires. |
-| `A.8.15` | `3.2` | overlapping | Logging controls (A.8.15) generate the evidence trail NIS2 CIR 3.2 expects for incident detection. |
-| `A.8.16` | `3.2` | overlapping | Monitoring activities (A.8.16) overlap with NIS2 detection and alerting requirements. |
 | `A.5.29` | `4.1` | equivalent | Same continuity policy: A.5.29 IS continuity policy is the BCP framework document NIS2 CIR 4.1 requires. |
-| `A.5.29` | `4.2` | overlapping | Same IS continuity policy covers the BCP plan content NIS2 CIR 4.1/4.3 requires. |
-| `A.5.29` | `4.5` | overlapping | Continuity policy requirements include testing obligations that map to NIS2 BCP exercise requirements (CIR 4.1.4). |
 | `A.5.30` | `4.3` | equivalent | Same ICT readiness plan: A.5.30 maps directly to the NIS2 ICT continuity requirements; one plan satisfies both. |
 | `A.8.13` | `4.4` | equivalent | Same backup programme: A.8.13 backup controls satisfy the NIS2 backup management requirements under CIR 4.2. |
-| `A.8.14` | `4.3` | overlapping | Redundancy of processing facilities (A.8.14) overlaps with NIS2 availability and resilience requirements (CIR 4.2.4). |
-| `A.8.6` | `4.5` | overlapping | Capacity management (A.8.6) feeds the resource-adequacy review NIS2 CIR 4.2.5 expects as part of BCP testing. |
 | `A.5.19` | `5.1` | equivalent | Same supplier security policy: A.5.19 supplier relationship IS policy is the policy NIS2 CIR 5.1 requires. |
 | `A.5.20` | `5.2` | equivalent | Same contractual clauses: A.5.20 IS requirements in supplier agreements cover the clauses NIS2 CIR 5.1.4 mandates. |
-| `A.5.21` | `5.2` | overlapping | ICT supply chain IS management (A.5.21) overlaps with NIS2 supply-chain security contract requirements. |
 | `A.5.21` | `5.3` | equivalent | Same supplier risk assessment process satisfies both A.5.21 and the NIS2 CIR 5.1.6 monitoring obligation. |
-| `A.5.22` | `5.3` | overlapping | Supplier service monitoring and review (A.5.22) covers the ongoing monitoring NIS2 CIR 5.1.6/5.1.7 requires. |
-| `A.5.22` | `5.4` | overlapping | Regular supplier reviews (A.5.22) generate the monitoring evidence the CIR 5.1.4(d) notification clause expects. |
-| `A.5.23` | `5.2` | overlapping | Cloud services IS requirements (A.5.23) extend supplier agreement controls to cloud providers as NIS2 requires. |
-| `A.5.7` | `6.2` | overlapping | Threat intelligence (A.5.7) informs secure development and configuration decisions; the vulnerability-monitoring duty itself is CIR 6.10 under requirement 6.3. |
-| `A.5.5` | `6.2` | overlapping | Contacts with authorities (A.5.5) support the coordinated-vulnerability-disclosure channel (CIR 6.10.2(e), requirement 6.3). |
 | `A.8.8` | `6.3` | equivalent | Same vulnerability programme: A.8.8 technical vulnerability management is the scanning programme NIS2 CIR 6.5/6.10 requires. |
 | `A.8.8` | `6.4` | equivalent | Same patch programme: A.8.8 timely remediation maps to the patch management cadence NIS2 CIR 6.6 mandates. |
-| `A.8.9` | `6.2` | overlapping | Configuration management (A.8.9) implements the secure-configuration half of 6.2 (CIR 6.3); 6.2's secure development life cycle half (CIR 6.2) is separate. |
-| `A.8.25` | `6.2` | overlapping | Same development discipline: A.8.25 secure development life cycle is the CIR 6.2 duty requirement 6.2 carries. |
-| `A.8.25` | `6.5` | overlapping | Secure development life cycle (A.8.25, CIR 6.2) overlaps 6.5 where changes ship through the development process. |
-| `A.8.29` | `6.5` | overlapping | Security testing (A.8.29, CIR 6.5) validates changes before release, supporting the 6.5 change process. |
-| `A.8.31` | `6.5` | overlapping | Separation of dev/test/prod (A.8.31) is part of the change-control discipline (CIR 6.4) and the secure development environment (CIR 6.2). |
 | `A.8.32` | `6.5` | equivalent | Same change record: A.8.32 change management is the CIR 6.4 change process requirement 6.5 tracks; both write the same change_request rows. |
 | `IS-9.1` | `7.1` | equivalent | Same KPI records: Cl. 9.1 monitoring, measurement and analysis produces the KPI evidence NIS2 CIR 7.1/7.2 requires. |
 | `IS-9.2` | `7.2` | equivalent | Internal audit programme (Cl. 9.2) is the independent review CIR 2.3 requires; same audit records. |
 | `IS-9.3` | `7.3` | equivalent | Same CEO sign-off artefact: Cl. 9.3 management review is the regular management reporting CIR 2.2.1 requires. |
 | `A.5.35` | `7.2` | equivalent | Same audit programme: A.5.35 independent review of information security is the CIR 2.3 independent review. |
-| `A.5.36` | `7.1` | overlapping | Compliance with policies and standards (A.5.36) overlaps with the NIS2 policy-effectiveness measurement. |
-| `IS-10.1` | `7.4` | overlapping | Continual improvement records (Cl. 10.1) evidence the corrective actions CIR 2.3.3 and Art. 21(4) require. |
-| `A.6.3` | `8.1` | overlapping | The A.6.3 awareness programme teaches the rules the 8.1 policy sets; the training equivalence lives on 8.2. |
 | `A.6.3` | `8.2` | equivalent | Same training programme satisfies both A.6.3 employee awareness and NIS2 CIR 8.1 awareness raising. |
 | `IS-7.2` | `8.2` | equivalent | Same training records: Cl. 7.2 competence records document the staff awareness NIS2 CIR 8.1 expects. |
-| `IS-7.2` | `8.3` | overlapping | Same competence records cover role-specific security training under CIR 8.2. |
-| `A.6.3` | `8.3` | overlapping | Role-specific awareness content (A.6.3) overlaps with the CIR 8.2 security training requirement. |
-| `A.5.10` | `8.1` | overlapping | Acceptable use rules for information and assets (A.5.10) are the same topic-specific policy content the 8.1 IT-Sicherheitsrichtlinie carries (CIR 1.1.1(i)). |
 | `A.8.24` | `9.1` | equivalent | Same cryptography policy: A.8.24 is the policy NIS2 CIR 9.1 / BSI TR-02102 requires. |
-| `A.8.5` | `9.2` | overlapping | Secure authentication (A.8.5) is access-control territory (CIR 11.6/11.7, requirement 11.1); it touches 9.2 only via encrypted authentication channels. |
-| `A.8.3` | `9.2` | overlapping | Information access restriction (A.8.3) complements encryption of data at rest (CIR 9.2(a)); the control's home is access control (10.1). |
 | `A.5.15` | `10.1` | equivalent | Same access control policy: A.5.15 is the policy NIS2 CIR 11.1 requires. |
 | `A.5.16` | `10.2` | equivalent | Same IAM programme: A.5.16 identity management covers the identity and access management NIS2 CIR 11.2 mandates. |
-| `A.5.17` | `10.2` | overlapping | Authentication information management (A.5.17) implements the privileged account controls NIS2 CIR 11.2/11.3 requires. |
 | `A.5.18` | `10.3` | equivalent | Same access-rights records: A.5.18 produces the change-controlled access evidence NIS2 CIR 11.2 expects. |
-| `A.5.18` | `10.4` | overlapping | Same periodic review: A.5.18 access-rights review is the documented review CIR 11.2.3 requires at planned intervals (the platform default is yearly, quarterly for privileged accounts). |
-| `A.8.3` | `10.1` | overlapping | Information access restriction (A.8.3) enforces the access control policy NIS2 CIR 11.1 requires. |
-| `A.8.18` | `10.2` | overlapping | Privileged utility programs (A.8.18) are governed by the privileged-account rules (CIR 11.3) documented in 10.3; 10.2's per-asset rows record where they apply. |
-| `A.8.18` | `10.3` | overlapping | Same privileged-account discipline: A.8.18 restrictions implement the CIR 11.3 policies documented in 10.3. |
-| `A.6.1` | `10.3` | overlapping | Screening (A.6.1) is the background verification CIR 10.2 requires; 10.3 documents the process it belongs to. |
-| `A.6.5` | `10.3` | overlapping | Responsibilities after termination (A.6.5) implement the CIR 10.3 termination procedures inside 10.3's lifecycle process. |
 | `A.8.5` | `11.1` | equivalent | Same MFA control: A.8.5 secure authentication implements the MFA/continuous-authentication requirement NIS2 CIR 11.7 mandates. |
-| `A.8.2` | `11.1` | overlapping | Privileged access rights (A.8.2) are CIR 11.3 territory (requirement 10.3); MFA (CIR 11.7) protects those accounts but is a different artefact. |
-| `A.8.2` | `10.3` | overlapping | Same privileged-account discipline: A.8.2 privileged access rights implement the CIR 11.3 policies documented in 10.3. |
-| `A.5.16` | `11.2` | overlapping | Identity management (A.5.16) underpins who may use the secured communication channels 11.2 establishes. |
-| `A.5.14` | `11.2` | overlapping | Information transfer rules (A.5.14) govern the secured voice/video/text channels Art. 21(2)(j) requires; the emergency-communication half of 11.2 is separate. |
-| `A.8.20` | `11.2` | overlapping | Network security controls (A.8.20) protect the channels 11.2 relies on; segmentation itself is CIR 6.8, which has no dedicated NIS2 step. |
-| `A.8.21` | `11.2` | overlapping | Security of network services (A.8.21) supports secured communications; the underlying network-security duty is CIR 6.7. |
-| `A.8.22` | `11.2` | overlapping | Network segregation (A.8.22, CIR 6.8) hardens the environment secured communications run in; different artefact. |
+| `IS-5.3` | `1.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 5.3 for CIR point 1.2: a relevant reference, not the same record. |
+| `A.5.3` | `1.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.3 for CIR point 1.2: a relevant reference, not the same record. |
+| `A.5.4` | `1.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.4 for CIR point 1.2: a relevant reference, not the same record. |
+| `IS-7.1` | `1.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 7.1 for CIR point 10.1: a relevant reference, not the same record. |
+| `IS-7.2` | `1.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 7.2 for CIR point 10.1: a relevant reference, not the same record. |
+| `A.6.2` | `1.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.6.2 for CIR point 10.1: a relevant reference, not the same record. |
+| `A.6.3` | `1.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.6.3 for CIR point 10.1: a relevant reference, not the same record. |
+| `IS-5.2` | `1.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 5.2 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.1` | `1.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.1 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.36` | `1.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.36 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.4` | `1.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.4 for CIR point 1.1: a relevant reference, not the same record. |
+| `IS-9.3` | `1.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 9.3 for CIR point 1.1: a relevant reference, not the same record. |
+| `IS-6.2` | `2.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 6.2 for CIR point 2.1: a relevant reference, not the same record. |
+| `IS-8.2` | `2.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 8.2 for CIR point 2.1: a relevant reference, not the same record. |
+| `IS-8.3` | `2.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 8.3 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.7` | `2.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.7 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.19` | `2.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.19 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.20` | `2.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.20 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.21` | `2.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.21 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.12` | `2.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.12 for CIR point 12.1: a relevant reference, not the same record. |
+| `A.5.13` | `2.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.13 for CIR point 12.1: a relevant reference, not the same record. |
+| `IS-6.1` | `2.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 6.1, 6.1.2, 6.1.3 for CIR point 2.1: a relevant reference, not the same record. |
+| `IS-6.2` | `2.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 6.2 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.7` | `2.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.7 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.19` | `2.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.19 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.20` | `2.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.20 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.21` | `2.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.21 for CIR point 2.1: a relevant reference, not the same record. |
+| `IS-5.2` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 5.2 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.1` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.1 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.36` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.36 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.4` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.4 for CIR point 1.1: a relevant reference, not the same record. |
+| `IS-9.3` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 9.3 for CIR point 1.1: a relevant reference, not the same record. |
+| `IS-6.1` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 6.1, 6.1.2, 6.1.3 for CIR point 2.1: a relevant reference, not the same record. |
+| `IS-6.2` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 6.2 for CIR point 2.1: a relevant reference, not the same record. |
+| `IS-8.2` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 8.2 for CIR point 2.1: a relevant reference, not the same record. |
+| `IS-8.3` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 8.3 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.7` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.7 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.19` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.19 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.20` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.20 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.21` | `2.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.21 for CIR point 2.1: a relevant reference, not the same record. |
+| `A.5.28` | `3.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.28 for CIR point 3.2: a relevant reference, not the same record. |
+| `A.8.15` | `3.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.15 for CIR point 3.2: a relevant reference, not the same record. |
+| `A.8.16` | `3.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.16 for CIR point 3.2: a relevant reference, not the same record. |
+| `A.8.17` | `3.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.17 for CIR point 3.2: a relevant reference, not the same record. |
+| `A.6.8` | `3.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.6.8 for CIR point 3.3: a relevant reference, not the same record. |
+| `A.5.26` | `3.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.26 for CIR point 3.5: a relevant reference, not the same record. |
+| `A.5.30` | `4.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.30 for CIR point 4.1: a relevant reference, not the same record. |
+| `A.5.29` | `4.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.29 for CIR point 4.1; A.5.29 for CIR point 4.3: a relevant reference, not the same record. |
+| `A.5.30` | `4.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.30 for CIR point 4.1; A.5.30 for CIR point 4.3: a relevant reference, not the same record. |
+| `A.5.26` | `4.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.26 for CIR point 4.3: a relevant reference, not the same record. |
+| `A.5.29` | `4.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.29 for CIR point 4.1: a relevant reference, not the same record. |
+| `A.8.14` | `4.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.14 for CIR point 4.2: a relevant reference, not the same record. |
+| `A.5.29` | `4.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.29 for CIR point 4.1; A.5.29 for CIR point 4.3: a relevant reference, not the same record. |
+| `A.5.30` | `4.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.30 for CIR point 4.1; A.5.30 for CIR point 4.3: a relevant reference, not the same record. |
+| `A.8.13` | `4.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.13 for CIR point 4.2: a relevant reference, not the same record. |
+| `A.8.14` | `4.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.14 for CIR point 4.2: a relevant reference, not the same record. |
+| `A.5.26` | `4.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.26 for CIR point 4.3: a relevant reference, not the same record. |
+| `A.5.20` | `5.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.20 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.21` | `5.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.21 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.8.30` | `5.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.30 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.22` | `5.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.22 for CIR point 5.2: a relevant reference, not the same record. |
+| `A.5.19` | `5.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.19 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.21` | `5.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.21 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.8.30` | `5.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.30 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.19` | `5.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.19 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.20` | `5.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.20 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.8.30` | `5.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.30 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.19` | `5.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.19 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.20` | `5.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.20 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.21` | `5.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.21 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.8.30` | `5.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.30 for CIR point 5.1: a relevant reference, not the same record. |
+| `A.5.21` | `6.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.21 for CIR point 6.1: a relevant reference, not the same record. |
+| `A.5.23` | `6.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.23 for CIR point 6.1: a relevant reference, not the same record. |
+| `A.8.25` | `6.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.25 for CIR point 6.2: a relevant reference, not the same record. |
+| `A.8.31` | `6.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.31 for CIR point 6.2: a relevant reference, not the same record. |
+| `A.8.9` | `6.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.9 for CIR point 6.3: a relevant reference, not the same record. |
+| `A.8.29` | `6.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.29 for CIR point 6.5: a relevant reference, not the same record. |
+| `A.8.33` | `6.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.33 for CIR point 6.5: a relevant reference, not the same record. |
+| `A.8.34` | `6.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.34 for CIR point 6.5: a relevant reference, not the same record. |
+| `A.8.31` | `6.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.31 for CIR point 6.6: a relevant reference, not the same record. |
+| `A.8.32` | `6.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.32 for CIR point 6.6: a relevant reference, not the same record. |
+| `IS-6.3` | `6.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 6.3 for CIR point 6.4: a relevant reference, not the same record. |
+| `IS-8.1` | `6.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 8.1 for CIR point 6.4: a relevant reference, not the same record. |
+| `A.7.13` | `6.5` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.7.13 for CIR point 6.4: a relevant reference, not the same record. |
+| `IS-6.2` | `7.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 6.2 for CIR point 7.1: a relevant reference, not the same record. |
+| `IS-9.3` | `7.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 9.3 for CIR point 7.1: a relevant reference, not the same record. |
+| `IS-10.1` | `7.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 10.1 for CIR point 2.3: a relevant reference, not the same record. |
+| `A.8.34` | `7.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.34 for CIR point 2.3: a relevant reference, not the same record. |
+| `IS-9.2` | `7.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 9.2 for CIR point 2.2: a relevant reference, not the same record. |
+| `A.5.31` | `7.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.31 for CIR point 2.2: a relevant reference, not the same record. |
+| `A.5.35` | `7.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.35 for CIR point 2.2: a relevant reference, not the same record. |
+| `A.5.36` | `7.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.36 for CIR point 2.2: a relevant reference, not the same record. |
+| `IS-9.2` | `7.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 9.2 for CIR point 2.3: a relevant reference, not the same record. |
+| `IS-10.1` | `7.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 10.1 for CIR point 2.3: a relevant reference, not the same record. |
+| `A.5.35` | `7.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.35 for CIR point 2.3: a relevant reference, not the same record. |
+| `A.8.34` | `7.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.34 for CIR point 2.3: a relevant reference, not the same record. |
+| `IS-5.2` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 5.2 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.1` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.1 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.36` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.36 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.4` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.4 for CIR point 1.1; A.5.4 for CIR point 1.2: a relevant reference, not the same record. |
+| `IS-9.3` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 9.3 for CIR point 1.1: a relevant reference, not the same record. |
+| `IS-5.3` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 5.3 for CIR point 1.2: a relevant reference, not the same record. |
+| `A.5.2` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.2 for CIR point 1.2: a relevant reference, not the same record. |
+| `A.5.3` | `8.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.3 for CIR point 1.2: a relevant reference, not the same record. |
+| `IS-7.3` | `8.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 7.3 for CIR point 8.1: a relevant reference, not the same record. |
+| `A.8.7` | `8.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.7 for CIR point 8.1: a relevant reference, not the same record. |
+| `IS-7.2` | `8.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 7.2 for CIR point 8.2: a relevant reference, not the same record. |
+| `A.6.3` | `8.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.6.3 for CIR point 8.2: a relevant reference, not the same record. |
+| `IS-7.3` | `8.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 7.3 for CIR point 8.1: a relevant reference, not the same record. |
+| `A.6.3` | `8.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.6.3 for CIR point 8.1; A.6.3 for CIR point 8.2: a relevant reference, not the same record. |
+| `A.8.7` | `8.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.7 for CIR point 8.1: a relevant reference, not the same record. |
+| `IS-7.2` | `8.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 7.2 for CIR point 8.2: a relevant reference, not the same record. |
+| `A.5.31` | `9.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.31 for CIR point 9.1: a relevant reference, not the same record. |
+| `A.7.2` | `10.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.7.2 for CIR point 11.1: a relevant reference, not the same record. |
+| `A.8.3` | `10.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.3 for CIR point 11.1: a relevant reference, not the same record. |
+| `A.8.21` | `10.1` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.21 for CIR point 11.1: a relevant reference, not the same record. |
+| `A.5.3` | `10.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.3 for CIR point 11.2: a relevant reference, not the same record. |
+| `A.5.18` | `10.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.18 for CIR point 11.2: a relevant reference, not the same record. |
+| `A.8.2` | `10.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.2 for CIR point 11.3: a relevant reference, not the same record. |
+| `A.8.18` | `10.2` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.18 for CIR point 11.3: a relevant reference, not the same record. |
+| `A.6.1` | `10.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.6.1 for CIR point 10.2: a relevant reference, not the same record. |
+| `A.6.5` | `10.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.6.5 for CIR point 10.3: a relevant reference, not the same record. |
+| `A.8.2` | `10.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.2 for CIR point 11.3: a relevant reference, not the same record. |
+| `A.8.18` | `10.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.18 for CIR point 11.3: a relevant reference, not the same record. |
+| `A.5.3` | `10.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.3 for CIR point 11.2: a relevant reference, not the same record. |
+| `A.5.18` | `10.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.18 for CIR point 11.2: a relevant reference, not the same record. |
+| `A.8.2` | `10.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.2 for CIR point 11.3: a relevant reference, not the same record. |
+| `A.8.18` | `10.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.8.18 for CIR point 11.3: a relevant reference, not the same record. |
+| `A.5.17` | `11.3` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.17 for CIR point 11.6: a relevant reference, not the same record. |
+| `IS-5.2` | `12.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 5.2 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.1` | `12.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.1 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.36` | `12.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.36 for CIR point 1.1: a relevant reference, not the same record. |
+| `A.5.4` | `12.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 A.5.4 for CIR point 1.1: a relevant reference, not the same record. |
+| `IS-9.3` | `12.4` | overlapping | ENISA mapping table v1.2 lists ISO 27001 9.3 for CIR point 1.1: a relevant reference, not the same record. |
 
 ## Article-Level Mapping, NIS2 and GDPR
 
@@ -695,7 +773,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | EU AI Act | 10 | 24 |
 | EU Cyber Resilience Act | 10 | 21 |
 
-**Satisfaction pairs:** 134, in 7 framework combinations.
+**Satisfaction pairs:** 212, in 7 framework combinations.
 **Article-level mappings:** 12 concept-level rows.
 
 ---

@@ -15,6 +15,14 @@
  * go to different authorities on different clocks, even when they share the
  * underlying event.
  */
+
+import {
+  getIso27001RequirementsForCategory,
+  iso27001Categories,
+} from "./frameworks/iso27001";
+import { getNis2RequirementsForCategory, nis2Categories } from "./frameworks/nis2";
+import { enisaIso27001Pairs } from "./mappings/enisa-iso27001";
+
 export type EquivalenceKind = "equivalent" | "overlapping";
 
 export type SatisfactionPair = readonly [
@@ -297,38 +305,18 @@ export const craGdprSatisfactionPairs: SatisfactionPair[] = [
   ],
 ];
 
-export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
-  // ── Governance (NIS2 1.x) ────────────────────────────────────────────────────
+/**
+ * ISO/IEC 27001:2022 to NIS2, from two sources. The same-record links below are our reading, link
+ * by link: one artefact answers both, so a signature on one credits the other. Every other link is
+ * an overlap taken from ENISA's mapping table (mappings/enisa-iso27001.ts) and credits nothing.
+ * Where both name the same pair, the same-record link stands.
+ */
+const iso27001Nis2SameRecordPairs: SatisfactionPair[] = [
   [
     "IS-5.1",
     "1.3",
     "Cl. 5.1(c) resource commitment is the same resourcing decision the 1.3 budget sign-off evidences (CIR 1.1.1(e)).",
     "equivalent",
-  ],
-  [
-    "IS-5.1",
-    "1.4",
-    "Leadership commitment under Cl. 5.1 supports the liability briefing 1.4 documents; ISO defines no liability-acknowledgment artefact (§38(2) BSIG is a liability rule, not a sign-off duty).",
-  ],
-  [
-    "IS-5.2",
-    "1.2",
-    "The Cl. 5.2 policy assigns responsibilities that 1.2's team mapping reflects; the policy document itself is a different artefact (see 2.4).",
-  ],
-  [
-    "IS-5.2",
-    "2.4",
-    "The Cl. 5.2 information security policy is the document the 2.4 IS-Leitlinie sign-off approves; scopes differ (full ISMS policy vs risk-acceptance sign-off).",
-  ],
-  [
-    "IS-5.3",
-    "1.2",
-    "Cl. 5.3 assigns and communicates roles and authorities, which is what 1.2 records under §30(1) BSIG and CIR 1.2 (Art. 21(2)(a)). Art. 20(1) is a separate duty: management-body approval of the risk management measures, oversight of implementation and liability, tracked in 1.3 and 1.4.",
-  ],
-  [
-    "A.5.1",
-    "1.2",
-    "Policies for information security (A.5.1) overlap with the governance framework NIS2 §30(1) requires.",
   ],
   [
     "A.5.2",
@@ -337,37 +325,10 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "A.5.31",
-    "1.2",
-    "The legal-requirements register (A.5.31) keeps regulatory duties owned by named roles; its NIS2 home is the 12.1 classification step.",
-  ],
-  [
-    "A.5.31",
-    "12.1",
-    "Same determine-your-legal-position work: the A.5.31 register documents the NIS2/BSIG applicability that 12.1 assesses.",
-  ],
-  [
-    "IS-9.3",
-    "1.3",
-    "Management review records (Cl. 9.3) evidence the resourcing oversight the 1.3 budget sign-off documents (CIR 1.1.1(e)).",
-  ],
-
-  // ── Risk management (NIS2 2.x) ───────────────────────────────────────────────
-  [
     "IS-6.1",
     "2.1",
     "Same methodology document: the Cl. 6.1 risk assessment methodology is the risk management methodology NIS2 CIR 2.1 requires.",
     "equivalent",
-  ],
-  [
-    "IS-6.1",
-    "2.4",
-    "Cl. 6.1.3's risk treatment plan with risk-owner approval of residual risks is what the 2.4 sign-off accepts.",
-  ],
-  [
-    "IS-8.2",
-    "2.1",
-    "Cl. 8.2 re-runs the 2.1 methodology; its artefact is the recurring assessment results, which live in the 2.3 register.",
   ],
   [
     "IS-8.2",
@@ -382,43 +343,11 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "IS-6.2",
-    "2.4",
-    "Cl. 6.2 sets security objectives that the signed IS-Leitlinie carries; the risk treatment plan with owner approval is Cl. 6.1.3 (in IS-6.1's scope).",
-  ],
-  [
-    "IS-8.3",
-    "2.1",
-    "Operational risk treatment (Cl. 8.3) implements the plan required by NIS2 CIR 2.1.",
-  ],
-  [
     "A.5.9",
     "2.2",
     "Asset inventory (A.5.9) is the same register NIS2 CIR 12.4 / §30(2) Nr. 9 BSIG requires for asset identification.",
     "equivalent",
   ],
-  [
-    "A.8.1",
-    "2.2",
-    "User endpoint device protection (A.8.1) presupposes the endpoint entries in the same asset register NIS2 mandates.",
-  ],
-  [
-    "A.8.10",
-    "2.2",
-    "Information deletion (A.8.10) is exercised against the retention data of the asset register (CIR 12.2/12.5 territory).",
-  ],
-  [
-    "A.5.12",
-    "2.3",
-    "Information classification scheme (A.5.12) drives the asset classification CIR 12.1 requires; CIR 2.1.3 feeds that classification into risk treatment prioritisation, and 2.3 records the resulting criticality ratings.",
-  ],
-  [
-    "A.5.13",
-    "2.3",
-    "Information labelling (A.5.13) implements the classification that underpins NIS2 asset classification.",
-  ],
-
-  // ── Incident handling (NIS2 3.x) ─────────────────────────────────────────────
   [
     "A.5.24",
     "3.1",
@@ -450,37 +379,10 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "A.6.8",
-    "3.2",
-    "IS event reporting channel (A.6.8) is the employee/supplier/customer reporting mechanism NIS2 CIR 3.3 requires.",
-  ],
-  [
-    "A.8.15",
-    "3.2",
-    "Logging controls (A.8.15) generate the evidence trail NIS2 CIR 3.2 expects for incident detection.",
-  ],
-  [
-    "A.8.16",
-    "3.2",
-    "Monitoring activities (A.8.16) overlap with NIS2 detection and alerting requirements.",
-  ],
-
-  // ── Business continuity (NIS2 4.x) ───────────────────────────────────────────
-  [
     "A.5.29",
     "4.1",
     "Same continuity policy: A.5.29 IS continuity policy is the BCP framework document NIS2 CIR 4.1 requires.",
     "equivalent",
-  ],
-  [
-    "A.5.29",
-    "4.2",
-    "Same IS continuity policy covers the BCP plan content NIS2 CIR 4.1/4.3 requires.",
-  ],
-  [
-    "A.5.29",
-    "4.5",
-    "Continuity policy requirements include testing obligations that map to NIS2 BCP exercise requirements (CIR 4.1.4).",
   ],
   [
     "A.5.30",
@@ -495,18 +397,6 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "A.8.14",
-    "4.3",
-    "Redundancy of processing facilities (A.8.14) overlaps with NIS2 availability and resilience requirements (CIR 4.2.4).",
-  ],
-  [
-    "A.8.6",
-    "4.5",
-    "Capacity management (A.8.6) feeds the resource-adequacy review NIS2 CIR 4.2.5 expects as part of BCP testing.",
-  ],
-
-  // ── Supply chain (NIS2 5.x) ───────────────────────────────────────────────────
-  [
     "A.5.19",
     "5.1",
     "Same supplier security policy: A.5.19 supplier relationship IS policy is the policy NIS2 CIR 5.1 requires.",
@@ -520,41 +410,9 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
   ],
   [
     "A.5.21",
-    "5.2",
-    "ICT supply chain IS management (A.5.21) overlaps with NIS2 supply-chain security contract requirements.",
-  ],
-  [
-    "A.5.21",
     "5.3",
     "Same supplier risk assessment process satisfies both A.5.21 and the NIS2 CIR 5.1.6 monitoring obligation.",
     "equivalent",
-  ],
-  [
-    "A.5.22",
-    "5.3",
-    "Supplier service monitoring and review (A.5.22) covers the ongoing monitoring NIS2 CIR 5.1.6/5.1.7 requires.",
-  ],
-  [
-    "A.5.22",
-    "5.4",
-    "Regular supplier reviews (A.5.22) generate the monitoring evidence the CIR 5.1.4(d) notification clause expects.",
-  ],
-  [
-    "A.5.23",
-    "5.2",
-    "Cloud services IS requirements (A.5.23) extend supplier agreement controls to cloud providers as NIS2 requires.",
-  ],
-
-  // ── Procurement / vulnerability management (NIS2 6.x) ────────────────────────
-  [
-    "A.5.7",
-    "6.2",
-    "Threat intelligence (A.5.7) informs secure development and configuration decisions; the vulnerability-monitoring duty itself is CIR 6.10 under requirement 6.3.",
-  ],
-  [
-    "A.5.5",
-    "6.2",
-    "Contacts with authorities (A.5.5) support the coordinated-vulnerability-disclosure channel (CIR 6.10.2(e), requirement 6.3).",
   ],
   [
     "A.8.8",
@@ -569,38 +427,11 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "A.8.9",
-    "6.2",
-    "Configuration management (A.8.9) implements the secure-configuration half of 6.2 (CIR 6.3); 6.2's secure development life cycle half (CIR 6.2) is separate.",
-  ],
-  [
-    "A.8.25",
-    "6.2",
-    "Same development discipline: A.8.25 secure development life cycle is the CIR 6.2 duty requirement 6.2 carries.",
-  ],
-  [
-    "A.8.25",
-    "6.5",
-    "Secure development life cycle (A.8.25, CIR 6.2) overlaps 6.5 where changes ship through the development process.",
-  ],
-  [
-    "A.8.29",
-    "6.5",
-    "Security testing (A.8.29, CIR 6.5) validates changes before release, supporting the 6.5 change process.",
-  ],
-  [
-    "A.8.31",
-    "6.5",
-    "Separation of dev/test/prod (A.8.31) is part of the change-control discipline (CIR 6.4) and the secure development environment (CIR 6.2).",
-  ],
-  [
     "A.8.32",
     "6.5",
     "Same change record: A.8.32 change management is the CIR 6.4 change process requirement 6.5 tracks; both write the same change_request rows.",
     "equivalent",
   ],
-
-  // ── Effectiveness (NIS2 7.x) ──────────────────────────────────────────────────
   [
     "IS-9.1",
     "7.1",
@@ -626,23 +457,6 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "A.5.36",
-    "7.1",
-    "Compliance with policies and standards (A.5.36) overlaps with the NIS2 policy-effectiveness measurement.",
-  ],
-  [
-    "IS-10.1",
-    "7.4",
-    "Continual improvement records (Cl. 10.1) evidence the corrective actions CIR 2.3.3 and Art. 21(4) require.",
-  ],
-
-  // ── Training and awareness (NIS2 8.x) ────────────────────────────────────────
-  [
-    "A.6.3",
-    "8.1",
-    "The A.6.3 awareness programme teaches the rules the 8.1 policy sets; the training equivalence lives on 8.2.",
-  ],
-  [
     "A.6.3",
     "8.2",
     "Same training programme satisfies both A.6.3 employee awareness and NIS2 CIR 8.1 awareness raising.",
@@ -655,40 +469,11 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "IS-7.2",
-    "8.3",
-    "Same competence records cover role-specific security training under CIR 8.2.",
-  ],
-  [
-    "A.6.3",
-    "8.3",
-    "Role-specific awareness content (A.6.3) overlaps with the CIR 8.2 security training requirement.",
-  ],
-  [
-    "A.5.10",
-    "8.1",
-    "Acceptable use rules for information and assets (A.5.10) are the same topic-specific policy content the 8.1 IT-Sicherheitsrichtlinie carries (CIR 1.1.1(i)).",
-  ],
-
-  // ── Cryptography (NIS2 9.x) ───────────────────────────────────────────────────
-  [
     "A.8.24",
     "9.1",
     "Same cryptography policy: A.8.24 is the policy NIS2 CIR 9.1 / BSI TR-02102 requires.",
     "equivalent",
   ],
-  [
-    "A.8.5",
-    "9.2",
-    "Secure authentication (A.8.5) is access-control territory (CIR 11.6/11.7, requirement 11.1); it touches 9.2 only via encrypted authentication channels.",
-  ],
-  [
-    "A.8.3",
-    "9.2",
-    "Information access restriction (A.8.3) complements encryption of data at rest (CIR 9.2(a)); the control's home is access control (10.1).",
-  ],
-
-  // ── Access control (NIS2 10.x) ───────────────────────────────────────────────
   [
     "A.5.15",
     "10.1",
@@ -702,89 +487,33 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
     "equivalent",
   ],
   [
-    "A.5.17",
-    "10.2",
-    "Authentication information management (A.5.17) implements the privileged account controls NIS2 CIR 11.2/11.3 requires.",
-  ],
-  [
     "A.5.18",
     "10.3",
     "Same access-rights records: A.5.18 produces the change-controlled access evidence NIS2 CIR 11.2 expects.",
     "equivalent",
   ],
   [
-    "A.5.18",
-    "10.4",
-    "Same periodic review: A.5.18 access-rights review is the documented review CIR 11.2.3 requires at planned intervals (the platform default is yearly, quarterly for privileged accounts).",
-  ],
-  [
-    "A.8.3",
-    "10.1",
-    "Information access restriction (A.8.3) enforces the access control policy NIS2 CIR 11.1 requires.",
-  ],
-  [
-    "A.8.18",
-    "10.2",
-    "Privileged utility programs (A.8.18) are governed by the privileged-account rules (CIR 11.3) documented in 10.3; 10.2's per-asset rows record where they apply.",
-  ],
-  [
-    "A.8.18",
-    "10.3",
-    "Same privileged-account discipline: A.8.18 restrictions implement the CIR 11.3 policies documented in 10.3.",
-  ],
-  [
-    "A.6.1",
-    "10.3",
-    "Screening (A.6.1) is the background verification CIR 10.2 requires; 10.3 documents the process it belongs to.",
-  ],
-  [
-    "A.6.5",
-    "10.3",
-    "Responsibilities after termination (A.6.5) implement the CIR 10.3 termination procedures inside 10.3's lifecycle process.",
-  ],
-
-  // ── Authentication (NIS2 11.x) ───────────────────────────────────────────────
-  [
     "A.8.5",
     "11.1",
     "Same MFA control: A.8.5 secure authentication implements the MFA/continuous-authentication requirement NIS2 CIR 11.7 mandates.",
     "equivalent",
   ],
-  [
-    "A.8.2",
-    "11.1",
-    "Privileged access rights (A.8.2) are CIR 11.3 territory (requirement 10.3); MFA (CIR 11.7) protects those accounts but is a different artefact.",
-  ],
-  [
-    "A.8.2",
-    "10.3",
-    "Same privileged-account discipline: A.8.2 privileged access rights implement the CIR 11.3 policies documented in 10.3.",
-  ],
-  [
-    "A.5.16",
-    "11.2",
-    "Identity management (A.5.16) underpins who may use the secured communication channels 11.2 establishes.",
-  ],
-  [
-    "A.5.14",
-    "11.2",
-    "Information transfer rules (A.5.14) govern the secured voice/video/text channels Art. 21(2)(j) requires; the emergency-communication half of 11.2 is separate.",
-  ],
-  [
-    "A.8.20",
-    "11.2",
-    "Network security controls (A.8.20) protect the channels 11.2 relies on; segmentation itself is CIR 6.8, which has no dedicated NIS2 step.",
-  ],
-  [
-    "A.8.21",
-    "11.2",
-    "Security of network services (A.8.21) supports secured communications; the underlying network-security duty is CIR 6.7.",
-  ],
-  [
-    "A.8.22",
-    "11.2",
-    "Network segregation (A.8.22, CIR 6.8) hardens the environment secured communications run in; different artefact.",
-  ],
+];
+
+const sameRecord = new Set(
+  iso27001Nis2SameRecordPairs.map(([iso, nis2]) => `${iso}|${nis2}`),
+);
+
+export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
+  ...iso27001Nis2SameRecordPairs,
+  ...enisaIso27001Pairs(
+    nis2Categories.flatMap((category) => getNis2RequirementsForCategory(category.slug)),
+    new Set(
+      iso27001Categories.flatMap((category) =>
+        getIso27001RequirementsForCategory(category.slug).map(({ code }) => code),
+      ),
+    ),
+  ).filter(([iso, nis2]) => !sameRecord.has(`${iso}|${nis2}`)),
 ];
 
 export const allSatisfactionPairs: SatisfactionPair[] = [
