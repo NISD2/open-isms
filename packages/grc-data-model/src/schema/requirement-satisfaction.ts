@@ -1,11 +1,4 @@
-import {
-  pgTable,
-  uuid,
-  text,
-  timestamp,
-  unique,
-  index,
-} from "drizzle-orm/pg-core";
+import { index, pgTable, text, timestamp, unique, uuid } from "drizzle-orm/pg-core";
 import { equivalenceKindEnum } from "../enums";
 import { requirement } from "./requirement";
 
@@ -27,9 +20,9 @@ export const requirementSatisfaction = pgTable(
      *   "same incident record"). Safe for transitive propagation: if A is
      *   equivalent to B and B equivalent to C, signing A credits C.
      *
-     * `overlapping` (default) - partial conceptual overlap that justifies
-     *   direct credit, but does NOT compose transitively. Stops propagation
-     *   at one hop.
+     * `overlapping` (default) - partial conceptual overlap. A hint for the
+     *   other framework, never credit: what the overlap leaves out is still
+     *   owed there.
      */
     equivalenceKind: equivalenceKindEnum("equivalence_kind")
       .default("overlapping")

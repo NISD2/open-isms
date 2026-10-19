@@ -92,9 +92,8 @@ export async function recalculateProgress(db: Database, assessmentId: string) {
  *   - `equivalent` pairs share the same underlying artefact (same supplier
  *     register, same incident row, same methodology). BFS continues through
  *     these edges so a chain X-eq-Y-eq-Z credits all three.
- *   - `overlapping` pairs only justify direct credit. BFS does NOT continue
- *     past them, so partial conceptual overlap cannot smuggle unrelated
- *     requirements into the credited set.
+ *   - `overlapping` pairs credit nothing: the other framework still asks for
+ *     what the overlap leaves out.
  *
  * Role gate (audit B-4, 2026-06-10): a credit is only applied when the
  * target's `requiredSignOffRole` matches the source signer's role (or the

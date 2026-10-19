@@ -1,102 +1,57 @@
 /**
- * Smoke test: cross-framework satisfaction BFS propagation.
+ * Smoke test: cross-framework satisfaction propagation.
  *
- * Reads the live requirement_satisfaction graph and simulates what
+ * Reads the live requirement_satisfaction graph and lists what
  * propagateSatisfaction() would credit for a given source requirement,
- * without writing anything to the DB.
+ * through the same satisfactionTargets() walk, without writing anything.
  *
  *   bun run scripts/smoke-propagation.ts <source-code>
  *
- * Defaults to "3.3" (the highest-degree hub: equivalent to G-BRC.1,
- * AI-INC.2, CRA-INC.2).
+ * Defaults to "3.3".
  */
+import { eq, inArray } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { requirement } from "@/schema";
-import { eq } from "drizzle-orm";
+import { requirement, requirementCategory } from "@/schema";
+import { satisfactionTargets } from "@/server/trpc/helpers/satisfaction-targets";
 
-type EdgeRow = {
-  a_id: string;
-  b_id: string;
-  a_code: string;
-  b_code: string;
-  kind: "equivalent" | "overlapping";
-};
-
-async function simulate(sourceCode: string) {
+async function simulate(sourceCode: string): Promise<boolean> {
   const sourceRow = await db.query.requirement.findFirst({
     where: eq(requirement.code, sourceCode),
   });
   if (!sourceRow) {
     console.error(`No requirement with code "${sourceCode}"`);
-    process.exit(1);
+    return false;
   }
 
-  const edgeQuery = await db.execute<EdgeRow>(`
-    SELECT
-      rs.requirement_a_id AS a_id,
-      rs.requirement_b_id AS b_id,
-      ra.code AS a_code,
-      rb.code AS b_code,
-      rs.equivalence_kind AS kind
-    FROM requirement_satisfaction rs
-    JOIN requirement ra ON ra.id = rs.requirement_a_id
-    JOIN requirement rb ON rb.id = rs.requirement_b_id
-  `);
-  const edges = edgeQuery.rows;
+  const edges = await db.query.requirementSatisfaction.findMany();
+  const linked = [
+    ...new Set([
+      sourceRow.id,
+      ...edges.flatMap((e) => [e.requirementAId, e.requirementBId]),
+    ]),
+  ];
+  const rows = await db
+    .select({
+      id: requirement.id,
+      code: requirement.code,
+      frameworkId: requirementCategory.frameworkId,
+    })
+    .from(requirement)
+    .innerJoin(requirementCategory, eq(requirementCategory.id, requirement.categoryId))
+    .where(inArray(requirement.id, linked));
+  const byId = new Map(rows.map((r) => [r.id, r]));
 
-  const codeFor = new Map<string, string>();
-  const adjacency = new Map<string, Array<{ neighbor: string; kind: "equivalent" | "overlapping" }>>();
-  for (const e of edges) {
-    codeFor.set(e.a_id, e.a_code);
-    codeFor.set(e.b_id, e.b_code);
-    const aList = adjacency.get(e.a_id) ?? [];
-    aList.push({ neighbor: e.b_id, kind: e.kind });
-    adjacency.set(e.a_id, aList);
-    const bList = adjacency.get(e.b_id) ?? [];
-    bList.push({ neighbor: e.a_id, kind: e.kind });
-    adjacency.set(e.b_id, bList);
-  }
-
-  const visited = new Set<string>([sourceRow.id]);
-  const credited: Array<{ code: string; viaKind: "equivalent" | "overlapping"; viaCode: string }> = [];
-  const queue: string[] = [sourceRow.id];
-  const queueCodes = new Map<string, string>([[sourceRow.id, sourceCode]]);
-
-  while (queue.length > 0) {
-    const current = queue.shift();
-    if (!current) break;
-    const currentCode = queueCodes.get(current) ?? "?";
-    const neighbors = adjacency.get(current);
-    if (!neighbors) continue;
-
-    for (const { neighbor, kind } of neighbors) {
-      if (visited.has(neighbor)) continue;
-      visited.add(neighbor);
-      const neighborCode = codeFor.get(neighbor) ?? "?";
-      credited.push({ code: neighborCode, viaKind: kind, viaCode: currentCode });
-      if (kind === "equivalent") {
-        queue.push(neighbor);
-        queueCodes.set(neighbor, neighborCode);
-      }
-    }
-  }
+  const credited = satisfactionTargets(
+    edges,
+    sourceRow.id,
+    (id) => byId.get(id)?.frameworkId,
+  ).map((id) => byId.get(id)?.code ?? id);
 
   console.log(`\nSource: ${sourceCode}`);
-  console.log(`Total credited: ${credited.length}\n`);
-
-  const eqCredits = credited.filter((c) => c.viaKind === "equivalent");
-  const overlapCredits = credited.filter((c) => c.viaKind === "overlapping");
-
-  console.log(`Via equivalent edges (${eqCredits.length}):`);
-  for (const c of eqCredits) {
-    console.log(`  ${c.viaCode} -eq-> ${c.code}`);
-  }
-  console.log(`\nVia overlapping edges, one-hop (${overlapCredits.length}):`);
-  for (const c of overlapCredits) {
-    console.log(`  ${c.viaCode} -overlap-> ${c.code}`);
-  }
+  console.log(`Credited through equivalent links (${credited.length}):`);
+  for (const code of credited) console.log(`  ${code}`);
+  return true;
 }
 
-const sourceCode = process.argv[2] ?? "3.3";
-await simulate(sourceCode);
-process.exit(0);
+const ok = await simulate(process.argv[2] ?? "3.3");
+process.exit(ok ? 0 : 1);
