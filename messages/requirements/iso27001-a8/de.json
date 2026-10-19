@@ -6,7 +6,7 @@
     },
     "A_8_2": {
       "title": "Privilegierte Zugriffsrechte",
-      "description": "Administratorrechte und andere weitreichende Rechte erhalten so wenige Personen wie möglich, nur so lange wie nötig, und ihre Nutzung wird kontrolliert."
+      "description": "Administratorrechte und andere weitreichende Rechte werden beschränkt und verwaltet, und ihre Nutzung wird kontrolliert. Empfehlung: so wenige Personen wie möglich, nur so lange wie nötig."
     },
     "A_8_3": {
       "title": "Einschränkung des Informationszugriffs",
@@ -126,14 +126,14 @@
     },
     "A_8_32": {
       "title": "Änderungsmanagement",
-      "description": "Änderungen an Systemen und Einrichtungen der IT folgen einem geregelten Ablauf: beantragen, bewerten, freigeben, testen und dokumentieren."
+      "description": "Änderungen an Systemen und Einrichtungen der IT folgen einem geregelten Ablauf. Empfehlung: jede Änderung beantragen, bewerten, freigeben, testen und dokumentieren."
     },
     "A_8_33": {
       "title": "Testinformationen",
       "description": "Testdaten werden sorgfältig ausgewählt und geschützt, und Produktivdaten werden in Tests nur mit dazu passendem Schutz verwendet."
     },
     "A_8_34": {
-      "title": "Schutz von IS bei Audittests",
+      "title": "Schutz der Informationssysteme bei Audittests",
       "description": "Audits und technische Prüfungen an laufenden Systemen werden mit den Systemverantwortlichen geplant und abgestimmt, damit sie den Betrieb nicht stören."
     }
   }

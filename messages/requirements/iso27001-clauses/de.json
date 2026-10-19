@@ -78,7 +78,7 @@
     },
     "IS-9_2": {
       "title": "Internes Audit",
-      "description": "Das Unternehmen auditiert sein ISMS regelmäßig intern, durch Auditoren, die nicht ihre eigene Arbeit prüfen, und bewahrt Auditprogramm und Ergebnisse auf."
+      "description": "Das Unternehmen auditiert sein ISMS regelmäßig intern und bewahrt Auditprogramm und Ergebnisse auf. Empfehlung: Auditoren, die nicht ihre eigene Arbeit prüfen."
     },
     "IS-9_3": {
       "title": "Managementbewertung",

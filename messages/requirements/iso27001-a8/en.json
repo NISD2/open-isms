@@ -6,7 +6,7 @@
     },
     "A_8_2": {
       "title": "Privileged Access Rights",
-      "description": "Administrator and other far-reaching rights go to as few people as possible, only for as long as needed, and their use is controlled."
+      "description": "Administrator and other far-reaching rights are restricted and managed, and their use is controlled. Recommendation: as few people as possible, only for as long as needed."
     },
     "A_8_3": {
       "title": "Information Access Restriction",
@@ -126,7 +126,7 @@
     },
     "A_8_32": {
       "title": "Change Management",
-      "description": "Changes to systems and IT facilities follow a controlled process: request, assess, approve, test and record."
+      "description": "Changes to systems and IT facilities follow a controlled process. Recommendation: each change is requested, assessed, approved, tested and recorded."
     },
     "A_8_33": {
       "title": "Test Information",

@@ -50,7 +50,7 @@
     },
     "A_5_13": {
       "title": "Kennzeichnung von Informationen",
-      "description": "Dokumente und Daten tragen eine sichtbare Kennzeichnung ihrer Schutzstufe nach demselben Schema."
+      "description": "Informationen werden nach dem Klassifizierungsschema des Unternehmens gekennzeichnet, damit alle, die damit umgehen, ihre Schutzstufe erkennen. Empfehlung: eine sichtbare Kennzeichnung auf Dokumenten, Metadaten bei Dateien."
     },
     "A_5_14": {
       "title": "Informationsübertragung",
@@ -62,7 +62,7 @@
     },
     "A_5_16": {
       "title": "Identitätsverwaltung",
-      "description": "Jedes Benutzerkonto und jedes technische Konto gehört zu genau einer Identität, die in einem geregelten Ablauf angelegt, geändert und entfernt wird."
+      "description": "Identitäten von Personen und Systemen werden über ihre ganze Lebensdauer verwaltet: in einem geregelten Ablauf angelegt, geändert und entfernt. Empfehlung: eine Identität je Konto, damit sich jede Aktion jemandem zuordnen lässt."
     },
     "A_5_17": {
       "title": "Authentifizierungsinformationen",
@@ -113,7 +113,7 @@
       "description": "Kann ein Vorfall rechtliche Schritte nach sich ziehen, sichert das Unternehmen Beweise so, dass sie verwertbar bleiben, etwa Protokolle und Kopien betroffener Systeme."
     },
     "A_5_29": {
-      "title": "IS bei Störungen",
+      "title": "Informationssicherheit bei Störungen",
       "description": "Pläne für Störungen und Notfälle halten die Sicherheit aufrecht, während das Unternehmen im Notbetrieb arbeitet."
     },
     "A_5_30": {

@@ -78,7 +78,7 @@
     },
     "IS-9_2": {
       "title": "Internal Audit",
-      "description": "The company audits its ISMS internally on a regular basis, with auditors who do not audit their own work, and keeps the audit programme and the results."
+      "description": "The company audits its ISMS internally on a regular basis and keeps the audit programme and the results. Recommendation: auditors who do not audit their own work."
     },
     "IS-9_3": {
       "title": "Management Review",

@@ -50,7 +50,7 @@
     },
     "A_5_13": {
       "title": "Labelling of Information",
-      "description": "Documents and data carry a visible mark of their protection level, following the same scheme."
+      "description": "Information is labelled following the company's classification scheme, so everyone handling it sees how it is to be protected. Recommendation: a visible mark on documents, metadata on files."
     },
     "A_5_14": {
       "title": "Information Transfer",
@@ -62,7 +62,7 @@
     },
     "A_5_16": {
       "title": "Identity Management",
-      "description": "Every user account and technical account belongs to exactly one identity, which is created, changed and removed through a controlled process."
+      "description": "Identities of people and systems are managed through their whole life: created, changed and removed through a controlled process. Recommendation: one identity per account, so every action can be traced to someone."
     },
     "A_5_17": {
       "title": "Authentication Information",
