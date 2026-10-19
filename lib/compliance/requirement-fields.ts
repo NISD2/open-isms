@@ -105,7 +105,7 @@ export const CUSTOM_EDITOR_FIELDS: Record<string, Array<{
   ],
   "6.1": [
     { key: "threshold", label: "Procurement Security Threshold (EUR amount above which security review is required)", type: "number", required: true },
-    { key: "requiredClauses", label: "Required Contract Clauses (8 mandatory cybersecurity clauses per CIR Art. 5)", type: "checkbox_group", required: true },
+    { key: "requiredClauses", label: "Required Contract Clauses (8 cybersecurity clauses per CIR Annex point 5.1.4)", type: "checkbox_group", required: true },
     { key: "evaluationCriteria", label: "Vendor Evaluation Criteria (weighted scoring criteria for supplier assessment)", type: "criteria_table", required: true },
     { key: "reviewFrequency", label: "Policy Review Frequency", type: "text", required: true },
   ],

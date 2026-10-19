@@ -48,7 +48,7 @@
       },
       "bsiRegistration": {
         "title": "Registration with the authority",
-        "description": "Guided preparation for registration under Article 27, with all required documents and a pre-flight checklist."
+        "description": "Guided preparation for registration under Article 3(4), with all required documents and a pre-flight checklist."
       }
     },
     "faq": {
@@ -58,7 +58,7 @@
       "q2": "What does the guidance cost?",
       "a2": "We work out the scope in the intro call, cancellable monthly, no lock-in. We first look together at whether you need guidance at all, or whether the free platform and the roadmap are enough on their own.",
       "q3": "We already have ISO 27001. Do we still need this?",
-      "a3": "ISO 27001 covers many of the technical and organisational measures NIS2 also asks for. NIS2 adds obligations an ISMS alone does not cover: registration with the national authority under Article 27, the incident reporting cascade under Article 23, and demonstrable management training under Article 20 NIS 2 (in Germany § 38 BSIG). Those are exactly the gaps we work through with you.",
+      "a3": "ISO 27001 covers many of the technical and organisational measures NIS2 also asks for. NIS2 adds obligations an ISMS alone does not cover: registration with the national authority under Article 3(4), the incident reporting cascade under Article 23, and demonstrable management training under Article 20 NIS 2 (in Germany § 38 BSIG). Those are exactly the gaps we work through with you.",
       "q4": "How long does implementation take?",
       "a4": "Your personal effort as managing director is about three hours a year: one training, a few signatures. The operational part is handled by your IT lead on an ongoing basis. How fast the baseline is in place depends on how well your asset inventory is already maintained. The roadmap shows the realistic effort per step.",
       "q5": "Where is our data stored?",

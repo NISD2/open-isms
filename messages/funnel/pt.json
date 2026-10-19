@@ -48,7 +48,7 @@
       },
       "bsiRegistration": {
         "title": "Registo junto da autoridade",
-        "description": "Preparação guiada para o registo ao abrigo do Artigo 27.o, com todos os documentos exigidos e uma lista de verificação prévia."
+        "description": "Preparação guiada para o registo ao abrigo do Artigo 3.º, n.º 4, com todos os documentos exigidos e uma lista de verificação prévia."
       }
     },
     "faq": {
@@ -58,7 +58,7 @@
       "q2": "Quanto custa o acompanhamento?",
       "a2": "Definimos o âmbito na reunião introdutória, cancelável mensalmente, sem lock-in. Primeiro analisamos em conjunto se precisa sequer de acompanhamento, ou se a plataforma gratuita e o roteiro são suficientes por si só.",
       "q3": "Já temos a ISO 27001. Ainda precisamos disto?",
-      "a3": "A ISO 27001 cobre muitas das medidas técnicas e organizativas que a NIS2 também exige. A NIS2 acrescenta obrigações que um ISMS por si só não cobre: o registo junto da autoridade nacional ao abrigo do Artigo 27.o, a cascata de comunicação de incidentes ao abrigo do Artigo 23.o e a formação demonstrável da gestão ao abrigo do Artigo 20.o NIS 2 (na Alemanha, § 38 BSIG). São exatamente essas as lacunas que percorremos consigo.",
+      "a3": "A ISO 27001 cobre muitas das medidas técnicas e organizativas que a NIS2 também exige. A NIS2 acrescenta obrigações que um ISMS por si só não cobre: o registo junto da autoridade nacional ao abrigo do Artigo 3.º, n.º 4, a cascata de comunicação de incidentes ao abrigo do Artigo 23.o e a formação demonstrável da gestão ao abrigo do Artigo 20.o NIS 2 (na Alemanha, § 38 BSIG). São exatamente essas as lacunas que percorremos consigo.",
       "q4": "Quanto tempo demora a implementação?",
       "a4": "O seu esforço pessoal enquanto gerente é de cerca de três horas por ano: uma formação, algumas assinaturas. A parte operacional é tratada de forma contínua pelo seu responsável de TI. A rapidez com que a base fica estabelecida depende de quão bem mantido já está o seu inventário de ativos. O roteiro mostra o esforço realista por passo.",
       "q5": "Onde são armazenados os nossos dados?",

@@ -49,7 +49,7 @@
     },
 
     "procurement": {
-      "title": "Achiziții securizate (CIR Art. 5)",
+      "title": "Achiziții securizate (CIR, anexa punctele 5.1 și 6.1)",
       "threshold": "Prag pentru revizuirea de securitate (EUR)",
       "requiredClauses": "Clauze contractuale obligatorii (CIR 5.1.4)",
       "cybersecurityRequirements": "Cerințe de securitate cibernetică (a)",
@@ -72,7 +72,7 @@
     },
 
     "secureDev": {
-      "title": "Dezvoltare securizată și consolidare (CIR Art. 6(2)-(3), CON.8)",
+      "title": "Dezvoltare securizată și consolidare (CIR, anexa punctele 6.2 și 6.3, CON.8)",
       "sdlcFramework": "Cadru SDLC",
       "owaspSamm": "OWASP SAMM",
       "bsimm": "BSIMM",
@@ -88,12 +88,12 @@
       "sca": "Analiza compoziției software (SCA)",
       "pentest": "Testare de penetrare",
       "codeReview": "Revizuire de cod",
-      "environmentSegregation": "Separarea mediilor (dev/test/prod). CIR 6(2)",
+      "environmentSegregation": "Separarea mediilor (dev/test/prod). CIR, anexa punctul 6.8.2 lit. (h)",
       "reviewCycle": "Ciclu de revizuire (ani)"
     },
 
     "patchMgmt": {
-      "title": "Gestionarea actualizărilor (CIR Art. 6(6), OPS.1.1.3)",
+      "title": "Gestionarea actualizărilor (CIR, anexa punctul 6.6, OPS.1.1.3)",
       "patchSla": "SLA pentru actualizări în funcție de severitate",
       "severity": "Severitate",
       "slaHours": "SLA (ore)",

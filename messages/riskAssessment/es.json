@@ -89,7 +89,7 @@
     },
     "variante": {
       "heading": "Absicherungsvariante recomendada",
-      "subtitle": "La ruta de implementación (BSI-200-2 §3.4) que sugiere su Gesamt-Schutzbedarf. Basis/Standard/Kern son las tres Vorgehensweisen del BSI. Distintas de las Schutzbedarfsklassen anteriores.",
+      "subtitle": "La ruta de implementación (BSI-200-2 §3.3) que sugiere su Gesamt-Schutzbedarf. Basis/Standard/Kern son las tres Vorgehensweisen del BSI. Distintas de las Schutzbedarfsklassen anteriores.",
       "recommendedLabel": "Recomendación",
       "byVariante": {
         "basis": {
@@ -304,7 +304,7 @@
     "disclaimer": {
       "heading": "Nota legal",
       "body": "Esta herramienta es una clasificación informativa basada en sus respuestas. No constituye asesoramiento jurídico conforme a la RDG alemana. La evaluación solo es vinculante con la aprobación del órgano de dirección según el §38 BSIG y el Art 20 NIS2.",
-      "methodologyDisclosure": "Schutzbedarfsfeststellung por activo alineada con BSI-200-2 §8.2 (presupone que su Sicherheitsleitlinie §4 y su Strukturanalyse §8.1 ya están establecidas). Clasificación por Grundwert (V/I/A) en la escala normal/hoch/sehr-hoch del BSI, Maximum-Prinzip según §8.2.3, Kumulationseffekt según §8.2.4 y Schadensszenarien documentados según §8.2.1. La Vererbung, la Modellierung (§8.3), el IT-Grundschutz-Check (§8.4) y la ergänzende Risikoanalyse de BSI-200-3 siguen siendo trabajo posterior. No es una certificación: eso requiere una auditoría externa acreditada por la DAkkS."
+      "methodologyDisclosure": "Schutzbedarfsfeststellung por activo alineada con BSI-200-2 §8.2 (presupone que su Sicherheitsleitlinie §3.4 y su Strukturanalyse §8.1 ya están establecidas). Clasificación por Grundwert (V/I/A) en la escala normal/hoch/sehr-hoch del BSI, Maximum-Prinzip según §8.2.3, Kumulationseffekt según §8.2.4 y Schadensszenarien documentados según §8.2.1. La Vererbung, la Modellierung (§8.3), el IT-Grundschutz-Check (§8.4) y la ergänzende Risikoanalyse de BSI-200-3 siguen siendo trabajo posterior. No es una certificación: eso requiere una auditoría externa acreditada por la DAkkS."
     },
     "art21Measures": {
       "a": {

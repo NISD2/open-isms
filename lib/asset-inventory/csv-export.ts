@@ -2,7 +2,7 @@ import { toCsv } from "@/lib/csv";
 import type { InformationsverbundOutput, InventoryAsset } from "./types";
 
 // CSV export. Format: standard RFC 4180 (commas, double-quote escaping,
-// CRLF line endings). Header row matches the BSI §8.1.6 attribute table
+// CRLF line endings). Header row matches the BSI 200-2 §8.1.5 attribute table
 // so the auditor sees a familiar shape.
 //
 // Columns: id, name, layer, category, defaultExposure, source

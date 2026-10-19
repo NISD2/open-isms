@@ -48,7 +48,7 @@
       },
       "bsiRegistration": {
         "title": "Registrazione presso l'autorità",
-        "description": "Preparazione guidata alla registrazione ai sensi dell'Articolo 27, con tutti i documenti richiesti e una checklist preliminare."
+        "description": "Preparazione guidata alla registrazione ai sensi dell'Articolo 3(4), con tutti i documenti richiesti e una checklist preliminare."
       }
     },
     "faq": {
@@ -58,7 +58,7 @@
       "q2": "Quanto costa la guida?",
       "a2": "Definiamo insieme l'ambito nella chiamata conoscitiva, disdicibile mensilmente, nessun lock-in. Per prima cosa valutiamo insieme se hai bisogno di una guida o se la piattaforma gratuita e la roadmap ti bastano da sole.",
       "q3": "Abbiamo già ISO 27001. Ci serve comunque questo?",
-      "a3": "ISO 27001 copre molte delle misure tecniche e organizzative che anche NIS2 richiede. NIS2 aggiunge obblighi che un ISMS da solo non copre: la registrazione presso l'autorità nazionale ai sensi dell'Articolo 27, la cascata di notifica degli incidenti ai sensi dell'Articolo 23 e la formazione dimostrabile della direzione ai sensi dell'Articolo 20 NIS 2 (in Germania § 38 BSIG). Sono esattamente le lacune che affrontiamo insieme a te.",
+      "a3": "ISO 27001 copre molte delle misure tecniche e organizzative che anche NIS2 richiede. NIS2 aggiunge obblighi che un ISMS da solo non copre: la registrazione presso l'autorità nazionale ai sensi dell'Articolo 3(4), la cascata di notifica degli incidenti ai sensi dell'Articolo 23 e la formazione dimostrabile della direzione ai sensi dell'Articolo 20 NIS 2 (in Germania § 38 BSIG). Sono esattamente le lacune che affrontiamo insieme a te.",
       "q4": "Quanto tempo richiede l'attuazione?",
       "a4": "Il tuo impegno personale come amministratore delegato è di circa tre ore all'anno: una formazione, qualche firma. La parte operativa è gestita su base continuativa dal tuo responsabile IT. La velocità con cui la baseline viene messa in atto dipende da quanto bene è già mantenuto il tuo inventario degli asset. La roadmap mostra l'impegno realistico per ciascun passo.",
       "q5": "Dove sono archiviati i nostri dati?",

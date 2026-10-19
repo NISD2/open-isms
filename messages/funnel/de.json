@@ -48,7 +48,7 @@
       },
       "bsiRegistration": {
         "title": "Registrierung bei der Behörde",
-        "description": "Geführte Vorbereitung auf die Registrierung nach Artikel 27, mit allen erforderlichen Dokumenten und einer Vorab-Checkliste."
+        "description": "Geführte Vorbereitung auf die Registrierung nach Artikel 3(4), mit allen erforderlichen Dokumenten und einer Vorab-Checkliste."
       }
     },
     "faq": {
@@ -58,7 +58,7 @@
       "q2": "Was kostet die Begleitung?",
       "a2": "Den Rahmen klären wir im Erstgespräch, monatlich kündbar, kein Lock-in. Wir schauen zuerst gemeinsam, ob Sie Begleitung überhaupt brauchen oder mit der kostenlosen Plattform und der Roadmap allein zurechtkommen.",
       "q3": "Wir haben schon ISO 27001. Brauchen wir das noch?",
-      "a3": "ISO 27001 deckt viele technische und organisatorische Maßnahmen ab, die NIS2 ebenfalls verlangt. NIS2 ergänzt Pflichten, die ein ISMS allein nicht abbildet: die Registrierung bei der nationalen Behörde nach Artikel 27, die Meldekaskade für Vorfälle nach Artikel 23 und die nachweisbare Schulung der Geschäftsführung nach Artikel 20 NIS2 (in Deutschland § 38 BSIG). Genau diese Lücken arbeiten wir mit Ihnen ab.",
+      "a3": "ISO 27001 deckt viele technische und organisatorische Maßnahmen ab, die NIS2 ebenfalls verlangt. NIS2 ergänzt Pflichten, die ein ISMS allein nicht abbildet: die Registrierung bei der nationalen Behörde nach Artikel 3(4), die Meldekaskade für Vorfälle nach Artikel 23 und die nachweisbare Schulung der Geschäftsführung nach Artikel 20 NIS2 (in Deutschland § 38 BSIG). Genau diese Lücken arbeiten wir mit Ihnen ab.",
       "q4": "Wie lange dauert die Umsetzung?",
       "a4": "Ihr persönlicher Aufwand als Geschäftsführer liegt bei rund drei Stunden pro Jahr: einmal Schulung, ein paar Unterschriften. Den operativen Teil erledigt Ihre IT-Leitung laufend. Wie schnell die Baseline steht, hängt davon ab, wie gut Ihr Asset-Inventar schon gepflegt ist. Die Roadmap zeigt den realistischen Aufwand pro Schritt.",
       "q5": "Wo liegen unsere Daten?",

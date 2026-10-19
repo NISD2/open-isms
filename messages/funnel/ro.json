@@ -48,7 +48,7 @@
       },
       "bsiRegistration": {
         "title": "Înregistrarea la autoritate",
-        "description": "Pregătire ghidată pentru înregistrarea conform articolului 27, cu toate documentele necesare și o listă de verificare prealabilă."
+        "description": "Pregătire ghidată pentru înregistrarea conform articolului 3 alineatul (4), cu toate documentele necesare și o listă de verificare prealabilă."
       }
     },
     "faq": {
@@ -58,7 +58,7 @@
       "q2": "Cât costă îndrumarea?",
       "a2": "Stabilim domeniul de aplicare în apelul de prezentare, anulabil lunar, fără lock-in. Mai întâi analizăm împreună dacă aveți nevoie de îndrumare în general sau dacă platforma gratuită și foaia de parcurs sunt suficiente pe cont propriu.",
       "q3": "Avem deja ISO 27001. Mai avem nevoie de asta?",
-      "a3": "ISO 27001 acoperă multe dintre măsurile tehnice și organizatorice pe care NIS2 le solicită la rândul său. NIS2 adaugă obligații pe care un ISMS singur nu le acoperă: înregistrarea la autoritatea națională conform articolului 27, cascada de raportare a incidentelor conform articolului 23 și instruirea demonstrabilă a conducerii conform articolului 20 NIS 2 (în Germania § 38 BSIG). Acestea sunt exact lacunele pe care le parcurgem împreună cu dumneavoastră.",
+      "a3": "ISO 27001 acoperă multe dintre măsurile tehnice și organizatorice pe care NIS2 le solicită la rândul său. NIS2 adaugă obligații pe care un ISMS singur nu le acoperă: înregistrarea la autoritatea națională conform articolului 3 alineatul (4), cascada de raportare a incidentelor conform articolului 23 și instruirea demonstrabilă a conducerii conform articolului 20 NIS 2 (în Germania § 38 BSIG). Acestea sunt exact lacunele pe care le parcurgem împreună cu dumneavoastră.",
       "q4": "Cât durează implementarea?",
       "a4": "Efortul dumneavoastră personal ca administrator este de aproximativ trei ore pe an: o instruire, câteva semnături. Partea operațională este gestionată continuu de responsabilul dumneavoastră IT. Cât de repede este pus la punct nivelul de bază depinde de cât de bine este deja întreținut inventarul dumneavoastră de active. Foaia de parcurs arată efortul realist pentru fiecare pas.",
       "q5": "Unde sunt stocate datele noastre?",

@@ -482,19 +482,19 @@
   "entry:bin-ich-msp-managed-service-provider": {
     "fr": {
       "title": "Suis-je dans le champ d'application de NIS 2 en tant que Managed Service Provider ?",
-      "summary": "Annexe I, secteur 9 (gestion de services TIC B2B) : quand un MSP relève de NIS 2, définition de l'article 6(40), test de taille."
+      "summary": "Annexe I, secteur 9 (gestion de services TIC B2B) : quand un MSP relève de NIS 2, définition de l'article 6(39), test de taille."
     },
     "it": {
       "title": "Rientro nell'ambito di applicazione di NIS 2 come Managed Service Provider ?",
-      "summary": "Allegato I, settore 9 (gestione di servizi TIC B2B) : quando un MSP rientra in NIS 2, definizione dell'articolo 6(40), test dimensionale."
+      "summary": "Allegato I, settore 9 (gestione di servizi TIC B2B) : quando un MSP rientra in NIS 2, definizione dell'articolo 6(39), test dimensionale."
     },
     "es": {
       "title": "¿Estoy dentro del ámbito de aplicación de NIS 2 como Managed Service Provider ?",
-      "summary": "Anexo I, sector 9 (gestión de servicios TIC B2B) : cuándo un MSP queda sujeto a NIS 2, definición del artículo 6(40), prueba de tamaño."
+      "summary": "Anexo I, sector 9 (gestión de servicios TIC B2B) : cuándo un MSP queda sujeto a NIS 2, definición del artículo 6(39), prueba de tamaño."
     },
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako Managed Service Provider ?",
-      "summary": "Załącznik I, sektor 9 (zarządzanie usługami ICT B2B) : kiedy MSP podlega NIS 2, definicja z artykułu 6(40), test wielkości."
+      "summary": "Załącznik I, sektor 9 (zarządzanie usługami ICT B2B) : kiedy MSP podlega NIS 2, definicja z artykułu 6(39), test wielkości."
     },
     "cs": {
       "title": "Spadám jako Managed Service Provider do oblasti působnosti NIS 2?",
@@ -502,11 +502,11 @@
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto Managed Service Provider?",
-      "summary": "Anexo I, setor 9 (gestão de serviços TIC B2B): quando um MSP fica sujeito à NIS 2, definição do artigo 6.º, ponto 40, teste de dimensão."
+      "summary": "Anexo I, setor 9 (gestão de serviços TIC B2B): quando um MSP fica sujeito à NIS 2, definição do artigo 6.º, ponto 39, teste de dimensão."
     },
     "ro": {
       "title": "Intru sub incidența NIS 2 ca Managed Service Provider?",
-      "summary": "Anexa I, sectorul 9 (gestionarea serviciilor TIC B2B): când un MSP intră sub incidența NIS 2, definiția de la articolul 6 punctul 40, test de mărime."
+      "summary": "Anexa I, sectorul 9 (gestionarea serviciilor TIC B2B): când un MSP intră sub incidența NIS 2, definiția de la articolul 6 punctul 39, test de mărime."
     }
   },
   "entry:bin-ich-cloud-anbieter-nis2": {
@@ -692,19 +692,19 @@
   "entry:bin-ich-oeffentliche-verwaltung-nis2": {
     "fr": {
       "title": "Suis-je dans le champ d'application de NIS 2 en tant qu'administration publique ?",
-      "summary": "Annexe I, secteur 10 plus article 2(2)(i) plus exclusions de l'article 2(4)-(11) : administration fédérale, régionale et municipale, sécurité nationale, justice, parlements, banques centrales."
+      "summary": "Annexe I, secteur 10 plus article 2(2)(f) plus les exclusions des articles 2(7) et 6(35) : administration fédérale, régionale et municipale, sécurité nationale, justice, parlements, banques centrales."
     },
     "it": {
       "title": "Rientro nell'ambito di applicazione di NIS 2 come pubblica amministrazione ?",
-      "summary": "Allegato I, settore 10 più articolo 2(2)(i) più esclusioni dell'articolo 2(4)-(11) : amministrazione federale, regionale e comunale, sicurezza nazionale, giustizia, parlamenti, banche centrali."
+      "summary": "Allegato I, settore 10 più articolo 2(2)(f) più le esclusioni degli articoli 2(7) e 6(35) : amministrazione federale, regionale e comunale, sicurezza nazionale, giustizia, parlamenti, banche centrali."
     },
     "es": {
       "title": "¿Estoy dentro del ámbito de aplicación de NIS 2 como administración pública ?",
-      "summary": "Anexo I, sector 10 más artículo 2(2)(i) más exclusiones del artículo 2(4)-(11) : administración federal, regional y municipal, seguridad nacional, justicia, parlamentos, bancos centrales."
+      "summary": "Anexo I, sector 10 más artículo 2(2)(f) más las exclusiones de los artículos 2(7) y 6(35) : administración federal, regional y municipal, seguridad nacional, justicia, parlamentos, bancos centrales."
     },
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako administracja publiczna ?",
-      "summary": "Załącznik I, sektor 10 plus artykuł 2(2)(i) plus wyłączenia z artykułu 2(4)-(11) : administracja federalna, krajowa i gminna, bezpieczeństwo narodowe, sądownictwo, parlamenty, banki centralne."
+      "summary": "Załącznik I, sektor 10 plus artykuł 2(2)(f) plus wyłączenia z artykułów 2(7) i 6(35) : administracja federalna, krajowa i gminna, bezpieczeństwo narodowe, sądownictwo, parlamenty, banki centralne."
     },
     "cs": {
       "title": "Spadám jako veřejná správa do oblasti působnosti NIS 2?",
@@ -712,29 +712,29 @@
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto administração pública?",
-      "summary": "Anexo I, setor 10 mais artigo 2.º, n.º 2, alínea i) mais exclusões do artigo 2.º, n.os 4 a 11: administração federal, regional e municipal, segurança nacional, justiça, parlamentos, bancos centrais."
+      "summary": "Anexo I, setor 10 mais artigo 2.º, n.º 2, alínea f), mais as exclusões do artigo 2.º, n.º 7, e do artigo 6.º, ponto 35: administração federal, regional e municipal, segurança nacional, justiça, parlamentos, bancos centrais."
     },
     "ro": {
       "title": "Intru sub incidența NIS 2 ca administrație publică?",
-      "summary": "Anexa I, sectorul 10 plus articolul 2 alineatul (2) litera (i) plus excluderile de la articolul 2 alineatele (4)-(11): administrație federală, regională și municipală, securitate națională, justiție, parlamente, bănci centrale."
+      "summary": "Anexa I, sectorul 10 plus articolul 2 alineatul (2) litera (f) plus excluderile de la articolul 2 alineatul (7) și articolul 6 punctul 35: administrație federală, regională și municipală, securitate națională, justiție, parlamente, bănci centrale."
     }
   },
   "entry:bin-ich-vertrauensdiensteanbieter-nis2": {
     "fr": {
       "title": "Suis-je dans le champ d'application de NIS 2 en tant que prestataire de services de confiance ?",
-      "summary": "Annexe I, secteur 8 plus article 2(2)(b) : les prestataires de services de confiance (eIDAS) sont dans le champ d'application indépendamment de leur taille. Même un prestataire de 5 personnes est concerné."
+      "summary": "Annexe I, secteur 8 plus article 2(2)(a)(ii) : les prestataires de services de confiance (eIDAS) sont dans le champ d'application indépendamment de leur taille. Même un prestataire de 5 personnes est concerné."
     },
     "it": {
       "title": "Rientro nell'ambito di applicazione di NIS 2 come prestatore di servizi fiduciari ?",
-      "summary": "Allegato I, settore 8 più articolo 2(2)(b) : i prestatori di servizi fiduciari (eIDAS) rientrano nell'ambito di applicazione indipendentemente dalle dimensioni. Anche un prestatore di 5 persone è incluso."
+      "summary": "Allegato I, settore 8 più articolo 2(2)(a)(ii) : i prestatori di servizi fiduciari (eIDAS) rientrano nell'ambito di applicazione indipendentemente dalle dimensioni. Anche un prestatore di 5 persone è incluso."
     },
     "es": {
       "title": "¿Estoy dentro del ámbito de aplicación de NIS 2 como prestador de servicios de confianza ?",
-      "summary": "Anexo I, sector 8 más artículo 2(2)(b) : los prestadores de servicios de confianza (eIDAS) están dentro del ámbito de aplicación con independencia de su tamaño. Incluso un prestador de 5 personas está incluido."
+      "summary": "Anexo I, sector 8 más artículo 2(2)(a)(ii) : los prestadores de servicios de confianza (eIDAS) están dentro del ámbito de aplicación con independencia de su tamaño. Incluso un prestador de 5 personas está incluido."
     },
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako dostawca usług zaufania ?",
-      "summary": "Załącznik I, sektor 8 plus artykuł 2(2)(b) : dostawcy usług zaufania (eIDAS) są objęci zakresem niezależnie od wielkości. Nawet pięcioosobowy dostawca jest objęty."
+      "summary": "Załącznik I, sektor 8 plus artykuł 2(2)(a)(ii) : dostawcy usług zaufania (eIDAS) są objęci zakresem niezależnie od wielkości. Nawet pięcioosobowy dostawca jest objęty."
     },
     "cs": {
       "title": "Spadám jako poskytovatel služeb vytvářejících důvěru do oblasti působnosti NIS 2?",
@@ -742,11 +742,11 @@
     },
     "pt": {
       "title": "Estou abrangido pela NIS 2 enquanto prestador de serviços de confiança?",
-      "summary": "Anexo I, setor 8 mais artigo 2.º, n.º 2, alínea b): os prestadores de serviços de confiança (eIDAS) estão abrangidos independentemente da sua dimensão. Até um prestador de 5 pessoas está incluído."
+      "summary": "Anexo I, setor 8 mais artigo 2.º, n.º 2, alínea a), subalínea ii): os prestadores de serviços de confiança (eIDAS) estão abrangidos independentemente da sua dimensão. Até um prestador de 5 pessoas está incluído."
     },
     "ro": {
       "title": "Intru sub incidența NIS 2 ca prestator de servicii de încredere?",
-      "summary": "Anexa I, sectorul 8 plus articolul 2 alineatul (2) litera (b): prestatorii de servicii de încredere (eIDAS) intră sub incidență indiferent de mărime. Chiar și un prestator de 5 persoane este inclus."
+      "summary": "Anexa I, sectorul 8 plus articolul 2 alineatul (2) litera (a) punctul (ii): prestatorii de servicii de încredere (eIDAS) intră sub incidență indiferent de mărime. Chiar și un prestator de 5 persoane este inclus."
     }
   },
   "entry:nis2-selbsteinstufung": {
@@ -962,19 +962,19 @@
   "entry:nis2-bankwesen": {
     "fr": {
       "title": "NIS 2 dans le secteur bancaire",
-      "summary": "Annexe I, secteur 4 : banques, établissements de paiement, l'articulation avec DORA et l'enregistrement NIS 2 malgré la lex specialis."
+      "summary": "Annexe I, secteur 3 : banques, établissements de paiement, l'articulation avec DORA et l'enregistrement NIS 2 malgré la lex specialis."
     },
     "it": {
       "title": "NIS 2 nel settore bancario",
-      "summary": "Allegato I, settore 4 : banche, istituti di pagamento, l'interazione con DORA e la registrazione NIS 2 nonostante la lex specialis."
+      "summary": "Allegato I, settore 3 : banche, istituti di pagamento, l'interazione con DORA e la registrazione NIS 2 nonostante la lex specialis."
     },
     "es": {
       "title": "NIS 2 en el sector bancario",
-      "summary": "Anexo I, sector 4 : bancos, entidades de pago, la interacción con DORA y el registro NIS 2 pese a la lex specialis."
+      "summary": "Anexo I, sector 3 : bancos, entidades de pago, la interacción con DORA y el registro NIS 2 pese a la lex specialis."
     },
     "pl": {
       "title": "NIS 2 w bankowości",
-      "summary": "Załącznik I, sektor 4 : banki, instytucje płatnicze, zależność od DORA oraz rejestracja NIS 2 mimo lex specialis."
+      "summary": "Załącznik I, sektor 3 : banki, instytucje płatnicze, zależność od DORA oraz rejestracja NIS 2 mimo lex specialis."
     },
     "cs": {
       "title": "NIS 2 v bankovnictví",
@@ -982,11 +982,11 @@
     },
     "pt": {
       "title": "NIS 2 no setor bancário",
-      "summary": "Anexo I, setor 4: bancos, instituições de pagamento, a articulação com a DORA e o registo NIS 2 apesar da lex specialis."
+      "summary": "Anexo I, setor 3: bancos, instituições de pagamento, a articulação com a DORA e o registo NIS 2 apesar da lex specialis."
     },
     "ro": {
       "title": "NIS 2 în sectorul bancar",
-      "summary": "Anexa I, sectorul 4: bănci, instituții de plată, interacțiunea cu DORA și înregistrarea NIS 2 în pofida lex specialis."
+      "summary": "Anexa I, sectorul 3: bănci, instituții de plată, interacțiunea cu DORA și înregistrarea NIS 2 în pofida lex specialis."
     }
   },
   "entry:nis2-verkehr": {
@@ -1052,19 +1052,19 @@
   "entry:nis2-forschungseinrichtungen": {
     "fr": {
       "title": "NIS 2 pour les organismes de recherche",
-      "summary": "Annexe II, secteur 10 : quels organismes de recherche sont dans le champ d'application et quelles exemptions s'appliquent."
+      "summary": "Annexe II, secteur 7 : quels organismes de recherche sont dans le champ d'application et quelles exemptions s'appliquent."
     },
     "it": {
       "title": "NIS 2 per gli organismi di ricerca",
-      "summary": "Allegato II, settore 10 : quali organismi di ricerca rientrano nell'ambito di applicazione e quali esenzioni si applicano."
+      "summary": "Allegato II, settore 7 : quali organismi di ricerca rientrano nell'ambito di applicazione e quali esenzioni si applicano."
     },
     "es": {
       "title": "NIS 2 para los organismos de investigación",
-      "summary": "Anexo II, sector 10 : qué organismos de investigación están dentro del ámbito de aplicación y qué exenciones se aplican."
+      "summary": "Anexo II, sector 7 : qué organismos de investigación están dentro del ámbito de aplicación y qué exenciones se aplican."
     },
     "pl": {
       "title": "NIS 2 dla jednostek badawczych",
-      "summary": "Załącznik II, sektor 10 : które jednostki badawcze są objęte zakresem i jakie wyłączenia mają zastosowanie."
+      "summary": "Załącznik II, sektor 7 : które jednostki badawcze są objęte zakresem i jakie wyłączenia mają zastosowanie."
     },
     "cs": {
       "title": "NIS 2 pro výzkumné instituce",
@@ -1072,11 +1072,11 @@
     },
     "pt": {
       "title": "NIS 2 para os organismos de investigação",
-      "summary": "Anexo II, setor 10: que organismos de investigação estão abrangidos e que isenções se aplicam."
+      "summary": "Anexo II, setor 7: que organismos de investigação estão abrangidos e que isenções se aplicam."
     },
     "ro": {
       "title": "NIS 2 pentru organismele de cercetare",
-      "summary": "Anexa II, sectorul 10: care organisme de cercetare intră sub incidență și ce scutiri se aplică."
+      "summary": "Anexa II, sectorul 7: care organisme de cercetare intră sub incidență și ce scutiri se aplică."
     }
   },
   "cat:grundlagen": {
@@ -4412,19 +4412,19 @@
   "entry:phishing-vorfall-nis2": {
     "fr": {
       "title": "Incident de phishing : est-ce un incident important selon NIS 2 ?",
-      "summary": "Quand une vague de phishing franchit le seuil du CIR §11.6 et comment se présente l'alerte précoce au BSI."
+      "summary": "Quand une vague de phishing franchit le seuil de l'article 23(3) NIS 2 ou de l'article 3 du CIR et comment se présente l'alerte précoce au BSI."
     },
     "it": {
       "title": "Incidente di phishing: è un incidente significativo secondo NIS 2?",
-      "summary": "Quando un'ondata di phishing supera la soglia del CIR §11.6 e come si presenta il preallarme al BSI."
+      "summary": "Quando un'ondata di phishing supera la soglia dell'articolo 23(3) NIS 2 o dell'articolo 3 del CIR e come si presenta il preallarme al BSI."
     },
     "es": {
       "title": "Incidente de phishing: ¿es un incidente significativo según NIS 2?",
-      "summary": "Cuándo una oleada de phishing supera el umbral del CIR §11.6 y cómo es la alerta temprana al BSI."
+      "summary": "Cuándo una oleada de phishing supera el umbral del artículo 23(3) NIS 2 o del artículo 3 del CIR y cómo es la alerta temprana al BSI."
     },
     "pl": {
       "title": "Incydent phishingowy: czy to incydent poważny w rozumieniu NIS 2?",
-      "summary": "Kiedy fala phishingu przekracza próg CIR §11.6 i jak wygląda wczesne ostrzeżenie do BSI."
+      "summary": "Kiedy fala phishingu przekracza próg z art. 23(3) NIS 2 lub art. 3 CIR i jak wygląda wczesne ostrzeżenie do BSI."
     },
     "cs": {
       "title": "Phishingový incident: je to významný incident podle NIS 2?",
@@ -4432,11 +4432,11 @@
     },
     "pt": {
       "title": "Incidente de phishing: é um incidente significativo segundo a NIS 2?",
-      "summary": "Quando uma onda de phishing ultrapassa o limiar do CIR §11.6 e como é o alerta precoce ao BSI."
+      "summary": "Quando uma onda de phishing ultrapassa o limiar do artigo 23.º, n.º 3, da NIS 2 ou do artigo 3.º do CIR e como é o alerta precoce ao BSI."
     },
     "ro": {
       "title": "Incident de phishing: este un incident semnificativ conform NIS 2?",
-      "summary": "Când un val de phishing depășește pragul CIR §11.6 și cum arată avertizarea timpurie către BSI."
+      "summary": "Când un val de phishing depășește pragul din articolul 23 alineatul (3) NIS 2 sau din articolul 3 CIR și cum arată avertizarea timpurie către BSI."
     }
   },
   "entry:ddos-angriff-nis2": {

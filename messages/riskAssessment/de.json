@@ -95,7 +95,7 @@
     },
     "variante": {
       "heading": "Empfohlene Absicherungsvariante",
-      "subtitle": "Die Vorgehensweise (BSI-200-2 §3.4), die Ihr Gesamt-Schutzbedarf nahelegt. Basis/Standard/Kern sind BSIs drei Vorgehensweisen. Explizit verschieden von den Schutzbedarfsklassen oben.",
+      "subtitle": "Die Vorgehensweise (BSI-200-2 §3.3), die Ihr Gesamt-Schutzbedarf nahelegt. Basis/Standard/Kern sind BSIs drei Vorgehensweisen. Explizit verschieden von den Schutzbedarfsklassen oben.",
       "recommendedLabel": "Empfehlung",
       "byVariante": {
         "basis": {
@@ -311,7 +311,7 @@
     "disclaimer": {
       "heading": "Rechtlicher Hinweis",
       "body": "Dieses Tool ist eine informelle Klassifikation auf Basis Ihrer Angaben. Sie ist keine Rechtsberatung im Sinne des RDG. Verbindlich wird die Bewertung erst durch Freigabe der Geschäftsleitung nach §38 BSIG und Art. 20 NIS2.",
-      "methodologyDisclosure": "Asset-bezogene Schutzbedarfsfeststellung nach BSI-200-2 §8.2 (setzt voraus, dass Ihre Sicherheitsleitlinie §4 und Strukturanalyse §8.1 bereits stehen). Klassifikation je Grundwert (V/I/A) auf der BSI-Skala normal/hoch/sehr hoch, Maximum-Prinzip nach §8.2.3, Kumulationseffekt nach §8.2.4 und dokumentierte Schadensszenarien nach §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) und BSI-200-3 ergänzende Risikoanalyse bleiben Folgearbeit. Keine Zertifizierung: die erfordert ein drittes Audit durch eine DAkkS-akkreditierte Stelle."
+      "methodologyDisclosure": "Asset-bezogene Schutzbedarfsfeststellung nach BSI-200-2 §8.2 (setzt voraus, dass Ihre Sicherheitsleitlinie §3.4 und Strukturanalyse §8.1 bereits stehen). Klassifikation je Grundwert (V/I/A) auf der BSI-Skala normal/hoch/sehr hoch, Maximum-Prinzip nach §8.2.3, Kumulationseffekt nach §8.2.4 und dokumentierte Schadensszenarien nach §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) und BSI-200-3 ergänzende Risikoanalyse bleiben Folgearbeit. Keine Zertifizierung: die erfordert ein drittes Audit durch eine DAkkS-akkreditierte Stelle."
     },
     "art21Measures": {
       "a": {

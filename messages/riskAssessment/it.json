@@ -89,7 +89,7 @@
     },
     "variante": {
       "heading": "Absicherungsvariante raccomandata",
-      "subtitle": "Il percorso di attuazione (BSI-200-2 §3.4) suggerito dal tuo Gesamt-Schutzbedarf. Basis/Standard/Kern sono le tre Vorgehensweisen del BSI. Distinte dalle Schutzbedarfsklassen di cui sopra.",
+      "subtitle": "Il percorso di attuazione (BSI-200-2 §3.3) suggerito dal tuo Gesamt-Schutzbedarf. Basis/Standard/Kern sono le tre Vorgehensweisen del BSI. Distinte dalle Schutzbedarfsklassen di cui sopra.",
       "recommendedLabel": "Raccomandazione",
       "byVariante": {
         "basis": {
@@ -304,7 +304,7 @@
     "disclaimer": {
       "heading": "Nota legale",
       "body": "Questo strumento fornisce una classificazione informativa basata sui tuoi inserimenti. Non costituisce consulenza legale ai sensi del RDG tedesco. La valutazione diventa vincolante solo con l'approvazione dell'organo di gestione ai sensi del §38 BSIG e dell'Art 20 NIS2.",
-      "methodologyDisclosure": "Schutzbedarfsfeststellung per asset allineata al BSI-200-2 §8.2 (presuppone che la tua Sicherheitsleitlinie §4 e la Strukturanalyse §8.1 siano già in essere). Classificazione per singolo Grundwert (V/I/A) sulla scala normal/hoch/sehr-hoch del BSI, Maximum-Prinzip secondo §8.2.3, Kumulationseffekt secondo §8.2.4 e Schadensszenarien documentati secondo §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) e la ergänzende Risikoanalyse BSI-200-3 restano attività successive. Non è una certificazione: questa richiede un audit di terza parte accreditato DAkkS."
+      "methodologyDisclosure": "Schutzbedarfsfeststellung per asset allineata al BSI-200-2 §8.2 (presuppone che la tua Sicherheitsleitlinie §3.4 e la Strukturanalyse §8.1 siano già in essere). Classificazione per singolo Grundwert (V/I/A) sulla scala normal/hoch/sehr-hoch del BSI, Maximum-Prinzip secondo §8.2.3, Kumulationseffekt secondo §8.2.4 e Schadensszenarien documentati secondo §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) e la ergänzende Risikoanalyse BSI-200-3 restano attività successive. Non è una certificazione: questa richiede un audit di terza parte accreditato DAkkS."
     },
     "art21Measures": {
       "a": {

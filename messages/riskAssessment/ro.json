@@ -89,7 +89,7 @@
     },
     "variante": {
       "heading": "Absicherungsvariante recomandată",
-      "subtitle": "Calea de implementare (BSI-200-2 §3.4) sugerată de Gesamt-Schutzbedarf al dumneavoastră. Basis/Standard/Kern sunt cele trei Vorgehensweisen ale BSI. Distincte de Schutzbedarfsklassen de mai sus.",
+      "subtitle": "Calea de implementare (BSI-200-2 §3.3) sugerată de Gesamt-Schutzbedarf al dumneavoastră. Basis/Standard/Kern sunt cele trei Vorgehensweisen ale BSI. Distincte de Schutzbedarfsklassen de mai sus.",
       "recommendedLabel": "Recomandare",
       "byVariante": {
         "basis": {
@@ -304,7 +304,7 @@
     "disclaimer": {
       "heading": "Notă juridică",
       "body": "Acest instrument este o clasificare informativă bazată pe datele introduse de dumneavoastră. Nu constituie consultanță juridică în sensul RDG german. Evaluarea devine obligatorie doar cu aprobarea organului de conducere conform §38 BSIG și Art 20 NIS2.",
-      "methodologyDisclosure": "Schutzbedarfsfeststellung per activ, aliniată la BSI-200-2 §8.2 (presupune că Sicherheitsleitlinie §4 și Strukturanalyse §8.1 sunt deja în vigoare). Clasificare per Grundwert (V/I/A) pe scala BSI normal/hoch/sehr-hoch, Maximum-Prinzip conform §8.2.3, Kumulationseffekt conform §8.2.4 și Schadensszenarien documentate conform §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) și BSI-200-3 ergänzende Risikoanalyse rămân muncă ulterioară. Nu este o certificare: aceasta necesită un audit terț acreditat DAkkS."
+      "methodologyDisclosure": "Schutzbedarfsfeststellung per activ, aliniată la BSI-200-2 §8.2 (presupune că Sicherheitsleitlinie §3.4 și Strukturanalyse §8.1 sunt deja în vigoare). Clasificare per Grundwert (V/I/A) pe scala BSI normal/hoch/sehr-hoch, Maximum-Prinzip conform §8.2.3, Kumulationseffekt conform §8.2.4 și Schadensszenarien documentate conform §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) și BSI-200-3 ergänzende Risikoanalyse rămân muncă ulterioară. Nu este o certificare: aceasta necesită un audit terț acreditat DAkkS."
     },
     "art21Measures": {
       "a": {

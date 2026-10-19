@@ -48,7 +48,7 @@
       },
       "bsiRegistration": {
         "title": "Rejestracja u organu",
-        "description": "Prowadzone przygotowanie do rejestracji na podstawie Artykułu 27, ze wszystkimi wymaganymi dokumentami i listą kontrolną przed wysłaniem."
+        "description": "Prowadzone przygotowanie do rejestracji na podstawie Artykułu 3(4), ze wszystkimi wymaganymi dokumentami i listą kontrolną przed wysłaniem."
       }
     },
     "faq": {
@@ -58,7 +58,7 @@
       "q2": "Ile kosztuje prowadzenie?",
       "a2": "Zakres ustalamy w rozmowie wstępnej, wypowiadalne co miesiąc, bez lock-inu. Najpierw wspólnie sprawdzamy, czy w ogóle potrzebujesz prowadzenia, czy też bezpłatna platforma i plan działania wystarczą same w sobie.",
       "q3": "Mamy już ISO 27001. Czy nadal tego potrzebujemy?",
-      "a3": "ISO 27001 pokrywa wiele środków technicznych i organizacyjnych, których wymaga także NIS2. NIS2 dodaje obowiązki, których sam ISMS nie pokrywa: rejestrację u krajowego organu na podstawie Artykułu 27, kaskadę zgłaszania incydentów na podstawie Artykułu 23 oraz wykazywalne szkolenie kierownictwa na podstawie Artykułu 20 NIS 2 (w Niemczech § 38 BSIG). To właśnie te luki przepracowujemy z Tobą.",
+      "a3": "ISO 27001 pokrywa wiele środków technicznych i organizacyjnych, których wymaga także NIS2. NIS2 dodaje obowiązki, których sam ISMS nie pokrywa: rejestrację u krajowego organu na podstawie Artykułu 3(4), kaskadę zgłaszania incydentów na podstawie Artykułu 23 oraz wykazywalne szkolenie kierownictwa na podstawie Artykułu 20 NIS 2 (w Niemczech § 38 BSIG). To właśnie te luki przepracowujemy z Tobą.",
       "q4": "Ile trwa wdrożenie?",
       "a4": "Twój osobisty nakład jako prezesa zarządu to około trzech godzin rocznie: jedno szkolenie, kilka podpisów. Część operacyjną na bieżąco obsługuje Twój kierownik IT. To, jak szybko powstanie podstawowy poziom, zależy od tego, jak dobrze utrzymana jest już Twoja inwentaryzacja aktywów. Plan działania pokazuje realistyczny nakład na każdy krok.",
       "q5": "Gdzie przechowywane są nasze dane?",

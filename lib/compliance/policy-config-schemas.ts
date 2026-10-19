@@ -47,7 +47,7 @@ const accessControlConfigSchema = z.object({
   authReviewCycleYears: z.number().int().min(1).max(10),
 });
 
-// Procurement (6.1): CIR Art. 5
+// Procurement (6.1): CIR Annex points 5.1 and 6.1 (the eight clauses are 5.1.4 (a) to (h))
 const procurementConfigSchema = z.object({
   thresholdEur: z.number().int().min(0),
   requiredClauses: z.object({
@@ -75,7 +75,7 @@ const procurementConfigSchema = z.object({
   reviewFrequency: z.string().min(1).max(100),
 });
 
-// Secure development (6.2): CIR Art. 6
+// Secure development (6.2): CIR Annex points 6.2 and 6.3
 const secureDevConfigSchema = z.object({
   sdlcFramework: z.enum(["owasp_samm", "bsimm", "ms_sdl", "custom"]),
   hardeningBaseline: z.enum(["cis", "bsi", "disa_stig", "custom"]),
@@ -90,7 +90,7 @@ const secureDevConfigSchema = z.object({
   reviewCycleYears: z.number().int().min(1).max(10),
 });
 
-// Patch management (6.4): CIR Art. 6(6), OPS.1.1.3
+// Patch management (6.4): CIR Annex point 6.6, OPS.1.1.3
 const patchMgmtConfigSchema = z.object({
   patchSlaHours: z.object({
     critical: z.number().int().min(1).max(8760),

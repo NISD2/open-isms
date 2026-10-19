@@ -89,7 +89,7 @@
     },
     "variante": {
       "heading": "Zalecana Absicherungsvariante",
-      "subtitle": "Ścieżka wdrożenia (BSI-200-2 §3.4) sugerowana przez Twój Gesamt-Schutzbedarf. Basis/Standard/Kern to trzy Vorgehensweisen BSI. Różne od Schutzbedarfsklassen powyżej.",
+      "subtitle": "Ścieżka wdrożenia (BSI-200-2 §3.3) sugerowana przez Twój Gesamt-Schutzbedarf. Basis/Standard/Kern to trzy Vorgehensweisen BSI. Różne od Schutzbedarfsklassen powyżej.",
       "recommendedLabel": "Zalecenie",
       "byVariante": {
         "basis": {
@@ -304,7 +304,7 @@
     "disclaimer": {
       "heading": "Nota prawna",
       "body": "To narzędzie stanowi informacyjną klasyfikację opartą na Twoich danych wejściowych. Nie jest poradą prawną w rozumieniu niemieckiej ustawy RDG. Ocena staje się wiążąca dopiero po zatwierdzeniu przez organ zarządzający zgodnie z §38 BSIG i art. 20 NIS2.",
-      "methodologyDisclosure": "Schutzbedarfsfeststellung na zasób zgodna z BSI-200-2 §8.2 (zakłada, że Twoja Sicherheitsleitlinie §4 i Strukturanalyse §8.1 są już wdrożone). Klasyfikacja w podziale na poszczególne Grundwerte (V/I/A) w skali BSI normal/hoch/sehr-hoch, Maximum-Prinzip wg §8.2.3, Kumulationseffekt wg §8.2.4 oraz udokumentowane Schadensszenarien wg §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) i ergänzende Risikoanalyse wg BSI-200-3 pozostają pracą następczą. Nie jest certyfikacją: ta wymaga audytu przeprowadzonego przez akredytowaną przez DAkkS stronę trzecią."
+      "methodologyDisclosure": "Schutzbedarfsfeststellung na zasób zgodna z BSI-200-2 §8.2 (zakłada, że Twoja Sicherheitsleitlinie §3.4 i Strukturanalyse §8.1 są już wdrożone). Klasyfikacja w podziale na poszczególne Grundwerte (V/I/A) w skali BSI normal/hoch/sehr-hoch, Maximum-Prinzip wg §8.2.3, Kumulationseffekt wg §8.2.4 oraz udokumentowane Schadensszenarien wg §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) i ergänzende Risikoanalyse wg BSI-200-3 pozostają pracą następczą. Nie jest certyfikacją: ta wymaga audytu przeprowadzonego przez akredytowaną przez DAkkS stronę trzecią."
     },
     "art21Measures": {
       "a": {
