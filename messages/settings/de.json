@@ -6,7 +6,7 @@
     "adminOnly": "Nur Admins können Einstellungen ändern.",
     "mcp": {
       "title": "Assistenten wie Claude oder Copilot verbinden",
-      "description": "Ein verbundener Assistent liest Ihren NIS 2 Durchgang und füllt Felder und Register aus, mit Ihren Rechten in dieser Firma. Abgeschlossen wird ein Punkt nur hier in der App, und unterschrieben nur von der Geschäftsführung.",
+      "description": "Ein verbundener Assistent liest Ihren NIS 2 Durchgang und füllt Felder und Register aus, mit Ihren Rechten in dieser Firma. Auf Ihre Bitte schickt er Lieferanten auf Ihrer Liste den Sicherheitsfragebogen. Abgeschlossen wird ein Punkt nur hier in der App, und unterschrieben nur von der Geschäftsführung.",
       "signIn": "Assistenten, die sich im Browser anmelden, brauchen keinen Schlüssel: Sie melden sich an und erlauben den Zugriff. Für alle anderen gibt es den Schlüssel.",
       "howTo": "So richten Sie Claude Code, Claude Desktop und Copilot Studio ein",
       "create": "Schlüssel erzeugen",
@@ -37,7 +37,7 @@
       "offAdmin": "Assistenten sind für dieses Unternehmen ausgeschaltet. Schalten Sie sie oben ein, um einen zu verbinden.",
       "switch": {
         "label": "Assistenten für dieses Unternehmen erlauben",
-        "description": "Eingeschaltet dürfen Personen in diesem Unternehmen ihren eigenen Assistenten verbinden, der dann den Durchgang mit den Daten des Unternehmens liest und ausfüllt. Ausschalten beendet jede bestehende Verbindung.",
+        "description": "Eingeschaltet dürfen Personen in diesem Unternehmen ihren eigenen Assistenten verbinden, der dann den Durchgang mit den Daten des Unternehmens liest und ausfüllt und Lieferanten auf der Liste den Sicherheitsfragebogen schicken kann. Ausschalten beendet jede bestehende Verbindung.",
         "turnedOn": "Assistenten sind erlaubt.",
         "turnedOff": "Assistenten sind ausgeschaltet. Jede Verbindung ist beendet."
       },
@@ -50,7 +50,7 @@
         "title": "Assistent verbinden",
         "asks": "{client} möchte auf den NIS 2 Durchgang von {company} zugreifen.",
         "unnamed": "Ein Assistent",
-        "may": "Er liest den Durchgang und füllt Felder und Register aus, als {person} und mit Ihren Rechten.",
+        "may": "Er liest den Durchgang, füllt Felder und Register aus und schickt Lieferanten auf Ihrer Liste den Sicherheitsfragebogen, als {person} und mit Ihren Rechten.",
         "mayNot": "Er schließt keinen Punkt ab, entscheidet nichts und unterschreibt nichts. Das bleibt hier in der App.",
         "returnTo": "Danach geht es zurück zu {host}.",
         "selfNamed": "Den Namen „{client}“ gibt der Assistent selbst an.",

@@ -35,6 +35,7 @@ export const KEY_PROCEDURES = {
   requirement: ["getByCode"],
   risk: ["listWithAssets", "listWithSuppliers"],
   supplier: ["list", "create", "update"],
+  supplierInvite: ["create"],
   training: ["list", "create", "update", "getCertificateUploadUrl"],
 } as const satisfies {
   readonly [R in keyof AppCaller]?: readonly (keyof AppCaller[R])[];

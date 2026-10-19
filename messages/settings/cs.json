@@ -6,7 +6,7 @@
     "adminOnly": "Nastavení mohou měnit pouze správci.",
     "mcp": {
       "title": "Připojení asistentů jako Claude nebo Copilot",
-      "description": "Připojený asistent čte váš průvodce NIS 2 a vyplňuje pole, registry, aktiva a hodnocení rizik, s vašimi oprávněními v této společnosti. Krok se dokončuje jen zde v aplikaci a podepisuje ho jen vedení.",
+      "description": "Připojený asistent čte váš průvodce NIS 2 a vyplňuje pole, registry, aktiva a hodnocení rizik, s vašimi oprávněními v této společnosti. Na vaši žádost pošle dodavatelům z vašeho seznamu bezpečnostní dotazník. Krok se dokončuje jen zde v aplikaci a podepisuje ho jen vedení.",
       "signIn": "Asistenti, kteří se přihlašují přes prohlížeč, klíč nepotřebují: přihlásíte se a přístup povolíte. Klíč je pro všechny ostatní.",
       "howTo": "Jak nastavit Claude Code, Claude Desktop a Copilot Studio",
       "create": "Vytvořit klíč",
@@ -37,7 +37,7 @@
       "offAdmin": "Asistenti jsou pro tuto společnost vypnutí. Zapněte je výše a pak asistenta připojte.",
       "switch": {
         "label": "Povolit asistenty pro tuto společnost",
-        "description": "Když je zapnuto, mohou lidé v této společnosti připojit vlastního asistenta, který pak čte a vyplňuje průvodce daty společnosti. Vypnutí ukončí všechna připojení.",
+        "description": "Když je zapnuto, mohou lidé v této společnosti připojit vlastního asistenta, který pak čte a vyplňuje průvodce daty společnosti a může dodavatelům ze seznamu poslat bezpečnostní dotazník. Vypnutí ukončí všechna připojení.",
         "turnedOn": "Asistenti jsou povoleni.",
         "turnedOff": "Asistenti jsou vypnutí. Všechna připojení skončila."
       },
@@ -50,7 +50,7 @@
         "title": "Připojit asistenta",
         "asks": "{client} žádá o přístup k průvodci NIS 2 společnosti {company}.",
         "unnamed": "Asistent",
-        "may": "Čte průvodce a vyplňuje pole, registry, aktiva a hodnocení rizik, jako {person} a s vašimi oprávněními.",
+        "may": "Čte průvodce, vyplňuje pole, registry, aktiva a hodnocení rizik a posílá dodavatelům z vašeho seznamu bezpečnostní dotazník, jako {person} a s vašimi oprávněními.",
         "mayNot": "Žádný krok nedokončí, nic nerozhodne a nic nepodepíše. To zůstává zde v aplikaci.",
         "returnTo": "Potom se vrátíte na {host}.",
         "selfNamed": "Jméno „{client}“ si asistent dává sám.",

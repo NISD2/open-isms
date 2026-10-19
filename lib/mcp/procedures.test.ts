@@ -18,6 +18,12 @@ describe("what an assistant's key may reach", () => {
     expect(keyMayCall("durchgang.walk")).toBe(true);
     expect(keyMayCall("durchgang.rate")).toBe(true);
     expect(keyMayCall("evidence.confirmUpload")).toBe(true);
+    expect(keyMayCall("supplierInvite.create")).toBe(true);
+  });
+
+  test("of the supplier invites, only sending one: never listing or revoking them", () => {
+    expect(keyMayCall("supplierInvite.list")).toBe(false);
+    expect(keyMayCall("supplierInvite.revoke")).toBe(false);
   });
 
   test("never a decision, a signature, a deletion, billing or the team", () => {

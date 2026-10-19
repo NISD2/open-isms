@@ -6,7 +6,7 @@
     "adminOnly": "Only admins can change settings.",
     "mcp": {
       "title": "Connect assistants like Claude or Copilot",
-      "description": "A connected assistant reads your NIS 2 walkthrough and fills in fields and registers, with your rights in this company. An item is finished only here in the app, and signed only by management.",
+      "description": "A connected assistant reads your NIS 2 walkthrough and fills in fields and registers, with your rights in this company. When you ask, it sends suppliers on your list the security questionnaire. An item is finished only here in the app, and signed only by management.",
       "signIn": "Assistants that sign in through the browser need no key: you sign in and allow access. The key is for all others.",
       "howTo": "How to set up Claude Code, Claude Desktop and Copilot Studio",
       "create": "Create key",
@@ -37,7 +37,7 @@
       "offAdmin": "Assistants are off for this company. Turn them on above to connect one.",
       "switch": {
         "label": "Allow AI assistants for this company",
-        "description": "When on, people in this company may connect their own assistant, which then reads and fills in the walkthrough with the company's data. Turning it off ends every connected assistant.",
+        "description": "When on, people in this company may connect their own assistant, which then reads and fills in the walkthrough with the company's data and can send suppliers on the list the security questionnaire. Turning it off ends every connected assistant.",
         "turnedOn": "AI assistants are allowed.",
         "turnedOff": "AI assistants are off. Every connection has ended."
       },
@@ -50,7 +50,7 @@
         "title": "Connect an assistant",
         "asks": "{client} wants to access the NIS 2 walkthrough of {company}.",
         "unnamed": "An assistant",
-        "may": "It reads the walkthrough and fills in fields and registers, as {person} and with your rights.",
+        "may": "It reads the walkthrough, fills in fields and registers and sends suppliers on your list the security questionnaire, as {person} and with your rights.",
         "mayNot": "It finishes no item, decides nothing and signs nothing. That stays here in the app.",
         "returnTo": "Afterwards you go back to {host}.",
         "selfNamed": "The name “{client}” is the one the assistant gives itself.",

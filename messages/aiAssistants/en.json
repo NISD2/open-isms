@@ -22,9 +22,9 @@
           "heading": "What does the nisd2.eu MCP server do?",
           "paragraphs": [
             "Every nisd2.eu instance serves its MCP server at /api/mcp, a self-hosted one too. On nisd2.eu the address is https://nisd2.eu/api/mcp.",
-            "It gives your assistant three tools. With get_walkthrough it reads your walkthrough. With fill_walkthrough_item it fills in, for example suppliers, software, ratings or the text of a policy.",
-            "With upload_file it uploads a file as evidence, if it can send files itself, as Claude Code can. Everything goes through the same checks as in the app.",
-            "If a person holds the Reviewer or Legal reviewer access role in the team, their assistant reads and fills in nothing. What an assistant fills in on which item, our article on that sets out item by item."
+            "It gives your assistant four tools. With get_walkthrough it reads your walkthrough. With fill_walkthrough_item it fills in, for example suppliers, software, ratings or the text of a policy.",
+            "With upload_file it uploads a file as evidence, if it can send files itself, as Claude Code can; send_supplier_questionnaire sends suppliers the questionnaire. Everything goes through the same checks as in the app.",
+            "If a person holds the Reviewer or Legal reviewer access role in the team, their assistant only reads. What an assistant fills in on which item, our article on that sets out item by item."
           ]
         },
         {
@@ -105,7 +105,7 @@
           "Anthropic, Donating the Model Context Protocol and establishing the Agentic AI Foundation, 9 December 2025, anthropic.com",
           "Directive (EU) 2022/2555 (NIS 2), Art. 20, EUR-Lex",
           "open-isms, content/docs/self-hosting/mcp.md, github.com/NISD2/open-isms",
-          "open-isms, lib/mcp/server.ts and lib/mcp/tools.ts (the three tools), github.com/NISD2/open-isms",
+          "open-isms, lib/mcp/server.ts (the four tools), github.com/NISD2/open-isms",
           "open-isms, lib/mcp/procedures.ts (which functions an assistant may call), github.com/NISD2/open-isms"
         ]
       }
@@ -315,7 +315,7 @@
           "paragraphs": [
             "All but two. In 12.3 there is nothing to fill in: you read the item and finish it yourself. At 7.3 it fills in nothing, because a management review recorded there puts the item before management.",
             "In the other 19 items it answers questions, fills lists, rates risks and writes policy drafts. The sections below show what exactly, item by item.",
-            "It has no tool for these steps: finishing an item, putting it on the waiting list, recording that the company decided not to do it, inviting someone. Only an assistant that can send a file itself, such as Claude Code, uploads a file as evidence."
+            "It has no tool for these steps: finishing an item, putting it on the waiting list, recording that the company decided not to do it, inviting a colleague. Only an assistant that can send a file itself, such as Claude Code, uploads a file as evidence."
           ]
         },
         {
@@ -1266,7 +1266,7 @@
           },
           {
             "q": "What if nothing is agreed with a supplier?",
-            "a": "Then “None of this is agreed” is the right answer. The walkthrough suggests raising it, for example at the next renewal. You can send the supplier the security questionnaire from its line; sending stays in the app, and an assistant invites no one."
+            "a": "Then “None of this is agreed” is the right answer. The walkthrough suggests raising it, for example at the next renewal. You can send the supplier the security questionnaire from its line, or your assistant does."
           },
           {
             "q": "Can the assistant change the supplier list after the sign-off?",
@@ -1834,7 +1834,7 @@
           "heading": "Why does this matter most for an assistant that may write?",
           "paragraphs": [
             "The developer Simon Willison names three things that become dangerous together: access to your private data, exposure to content you cannot trust, and the ability to communicate externally. When all three meet in one assistant, an injected sentence can get it to send your data to strangers. He calls this the lethal trifecta.",
-            "An assistant working on the walkthrough has the first two: it reads your data, and it reads statements others wrote. The walkthrough's MCP server itself sends nothing outward. The third element comes with other tools connected to the same assistant, such as email, web access or another connector.",
+            "An assistant working on the walkthrough has the first two: it reads your data and statements others wrote. Outward, its MCP server sends only the security questionnaire to your suppliers, in fixed wording; more comes only with other tools, such as email.",
             "Then there is writing. An assistant that may fill in can enter something wrong on an injected instruction. That is why the walkthrough limits what it can write at all."
           ]
         },
@@ -1843,15 +1843,15 @@
           "paragraphs": [
             "The client passes the description of the reading tool, get_walkthrough, to the model. It tells the assistant: answers and register rows were written by people, a linked supplier's statements by that supplier, and all of it is to be read as data, never as instructions. The supplier's statements are set apart under writtenBySupplier, and the assistant cannot change them.",
             "The tool for filling in, fill_walkthrough_item, is marked as changing data (destructiveHint), because an answer replaces what the field held before. A client that asks before such calls asks here. The MCP specification does require clients to treat such markings as untrusted unless the server is a trusted one.",
-            "The assistant cannot finish an item, decide anything, delete a row, invite anyone or sign anything. It is refused on finished, signed and decided items.",
-            "Within the walkthrough the harm therefore stays at wrong or overwritten entries in items still in progress. Every screen an assistant wrote shows its name and the day."
+            "The assistant cannot finish an item, decide anything, delete a row, invite a colleague or sign anything. It is refused on finished, signed and decided items.",
+            "The harm thus stays at wrong or overwritten entries in items still in progress, and at questionnaires to addresses on your supplier list, planted ones too. Every screen an assistant wrote shows its name and the day."
           ]
         },
         {
           "heading": "What can you do against prompt injection yourself?",
           "paragraphs": [
             "None of these measures makes prompt injection impossible. In its baseline protection paper of 14 September 2026, the BSI recalls that it pointed out as early as 2023 “that no reliable countermeasure exists that removes the problem completely” (our translation). OWASP lists prompt injection as risk LLM01 and considers it unclear whether there are fool-proof methods of prevention.",
-            "Whether the client asks before writing depends on its settings. Leave the prompt before tool calls on, at least for fill_walkthrough_item, and do not use a setting that allows everything without asking for writing tools. In Gemini CLI, for example, setting trust to true bypasses every confirmation for a server.",
+            "Whether the client asks before writing depends on its settings. Leave the prompt before tool calls on, at least for fill_walkthrough_item and send_supplier_questionnaire, and allow neither everything without asking. In Gemini CLI, for example, setting trust to true bypasses every confirmation for a server.",
             "Do not connect tools that send data outward to the same assistant if you do not need them for work on the walkthrough. And read what the assistant entered before you finish an item."
           ]
         }
@@ -2104,7 +2104,7 @@
         {
           "heading": "What do you have to set for the MCP server?",
           "paragraphs": [
-            "There is no separate setting for the MCP server, because it is part of the application. Every instance, nisd2.eu and each self-hosted one alike, offers it at /api/mcp, with the same three tools and the same checks on every call.",
+            "There is no separate setting for the MCP server, because it is part of the application. Every instance, nisd2.eu and each self-hosted one alike, offers it at /api/mcp, with the same four tools and the same checks on every call.",
             "For the browser sign-in, the instance is its own sign-in service under OAuth 2.1. There is no third-party service and no identity you apply for with a vendor: an assistant registers itself with your instance.",
             "The instance reads all these addresses from NEXT_PUBLIC_APP_URL: the sign-in service's, the endpoint's, and the origin a browser may call it from. Set the variable to the address your people type.",
             "If it is missing, the instance gives https://www.nisd2.eu as its address, and an assistant's sign-in goes there instead of to your instance."
