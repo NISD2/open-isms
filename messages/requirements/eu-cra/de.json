@@ -6,7 +6,7 @@
     },
     "CRA-MFG_2": {
       "title": "Sorgfaltspflicht des Herstellers",
-      "description": "Bei der Integration von Komponenten Dritter, auch quelloffener, die gebotene Sorgfalt walten lassen, damit sie die Cybersicherheit des Produkts nicht beeinträchtigen (CRA Art. 13 Abs. 5). Die Verordnung verlangt hier keine Unterschrift; in diesem Produkt bestätigt die Geschäftsleitung die Sorgfaltsprüfung."
+      "description": "Bei der Integration von Komponenten Dritter, auch quelloffener, die gebotene Sorgfalt walten lassen, damit sie die Cybersicherheit des Produkts nicht beeinträchtigen (CRA Art. 13 Abs. 5). Die Verordnung verlangt hier keine Unterschrift; in dieser App bestätigt die Geschäftsleitung die Sorgfaltsprüfung."
     },
     "CRA-ESS_1": {
       "title": "Anforderungen an Secure-by-Design",
@@ -14,11 +14,11 @@
     },
     "CRA-ESS_2": {
       "title": "Sichere Standardkonfiguration",
-      "description": "Produkte mit einer sicheren Standardkonfiguration auf dem Markt bereitstellen (Anhang I Teil I, Nummer 2 lit. b)."
+      "description": "Wo zutreffend, Produkte mit einer sicheren Standardkonfiguration auf dem Markt bereitstellen, einschließlich der Möglichkeit, das Produkt in seinen ursprünglichen Zustand zurückzusetzen (Anhang I Teil I, Nummer 2 lit. b)."
     },
     "CRA-ESS_3": {
       "title": "Keine bekannten ausnutzbaren Schwachstellen",
-      "description": "Produkte ohne bekannte ausnutzbare Schwachstellen auf dem Markt bereitstellen (Anhang I Teil I, Nummer 2 lit. a)."
+      "description": "Wo zutreffend, Produkte ohne bekannte ausnutzbare Schwachstellen auf dem Markt bereitstellen (Anhang I Teil I, Nummer 2 lit. a)."
     },
     "CRA-VLN_1": {
       "title": "Richtlinie zur Schwachstellenbehandlung",
@@ -66,7 +66,7 @@
     },
     "CRA-SUP_1": {
       "title": "Unterstützungszeitraum",
-      "description": "Den Unterstützungszeitraum so festlegen, dass er der voraussichtlichen Nutzungsdauer des Produkts entspricht, und die dabei berücksichtigten Angaben in die technische Dokumentation aufnehmen (CRA Art. 13 Abs. 8). Er beträgt mindestens fünf Jahre, es sei denn, das Produkt wird voraussichtlich kürzer genutzt. Die Verordnung verlangt keine Unterschrift; in diesem Produkt zeichnet die Geschäftsleitung ihn ab."
+      "description": "Den Unterstützungszeitraum so festlegen, dass er der voraussichtlichen Nutzungsdauer des Produkts entspricht, und die dabei berücksichtigten Angaben in die technische Dokumentation aufnehmen (CRA Art. 13 Abs. 8). Er beträgt mindestens fünf Jahre, es sei denn, das Produkt wird voraussichtlich kürzer genutzt. Die Verordnung verlangt keine Unterschrift; in dieser App zeichnet die Geschäftsleitung ihn ab."
     },
     "CRA-SBOM_1": {
       "title": "Software-Stückliste (SBOM)",

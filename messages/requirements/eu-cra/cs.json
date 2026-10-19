@@ -12,12 +12,10 @@
       "description": "Navrhujte a vyrábějte produkty tak, aby splňovaly základní požadavky na kybernetickou bezpečnost (CRA příloha I část I)."
     },
     "CRA-ESS_2": {
-      "title": "Bezpečná výchozí konfigurace",
-      "description": "Dodávejte produkty s bezpečnou výchozí konfigurací (příloha I část I, bod 2 písm. b))."
+      "title": "Bezpečná výchozí konfigurace"
     },
     "CRA-ESS_3": {
-      "title": "Žádné známé zneužitelné zranitelnosti",
-      "description": "Uvádějte na trh produkty bez známých zneužitelných zranitelností (příloha I část I, bod 2 písm. a))."
+      "title": "Žádné známé zneužitelné zranitelnosti"
     },
     "CRA-VLN_1": {
       "title": "Politika řešení zranitelností",
@@ -27,16 +25,14 @@
       "title": "Koordinované zveřejňování zranitelností"
     },
     "CRA-VLN_3": {
-      "title": "Poskytování bezpečnostních aktualizací",
-      "description": "Poskytujte bezpečnostní aktualizace bez zbytečného odkladu a bezplatně po dobu podpory (příloha I část II, bod 8)."
+      "title": "Poskytování bezpečnostních aktualizací"
     },
     "CRA-VLN_4": {
       "title": "Testování zranitelností",
       "description": "Pravidelně testujte a přezkoumávejte bezpečnost produktu (příloha I část II, bod 3)."
     },
     "CRA-INC_1": {
-      "title": "Včasné varování",
-      "description": "Zašlete včasné varování o aktivně zneužívané zranitelnosti do CSIRT a agentuře ENISA (CRA čl. 14 odst. 2 písm. a))."
+      "title": "Včasné varování"
     },
     "CRA-INC_2": {
       "title": "Oznámení zranitelnosti"
@@ -49,8 +45,7 @@
       "description": "Proveďte příslušný postup posuzování shody produktu (CRA čl. 32)."
     },
     "CRA-CONF_2": {
-      "title": "Označení CE a shoda",
-      "description": "Umístěte označení CE a vypracujte EU prohlášení o shodě (čl. 28 až 30)."
+      "title": "Označení CE a shoda"
     },
     "CRA-DOC_1": {
       "title": "Technická dokumentace CRA",
@@ -68,8 +63,7 @@
       "description": "Ověřte, že dovážené produkty splňují požadavky CRA, než je uvedete na trh (čl. 19)."
     },
     "CRA-IMP_2": {
-      "title": "Povinnosti distributora",
-      "description": "Při distribuci produktů ověřujte shodu s CRA a reagujte na nesoulad (čl. 20)."
+      "title": "Povinnosti distributora"
     },
     "CRA-OSS_1": {
       "title": "Povinnosti správce open-source",

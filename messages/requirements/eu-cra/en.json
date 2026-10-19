@@ -6,7 +6,7 @@
     },
     "CRA-MFG_2": {
       "title": "Manufacturer Due Diligence",
-      "description": "Exercise due diligence when integrating components from third parties, free and open-source ones included, so that they do not compromise the product's cybersecurity (CRA Art. 13(5)). The CRA asks for no signature here; in this product management confirms it."
+      "description": "Exercise due diligence when integrating components from third parties, free and open-source ones included, so that they do not compromise the product's cybersecurity (CRA Art. 13(5)). The CRA asks for no signature here; in this app management confirms it."
     },
     "CRA-ESS_1": {
       "title": "Secure-by-Design Requirements",
@@ -14,11 +14,11 @@
     },
     "CRA-ESS_2": {
       "title": "Secure Default Configuration",
-      "description": "Make products available with a secure-by-default configuration (Annex I Part I, point 2(b))."
+      "description": "Where applicable, make products available with a secure-by-default configuration, including the possibility to reset the product to its original state (Annex I Part I, point 2(b))."
     },
     "CRA-ESS_3": {
       "title": "No Known Exploitable Vulnerabilities",
-      "description": "Make products available on the market without known exploitable vulnerabilities (Annex I Part I, point 2(a))."
+      "description": "Where applicable, make products available on the market without known exploitable vulnerabilities (Annex I Part I, point 2(a))."
     },
     "CRA-VLN_1": {
       "title": "Vulnerability Handling Policy",
@@ -66,7 +66,7 @@
     },
     "CRA-SUP_1": {
       "title": "Support Period",
-      "description": "Determine the support period so that it reflects how long the product is expected to be in use, and record what you took into account in the technical documentation (CRA Art. 13(8)). It is at least five years, unless the product is expected to be in use for less. The CRA asks for no signature; in this product management signs it off."
+      "description": "Determine the support period so that it reflects how long the product is expected to be in use, and record what you took into account in the technical documentation (CRA Art. 13(8)). It is at least five years, unless the product is expected to be in use for less. The CRA asks for no signature; in this app management signs it off."
     },
     "CRA-SBOM_1": {
       "title": "Software Bill of Materials",

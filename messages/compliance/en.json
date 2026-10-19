@@ -383,7 +383,7 @@
         "name": "Software Bill of Materials",
         "description": "Draw up a software bill of materials in a commonly used and machine-readable format, covering at the very least the product's top-level dependencies.",
         "legalBasis": "Annex I Part II §1 EU CRA",
-        "threatLandscape": "Without an SBOM, manufacturers cannot trace which products contain a vulnerable component and miss the Art. 14 reporting window.",
+        "threatLandscape": "Market surveillance authorities can ask for the SBOM with a reasoned request (Annex VII point 8).",
         "bsiGuidance": ""
       },
       "CRA-IMP": {

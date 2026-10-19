@@ -252,8 +252,7 @@ export const craNis2SatisfactionPairs: SatisfactionPair[] = [
   [
     "CRA-MFG.1",
     "2.1",
-    "Per-product cybersecurity risk assessment reuses the methodology defined for NIS2 risk management (CIR 2.1).",
-    "equivalent",
+    "The per-product assessment can reuse the 2.1 method, but Art. 13(3) analyses each product's use.",
   ],
   [
     "CRA-MFG.2",

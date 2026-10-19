@@ -360,7 +360,7 @@
       },
       "CRA-CONF": {
         "name": "Posouzení shody",
-        "description": "Cesta posouzení shody podle třídy produktu (vlastní posouzení modul A, modul B+C s oznámeným subjektem nebo modul H systém kvality) následovaná označením CE.",
+        "description": "Postup posouzení shody podle třídy produktu (interní řízení, modul A; EU přezkoušení typu a shoda s typem, moduly B a C; plné zabezpečení jakosti, modul H; nebo evropský systém certifikace kybernetické bezpečnosti, je-li k dispozici), následovaný označením CE (čl. 32, 30).",
         "legalBasis": "čl. 28 až 32 nařízení EU CRA",
         "threatLandscape": "Produkty bez platného posouzení shody nelze od 11. prosince 2027 uvádět na trh EU.",
         "bsiGuidance": ""
@@ -374,16 +374,16 @@
       },
       "CRA-SUP": {
         "name": "Doba podpory",
-        "description": "Veřejně se zavažte k době podpory bezpečnostních aktualizací (nejméně pět let; očekává-li se, že produkt bude používán kratší dobu, odpovídá doba podpory očekávané době používání).",
+        "description": "Stanovte dobu podpory nejméně pět let; očekává-li se, že produkt bude používán kratší dobu, odpovídá doba podpory této očekávané době používání (čl. 13 odst. 8).",
         "legalBasis": "čl. 13(8) nařízení EU CRA",
         "threatLandscape": "Každá bezpečnostní aktualizace zůstává dostupná nejméně 10 let po vydání, nebo po zbytek doby podpory, je-li delší (čl. 13 odst. 9).",
         "bsiGuidance": ""
       },
       "CRA-SBOM": {
         "name": "Soupis softwarových komponent",
-        "description": "Vytvořte soupis softwarových komponent (SBOM) v běžně používaném a strojově čitelném formátu, který zahrnuje alespoň závislosti nejvyšší úrovně produktu.",
+        "description": "Vypracujte softwarový kusovník (SBOM) v běžně používaném a strojově čitelném formátu, který obsahuje přinejmenším nejdůležitější závislosti produktu.",
         "legalBasis": "příloha I část II bod 1 nařízení EU CRA",
-        "threatLandscape": "Bez SBOM nedokážou výrobci dohledat, které produkty obsahují zranitelnou komponentu, a zmeškají okno pro hlášení podle čl. 14.",
+        "threatLandscape": "Orgány dozoru nad trhem si mohou SBOM vyžádat na základě odůvodněné žádosti (příloha VII bod 8).",
         "bsiGuidance": ""
       },
       "CRA-IMP": {

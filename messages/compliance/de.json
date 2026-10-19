@@ -327,12 +327,12 @@
         "name": "Konformitätsbewertung",
         "description": "Ein Konformitätsbewertungsverfahren je Produktklasse (internes Kontrollverfahren, Modul A; EU-Baumusterprüfung mit anschließender Konformität mit der Bauart, Module B und C; umfassende Qualitätssicherung, Modul H; oder ein europäisches Schema für die Cybersicherheitszertifizierung, wo verfügbar), danach die CE-Kennzeichnung (Art. 32, 30).",
         "legalBasis": "Art. 28 bis 32 EU CRA",
-        "threatLandscape": "Produkte ohne gültige Konformitätsbewertung dürfen ab dem 11. Dezember 2027 nicht mehr auf dem EU-Markt bereitgestellt werden.",
+        "threatLandscape": "Produkte ohne gültige Konformitätsbewertung dürfen ab dem 11. Dezember 2027 nicht mehr auf dem EU-Markt in Verkehr gebracht werden.",
         "bsiGuidance": ""
       },
       "CRA-DOC": {
         "name": "Technische Dokumentation",
-        "description": "Technische Dokumentation nach Anhang VII für jedes auf dem EU-Markt bereitgestellte Produkt pflegen.",
+        "description": "Technische Dokumentation nach Anhang VII für jedes auf dem EU-Markt in Verkehr gebrachte Produkt pflegen.",
         "legalBasis": "Art. 31 · Anhang VII EU CRA",
         "threatLandscape": "Sie wird für die Marktüberwachungsbehörden mindestens zehn Jahre nach dem Inverkehrbringen aufbewahrt, oder für den Unterstützungszeitraum, wenn der länger ist (Art. 13 Abs. 13).",
         "bsiGuidance": ""
@@ -348,7 +348,7 @@
         "name": "Software Bill of Materials",
         "description": "Eine Software-Stückliste (SBOM) in einem gängigen, maschinenlesbaren Format erstellen, die mindestens die obersten Abhängigkeiten des Produkts erfasst.",
         "legalBasis": "Anhang I Teil II Nr. 1 EU CRA",
-        "threatLandscape": "Ohne SBOM können Hersteller nicht nachvollziehen, welche Produkte eine verwundbare Komponente enthalten, und verpassen das Meldefenster nach Art. 14.",
+        "threatLandscape": "Marktüberwachungsbehörden können die SBOM auf begründete Anfrage verlangen (Anhang VII Nummer 8).",
         "bsiGuidance": ""
       },
       "CRA-IMP": {
