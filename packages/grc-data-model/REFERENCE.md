@@ -427,24 +427,24 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `CRA-MFG.1` | document | P0 | on-change | Art. 13 | CRA Art. 13(2) | 2.1 |
-| `CRA-MFG.2` | sign-off | P0 | on-change | Art. 13 | CRA Art. 13(1) | 2.4 |
+| `CRA-MFG.2` | sign-off | P0 | on-change | Art. 13 | CRA Art. 13(5) | 2.4 |
 
 ### CRA-ESS: cra-essential-requirements
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `CRA-ESS.1` | technical | P0 | ongoing | Annex I | CRA Annex I Part I | AI-RSK.1, G-TOM.1 |
-| `CRA-ESS.2` | technical | P0 | ongoing | Annex I | CRA Annex I Part I §3(a) | none |
-| `CRA-ESS.3` | proof | P0 | on-change | Annex I | CRA Annex I Part I §1 | none |
+| `CRA-ESS.2` | technical | P0 | ongoing | Annex I | CRA Annex I Part I §2(b) | none |
+| `CRA-ESS.3` | proof | P0 | on-change | Annex I | CRA Annex I Part I §2(a) | none |
 
 ### CRA-VLN: cra-vulnerability-handling
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `CRA-VLN.1` | document | P0 | one-time | Annex I | CRA Annex I Part II §1-2 | 6.3, G-BRC.1 |
-| `CRA-VLN.2` | document | P0 | one-time | Annex I | CRA Annex I Part II §5 | none |
-| `CRA-VLN.3` | technical | P0 | ongoing | Annex I | CRA Annex I Part II §3 | 6.4 |
-| `CRA-VLN.4` | proof | P1 | on-change | Annex I | CRA Annex I Part II §8 | none |
+| `CRA-VLN.2` | document | P0 | one-time | Annex I | CRA Annex I Part II §5-6 | none |
+| `CRA-VLN.3` | technical | P0 | ongoing | Annex I | CRA Annex I Part II §2, §7-8 | 6.4 |
+| `CRA-VLN.4` | proof | P1 | on-change | Annex I | CRA Annex I Part II §3 | none |
 
 ### CRA-INC: cra-incident-reporting
 
@@ -453,20 +453,20 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | `CRA-INC.1` | proof | P0 | on-change | Art. 14 | CRA Art. 14(2)(a) | 3.1, AI-INC.1 |
 | `CRA-INC.2` | proof | P0 | on-change | Art. 14 | CRA Art. 14(2)(b) | 3.3 |
 | `CRA-INC.3` | proof | P0 | on-change | Art. 14 | CRA Art. 14(2)(c) | 3.5 |
-| `CRA-INC.4` | proof | P0 | on-change | Art. 14 | CRA Art. 14(4) | none |
+| `CRA-INC.4` | proof | P0 | on-change | Art. 14 | CRA Art. 14(8) | none |
 
 ### CRA-CONF: cra-conformity-assessment
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `CRA-CONF.1` | document | P0 | on-change | Art. 24 | CRA Art. 24 | none |
-| `CRA-CONF.2` | proof | P0 | on-change | Art. 27 | CRA Art. 27 | none |
+| `CRA-CONF.1` | document | P0 | on-change | Art. 32 | CRA Art. 32(1) | none |
+| `CRA-CONF.2` | proof | P0 | on-change | Art. 28 | CRA Art. 28, Art. 30 | none |
 
 ### CRA-DOC: cra-technical-documentation
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `CRA-DOC.1` | document | P0 | on-change | Annex VII | CRA Annex VII, Art. 28 | AI-DOC.1, AI-DOC.2 |
+| `CRA-DOC.1` | document | P0 | on-change | Annex VII | CRA Art. 31, Annex VII | AI-DOC.1, AI-DOC.2 |
 
 ### CRA-SUP: cra-support-period
 
@@ -484,8 +484,8 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `CRA-IMP.1` | proof | P1 | on-change | Art. 18 | CRA Art. 18 | 5.1 |
-| `CRA-IMP.2` | proof | P1 | on-change | Art. 19 | CRA Art. 19 | 5.2 |
+| `CRA-IMP.1` | proof | P1 | on-change | Art. 19 | CRA Art. 19 | 5.1 |
+| `CRA-IMP.2` | proof | P1 | on-change | Art. 20 | CRA Art. 20 | 5.2 |
 
 ### CRA-OSS: cra-oss-steward
 
@@ -549,23 +549,23 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | First | Second | Kind | Rationale |
 |---|---|---|---|
 | `CRA-VLN.1` | `6.3` | overlapping | Vulnerability handling procedures overlap with NIS2 vulnerability and patch management requirements. |
-| `CRA-VLN.3` | `6.4` | overlapping | Security updates without delay align with the NIS2 patch management cadence. |
+| `CRA-VLN.3` | `6.4` | overlapping | The maker issues updates; 6.4 has the entity install them. No shared record. |
 | `CRA-INC.1` | `3.1` | overlapping | Different artefacts: CIR 3.1 is the internal incident handling policy, CRA Art. 14(2)(a) is a 24h early warning filed to the CSIRT coordinator and ENISA via the Art. 16 platform. The policy is where you name who files it; having the policy does not discharge the filing. |
-| `CRA-INC.2` | `3.3` | overlapping | Same underlying event, separate filings: CRA Art. 14 notifies the exploited product vulnerability to the CSIRT coordinator and ENISA, NIS2 §32 notifies the entity's own significant incident to the BSI. |
-| `CRA-INC.3` | `3.5` | overlapping | CRA 14-day final report and the NIS2 post-incident review share root-cause evidence; the NIS2 final report to the BSI is §32(1) Nr. 4, tracked under 3.3. |
+| `CRA-INC.2` | `3.3` | overlapping | Same event, separate filings: CRA Art. 14(2)(b) notifies the exploited product vulnerability to the CSIRT coordinator and ENISA, NIS2 Art. 23(4)(b) the entity's own significant incident to its CSIRT. |
+| `CRA-INC.3` | `3.5` | overlapping | The CRA 14-day report (Art. 14(2)(c)) names the fix, not a root cause; the fix feeds the NIS2 post-incident review. NIS2's final report (Art. 23(4)(d)) is 3.3. |
 | `CRA-IMP.1` | `5.1` | overlapping | Importer due diligence on manufacturers overlaps with the NIS2 supplier security policy. |
 | `CRA-IMP.2` | `5.2` | overlapping | Distributor checks overlap with NIS2 supplier contractual security clauses. |
-| `CRA-MFG.1` | `2.1` | equivalent | Per-product cybersecurity risk assessment reuses the methodology defined for NIS2 risk management (CIR 2.1). |
-| `CRA-MFG.2` | `2.4` | overlapping | Management body sign-off on CRA risk assessment overlaps with the CEO sign-off NIS2 risk treatment plan requires. |
+| `CRA-MFG.1` | `2.1` | overlapping | The per-product assessment can reuse the 2.1 method, but Art. 13(3) analyses each product's use. |
+| `CRA-MFG.2` | `2.4` | overlapping | Our practice: the CRA wants no sign-off on Art. 13(5) due diligence; management signs it here, as for 2.4. |
 
 ### EU Cyber Resilience Act and EU AI Act (4)
 
 | First | Second | Kind | Rationale |
 |---|---|---|---|
-| `CRA-ESS.1` | `AI-RSK.1` | overlapping | Essential cybersecurity requirements (Annex I) overlap with AI risk management for high-risk AI systems with embedded digital elements. CRA Art. 12 grants presumption of conformity with AI Act Art. 15 (accuracy, robustness, cybersecurity) only; it does not reach the Art. 9 risk management system AI-RSK.1 tracks. |
-| `CRA-DOC.1` | `AI-DOC.1` | overlapping | Annex VII technical documentation overlaps with AI Act Annex IV for products that are both PDE and high-risk AI. |
+| `CRA-ESS.1` | `AI-RSK.1` | overlapping | Essential cybersecurity requirements (Annex I) overlap with AI risk management for high-risk AI systems with embedded digital elements. CRA Art. 12(1) deems them to meet AI Act Art. 15 on cybersecurity, not on accuracy or robustness; it does not reach the Art. 9 risk management system AI-RSK.1 tracks. |
+| `CRA-DOC.1` | `AI-DOC.1` | overlapping | For a product that is also high-risk AI, CRA Art. 31(3) wants one technical file with Annex VII and AI Act Annex IV. |
 | `CRA-INC.1` | `AI-INC.1` | overlapping | Active-exploitation reporting overlaps with the AI Act incident response procedure when the AI system is also a product with digital elements. |
-| `CRA-DOC.1` | `AI-DOC.2` | overlapping | Annex VII technical documentation includes the logging and traceability evidence Art. 12 AI Act requires. |
+| `CRA-DOC.1` | `AI-DOC.2` | overlapping | Annex VII holds no logging evidence; the AI Act Art. 12 logs are a capability of the system itself. |
 
 ### EU Cyber Resilience Act and GDPR (2)
 
