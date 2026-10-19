@@ -123,10 +123,14 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
       frameworkRef: "Art. 13",
       moduleRef: "risk",
     }),
+    // Due diligence on third-party components, open-source ones included. The
+    // CRA asks for no signature here: its only signature is on the EU
+    // declaration of conformity (Annex V). Management confirming it is this
+    // product's choice, and the copy says so.
     mkReq("CRA-MFG.2", "sign-off", {
       priority: "P0",
       frequency: "on-change",
-      legalRef: "CRA Art. 13(1)",
+      legalRef: "CRA Art. 13(5)",
       frameworkRef: "Art. 13",
       requiredSignOffRole: "ceo",
     }),
@@ -141,13 +145,13 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("CRA-ESS.2", "technical", {
       priority: "P0",
       frequency: "ongoing",
-      legalRef: "CRA Annex I Part I §3(a)",
+      legalRef: "CRA Annex I Part I §2(b)",
       frameworkRef: "Annex I",
     }),
     mkReq("CRA-ESS.3", "proof", {
       priority: "P0",
       frequency: "on-change",
-      legalRef: "CRA Annex I Part I §1",
+      legalRef: "CRA Annex I Part I §2(a)",
       frameworkRef: "Annex I",
     }),
   ],
@@ -162,21 +166,21 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("CRA-VLN.2", "document", {
       priority: "P0",
       frequency: "one-time",
-      legalRef: "CRA Annex I Part II §5",
+      legalRef: "CRA Annex I Part II §5-6",
       frameworkRef: "Annex I",
       moduleRef: "policy",
     }),
     mkReq("CRA-VLN.3", "technical", {
       priority: "P0",
       frequency: "ongoing",
-      legalRef: "CRA Annex I Part II §3",
+      legalRef: "CRA Annex I Part II §2, §7-8",
       frameworkRef: "Annex I",
       moduleRef: "patch_record",
     }),
     mkReq("CRA-VLN.4", "proof", {
       priority: "P1",
       frequency: "on-change",
-      legalRef: "CRA Annex I Part II §8",
+      legalRef: "CRA Annex I Part II §3",
       frameworkRef: "Annex I",
     }),
   ],
@@ -205,7 +209,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("CRA-INC.4", "proof", {
       priority: "P0",
       frequency: "on-change",
-      legalRef: "CRA Art. 14(4)",
+      legalRef: "CRA Art. 14(8)",
       frameworkRef: "Art. 14",
       moduleRef: "incident",
     }),
@@ -214,25 +218,28 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("CRA-CONF.1", "document", {
       priority: "P0",
       frequency: "on-change",
-      legalRef: "CRA Art. 24",
-      frameworkRef: "Art. 24",
+      legalRef: "CRA Art. 32(1)",
+      frameworkRef: "Art. 32",
     }),
     mkReq("CRA-CONF.2", "proof", {
       priority: "P0",
       frequency: "on-change",
-      legalRef: "CRA Art. 27",
-      frameworkRef: "Art. 27",
+      legalRef: "CRA Art. 28, Art. 30",
+      frameworkRef: "Art. 28",
     }),
   ],
   "cra-technical-documentation": () => [
     mkReq("CRA-DOC.1", "document", {
       priority: "P0",
       frequency: "on-change",
-      legalRef: "CRA Annex VII, Art. 28",
+      legalRef: "CRA Art. 31, Annex VII",
       frameworkRef: "Annex VII",
     }),
   ],
   "cra-support-period": () => [
+    // Art. 13(8): the manufacturer determines the support period and records
+    // its reasons in the technical documentation (Annex VII). As with MFG.2,
+    // the CRA asks for no signature; the `ceo` sign-off is this product's.
     mkReq("CRA-SUP.1", "sign-off", {
       priority: "P0",
       frequency: "one-time",
@@ -253,15 +260,15 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("CRA-IMP.1", "proof", {
       priority: "P1",
       frequency: "on-change",
-      legalRef: "CRA Art. 18",
-      frameworkRef: "Art. 18",
+      legalRef: "CRA Art. 19",
+      frameworkRef: "Art. 19",
       moduleRef: "supplier",
     }),
     mkReq("CRA-IMP.2", "proof", {
       priority: "P1",
       frequency: "on-change",
-      legalRef: "CRA Art. 19",
-      frameworkRef: "Art. 19",
+      legalRef: "CRA Art. 20",
+      frameworkRef: "Art. 20",
       moduleRef: "supplier",
     }),
   ],

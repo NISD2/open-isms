@@ -5,80 +5,62 @@
       "description": "Przeprowadź ocenę ryzyka cyberbezpieczeństwa dla produktu z elementami cyfrowymi (art. 13(2) CRA)."
     },
     "CRA-MFG_2": {
-      "title": "Należyta staranność producenta",
-      "description": "Potwierdź należytą staranność producenta, tak aby produkty spełniały zasadnicze wymagania (art. 13(1))."
+      "title": "Należyta staranność producenta"
     },
     "CRA-ESS_1": {
       "title": "Wymagania bezpieczeństwa w fazie projektowania",
       "description": "Projektuj i wytwarzaj produkty tak, aby spełniały zasadnicze wymagania cyberbezpieczeństwa (CRA załącznik I część I)."
     },
     "CRA-ESS_2": {
-      "title": "Bezpieczna konfiguracja domyślna",
-      "description": "Dostarczaj produkty z bezpieczną konfiguracją domyślną (załącznik I część I, pkt 3(a))."
+      "title": "Bezpieczna konfiguracja domyślna"
     },
     "CRA-ESS_3": {
-      "title": "Brak znanych podatności możliwych do wykorzystania",
-      "description": "Wprowadzaj produkty do obrotu bez znanych podatności możliwych do wykorzystania (załącznik I część I, pkt 1)."
+      "title": "Brak znanych podatności możliwych do wykorzystania"
     },
     "CRA-VLN_1": {
       "title": "Polityka obsługi podatności",
       "description": "Ustanów proces identyfikowania, dokumentowania i usuwania podatności (CRA załącznik I część II, pkt 1 do 2)."
     },
     "CRA-VLN_2": {
-      "title": "Skoordynowane ujawnianie podatności",
-      "description": "Przyjmij politykę skoordynowanego ujawniania podatności wraz z adresem kontaktowym (załącznik I część II, pkt 5)."
+      "title": "Skoordynowane ujawnianie podatności"
     },
     "CRA-VLN_3": {
-      "title": "Dostarczanie aktualizacji bezpieczeństwa",
-      "description": "Dostarczaj aktualizacje bezpieczeństwa bez zbędnej zwłoki i bezpłatnie w okresie wsparcia (załącznik I część II, pkt 3)."
+      "title": "Dostarczanie aktualizacji bezpieczeństwa"
     },
     "CRA-VLN_4": {
-      "title": "Testowanie podatności",
-      "description": "Regularnie testuj i weryfikuj bezpieczeństwo produktu (załącznik I część II, pkt 8)."
+      "title": "Testowanie podatności"
     },
     "CRA-INC_1": {
       "title": "Powiadomienie wczesnego ostrzegania",
       "description": "Wyślij wczesne ostrzeżenie o aktywnie wykorzystywanej podatności do CSIRT i ENISA (art. 14(2)(a) CRA)."
     },
     "CRA-INC_2": {
-      "title": "Powiadomienie o podatności",
-      "description": "Powiadom o podatności lub poważnym incydencie w terminie określonym w CRA (art. 14(2)(b))."
-    },
-    "CRA-INC_3": {
-      "title": "Raport końcowy o incydencie",
-      "description": "Przekaż organom raport końcowy dotyczący podatności lub incydentu (art. 14(2)(c))."
+      "title": "Powiadomienie o podatności"
     },
     "CRA-INC_4": {
-      "title": "Powiadomienie użytkowników",
-      "description": "Poinformuj użytkowników, których dotyczy incydent, o incydencie oraz wszelkich działaniach naprawczych (art. 14(4))."
+      "title": "Powiadomienie użytkowników"
     },
     "CRA-CONF_1": {
-      "title": "Ocena zgodności",
-      "description": "Przeprowadź właściwą procedurę oceny zgodności dla produktu (art. 24 CRA)."
+      "title": "Ocena zgodności"
     },
     "CRA-CONF_2": {
-      "title": "Oznakowanie CE i zgodność",
-      "description": "Umieść oznakowanie CE i sporządź deklarację zgodności UE (art. 27)."
+      "title": "Oznakowanie CE i zgodność"
     },
     "CRA-DOC_1": {
-      "title": "Dokumentacja techniczna CRA",
-      "description": "Sporządź i utrzymuj w aktualności dokumentację techniczną zgodnie z załącznikiem VII do CRA (art. 28)."
+      "title": "Dokumentacja techniczna CRA"
     },
     "CRA-SUP_1": {
-      "title": "Okres wsparcia",
-      "description": "Określ i zatwierdź okres wsparcia, w którym dostarczane są aktualizacje bezpieczeństwa (art. 13(8) CRA)."
+      "title": "Okres wsparcia"
     },
     "CRA-SBOM_1": {
       "title": "Wykaz materiałowy oprogramowania",
       "description": "Sporządź wykaz materiałowy oprogramowania (SBOM) obejmujący zależności najwyższego poziomu (CRA załącznik I część II, pkt 1)."
     },
     "CRA-IMP_1": {
-      "title": "Obowiązki importera",
-      "description": "Zweryfikuj, czy importowane produkty spełniają wymagania CRA przed wprowadzeniem ich do obrotu (art. 18)."
+      "title": "Obowiązki importera"
     },
     "CRA-IMP_2": {
-      "title": "Obowiązki dystrybutora",
-      "description": "Sprawdzaj zgodność z CRA i reaguj na niezgodności przy dystrybucji produktów (art. 19)."
+      "title": "Obowiązki dystrybutora"
     },
     "CRA-OSS_1": {
       "title": "Obowiązki opiekuna oprogramowania open-source",

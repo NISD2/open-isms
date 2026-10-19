@@ -5,8 +5,7 @@
       "description": "Proveďte posouzení kybernetických rizik pro produkt s digitálními prvky (CRA čl. 13 odst. 2)."
     },
     "CRA-MFG_2": {
-      "title": "Náležitá péče výrobce",
-      "description": "Potvrďte náležitou péči výrobce tak, aby produkty splňovaly základní požadavky (čl. 13 odst. 1)."
+      "title": "Náležitá péče výrobce"
     },
     "CRA-ESS_1": {
       "title": "Požadavky na bezpečnost již od návrhu",
@@ -25,8 +24,7 @@
       "description": "Zaveďte proces k identifikaci, dokumentaci a nápravě zranitelností (CRA příloha I část II, body 1 až 2)."
     },
     "CRA-VLN_2": {
-      "title": "Koordinované zveřejňování zranitelností",
-      "description": "Přijměte politiku koordinovaného zveřejňování zranitelností s kontaktní adresou (příloha I část II, bod 5)."
+      "title": "Koordinované zveřejňování zranitelností"
     },
     "CRA-VLN_3": {
       "title": "Poskytování bezpečnostních aktualizací",
@@ -41,16 +39,10 @@
       "description": "Zašlete včasné varování o aktivně zneužívané zranitelnosti do CSIRT a agentuře ENISA (CRA čl. 14 odst. 2 písm. a))."
     },
     "CRA-INC_2": {
-      "title": "Oznámení zranitelnosti",
-      "description": "Oznamte zranitelnost nebo závažný incident ve lhůtě stanovené CRA (čl. 14 odst. 2 písm. b) a odst. 4 písm. b))."
-    },
-    "CRA-INC_3": {
-      "title": "Závěrečná zpráva o incidentu",
-      "description": "Předložte orgánům závěrečnou zprávu o zranitelnosti nebo incidentu (čl. 14 odst. 2 písm. c) a odst. 4 písm. c))."
+      "title": "Oznámení zranitelnosti"
     },
     "CRA-INC_4": {
-      "title": "Informování uživatelů",
-      "description": "Informujte dotčené uživatele o incidentu a případných nápravných opatřeních (čl. 14 odst. 8)."
+      "title": "Informování uživatelů"
     },
     "CRA-CONF_1": {
       "title": "Posuzování shody",
@@ -65,8 +57,7 @@
       "description": "Sestavte a průběžně aktualizujte technickou dokumentaci podle CRA přílohy VII (čl. 31)."
     },
     "CRA-SUP_1": {
-      "title": "Doba podpory",
-      "description": "Určete a schvalte dobu podpory, po kterou jsou poskytovány bezpečnostní aktualizace (CRA čl. 13 odst. 8)."
+      "title": "Doba podpory"
     },
     "CRA-SBOM_1": {
       "title": "Soupis softwarových komponent (SBOM)",

@@ -6,7 +6,7 @@
     },
     "CRA-MFG_2": {
       "title": "Manufacturer Due Diligence",
-      "description": "Confirm manufacturer due diligence so products meet the essential requirements (Art. 13(1))."
+      "description": "Exercise due diligence when integrating components from third parties, free and open-source ones included, so that they do not compromise the product's cybersecurity (CRA Art. 13(5)). The CRA asks for no signature here; in this product management confirms it."
     },
     "CRA-ESS_1": {
       "title": "Secure-by-Design Requirements",
@@ -14,11 +14,11 @@
     },
     "CRA-ESS_2": {
       "title": "Secure Default Configuration",
-      "description": "Ship products with a secure-by-default configuration (Annex I Part I, point 3(a))."
+      "description": "Make products available with a secure-by-default configuration (Annex I Part I, point 2(b))."
     },
     "CRA-ESS_3": {
       "title": "No Known Exploitable Vulnerabilities",
-      "description": "Place products on the market without known exploitable vulnerabilities (Annex I Part I, point 1)."
+      "description": "Make products available on the market without known exploitable vulnerabilities (Annex I Part I, point 2(a))."
     },
     "CRA-VLN_1": {
       "title": "Vulnerability Handling Policy",
@@ -26,15 +26,15 @@
     },
     "CRA-VLN_2": {
       "title": "Coordinated Vulnerability Disclosure",
-      "description": "Adopt a coordinated vulnerability disclosure policy with a contact address (Annex I Part II, point 5)."
+      "description": "Put in place and enforce a coordinated vulnerability disclosure policy (Annex I Part II, point 5) and provide a contact address for reporting vulnerabilities (point 6)."
     },
     "CRA-VLN_3": {
       "title": "Security Update Delivery",
-      "description": "Provide security updates without delay and free of charge during the support period (Annex I Part II, point 3)."
+      "description": "Remediate vulnerabilities without delay through security updates, distribute them securely, and disseminate available updates without delay and free of charge, with advisory messages for users (Annex I Part II, points 2, 7 and 8)."
     },
     "CRA-VLN_4": {
       "title": "Vulnerability Testing",
-      "description": "Test and review the security of the product on a regular basis (Annex I Part II, point 8)."
+      "description": "Apply effective and regular tests and reviews of the product's security (Annex I Part II, point 3)."
     },
     "CRA-INC_1": {
       "title": "Early Warning Notification",
@@ -42,31 +42,31 @@
     },
     "CRA-INC_2": {
       "title": "Vulnerability Notification",
-      "description": "Notify the vulnerability or severe incident within the CRA deadline (Art. 14(2)(b))."
+      "description": "Within 72 hours of becoming aware of an actively exploited vulnerability, submit the vulnerability notification to the CSIRT designated as coordinator and to ENISA, unless that information has already been provided (CRA Art. 14(2)(b))."
     },
     "CRA-INC_3": {
-      "title": "Final Incident Report",
-      "description": "Submit the final report on the vulnerability or incident to the authorities (Art. 14(2)(c))."
+      "title": "Final Vulnerability Report",
+      "description": "No later than 14 days after a corrective or mitigating measure is available, submit the final report on the actively exploited vulnerability: its description, severity and impact, any malicious actor exploiting it, and the security update (CRA Art. 14(2)(c))."
     },
     "CRA-INC_4": {
       "title": "User Notification",
-      "description": "Inform affected users of the incident and any corrective measures (Art. 14(4))."
+      "description": "Inform the impacted users, and where appropriate all users, of an actively exploited vulnerability or a severe incident and, where necessary, of the mitigation and corrective measures they can take (CRA Art. 14(8))."
     },
     "CRA-CONF_1": {
       "title": "Conformity Assessment",
-      "description": "Carry out the applicable conformity assessment procedure for the product (CRA Art. 24)."
+      "description": "Carry out the conformity assessment of the product and of your own processes against the essential cybersecurity requirements of Annex I (CRA Art. 32(1))."
     },
     "CRA-CONF_2": {
       "title": "CE Marking and Conformity",
-      "description": "Affix the CE marking and draw up the EU declaration of conformity (Art. 27)."
+      "description": "Draw up the EU declaration of conformity and affix the CE marking (CRA Art. 28, Art. 30)."
     },
     "CRA-DOC_1": {
       "title": "CRA Technical Documentation",
-      "description": "Compile and keep up to date the technical documentation per CRA Annex VII (Art. 28)."
+      "description": "Draw up the technical documentation, with at least the elements of Annex VII, before placing the product on the market, and keep it updated at least during the support period (CRA Art. 31)."
     },
     "CRA-SUP_1": {
       "title": "Support Period",
-      "description": "Determine and sign off the support period during which security updates are provided (CRA Art. 13(8))."
+      "description": "Determine the support period so that it reflects how long the product is expected to be in use, and record what you took into account in the technical documentation (CRA Art. 13(8)). The CRA asks for no signature; in this product management signs it off."
     },
     "CRA-SBOM_1": {
       "title": "Software Bill of Materials",
@@ -74,11 +74,11 @@
     },
     "CRA-IMP_1": {
       "title": "Importer Obligations",
-      "description": "Verify that imported products meet CRA requirements before placing them on the market (Art. 18)."
+      "description": "As an importer, place on the market only products that meet the essential cybersecurity requirements, after checking the manufacturer's conformity assessment, technical documentation, CE marking and declaration of conformity (CRA Art. 19)."
     },
     "CRA-IMP_2": {
       "title": "Distributor Obligations",
-      "description": "Check CRA conformity and act on non-conformity when distributing products (Art. 19)."
+      "description": "As a distributor, act with due care, check the CE marking and the manufacturer's and importer's documents before making a product available, and hold back products you believe do not conform (CRA Art. 20)."
     },
     "CRA-OSS_1": {
       "title": "Open-Source Steward Duties",

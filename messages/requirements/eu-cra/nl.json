@@ -5,80 +5,62 @@
       "description": "Voer een risicobeoordeling cyberbeveiliging uit voor het product met digitale elementen (CRA art. 13(2))."
     },
     "CRA-MFG_2": {
-      "title": "Zorgvuldigheid fabrikant",
-      "description": "Bevestig de zorgvuldigheid van de fabrikant zodat producten aan de essentiële eisen voldoen (art. 13(1))."
+      "title": "Zorgvuldigheid fabrikant"
     },
     "CRA-ESS_1": {
       "title": "Eisen security-by-design",
       "description": "Ontwerp en produceer producten zodat ze voldoen aan de essentiële cyberbeveiligingseisen (CRA bijlage I deel I)."
     },
     "CRA-ESS_2": {
-      "title": "Veilige standaardconfiguratie",
-      "description": "Lever producten met een standaard veilige configuratie (bijlage I deel I, punt 3(a))."
+      "title": "Veilige standaardconfiguratie"
     },
     "CRA-ESS_3": {
-      "title": "Geen bekende exploiteerbare kwetsbaarheden",
-      "description": "Breng producten op de markt zonder bekende exploiteerbare kwetsbaarheden (bijlage I deel I, punt 1)."
+      "title": "Geen bekende exploiteerbare kwetsbaarheden"
     },
     "CRA-VLN_1": {
       "title": "Beleid kwetsbaarheidsbeheer",
       "description": "Stel een proces in om kwetsbaarheden te identificeren, te documenteren en te verhelpen (CRA bijlage I deel II, punten 1 tot en met 2)."
     },
     "CRA-VLN_2": {
-      "title": "Gecoördineerde bekendmaking kwetsbaarheden",
-      "description": "Hanteer een beleid voor gecoördineerde bekendmaking van kwetsbaarheden met een contactadres (bijlage I deel II, punt 5)."
+      "title": "Gecoördineerde bekendmaking kwetsbaarheden"
     },
     "CRA-VLN_3": {
-      "title": "Levering beveiligingsupdates",
-      "description": "Lever beveiligingsupdates onverwijld en kosteloos gedurende de ondersteuningsperiode (bijlage I deel II, punt 3)."
+      "title": "Levering beveiligingsupdates"
     },
     "CRA-VLN_4": {
-      "title": "Kwetsbaarheidstesten",
-      "description": "Test en beoordeel de beveiliging van het product op regelmatige basis (bijlage I deel II, punt 8)."
+      "title": "Kwetsbaarheidstesten"
     },
     "CRA-INC_1": {
       "title": "Vroege waarschuwing",
       "description": "Stuur een vroege waarschuwing van een actief misbruikte kwetsbaarheid naar het CSIRT en ENISA (CRA art. 14(2)(a))."
     },
     "CRA-INC_2": {
-      "title": "Melding kwetsbaarheid",
-      "description": "Meld de kwetsbaarheid of het ernstige incident binnen de CRA-termijn (art. 14(2)(b))."
-    },
-    "CRA-INC_3": {
-      "title": "Eindrapport incident",
-      "description": "Dien het eindrapport over de kwetsbaarheid of het incident in bij de autoriteiten (art. 14(2)(c))."
+      "title": "Melding kwetsbaarheid"
     },
     "CRA-INC_4": {
-      "title": "Melding aan gebruikers",
-      "description": "Informeer getroffen gebruikers over het incident en eventuele corrigerende maatregelen (art. 14(4))."
+      "title": "Melding aan gebruikers"
     },
     "CRA-CONF_1": {
-      "title": "Conformiteitsbeoordeling",
-      "description": "Voer de toepasselijke conformiteitsbeoordelingsprocedure voor het product uit (CRA art. 24)."
+      "title": "Conformiteitsbeoordeling"
     },
     "CRA-CONF_2": {
-      "title": "CE-markering en conformiteit",
-      "description": "Breng de CE-markering aan en stel de EU-conformiteitsverklaring op (art. 27)."
+      "title": "CE-markering en conformiteit"
     },
     "CRA-DOC_1": {
-      "title": "Technische documentatie CRA",
-      "description": "Stel de technische documentatie samen en houd deze actueel conform CRA bijlage VII (art. 28)."
+      "title": "Technische documentatie CRA"
     },
     "CRA-SUP_1": {
-      "title": "Ondersteuningsperiode",
-      "description": "Bepaal de ondersteuningsperiode waarin beveiligingsupdates worden geleverd en teken deze af (CRA art. 13(8))."
+      "title": "Ondersteuningsperiode"
     },
     "CRA-SBOM_1": {
       "title": "Software bill of materials",
       "description": "Stel een SBOM op die de afhankelijkheden op het hoogste niveau dekt (CRA bijlage I deel II, punt 1)."
     },
     "CRA-IMP_1": {
-      "title": "Verplichtingen importeur",
-      "description": "Verifieer dat ingevoerde producten aan de CRA-eisen voldoen voordat u ze op de markt brengt (art. 18)."
+      "title": "Verplichtingen importeur"
     },
     "CRA-IMP_2": {
-      "title": "Verplichtingen distributeur",
-      "description": "Controleer de CRA-conformiteit en handel bij non-conformiteit bij de distributie van producten (art. 19)."
+      "title": "Verplichtingen distributeur"
     },
     "CRA-OSS_1": {
       "title": "Verplichtingen open-source-beheerder",
