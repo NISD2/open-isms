@@ -141,7 +141,7 @@ describe("Czech mail", () => {
     expect(text).toContain("vyhláška č. 410/2025 Sb., § 4 písm. b)");
     expect(text).toContain("vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a)");
     expect(text).toContain("uznává NÚKIB certifikát svého kurzu");
-    expect(text).toContain("https://nisd2.eu/cs/training/courses/nis2-ceo");
+    expect(text).toContain("https://nisd2.eu/cs/training/nis2-ceo");
     expect(text.startsWith("Dobrý den,")).toBe(true);
   });
 
@@ -194,7 +194,7 @@ describe("other readers keep the mail they had", () => {
     const welcome = await t.welcomeEmail({ name: "Anna", locale: "de" });
     expect(welcome.subject).toBe("Welcome to NISD2");
     expect(welcome.text).toContain(
-      "A good first step is the free CEO and management course (https://nisd2.eu/training/courses/nis2-ceo).",
+      "A good first step is the free CEO and management course (https://nisd2.eu/en/training/nis2-ceo).",
     );
     const weekly = await t.weeklyManagementDigestEmail({
       recipientName: "Jan",
