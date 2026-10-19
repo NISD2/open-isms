@@ -38,7 +38,7 @@
     },
     "3_2": {
       "title": "Detection, Classification & Logging",
-      "description": "Set up a classification scheme (significant incident, §2 Nr. 11 BSIG), a reporting channel for suspicious events, detection processes and a complete incident log. Recurring incidents must be assessed on a quarterly basis (CIR 3.4.2(b)): incidents sharing the same apparent root cause that occur at least twice within six months and collectively meet the financial loss criterion count together as one significant incident (CIR Article 4)."
+      "description": "Set up a classification scheme (significant incident, §2 Nr. 11 BSIG), a reporting channel for suspicious events, detection processes and a complete incident log. For the entity types the CIR covers, recurring incidents are assessed on a quarterly basis (CIR 3.4.2(b)): incidents sharing the same apparent root cause that occur at least twice within six months and collectively meet the financial loss criterion count together as one significant incident (CIR Article 4)."
     },
     "3_3": {
       "title": "BSI Reporting Readiness (24h/72h/1M)",

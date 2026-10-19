@@ -38,7 +38,7 @@
     },
     "3_2": {
       "title": "Erkennung, Klassifizierung & Protokollierung",
-      "description": "Klassifizierungsschema (erheblicher Sicherheitsvorfall, §2 Nr. 11 BSIG), Meldekanal für Verdachtsfälle, Erkennungsprozesse und lückenloses Vorfallprotokoll einrichten. Wiederholte Sicherheitsvorfälle sind vierteljährlich zu bewerten (CIR 3.4.2 Buchstabe b): Vorfälle mit derselben erkennbaren Ursache, die mindestens zweimal in sechs Monaten auftreten und zusammen die Verlustschwelle erreichen, gelten gemeinsam als ein erheblicher Sicherheitsvorfall (Artikel 4 CIR)."
+      "description": "Klassifizierungsschema (erheblicher Sicherheitsvorfall, §2 Nr. 11 BSIG), Meldekanal für Verdachtsfälle, Erkennungsprozesse und lückenloses Vorfallprotokoll einrichten. Für Einrichtungen, für die die CIR gilt, werden wiederholte Sicherheitsvorfälle vierteljährlich bewertet (CIR 3.4.2 Buchstabe b): Vorfälle mit derselben erkennbaren Ursache, die mindestens zweimal in sechs Monaten auftreten und zusammen die Verlustschwelle erreichen, gelten gemeinsam als ein erheblicher Sicherheitsvorfall (Artikel 4 CIR)."
     },
     "3_3": {
       "title": "BSI-Meldefähigkeit (24h/72h/1M)",

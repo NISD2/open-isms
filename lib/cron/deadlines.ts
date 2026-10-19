@@ -28,11 +28,11 @@ import {
   computeNotificationSchedule,
   type Frequency,
   type Importance,
-  isRecurringFrequency,
   type Priority,
   toDateString,
 } from "@/lib/compliance/deadlines";
 import { processEscalation } from "@/lib/compliance/escalation";
+import { DONE_STATUS_LIST } from "@/lib/compliance/journey-position";
 import { resolveRecipients } from "@/lib/compliance/resolve-recipients";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
@@ -79,11 +79,7 @@ export async function runDeadlines(): Promise<DeadlineStats> {
     where: and(
       nis2StatusScope(db),
       sql`${companyRequirementStatus.nextReviewDate} <= ${today}`,
-      inArray(companyRequirementStatus.status, [
-        "completed",
-        "approved",
-        "not_applicable",
-      ]),
+      inArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
     ),
     columns: { id: true, assessmentId: true },
   });
@@ -113,7 +109,7 @@ export async function runDeadlines(): Promise<DeadlineStats> {
     ),
     columns: { id: true, assessmentId: true, requirementId: true },
     with: {
-      requirement: { columns: { priority: true, frequency: true } },
+      requirement: { columns: { priority: true } },
     },
   });
 
@@ -133,10 +129,9 @@ export async function runDeadlines(): Promise<DeadlineStats> {
     }
   }
 
+  // The onboarding pace for open work, whatever the requirement's review frequency: a requirement
+  // that never recurs still has to be done once.
   for (const status of missingDeadlines) {
-    const frequency = status.requirement.frequency as Frequency;
-    if (!isRecurringFrequency(frequency)) continue;
-
     const startedAt = assessmentStartDates.get(status.assessmentId);
     if (!startedAt) continue;
 

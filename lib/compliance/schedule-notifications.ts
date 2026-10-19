@@ -36,6 +36,7 @@ import {
   toDateString,
   type Urgency,
 } from "./deadlines";
+import { isDoneStatus } from "./journey-position";
 import { resolveRecipients } from "./resolve-recipients";
 
 function getReqTitle(code: string): string {
@@ -224,25 +225,21 @@ export async function backfillInitialDeadlines(
   // Load all status rows for this assessment with requirement context
   const statuses = await db.query.companyRequirementStatus.findMany({
     where: eq(companyRequirementStatus.assessmentId, opts.assessmentId),
-    columns: { id: true, requirementId: true, nextReviewDate: true },
+    columns: { id: true, requirementId: true, nextReviewDate: true, status: true },
     with: {
       requirement: {
-        columns: { priority: true, frequency: true },
+        columns: { priority: true },
       },
     },
   });
 
-  // Only backfill rows that don't already have a nextReviewDate
-  const toUpdate = statuses.filter((s) => !s.nextReviewDate);
+  // Open work without a date gets the onboarding pace from its priority, whatever its review
+  // frequency. A done row gets none: on a done row the date means "review again", and the
+  // deadline cron would move it to needs_review.
+  const toUpdate = statuses.filter((s) => !s.nextReviewDate && !isDoneStatus(s.status));
 
   for (const status of toUpdate) {
-    const frequency = status.requirement.frequency as Frequency;
     const priority = status.requirement.priority as Priority;
-
-    // For recurring requirements, set initial deadline from priority
-    // For non-recurring, skip
-    if (!isRecurringFrequency(frequency)) continue;
-
     const deadline = computeInitialDeadline(assessment.startedAt, priority);
 
     await db

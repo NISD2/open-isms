@@ -218,6 +218,20 @@
       "when": 1792410600000,
       "tag": "0030_iso27001_links_from_enisa",
       "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1792415005010,
+      "tag": "0031_framework_data_sync",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1792415100000,
+      "tag": "0032_nis2_review_dates_without_legal_basis",
+      "breakpoints": true
     }
   ]
 }

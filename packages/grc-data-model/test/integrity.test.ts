@@ -82,6 +82,18 @@ describe("framework data", () => {
     expect(duplicates(codes)).toEqual([]);
   });
 
+  // A calendar frequency moves a signed requirement back to "needs review" when it lapses. No
+  // NIS2 text fixes a review period for every entity (see mkReq in nis2.ts), so none recurs.
+  test("no NIS2 requirement recurs on a calendar", () => {
+    const nis2 = FRAMEWORK_DATA.filter((f) => f.code === "nis2").flatMap((f) =>
+      f.categories.flatMap((c) => f.getRequirements(c.slug)),
+    );
+    const recurring = nis2.filter(
+      (r) => !["on-change", "ongoing", "one-time"].includes(r.frequency),
+    );
+    expect(recurring.map((r) => `${r.code}: ${r.frequency}`)).toEqual([]);
+  });
+
   test("category slugs are unique within each framework", () => {
     for (const f of FRAMEWORK_DATA) {
       expect(duplicates(f.categories.map((c) => c.slug)), f.code).toEqual([]);

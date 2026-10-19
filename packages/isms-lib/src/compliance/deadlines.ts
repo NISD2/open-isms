@@ -7,17 +7,17 @@
  * computeInitialDeadline is the platform's own onboarding pacing (P0-P3
  * tiers from the assessment start — no statute phases anything in; §30 BSIG
  * measures are simply due), while computeNextReviewDate is the recurring
- * review cadence. Of the cadences, only a few are statutory intervals (CIR
- * (EU) 2024/2690 Annex 1.1.2, 2.1.4, 10.1.3 "at least annually"; 3.4.2(b)
- * quarterly); the rest implement the Annex's "at planned intervals" with a
- * cadence the platform adopts. Management accountability sits in Art. 20
+ * review cadence. No NIS2 requirement carries one: the only fixed periods
+ * (CIR (EU) 2024/2690 Annex 1.1.2, 2.1.4, 10.1.3 "at least annually";
+ * 3.4.2(b) quarterly) bind the CIR's entity types alone, and the Directive
+ * and the BSIG set none (nis2.ts, mkReq). Management accountability sits in Art. 20
  * NIS 2 / §38 BSIG and attaches to implementing and supervising the
  * measures, not to these dates.
  */
 import {
+  addDays,
   addMonths,
   addYears,
-  addDays,
   differenceInCalendarDays,
   startOfDay,
 } from "date-fns";
@@ -89,10 +89,14 @@ export function computeInitialDeadline(
   priority: Priority,
 ): Date {
   switch (priority) {
-    case "P0": return addDays(assessmentStartedAt, 30);
-    case "P1": return addMonths(assessmentStartedAt, 3);
-    case "P2": return addMonths(assessmentStartedAt, 6);
-    case "P3": return addYears(assessmentStartedAt, 1);
+    case "P0":
+      return addDays(assessmentStartedAt, 30);
+    case "P1":
+      return addMonths(assessmentStartedAt, 3);
+    case "P2":
+      return addMonths(assessmentStartedAt, 6);
+    case "P3":
+      return addYears(assessmentStartedAt, 1);
   }
 }
 
@@ -179,17 +183,18 @@ export function computeNotificationSchedule(
       );
       return {
         scheduledFor,
-        triggerField: offset === -1
-          ? "reminder_1d"
-          : offset === -7
-            ? "reminder_7d"
-            : offset === -30
-              ? "reminder_30d"
-              : offset === -60
-                ? "reminder_60d"
-                : offset === -90
-                  ? "reminder_90d"
-                  : `reminder_${Math.abs(offset)}d`,
+        triggerField:
+          offset === -1
+            ? "reminder_1d"
+            : offset === -7
+              ? "reminder_7d"
+              : offset === -30
+                ? "reminder_30d"
+                : offset === -60
+                  ? "reminder_60d"
+                  : offset === -90
+                    ? "reminder_90d"
+                    : `reminder_${Math.abs(offset)}d`,
         urgency: computeUrgency(daysRemaining, priority, importance),
       };
     })

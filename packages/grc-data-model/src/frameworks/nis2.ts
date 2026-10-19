@@ -47,7 +47,15 @@
 import type { CzechRef, FrameworkCategory, FrameworkRequirement } from "./types";
 import { makeRequirementFactory } from "./types";
 
-const mkReq = makeRequirementFactory("nis2-req");
+/**
+ * No NIS2 requirement recurs on a calendar. Neither the Directive nor the BSIG fixes a review
+ * period for every entity: they say "regelmäßig" or nothing, and the BSIG's fixed clocks run from
+ * an event (§ 32, § 33(5)). The CIR's four fixed periods (1.1.2, 2.1.4 and 10.1.3 at least
+ * annually, 3.4.2(b) quarterly) bind only its entity types (§ 30(3) BSIG), so they are shown in
+ * the CIR row and not imposed on everyone. "on-change" where the law names a change or incident
+ * as the trigger, "ongoing" where it only says regularly or at planned intervals.
+ */
+const mkReq = makeRequirementFactory("nis2-req", { frequency: "on-change" });
 
 export const nis2Categories: FrameworkCategory[] = [
   {
@@ -217,29 +225,22 @@ export const nis2Categories: FrameworkCategory[] = [
 const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   governance: () => [
     // §38(3) says "regelmäßig" and names NO interval. The 3-year cadence is
-    // the platform's labeled recommendation, carried with exactly that caveat
-    // in the requirement description ("The law sets no fixed interval;
-    // recommendation: ..."). Never present it as statutory.
+    // the platform's labeled recommendation in the description ("The law sets
+    // no fixed interval; recommendation: ..."), so it does not drive a review.
     mkReq("1.1", "training", {
       priority: "P0",
-      frequency: "every-3-years",
+      frequency: "ongoing",
       legalRef: "§38(3) BSIG",
       frameworkRef: "Art. 20(2)",
     }),
-    // Annual is statutory here: CIR 10.1.3 requires the assignment of
-    // personnel to the roles of point 1.2 to be reviewed "at planned
-    // intervals and at least annually" — one of the Annex's three
-    // at-least-annually floors (1.1.2, 2.1.4, 10.1.3).
     mkReq("1.2", "proof", {
       priority: "P1",
-      frequency: "annual",
       legalRef: "§30(1) BSIG, CIR 1.2, CIR 10.1.3",
       frameworkRef: "Art. 21(2)(a)",
       cirReference: "1.2, 10.1.3",
     }),
     mkReq("1.3", "proof", {
       priority: "P1",
-      frequency: "annual",
       legalRef: "§38(1) BSIG, CIR 1.1.1(e)",
       frameworkRef: "Art. 20(1)",
       cirReference: "1.1.1(e)",
@@ -273,11 +274,8 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
       frameworkRef: "Art. 21(2)(a)",
       cirReference: "2.1.1, 2.1.3, 2.1.4",
     }),
-    // 1.1.2 and 2.1.4 carry the "at least annually" floor this requirement's annual
-    // frequency actually rests on; 1.1.1(k) and 2.1.1 only cover the approval itself.
     mkReq("2.4", "sign-off", {
       priority: "P0",
-      frequency: "annual",
       legalRef: "§38(1) BSIG, CIR 1.1.1(k), 1.1.2, 2.1.1, 2.1.4",
       frameworkRef: "Art. 20(1), Art. 21(2)(a)",
       cirReference: "1.1.1(k), 1.1.2, 2.1.1, 2.1.4",
@@ -299,31 +297,27 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
       cirReference: "3.1",
       requiredSignOffRole: "ceo",
     }),
-    // Quarterly, not the default annual: CIR 3.4.2(b) is the implementing act's only
-    // hard interval, and it feeds the Art. 4 recurring-incident aggregation rule.
     mkReq("3.2", "document", {
       priority: "P1",
-      frequency: "quarterly",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4",
       frameworkRef: "Art. 21(2)(b), Art. 23(3)",
       cirReference: "3.2, 3.3, 3.4",
     }),
     mkReq("3.3", "proof", {
       priority: "P0",
-      frequency: "annual",
       legalRef: "§32(1) Nr. 1-4, §32(2) BSIG",
       frameworkRef: "Art. 23(4)",
     }),
     mkReq("3.4", "proof", {
       priority: "P2",
-      frequency: "annual",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 2+6 BSIG, CIR 3.5",
       frameworkRef: "Art. 21(2)(f)",
       cirReference: "3.5",
     }),
     mkReq("3.5", "document", {
       priority: "P1",
-      frequency: "annual",
       legalRef: "§30(2) Nr. 2 BSIG, CIR 3.6",
       frameworkRef: "Art. 21(2)(b)",
       cirReference: "3.6",
@@ -351,13 +345,14 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     }),
     mkReq("4.4", "technical", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 3 BSIG, CIR 4.2",
       frameworkRef: "Art. 21(2)(c)",
       cirReference: "4.2",
     }),
     mkReq("4.5", "proof", {
       priority: "P1",
-      frequency: "annual",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 3+6 BSIG, CIR 4.1.4, 4.3.4",
       frameworkRef: "Art. 21(2)(c), Art. 21(2)(f)",
       cirReference: "4.1.4, 4.2.6, 4.3.4",
@@ -366,7 +361,6 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   "supply-chain": () => [
     mkReq("5.1", "document", {
       priority: "P0",
-      frequency: "annual",
       legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1-5.2",
       frameworkRef: "Art. 21(2)(d)",
       cirReference: "5.1, 5.2",
@@ -429,7 +423,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   effectiveness: () => [
     mkReq("7.1", "proof", {
       priority: "P1",
-      frequency: "quarterly",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 6 BSIG, CIR 7.1, 7.2",
       frameworkRef: "Art. 21(2)(f)",
       cirReference: "7.1, 7.2",
@@ -464,19 +458,21 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     }),
     mkReq("8.2", "training", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 7 BSIG, CIR 8.1",
       frameworkRef: "Art. 21(2)(g)",
       cirReference: "8.1",
     }),
     mkReq("8.3", "training", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 7 BSIG, CIR 8.2",
       frameworkRef: "Art. 21(2)(g)",
       cirReference: "8.2",
     }),
     mkReq("8.4", "proof", {
       priority: "P2",
-      frequency: "annual",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 6+7 BSIG, CIR 8.1.3, 8.2.3",
       frameworkRef: "Art. 21(2)(g), Art. 21(2)(f)",
       cirReference: "8.1.3, 8.2.3",
@@ -485,18 +481,21 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   cryptography: () => [
     mkReq("9.1", "document", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102",
       frameworkRef: "Art. 21(2)(h)",
       cirReference: "9.1, 9.3",
     }),
     mkReq("9.2", "technical", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 8 BSIG, CIR 9.2(a)",
       frameworkRef: "Art. 21(2)(h)",
       cirReference: "9.2(a)",
     }),
     mkReq("9.3", "technical", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 8 BSIG, CIR 9.2(c)",
       frameworkRef: "Art. 21(2)(h)",
       cirReference: "9.2(c)",
@@ -518,17 +517,15 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     }),
     mkReq("10.3", "document", {
       priority: "P1",
-      frequency: "annual",
       legalRef: "§30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3",
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "10.2, 10.3, 11.3",
     }),
-    // Annual, not quarterly: CIR 11.2.3 and 11.3.3 ask for reviews "at planned intervals", and BSI
-    // Grundschutz++ BER.4.4 sets the interval by criticality ("quartalsweise, halbjährlich,
-    // jährlich"). Quarterly stays for privileged accounts, in the access-control policy default.
+    // CIR 11.2.3 and 11.3.3 ask for reviews "at planned intervals", with no period; BSI
+    // Grundschutz++ BER.4.4 sets one by criticality. The company picks it in the access-control
+    // policy (quarterly for privileged accounts by default), so the data imposes none.
     mkReq("10.4", "proof", {
       priority: "P1",
-      frequency: "annual",
       legalRef: "§30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3",
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "11.2.3, 11.3.3",
@@ -537,18 +534,20 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   authentication: () => [
     mkReq("11.1", "technical", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 10 BSIG, CIR 11.7",
       frameworkRef: "Art. 21(2)(j)",
       cirReference: "11.7",
     }),
     mkReq("11.2", "document", {
       priority: "P1",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 10 BSIG",
       frameworkRef: "Art. 21(2)(j)",
     }),
     mkReq("11.3", "document", {
       priority: "P1",
-      frequency: "annual",
+      frequency: "ongoing",
       legalRef: "§30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B",
       frameworkRef: "Art. 21(2)(j)",
       cirReference: "11.6",

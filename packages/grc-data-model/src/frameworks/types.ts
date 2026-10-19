@@ -119,7 +119,10 @@ export interface RequirementOptions {
   requiredSignOffRole?: string;
 }
 
-export function makeRequirementFactory(idPrefix: string) {
+export function makeRequirementFactory(
+  idPrefix: string,
+  defaults: { readonly frequency: Frequency } = { frequency: "annual" },
+) {
   let n = 0;
   return function mkReq(
     code: string,
@@ -131,7 +134,7 @@ export function makeRequirementFactory(idPrefix: string) {
       id: `${idPrefix}-${n}`,
       code,
       evidenceType,
-      frequency: opts.frequency ?? "annual",
+      frequency: opts.frequency ?? defaults.frequency,
       priority: opts.priority ?? "P1",
       importance: opts.importance ?? "mandatory",
       legalRef: opts.legalRef ?? "",
