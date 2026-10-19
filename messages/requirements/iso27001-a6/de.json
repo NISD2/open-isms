@@ -1,27 +1,27 @@
 {
   "requirements": {
     "A_6_1": {
-      "title": "Sicherheitsüberprüfung",
+      "title": "Überprüfung von Bewerbern",
       "description": "Hintergrundüberprüfungen für alle Kandidaten verhältnismäßig zur Rollensensitivität und den rechtlichen Anforderungen durchführen."
     },
     "A_6_2": {
-      "title": "Beschäftigungs- und Vertragsbedingungen",
+      "title": "Beschäftigungsbedingungen",
       "description": "Mitarbeitern und Auftragnehmern vertraglich die Einhaltung von IS-Leitlinien als Beschäftigungsbedingung vorschreiben."
     },
     "A_6_3": {
-      "title": "Informationssicherheitsbewusstsein, -ausbildung und -schulung",
+      "title": "Sensibilisierung, Schulung und Training zur Informationssicherheit",
       "description": "Sicherstellen, dass alle Mitarbeiter bei Einstellung und jährlich angemessene IS-Sensibilisierungsschulungen erhalten."
     },
     "A_6_4": {
-      "title": "Maßregelungsprozess",
+      "title": "Disziplinarverfahren",
       "description": "Ein formelles, kommuniziertes Disziplinarverfahren für Mitarbeiter haben, die IS-Verstöße begehen."
     },
     "A_6_5": {
-      "title": "Verantwortlichkeiten bei Beendigung oder Änderung der Beschäftigung",
+      "title": "Verantwortlichkeiten nach Beendigung oder Änderung der Beschäftigung",
       "description": "IS-Verantwortlichkeiten, die nach Beendigung des Arbeitsverhältnisses gelten, definieren und durchsetzen (Vertraulichkeit, Asset-Rückgabe)."
     },
     "A_6_6": {
-      "title": "Vertraulichkeits- oder Geheimhaltungsvereinbarungen",
+      "title": "Vertraulichkeits- und Geheimhaltungsvereinbarungen",
       "description": "Vertraulichkeitsanforderungen identifizieren, dokumentieren und regelmäßig überprüfen; NDAs mit Mitarbeitern, Auftragnehmern und Dritten verwenden."
     },
     "A_6_7": {
@@ -29,7 +29,7 @@
       "description": "Sicherheitsmaßnahmen für Telearbeit definieren und umsetzen: Netzwerksicherheit, physische Sicherheit und Geräteschutz."
     },
     "A_6_8": {
-      "title": "Meldung von Informationssicherheitsereignissen",
+      "title": "Meldung von Sicherheitsereignissen",
       "description": "Klaren, einfach nutzbaren Mechanismus für Mitarbeiter bereitstellen, um Sicherheitsereignisse und Schwachstellen zu melden."
     }
   }

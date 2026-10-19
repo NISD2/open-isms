@@ -1,19 +1,19 @@
 {
   "requirements": {
     "A_8_1": {
-      "title": "Endpunktgeräte des Benutzers",
+      "title": "Endgeräte der Benutzer",
       "description": "Informationen auf und verarbeitet durch Benutzer-Endgeräte (Laptops, Smartphones) durch eine Endgeräte-Sicherheitsrichtlinie schützen."
     },
     "A_8_2": {
-      "title": "Privilegierte Zugangsrechte",
+      "title": "Privilegierte Zugriffsrechte",
       "description": "Zuweisung und Nutzung privilegierter Zugriffsrechte auf allen Systemen einschränken und sorgfältig verwalten."
     },
     "A_8_3": {
-      "title": "Informationszugangsbeschränkung",
+      "title": "Einschränkung des Informationszugriffs",
       "description": "Zugriff auf Informationen und Systeme auf das für die Rolle Erforderliche beschränken (Prinzip der minimalen Rechtevergabe)."
     },
     "A_8_4": {
-      "title": "Zugriff auf den Quellcode",
+      "title": "Zugriff auf Quellcode",
       "description": "Zugriff auf Programmquellcode und zugehörige Tools auf autorisierte Personen beschränken; Versionskontrolle anwenden."
     },
     "A_8_5": {
@@ -21,15 +21,15 @@
       "description": "Sichere Authentifizierungstechnologien und -verfahren umsetzen, inkl. MFA für sensible Systeme und alle Fernzugriffe."
     },
     "A_8_6": {
-      "title": "Kapazitätssteuerung",
+      "title": "Kapazitätsmanagement",
       "description": "Ressourcennutzung und -prognosen überwachen und anpassen, um erforderliche Systemkapazität und -leistung sicherzustellen."
     },
     "A_8_7": {
-      "title": "Schutz gegen Schadsoftware",
+      "title": "Schutz vor Schadsoftware",
       "description": "Malware-Schutzmaßnahmen (EDR, AV, Code-Signierung, E-Mail-Filterung) in Verbindung mit Benutzersensibilisierung umsetzen."
     },
     "A_8_8": {
-      "title": "Handhabung von technischen Schwachstellen",
+      "title": "Verwaltung technischer Schwachstellen",
       "description": "Technische Schwachstellen auf allen Systemen zeitnah identifizieren, bewerten und beheben."
     },
     "A_8_9": {
@@ -49,11 +49,11 @@
       "description": "Maßnahmen zur Verhinderung von Datenlecks auf Systemen, Netzwerken und Endgeräten anwenden, die sensible Informationen verarbeiten."
     },
     "A_8_13": {
-      "title": "Sicherung von Information",
+      "title": "Sicherung von Informationen",
       "description": "Sicherungskopien von Informationen, Software und System-Images gemäß einer Backup-Richtlinie erstellen und regelmäßig testen."
     },
     "A_8_14": {
-      "title": "Redundanz von informationsverarbeitenden Einrichtungen",
+      "title": "Redundanz von Informationsverarbeitungseinrichtungen",
       "description": "Ausreichende Redundanz in Informationsverarbeitungseinrichtungen umsetzen, um Verfügbarkeitsanforderungen zu erfüllen."
     },
     "A_8_15": {
@@ -61,7 +61,7 @@
       "description": "Protokolle zu Benutzeraktivitäten, Ausnahmen, Fehlern und Sicherheitsereignissen für definierte Aufbewahrungszeiten erstellen, schützen und aufbewahren."
     },
     "A_8_16": {
-      "title": "Überwachung von Aktivitäten",
+      "title": "Überwachungsaktivitäten",
       "description": "Netzwerke, Systeme und Anwendungen überwachen, um anomales Verhalten und potenzielle Sicherheitsereignisse zu erkennen."
     },
     "A_8_17": {
@@ -69,11 +69,11 @@
       "description": "Uhren aller Informationsverarbeitungssysteme mit einer genehmigten Zeitquelle synchronisieren, um Protokollkorrelation und Forensik zu unterstützen."
     },
     "A_8_18": {
-      "title": "Gebrauch von Hilfsprogrammen mit privilegierten Rechten",
+      "title": "Nutzung privilegierter Dienstprogramme",
       "description": "Nutzung von Dienstprogrammen, die System- und Anwendungssteuerungen überwinden können, kontrollieren und einschränken."
     },
     "A_8_19": {
-      "title": "Installation von Software auf Systemen im Betrieb",
+      "title": "Installation von Software auf Betriebssystemen",
       "description": "Verfahren zur Steuerung der Softwareinstallation auf Betriebssystemen durch autorisierte Personen umsetzen."
     },
     "A_8_20": {
@@ -85,7 +85,7 @@
       "description": "Sicherheitsmechanismen für Netzwerkdienste einschließlich Cloud-Netzwerken identifizieren, umsetzen und überwachen."
     },
     "A_8_22": {
-      "title": "Trennung von Netzwerken",
+      "title": "Netzwerktrennung",
       "description": "Gruppen von Informationsdiensten, Nutzern und Informationssystemen innerhalb des Netzwerks trennen."
     },
     "A_8_23": {
@@ -93,11 +93,11 @@
       "description": "Zugriff auf externe Websites verwalten, um das Risiko durch schädliche Inhalte zu reduzieren."
     },
     "A_8_24": {
-      "title": "Verwendung von Kryptographie",
+      "title": "Einsatz von Kryptografie",
       "description": "Kryptografierichtlinie mit genehmigten Algorithmen, Schlüsselmanagement und Verschlüsselungsanforderungen definieren und umsetzen."
     },
     "A_8_25": {
-      "title": "Lebenszyklus einer sicheren Entwicklung",
+      "title": "Sicherer Entwicklungslebenszyklus",
       "description": "Regeln für die sichere Entwicklung von Software und Systemen über den gesamten Entwicklungslebenszyklus festlegen und anwenden."
     },
     "A_8_26": {
@@ -105,35 +105,35 @@
       "description": "IS-Anforderungen für Anwendungsentwicklung und -beschaffung identifizieren, spezifizieren und genehmigen."
     },
     "A_8_27": {
-      "title": "Sichere Systemarchitektur und technische Grundsätze",
+      "title": "Grundsätze für sichere Systemarchitektur und Systementwicklung",
       "description": "Sichere Engineering-Grundsätze für alle Entwicklungs- und Systemtechnikaktivitäten etablieren, dokumentieren und anwenden."
     },
     "A_8_28": {
-      "title": "Sicheres Coding",
+      "title": "Sicheres Codieren",
       "description": "Sichere Kodierungsprinzipien in der Softwareentwicklung anwenden, um häufige Schwachstellen zu vermeiden (OWASP Top 10, Injection, XSS)."
     },
     "A_8_29": {
-      "title": "Sicherheitsprüfung in Entwicklung und Abnahme",
+      "title": "Sicherheitstests in Entwicklung und Abnahme",
       "description": "Sicherheitstestprozesse im Entwicklungslebenszyklus und bei Abnahmetests definieren und umsetzen."
     },
     "A_8_30": {
-      "title": "Ausgegliederte Entwicklung",
+      "title": "Ausgelagerte Entwicklung",
       "description": "Ausgelagerte Systementwicklungsaktivitäten überwachen, um sicherzustellen, dass Sicherheitsanforderungen erfüllt werden."
     },
     "A_8_31": {
-      "title": "Trennung von Entwicklungs-, Prüf- und Produktionsumgebungen",
+      "title": "Trennung von Entwicklungs-, Test- und Produktionsumgebungen",
       "description": "Entwicklungs-, Test- und Produktionsumgebungen trennen, um unbefugten Zugriff auf oder Änderungen am Produktionssystem zu reduzieren."
     },
     "A_8_32": {
-      "title": "Änderungssteuerung",
+      "title": "Änderungsmanagement",
       "description": "Änderungen an Informationsverarbeitungseinrichtungen und Systemen durch einen formalen Änderungsmanagementprozess verwalten."
     },
     "A_8_33": {
-      "title": "Prüfinformationen",
+      "title": "Testinformationen",
       "description": "Testinformationen schützen und verwalten; niemals Live-Produktionsdaten ohne angemessene Kontrollen in Testumgebungen verwenden."
     },
     "A_8_34": {
-      "title": "Schutz der Informationssysteme während der Überwachungsprüfung",
+      "title": "Schutz von IS bei Audittests",
       "description": "Anforderungen und Aktivitäten für Audits von Betriebssystemen planen und abstimmen, um Betriebsunterbrechungen zu minimieren."
     }
   }

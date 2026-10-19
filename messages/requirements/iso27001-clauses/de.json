@@ -1,15 +1,15 @@
 {
   "requirements": {
     "IS-4_1": {
-      "title": "Verstehen der Organisation und ihres Kontextes",
-      "description": "Das Unternehmen benennt, was in ihm und um es herum seine Informationssicherheit beeinflusst: was es wo tut, welche Gesetze und Verträge gelten und welchen Bedrohungen es ausgesetzt ist. Geltungsbereich, Risiken und Ziele werden an diesem Bild ausgerichtet."
+      "title": "Kontext der Organisation",
+      "description": "Das Unternehmen benennt, was in ihm und um es herum seine Informationssicherheit beeinflusst: was es wo tut, welche Gesetze und Verträge gelten und welchen Bedrohungen es ausgesetzt ist. Geltungsbereich, Risiken und Ziele werden an diesem Bild ausgerichtet. Seit der Änderung 1:2024 gehört dazu die Entscheidung, ob der Klimawandel ein relevantes Thema ist."
     },
     "IS-4_2": {
-      "title": "Verstehen der Erfordernisse und Erwartungen interessierter Parteien",
-      "description": "Das Unternehmen hält fest, wer ein Interesse an seiner Informationssicherheit hat, etwa Kunden, Behörden, Beschäftigte, Lieferanten und Eigentümer, was jede dieser Parteien erwartet und welche dieser Erwartungen sein ISMS aufnimmt."
+      "title": "Erfordernisse interessierter Parteien",
+      "description": "Das Unternehmen hält fest, wer ein Interesse an seiner Informationssicherheit hat, etwa Kunden, Behörden, Beschäftigte, Lieferanten und Eigentümer, was jede dieser Parteien erwartet und welche dieser Erwartungen sein ISMS aufnimmt. Seit der Änderung 1:2024 zählen Anforderungen zum Klimawandel zu denen, die eine interessierte Partei haben kann."
     },
     "IS-4_3": {
-      "title": "Festlegen des Anwendungsbereichs des Informationssicherheitsmanagementsystems",
+      "title": "Anwendungsbereich des ISMS",
       "description": "Das Unternehmen legt die Grenzen seines ISMS fest: welche Standorte, Systeme, Teams und Leistungen es umfasst, welche nicht und warum. Der Anwendungsbereich wird schriftlich festgehalten, damit Beschäftigte und Auditoren vom selben ausgehen."
     },
     "IS-4_4": {
@@ -21,19 +21,19 @@
       "description": "Die oberste Leitung führt das ISMS: Sie trägt Leitlinie und Ziele, stellt Personal und Budget bereit, verankert Sicherheit in den Abläufen des Unternehmens und hält die Beteiligten dazu an."
     },
     "IS-5_2": {
-      "title": "Politik",
+      "title": "Informationssicherheitsleitlinie",
       "description": "Die oberste Leitung legt die Informationssicherheitsleitlinie fest (die Norm nennt sie Politik): was Sicherheit für dieses Unternehmen bedeutet, den Rahmen für die Ziele und die Verpflichtung zur laufenden Verbesserung. Die Beschäftigten kennen sie. Empfehlung: ein bis zwei Seiten, überprüft zusammen mit der Managementbewertung."
     },
     "IS-5_3": {
-      "title": "Rollen, Verantwortlichkeiten und Befugnisse in der Organisation",
+      "title": "Rollen, Verantwortlichkeiten und Befugnisse",
       "description": "Die oberste Leitung legt fest, wer in der Informationssicherheit wofür verantwortlich ist, auch wer das ISMS betreibt und darüber berichtet, und teilt es den Betroffenen mit."
     },
     "IS-6_1": {
-      "title": "Maßnahmen zum Umgang mit Risiken und Chancen",
-      "description": "Das Unternehmen plant, wie es mit Risiken und Chancen für seine Informationssicherheit umgeht: die Methode der Risikobeurteilung (wie Risiken erkannt, analysiert und bewertet werden und wann ein Risiko akzeptabel ist), die Behandlung jedes Risikos und die Erklärung zur Anwendbarkeit (Statement of Applicability, SoA), die aufführt, welche Maßnahmen das Unternehmen anwendet und welche nicht. Empfehlung: für jede nicht angewendete Maßnahme einen Grund angeben."
+      "title": "Umgang mit Risiken und Chancen",
+      "description": "Das Unternehmen plant, wie es mit Risiken und Chancen für seine Informationssicherheit umgeht: die Methode der Risikobeurteilung (wie Risiken erkannt, analysiert und bewertet werden und wann ein Risiko akzeptabel ist), die Behandlung jedes Risikos und die Erklärung zur Anwendbarkeit (Statement of Applicability, SoA), die aufführt, welche Maßnahmen das Unternehmen anwendet und welche nicht, jeweils mit dem Grund."
     },
     "IS-6_2": {
-      "title": "Informationssicherheitsziele und Planung zu deren Erreichung",
+      "title": "Informationssicherheitsziele",
       "description": "Das Unternehmen setzt messbare Ziele für die Informationssicherheit, die aus der Leitlinie folgen, und plant, wie, durch wen und bis wann jedes Ziel erreicht und überprüft wird."
     },
     "IS-6_3": {

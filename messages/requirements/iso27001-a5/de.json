@@ -1,11 +1,11 @@
 {
   "requirements": {
     "A_5_1": {
-      "title": "Informationssicherheitsrichtlinien",
+      "title": "Leitlinien zur Informationssicherheit",
       "description": "Informationssicherheitsleitlinien definieren, genehmigen, veröffentlichen und jährlich überprüfen."
     },
     "A_5_2": {
-      "title": "Informationssicherheitsrollen und -verantwortlichkeiten",
+      "title": "Rollen und Verantwortlichkeiten für Informationssicherheit",
       "description": "Rollen und Verantwortlichkeiten für Informationssicherheit in der gesamten Organisation zuweisen und dokumentieren."
     },
     "A_5_3": {
@@ -13,19 +13,19 @@
       "description": "Widersprüchliche Aufgaben und Verantwortlichkeiten trennen, um unbefugte Änderungen von Informationen zu reduzieren."
     },
     "A_5_4": {
-      "title": "Verantwortlichkeiten der Leitung",
+      "title": "Managementverantwortung",
       "description": "Das Management muss von allen Mitarbeitern verlangen, Informationssicherheit gemäß den Leitlinien anzuwenden."
     },
     "A_5_5": {
-      "title": "Kontakt mit Behörden",
+      "title": "Kontakt zu Behörden",
       "description": "Angemessene Kontakte zu relevanten Behörden (Datenschutzbehörde, Cybersicherheitsagentur, Strafverfolgung) pflegen."
     },
     "A_5_6": {
-      "title": "Kontakt mit speziellen Interessensgruppen",
+      "title": "Kontakt zu speziellen Interessengruppen",
       "description": "Mitgliedschaft oder Kontakt zu Fachgruppen, Sicherheitsforen und Berufsverbänden aufrechterhalten."
     },
     "A_5_7": {
-      "title": "Bedrohungsintelligenz",
+      "title": "Bedrohungsanalyse",
       "description": "Für die Organisation relevante Bedrohungsinformationen sammeln, analysieren und aufbereiten, um Bedrohungen vorauszudenken."
     },
     "A_5_8": {
@@ -33,23 +33,23 @@
       "description": "Informationssicherheit in das Projektmanagement integrieren, damit Sicherheitsrisiken bei Projekten adressiert werden."
     },
     "A_5_9": {
-      "title": "Inventar der Informationen und anderen damit verbundenen Werten",
+      "title": "Inventar der Informationen und zugehörigen Assets",
       "description": "Inventar der Informationen und zugehörigen Assets mit zugewiesener Eigentümerschaft identifizieren, dokumentieren und pflegen."
     },
     "A_5_10": {
-      "title": "Zulässiger Gebrauch von Informationen und anderen damit verbundenen Werten",
+      "title": "Akzeptable Nutzung von Informationen und Assets",
       "description": "Regeln zur akzeptablen Nutzung von Informationen und Assets dokumentieren und umsetzen: Geräte, Datenumgang, verbotene Aktivitäten."
     },
     "A_5_11": {
-      "title": "Rückgabe von Werten",
+      "title": "Rückgabe von Assets",
       "description": "Sicherstellen, dass alle Assets bei Beendigung oder Änderung von Beschäftigungs- oder Vertragsverhältnissen zurückgegeben werden."
     },
     "A_5_12": {
-      "title": "Klassifizierung von Information",
+      "title": "Klassifizierung von Informationen",
       "description": "Informationen nach Sensitivität klassifizieren (vertraulich, intern, öffentlich), um angemessenen Schutz sicherzustellen."
     },
     "A_5_13": {
-      "title": "Kennzeichnung von Information",
+      "title": "Kennzeichnung von Informationen",
       "description": "Kennzeichnungsverfahren für Informationen gemäß dem Klassifizierungsschema entwickeln und umsetzen."
     },
     "A_5_14": {
@@ -57,19 +57,19 @@
       "description": "Regeln und Verfahren für die Informationsübertragung über alle Kanäle festlegen: E-Mail, Messaging, physische Medien und mündlich."
     },
     "A_5_15": {
-      "title": "Zugangssteuerung",
+      "title": "Zugriffskontrolle",
       "description": "Zugriffskontrollregeln auf Basis von Geschäfts- und Sicherheitsanforderungen nach dem Prinzip der minimalen Rechtevergabe definieren."
     },
     "A_5_16": {
-      "title": "Identitätsmanagement",
+      "title": "Identitätsverwaltung",
       "description": "Vollständigen Identitätslebenszyklus (Bereitstellung, Änderungen, Sperrung) für alle Benutzer und Dienstkonten verwalten."
     },
     "A_5_17": {
-      "title": "Informationen zur Authentifizierung",
+      "title": "Authentifizierungsinformationen",
       "description": "Authentifizierungsinformationen (Passwörter, Schlüssel, Token) durch einen formalen Prozess inkl. Zuweisung, Speicherung und Widerruf verwalten."
     },
     "A_5_18": {
-      "title": "Zugangsrechte",
+      "title": "Zugriffsrechte",
       "description": "Zugriffsrechte gemäß der Zugriffskontrollpolitik bereitstellen, überprüfen, ändern und entziehen."
     },
     "A_5_19": {
@@ -77,27 +77,27 @@
       "description": "Maßnahmen zum Schutz von Assets, auf die Lieferanten zugreifen können, identifizieren und umsetzen; in Lieferantenvereinbarungen dokumentieren."
     },
     "A_5_20": {
-      "title": "Behandlung von Informationssicherheit in Lieferantenvereinbarungen",
+      "title": "Informationssicherheit in Lieferantenvereinbarungen",
       "description": "Informationssicherheitsanforderungen mit jedem Lieferanten vereinbaren, der auf Organisationsinformationen zugreift oder diese verarbeitet."
     },
     "A_5_21": {
-      "title": "Umgang mit der Informationssicherheit in der IKT-Lieferkette",
+      "title": "Informationssicherheit in der Lieferkette für IKT",
       "description": "Prozesse zur Steuerung von IS-Risiken in der IKT-Produkte- und Dienstleistungslieferkette definieren und umsetzen."
     },
     "A_5_22": {
-      "title": "Überwachung, Überprüfung und Änderungsmanagement von Lieferantendienstleistungen",
+      "title": "Überwachung, Überprüfung und Änderungsmanagement für Lieferantendienste",
       "description": "IS-Praktiken und Leistungserbringung von Lieferanten regelmäßig überwachen, überprüfen und Änderungen verwalten."
     },
     "A_5_23": {
-      "title": "Informationssicherheit für die Nutzung von Cloud-Diensten",
+      "title": "Informationssicherheit bei der Nutzung von Clouddiensten",
       "description": "Prozesse für Beschaffung, Nutzung, Verwaltung und Beendigung von Cloud-Diensten inkl. Sicherheitsanforderungen und Exit-Plänen etablieren."
     },
     "A_5_24": {
-      "title": "Planung und Vorbereitung der Handhabung von Informationssicherheitsvorfällen",
+      "title": "Planung und Vorbereitung der Behandlung von Sicherheitsvorfällen",
       "description": "Incident Management mit definierten Rollen, Verantwortlichkeiten, Verfahren und Kommunikationskanälen planen und vorbereiten."
     },
     "A_5_25": {
-      "title": "Beurteilung und Entscheidung über Informationssicherheitsereignisse",
+      "title": "Bewertung von Sicherheitsereignissen und Entscheidung darüber",
       "description": "IS-Ereignisse bewerten und anhand eines definierten Klassifizierungsschemas entscheiden, ob sie als Vorfälle einzustufen sind."
     },
     "A_5_26": {
@@ -105,27 +105,27 @@
       "description": "Auf Vorfälle gemäß dokumentierten Verfahren reagieren; strukturiert eindämmen, beseitigen und wiederherstellen."
     },
     "A_5_27": {
-      "title": "Erkenntnisse aus Informationssicherheitsvorfällen",
+      "title": "Lernen aus Sicherheitsvorfällen",
       "description": "Erkenntnisse aus Vorfällen nutzen, um Wahrscheinlichkeit und Auswirkungen künftiger Vorfälle zu reduzieren; Maßnahmen entsprechend aktualisieren."
     },
     "A_5_28": {
-      "title": "Sammeln von Beweismaterial",
+      "title": "Beweiserhebung",
       "description": "Verfahren zur Identifizierung, Sammlung, Sicherstellung und Aufbewahrung von Beweisen bei IS-Vorfällen definieren und anwenden."
     },
     "A_5_29": {
-      "title": "Informationssicherheit bei Störungen",
+      "title": "IS bei Störungen",
       "description": "Planen, wie IS bei Störungen aufrechterhalten wird. Sicherheitsanforderungen in Betriebskontinuitätspläne integrieren."
     },
     "A_5_30": {
-      "title": "IKT-Bereitschaft für Business Continuity",
+      "title": "Bereitschaft der IKT für die Betriebskontinuität",
       "description": "IKT-Bereitschaft basierend auf Betriebskontinuitätszielen planen, umsetzen, pflegen und testen."
     },
     "A_5_31": {
-      "title": "Rechtliche, gesetzliche, regulatorische und vertragliche Anforderungen",
+      "title": "Gesetzliche, behördliche, regulatorische und vertragliche Anforderungen",
       "description": "Alle für IS relevanten gesetzlichen, regulatorischen und vertraglichen Anforderungen identifizieren, dokumentieren und aktuell halten."
     },
     "A_5_32": {
-      "title": "Geistige Eigentumsrechte",
+      "title": "Rechte am geistigen Eigentum",
       "description": "Verfahren zum Schutz von Rechten am geistigen Eigentum und zur Einhaltung von Softwarelizenzanforderungen umsetzen."
     },
     "A_5_33": {
@@ -133,7 +133,7 @@
       "description": "Aufzeichnungen vor Verlust, Vernichtung, Fälschung, unbefugtem Zugriff und unbefugter Weitergabe gemäß gesetzlichen Anforderungen schützen."
     },
     "A_5_34": {
-      "title": "Datenschutz und Schutz personenbezogener Daten (pbD)",
+      "title": "Datenschutz und Schutz personenbezogener Daten",
       "description": "Datenschutz- und Personendatenanforderungen gemäß anwendbarem Recht (DSGVO) identifizieren und erfüllen."
     },
     "A_5_35": {
@@ -141,11 +141,11 @@
       "description": "ISMS-Ansatz und -Umsetzung in geplanten Abständen oder bei wesentlichen Änderungen unabhängig überprüfen."
     },
     "A_5_36": {
-      "title": "Einhaltung von Richtlinien, Vorschriften und Normen für die Informationssicherheit",
+      "title": "Einhaltung von Richtlinien, Regeln und Standards zur Informationssicherheit",
       "description": "Einhaltung von IS-Leitlinien, -Standards und -Verfahren regelmäßig überprüfen; Ergebnisse dokumentieren."
     },
     "A_5_37": {
-      "title": "Dokumentierte Betriebsabläufe",
+      "title": "Dokumentierte Betriebsverfahren",
       "description": "Betriebsverfahren für Informationsverarbeitungseinrichtungen dokumentieren, pflegen und verfügbar machen."
     }
   }

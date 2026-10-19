@@ -2,11 +2,11 @@
   "requirements": {
     "IS-4_1": {
       "title": "Understanding the Organization and Its Context",
-      "description": "The company names what inside it and around it bears on its information security: what it does and where, the laws and contracts it answers to, and the threats it faces. Scope, risks and objectives are planned against this picture."
+      "description": "The company names what inside it and around it bears on its information security: what it does and where, the laws and contracts it answers to, and the threats it faces. Scope, risks and objectives are planned against this picture. Since Amendment 1:2024 this includes deciding whether climate change is a relevant issue."
     },
     "IS-4_2": {
       "title": "Understanding the Needs and Expectations of Interested Parties",
-      "description": "The company lists who has a stake in its information security, such as customers, authorities, staff, suppliers and owners, what each of them expects of it, and which of those expectations its ISMS takes on."
+      "description": "The company lists who has a stake in its information security, such as customers, authorities, staff, suppliers and owners, what each of them expects of it, and which of those expectations its ISMS takes on. Since Amendment 1:2024, requirements related to climate change are among those an interested party can have."
     },
     "IS-4_3": {
       "title": "Determining the Scope of the Information Security Management System",
@@ -30,7 +30,7 @@
     },
     "IS-6_1": {
       "title": "Actions to Address Risks and Opportunities",
-      "description": "The company plans how it deals with risks and opportunities for its information security: the method for assessing risks (how they are found, analysed and rated, and when a risk is acceptable), the treatment chosen for each risk, and the Statement of Applicability (SoA), which lists the controls the company applies and those it leaves out. Recommendation: give a reason for every control left out."
+      "description": "The company plans how it deals with risks and opportunities for its information security: the method for assessing risks (how they are found, analysed and rated, and when a risk is acceptable), the treatment chosen for each risk, and the Statement of Applicability (SoA), which lists the controls the company applies and those it leaves out, each with its reason."
     },
     "IS-6_2": {
       "title": "Information Security Objectives and Planning to Achieve Them",
