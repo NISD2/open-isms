@@ -7,11 +7,8 @@ import { shotImage } from "@/components/landing/shots";
 import { ApprovalPreview } from "@/components/pricing/ApprovalPreview";
 import { ForwardActions } from "@/components/pricing/ForwardActions";
 import { FOUNDERS } from "@/components/pricing/founders";
-import {
-  gapAnalysisRange,
-  OrderButton,
-  TalkFirst,
-} from "@/components/pricing/PaidPricingCards";
+import { gapAnalysisRange } from "@/components/pricing/gap-analysis-prices";
+import { OrderButton, TalkFirst } from "@/components/pricing/PaidPricingCards";
 import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { ANNUAL_NET_CENTS, formatWholeEuro } from "@/lib/billing/order";
