@@ -57,6 +57,8 @@
         "name": "Parcursul ghidat NIS 2",
         "description": "Implementare ghidată pe nisd2.eu.",
         "priceSub": "net pe an, plus TVA",
+        "perMonth": "net pe lună",
+        "billedYearly": "Facturare anuală: {price} plus TVA",
         "anchor": "Întregul parcurs ghidat la prețul unei analize a lacunelor.",
         "anchorTip": {
           "title": "Cât costă o analiză a lacunelor",

@@ -22,6 +22,7 @@ import {
   ANNUAL_NET_CENTS,
   formatWholeEuro,
   GRANDFATHERED_NET_CENTS,
+  monthlyNetCents,
 } from "@/lib/billing/order";
 import { termsVersionLabel } from "@/lib/billing/terms";
 import { api } from "@/lib/trpc/server";
@@ -76,7 +77,8 @@ export default async function BillingPage({
         <PaidPricingCards
           orderOpen={status.canOrder}
           price={formatWholeEuro(status.netCents, locale)}
-          listPrice={formatWholeEuro(ANNUAL_NET_CENTS, locale)}
+          monthlyPrice={formatWholeEuro(monthlyNetCents(status.netCents), locale)}
+          monthlyListPrice={formatWholeEuro(monthlyNetCents(ANNUAL_NET_CENTS), locale)}
           grandfathered={status.netCents === GRANDFATHERED_NET_CENTS}
           grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, locale)}
           signedIn

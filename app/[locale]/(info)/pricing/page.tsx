@@ -12,6 +12,7 @@ import {
   formatEuro,
   formatWholeEuro,
   GRANDFATHERED_NET_CENTS,
+  monthlyNetCents,
 } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { db } from "@/lib/db";
@@ -114,7 +115,8 @@ export default async function PricingPage({
       <PaidPricingCards
         orderOpen={offer.orderOpen}
         price={formatWholeEuro(offer.netCents, rawLocale)}
-        listPrice={formatWholeEuro(ANNUAL_NET_CENTS, rawLocale)}
+        monthlyPrice={formatWholeEuro(monthlyNetCents(offer.netCents), rawLocale)}
+        monthlyListPrice={formatWholeEuro(monthlyNetCents(ANNUAL_NET_CENTS), rawLocale)}
         grandfathered={offer.netCents === GRANDFATHERED_NET_CENTS}
         grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
         signedIn={offer.signedIn}

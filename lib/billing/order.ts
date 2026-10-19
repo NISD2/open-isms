@@ -28,6 +28,13 @@ export const netCentsFor = (holderGrandfathered: boolean): number =>
   holderGrandfathered ? GRANDFATHERED_NET_CENTS : ANNUAL_NET_CENTS;
 
 /**
+ * What a yearly price comes to per month, for the pricing card's "400 € im Monat". Display only:
+ * the licence is still sold and invoiced yearly, so nothing is ever billed in this amount.
+ */
+export const monthlyNetCents = (annualNetCents: number): number =>
+  Math.round(annualNetCents / 12);
+
+/**
  * What the billing step collects. Every field here is on the invoice or decides the tax on it;
  * nothing is asked for curiosity.
  *

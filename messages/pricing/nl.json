@@ -57,6 +57,8 @@
         "name": "NIS 2 begeleide doorloop",
         "description": "Begeleide implementatie op nisd2.eu.",
         "priceSub": "netto per jaar, excl. btw",
+        "perMonth": "netto per maand",
+        "billedYearly": "Jaarlijks per factuur: {price} excl. btw",
         "anchor": "De hele doorloop voor de prijs van een gap-analyse.",
         "anchorTip": {
           "title": "Wat een gap-analyse kost",

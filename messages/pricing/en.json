@@ -57,6 +57,8 @@
         "name": "NIS 2 walkthrough",
         "description": "Guided implementation at nisd2.eu.",
         "priceSub": "net a year, plus VAT",
+        "perMonth": "net a month",
+        "billedYearly": "Invoiced yearly: {price} plus VAT",
         "anchor": "The whole walkthrough for the price of a gap assessment.",
         "anchorTip": {
           "title": "What a gap assessment costs",

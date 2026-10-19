@@ -456,7 +456,8 @@ function SideTier({
 export function PaidPricingCards({
   orderOpen,
   price,
-  listPrice,
+  monthlyPrice,
+  monthlyListPrice,
   grandfathered,
   grandfatheredPrice,
   signedIn,
@@ -465,8 +466,10 @@ export function PaidPricingCards({
   readonly orderOpen: boolean;
   /** The yearly net price this visitor would be invoiced. */
   readonly price: string;
-  /** The public yearly net price, struck through when the visitor pays less. */
-  readonly listPrice: string;
+  /** `price` per month (lib/billing/order.ts monthlyNetCents), the large figure on the card. */
+  readonly monthlyPrice: string;
+  /** The public price per month, struck through when the visitor pays less. */
+  readonly monthlyListPrice: string;
   /** Whether this visitor is a grandfathered account holder (AGB B4). */
   readonly grandfathered: boolean;
   readonly grandfatheredPrice: string;
@@ -528,16 +531,23 @@ export function PaidPricingCards({
             <div className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
               {grandfathered ? (
                 <span className="text-lg text-muted-foreground line-through decoration-2">
-                  {listPrice}
+                  {monthlyListPrice}
                 </span>
               ) : null}
-              <span className="text-4xl font-semibold tracking-tight">{price}</span>
-              <span className="text-sm text-muted-foreground">{t("paid.priceSub")}</span>
+              <span className="text-4xl font-semibold tracking-tight">
+                {monthlyPrice}
+              </span>
+              <span className="text-sm text-muted-foreground">{t("paid.perMonth")}</span>
             </div>
+            {/* The month is how it reads; the year is what is invoiced, so it stands right under. */}
+            <p className="text-sm text-muted-foreground">
+              {t("paid.billedYearly", { price })}
+            </p>
             {/* Half the list price is no longer "the price of a gap analysis". */}
             {grandfathered ? null : <PriceAnchor />}
             <div className="mt-3 flex flex-wrap gap-2">
-              {/* On touch the terms line under the button says the same in short. */}
+              {/* Its details are in the tooltip; the order page repeats the terms before anyone
+                  orders, so the card carries no terms line of its own (Simon, 19.10.2026). */}
               <MoneyBackBadge />
               {grandfathered ? (
                 <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">
@@ -547,22 +557,11 @@ export function PaidPricingCards({
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="space-y-3">
-              {/* Order and the call side by side, the call in the homepage hero's one-line form;
-                  stacked on a phone. */}
-              <div className="grid gap-3 sm:grid-cols-2">
-                <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
-                <TalkFirst size="button" className="h-12 w-full" />
-              </div>
-              <p className="text-xs leading-relaxed text-muted-foreground">
-                {t("paid.terms")}{" "}
-                <Link
-                  href="/terms"
-                  className="underline underline-offset-2 hover:text-foreground"
-                >
-                  {t("paid.termsLink")}
-                </Link>
-              </p>
+            {/* Order and the call side by side, the call in the homepage hero's one-line form;
+                stacked on a phone. */}
+            <div className="grid gap-3 sm:grid-cols-2">
+              <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
+              <TalkFirst size="button" className="h-12 w-full" />
             </div>
             <Separator />
             <PaidFeatureList />

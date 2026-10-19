@@ -57,6 +57,8 @@
         "name": "Recorrido guiado de NIS 2",
         "description": "Implantación guiada en nisd2.eu.",
         "priceSub": "sin IVA al año, más IVA",
+        "perMonth": "sin IVA al mes",
+        "billedYearly": "Facturación anual: {price} más IVA",
         "anchor": "Todo el recorrido guiado por el precio de un análisis de brechas.",
         "anchorTip": {
           "title": "Lo que cuesta un análisis de brechas",

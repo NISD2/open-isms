@@ -57,6 +57,8 @@
         "name": "Parcours guidé NIS 2",
         "description": "Mise en œuvre guidée sur nisd2.eu.",
         "priceSub": "HT par an, TVA en sus",
+        "perMonth": "HT par mois",
+        "billedYearly": "Facturé à l'année : {price} HT, TVA en sus",
         "anchor": "Tout le parcours guidé pour le prix d'une analyse d'écarts.",
         "anchorTip": {
           "title": "Ce que coûte une analyse d'écarts",

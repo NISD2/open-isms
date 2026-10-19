@@ -57,6 +57,8 @@
         "name": "Percurso guiado NIS 2",
         "description": "Implementação guiada em nisd2.eu.",
         "priceSub": "sem IVA por ano, mais IVA",
+        "perMonth": "sem IVA por mês",
+        "billedYearly": "Faturação anual: {price} mais IVA",
         "anchor": "O percurso guiado completo pelo preço de uma análise de lacunas.",
         "anchorTip": {
           "title": "Quanto custa uma análise de lacunas",

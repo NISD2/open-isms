@@ -57,6 +57,8 @@
         "name": "NIS 2 Durchgang",
         "description": "Die geführte Umsetzung auf nisd2.eu.",
         "priceSub": "netto im Jahr, zzgl. USt.",
+        "perMonth": "netto im Monat",
+        "billedYearly": "Jährlich auf Rechnung: {price} zzgl. USt.",
         "anchor": "Der ganze Durchgang zum Preis einer Gap-Analyse.",
         "anchorTip": {
           "title": "Was eine Gap-Analyse kostet",

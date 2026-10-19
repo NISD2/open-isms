@@ -57,6 +57,8 @@
         "name": "Percorso guidato NIS 2",
         "description": "Implementazione guidata su nisd2.eu.",
         "priceSub": "netti all'anno, più IVA",
+        "perMonth": "netti al mese",
+        "billedYearly": "Fatturazione annuale: {price} più IVA",
         "anchor": "L'intero percorso guidato al prezzo di una gap analysis.",
         "anchorTip": {
           "title": "Quanto costa una gap analysis",

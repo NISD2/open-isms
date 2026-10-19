@@ -57,6 +57,8 @@
         "name": "Průvodce NIS 2",
         "description": "Řízené zavedení na nisd2.eu.",
         "priceSub": "bez DPH ročně, plus DPH",
+        "perMonth": "bez DPH měsíčně",
+        "billedYearly": "Fakturace ročně: {price} plus DPH",
         "anchor": "Celý průvodce za cenu analýzy mezer.",
         "anchorTip": {
           "title": "Kolik stojí analýza mezer",

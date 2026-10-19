@@ -57,6 +57,8 @@
         "name": "Przewodnik krok po kroku po NIS 2",
         "description": "Wdrożenie z przewodnikiem na nisd2.eu.",
         "priceSub": "netto rocznie, plus VAT",
+        "perMonth": "netto miesięcznie",
+        "billedYearly": "Faktura roczna: {price} plus VAT",
         "anchor": "Cały przewodnik w cenie analizy luk.",
         "anchorTip": {
           "title": "Ile kosztuje analiza luk",
