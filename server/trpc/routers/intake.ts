@@ -438,7 +438,6 @@ async function moveToInProgress(
       actorId: args.userId,
       nextReviewDate: reopenedReviewDate({
         assessmentStartedAt: assessment?.startedAt ?? null,
-        frequency: req.frequency,
         priority: req.priority,
       }),
       now: args.now,

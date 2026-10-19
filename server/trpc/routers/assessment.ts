@@ -894,7 +894,6 @@ export const assessmentRouter = router({
           actorId: ctx.userId,
           nextReviewDate: reopenedReviewDate({
             assessmentStartedAt: assessment?.startedAt ?? null,
-            frequency: statusRow.requirement.frequency,
             priority: statusRow.requirement.priority,
           }),
           now,

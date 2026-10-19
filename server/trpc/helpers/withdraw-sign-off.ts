@@ -2,8 +2,6 @@ import { and, eq, inArray, isNotNull, ne, notInArray } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import {
   computeInitialDeadline,
-  type Frequency,
-  isRecurringFrequency,
   type Priority,
   toDateString,
 } from "@/lib/compliance/deadlines";
@@ -30,20 +28,16 @@ import { lockStatusRow } from "./status-lock";
  *
  * Reopening clears `nextReviewDate` because that date described a sign-off
  * that no longer stands. Leaving it null would be wrong in the other
- * direction: `backfillInitialDeadlines` gives every *recurring* requirement an
- * initial deadline at assessment creation, so a reopened one with none
- * silently drops out of the journey board's overdue and due-soon filters —
- * 35 of the 49 NIS 2 requirements are recurring. Non-recurring ones
- * legitimately carry no date; `scheduleDeadlineReminders` nulls theirs on
- * sign-off for the same reason.
+ * direction: open work carries the onboarding pace from its priority
+ * (`backfillInitialDeadlines`), whatever its review frequency, so a reopened
+ * row with none would silently drop out of the journey board's overdue and
+ * due-soon filters.
  */
 export function reopenedReviewDate(args: {
   assessmentStartedAt: Date | null;
-  frequency: string;
   priority: string;
 }): string | null {
-  const frequency = args.frequency as Frequency;
-  return args.assessmentStartedAt && isRecurringFrequency(frequency)
+  return args.assessmentStartedAt
     ? toDateString(
         computeInitialDeadline(args.assessmentStartedAt, args.priority as Priority),
       )

@@ -206,7 +206,7 @@ test("reopen: withdrawing a sign-off clears the attestation and keeps the histor
   );
   expect(
     dated[0].next_review_date,
-    "a reopened recurring requirement keeps a deadline",
+    "a reopened requirement is open work again and keeps a deadline",
   ).not.toBeNull();
 
   // Per-signer rows clear too. Left signed, the next single signature would
