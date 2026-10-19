@@ -23,6 +23,12 @@ import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { BindingTranslationNotice } from "@/components/legal/BindingTranslationNotice";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -54,8 +60,9 @@ const LEGAL_NOTES = ["b2b", "term", "moneyBack", "payment", "contract"] as const
 /**
  * What the customer should know before the button: who sells, for how long, the money back, when
  * to pay, and how the contract is made (§ 312i Abs. 1 Nr. 2 BGB). The full text is in /terms.
- * Each point carries its name, so a buyer looking for the payment term finds it without reading
- * the rest.
+ * Each point is a row named for what it covers that opens on a click (Simon, 19.10.2026), so a
+ * buyer looking for the payment term finds it without reading the rest, and the form above stays
+ * short. All of it stays on this page, before the button.
  */
 function OrderLegalNotes() {
   const t = useTranslations("billing.legal");
@@ -75,14 +82,18 @@ function OrderLegalNotes() {
         className="mt-4"
         englishHref={getPathname({ href: "/bestellen", locale: BINDING_CONTRACT_LOCALE })}
       />
-      <dl className="mt-4 space-y-3 text-sm">
+      <Accordion type="multiple" className="mt-2">
         {LEGAL_NOTES.map((key) => (
-          <div key={key} className="grid gap-0.5 sm:grid-cols-[8.5rem_1fr] sm:gap-4">
-            <dt className="font-medium">{t(`labels.${key}`)}</dt>
-            <dd className="text-muted-foreground leading-relaxed">{t(key)}</dd>
-          </div>
+          <AccordionItem key={key} value={key}>
+            <AccordionTrigger className="py-3 text-sm">
+              {t(`labels.${key}`)}
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              {t(key)}
+            </AccordionContent>
+          </AccordionItem>
         ))}
-      </dl>
+      </Accordion>
     </section>
   );
 }
