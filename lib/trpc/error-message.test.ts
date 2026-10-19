@@ -18,10 +18,10 @@ describe("userFacingError", () => {
   test("shows the message when the server chose it", () => {
     expect(
       userFacingError(
-        clientError("FORBIDDEN", "This requirement requires sign-off by CEO."),
+        clientError("FORBIDDEN", "Only CEO signs this off in this app."),
         FALLBACK,
       ),
-    ).toBe("This requirement requires sign-off by CEO.");
+    ).toBe("Only CEO signs this off in this app.");
   });
 
   test("shows deliberate messages for every intentional code", () => {

@@ -570,7 +570,7 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
     category: "EFF",
     law: { bsig: 30, article: 21 },
     mustDo:
-      "§ 38 Abs. 1 BSIG: management implements and oversees the measures, and this item is where it approves them; a decision not to approve is not a way to finish.",
+      "§ 38 Abs. 1 BSIG: management implements and oversees the measures; Art. 20(1) NIS 2: it approves them, here. Declining to approve is no way to finish.",
     glossary: [],
     reviewed: "2026-10-01",
     screens: [

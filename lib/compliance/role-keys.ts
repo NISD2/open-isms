@@ -18,5 +18,8 @@ export const ALL_ROLE_KEYS = [
 
 export type RoleKey = (typeof ALL_ROLE_KEYS)[number];
 
-/** Default sign-off role when no specific role is required. CISO owns all NIS2 requirements. */
+/**
+ * The role that signs off a requirement naming none. The app's default, not the law's: no text
+ * names a CISO, and NIS 2 and the BSIG give the measures to management.
+ */
 export const DEFAULT_SIGN_OFF_ROLE: RoleKey = "ciso";

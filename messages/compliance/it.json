@@ -79,7 +79,7 @@
       "needsReview": "Da riesaminare: la scadenza è passata oppure sono cambiati i dati operativi su cui si basa questo requisito.",
       "moduleData": "Dati operativi",
       "goToRegister": "Vai al registro",
-      "requiredRole": "Questo requisito richiede l'approvazione da parte di: {role}",
+      "requiredRole": "In questa app lo approva: {role}",
       "signOffProgress": "{signed} di {total} approvazioni completate",
       "details": "Dettagli",
       "priority": "Priorità",

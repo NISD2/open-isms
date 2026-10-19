@@ -411,8 +411,8 @@ export function RequirementDetail({
         router.refresh();
       } catch {
         // Sign-off has refusals the person can act on, and the server words
-        // each one for the screen ("This requirement requires sign-off by
-        // CEO"). The shared mutation handler shows them; this catch exists
+        // each one for the screen ("Only CEO signs this off in this app").
+        // The shared mutation handler shows them; this catch exists
         // so the rejection does not escape the transition.
       }
     });

@@ -86,7 +86,7 @@
       "needsReview": "Vyžaduje kontrolu: termín uplynul, nebo se změnila provozní data, na kterých tento požadavek stojí.",
       "moduleData": "Provozní data",
       "goToRegister": "Přejít do registru",
-      "requiredRole": "Tento požadavek vyžaduje schválení rolí: {role}",
+      "requiredRole": "V této aplikaci schvaluje: {role}",
       "signOffProgress": "{signed} z {total} schválení dokončeno",
       "details": "Podrobnosti",
       "priority": "Priorita",

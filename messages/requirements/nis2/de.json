@@ -30,7 +30,7 @@
     },
     "2_4": {
       "title": "Risikoakzeptanz & IS-Leitlinie",
-      "description": "Die Geschäftsleitung unterzeichnet die Informationssicherheitsleitlinie und akzeptiert die Restrisiken aus dem Risikoregister (2.3). Leitlinie und Risikobehandlungsplan sind mindestens jährlich sowie bei erheblichen Sicherheitsvorfällen oder wesentlichen Änderungen der Betriebsabläufe oder Risiken zu überprüfen; die Freigabe wird dabei erneuert (CIR 1.1.2, 2.1.4)."
+      "description": "Die Geschäftsleitung billigt die Informationssicherheitsleitlinie und akzeptiert die Restrisiken aus dem Risikoregister (2.3). Nach Art. 20(1) NIS2 billigen die Leitungsorgane die Maßnahmen und überwachen sie; nach §38(1) BSIG setzt die Geschäftsleitung sie um und überwacht ihre Umsetzung. Für Einrichtungen, für die die CIR gilt, überprüft die Leitung die Leitlinie mindestens jährlich sowie bei erheblichen Sicherheitsvorfällen oder wesentlichen Änderungen der Betriebsabläufe oder Risiken (CIR 1.1.2), Risikobewertung und Behandlungsplan werden zu denselben Anlässen überprüft (CIR 2.1.4), und Restrisiken können auch verantwortliche Personen akzeptieren, die der Leitung berichten (CIR 2.1.1)."
     },
     "3_1": {
       "title": "Vorfallbehandlungsplan & Team",
@@ -118,7 +118,7 @@
     },
     "7_3": {
       "title": "Managementbewertung",
-      "description": "Die Geschäftsleitung überprüft die Einhaltung der Leitlinien und lässt sich den Stand der Informationssicherheit regelmäßig berichten (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Gap-Analyse."
+      "description": "Das Unternehmen überprüft regelmäßig die Einhaltung seiner Leitlinien, und die Geschäftsleitung lässt sich den Stand der Informationssicherheit regelmäßig berichten (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Gap-Analyse."
     },
     "7_4": {
       "title": "Korrekturmaßnahmen & kontinuierliche Verbesserung",

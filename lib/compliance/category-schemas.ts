@@ -52,7 +52,7 @@ export const RSK_SCHEMA = z.object({
     .enum(["2_levels", "3_levels", "4_levels"])
     .describe("Data classification levels (BSI: Normal/Hoch/Sehr Hoch)"),
   // 2.3 Risk Register → platform risk module (custom editor)
-  // 2.4 Risk Acceptance & IS Policy Sign-Off (CIR 1.1, CIR 2.1.1, §38(1) BSIG)
+  // 2.4 Risk Acceptance & IS Policy Approval (CIR 1.1, CIR 2.1.1, §38(1) BSIG)
   residualRiskCount: z
     .number()
     .int()

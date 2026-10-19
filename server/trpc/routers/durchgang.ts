@@ -520,9 +520,9 @@ const waitingForManagement = async (db: TRPCContext["db"], companyId: string) =>
  * two rows can credit the same linked requirement, and that write checks its target outside a
  * transaction.
  *
- * Management signs every walk item, whatever role the requirement names for a single sign-off:
- * § 38 Abs. 1 BSIG has management implement and oversee the measures, and the walk was built for
- * its one signature at the end.
+ * Management signs every walk item, whatever role a single sign-off names: the walk ends in one
+ * signature. § 38 Abs. 1 BSIG grounds that for the § 30 measures; for 1.1, 3.3, 12.2 and 12.3
+ * it is our practice.
  *
  * An item the company decided not to do is signed as that decision: recorded not applicable,
  * with its written reason and management as the one who decided (`signDeclined`).

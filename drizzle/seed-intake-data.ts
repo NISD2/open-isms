@@ -25,7 +25,7 @@ export const SEED_INTAKE_ANSWERS: Record<string, Record<string, unknown>> = {
     // 2.2 Assets → platform asset module (custom editor)
     classificationLevels: "4_levels",
     // 2.3 Risk Register → platform risk module (custom editor)
-    // 2.4 Risk Acceptance & IS Policy Sign-Off
+    // 2.4 Risk Acceptance & IS Policy Approval
     residualRiskCount: 21,
     policyVersion: "v3.2",
     policyApprovalDate: "2025-01-20",

@@ -79,7 +79,7 @@
       "needsReview": "Necesită revizuire: termenul a expirat sau datele operaționale pe care se bazează această cerință s-au schimbat.",
       "moduleData": "Date operationale",
       "goToRegister": "Mergi la registru",
-      "requiredRole": "Aceasta cerinta necesita aprobarea din partea: {role}",
+      "requiredRole": "În această aplicație aprobă: {role}",
       "signOffProgress": "{signed} din {total} aprobari finalizate",
       "details": "Detalii",
       "priority": "Prioritate",

@@ -4,8 +4,8 @@ import { TRPCClientError } from "@trpc/client";
 
 /**
  * Error codes carried by a `TRPCError` the application raised on purpose.
- * Their messages are written for the person reading the screen ("This
- * requirement requires sign-off by CEO"), so they are safe to show.
+ * Their messages are written for the person reading the screen ("Only CEO
+ * signs this off in this app"), so they are safe to show.
  *
  * INTERNAL_SERVER_ERROR is deliberately absent. The server's errorFormatter
  * (packages/isms-trpc/src/error-formatter.ts) sends it with a fixed English

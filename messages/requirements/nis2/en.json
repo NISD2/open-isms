@@ -29,8 +29,8 @@
       "description": "Risk Register & Treatment"
     },
     "2_4": {
-      "title": "Risk Acceptance & IS Policy Sign-Off",
-      "description": "Management signs the information security policy and accepts the residual risks from the risk register (2.3). The policy and the risk treatment plan must be reviewed at least annually and whenever significant incidents or significant changes to operations or risks occur; the approval is renewed as part of that review (CIR 1.1.2, 2.1.4)."
+      "title": "Risk Acceptance & IS Policy Approval",
+      "description": "Management approves the information security policy and accepts the residual risks from the risk register (2.3). Art. 20(1) NIS2 has management bodies approve the measures and oversee them; §38(1) BSIG has them implement and oversee them. For the entity types the CIR covers, management bodies review the policy at least annually and after significant incidents or significant changes to operations or risks (CIR 1.1.2), the risk assessment and treatment plan are reviewed on the same occasions (CIR 2.1.4), and residual risks may also be accepted by accountable persons who report to management (CIR 2.1.1)."
     },
     "3_1": {
       "title": "Incident Response Plan & Team",
@@ -118,7 +118,7 @@
     },
     "7_3": {
       "title": "Management Review",
-      "description": "Management reviews compliance with the policies and receives regular reporting on the state of information security (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). No fixed interval is prescribed; recommendation: an annual management review with gap analysis."
+      "description": "The company regularly reviews compliance with its policies, and management receives regular reports on the state of information security (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). No fixed interval is prescribed; recommendation: an annual management review with gap analysis."
     },
     "7_4": {
       "title": "Corrective Actions & Continuous Improvement",

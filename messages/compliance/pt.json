@@ -79,7 +79,7 @@
       "needsReview": "Requer revisão: o prazo expirou ou os dados operacionais em que este requisito se baseia foram alterados.",
       "moduleData": "Dados operacionais",
       "goToRegister": "Ir para o registo",
-      "requiredRole": "Este requisito exige aprovação por: {role}",
+      "requiredRole": "Nesta aplicação, aprovado por: {role}",
       "signOffProgress": "{signed} de {total} aprovações concluídas",
       "details": "Detalhes",
       "priority": "Prioridade",

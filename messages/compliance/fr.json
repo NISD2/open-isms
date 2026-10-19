@@ -79,7 +79,7 @@
       "needsReview": "Revue requise : l'échéance est dépassée, ou les données opérationnelles sur lesquelles repose cette exigence ont changé.",
       "moduleData": "Données opérationnelles",
       "goToRegister": "Aller au registre",
-      "requiredRole": "Cette exigence requiert une approbation par : {role}",
+      "requiredRole": "Dans cette application, approuvé par : {role}",
       "signOffProgress": "{signed} sur {total} approbations effectuées",
       "details": "Détails",
       "priority": "Priorité",

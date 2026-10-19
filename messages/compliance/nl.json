@@ -79,7 +79,7 @@
       "needsReview": "Beoordeling vereist: de deadline is verstreken, of de operationele gegevens waarop deze vereiste steunt zijn gewijzigd.",
       "moduleData": "Operationele gegevens",
       "goToRegister": "Naar register",
-      "requiredRole": "Voor aftekening van deze vereiste is de volgende rol vereist: {role}",
+      "requiredRole": "In deze app afgetekend door: {role}",
       "signOffProgress": "{signed} van {total} aftekeningen voltooid",
       "details": "Details",
       "priority": "Prioriteit",
