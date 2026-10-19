@@ -16,6 +16,7 @@ import type {
   assetHostingEnum,
   assetMfaMethodEnum,
   entityTypeEnum,
+  frameworkEnum,
 } from "@nisd2/grc-data-model/enums";
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
@@ -29,13 +30,25 @@ import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { settledFactEnum } from "@/schema/enums";
 import type { AssetSlice, RatingTarget } from "./ratings";
 
+/** A framework as the database enum on `compliance_framework.code` defines it. */
+export type FrameworkCode = (typeof frameworkEnum.enumValues)[number];
+
 /** The languages the walk is written in: its screens, and the notes and documents it writes. */
 export const WALK_LOCALES = ["de", "en", "cs"] as const;
 export type WalkLocale = (typeof WALK_LOCALES)[number];
 
-/** The language the walk shows itself in for a page language: its own where it is written, else English. */
-export const walkLocaleOf = (locale: string): WalkLocale =>
-  locale === "de" || locale === "cs" ? locale : "en";
+/**
+ * The language a walk shows itself in for a page language: its own where it is written, else
+ * English. The NIS 2 walk is written in all three; a walk written in fewer passes its own.
+ */
+export const walkLocaleOf = (
+  locale: string,
+  written: readonly WalkLocale[] = WALK_LOCALES,
+): WalkLocale => written.find((l) => l === locale) ?? "en";
+
+/** The frameworks that have a walk, by their `compliance_framework.code`. */
+export const WALK_FRAMEWORKS = ["nis2"] as const satisfies readonly FrameworkCode[];
+export type WalkFramework = (typeof WALK_FRAMEWORKS)[number];
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
@@ -291,16 +304,20 @@ export type ScreenKind = AnyScreen["kind"];
 type IsoDate = `${number}-${number}-${number}`;
 
 /**
- * Where the duty card's sentence comes from, so the card opens that exact text: the BSIG paragraph
- * for German readers, the directive's article for everyone else. The requirement's own citations
- * name several provisions and its category link is per category (spec §0.7, correction 3), so
- * neither can serve. A test checks both against the requirement's first citation.
+ * Where the duty card's sentence comes from, so the card opens that exact text. NIS 2: the BSIG
+ * paragraph for German readers, the directive's article for everyone else. GDPR: the regulation's
+ * article, which applies directly in every language. The requirement's own citations name several
+ * provisions and its category link is per category (spec §0.7, correction 3), so neither can
+ * serve. A test checks each against the requirement's citations.
  */
-export interface DutyLaw {
-  readonly bsig: number;
-  /** Null for a duty only the BSIG sets, which no article of the directive carries. */
-  readonly article: number | null;
-}
+export type DutyLaw =
+  | {
+      readonly act: "nis2";
+      readonly bsig: number;
+      /** Null for a duty only the BSIG sets, which no article of the directive carries. */
+      readonly article: number | null;
+    }
+  | { readonly act: "gdpr"; readonly article: number };
 
 /** An entity type as the database enum on `company.entity_type` defines it. */
 export type EntityType = (typeof entityTypeEnum.enumValues)[number];
@@ -315,7 +332,7 @@ export interface WalkFacts {
 }
 
 export interface Item<C extends CategoryCode> {
-  /** Requirement code in the NIS 2 framework. */
+  /** Requirement code, unique across frameworks (`requirement.code`). */
   readonly code: string;
   /** The requirement's category, which types its fields. A test checks it against the framework. */
   readonly category: C;
@@ -349,6 +366,27 @@ export interface Item<C extends CategoryCode> {
 
 /** Any item, with its screens typed against its own category. */
 export type AnyItem = { readonly [C in CategoryCode]: Item<C> }[CategoryCode];
+
+/**
+ * One framework's walk: its items in walk order with the approval last, and what it leaves out.
+ * The engine reads only this, so a new framework is a new value, not new engine code.
+ */
+export interface Walk {
+  readonly framework: WalkFramework;
+  readonly items: readonly AnyItem[];
+  /**
+   * Requirements of the framework the walk leaves out, each with the reason. The requirement page
+   * keeps them; a test fails on a requirement that is neither walked nor here.
+   */
+  readonly notWalked: Readonly<Record<string, string>>;
+  /** The languages its copy is written in; any other page language walks it in English. */
+  readonly locales: readonly WalkLocale[];
+  /**
+   * The item a company not set up yet walks before setting itself up, or null when the walk opens
+   * only to a company already set up.
+   */
+  readonly setupAfter: string | null;
+}
 
 /** The intake fields an item asks for: on its field screens, and the one its upload fills. */
 export const askedFields = (item: AnyItem): readonly string[] =>

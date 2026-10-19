@@ -4,8 +4,8 @@
  * an assistant's dates arrive as text and still reach the schema as dates.
  */
 import { describe, expect, test } from "bun:test";
-import { WALK } from "@/lib/durchgang";
 import { trainingCreateSchema } from "@/schema/validators";
+import { MCP_WALK } from "./gates";
 import { isFillableKind } from "./screens";
 import {
   answersProblem,
@@ -22,6 +22,8 @@ import {
   screensFilledBy,
   textDates,
 } from "./walk";
+
+const { items: WALK } = MCP_WALK;
 
 type JsonSchema = {
   readonly properties?: Record<string, unknown>;

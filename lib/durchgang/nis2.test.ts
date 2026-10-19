@@ -3,56 +3,31 @@ import {
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
-import { z } from "zod";
 import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
-import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
-import { POLICY_TYPES } from "@/lib/compliance/policy-config-defaults";
-import {
-  CUSTOM_EDITOR_KEYS,
-  REQUIREMENT_FIELD_MAP,
-} from "@/lib/compliance/requirement-fields";
-import { getTermEntry } from "@/lib/dictionary/glossary";
-import { marker } from "./copy";
-import { askedFields, resolveItem, WAIT_REASONS, WALK, walkOf } from "./index";
-import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
+import { CUSTOM_EDITOR_KEYS } from "@/lib/compliance/requirement-fields";
+import { itemsFor, NIS2_WALK, resolveItem } from "./index";
 import type { AnyItem, AnyScreen, ScreenKind } from "./types";
 
-const { de, en, cs } = DURCHGANG_MESSAGES;
+/**
+ * What only the NIS 2 walk holds: its duty card on the BSIG, the journey order it follows, the
+ * requirement page's editors and the asset catalogue. What every walk holds is ./walks.test.ts.
+ */
+
+const { de, en } = DURCHGANG_MESSAGES;
+const { items: SCRIPT, notWalked: NOT_WALKED } = NIS2_WALK;
 
 const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>
     getNis2RequirementsForCategory(c.slug).map((r) => [
       r.code,
-      {
-        category: c.code,
-        moduleRef: r.moduleRef ?? null,
-        legalRef: r.legalRef,
-        frameworkRef: r.frameworkRef,
-      },
+      { legalRef: r.legalRef, frameworkRef: r.frameworkRef },
     ]),
   ),
 );
 
-/** Whether a screen stands in for the register the requirement page shows. */
-const coversModule = (screen: AnyScreen, moduleRef: string): boolean => {
-  switch (moduleRef) {
-    case "asset":
-      return screen.kind === "assets";
-    case "risk":
-      return screen.kind === "rate";
-    case "policy":
-      return screen.kind === "policy";
-    case "supplier":
-      return (
-        (screen.kind === "register" && screen.module === "supplier") ||
-        screen.kind === "agreements"
-      );
-    default:
-      return screen.kind === "register" && screen.module === moduleRef;
-  }
-};
+const screensOf = (item: AnyItem): readonly AnyScreen[] => item.screens;
 
 /** The screen that stands in for a custom editor the requirement page shows. */
 const EDITOR_SCREEN: Readonly<Record<string, ScreenKind>> = {
@@ -70,59 +45,30 @@ const NO_EDITOR_SCREEN: Readonly<Record<string, string>> = {
     "the access model, review cadence, deprovisioning hours, shared-account rule and authentication review cycle are CIR 2024/2690 Annex 11 and BSI detail; the walk writes the Konzept § 30 Abs. 2 Nr. 9 BSIG asks for, offers the review cadence as a clause, and the settings stay on the requirement page",
 };
 
-/** Registers the flow deliberately leaves out, each with the reason. */
-const NO_SCREEN: Readonly<Record<string, string>> = {
-  "12.2:bsi_registration":
-    "the register has no loader or router, so the page always shows 0 entries (spec §0.6); the flow records 12.2 through its fields and its evidence",
-  "3.3:incident":
-    "the incident register fills when an incident happens; 3.3 prepares the reporting, and the register stays on the incidents page",
-  "6.3:vulnerability":
-    "the vulnerability register fills when a vulnerability is found; 6.3 writes the rules for handling one, and the register stays on the vulnerabilities page",
-  "4.4:asset":
-    "backup details per system (frequency, location, last test) stay on the requirement page; the walk records the company's backup rhythm and the date of its last working restore",
+/** A NIS 2 item's law: the BSIG paragraph beside the directive's article. */
+const lawOf = (item: AnyItem) => {
+  if (item.law.act !== "nis2") throw new Error(`${item.code} cites no NIS 2 law`);
+  return item.law;
 };
 
-/** The value's own schema under any optional, nullable or default wrapper. */
-const unwrap = (schema: z.ZodType): z.ZodType =>
-  schema instanceof z.ZodOptional ||
-  schema instanceof z.ZodNullable ||
-  schema instanceof z.ZodDefault
-    ? unwrap(schema.unwrap() as z.ZodType)
-    : schema;
-
-const screensOf = (item: (typeof NIS2_SCRIPT)[number]): readonly AnyScreen[] =>
-  item.screens;
-
-const LOCALES = [
-  ["de", de.durchgang],
-  ["en", en.durchgang],
-  ["cs", cs.durchgang],
-] as const;
-
 describe("the NIS 2 script", () => {
-  test("scripts each item once, as a requirement of its declared category", () => {
-    const codes = NIS2_SCRIPT.map((i) => i.code);
-    expect(new Set(codes).size).toBe(codes.length);
-    for (const item of NIS2_SCRIPT) {
-      expect(FRAMEWORK.get(item.code)?.category).toBe(item.category);
-    }
-  });
-
   test("opens the duty card at the provision the requirement cites first", () => {
-    for (const item of NIS2_SCRIPT.filter((i) => !i.onlyFor)) {
+    for (const item of SCRIPT.filter((i) => !i.onlyFor)) {
       const cited = FRAMEWORK.get(item.code);
-      expect(cited?.legalRef.startsWith(`§${item.law.bsig}(`)).toBe(true);
-      expect(cited?.frameworkRef?.startsWith(`Art. ${item.law.article}(`)).toBe(true);
+      const law = lawOf(item);
+      expect(cited?.legalRef.startsWith(`§${law.bsig}(`)).toBe(true);
+      expect(cited?.frameworkRef?.startsWith(`Art. ${law.article}(`)).toBe(true);
     }
   });
 
   test("opens an item for one entity type at the provision addressed to that type", () => {
     // The requirement cites first what binds every entity (12.4: § 30 Abs. 1 S. 3); the item
     // walks the part the statute addresses to that type only, which only the BSIG sets.
-    for (const item of NIS2_SCRIPT.filter((i) => i.onlyFor)) {
+    for (const item of SCRIPT.filter((i) => i.onlyFor)) {
       const cited = FRAMEWORK.get(item.code);
-      expect(cited?.legalRef).toContain(`§${item.law.bsig}(`);
-      expect(item.law.article).toBeNull();
+      const law = lawOf(item);
+      expect(cited?.legalRef).toContain(`§${law.bsig}(`);
+      expect(law.article).toBeNull();
     }
   });
 
@@ -131,145 +77,40 @@ describe("the NIS 2 script", () => {
     // first N codes: a later item scripted before an earlier one would leave a hole in the path.
     // The only exceptions are the items left out, each listed with its reason, and the items
     // for one entity type, which every other entity leaves out with that reason.
-    const forEveryone = NIS2_SCRIPT.filter((i) => !i.onlyFor);
+    const forEveryone = SCRIPT.filter((i) => !i.onlyFor);
     const front = JOURNEY_ORDER.slice(
       0,
       forEveryone.length + Object.keys(NOT_WALKED).length,
     );
     expect(
-      walkOf({ entityType: "important", criticalInstallation: "unsettled" }).map(
-        (i) => i.code,
-      ),
+      itemsFor(NIS2_WALK, {
+        entityType: "important",
+        criticalInstallation: "unsettled",
+      }).map((i) => i.code),
     ).toEqual(front.filter((code) => !NOT_WALKED[code]));
     for (const code of Object.keys(NOT_WALKED)) expect(front).toContain(code);
-    for (const reason of Object.values(NOT_WALKED)) {
-      expect(reason.trim().length).toBeGreaterThan(20);
-    }
   });
 
-  test("opens every item with what it is and closes with what was recorded", () => {
-    for (const item of NIS2_SCRIPT) {
-      const screens = screensOf(item);
-      expect(screens[0]?.kind).toBe("learn");
-      expect(screens.at(-1)?.kind).toBe("done");
-      expect(screens.filter((s) => s.kind === "done")).toHaveLength(1);
-      const ids = screens.map((s) => s.id);
-      expect(new Set(ids).size).toBe(ids.length);
-    }
-  });
-
-  test("signs only the item's one policy, after it is written", () => {
-    // The server approves the policy of the item's policy screen, so there must be one, before.
-    for (const item of NIS2_SCRIPT) {
-      const screens = screensOf(item);
-      const policies = screens.flatMap((s, i) => (s.kind === "policy" ? [i] : []));
-      const signs = screens.flatMap((s, i) =>
-        s.kind === "fields" && s.approves ? [i] : [],
-      );
-      expect({ code: item.code, policies: policies.length <= 1 }).toEqual({
-        code: item.code,
-        policies: true,
-      });
-      for (const at of signs) {
-        const written = policies[0] ?? Number.POSITIVE_INFINITY;
-        expect({ code: item.code, after: written < at }).toEqual({
-          code: item.code,
-          after: true,
-        });
-      }
-    }
-  });
-
-  test("writes no policy under a type an editor keeps its settings in", () => {
-    // The walk stores its clause choice in company_policy_config under the template's name, which
-    // would replace an editor's settings of the same type.
-    for (const item of NIS2_SCRIPT) {
-      for (const screen of screensOf(item)) {
-        if (screen.kind !== "policy") continue;
-        expect(POLICY_TYPES as readonly string[]).not.toContain(screen.policy);
-      }
-    }
-  });
-
-  test("places every intake field of the item exactly once, and no other", () => {
-    for (const item of NIS2_SCRIPT) {
-      const onScreens = screensOf(item).flatMap((s): readonly string[] => {
-        switch (s.kind) {
-          case "fields":
-            return s.fields;
-          case "evidence":
-            return s.field ? [s.field] : [];
-          default:
-            return [];
-        }
-      });
-      const placed = [...onScreens, ...Object.keys(item.notAsked ?? {})];
-      const mapped = REQUIREMENT_FIELD_MAP[item.code]?.fieldKeys ?? [];
-      expect({ code: item.code, placed: [...placed].sort() }).toEqual({
-        code: item.code,
-        placed: [...mapped].sort(),
-      });
-    }
-  });
-
-  test("starts on today only a date field the same screen asks", () => {
-    for (const item of NIS2_SCRIPT) {
-      for (const screen of screensOf(item)) {
-        if (screen.kind !== "fields") continue;
-        for (const key of screen.today ?? []) {
-          expect(screen.fields).toContain(key);
-          const shape = CATEGORY_SCHEMAS[item.category].shape as Record<
-            string,
-            z.ZodType
-          >;
-          expect({ key, date: shape[key] instanceof z.ZodDate }).toEqual({
-            key,
-            date: true,
-          });
-        }
-      }
-    }
-  });
-
-  test("gives every field it does not ask a reason", () => {
-    for (const item of NIS2_SCRIPT) {
-      for (const reason of Object.values(item.notAsked ?? {})) {
-        expect(typeof reason === "string" && reason.trim().length > 20).toBe(true);
-      }
-    }
-  });
-
-  test("gives every register and editor of the requirement page a screen", () => {
-    for (const item of NIS2_SCRIPT) {
+  test("gives every editor of the requirement page a screen", () => {
+    for (const item of SCRIPT) {
       const kinds = new Set(screensOf(item).map((s) => s.kind));
-      const moduleRef = FRAMEWORK.get(item.code)?.moduleRef;
-      if (moduleRef && !NO_SCREEN[`${item.code}:${moduleRef}`]) {
-        expect({
-          code: item.code,
-          moduleRef,
-          screen: screensOf(item).some((s) => coversModule(s, moduleRef)),
-        }).toEqual({
-          code: item.code,
-          moduleRef,
-          screen: true,
-        });
-      }
       const editor = `${item.category}:${item.code}`;
       if (
-        (CUSTOM_EDITOR_KEYS as readonly string[]).includes(editor) &&
-        !NO_EDITOR_SCREEN[editor]
+        !(CUSTOM_EDITOR_KEYS as readonly string[]).includes(editor) ||
+        NO_EDITOR_SCREEN[editor]
       ) {
-        const needed = EDITOR_SCREEN[editor];
-        expect({ editor, screen: needed && kinds.has(needed) }).toEqual({
-          editor,
-          screen: true,
-        });
+        continue;
       }
+      const needed = EDITOR_SCREEN[editor];
+      expect({ editor, screen: needed && kinds.has(needed) }).toEqual({
+        editor,
+        screen: true,
+      });
     }
   });
 
   test("offers the whole asset catalogue, each group on one screen", () => {
-    for (const item of NIS2_SCRIPT) {
+    for (const item of SCRIPT) {
       const groups = screensOf(item).flatMap((s) =>
         s.kind === "assets" ? s.groups : [],
       );
@@ -277,31 +118,11 @@ describe("the NIS 2 script", () => {
         expect([...groups].sort()).toEqual([...FUNCTIONAL_GROUPS].sort());
     }
   });
-
-  test("dates every item's fact-check on a real day that has passed", () => {
-    // The check is dated in Berlin, where the fact-check document is written.
-    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(
-      new Date(),
-    );
-    for (const item of NIS2_SCRIPT) {
-      const day = new Date(`${item.reviewed}T00:00:00Z`);
-      expect(day.toISOString().slice(0, 10)).toBe(item.reviewed);
-      expect(item.reviewed <= today).toBe(true);
-    }
-  });
 });
 
-describe("the words of the Durchgang", () => {
-  test("tags every kind of screen the walk shows, in each language", () => {
-    const shown = [...new Set(WALK.flatMap((item) => item.screens.map((s) => s.kind)))];
-    for (const words of [de.durchgang.ui.kinds, en.durchgang.ui.kinds]) {
-      const tagged: Readonly<Record<string, string>> = words;
-      expect(shown.filter((kind) => !tagged[kind]?.trim())).toEqual([]);
-    }
-  });
-
+describe("the words of the NIS 2 walk", () => {
   test("names the authority once per language, filled in wherever the copy says {authority}", () => {
-    const registration = NIS2_SCRIPT.find((i) => i.code === "12.2");
+    const registration = SCRIPT.find((i) => i.code === "12.2");
     if (!registration) throw new Error("12.2 is scripted");
     const headline = (namespace: unknown) => {
       const resolved = resolveItem(namespace, registration);
@@ -314,124 +135,4 @@ describe("the words of the Durchgang", () => {
     unknown.items["12_2"].headline = "Register with {agency}";
     expect(headline(unknown)).toContain("unknown placeholder");
   });
-
-  test("names the company and the answers only inside a policy, where the text is written with them", () => {
-    for (const [, namespace] of LOCALES) {
-      for (const item of NIS2_SCRIPT) {
-        const resolved = resolveItem(namespace, item);
-        if (!resolved.ok) continue;
-        const outside = resolved.value.screens.map((s) =>
-          s.kind === "policy" ? { ...s.copy, document: null } : s.copy,
-        );
-        const head = [
-          resolved.value.headline,
-          resolved.value.teaser,
-          resolved.value.missed,
-        ];
-        const text = JSON.stringify([head, outside]);
-        for (const name of ["company", ...askedFields(item)]) {
-          expect(text).not.toContain(marker(name));
-        }
-      }
-    }
-  });
-
-  test("a policy names only text answers, which read the same on the screen and in the record", () => {
-    // A date or a number is held as input text on the screen and as JSON in the record, so the
-    // two would print it differently.
-    for (const [, namespace] of LOCALES) {
-      for (const item of NIS2_SCRIPT) {
-        const resolved = resolveItem(namespace, item);
-        if (!resolved.ok) continue;
-        const shape = CATEGORY_SCHEMAS[item.category]?.shape ?? {};
-        const documents = JSON.stringify(
-          resolved.value.screens.flatMap((s) =>
-            s.kind === "policy" ? [s.copy.document] : [],
-          ),
-        );
-        for (const field of askedFields(item)) {
-          const schema = shape[field];
-          if (schema && unwrap(schema) instanceof z.ZodString) continue;
-          expect({ field, named: documents.includes(marker(field)) }).toEqual({
-            field,
-            named: false,
-          });
-        }
-      }
-    }
-  });
-
-  test("a policy offers the same clauses in every language, in the same order", () => {
-    // A clause is stored by its id in the record language and offered by that id in the
-    // reader's, so the two lists may not drift apart.
-    const clausesIn = (namespace: (typeof LOCALES)[number][1], item: AnyItem) => {
-      const resolved = resolveItem(namespace, item);
-      return resolved.ok
-        ? resolved.value.screens.flatMap((s) =>
-            s.kind === "policy" ? [s.copy.document.clauses.map((c) => c.id)] : [],
-          )
-        : [];
-    };
-    const [[, first], ...others] = LOCALES;
-    for (const item of NIS2_SCRIPT) {
-      for (const [locale, other] of others) {
-        expect({ code: item.code, locale, clauses: clausesIn(first, item) }).toEqual({
-          code: item.code,
-          locale,
-          clauses: clausesIn(other, item),
-        });
-      }
-    }
-  });
-
-  for (const [locale, namespace] of LOCALES) {
-    test(`every item reads completely in ${locale}, with nothing left over`, () => {
-      const errors = NIS2_SCRIPT.flatMap((item) => {
-        const resolved = resolveItem(namespace, item);
-        return resolved.ok ? [] : resolved.errors;
-      });
-      expect(errors).toEqual([]);
-    });
-
-    test(`every choice field names each of its options in ${locale}, and no other field has options`, () => {
-      for (const item of NIS2_SCRIPT) {
-        const resolved = resolveItem(namespace, item);
-        if (!resolved.ok) continue;
-        const shape = CATEGORY_SCHEMAS[item.category]?.shape ?? {};
-        for (const { copy } of resolved.value.screens) {
-          if (!("fields" in copy)) continue;
-          for (const field of copy.fields) {
-            const schema = shape[field.key];
-            const choice = schema ? unwrap(schema) : null;
-            expect({
-              code: item.code,
-              field: field.key,
-              options: field.options ? Object.keys(field.options).sort() : null,
-            }).toEqual({
-              code: item.code,
-              field: field.key,
-              options: choice instanceof z.ZodEnum ? [...choice.options].sort() : null,
-            });
-          }
-        }
-      }
-    });
-
-    test(`every wait reason has words in ${locale}`, () => {
-      for (const reason of WAIT_REASONS) {
-        expect(namespace.waitReasons[reason].trim()).not.toBe("");
-      }
-    });
-
-    test(`every glossary term an item links exists in ${locale}`, () => {
-      for (const item of NIS2_SCRIPT) {
-        for (const term of item.glossary) {
-          expect({ term, found: getTermEntry(term, locale) !== undefined }).toEqual({
-            term,
-            found: true,
-          });
-        }
-      }
-    });
-  }
 });

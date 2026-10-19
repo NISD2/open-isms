@@ -1,0 +1,36 @@
+{
+  "durchgang": {
+    "walks": {
+      "nis2": {
+        "title": "NIS 2 Durchgang",
+        "continue": "NIS 2 Umsetzung fortsetzen",
+        "approvalLead": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
+        "approvalLeadOthers": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
+        "intro": {
+          "eyebrow": "NIS 2 für den Mittelstand",
+          "title": "Sie sind hier richtig.",
+          "lead": "Sie sollen sich um NIS 2 kümmern und wissen nicht, wo Sie anfangen? Das geht fast allen so. Wir gehen es mit Ihnen durch, Punkt für Punkt.",
+          "points": [
+            {
+              "title": "Eins nach dem anderen",
+              "text": "Sie sehen immer nur einen Punkt. Wir erklären ihn, bevor Sie etwas eintragen."
+            },
+            {
+              "title": "Die Vorgaben des BSI",
+              "text": "Wo das BSI eine Methode empfiehlt, zeigen wir sie Ihnen. Sie entscheiden, ob Sie sie übernehmen."
+            },
+            {
+              "title": "Offen lassen ist erlaubt",
+              "text": "Was noch nicht geht, legen Sie zur Seite und machen mit dem nächsten Punkt weiter."
+            },
+            {
+              "title": "Am Ende die Freigabe",
+              "text": "Die Geschäftsführung sieht alles durch und gibt es frei."
+            }
+          ],
+          "start": "Los geht's"
+        }
+      }
+    }
+  }
+}

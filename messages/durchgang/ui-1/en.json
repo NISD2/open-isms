@@ -1,6 +1,5 @@
 {
   "durchgang": {
-    "title": "NIS 2 walkthrough",
     "terms": {
       "authority": "your authority"
     },
@@ -168,8 +167,6 @@
         "itsMe": "I am part of management myself",
         "pageTitle": "Approval by management",
         "pageHeading": "Approve the documents",
-        "pageLead": "These documents were written in your company's NIS 2 walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
-        "pageLeadOthers": "These documents were written in your company's NIS 2 walkthrough. Management approves them here, signed in with its own account.",
         "close": "Close",
         "signTitle": "You sign off these items with it",
         "signLead": "These items of the walkthrough are filled in. Your approval signs them off, so they count as done everywhere in the app, with your name and today's date. For an item the company decided not to do, you sign that decision with its reason. An item whose document you leave out stays open.",

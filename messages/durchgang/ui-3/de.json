@@ -61,7 +61,7 @@
         "confirm": "Auf die Warteliste"
       },
       "places": {
-        "label": "Im NIS 2 Durchgang"
+        "label": "Im Durchgang"
       },
       "home": {
         "unlock": "Jetzt bestellen",
@@ -82,7 +82,6 @@
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
-        "continue": "NIS 2 Umsetzung fortsetzen",
         "allFilled": "Alle Punkte sind ausgefüllt.",
         "allFilledNote": "Ändert sich etwas in Ihrem Unternehmen, öffnen Sie den Punkt und ändern es dort. Ein geändertes Dokument geht noch einmal zur Freigabe an die Geschäftsführung.",
         "yourWay": "Ihr Weg",
@@ -111,30 +110,6 @@
             "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
           }
         }
-      },
-      "intro": {
-        "eyebrow": "NIS 2 für den Mittelstand",
-        "title": "Sie sind hier richtig.",
-        "lead": "Sie sollen sich um NIS 2 kümmern und wissen nicht, wo Sie anfangen? Das geht fast allen so. Wir gehen es mit Ihnen durch, Punkt für Punkt.",
-        "points": [
-          {
-            "title": "Eins nach dem anderen",
-            "text": "Sie sehen immer nur einen Punkt. Wir erklären ihn, bevor Sie etwas eintragen."
-          },
-          {
-            "title": "Die Vorgaben des BSI",
-            "text": "Wo das BSI eine Methode empfiehlt, zeigen wir sie Ihnen. Sie entscheiden, ob Sie sie übernehmen."
-          },
-          {
-            "title": "Offen lassen ist erlaubt",
-            "text": "Was noch nicht geht, legen Sie zur Seite und machen mit dem nächsten Punkt weiter."
-          },
-          {
-            "title": "Am Ende eine Unterschrift",
-            "text": "Die Geschäftsführung sieht alles durch und unterschreibt."
-          }
-        ],
-        "start": "Los geht's"
       }
     }
   }

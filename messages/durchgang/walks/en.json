@@ -1,0 +1,36 @@
+{
+  "durchgang": {
+    "walks": {
+      "nis2": {
+        "title": "NIS 2 walkthrough",
+        "continue": "Continue your NIS 2 implementation",
+        "approvalLead": "These documents were written in your company's NIS 2 walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
+        "approvalLeadOthers": "These documents were written in your company's NIS 2 walkthrough. Management approves them here, signed in with its own account.",
+        "intro": {
+          "eyebrow": "NIS 2 for mid-sized companies",
+          "title": "You are in the right place.",
+          "lead": "You have been asked to take care of NIS 2 and do not know where to start? That is how almost everyone feels. We go through it with you, item by item.",
+          "points": [
+            {
+              "title": "One thing at a time",
+              "text": "You only ever see one item. We explain it before you enter anything."
+            },
+            {
+              "title": "Methods we recommend",
+              "text": "Where a proven method exists, we show it to you. You decide whether to adopt it."
+            },
+            {
+              "title": "Leaving things open is fine",
+              "text": "What cannot be done yet, you set aside and carry on with the next item."
+            },
+            {
+              "title": "Approval at the end",
+              "text": "Management reviews everything and approves it."
+            }
+          ],
+          "start": "Let's start"
+        }
+      }
+    }
+  }
+}

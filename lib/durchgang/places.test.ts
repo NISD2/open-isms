@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { WALK } from "./index";
+import { NIS2_WALK } from "./index";
 import { placesOf, WALK_REGISTERS } from "./places";
+
+const { items: WALK } = NIS2_WALK;
 
 describe("where each register is filled in the walk", () => {
   test("every register the walk writes into has at least one place", () => {

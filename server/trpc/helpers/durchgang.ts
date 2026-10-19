@@ -1,71 +1,55 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import {
-  and,
-  count,
-  desc,
-  eq,
-  inArray,
-  isNotNull,
-  ne,
-  notInArray,
-  sql,
-} from "drizzle-orm";
-import { z } from "zod";
-import { isBackupSystem } from "@/lib/asset-inventory/catalog-labels";
+import { and, desc, eq, inArray, isNotNull, ne, notInArray, sql } from "drizzle-orm";
 import { toDateString } from "@/lib/compliance/deadlines";
 import { DONE_STATUS_LIST, isDoneStatus } from "@/lib/compliance/journey-position";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   type AnyItem,
-  asksSecondFactor,
   type DurchgangEvent,
-  type GapFacts,
   type ItemState,
+  itemsFor,
   type JourneyEntry,
   journeyStates,
-  MANAGEMENT_ROLE,
+  NIS2_WALK,
+  policiesOf,
   STATE_ACTIONS,
-  WALK_POLICIES,
+  type Walk,
   walkItemState,
-  walkOf,
+  walkOfCode,
 } from "@/lib/durchgang";
 import {
-  asset,
   auditLog,
   company,
   companyAssessment,
-  companyCategoryIntake,
-  companyMembership,
   companyRequirementStatus,
   complianceFramework,
-  improvementItem,
   policy,
   requirement,
-  requirementCategory,
-  supplier,
-  trainingRecord,
   user,
 } from "@/schema";
 import { enforceAssignment } from "../guards";
-import { getNis2Assessment, NIS2_FRAMEWORK_CODE } from "./nis2-scope";
+import { assessmentOf } from "./framework-assessment";
+import { NIS2_FRAMEWORK_CODE } from "./nis2-scope";
 import type { SignableRow } from "./sign-off-rows";
 
 /**
- * The items this company walks, read off its profile (`walkOf`): an item for operators of
- * critical facilities is in it only when the company operates one. A session's company always
- * exists, so a missing one is a broken invariant, not a "not found" a caller could handle.
+ * The items of a walk this company walks, read off its profile (`itemsFor`): an item for
+ * operators of critical facilities is in it only when the company operates one. A session's
+ * company always exists, so a missing one is a broken invariant, not a "not found" a caller could
+ * handle.
  */
 export async function companyWalk(
   db: DbOrTx,
   companyId: string,
+  walk: Walk,
 ): Promise<readonly AnyItem[]> {
   const row = await db.query.company.findFirst({
     where: eq(company.id, companyId),
     columns: { entityType: true, criticalInstallation: true },
   });
   if (!row) throw new Error(`No company ${companyId}.`);
-  return walkOf(row);
+  return itemsFor(walk, row);
 }
 
 export interface DurchgangItemRef {
@@ -87,10 +71,10 @@ export interface DurchgangActor {
 }
 
 /**
- * One item of the walk, for the caller's company: its requirement and its NIS 2 status row. The
- * company comes from the session and the code from a fixed list, so there is no id a caller could
- * pass to reach another company's row. Writing to an item takes what writing its answers takes:
- * the category's owner or an admin.
+ * One item of a walk, for the caller's company: its requirement and its status row in the
+ * company's assessment of the item's framework. The company comes from the session and the code
+ * from a fixed list, so there is no id a caller could pass to reach another company's row.
+ * Writing to an item takes what writing its answers takes: the category's owner or an admin.
  */
 export async function durchgangItem(
   db: Database,
@@ -116,14 +100,15 @@ export async function walkItemRef(
   companyId: string,
   code: string,
 ): Promise<DurchgangItemRef> {
-  const walk = await companyWalk(db, companyId);
-  if (!walk.some((item) => item.code === code)) {
+  const walk = walkOfCode(code);
+  const items = walk ? await companyWalk(db, companyId, walk) : [];
+  if (!walk || !items.some((item) => item.code === code)) {
     throw new TRPCError({
       code: "BAD_REQUEST",
       message: `${code} is not in this company's Durchgang.`,
     });
   }
-  const assessment = await getNis2Assessment(db, companyId);
+  const assessment = await assessmentOf(db, companyId, walk.framework);
   const req = await db.query.requirement.findFirst({
     where: eq(requirement.code, code),
     columns: { id: true, categoryId: true },
@@ -372,7 +357,7 @@ export async function journeyStatesByCompany(
       journeyStates(
         rows.filter((r) => r.companyId === co.id),
         new Map(events.filter((e) => e.companyId === co.id).map((e) => [e.entityId, e])),
-        { sector: co.sector, walks: walkOf(co).map((item) => item.code) },
+        { sector: co.sector, walks: itemsFor(NIS2_WALK, co).map((item) => item.code) },
       ),
     ]),
   );
@@ -386,158 +371,7 @@ export async function journeyStatesOf(
   return (await journeyStatesByCompany(db, [companyId])).get(companyId) ?? new Map();
 }
 
-/** 3.3's answer as the intake stores it; anything else reads as unanswered. */
-const REPORTING = z.object({ bsiReportingRegistered: z.boolean().optional() }).catch({});
-
-/**
- * The facts `gapsOf` reads, for one company: its programs with a sign-in, suppliers, backup
- * systems, 3.3's answer, who holds the management role and the management trainings, and the
- * steps set aside. Every query is filtered by the company.
- */
-export async function gapFactsOf(
-  db: DbOrTx,
-  companyId: string,
-  today: Date,
-): Promise<GapFacts> {
-  const [assets, suppliers, managers, trainings, assessment, states] = await Promise.all([
-    db
-      .select({
-        name: asset.name,
-        type: asset.type,
-        catalogId: asset.catalogId,
-        description: asset.description,
-        hasMfa: asset.hasMfa,
-        lastRestore: asset.lastBackupTestDate,
-      })
-      .from(asset)
-      .where(eq(asset.companyId, companyId)),
-    db
-      .select({
-        name: supplier.name,
-        riskLevel: supplier.riskLevel,
-        security: supplier.hasSecurityClauses,
-        incidents: supplier.hasIncidentNotificationClause,
-      })
-      .from(supplier)
-      .where(eq(supplier.customerCompanyId, companyId)),
-    db
-      .select({ n: count() })
-      .from(companyMembership)
-      .where(
-        and(
-          eq(companyMembership.companyId, companyId),
-          eq(companyMembership.jobTitle, MANAGEMENT_ROLE),
-        ),
-      ),
-    db
-      .select({
-        name: trainingRecord.participantName,
-        completedAt: trainingRecord.completedAt,
-      })
-      .from(trainingRecord)
-      .where(
-        and(
-          eq(trainingRecord.companyId, companyId),
-          eq(trainingRecord.isManagement, true),
-        ),
-      ),
-    getNis2Assessment(db, companyId),
-    walkStates(db, companyId),
-  ]);
-  const [intake] = assessment
-    ? await db
-        .select({ answers: companyCategoryIntake.answers })
-        .from(companyCategoryIntake)
-        .innerJoin(
-          requirementCategory,
-          eq(requirementCategory.id, companyCategoryIntake.categoryId),
-        )
-        .where(
-          and(
-            eq(companyCategoryIntake.assessmentId, assessment.id),
-            eq(requirementCategory.code, "INC"),
-          ),
-        )
-    : [];
-  return {
-    signIns: assets
-      .filter(asksSecondFactor)
-      .map((a) => ({ name: a.name, hasMfa: a.hasMfa === true })),
-    suppliers: suppliers.map((s) => ({
-      name: s.name,
-      riskLevel: s.riskLevel,
-      security: s.security === true,
-      incidents: s.incidents === true,
-    })),
-    backups: assets
-      .filter(isBackupSystem)
-      .map((a) => ({ name: a.name, lastRestore: a.lastRestore })),
-    reporting: REPORTING.parse(intake?.answers ?? {}).bsiReportingRegistered ?? null,
-    managers: managers[0]?.n ?? 0,
-    managementTrainings: trainings,
-    setAside: states.filter((s) => s.state.kind === "waiting").map((s) => s.code),
-    today,
-  };
-}
-
-/**
- * Where an open point of the approval goes once someone takes it on: a line on the improvement
- * register (7.4), whose source says it came from the company's own answers and whose reference is
- * the step's requirement. A line counts while nobody has closed it.
- */
-export const MEASURE_SOURCE =
-  "gap_analysis" satisfies typeof improvementItem.$inferSelect.source;
-const STILL_OPEN = [
-  "open",
-  "in_progress",
-  "deferred",
-] as const satisfies readonly (typeof improvementItem.$inferSelect.status)[];
-
-/** The open register lines for one step's open points, scoped to the company. */
-export const openMeasureOf = (companyId: string, requirementId: string) =>
-  and(
-    eq(improvementItem.companyId, companyId),
-    eq(improvementItem.source, MEASURE_SOURCE),
-    eq(improvementItem.sourceReferenceId, requirementId),
-    inArray(improvementItem.status, [...STILL_OPEN]),
-  );
-
-/**
- * Who takes care of each open point and by when, by step: the open lines the approval made,
- * oldest first, so a later line for the same step wins where a caller keys them by code. The
- * owner's name and email come only while they are in the company: someone who left keeps their
- * line, but their details stay out of the company's screens and export.
- */
-export async function walkMeasuresOf(db: DbOrTx, companyId: string) {
-  return db
-    .select({
-      code: requirement.code,
-      assignedTo: improvementItem.assignedTo,
-      ownerName: user.name,
-      ownerEmail: user.email,
-      targetDate: improvementItem.targetDate,
-    })
-    .from(improvementItem)
-    .innerJoin(requirement, eq(requirement.id, improvementItem.sourceReferenceId))
-    .leftJoin(
-      companyMembership,
-      and(
-        eq(companyMembership.userId, improvementItem.assignedTo),
-        eq(companyMembership.companyId, companyId),
-      ),
-    )
-    .leftJoin(user, eq(user.id, companyMembership.userId))
-    .where(
-      and(
-        eq(improvementItem.companyId, companyId),
-        eq(improvementItem.source, MEASURE_SOURCE),
-        inArray(improvementItem.status, [...STILL_OPEN]),
-      ),
-    )
-    .orderBy(improvementItem.createdAt);
-}
-
-/** One item of the walk for a company: where it stands, and its NIS 2 status row if it has one. */
+/** One item of the walk for a company: where it stands, and its status row if it has one. */
 export interface WalkRow {
   readonly state: ItemState;
   readonly row: SignableRow | null;
@@ -550,17 +384,18 @@ export interface WalkRow {
 export async function walkRows(
   db: DbOrTx,
   companyId: string,
+  walk: Walk,
 ): Promise<{
   readonly assessmentId: string | null;
   readonly codes: readonly string[];
   readonly items: ReadonlyMap<string, WalkRow>;
 }> {
   const none: WalkRow = { state: { kind: "open" }, row: null };
-  const [assessment, walk] = await Promise.all([
-    getNis2Assessment(db, companyId),
-    companyWalk(db, companyId),
+  const [assessment, items] = await Promise.all([
+    assessmentOf(db, companyId, walk.framework),
+    companyWalk(db, companyId, walk),
   ]);
-  const codes = walk.map((item) => item.code);
+  const codes = items.map((item) => item.code);
   const reqs = await db.query.requirement.findMany({
     where: inArray(requirement.code, codes),
     columns: { id: true, code: true, templateVersion: true },
@@ -614,11 +449,12 @@ export async function walkRows(
 }
 
 /**
- * The company's policies the walk wrote, in walk order: each one of an item's template on that
+ * The company's policies a walk wrote, in walk order: each one of an item's template on that
  * item's requirement, so a policy of the same type added by hand elsewhere is not among them.
  * With who approved each, when, in which role, and the version that approval set.
  */
-export async function walkPolicyRows(db: DbOrTx, companyId: string) {
+export async function walkPolicyRows(db: DbOrTx, companyId: string, walk: Walk) {
+  const written = policiesOf(walk);
   const rows = await db
     .select({
       code: requirement.code,
@@ -640,11 +476,11 @@ export async function walkPolicyRows(db: DbOrTx, companyId: string) {
         eq(policy.companyId, companyId),
         inArray(
           policy.type,
-          WALK_POLICIES.map((p) => p.policy),
+          written.map((p) => p.policy),
         ),
       ),
     );
-  return WALK_POLICIES.flatMap((p) =>
+  return written.flatMap((p) =>
     rows
       .filter((row) => row.code === p.code && row.type === p.policy)
       .map((row) => ({ ...row, type: p.policy })),
@@ -655,8 +491,9 @@ export async function walkPolicyRows(db: DbOrTx, companyId: string) {
 export async function walkStates(
   db: DbOrTx,
   companyId: string,
+  walk: Walk,
 ): Promise<ReadonlyArray<{ readonly code: string; readonly state: ItemState }>> {
-  const { codes, items } = await walkRows(db, companyId);
+  const { codes, items } = await walkRows(db, companyId, walk);
   return codes.map((code) => ({
     code,
     state: items.get(code)?.state ?? { kind: "open" },

@@ -12,25 +12,27 @@ import {
   journeyState,
 } from "@/lib/compliance/journey-position";
 import {
-  APPROVAL_SCREEN,
+  approvalOf,
   type Covering,
   coveredState,
   type DurchgangEvent,
   itemState,
+  itemsFor,
   type JourneyRow,
   journeyStates,
+  NIS2_WALK,
   type StatusRow,
-  WALK,
   walkItemState,
-  walkOf,
 } from "./index";
-import { COVERED_BY, NOT_WALKED } from "./nis2";
+import { COVERED_BY, NOT_WALKED } from "./nis2-not-walked";
 
+const WALK = NIS2_WALK.items;
 const company = (
   entityType: (typeof entityTypeEnum.enumValues)[number],
   criticalInstallation: "yes" | "no" | "unsettled" = "unsettled",
 ) => ({ entityType, criticalInstallation });
-const codesOf = (facts: ReturnType<typeof company>) => walkOf(facts).map((i) => i.code);
+const codesOf = (facts: ReturnType<typeof company>) =>
+  itemsFor(NIS2_WALK, facts).map((i) => i.code);
 
 /** What every entity walks: a company that operates no critical facility. */
 const everyone = new Set(codesOf(company("important")));
@@ -106,7 +108,7 @@ describe("an item for operators of critical facilities is walked by them only", 
 
   test("in every walk, management approves last", () => {
     for (const type of entityTypeEnum.enumValues) {
-      expect(codesOf(company(type)).at(-1)).toBe(APPROVAL_SCREEN?.code);
+      expect(codesOf(company(type)).at(-1)).toBe(approvalOf(NIS2_WALK)?.code);
     }
   });
 });

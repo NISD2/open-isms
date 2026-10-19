@@ -1,6 +1,5 @@
 {
   "durchgang": {
-    "title": "NIS 2 Durchgang",
     "terms": {
       "authority": "BSI"
     },
@@ -168,8 +167,6 @@
         "itsMe": "Ich gehöre selbst zur Geschäftsführung",
         "pageTitle": "Freigabe durch die Geschäftsführung",
         "pageHeading": "Dokumente freigeben",
-        "pageLead": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
-        "pageLeadOthers": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
         "close": "Schließen",
         "signTitle": "Diese Punkte geben Sie mit frei",
         "signLead": "Diese Punkte des Durchgangs sind ausgefüllt. Mit Ihrer Freigabe gelten sie überall in der App als erledigt, mit Ihrem Namen und dem heutigen Datum. Bei einem Punkt, der bewusst nicht umgesetzt wird, unterschreiben Sie diese Entscheidung mit ihrer Begründung. Ein Punkt, dessen Dokument Sie nicht freigeben, bleibt offen.",

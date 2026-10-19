@@ -61,7 +61,7 @@
         "confirm": "Put on the waiting list"
       },
       "places": {
-        "label": "In the NIS 2 walkthrough"
+        "label": "In the walkthrough"
       },
       "home": {
         "unlock": "Order now",
@@ -82,7 +82,6 @@
         "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",
         "waiting": "Still waiting",
-        "continue": "Continue your NIS 2 implementation",
         "allFilled": "Every item is filled in.",
         "allFilledNote": "When something in your company changes, open the item and change it there. A changed document goes to management for approval again.",
         "yourWay": "Your path",
@@ -111,30 +110,6 @@
             "failed": "That did not work. Please try again."
           }
         }
-      },
-      "intro": {
-        "eyebrow": "NIS 2 for mid-sized companies",
-        "title": "You are in the right place.",
-        "lead": "You have been asked to take care of NIS 2 and do not know where to start? That is how almost everyone feels. We go through it with you, item by item.",
-        "points": [
-          {
-            "title": "One thing at a time",
-            "text": "You only ever see one item. We explain it before you enter anything."
-          },
-          {
-            "title": "Methods we recommend",
-            "text": "Where a proven method exists, we show it to you. You decide whether to adopt it."
-          },
-          {
-            "title": "Leaving things open is fine",
-            "text": "What cannot be done yet, you set aside and carry on with the next item."
-          },
-          {
-            "title": "A signature at the end",
-            "text": "Management reviews everything and signs."
-          }
-        ],
-        "start": "Let's start"
       }
     }
   }

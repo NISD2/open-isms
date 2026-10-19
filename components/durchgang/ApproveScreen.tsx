@@ -8,11 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getPathname, Link, useRouter } from "@/i18n/navigation";
 import {
-  APPROVAL_SCREEN,
+  approvalOf,
   enteredDay,
   gapLines,
+  itemHref,
   MANAGEMENT_ROLE,
   type PolicyTemplate,
+  WALK_ROUTES,
+  WALKS,
+  type WalkFramework,
   type WalkLocale,
   withPlanSlot,
 } from "@/lib/durchgang";
@@ -28,36 +32,45 @@ type Viewer = ItemView["viewer"];
 /** An item waiting for management's signature, as the approval screen lists it. */
 type Waiting = RouterOutputs["durchgang"]["awaitingSignature"][number];
 
-/** Where management approves, for the link and the invite. */
-export const APPROVAL_PATH = "/durchgang/nis2/freigabe";
-
 /** Whether the approval screen holds what it needs: nothing is left waiting for management. */
 export const approvalReady = (
   rows: ReadonlyArray<{ readonly status: string }> | undefined,
 ): boolean => rows?.every((row) => row.status !== "draft") ?? false;
 
-/** 7.3: every document the walk wrote, and who approves them. */
+/** 7.3 and every walk's approval step: every document the walk wrote, and who approves them. */
 export function Approve({ item, entry }: { item: ItemView; entry: Of<"approve"> }) {
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
-      <Approval viewer={item.viewer} locale={item.locale} />
+      <Approval framework={item.framework} viewer={item.viewer} locale={item.locale} />
     </>
   );
 }
 
 /**
- * The documents the walk wrote, each readable in place, and the approval. Management approves
+ * The documents a walk wrote, each readable in place, and the approval. Management approves
  * here, signed in with its own account, which records who approved and when; anyone else sends
  * management the page. The same list is the whole of the page management is invited to.
  */
-export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocale }) {
+export function Approval({
+  framework,
+  viewer,
+  locale,
+}: {
+  framework: WalkFramework;
+  viewer: Viewer;
+  locale: WalkLocale;
+}) {
   const t = useTranslations("durchgang.ui.approve");
   const utils = trpc.useUtils();
-  const { data: rows } = trpc.durchgang.walkPolicies.useQuery();
-  const { data: items } = trpc.durchgang.awaitingSignature.useQuery({ locale });
-  const { data: gaps } = trpc.durchgang.gaps.useQuery({ locale });
+  const { data: rows } = trpc.durchgang.walkPolicies.useQuery({ framework });
+  const { data: items } = trpc.durchgang.awaitingSignature.useQuery({
+    framework,
+    locale,
+  });
+  const { data: gaps } = trpc.durchgang.gaps.useQuery({ framework, locale });
+  const approval = approvalOf(WALKS[framework]);
   /** The drafts left out of this approval; every other draft is approved. */
   const [left, setLeft] = useState<readonly PolicyTemplate[]>([]);
   const approve = trpc.durchgang.approvePolicies.useMutation({
@@ -137,7 +150,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
         <SignedWith items={items} staysOpen={staysOpen} management={viewer.management} />
       )}
       {gaps !== undefined && gaps.length > 0 && (
-        <OpenPoints gaps={gaps} canChange={viewer.admin} />
+        <OpenPoints framework={framework} gaps={gaps} canChange={viewer.admin} />
       )}
       {(drafts.length > 0 || items.length > 0) &&
         (viewer.management ? (
@@ -150,9 +163,9 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
                 (chosen.length === 0 && signing.length === 0) || approve.isPending
               }
               onClick={() =>
-                APPROVAL_SCREEN &&
+                approval &&
                 approve.mutate({
-                  code: APPROVAL_SCREEN.code,
+                  code: approval.code,
                   types: chosen.map((row) => row.type),
                   sign: signing.map((item) => item.code),
                 })
@@ -165,7 +178,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
             </Button>
           </section>
         ) : (
-          <SendToManagement viewer={viewer} locale={locale} />
+          <SendToManagement framework={framework} viewer={viewer} locale={locale} />
         ))}
     </>
   );
@@ -226,9 +239,11 @@ type OpenGap = RouterOutputs["durchgang"]["gaps"][number];
  * "look here", never "failed" (ui-design principle 10), and no count heads it (principle 7).
  */
 function OpenPoints({
+  framework,
   gaps,
   canChange,
 }: {
+  framework: WalkFramework;
   gaps: readonly OpenGap[];
   /**
    * Whether the viewer may open every step: an admin. A member sees only their role's categories,
@@ -252,10 +267,7 @@ function OpenPoints({
               <span className="min-w-0 flex-1">{line.text}</span>
               {canChange && (
                 <Link
-                  href={{
-                    pathname: "/durchgang/nis2/[code]",
-                    params: { code: line.code },
-                  }}
+                  href={itemHref(framework, line.code)}
                   className="shrink-0 font-medium text-primary underline-offset-4 hover:underline"
                 >
                   {t("change")}
@@ -277,7 +289,15 @@ function OpenPoints({
  * them, an invite for someone not in the team yet, and for an admin who is management
  * themselves, one click to say so.
  */
-function SendToManagement({ viewer, locale }: { viewer: Viewer; locale: WalkLocale }) {
+function SendToManagement({
+  framework,
+  viewer,
+  locale,
+}: {
+  framework: WalkFramework;
+  viewer: Viewer;
+  locale: WalkLocale;
+}) {
   const t = useTranslations("durchgang.ui.approve");
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -286,7 +306,7 @@ function SendToManagement({ viewer, locale }: { viewer: Viewer; locale: WalkLoca
   const managers = (members.data ?? []).filter(
     (m) => m.jobTitle === MANAGEMENT_ROLE && m.id !== viewer.id,
   );
-  const path = getPathname({ href: APPROVAL_PATH, locale });
+  const path = getPathname({ href: WALK_ROUTES[framework].approval, locale });
   const invite = trpc.team.invite.useMutation({
     onSuccess: (data, input) => {
       setEmail("");

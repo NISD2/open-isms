@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import ts from "typescript";
-import { WALK } from "@/lib/durchgang";
+import { ALL_ITEMS as WALK } from "@/lib/durchgang";
 
 /**
  * Wiki articles render on request, so a step code the walk does not have would only surface as a

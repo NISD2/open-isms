@@ -2,6 +2,7 @@ import type {
   ItemState,
   RegisterModule,
   ResolvedScreen,
+  WalkFramework,
   WalkLocale,
 } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
@@ -59,6 +60,8 @@ export type Gloss =
 /** Everything one item's screens need, resolved on the server. */
 export interface ItemView {
   readonly code: string;
+  /** The walk the item belongs to, which decides where its links lead. */
+  readonly framework: WalkFramework;
   readonly section: string;
   readonly title: string;
   readonly image: string | null;

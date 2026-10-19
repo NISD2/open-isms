@@ -83,12 +83,16 @@ import ui2En from "@/messages/durchgang/ui-2/en.json";
 import ui3Cs from "@/messages/durchgang/ui-3/cs.json";
 import ui3De from "@/messages/durchgang/ui-3/de.json";
 import ui3En from "@/messages/durchgang/ui-3/en.json";
+import walksCs from "@/messages/durchgang/walks/cs.json";
+import walksDe from "@/messages/durchgang/walks/de.json";
+import walksEn from "@/messages/durchgang/walks/en.json";
 
 const PARTS: Readonly<Record<WalkLocale, readonly unknown[]>> = {
   de: [
     ui1De,
     ui2De,
     ui3De,
+    walksDe,
     item1_1De,
     item2_1De,
     item2_2De,
@@ -115,6 +119,7 @@ const PARTS: Readonly<Record<WalkLocale, readonly unknown[]>> = {
     ui1En,
     ui2En,
     ui3En,
+    walksEn,
     item1_1En,
     item2_1En,
     item2_2En,
@@ -141,6 +146,7 @@ const PARTS: Readonly<Record<WalkLocale, readonly unknown[]>> = {
     ui1Cs,
     ui2Cs,
     ui3Cs,
+    walksCs,
     item1_1Cs,
     item2_1Cs,
     item2_2Cs,
@@ -172,6 +178,7 @@ const PARTS: Readonly<Record<WalkLocale, readonly unknown[]>> = {
 export type DurchgangMessages = typeof ui1En &
   typeof ui2En &
   typeof ui3En &
+  typeof walksEn &
   typeof item1_1En &
   typeof item2_1En &
   typeof item2_2En &

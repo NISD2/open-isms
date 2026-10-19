@@ -12,47 +12,60 @@ import { legislation } from "@/lib/content/citations";
 import { db } from "@/lib/db";
 import { getTermEntry } from "@/lib/dictionary/glossary";
 import {
+  ALL_ITEMS,
   type AnyItem,
   type AnyScreen,
   askedFields,
   dutyHref,
+  itemsFor,
   MANAGEMENT_ROLE,
   type RegisterModule,
-  WALK,
+  type Walk,
   walkLocaleOf,
-  walkOf,
+  walkOfCode,
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { assistantMarks } from "@/lib/mcp/fills";
 import { assistantFillsOf } from "@/lib/mcp/fills-store";
 import { ensurePlatformSupplier } from "@/lib/supplier-portal/platform-supplier";
 import { api } from "@/lib/trpc/server";
+import { ensureAssessment } from "@/server/trpc/helpers/framework-assessment";
 import { glossary } from "./gloss";
 import { imageFor, stepOf, wordsOf } from "./steps";
 
-/** The caller's company and the items it walks, read off its profile; none without a company. */
-async function callerWalk() {
+/** The caller's company and the items of this walk it walks, read off its profile; none without a company. */
+async function callerWalk(walk: Walk) {
   const company = await api.assessment.getCompany();
-  return { company, walk: company ? walkOf(company) : ([] as readonly AnyItem[]) };
+  return {
+    company,
+    items: company ? itemsFor(walk, company) : ([] as readonly AnyItem[]),
+  };
 }
 
 /**
  * Every item of the company's walk with its state, for the home screen and the "Als Nächstes"
  * card. Locked (an account that has not paid), every item is open: such a company has walked
- * nothing, and the walk's own data is for paid accounts only.
+ * nothing, and the walk's own data is for paid accounts only. Opened by a paid account, the
+ * company's assessment of the walk's framework is made ready first (`ensureAssessment`).
  */
 export async function loadWalk({
+  walk,
   locked,
 }: {
+  walk: Walk;
   locked: boolean;
 }): Promise<readonly WalkEntry[]> {
-  const [{ walk }, states] = await Promise.all([
-    callerWalk(),
-    locked ? [] : api.durchgang.walk(),
+  const session = await getSession();
+  if (!locked && session?.companyId) {
+    await ensureAssessment(db, session.companyId, walk.framework);
+  }
+  const [{ items }, states] = await Promise.all([
+    callerWalk(walk),
+    locked ? [] : api.durchgang.walk({ framework: walk.framework }),
   ]);
   const stateOf = new Map(states.map((s) => [s.code, s.state]));
   return Promise.all(
-    walk.map(async (item) => ({
+    items.map(async (item) => ({
       ...(await stepOf(item)),
       state: stateOf.get(item.code) ?? { kind: "open" as const },
     })),
@@ -63,7 +76,7 @@ export async function loadWalk({
 export async function headlinesOf(
   codes: readonly string[],
 ): Promise<ReadonlyMap<string, string>> {
-  const items = WALK.filter((item) => codes.includes(item.code));
+  const items = ALL_ITEMS.filter((item) => codes.includes(item.code));
   return new Map(
     await Promise.all(
       items.map(async (item) => [item.code, (await wordsOf(item)).headline] as const),
@@ -72,30 +85,28 @@ export async function headlinesOf(
 }
 
 /**
- * One item, resolved for its screens. Null when it is not in the company's walk or not visible
- * to the caller.
+ * One item, resolved for its screens. Null when it is in no walk, not in the company's walk or
+ * not visible to the caller.
  */
 export async function loadItem(code: string): Promise<ItemView | null> {
-  const { company, walk } = await callerWalk();
-  const item = walk.find((i) => i.code === code);
-  if (!item || !company) return null;
-
-  const [session, req, assessment, localeTag] = await Promise.all([
+  const walk = walkOfCode(code);
+  if (!walk) return null;
+  const [{ company, items }, session] = await Promise.all([
+    callerWalk(walk),
     getSession(),
+  ]);
+  const item = items.find((i) => i.code === code);
+  if (!item || !company || !session?.companyId) return null;
+
+  const [req, assessmentId, localeTag] = await Promise.all([
     api.requirement.getByCode({ code }),
-    api.assessment.getActiveAssessment(),
+    ensureAssessment(db, session.companyId, walk.framework),
     getLocale(),
   ]);
   if (!req?.category) return null;
-  if (assessment) {
-    const access = await getUserAccess(
-      assessment.id,
-      session?.user.id ?? "",
-      session?.role ?? "member",
-    );
-    if (!canSeeCategory(access, req.category.id)) return null;
-  }
-  const locale = walkLocaleOf(localeTag);
+  const access = await getUserAccess(assessmentId, session.user.id, session.role);
+  if (!canSeeCategory(access, req.category.id)) return null;
+  const locale = walkLocaleOf(localeTag, walk.locales);
   const screens: readonly AnyScreen[] = item.screens;
   const shows = (module: RegisterModule) =>
     screens.some((s) => s.kind === "register" && s.module === module);
@@ -108,9 +119,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   );
   const asksPerson = screens.some((s) => s.kind === "fields" && s.person);
   // The instance's operator is offered once as a supplier before the register is read.
-  if (shows("supplier") && session?.companyId) {
-    await ensurePlatformSupplier(db, session.companyId);
-  }
+  if (shows("supplier")) await ensurePlatformSupplier(db, session.companyId);
 
   const [
     words,
@@ -132,19 +141,12 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     getTranslations("compliance"),
     getTranslations("portal"),
     getTranslations("durchgang.ui"),
-    assessment
-      ? api.assessment.getStatusesByCategory({
-          assessmentId: assessment.id,
-          categoryId: req.category.id,
-        })
-      : Promise.resolve([]),
-    assessment
-      ? api.intake.getRequirementAnswers({
-          assessmentId: assessment.id,
-          categoryId: req.category.id,
-          requirementCode: code,
-        })
-      : Promise.resolve({ answers: {} as Record<string, unknown> }),
+    api.assessment.getStatusesByCategory({ assessmentId, categoryId: req.category.id }),
+    api.intake.getRequirementAnswers({
+      assessmentId,
+      categoryId: req.category.id,
+      requirementCode: code,
+    }),
     shows("supplier") ? api.supplier.list() : Promise.resolve(undefined),
     asksPerson ? api.team.listMembers() : Promise.resolve([]),
     shows("training_record") ? api.training.list() : Promise.resolve(undefined),
@@ -152,9 +154,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     asksAssets ? api.asset.list() : Promise.resolve(null),
     asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
     showsPortals ? api.durchgang.portals() : Promise.resolve(null),
-    session?.companyId
-      ? assistantFillsOf(db, session.companyId, req.id)
-      : Promise.resolve([]),
+    assistantFillsOf(db, session.companyId, req.id),
   ]);
 
   const statusId = statuses.find((s) => s.requirementId === req.id)?.status?.id ?? null;
@@ -168,7 +168,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   const czechRef = czechRefOf(req);
   const law = buildCitationRows(
     {
-      frameworkCode: "nis2",
+      frameworkCode: walk.framework,
       frameworkRef: req.frameworkRef,
       legalRef: req.legalRef,
       referenceUrl: req.category.referenceUrl,
@@ -199,6 +199,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
 
   return {
     code,
+    framework: walk.framework,
     section: tc(`categories.${item.category}.name`),
     // The walk's own headline, in the walk's words: the requirement title is the platform-wide
     // name and stays on the requirement page.
@@ -213,7 +214,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     }),
     citations: law,
     // The duty card cites what its text is written from: the BSIG in German, Czech law in Czech,
-    // the directive in English. All of them stay in the rail.
+    // the directive in English; a GDPR item its article. All of them stay in the rail.
     duty:
       czechDuty?.cite ??
       typesetCitation(
@@ -224,7 +225,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     screens: words.screens,
     mayDecline: item.mustDo === undefined,
     statusId,
-    assessmentId: assessment?.id ?? null,
+    assessmentId,
     categoryId: req.category.id,
     categorySlug: req.category.slug,
     answers: intake.answers,
@@ -245,9 +246,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       fills,
     ),
     viewer: {
-      id: session?.user.id ?? "",
-      management: session?.jobTitle === MANAGEMENT_ROLE,
-      admin: session?.role === "admin",
+      id: session.user.id,
+      management: session.jobTitle === MANAGEMENT_ROLE,
+      admin: session.role === "admin",
     },
     locale,
   };

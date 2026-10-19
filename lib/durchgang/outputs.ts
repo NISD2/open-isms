@@ -4,10 +4,12 @@
  * nothing the walk does not produce. A new screen kind does not compile until it is placed here.
  *
  * Only items every company walks count; an item for operators of critical facilities alone
- * (`onlyFor`) is left out, since the page speaks to everyone.
+ * (`onlyFor`) is left out, since the page speaks to everyone. The page sells the NIS 2 walk, so
+ * these are its outputs.
  */
-import { WALK, WALK_POLICIES } from "./index";
+import { NIS2_WALK } from "./nis2";
 import type { AnyScreen, PolicyTemplate } from "./types";
+import { policiesOf } from "./walks";
 
 export type WalkRecord =
   | "assets"
@@ -78,20 +80,26 @@ export const recordOf = (screen: AnyScreen): WalkRecord | null => {
 };
 
 const forEveryone = new Set(
-  WALK.filter((item) => item.onlyFor === undefined).map((item) => item.code),
+  NIS2_WALK.items.filter((item) => item.onlyFor === undefined).map((item) => item.code),
 );
 
 /** The documents the walk writes, in walk order. */
 export const WALK_DOCUMENTS: readonly PolicyTemplate[] = [
-  ...new Set(WALK_POLICIES.filter((p) => forEveryone.has(p.code)).map((p) => p.policy)),
+  ...new Set(
+    policiesOf(NIS2_WALK)
+      .filter((p) => forEveryone.has(p.code))
+      .map((p) => p.policy),
+  ),
 ];
 
 /** The records the walk keeps, in the order it first writes each. */
 export const WALK_RECORDS: readonly WalkRecord[] = [
   ...new Set(
-    WALK.filter((item) => forEveryone.has(item.code)).flatMap((item) => {
-      const screens: readonly AnyScreen[] = item.screens;
-      return screens.flatMap((screen) => recordOf(screen) ?? []);
-    }),
+    NIS2_WALK.items
+      .filter((item) => forEveryone.has(item.code))
+      .flatMap((item) => {
+        const screens: readonly AnyScreen[] = item.screens;
+        return screens.flatMap((screen) => recordOf(screen) ?? []);
+      }),
   ),
 ];

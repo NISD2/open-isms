@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import type { ScreenKind } from "./index";
-import { opensBeforeSetup, SETUP_AFTER, WALK, withSetup } from "./index";
+import type { ScreenKind, Walk } from "./index";
+import { NIS2_WALK, opensBeforeSetup, WALKS, withSetup } from "./index";
 
 /**
  * Screens whose saves need no set-up company: reading, and answers stored on the requirement
@@ -18,16 +18,23 @@ const DRAFT_SAFE: ReadonlySet<ScreenKind> = new Set([
   "done",
 ]);
 
+const SETUP_AFTER = NIS2_WALK.setupAfter ?? "";
+const WALK = NIS2_WALK.items;
+
 describe("setting up the company after the registration", () => {
   test("the registration is in the walk", () => {
     expect(WALK.some((item) => item.code === SETUP_AFTER)).toBe(true);
   });
 
-  test("what a company not set up yet may open saves nothing into a register", () => {
-    const unsafe = WALK.filter((item) => opensBeforeSetup(item.code)).flatMap((item) =>
-      item.screens
-        .filter((screen) => !DRAFT_SAFE.has(screen.kind))
-        .map((screen) => `${item.code} ${screen.kind}`),
+  test("what a company not set up yet may open saves nothing into a register, in any walk", () => {
+    const unsafe = Object.values(WALKS).flatMap((walk) =>
+      walk.items
+        .filter((item) => opensBeforeSetup(item.code))
+        .flatMap((item) =>
+          item.screens
+            .filter((screen) => !DRAFT_SAFE.has(screen.kind))
+            .map((screen) => `${item.code} ${screen.kind}`),
+        ),
     );
     expect(unsafe).toEqual([]);
   });
@@ -42,14 +49,23 @@ describe("setting up the company after the registration", () => {
 
   test("the setup step sits right after the registration", () => {
     const walk = WALK.map((item) => ({ code: item.code }));
-    const steps = withSetup(walk, { code: "setup" }).map((entry) => entry.code);
+    const steps = withSetup(NIS2_WALK, walk, { code: "setup" }).map(
+      (entry) => entry.code,
+    );
     expect(steps[steps.indexOf(SETUP_AFTER) + 1]).toBe("setup");
     expect(steps.filter((code) => code !== "setup")).toEqual(walk.map((e) => e.code));
   });
 
-  test("a walk without the registration starts with setting up", () => {
-    expect(withSetup([{ code: "1.1" }], { code: "setup" })).toEqual([
+  test("a list without the registration starts with setting up", () => {
+    expect(withSetup(NIS2_WALK, [{ code: "1.1" }], { code: "setup" })).toEqual([
       { code: "setup" },
+      { code: "1.1" },
+    ]);
+  });
+
+  test("a walk with no setup step leaves its steps as they are", () => {
+    const none: Walk = { ...NIS2_WALK, setupAfter: null };
+    expect(withSetup(none, [{ code: "1.1" }], { code: "setup" })).toEqual([
       { code: "1.1" },
     ]);
   });

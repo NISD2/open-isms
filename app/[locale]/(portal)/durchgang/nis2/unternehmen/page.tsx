@@ -4,9 +4,9 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { CompanySetup } from "@/components/organization/CompanySetup";
 import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
-import { resumeAt, SETUP_STEP } from "@/lib/durchgang";
+import { itemHref, NIS2_WALK, resumeAt, SETUP_STEP } from "@/lib/durchgang";
+import { loadWalk } from "../../_walk/load";
 import { walkAccess } from "../../gate";
-import { loadWalk } from "../load";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("organization.essentials");
@@ -30,7 +30,10 @@ export default async function WalkCompanyStep() {
   if (!mayWalk || session?.companyActivated) {
     redirect(getPathname({ href: "/durchgang/nis2", locale }));
   }
-  const next = resumeAt(await loadWalk({ locked: false }), (w) => w.state);
+  const next = resumeAt(
+    await loadWalk({ walk: NIS2_WALK, locked: false }),
+    (w) => w.state,
+  );
   return (
     <div data-dg-item={SETUP_STEP}>
       <CompanySetup
@@ -46,11 +49,7 @@ export default async function WalkCompanyStep() {
             kritis: t("setupEntityTypes.kritis"),
           },
         }}
-        next={
-          next
-            ? { pathname: "/durchgang/nis2/[code]", params: { code: next.code } }
-            : "/durchgang/nis2"
-        }
+        next={next ? itemHref("nis2", next.code) : "/durchgang/nis2"}
       />
     </div>
   );

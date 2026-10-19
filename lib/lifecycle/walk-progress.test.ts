@@ -1,8 +1,12 @@
 import { describe, expect, test } from "bun:test";
-import { type ItemState, SETUP_AFTER, walkOf } from "@/lib/durchgang";
+import { type ItemState, itemsFor, NIS2_WALK } from "@/lib/durchgang";
 import { walkProgress } from "./walk-progress";
 
-const walk = walkOf({ entityType: "important", criticalInstallation: "unsettled" });
+const SETUP_AFTER = NIS2_WALK.setupAfter;
+const walk = itemsFor(NIS2_WALK, {
+  entityType: "important",
+  criticalInstallation: "unsettled",
+});
 const [first, second] = walk;
 const filled: ItemState = { kind: "filled", since: new Date("2026-10-01T08:00:00Z") };
 const waiting: ItemState = {

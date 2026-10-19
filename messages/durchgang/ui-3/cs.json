@@ -61,7 +61,7 @@
         "confirm": "Přesunout mezi čekající"
       },
       "places": {
-        "label": "V průvodci NIS 2"
+        "label": "V průvodci"
       },
       "home": {
         "unlock": "Objednat",
@@ -82,7 +82,6 @@
         "toSignOff": "Zatím neschváleno. Přejít ke schválení",
         "next": "Na řadě",
         "waiting": "Stále čeká",
-        "continue": "Pokračovat v zavádění NIS 2",
         "allFilled": "Všechny body jsou vyplněné.",
         "allFilledNote": "Když se ve vaší společnosti něco změní, otevřete příslušný bod a změňte to tam. Změněný dokument jde znovu ke schválení vedení.",
         "yourWay": "Vaše cesta",
@@ -111,30 +110,6 @@
             "failed": "To se nepodařilo. Zkuste to prosím znovu."
           }
         }
-      },
-      "intro": {
-        "eyebrow": "NIS 2 pro střední firmy",
-        "title": "Jste na správném místě.",
-        "lead": "Máte se postarat o NIS 2 a nevíte, kde začít? Tak to má skoro každý. Projdeme to s vámi bod po bodu.",
-        "points": [
-          {
-            "title": "Jedno po druhém",
-            "text": "Vždy vidíte jen jeden bod. Než cokoli zadáte, vysvětlíme ho."
-          },
-          {
-            "title": "Metody, které doporučujeme",
-            "text": "Kde existuje osvědčená metoda, ukážeme vám ji. Vy rozhodnete, zda ji převezmete."
-          },
-          {
-            "title": "Nechat něco otevřené je v pořádku",
-            "text": "Co zatím nejde, odložíte a pokračujete dalším bodem."
-          },
-          {
-            "title": "Na konci podpis",
-            "text": "Vedení vše projde a podepíše."
-          }
-        ],
-        "start": "Začněme"
       }
     }
   }

@@ -1,7 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { WALK } from "@/lib/durchgang";
+import { NIS2_WALK } from "@/lib/durchgang";
 import { loadCourse } from "./course-loader";
 import { LESSON_WALK_ITEM } from "./lesson-journey-map";
+
+const { items: WALK } = NIS2_WALK;
 
 describe("LESSON_WALK_ITEM", () => {
   test("every lesson leads to an item the walk has", () => {

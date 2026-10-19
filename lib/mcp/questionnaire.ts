@@ -2,13 +2,20 @@ import "@/lib/server-guard";
 import { z } from "zod";
 import { isReviewerRole } from "@/lib/auth/roles";
 import { db } from "@/lib/db";
-import { WALK } from "@/lib/durchgang";
 import { canRequestAnswers } from "@/lib/supplier-portal/register-row";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import { enforceAssignment } from "@/server/trpc/guards";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
-import { itemOf, language, linkOf, notInPlan, refuse, type ToolOutcome } from "./gates";
+import {
+  itemOf,
+  language,
+  linkOf,
+  MCP_WALK,
+  notInPlan,
+  refuse,
+  type ToolOutcome,
+} from "./gates";
 import { registerOfItem } from "./walk";
 
 /** Suppliers one call may send to: a whole list, small enough to read the answer back. */
@@ -68,8 +75,10 @@ export async function sendQuestionnaire(
 ): Promise<ToolOutcome> {
   const locked = notInPlan(holder, input.language);
   if (locked) return locked;
-  const listItem = WALK.find((item) => registerOfItem(item)?.module === "supplier");
-  const answersItem = WALK.find((item) =>
+  const listItem = MCP_WALK.items.find(
+    (item) => registerOfItem(item)?.module === "supplier",
+  );
+  const answersItem = MCP_WALK.items.find((item) =>
     item.screens.some((s) => s.kind === "agreements"),
   );
   if (!listItem || !answersItem)

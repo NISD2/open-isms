@@ -18,12 +18,18 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/navigation";
 import type { WalkLock } from "@/lib/billing/access";
-import { APPROVAL_SCREEN, resumeAt, SETUP_STEP } from "@/lib/durchgang";
+import {
+  approvalOf,
+  resumeAt,
+  SETUP_STEP,
+  WALKS,
+  type WalkFramework,
+} from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
 import { itemShot } from "./itemShots";
 import { PromiseCard } from "./PromiseCard";
-import { hrefOf, useSteps } from "./setup";
+import { hrefOf as stepHref, useSteps } from "./setup";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
 
@@ -61,6 +67,7 @@ const stepId = (code: string) => `dg-step-${code}`;
  * (`ForwardToManagement`), passed in by the server page only for someone who may send it.
  */
 export function DurchgangHome({
+  framework,
   walk,
   lock,
   price,
@@ -68,6 +75,7 @@ export function DurchgangHome({
   call,
   forward,
 }: {
+  framework: WalkFramework;
   walk: readonly WalkEntry[];
   lock: WalkLock | null;
   price: string | null;
@@ -78,11 +86,13 @@ export function DurchgangHome({
   const t = useTranslations("durchgang");
   const locale = useLocale();
   const locked = lock !== null;
-  const points = t.raw("ui.intro.points") as ReadonlyArray<{
+  const intro = `walks.${framework}.intro` as const;
+  const points = t.raw(`${intro}.points`) as ReadonlyArray<{
     title: string;
     text: string;
   }>;
-  const steps = useSteps(walk, setup);
+  const steps = useSteps(framework, walk, setup);
+  const hrefOf = (code: string) => stepHref(framework, code);
   const untouched = steps.every((w) => w.state.kind === "open");
   const next = resumeAt(steps, (w) => w.state);
   const [flash, setFlash] = useState<string | null>(null);
@@ -99,7 +109,7 @@ export function DurchgangHome({
 
   /** A small sign-off tick leads to the step where management signs, and lights it briefly. */
   const showSignOff = () => {
-    const code = APPROVAL_SCREEN?.code;
+    const code = approvalOf(WALKS[framework])?.code;
     if (!code) return;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document
@@ -138,13 +148,13 @@ export function DurchgangHome({
     >
       <div className="flex flex-col lg:sticky lg:top-18 lg:self-start lg:py-6">
         <p className="self-start rounded-full bg-primary/[0.08] px-3 py-1 text-sm font-medium text-primary">
-          {t("ui.intro.eyebrow")}
+          {t(`${intro}.eyebrow`)}
         </p>
         <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-          {t("ui.intro.title")}
+          {t(`${intro}.title`)}
         </h1>
         <p className="mt-5 max-w-[52ch] text-lg leading-8 text-muted-foreground">
-          {t("ui.intro.lead")}
+          {t(`${intro}.lead`)}
         </p>
         <ul className="mt-10 grid gap-3 sm:grid-cols-2">
           {points.map((point, i) => (
@@ -199,7 +209,7 @@ export function DurchgangHome({
             className="mt-10 h-12 self-start rounded-xl px-7 text-base"
           >
             <Link href={hrefOf(next.code)}>
-              {untouched ? t("ui.intro.start") : t("ui.home.continue")}
+              {untouched ? t(`${intro}.start`) : t(`walks.${framework}.continue`)}
               <ArrowRight />
             </Link>
           </Button>

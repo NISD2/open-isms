@@ -54,9 +54,10 @@ export function useScreenComplete(
   const reviews = trpc.managementReview.list.useQuery(undefined, {
     enabled: screen?.kind === "register" && screen.module === "management_review",
   });
-  const policies = trpc.durchgang.walkPolicies.useQuery(undefined, {
-    enabled: screen?.kind === "approve",
-  });
+  const policies = trpc.durchgang.walkPolicies.useQuery(
+    { framework: item.framework },
+    { enabled: screen?.kind === "approve" },
+  );
   const ratings = useRatingRows(screen?.kind === "rate" ? screen.targets : null);
   const agreements = useAgreementRows(screen?.kind === "agreements");
   const logins = useLoginRows(screen?.kind === "logins");

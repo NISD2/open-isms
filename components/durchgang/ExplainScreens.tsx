@@ -367,12 +367,13 @@ export function Compare({ entry }: { entry: Of<"compare"> }) {
   );
 }
 
-export function Sample({ entry }: { entry: Of<"sample"> }) {
+export function Sample({ item, entry }: { item: ItemView; entry: Of<"sample"> }) {
   const t = useTranslations("durchgang.ui");
   const beside = entry.screen.beside;
-  const policies = trpc.durchgang.walkPolicies.useQuery(undefined, {
-    enabled: beside !== undefined,
-  });
+  const policies = trpc.durchgang.walkPolicies.useQuery(
+    { framework: item.framework },
+    { enabled: beside !== undefined },
+  );
   const own = (policies.data ?? []).find((p) => p.type === beside);
   return (
     <>
