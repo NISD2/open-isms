@@ -101,8 +101,8 @@ export async function recalculateProgress(db: Database, assessmentId: string) {
  *     requirements into the credited set.
  *
  * Role gate (audit B-4, 2026-06-10): a credit is only applied when the
- * target's `requiredSignOffRole` matches the source signer's role (or the
- * source signer was admin). Without the gate, signing a CISO-required
+ * source signer could have signed the target directly
+ * (`signerMeetsRequiredRole`). Without the gate, signing a CISO-required
  * requirement (e.g. SUP-5.1) was crediting linked CEO-required requirements
  * with `signedOffRole=ciso`, which a §38 BSIG auditor reads as a CISO
  * signing for the board.
