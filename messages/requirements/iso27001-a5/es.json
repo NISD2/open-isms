@@ -1,0 +1,152 @@
+{
+  "requirements": {
+    "A_5_1": {
+      "title": "Políticas de seguridad de la información",
+      "description": "Defina, apruebe, publique y revise anualmente las políticas de seguridad de la información, abarcando todos los temas pertinentes."
+    },
+    "A_5_2": {
+      "title": "Roles y responsabilidades de seguridad de la información",
+      "description": "Asigne y documente los roles y responsabilidades de seguridad de la información en toda la organización."
+    },
+    "A_5_3": {
+      "title": "Segregación de funciones",
+      "description": "Separe las funciones y responsabilidades en conflicto para reducir las oportunidades de modificación no autorizada de la información."
+    },
+    "A_5_4": {
+      "title": "Responsabilidades de la dirección",
+      "description": "La dirección debe exigir a todo el personal que aplique la seguridad de la información conforme a las políticas establecidas."
+    },
+    "A_5_5": {
+      "title": "Contacto con las autoridades",
+      "description": "Mantenga los contactos adecuados con las autoridades pertinentes (autoridad de protección de datos, agencia de ciberseguridad, fuerzas del orden)."
+    },
+    "A_5_6": {
+      "title": "Contacto con grupos de interés especial",
+      "description": "Mantenga la pertenencia o el contacto con grupos de interés especial, foros de seguridad y asociaciones profesionales."
+    },
+    "A_5_7": {
+      "title": "Inteligencia de amenazas",
+      "description": "Recopile, analice y elabore inteligencia de amenazas pertinente para la organización a fin de anticipar y prepararse ante las amenazas."
+    },
+    "A_5_8": {
+      "title": "Seguridad de la información en la gestión de proyectos",
+      "description": "Integre la seguridad de la información en la gestión de proyectos para garantizar que los riesgos de seguridad se aborden durante los proyectos."
+    },
+    "A_5_9": {
+      "title": "Inventario de información y otros activos asociados",
+      "description": "Identifique, documente y mantenga un inventario de la información y los activos asociados con la propiedad asignada."
+    },
+    "A_5_10": {
+      "title": "Uso aceptable de la información y otros activos asociados",
+      "description": "Identifique, documente e implemente reglas de uso aceptable de la información y los activos, que cubran los dispositivos, el tratamiento de datos y las actividades prohibidas."
+    },
+    "A_5_11": {
+      "title": "Devolución de activos",
+      "description": "Garantice que todos los activos se devuelven al finalizar o cambiar la relación laboral o contractual."
+    },
+    "A_5_12": {
+      "title": "Clasificación de la información",
+      "description": "Clasifique la información según su sensibilidad (confidencial, interna, pública) para garantizar un tratamiento y una protección adecuados."
+    },
+    "A_5_13": {
+      "title": "Etiquetado de la información",
+      "description": "Desarrolle e implemente un procedimiento de etiquetado de la información conforme al esquema de clasificación."
+    },
+    "A_5_14": {
+      "title": "Transferencia de información",
+      "description": "Establezca reglas y procedimientos para la transferencia de información por todos los canales, incluidos el correo electrónico, la mensajería, los soportes físicos y la vía verbal."
+    },
+    "A_5_15": {
+      "title": "Control de acceso",
+      "description": "Defina e implemente reglas de control de acceso basadas en los requisitos de negocio y de seguridad, aplicando el mínimo privilegio."
+    },
+    "A_5_16": {
+      "title": "Gestión de identidades",
+      "description": "Gestione el ciclo de vida completo de la identidad (aprovisionamiento, cambios, revocación) de todos los usuarios y cuentas de servicio."
+    },
+    "A_5_17": {
+      "title": "Información de autenticación",
+      "description": "Gestione la información de autenticación (contraseñas, claves, tokens) mediante un proceso formal que incluya la asignación, el almacenamiento y la revocación."
+    },
+    "A_5_18": {
+      "title": "Derechos de acceso",
+      "description": "Aprovisione, revise, modifique y elimine los derechos de acceso conforme a la política de control de acceso."
+    },
+    "A_5_19": {
+      "title": "Seguridad de la información en las relaciones con proveedores",
+      "description": "Identifique e implemente controles para proteger los activos accesibles a los proveedores; documente los requisitos en los acuerdos con proveedores."
+    },
+    "A_5_20": {
+      "title": "Abordar la seguridad de la información en los acuerdos con proveedores",
+      "description": "Establezca y acuerde los requisitos de seguridad de la información con cada proveedor que pueda acceder, tratar o almacenar información de la organización."
+    },
+    "A_5_21": {
+      "title": "Gestión de la seguridad de la información en la cadena de suministro de TIC",
+      "description": "Defina e implemente procesos para gestionar los riesgos de seguridad de la información asociados a la cadena de suministro de productos y servicios de TIC."
+    },
+    "A_5_22": {
+      "title": "Seguimiento, revisión y gestión de cambios de los servicios de proveedores",
+      "description": "Supervise, revise y gestione periódicamente los cambios en las prácticas de seguridad de la información y la prestación de servicios de los proveedores."
+    },
+    "A_5_23": {
+      "title": "Seguridad de la información en el uso de servicios en la nube",
+      "description": "Establezca procesos para la adquisición, el uso, la gestión y la salida de los servicios en la nube, incluidos los requisitos de seguridad y los planes de salida."
+    },
+    "A_5_24": {
+      "title": "Planificación y preparación de la gestión de incidentes de seguridad de la información",
+      "description": "Planifique y prepárese para la gestión de incidentes con roles, responsabilidades, procedimientos y canales de comunicación definidos."
+    },
+    "A_5_25": {
+      "title": "Evaluación y decisión sobre los eventos de seguridad de la información",
+      "description": "Evalúe los eventos de seguridad de la información y decida si constituyen incidentes mediante un esquema de clasificación definido."
+    },
+    "A_5_26": {
+      "title": "Respuesta a los incidentes de seguridad de la información",
+      "description": "Responda a los incidentes conforme a procedimientos documentados; contenga, erradique y recupere de forma estructurada."
+    },
+    "A_5_27": {
+      "title": "Aprendizaje a partir de los incidentes de seguridad de la información",
+      "description": "Utilice el conocimiento de los incidentes para reducir la probabilidad y el impacto de incidentes futuros; actualice los controles en consecuencia."
+    },
+    "A_5_28": {
+      "title": "Recopilación de evidencias",
+      "description": "Defina y aplique procedimientos para identificar, recopilar, adquirir y preservar las evidencias de los incidentes de seguridad de la información."
+    },
+    "A_5_29": {
+      "title": "Seguridad de la información durante una interrupción",
+      "description": "Planifique cómo se mantendrá la seguridad de la información durante una interrupción. Integre los requisitos de seguridad en los planes de continuidad de negocio."
+    },
+    "A_5_30": {
+      "title": "Preparación de las TIC para la continuidad de negocio",
+      "description": "Planifique, implemente, mantenga y pruebe la preparación de las TIC en función de los objetivos de continuidad de negocio y los requisitos de continuidad de las TIC."
+    },
+    "A_5_31": {
+      "title": "Requisitos legales, estatutarios, reglamentarios y contractuales",
+      "description": "Identifique, documente y mantenga actualizados todos los requisitos legales, reglamentarios y contractuales pertinentes para la seguridad de la información."
+    },
+    "A_5_32": {
+      "title": "Derechos de propiedad intelectual",
+      "description": "Implemente procedimientos para proteger los derechos de propiedad intelectual y cumplir los requisitos de licencias de software."
+    },
+    "A_5_33": {
+      "title": "Protección de registros",
+      "description": "Proteja los registros frente a la pérdida, la destrucción, la falsificación, el acceso no autorizado y la divulgación no autorizada, conforme a los requisitos legales."
+    },
+    "A_5_34": {
+      "title": "Privacidad y protección de la PII",
+      "description": "Identifique y cumpla los requisitos de privacidad y protección de datos personales conforme a la legislación aplicable (GDPR)."
+    },
+    "A_5_35": {
+      "title": "Revisión independiente de la seguridad de la información",
+      "description": "Revise el enfoque y la implementación del ISMS de forma independiente a intervalos planificados o cuando se produzcan cambios significativos."
+    },
+    "A_5_36": {
+      "title": "Cumplimiento de las políticas, reglas y normas de seguridad de la información",
+      "description": "Revise periódicamente el cumplimiento de las políticas, normas y procedimientos de seguridad de la información; documente los resultados."
+    },
+    "A_5_37": {
+      "title": "Procedimientos operativos documentados",
+      "description": "Documente, mantenga y ponga a disposición los procedimientos operativos de las instalaciones de tratamiento de la información."
+    }
+  }
+}

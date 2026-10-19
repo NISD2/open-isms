@@ -1,0 +1,200 @@
+{
+  "requirements": {
+    "1_1": {
+      "title": "Formazione della direzione in cibersicurezza",
+      "description": "Formazione della direzione in cibersicurezza"
+    },
+    "1_2": {
+      "title": "Ruoli e responsabilità",
+      "description": "Ruoli e responsabilità"
+    },
+    "1_3": {
+      "title": "Allocazione del budget per la cibersicurezza",
+      "description": "Allocazione del budget per la cibersicurezza"
+    },
+    "1_4": {
+      "title": "Presa d'atto della responsabilità personale",
+      "description": "Presa d'atto della responsabilità personale"
+    },
+    "2_1": {
+      "title": "Metodologia di valutazione del rischio",
+      "description": "Metodologia di valutazione del rischio"
+    },
+    "2_2": {
+      "title": "Inventario degli asset, ambito e classificazione",
+      "description": "Inventario degli asset, ambito e classificazione"
+    },
+    "2_3": {
+      "title": "Registro dei rischi e trattamento",
+      "description": "Registro dei rischi e trattamento"
+    },
+    "2_4": {
+      "title": "Accettazione del rischio e firma della policy di sicurezza delle informazioni",
+      "description": "Accettazione del rischio e firma della policy di sicurezza delle informazioni"
+    },
+    "3_1": {
+      "title": "Piano e team di risposta agli incidenti",
+      "description": "Piano e team di risposta agli incidenti"
+    },
+    "3_2": {
+      "title": "Rilevamento, classificazione e logging",
+      "description": "Rilevamento, classificazione e logging"
+    },
+    "3_3": {
+      "title": "Capacità di notifica BSI (24h/72h/1M)",
+      "description": "Capacità di notifica BSI (24h/72h/1M)"
+    },
+    "3_4": {
+      "title": "Esercitazione di risposta agli incidenti",
+      "description": "Esercitazione di risposta agli incidenti"
+    },
+    "3_5": {
+      "title": "Riesame post incidente e comunicazione",
+      "description": "Riesame post incidente e comunicazione"
+    },
+    "4_1": {
+      "title": "Analisi di impatto sul business e obiettivi di ripristino",
+      "description": "Analisi di impatto sul business e obiettivi di ripristino"
+    },
+    "4_2": {
+      "title": "Piano di continuità operativa e gestione delle crisi",
+      "description": "Piano di continuità operativa e gestione delle crisi"
+    },
+    "4_3": {
+      "title": "Piano di disaster recovery",
+      "description": "Piano di disaster recovery"
+    },
+    "4_4": {
+      "title": "Backup e ripristino",
+      "description": "Backup e ripristino"
+    },
+    "4_5": {
+      "title": "Test BCP/DR",
+      "description": "Test BCP/DR"
+    },
+    "5_1": {
+      "title": "Registro dei fornitori e classificazione",
+      "description": "Registro dei fornitori e classificazione"
+    },
+    "5_2": {
+      "title": "Sicurezza dei fornitori nei contratti",
+      "description": "Sicurezza dei fornitori nei contratti"
+    },
+    "5_3": {
+      "title": "Valutazione e monitoraggio dei fornitori",
+      "description": "Valutazione e monitoraggio dei fornitori"
+    },
+    "5_4": {
+      "title": "Notifica degli incidenti da parte dei fornitori",
+      "description": "Notifica degli incidenti da parte dei fornitori"
+    },
+    "6_1": {
+      "title": "Approvvigionamento sicuro",
+      "description": "Approvvigionamento sicuro"
+    },
+    "6_2": {
+      "title": "Sviluppo e configurazione sicuri",
+      "description": "Sviluppo e configurazione sicuri"
+    },
+    "6_3": {
+      "title": "Gestione delle vulnerabilità",
+      "description": "Gestione delle vulnerabilità"
+    },
+    "6_4": {
+      "title": "Gestione delle patch",
+      "description": "Gestione delle patch"
+    },
+    "6_5": {
+      "title": "Gestione delle modifiche",
+      "description": "Gestione delle modifiche"
+    },
+    "7_1": {
+      "title": "KPI e metriche di sicurezza",
+      "description": "KPI e metriche di sicurezza"
+    },
+    "7_2": {
+      "title": "Audit interno",
+      "description": "Audit interno"
+    },
+    "7_3": {
+      "title": "Riesame della direzione",
+      "description": "Riesame della direzione"
+    },
+    "7_4": {
+      "title": "Azioni correttive e miglioramento continuo",
+      "description": "Azioni correttive e miglioramento continuo"
+    },
+    "8_1": {
+      "title": "Policy di sicurezza IT e uso accettabile",
+      "description": "Policy di sicurezza IT e uso accettabile"
+    },
+    "8_2": {
+      "title": "Programma di sensibilizzazione alla sicurezza",
+      "description": "Programma di sensibilizzazione alla sicurezza"
+    },
+    "8_3": {
+      "title": "Formazione specifica per ruolo e per la direzione",
+      "description": "Formazione specifica per ruolo e per la direzione"
+    },
+    "8_4": {
+      "title": "Efficacia della formazione e simulazioni di phishing",
+      "description": "Efficacia della formazione e simulazioni di phishing"
+    },
+    "9_1": {
+      "title": "Policy e standard crittografici",
+      "description": "Policy e standard crittografici"
+    },
+    "9_2": {
+      "title": "Cifratura dei dati",
+      "description": "Cifratura dei dati"
+    },
+    "9_3": {
+      "title": "Gestione delle chiavi e dei certificati",
+      "description": "Gestione delle chiavi e dei certificati"
+    },
+    "10_1": {
+      "title": "Policy e modello di controllo degli accessi",
+      "description": "Policy e modello di controllo degli accessi"
+    },
+    "10_2": {
+      "title": "Assegnazione degli accessi per asset",
+      "description": "Assegnazione degli accessi per asset"
+    },
+    "10_3": {
+      "title": "Ciclo di vita dell'utente e PAM",
+      "description": "Ciclo di vita dell'utente e PAM"
+    },
+    "10_4": {
+      "title": "Revisioni degli accessi",
+      "description": "Revisioni degli accessi"
+    },
+    "11_1": {
+      "title": "Autenticazione a più fattori",
+      "description": "Autenticazione a più fattori"
+    },
+    "11_2": {
+      "title": "Comunicazioni sicure e di emergenza",
+      "description": "Comunicazioni sicure e di emergenza"
+    },
+    "11_3": {
+      "title": "Standard di autenticazione",
+      "description": "Standard di autenticazione"
+    },
+    "12_1": {
+      "title": "Classificazione e ambito NIS2",
+      "description": "Classificazione e ambito NIS2"
+    },
+    "12_2": {
+      "title": "Registrazione presso il BSI",
+      "description": "Creare l'account MUK, completare la registrazione nel portale BSI e trasmettere tutti i dati obbligatori. Termine di legge: al più tardi tre mesi dopo che l'azienda è considerata per la prima volta un soggetto essenziale o importante (§33(1) BSIG). Per i soggetti rientranti nell'ambito di applicazione dall'entrata in vigore della BSIG il 6 dicembre 2025, tale termine è scaduto il 6 marzo 2026; la registrazione è quindi immediatamente dovuta."
+    },
+    "12_3": {
+      "title": "Mantenimento della registrazione",
+      "description": "Mantenimento della registrazione"
+    },
+    "12_4": {
+      "title": "Evidenze di conformità",
+      "description": "Evidenze di conformità"
+    }
+  }
+}

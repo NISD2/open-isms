@@ -17,6 +17,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { drizzle } from "drizzle-orm/node-postgres";
+import { requirementsEn } from "@/i18n/requirements";
 import {
   type GenerationInput,
   generateRequirementGuidance,
@@ -28,8 +29,8 @@ import {
   REQUIREMENT_FIELD_MAP,
 } from "@/lib/compliance/requirement-fields";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
+import { getRequirementDescription, getRequirementTitle } from "@/lib/messages";
 import complianceEn from "@/messages/compliance/en.json";
-import requirementsEn from "@/messages/requirements/en.json";
 import * as schema from "@/schema";
 
 const DATA_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "../data/guidance");
@@ -203,15 +204,11 @@ async function main() {
         fieldMetas = CUSTOM_EDITOR_FIELDS[req.code];
       }
 
-      const reqKey = req.code.replace(
-        /\./g,
-        "_",
-      ) as keyof typeof requirementsEn.requirements;
       const catKey = req.category.code as keyof typeof complianceEn.compliance.categories;
       const input: GenerationInput = {
         requirementCode: req.code,
-        requirementTitle: requirementsEn.requirements[reqKey]?.title ?? req.code,
-        description: requirementsEn.requirements[reqKey]?.description ?? "",
+        requirementTitle: getRequirementTitle(requirementsEn, req.code),
+        description: getRequirementDescription(requirementsEn, req.code) ?? "",
         evidenceType: req.evidenceType,
         legalRef: req.legalRef,
         frameworkRef: req.frameworkRef,

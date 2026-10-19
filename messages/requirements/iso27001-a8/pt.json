@@ -1,0 +1,140 @@
+{
+  "requirements": {
+    "A_8_1": {
+      "title": "Dispositivos Terminais dos Utilizadores",
+      "description": "Proteja a informação contida e tratada nos dispositivos terminais dos utilizadores (portáteis, telemóveis) através de uma política de segurança de terminais."
+    },
+    "A_8_2": {
+      "title": "Direitos de Acesso Privilegiado",
+      "description": "Restrinja e faça uma gestão cuidadosa da atribuição e da utilização de direitos de acesso privilegiado em todos os sistemas."
+    },
+    "A_8_3": {
+      "title": "Restrição de Acesso à Informação",
+      "description": "Restrinja o acesso à informação e aos sistemas ao que é necessário para o papel de cada utilizador, aplicando o princípio do menor privilégio."
+    },
+    "A_8_4": {
+      "title": "Acesso ao Código-Fonte",
+      "description": "Restrinja o acesso ao código-fonte dos programas e às ferramentas associadas apenas às pessoas autorizadas; aplique controlo de versões."
+    },
+    "A_8_5": {
+      "title": "Autenticação Segura",
+      "description": "Implemente tecnologias e procedimentos de autenticação segura, incluindo MFA para os sistemas sensíveis e para todos os acessos remotos."
+    },
+    "A_8_6": {
+      "title": "Gestão da Capacidade",
+      "description": "Monitorize e ajuste a utilização de recursos e as projeções para garantir a capacidade e o desempenho exigidos ao sistema."
+    },
+    "A_8_7": {
+      "title": "Proteção contra Software Malicioso",
+      "description": "Implemente controlos de proteção contra software malicioso (EDR, antivírus, assinatura de código, filtragem de correio) apoiados por uma adequada sensibilização dos utilizadores."
+    },
+    "A_8_8": {
+      "title": "Gestão de Vulnerabilidades Técnicas",
+      "description": "Identifique, avalie e corrija atempadamente as vulnerabilidades técnicas em todos os sistemas."
+    },
+    "A_8_9": {
+      "title": "Gestão de Configurações",
+      "description": "Estabeleça, documente e mantenha as configurações (incluindo as de segurança) de hardware, software e serviços na nuvem."
+    },
+    "A_8_10": {
+      "title": "Eliminação de Informação",
+      "description": "Elimine a informação quando deixar de ser necessária, em conformidade com os requisitos legais, contratuais e de negócio."
+    },
+    "A_8_11": {
+      "title": "Mascaramento de Dados",
+      "description": "Utilize o mascaramento, a pseudonimização ou a anonimização de dados para proteger os dados pessoais em ambientes que não sejam de produção."
+    },
+    "A_8_12": {
+      "title": "Prevenção de Fuga de Dados",
+      "description": "Aplique medidas de prevenção de fuga de dados aos sistemas, redes e terminais que tratam informação sensível."
+    },
+    "A_8_13": {
+      "title": "Cópia de Segurança da Informação",
+      "description": "Faça e teste regularmente cópias de segurança da informação, do software e das imagens de sistema, em conformidade com uma política de cópias de segurança acordada."
+    },
+    "A_8_14": {
+      "title": "Redundância das Instalações de Tratamento de Informação",
+      "description": "Implemente redundância suficiente nas instalações de tratamento de informação para cumprir os requisitos de disponibilidade."
+    },
+    "A_8_15": {
+      "title": "Registo de Eventos",
+      "description": "Produza, proteja e conserve registos das atividades dos utilizadores, exceções, falhas e eventos de segurança durante os períodos de conservação definidos."
+    },
+    "A_8_16": {
+      "title": "Atividades de Monitorização",
+      "description": "Monitorize as redes, os sistemas e as aplicações para detetar comportamentos anómalos e potenciais eventos de segurança."
+    },
+    "A_8_17": {
+      "title": "Sincronização de Relógios",
+      "description": "Sincronize os relógios de todos os sistemas de tratamento de informação com uma fonte horária aprovada, para apoiar a correlação de registos e a análise forense."
+    },
+    "A_8_18": {
+      "title": "Utilização de Programas Utilitários Privilegiados",
+      "description": "Controle e restrinja a utilização de programas utilitários capazes de contornar os controlos do sistema e das aplicações."
+    },
+    "A_8_19": {
+      "title": "Instalação de Software em Sistemas Operacionais",
+      "description": "Implemente procedimentos para controlar a instalação de software nos sistemas operacionais apenas por pessoas autorizadas."
+    },
+    "A_8_20": {
+      "title": "Segurança das Redes",
+      "description": "Proteja as redes e os dispositivos de rede para salvaguardar a informação nos sistemas e nas aplicações."
+    },
+    "A_8_21": {
+      "title": "Segurança dos Serviços de Rede",
+      "description": "Identifique, implemente e monitorize os mecanismos de segurança dos serviços de rede, incluindo a rede na nuvem."
+    },
+    "A_8_22": {
+      "title": "Segregação de Redes",
+      "description": "Segregue os grupos de serviços de informação, utilizadores e sistemas de informação dentro da rede."
+    },
+    "A_8_23": {
+      "title": "Filtragem Web",
+      "description": "Faça a gestão do acesso a sítios web externos para reduzir a exposição a conteúdos maliciosos."
+    },
+    "A_8_24": {
+      "title": "Utilização de Criptografia",
+      "description": "Defina e implemente uma política de criptografia que abranja os algoritmos aprovados, a gestão de chaves e os requisitos de cifragem."
+    },
+    "A_8_25": {
+      "title": "Ciclo de Vida de Desenvolvimento Seguro",
+      "description": "Estabeleça e aplique regras para o desenvolvimento seguro de software e sistemas ao longo de todo o ciclo de vida de desenvolvimento."
+    },
+    "A_8_26": {
+      "title": "Requisitos de Segurança das Aplicações",
+      "description": "Identifique, especifique e aprove os requisitos de segurança da informação para o desenvolvimento e a aquisição de aplicações."
+    },
+    "A_8_27": {
+      "title": "Princípios de Arquitetura e Engenharia de Sistemas Seguros",
+      "description": "Estabeleça, documente e aplique princípios de engenharia segura em todas as atividades de desenvolvimento e de engenharia de sistemas."
+    },
+    "A_8_28": {
+      "title": "Programação Segura",
+      "description": "Aplique princípios de programação segura ao desenvolvimento de software para prevenir vulnerabilidades comuns (OWASP Top 10, injeção, XSS)."
+    },
+    "A_8_29": {
+      "title": "Testes de Segurança no Desenvolvimento e na Aceitação",
+      "description": "Defina e implemente processos de testes de segurança no ciclo de vida de desenvolvimento e durante os testes de aceitação."
+    },
+    "A_8_30": {
+      "title": "Desenvolvimento Subcontratado",
+      "description": "Supervisione e monitorize as atividades de desenvolvimento de sistemas subcontratadas para garantir o cumprimento dos requisitos de segurança."
+    },
+    "A_8_31": {
+      "title": "Separação dos Ambientes de Desenvolvimento, Teste e Produção",
+      "description": "Separe os ambientes de desenvolvimento, teste e produção para reduzir o risco de acesso ou alterações não autorizados ao sistema de produção."
+    },
+    "A_8_32": {
+      "title": "Gestão de Alterações",
+      "description": "Faça a gestão das alterações às instalações de tratamento de informação e aos sistemas através de um processo formal de gestão de alterações."
+    },
+    "A_8_33": {
+      "title": "Informação de Teste",
+      "description": "Proteja e faça a gestão da informação de teste; nunca utilize dados reais de produção em ambientes de teste sem controlos adequados."
+    },
+    "A_8_34": {
+      "title": "Proteção dos Sistemas de Informação Durante os Testes de Auditoria",
+      "description": "Planeie e acorde os requisitos e as atividades de auditoria que envolvam a verificação de sistemas operacionais, de modo a minimizar a disrupção."
+    }
+  }
+}

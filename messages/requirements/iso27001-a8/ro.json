@@ -1,0 +1,140 @@
+{
+  "requirements": {
+    "A_8_1": {
+      "title": "Dispozitive terminale ale utilizatorilor",
+      "description": "Protejați informația aflată pe și prelucrată de dispozitivele terminale ale utilizatorilor (laptopuri, telefoane) folosind o politică de securitate a terminalelor."
+    },
+    "A_8_2": {
+      "title": "Drepturi de acces privilegiat",
+      "description": "Restricționați și gestionați cu atenție alocarea și utilizarea drepturilor de acces privilegiat în toate sistemele."
+    },
+    "A_8_3": {
+      "title": "Restricționarea accesului la informație",
+      "description": "Restricționați accesul la informație și sisteme la ceea ce este necesar pentru rolul fiecărui utilizator, aplicând principiul privilegiului minim."
+    },
+    "A_8_4": {
+      "title": "Accesul la codul sursă",
+      "description": "Restricționați accesul la codul sursă al programelor și la instrumentele asociate numai persoanelor autorizate; aplicați controlul versiunilor."
+    },
+    "A_8_5": {
+      "title": "Autentificare sigură",
+      "description": "Implementați tehnologii și proceduri de autentificare sigură, inclusiv MFA pentru sistemele sensibile și pentru tot accesul la distanță."
+    },
+    "A_8_6": {
+      "title": "Gestionarea capacității",
+      "description": "Monitorizați și ajustați utilizarea resurselor și proiecțiile pentru a asigura capacitatea și performanța necesare ale sistemului."
+    },
+    "A_8_7": {
+      "title": "Protecția împotriva programelor malware",
+      "description": "Implementați controale de protecție împotriva programelor malware (EDR, AV, semnarea codului, filtrarea e-mailurilor), susținute de o conștientizare adecvată a utilizatorilor."
+    },
+    "A_8_8": {
+      "title": "Gestionarea vulnerabilităților tehnice",
+      "description": "Identificarea, evaluarea și remedierea la timp a vulnerabilităților tehnice în toate sistemele."
+    },
+    "A_8_9": {
+      "title": "Gestionarea configurațiilor",
+      "description": "Stabiliți, documentați și mențineți configurațiile (inclusiv configurațiile de securitate) pentru hardware, software și servicii cloud."
+    },
+    "A_8_10": {
+      "title": "Ștergerea informației",
+      "description": "Ștergeți informația atunci când nu mai este necesară, în conformitate cu cerințele legale, contractuale și de afaceri."
+    },
+    "A_8_11": {
+      "title": "Mascarea datelor",
+      "description": "Folosiți mascarea, pseudonimizarea sau anonimizarea datelor pentru a proteja datele cu caracter personal în mediile care nu sunt de producție."
+    },
+    "A_8_12": {
+      "title": "Prevenirea scurgerilor de date",
+      "description": "Aplicați măsuri de prevenire a scurgerilor de date la sistemele, rețelele și terminalele care prelucrează informații sensibile."
+    },
+    "A_8_13": {
+      "title": "Copii de rezervă ale informației",
+      "description": "Realizați și testați periodic copii de rezervă ale informației, software-ului și imaginilor de sistem, în conformitate cu o politică de copiere de rezervă convenită."
+    },
+    "A_8_14": {
+      "title": "Redundanța facilităților de prelucrare a informației",
+      "description": "Implementați o redundanță suficientă a facilităților de prelucrare a informației pentru a îndeplini cerințele de disponibilitate."
+    },
+    "A_8_15": {
+      "title": "Jurnalizare",
+      "description": "Produceți, protejați și păstrați jurnale ale activităților utilizatorilor, excepțiilor, defecțiunilor și evenimentelor de securitate pe perioade de păstrare definite."
+    },
+    "A_8_16": {
+      "title": "Activități de monitorizare",
+      "description": "Monitorizați rețelele, sistemele și aplicațiile pentru a detecta comportamente anormale și posibile evenimente de securitate."
+    },
+    "A_8_17": {
+      "title": "Sincronizarea ceasului",
+      "description": "Sincronizați ceasurile tuturor sistemelor de prelucrare a informației cu o sursă de timp aprobată, pentru a sprijini corelarea jurnalelor și analiza criminalistică."
+    },
+    "A_8_18": {
+      "title": "Utilizarea programelor utilitare privilegiate",
+      "description": "Controlați și restricționați utilizarea programelor utilitare capabile să anuleze controalele de sistem și de aplicație."
+    },
+    "A_8_19": {
+      "title": "Instalarea software-ului pe sistemele operaționale",
+      "description": "Implementați proceduri pentru a controla instalarea software-ului pe sistemele operaționale numai de către persoane autorizate."
+    },
+    "A_8_20": {
+      "title": "Securitatea rețelelor",
+      "description": "Securizați rețelele și dispozitivele de rețea pentru a proteja informația din sisteme și aplicații."
+    },
+    "A_8_21": {
+      "title": "Securitatea serviciilor de rețea",
+      "description": "Identificați, implementați și monitorizați mecanismele de securitate pentru serviciile de rețea, inclusiv rețelistica în cloud."
+    },
+    "A_8_22": {
+      "title": "Segregarea rețelelor",
+      "description": "Segregați grupurile de servicii informaționale, utilizatori și sisteme informatice din cadrul rețelei."
+    },
+    "A_8_23": {
+      "title": "Filtrarea web",
+      "description": "Gestionați accesul la site-uri web externe pentru a reduce expunerea la conținut rău intenționat."
+    },
+    "A_8_24": {
+      "title": "Utilizarea criptografiei",
+      "description": "Definiți și implementați o politică de criptografie care acoperă algoritmii aprobați, gestionarea cheilor și cerințele de criptare."
+    },
+    "A_8_25": {
+      "title": "Ciclul de viață al dezvoltării sigure",
+      "description": "Stabiliți și aplicați reguli pentru dezvoltarea sigură a software-ului și a sistemelor pe parcursul întregului ciclu de viață al dezvoltării."
+    },
+    "A_8_26": {
+      "title": "Cerințe de securitate a aplicațiilor",
+      "description": "Identificați, specificați și aprobați cerințele de securitate a informației pentru dezvoltarea și achiziția aplicațiilor."
+    },
+    "A_8_27": {
+      "title": "Arhitectura sigură a sistemelor și principii de inginerie",
+      "description": "Stabiliți, documentați și aplicați principii de inginerie sigură pentru toate activitățile de dezvoltare și inginerie a sistemelor."
+    },
+    "A_8_28": {
+      "title": "Programare sigură",
+      "description": "Aplicați principii de programare sigură în dezvoltarea software-ului pentru a preveni vulnerabilitățile frecvente (OWASP Top 10, injecție, XSS)."
+    },
+    "A_8_29": {
+      "title": "Testarea securității în dezvoltare și acceptare",
+      "description": "Definiți și implementați procese de testare a securității în ciclul de viață al dezvoltării și în timpul testării de acceptare."
+    },
+    "A_8_30": {
+      "title": "Dezvoltare externalizată",
+      "description": "Supravegheați și monitorizați activitățile de dezvoltare a sistemelor externalizate pentru a vă asigura că cerințele de securitate sunt îndeplinite."
+    },
+    "A_8_31": {
+      "title": "Separarea mediilor de dezvoltare, de testare și de producție",
+      "description": "Separați mediile de dezvoltare, de testare și de producție pentru a reduce riscul de acces neautorizat sau de modificări ale sistemului de producție."
+    },
+    "A_8_32": {
+      "title": "Gestionarea modificărilor",
+      "description": "Gestionați modificările aduse facilităților și sistemelor de prelucrare a informației printr-un proces formal de gestionare a modificărilor."
+    },
+    "A_8_33": {
+      "title": "Informații de testare",
+      "description": "Protejați și gestionați informațiile de testare; nu folosiți niciodată date de producție reale în mediile de testare fără controale adecvate."
+    },
+    "A_8_34": {
+      "title": "Protecția sistemelor informatice în timpul testelor de audit",
+      "description": "Planificați și conveniți cerințele și activitățile de audit care implică verificarea sistemelor operaționale, pentru a reduce la minimum perturbările."
+    }
+  }
+}

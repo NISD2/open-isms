@@ -13,36 +13,33 @@
  *   - Create dual-channel notification rows (in-app + email)
  *   - Set urgency, escalation level, and deep links
  */
-import { eq, and, inArray } from "drizzle-orm";
-import {
-  notification,
-  companyRequirementStatus,
-  requirement,
-  requirementCategory,
-  companyAssessment,
-} from "@/schema";
-import type { Database } from "@/lib/db";
+import { and, eq, inArray } from "drizzle-orm";
+import { requirementsEn } from "@/i18n/requirements";
 import { logAudit } from "@/lib/audit";
+import type { Database } from "@/lib/db";
+import { getRequirementTitle } from "@/lib/messages";
+import { getAppUrl } from "@/lib/utils";
 import {
-  computeNextReviewDate,
+  companyAssessment,
+  companyRequirementStatus,
+  notification,
+  requirementCategory,
+} from "@/schema";
+import {
   computeInitialDeadline,
+  computeNextReviewDate,
   computeNotificationSchedule,
-  computeUrgency,
-  daysUntilDeadline,
-  isRecurringFrequency,
-  toDateString,
   type Frequency,
-  type Priority,
   type Importance,
+  isRecurringFrequency,
+  type Priority,
+  toDateString,
   type Urgency,
 } from "./deadlines";
-import { resolveRecipients, type RecipientInfo } from "./resolve-recipients";
-import { getAppUrl } from "@/lib/utils";
-import requirementsEn from "@/messages/requirements/en.json";
+import { resolveRecipients } from "./resolve-recipients";
 
 function getReqTitle(code: string): string {
-  const key = code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
-  return requirementsEn.requirements[key]?.title ?? code;
+  return getRequirementTitle(requirementsEn, code);
 }
 
 // ---------------------------------------------------------------------------
@@ -185,8 +182,8 @@ export async function scheduleDeadlineReminders(
         urgency: entry.urgency,
         linkUrl,
         escalationLevel: 0,
-      })
-    )
+      }),
+    ),
   );
 
   if (notificationRows.length > 0) {
@@ -294,7 +291,7 @@ export async function cancelPendingNotifications(
         eq(notification.entityType, entityType),
         eq(notification.entityId, entityId),
         inArray(notification.status, ["pending", "sent"]),
-      )
+      ),
     );
 
   return result.rowCount ?? 0;
@@ -361,7 +358,7 @@ function createDualChannelRows(input: NotificationRowInput) {
   ];
 }
 
-function buildSubject(code: string, triggerField: string, urgency: Urgency): string {
+function buildSubject(code: string, _triggerField: string, urgency: Urgency): string {
   switch (urgency) {
     case "critical":
       return `OVERDUE: ${code} is past its compliance deadline`;

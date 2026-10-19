@@ -1,0 +1,88 @@
+{
+  "requirements": {
+    "CRA-MFG_1": {
+      "title": "Posouzení kybernetických rizik produktu",
+      "description": "Proveďte posouzení kybernetických rizik pro produkt s digitálními prvky (CRA čl. 13 odst. 2)."
+    },
+    "CRA-MFG_2": {
+      "title": "Náležitá péče výrobce",
+      "description": "Potvrďte náležitou péči výrobce tak, aby produkty splňovaly základní požadavky (čl. 13 odst. 1)."
+    },
+    "CRA-ESS_1": {
+      "title": "Požadavky na bezpečnost již od návrhu",
+      "description": "Navrhujte a vyrábějte produkty tak, aby splňovaly základní požadavky na kybernetickou bezpečnost (CRA příloha I část I)."
+    },
+    "CRA-ESS_2": {
+      "title": "Bezpečná výchozí konfigurace",
+      "description": "Dodávejte produkty s bezpečnou výchozí konfigurací (příloha I část I, bod 2 písm. b))."
+    },
+    "CRA-ESS_3": {
+      "title": "Žádné známé zneužitelné zranitelnosti",
+      "description": "Uvádějte na trh produkty bez známých zneužitelných zranitelností (příloha I část I, bod 2 písm. a))."
+    },
+    "CRA-VLN_1": {
+      "title": "Politika řešení zranitelností",
+      "description": "Zaveďte proces k identifikaci, dokumentaci a nápravě zranitelností (CRA příloha I část II, body 1 až 2)."
+    },
+    "CRA-VLN_2": {
+      "title": "Koordinované zveřejňování zranitelností",
+      "description": "Přijměte politiku koordinovaného zveřejňování zranitelností s kontaktní adresou (příloha I část II, bod 5)."
+    },
+    "CRA-VLN_3": {
+      "title": "Poskytování bezpečnostních aktualizací",
+      "description": "Poskytujte bezpečnostní aktualizace bez zbytečného odkladu a bezplatně po dobu podpory (příloha I část II, bod 8)."
+    },
+    "CRA-VLN_4": {
+      "title": "Testování zranitelností",
+      "description": "Pravidelně testujte a přezkoumávejte bezpečnost produktu (příloha I část II, bod 3)."
+    },
+    "CRA-INC_1": {
+      "title": "Včasné varování",
+      "description": "Zašlete včasné varování o aktivně zneužívané zranitelnosti do CSIRT a agentuře ENISA (CRA čl. 14 odst. 2 písm. a))."
+    },
+    "CRA-INC_2": {
+      "title": "Oznámení zranitelnosti",
+      "description": "Oznamte zranitelnost nebo závažný incident ve lhůtě stanovené CRA (čl. 14 odst. 2 písm. b) a odst. 4 písm. b))."
+    },
+    "CRA-INC_3": {
+      "title": "Závěrečná zpráva o incidentu",
+      "description": "Předložte orgánům závěrečnou zprávu o zranitelnosti nebo incidentu (čl. 14 odst. 2 písm. c) a odst. 4 písm. c))."
+    },
+    "CRA-INC_4": {
+      "title": "Informování uživatelů",
+      "description": "Informujte dotčené uživatele o incidentu a případných nápravných opatřeních (čl. 14 odst. 8)."
+    },
+    "CRA-CONF_1": {
+      "title": "Posuzování shody",
+      "description": "Proveďte příslušný postup posuzování shody produktu (CRA čl. 32)."
+    },
+    "CRA-CONF_2": {
+      "title": "Označení CE a shoda",
+      "description": "Umístěte označení CE a vypracujte EU prohlášení o shodě (čl. 28 až 30)."
+    },
+    "CRA-DOC_1": {
+      "title": "Technická dokumentace CRA",
+      "description": "Sestavte a průběžně aktualizujte technickou dokumentaci podle CRA přílohy VII (čl. 31)."
+    },
+    "CRA-SUP_1": {
+      "title": "Doba podpory",
+      "description": "Určete a schvalte dobu podpory, po kterou jsou poskytovány bezpečnostní aktualizace (CRA čl. 13 odst. 8)."
+    },
+    "CRA-SBOM_1": {
+      "title": "Soupis softwarových komponent (SBOM)",
+      "description": "Vytvořte soupis softwarových komponent (SBOM) pokrývající závislosti nejvyšší úrovně (CRA příloha I část II, bod 1)."
+    },
+    "CRA-IMP_1": {
+      "title": "Povinnosti dovozce",
+      "description": "Ověřte, že dovážené produkty splňují požadavky CRA, než je uvedete na trh (čl. 19)."
+    },
+    "CRA-IMP_2": {
+      "title": "Povinnosti distributora",
+      "description": "Při distribuci produktů ověřujte shodu s CRA a reagujte na nesoulad (čl. 20)."
+    },
+    "CRA-OSS_1": {
+      "title": "Povinnosti správce open-source",
+      "description": "Zdokumentujte politiku kybernetické bezpečnosti očekávanou od správců open-source softwaru (CRA čl. 24)."
+    }
+  }
+}

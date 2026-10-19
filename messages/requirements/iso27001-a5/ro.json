@@ -1,0 +1,152 @@
+{
+  "requirements": {
+    "A_5_1": {
+      "title": "Politici pentru securitatea informației",
+      "description": "Definiți, aprobați, publicați și revizuiți anual politicile de securitate a informației care acoperă toate subiectele relevante."
+    },
+    "A_5_2": {
+      "title": "Roluri și responsabilități în securitatea informației",
+      "description": "Atribuiți și documentați rolurile și responsabilitățile pentru securitatea informației la nivelul întregii organizații."
+    },
+    "A_5_3": {
+      "title": "Separarea sarcinilor",
+      "description": "Separați sarcinile și responsabilitățile aflate în conflict pentru a reduce oportunitățile de modificare neautorizată a informației."
+    },
+    "A_5_4": {
+      "title": "Responsabilitățile conducerii",
+      "description": "Conducerea trebuie să solicite întregului personal să aplice securitatea informației în conformitate cu politicile stabilite."
+    },
+    "A_5_5": {
+      "title": "Contactul cu autoritățile",
+      "description": "Mențineți contacte adecvate cu autoritățile relevante (autoritatea pentru protecția datelor, agenția de securitate cibernetică, organele de aplicare a legii)."
+    },
+    "A_5_6": {
+      "title": "Contactul cu grupurile de interese speciale",
+      "description": "Mențineți calitatea de membru sau contactul cu grupuri de interese speciale, forumuri de securitate și asociații profesionale."
+    },
+    "A_5_7": {
+      "title": "Informații despre amenințări",
+      "description": "Colectați, analizați și elaborați informații despre amenințări relevante pentru organizație, pentru a anticipa și a vă pregăti pentru amenințări."
+    },
+    "A_5_8": {
+      "title": "Securitatea informației în managementul proiectelor",
+      "description": "Integrați securitatea informației în managementul proiectelor pentru a vă asigura că riscurile de securitate sunt abordate pe parcursul proiectelor."
+    },
+    "A_5_9": {
+      "title": "Inventarul informației și al altor active asociate",
+      "description": "Identificați, documentați și mențineți un inventar al informației și al activelor asociate, cu proprietate atribuită."
+    },
+    "A_5_10": {
+      "title": "Utilizarea acceptabilă a informației și a altor active asociate",
+      "description": "Identificați, documentați și implementați reguli de utilizare acceptabilă a informației și a activelor, care acoperă dispozitivele, prelucrarea datelor și activitățile interzise."
+    },
+    "A_5_11": {
+      "title": "Returnarea activelor",
+      "description": "Asigurați-vă că toate activele sunt returnate la încetarea sau schimbarea raportului de muncă sau a contractului."
+    },
+    "A_5_12": {
+      "title": "Clasificarea informației",
+      "description": "Clasificați informația în funcție de sensibilitate (confidențială, internă, publică) pentru a asigura prelucrarea și protecția adecvate."
+    },
+    "A_5_13": {
+      "title": "Etichetarea informației",
+      "description": "Elaborați și implementați o procedură de etichetare a informației în conformitate cu schema de clasificare."
+    },
+    "A_5_14": {
+      "title": "Transferul informației",
+      "description": "Stabiliți reguli și proceduri pentru transferul informației prin toate canalele, inclusiv e-mail, mesagerie, suporturi fizice și verbal."
+    },
+    "A_5_15": {
+      "title": "Controlul accesului",
+      "description": "Definiți și implementați reguli de control al accesului bazate pe cerințele de afaceri și de securitate, aplicând principiul privilegiului minim."
+    },
+    "A_5_16": {
+      "title": "Managementul identității",
+      "description": "Gestionați întregul ciclu de viață al identității (provizionare, modificări, revocare) pentru toți utilizatorii și conturile de serviciu."
+    },
+    "A_5_17": {
+      "title": "Informații de autentificare",
+      "description": "Gestionați informațiile de autentificare (parole, chei, token-uri) printr-un proces formal care include alocarea, stocarea și revocarea."
+    },
+    "A_5_18": {
+      "title": "Drepturi de acces",
+      "description": "Provizionați, revizuiți, modificați și retrageți drepturile de acces în conformitate cu politica de control al accesului."
+    },
+    "A_5_19": {
+      "title": "Securitatea informației în relațiile cu furnizorii",
+      "description": "Identificați și implementați controale pentru a proteja activele accesibile furnizorilor; documentați cerințele în acordurile cu furnizorii."
+    },
+    "A_5_20": {
+      "title": "Abordarea securității informației în acordurile cu furnizorii",
+      "description": "Stabiliți și conveniți cerințele de securitate a informației cu fiecare furnizor care poate accesa, prelucra sau stoca informații ale organizației."
+    },
+    "A_5_21": {
+      "title": "Gestionarea securității informației în lanțul de aprovizionare TIC",
+      "description": "Definiți și implementați procese pentru gestionarea riscurilor de securitate a informației asociate lanțului de aprovizionare cu produse și servicii TIC."
+    },
+    "A_5_22": {
+      "title": "Monitorizarea, revizuirea și gestionarea modificărilor serviciilor furnizorilor",
+      "description": "Monitorizați, revizuiți și gestionați periodic modificările aduse practicilor de securitate a informației și furnizării serviciilor de către furnizori."
+    },
+    "A_5_23": {
+      "title": "Securitatea informației la utilizarea serviciilor cloud",
+      "description": "Stabiliți procese pentru achiziționarea, utilizarea, gestionarea și ieșirea din serviciile cloud, inclusiv cerințe de securitate și planuri de ieșire."
+    },
+    "A_5_24": {
+      "title": "Planificarea și pregătirea gestionării incidentelor de securitate a informației",
+      "description": "Planificați și pregătiți gestionarea incidentelor cu roluri, responsabilități, proceduri și canale de comunicare definite."
+    },
+    "A_5_25": {
+      "title": "Evaluarea și decizia privind evenimentele de securitate a informației",
+      "description": "Evaluați evenimentele de securitate a informației și decideți dacă acestea se califică drept incidente, folosind o schemă de clasificare definită."
+    },
+    "A_5_26": {
+      "title": "Răspunsul la incidentele de securitate a informației",
+      "description": "Răspundeți la incidente în conformitate cu procedurile documentate; izolați, eradicați și recuperați într-un mod structurat."
+    },
+    "A_5_27": {
+      "title": "Învățarea din incidentele de securitate a informației",
+      "description": "Folosiți cunoștințele dobândite din incidente pentru a reduce probabilitatea și impactul incidentelor viitoare; actualizați controalele în consecință."
+    },
+    "A_5_28": {
+      "title": "Colectarea probelor",
+      "description": "Definiți și aplicați proceduri pentru identificarea, colectarea, obținerea și conservarea probelor incidentelor de securitate a informației."
+    },
+    "A_5_29": {
+      "title": "Securitatea informației în timpul perturbărilor",
+      "description": "Planificați modul în care va fi menținută securitatea informației în timpul perturbărilor. Integrați cerințele de securitate în planurile de continuitate a activității."
+    },
+    "A_5_30": {
+      "title": "Pregătirea TIC pentru continuitatea activității",
+      "description": "Planificați, implementați, mențineți și testați pregătirea TIC pe baza obiectivelor de continuitate a activității și a cerințelor de continuitate TIC."
+    },
+    "A_5_31": {
+      "title": "Cerințe legale, statutare, de reglementare și contractuale",
+      "description": "Identificați, documentați și actualizați toate cerințele legale, de reglementare și contractuale relevante pentru securitatea informației."
+    },
+    "A_5_32": {
+      "title": "Drepturi de proprietate intelectuală",
+      "description": "Implementați proceduri pentru a proteja drepturile de proprietate intelectuală și a respecta cerințele de licențiere a software-ului."
+    },
+    "A_5_33": {
+      "title": "Protecția înregistrărilor",
+      "description": "Protejați înregistrările împotriva pierderii, distrugerii, falsificării, accesului neautorizat și divulgării neautorizate, în conformitate cu cerințele legale."
+    },
+    "A_5_34": {
+      "title": "Confidențialitatea și protecția datelor cu caracter personal",
+      "description": "Identificați și îndepliniți cerințele de confidențialitate și de protecție a datelor cu caracter personal în conformitate cu legislația aplicabilă (GDPR)."
+    },
+    "A_5_35": {
+      "title": "Revizuirea independentă a securității informației",
+      "description": "Revizuiți independent abordarea și implementarea ISMS la intervale planificate sau atunci când apar modificări semnificative."
+    },
+    "A_5_36": {
+      "title": "Conformitatea cu politicile, regulile și standardele pentru securitatea informației",
+      "description": "Revizuiți periodic conformitatea cu politicile, standardele și procedurile de securitate a informației; documentați rezultatele."
+    },
+    "A_5_37": {
+      "title": "Proceduri operaționale documentate",
+      "description": "Documentați, mențineți și puneți la dispoziție procedurile operaționale pentru facilitățile de prelucrare a informației."
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "requirements": {
+    "A_6_1": {
+      "title": "Prověřování",
+      "description": "Provádějte ověření minulosti u všech uchazečů o zaměstnání, úměrně citlivosti role a právním požadavkům."
+    },
+    "A_6_2": {
+      "title": "Podmínky zaměstnání",
+      "description": "Smluvně vyžadujte, aby zaměstnanci a smluvní pracovníci dodržovali politiky bezpečnosti informací jako podmínku zaměstnání."
+    },
+    "A_6_3": {
+      "title": "Povědomí, vzdělávání a školení v oblasti bezpečnosti informací",
+      "description": "Zajistěte, aby všichni pracovníci absolvovali odpovídající školení bezpečnostního povědomí při nástupu a každoročně, s odborným školením podle role pro technické pracovníky."
+    },
+    "A_6_4": {
+      "title": "Disciplinární proces",
+      "description": "Mějte formální a komunikovaný disciplinární proces pro zaměstnance, kteří poruší bezpečnost informací."
+    },
+    "A_6_5": {
+      "title": "Odpovědnosti po ukončení nebo změně zaměstnání",
+      "description": "Definujte a vymáhejte odpovědnosti za bezpečnost informací, které zůstávají v platnosti po ukončení zaměstnání (mlčenlivost, vrácení aktiv)."
+    },
+    "A_6_6": {
+      "title": "Dohody o mlčenlivosti nebo zachování důvěrnosti",
+      "description": "Identifikujte, zdokumentujte a pravidelně přezkoumávejte požadavky na důvěrnost; používejte NDA se zaměstnanci, smluvními pracovníky a relevantními třetími stranami."
+    },
+    "A_6_7": {
+      "title": "Práce na dálku",
+      "description": "Definujte a zaveďte bezpečnostní opatření pro práci na dálku pokrývající zabezpečení sítě, fyzickou bezpečnost a ochranu zařízení."
+    },
+    "A_6_8": {
+      "title": "Hlášení událostí bezpečnosti informací",
+      "description": "Poskytněte jasný a snadno použitelný mechanismus pro hlášení bezpečnostních událostí a slabin pracovníky; reagujte na všechna hlášení."
+    }
+  }
+}

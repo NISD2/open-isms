@@ -1,0 +1,60 @@
+{
+  "requirements": {
+    "A_7_1": {
+      "title": "Périmètres de sécurité physique",
+      "description": "Définir et mettre en œuvre des périmètres de sécurité physique pour protéger les zones sensibles contenant des informations et des moyens de traitement."
+    },
+    "A_7_2": {
+      "title": "Entrée physique",
+      "description": "Protéger les zones sécurisées par des contrôles d'entrée appropriés afin de garantir que seules les personnes autorisées puissent y accéder."
+    },
+    "A_7_3": {
+      "title": "Sécurisation des bureaux, locaux et installations",
+      "description": "Appliquer une sécurité physique aux bureaux, locaux et installations proportionnée à la sensibilité des informations qui y sont traitées."
+    },
+    "A_7_4": {
+      "title": "Surveillance de la sécurité physique",
+      "description": "Surveiller les locaux contre les accès physiques non autorisés au moyen d'alarmes, de vidéosurveillance, de gardiens ou d'autres moyens appropriés."
+    },
+    "A_7_5": {
+      "title": "Protection contre les menaces physiques et environnementales",
+      "description": "Se protéger contre les menaces physiques et environnementales telles que l'incendie, l'inondation, le séisme et les dommages délibérés."
+    },
+    "A_7_6": {
+      "title": "Travail dans les zones sécurisées",
+      "description": "Définir et appliquer des procédures de travail dans les zones sécurisées afin de prévenir l'accès non autorisé, la prise de photographies ou l'exfiltration de données."
+    },
+    "A_7_7": {
+      "title": "Bureau propre et écran verrouillé",
+      "description": "Appliquer une politique de bureau propre pour les documents et supports amovibles, et une politique d'écran verrouillé pour les moyens de traitement de l'information."
+    },
+    "A_7_8": {
+      "title": "Emplacement et protection des équipements",
+      "description": "Implanter et protéger les équipements afin de réduire les risques liés aux menaces environnementales, aux accès non autorisés et aux interférences."
+    },
+    "A_7_9": {
+      "title": "Sécurité des actifs hors site",
+      "description": "Appliquer des mesures aux actifs emportés hors site, proportionnées aux risques liés au travail en dehors des locaux de l'organisation."
+    },
+    "A_7_10": {
+      "title": "Supports de stockage",
+      "description": "Gérer les supports de stockage tout au long de leur cycle de vie : acquisition, utilisation, transport, mise au rebut et effacement sécurisé."
+    },
+    "A_7_11": {
+      "title": "Services généraux de soutien",
+      "description": "Protéger les moyens de traitement de l'information contre les coupures de courant et autres perturbations causées par des défaillances des services généraux de soutien."
+    },
+    "A_7_12": {
+      "title": "Sécurité du câblage",
+      "description": "Protéger les câblages électriques et de télécommunications contre l'interception, les interférences ou les dommages."
+    },
+    "A_7_13": {
+      "title": "Maintenance des équipements",
+      "description": "Maintenir correctement les équipements afin d'assurer la disponibilité et l'intégrité continues des moyens de traitement de l'information."
+    },
+    "A_7_14": {
+      "title": "Mise au rebut ou réutilisation sécurisée des équipements",
+      "description": "Vérifier que toutes les données sensibles et les logiciels sous licence ont été supprimés ou écrasés avant la mise au rebut ou la réutilisation des équipements."
+    }
+  }
+}

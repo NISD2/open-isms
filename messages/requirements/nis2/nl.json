@@ -1,0 +1,200 @@
+{
+  "requirements": {
+    "1_1": {
+      "title": "Cyberbeveiligingstraining management",
+      "description": "Cyberbeveiligingstraining management"
+    },
+    "1_2": {
+      "title": "Rollen en verantwoordelijkheden",
+      "description": "Rollen en verantwoordelijkheden"
+    },
+    "1_3": {
+      "title": "Budgettoewijzing voor cyberbeveiliging",
+      "description": "Budgettoewijzing voor cyberbeveiliging"
+    },
+    "1_4": {
+      "title": "Erkenning persoonlijke aansprakelijkheid",
+      "description": "Erkenning persoonlijke aansprakelijkheid"
+    },
+    "2_1": {
+      "title": "Risicobeoordelingsmethodologie",
+      "description": "Risicobeoordelingsmethodologie"
+    },
+    "2_2": {
+      "title": "Assetinventaris, reikwijdte & classificatie",
+      "description": "Assetinventaris, reikwijdte & classificatie"
+    },
+    "2_3": {
+      "title": "Risicoregister & behandeling",
+      "description": "Risicoregister & behandeling"
+    },
+    "2_4": {
+      "title": "Risicoaanvaarding & aftekening IS-beleid",
+      "description": "Risicoaanvaarding & aftekening IS-beleid"
+    },
+    "3_1": {
+      "title": "Incidentresponsplan & team",
+      "description": "Incidentresponsplan & team"
+    },
+    "3_2": {
+      "title": "Detectie, classificatie & logging",
+      "description": "Detectie, classificatie & logging"
+    },
+    "3_3": {
+      "title": "BSI-meldingsgereedheid (24u/72u/1M)",
+      "description": "BSI-meldingsgereedheid (24u/72u/1M)"
+    },
+    "3_4": {
+      "title": "Incidentresponsoefening",
+      "description": "Incidentresponsoefening"
+    },
+    "3_5": {
+      "title": "Post-incidentreview & communicatie",
+      "description": "Post-incidentreview & communicatie"
+    },
+    "4_1": {
+      "title": "Bedrijfsimpactanalyse & hersteldoelstellingen",
+      "description": "Bedrijfsimpactanalyse & hersteldoelstellingen"
+    },
+    "4_2": {
+      "title": "Bedrijfscontinuïteits- & crisismanagementplan",
+      "description": "Bedrijfscontinuïteits- & crisismanagementplan"
+    },
+    "4_3": {
+      "title": "Noodherstelplan",
+      "description": "Noodherstelplan"
+    },
+    "4_4": {
+      "title": "Back-up & herstel",
+      "description": "Back-up & herstel"
+    },
+    "4_5": {
+      "title": "BCP/DR-testen",
+      "description": "BCP/DR-testen"
+    },
+    "5_1": {
+      "title": "Leveranciersregister & classificatie",
+      "description": "Leveranciersregister & classificatie"
+    },
+    "5_2": {
+      "title": "Leveranciersbeveiliging in contracten",
+      "description": "Leveranciersbeveiliging in contracten"
+    },
+    "5_3": {
+      "title": "Leveranciersbeoordeling & monitoring",
+      "description": "Leveranciersbeoordeling & monitoring"
+    },
+    "5_4": {
+      "title": "Incidentmelding leveranciers",
+      "description": "Incidentmelding leveranciers"
+    },
+    "6_1": {
+      "title": "Veilige inkoop",
+      "description": "Veilige inkoop"
+    },
+    "6_2": {
+      "title": "Veilige ontwikkeling & configuratie",
+      "description": "Veilige ontwikkeling & configuratie"
+    },
+    "6_3": {
+      "title": "Kwetsbaarheidsbeheer",
+      "description": "Kwetsbaarheidsbeheer"
+    },
+    "6_4": {
+      "title": "Patchbeheer",
+      "description": "Patchbeheer"
+    },
+    "6_5": {
+      "title": "Wijzigingsbeheer",
+      "description": "Wijzigingsbeheer"
+    },
+    "7_1": {
+      "title": "Beveiligings-KPI's & metrieken",
+      "description": "Beveiligings-KPI's & metrieken"
+    },
+    "7_2": {
+      "title": "Interne audit",
+      "description": "Interne audit"
+    },
+    "7_3": {
+      "title": "Managementreview",
+      "description": "Managementreview"
+    },
+    "7_4": {
+      "title": "Corrigerende maatregelen & continue verbetering",
+      "description": "Corrigerende maatregelen & continue verbetering"
+    },
+    "8_1": {
+      "title": "IT-beveiligingsbeleid & aanvaardbaar gebruik",
+      "description": "IT-beveiligingsbeleid & aanvaardbaar gebruik"
+    },
+    "8_2": {
+      "title": "Beveiligingsbewustzijnsprogramma",
+      "description": "Beveiligingsbewustzijnsprogramma"
+    },
+    "8_3": {
+      "title": "Rolspecifieke & managementtraining",
+      "description": "Rolspecifieke & managementtraining"
+    },
+    "8_4": {
+      "title": "Trainingseffectiviteit en phishingsimulaties",
+      "description": "Trainingseffectiviteit en phishingsimulaties"
+    },
+    "9_1": {
+      "title": "Cryptografiebeleid & standaarden",
+      "description": "Cryptografiebeleid & standaarden"
+    },
+    "9_2": {
+      "title": "Gegevensversleuteling",
+      "description": "Gegevensversleuteling"
+    },
+    "9_3": {
+      "title": "Sleutel- & certificaatbeheer",
+      "description": "Sleutel- & certificaatbeheer"
+    },
+    "10_1": {
+      "title": "Toegangscontrolebeleid & -model",
+      "description": "Toegangscontrolebeleid & -model"
+    },
+    "10_2": {
+      "title": "Toegangstoewijzing per asset",
+      "description": "Toegangstoewijzing per asset"
+    },
+    "10_3": {
+      "title": "Gebruikerslevenscyclus & PAM",
+      "description": "Gebruikerslevenscyclus & PAM"
+    },
+    "10_4": {
+      "title": "Toegangsreviews",
+      "description": "Toegangsreviews"
+    },
+    "11_1": {
+      "title": "Authenticatie: waar MFA verplicht is",
+      "description": "Multi-factor authenticatie"
+    },
+    "11_2": {
+      "title": "Beveiligde & noodcommunicatie",
+      "description": "Beveiligde & noodcommunicatie"
+    },
+    "11_3": {
+      "title": "Authenticatiestandaarden",
+      "description": "Authenticatiestandaarden"
+    },
+    "12_1": {
+      "title": "NIS2-classificatie & reikwijdte",
+      "description": "NIS2-classificatie & reikwijdte"
+    },
+    "12_2": {
+      "title": "BSI-registratie",
+      "description": "MUK-account aanmaken, de registratie in het BSI-portaal afronden en alle verplichte gegevens indienen. Wettelijke termijn: uiterlijk drie maanden nadat het bedrijf voor het eerst als essentiële of belangrijke entiteit geldt (§33(1) BSIG). Voor entiteiten die sinds de inwerkingtreding van het BSIG op 6 december 2025 binnen het toepassingsgebied vallen, verstreek deze termijn op 6 maart 2026; de registratie is dan onmiddellijk verschuldigd."
+    },
+    "12_3": {
+      "title": "Registratieonderhoud",
+      "description": "Registratieonderhoud"
+    },
+    "12_4": {
+      "title": "Compliancebewijzen",
+      "description": "Compliancebewijzen"
+    }
+  }
+}

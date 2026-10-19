@@ -1,0 +1,100 @@
+{
+  "requirements": {
+    "AI-LIT_1": {
+      "title": "Maîtrise de l'IA",
+      "description": "Veiller à ce que le personnel qui exploite ou utilise des systèmes d'IA dispose d'un niveau suffisant de maîtrise de l'IA (AI Act art. 4)."
+    },
+    "AI-LIT_2": {
+      "title": "Maîtrise de l'IA des déployeurs",
+      "description": "Informer la direction et les déployeurs de leurs obligations au titre de l'AI Act et confirmer le programme de maîtrise de l'IA (art. 4, art. 26(2))."
+    },
+    "AI-PRO_1": {
+      "title": "Politique relative aux pratiques interdites",
+      "description": "Documenter une politique interdisant les pratiques d'IA prohibées au titre de l'AI Act art. 5(1)(a) à (i)."
+    },
+    "AI-PRO_2": {
+      "title": "Absence d'IA interdite en service",
+      "description": "Apporter la preuve qu'aucune pratique d'IA interdite n'est déployée dans l'organisation (art. 5)."
+    },
+    "AI-INV_1": {
+      "title": "Inventaire des systèmes d'IA",
+      "description": "Tenir un inventaire des systèmes d'IA avec leur classification de risque au titre de l'AI Act art. 6 et art. 26."
+    },
+    "AI-INV_2": {
+      "title": "Classification à haut risque",
+      "description": "Consigner la classification à haut risque et son applicabilité pour chaque système d'IA (art. 6, art. 50)."
+    },
+    "AI-INV_3": {
+      "title": "Rôle de fournisseur ou de déployeur",
+      "description": "Déterminer et documenter si vous agissez en tant que fournisseur ou déployeur pour chaque système d'IA (art. 25)."
+    },
+    "AI-RSK_1": {
+      "title": "Système de gestion des risques liés à l'IA",
+      "description": "Établir un système de gestion des risques pour les systèmes d'IA à haut risque tout au long de leur cycle de vie (AI Act art. 9)."
+    },
+    "AI-RSK_2": {
+      "title": "Revue des risques liés à l'IA",
+      "description": "Revoir et mettre à jour régulièrement le système de gestion des risques liés à l'IA (art. 9)."
+    },
+    "AI-FRI_1": {
+      "title": "Analyse d'impact sur les droits fondamentaux",
+      "description": "Réaliser et valider une analyse d'impact sur les droits fondamentaux pour les systèmes d'IA à haut risque concernés (AI Act art. 27)."
+    },
+    "AI-OVS_1": {
+      "title": "Mesures de contrôle humain",
+      "description": "Mettre en œuvre des mesures de contrôle humain pour les systèmes d'IA à haut risque en exploitation (art. 14, art. 26(2))."
+    },
+    "AI-OVS_2": {
+      "title": "Revue du contrôle humain",
+      "description": "Vérifier que les mesures de contrôle humain demeurent efficaces (art. 14)."
+    },
+    "AI-TRA_1": {
+      "title": "Information sur l'interaction avec l'IA",
+      "description": "Informer les personnes lorsqu'elles interagissent avec un système d'IA, sauf si cela est évident (AI Act art. 50(1))."
+    },
+    "AI-TRA_2": {
+      "title": "Marquage des contenus synthétiques",
+      "description": "Marquer de manière lisible par machine les contenus audio, image, vidéo et texte générés ou manipulés par l'IA (art. 50(2))."
+    },
+    "AI-TRA_3": {
+      "title": "Divulgation des deepfakes et de la reconnaissance d'émotions",
+      "description": "Divulguer aux personnes concernées l'utilisation de deepfakes et de systèmes de reconnaissance d'émotions ou de catégorisation biométrique (art. 50(4))."
+    },
+    "AI-INC_1": {
+      "title": "Politique de notification des incidents graves",
+      "description": "Définir une procédure de notification des incidents graves liés à l'IA aux autorités (AI Act art. 73)."
+    },
+    "AI-INC_2": {
+      "title": "Notification des incidents graves",
+      "description": "Notifier les incidents graves impliquant des systèmes d'IA à haut risque dans les délais prévus par l'AI Act (art. 73)."
+    },
+    "AI-DOC_1": {
+      "title": "Documentation technique de l'IA",
+      "description": "Élaborer et tenir à jour la documentation technique conformément à l'annexe IV de l'AI Act (art. 11, art. 18)."
+    },
+    "AI-DOC_2": {
+      "title": "Journalisation automatique",
+      "description": "Activer et conserver les journaux d'événements générés automatiquement par les systèmes d'IA à haut risque (art. 12, art. 19)."
+    },
+    "AI-DOC_3": {
+      "title": "Déclaration UE de conformité",
+      "description": "Établir et signer la déclaration UE de conformité pour les systèmes d'IA à haut risque (art. 47, annexe V)."
+    },
+    "AI-GPI_1": {
+      "title": "Documentation technique des modèles d'IA à usage général",
+      "description": "Tenir à jour la documentation technique des modèles d'IA à usage général (AI Act art. 53(1)(a))."
+    },
+    "AI-GPI_2": {
+      "title": "Politique de droit d'auteur des modèles d'IA à usage général",
+      "description": "Mettre en place une politique de respect du droit d'auteur de l'UE pour l'entraînement des modèles d'IA à usage général (art. 53(1)(c))."
+    },
+    "AI-GPI_3": {
+      "title": "Résumé des données d'entraînement des modèles d'IA à usage général",
+      "description": "Publier un résumé suffisamment détaillé des contenus utilisés pour entraîner le modèle d'IA à usage général (art. 53(1)(d))."
+    },
+    "AI-GPI_4": {
+      "title": "Obligations liées au risque systémique des modèles d'IA à usage général",
+      "description": "Satisfaire aux obligations supplémentaires applicables aux modèles d'IA à usage général présentant un risque systémique (AI Act art. 55)."
+    }
+  }
+}

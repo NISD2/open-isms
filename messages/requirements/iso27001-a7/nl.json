@@ -1,0 +1,60 @@
+{
+  "requirements": {
+    "A_7_1": {
+      "title": "Fysieke beveiligingsperimeters",
+      "description": "Fysieke beveiligingsperimeters definiëren en implementeren ter bescherming van gevoelige gebieden met informatie en verwerkingsfaciliteiten."
+    },
+    "A_7_2": {
+      "title": "Fysieke toegang",
+      "description": "Beveiligde gebieden voorzien van passende toegangscontroles zodat alleen geautoriseerde personen toegang krijgen."
+    },
+    "A_7_3": {
+      "title": "Beveiliging van kantoren, ruimten en faciliteiten",
+      "description": "Fysieke beveiliging toepassen op kantoren, ruimten en faciliteiten, proportioneel aan de gevoeligheid van de aldaar verwerkte informatie."
+    },
+    "A_7_4": {
+      "title": "Fysieke beveiligingsbewaking",
+      "description": "Gebouwen monitoren op ongeautoriseerde fysieke toegang via alarmen, CCTV, bewakers of andere passende middelen."
+    },
+    "A_7_5": {
+      "title": "Bescherming tegen fysieke en omgevingsbedreigingen",
+      "description": "Bescherming bieden tegen fysieke en omgevingsbedreigingen zoals brand, overstroming, aardbeving en opzettelijke beschadiging."
+    },
+    "A_7_6": {
+      "title": "Werken in beveiligde gebieden",
+      "description": "Procedures definiëren en toepassen voor werken in beveiligde gebieden om ongeautoriseerde toegang, fotograferen of data-exfiltratie te voorkomen."
+    },
+    "A_7_7": {
+      "title": "Clean-desk- en clean-screenbeleid",
+      "description": "Clean-deskbeleid voor papieren en verwijderbare media en clean-screenbeleid voor informatieverwerking toepassen."
+    },
+    "A_7_8": {
+      "title": "Plaatsing en bescherming van apparatuur",
+      "description": "Apparatuur plaatsen en beschermen om risico's van omgevingsbedreigingen, ongeautoriseerde toegang en interferentie te verminderen."
+    },
+    "A_7_9": {
+      "title": "Beveiliging van activa buiten het terrein",
+      "description": "Maatregelen toepassen voor activa die buiten het terrein worden meegenomen, proportioneel aan de risico's van extern gebruik."
+    },
+    "A_7_10": {
+      "title": "Opslagmedia",
+      "description": "Opslagmedia beheren gedurende de volledige levenscyclus: aanschaf, gebruik, transport, verwijdering en sanering."
+    },
+    "A_7_11": {
+      "title": "Nutsvoorzieningen",
+      "description": "Informatieverwerking beschermen tegen stroomuitval en andere verstoringen door defecte nutsvoorzieningen."
+    },
+    "A_7_12": {
+      "title": "Kabelbeveiliging",
+      "description": "Stroom- en telecommunicatiekabels beschermen tegen afluisteren, interferentie of beschadiging."
+    },
+    "A_7_13": {
+      "title": "Apparatuuronderhoud",
+      "description": "Apparatuur correct onderhouden voor continue beschikbaarheid en integriteit van informatieverwerking."
+    },
+    "A_7_14": {
+      "title": "Veilige verwijdering of hergebruik van apparatuur",
+      "description": "Vóór verwijdering of hergebruik verifiëren dat alle gevoelige gegevens en licentiesoftware zijn verwijderd of overschreven."
+    }
+  }
+}

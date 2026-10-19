@@ -1,0 +1,36 @@
+{
+  "requirements": {
+    "A_6_1": {
+      "title": "Screening",
+      "description": "Achtergrondcontroles uitvoeren voor alle sollicitanten, proportioneel aan de gevoeligheid van de rol en wettelijke vereisten."
+    },
+    "A_6_2": {
+      "title": "Arbeidsvoorwaarden",
+      "description": "Medewerkers en contractanten contractueel verplichten tot naleving van IS-beleid als arbeidsvoorwaarde."
+    },
+    "A_6_3": {
+      "title": "IS-bewustzijn, opleiding en training",
+      "description": "Zorgen dat alle medewerkers bij indiensttreding en jaarlijks passende IS-bewustwordingstraining ontvangen."
+    },
+    "A_6_4": {
+      "title": "Disciplinaire procedure",
+      "description": "Een formele, gecommuniceerde disciplinaire procedure hebben voor medewerkers die IS-overtredingen begaan."
+    },
+    "A_6_5": {
+      "title": "Verantwoordelijkheden na beëindiging of wijziging van dienstverband",
+      "description": "IS-verantwoordelijkheden die na beëindiging van het dienstverband gelden definiëren en handhaven (vertrouwelijkheid, teruggave activa)."
+    },
+    "A_6_6": {
+      "title": "Vertrouwelijkheids- of geheimhoudingsovereenkomsten",
+      "description": "Vertrouwelijkheidsvereisten identificeren, documenteren en regelmatig herzien; NDA's gebruiken met medewerkers, contractanten en relevante derden."
+    },
+    "A_6_7": {
+      "title": "Thuiswerken",
+      "description": "Beveiligingsmaatregelen voor thuiswerken definiëren en implementeren: netwerkbeveiliging, fysieke beveiliging en apparatuurbeveiliging."
+    },
+    "A_6_8": {
+      "title": "Melding van IS-gebeurtenissen",
+      "description": "Een duidelijk, eenvoudig te gebruiken mechanisme bieden voor medewerkers om beveiligingsgebeurtenissen en zwakheden te melden."
+    }
+  }
+}

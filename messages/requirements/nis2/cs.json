@@ -1,0 +1,200 @@
+{
+  "requirements": {
+    "1_1": {
+      "title": "Školení vedení v oblasti kybernetické bezpečnosti",
+      "description": "Školení vedení v oblasti kybernetické bezpečnosti"
+    },
+    "1_2": {
+      "title": "Role a odpovědnosti",
+      "description": "Role a odpovědnosti"
+    },
+    "1_3": {
+      "title": "Přidělení rozpočtu na kybernetickou bezpečnost",
+      "description": "Přidělení rozpočtu na kybernetickou bezpečnost"
+    },
+    "1_4": {
+      "title": "Potvrzení osobní odpovědnosti",
+      "description": "Potvrzení osobní odpovědnosti"
+    },
+    "2_1": {
+      "title": "Metodika hodnocení rizik",
+      "description": "Metodika hodnocení rizik"
+    },
+    "2_2": {
+      "title": "Inventář aktiv, rozsah a klasifikace",
+      "description": "Inventář aktiv, rozsah a klasifikace"
+    },
+    "2_3": {
+      "title": "Registr rizik a zvládání rizik",
+      "description": "Registr rizik a zvládání rizik"
+    },
+    "2_4": {
+      "title": "Akceptace rizik a schválení bezpečnostní politiky",
+      "description": "Akceptace rizik a schválení bezpečnostní politiky"
+    },
+    "3_1": {
+      "title": "Plán a tým reakce na incidenty",
+      "description": "Plán a tým reakce na incidenty"
+    },
+    "3_2": {
+      "title": "Detekce, klasifikace a protokolování",
+      "description": "Detekce, klasifikace a protokolování"
+    },
+    "3_3": {
+      "title": "Připravenost na hlášení incidentů (24 h / 72 h / závěrečná zpráva)",
+      "description": "Nastavte proces hlášení podle § 16 zákona č. 264/2025 Sb.: prvotní hlášení nejpozději do 24 hodin od zjištění incidentu, u incidentu s významným dopadem oznámení do 72 hodin, průběžná zpráva na výzvu NÚKIB nebo Národního CERT a závěrečná zpráva nejpozději do 30 dnů od oznámení. Ve vyšším režimu se hlásí NÚKIB, v nižším režimu Národnímu CERT (§ 15), a to přes Portál NÚKIB. Zajistěte přístup k portálu a určete odpovědné osoby. Připravenost na hlášení se testuje v plánovaných intervalech (CIR 3.5.5; v Česku ve vyšším režimu vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. i)); pevný interval není předepsán, doporučení: jednou ročně."
+    },
+    "3_4": {
+      "title": "Cvičení reakce na incidenty",
+      "description": "Cvičení reakce na incidenty"
+    },
+    "3_5": {
+      "title": "Vyhodnocení po incidentu a komunikace",
+      "description": "Vyhodnocení po incidentu a komunikace"
+    },
+    "4_1": {
+      "title": "Analýza dopadů na podnikání a cíle obnovy",
+      "description": "Analýza dopadů na podnikání a cíle obnovy"
+    },
+    "4_2": {
+      "title": "Plán kontinuity podnikání a krizového řízení",
+      "description": "Plán kontinuity podnikání a krizového řízení"
+    },
+    "4_3": {
+      "title": "Plán obnovy po havárii",
+      "description": "Plán obnovy po havárii"
+    },
+    "4_4": {
+      "title": "Zálohování a obnova",
+      "description": "Zálohování a obnova"
+    },
+    "4_5": {
+      "title": "Testování BCP/DR",
+      "description": "Testování BCP/DR"
+    },
+    "5_1": {
+      "title": "Registr dodavatelů a klasifikace",
+      "description": "Registr dodavatelů a klasifikace"
+    },
+    "5_2": {
+      "title": "Bezpečnost dodavatelů ve smlouvách",
+      "description": "Bezpečnost dodavatelů ve smlouvách"
+    },
+    "5_3": {
+      "title": "Hodnocení a monitorování dodavatelů",
+      "description": "Hodnocení a monitorování dodavatelů"
+    },
+    "5_4": {
+      "title": "Oznamování incidentů dodavateli",
+      "description": "Oznamování incidentů dodavateli"
+    },
+    "6_1": {
+      "title": "Bezpečné pořizování",
+      "description": "Bezpečné pořizování"
+    },
+    "6_2": {
+      "title": "Bezpečný vývoj a konfigurace",
+      "description": "Bezpečný vývoj a konfigurace"
+    },
+    "6_3": {
+      "title": "Správa zranitelností",
+      "description": "Správa zranitelností"
+    },
+    "6_4": {
+      "title": "Správa aktualizací",
+      "description": "Správa aktualizací"
+    },
+    "6_5": {
+      "title": "Řízení změn",
+      "description": "Řízení změn"
+    },
+    "7_1": {
+      "title": "Bezpečnostní KPI a metriky",
+      "description": "Bezpečnostní KPI a metriky"
+    },
+    "7_2": {
+      "title": "Interní audit",
+      "description": "Interní audit"
+    },
+    "7_3": {
+      "title": "Přezkoumání vedením",
+      "description": "Přezkoumání vedením"
+    },
+    "7_4": {
+      "title": "Nápravná opatření a neustálé zlepšování",
+      "description": "Nápravná opatření a neustálé zlepšování"
+    },
+    "8_1": {
+      "title": "Politika bezpečnosti IT a přijatelné užívání",
+      "description": "Politika bezpečnosti IT a přijatelné užívání"
+    },
+    "8_2": {
+      "title": "Program zvyšování bezpečnostního povědomí",
+      "description": "Program zvyšování bezpečnostního povědomí"
+    },
+    "8_3": {
+      "title": "Školení podle role a školení vedení",
+      "description": "Školení podle role a školení vedení"
+    },
+    "8_4": {
+      "title": "Účinnost školení a phishingové simulace",
+      "description": "Účinnost školení a phishingové simulace"
+    },
+    "9_1": {
+      "title": "Politika a standardy kryptografie",
+      "description": "Politika a standardy kryptografie"
+    },
+    "9_2": {
+      "title": "Šifrování dat",
+      "description": "Šifrování dat"
+    },
+    "9_3": {
+      "title": "Správa klíčů a certifikátů",
+      "description": "Správa klíčů a certifikátů"
+    },
+    "10_1": {
+      "title": "Politika a model řízení přístupu",
+      "description": "Politika a model řízení přístupu"
+    },
+    "10_2": {
+      "title": "Přidělení přístupu k jednotlivým aktivům",
+      "description": "Přidělení přístupu k jednotlivým aktivům"
+    },
+    "10_3": {
+      "title": "Životní cyklus uživatele a PAM",
+      "description": "Životní cyklus uživatele a PAM"
+    },
+    "10_4": {
+      "title": "Přezkoumání přístupů",
+      "description": "Přezkoumání přístupů"
+    },
+    "11_1": {
+      "title": "Ověřování: kde je MFA povinné",
+      "description": "Vícefaktorové ověřování"
+    },
+    "11_2": {
+      "title": "Zabezpečená a nouzová komunikace",
+      "description": "Zabezpečená a nouzová komunikace"
+    },
+    "11_3": {
+      "title": "Standardy ověřování",
+      "description": "Standardy ověřování"
+    },
+    "12_1": {
+      "title": "Klasifikace a rozsah podle NIS2",
+      "description": "Klasifikace a rozsah podle NIS2"
+    },
+    "12_2": {
+      "title": "Ohlášení služby NÚKIB",
+      "description": "Ohlásit regulovanou službu NÚKIB přes Portál NÚKIB (přihlášení přes NIA; zahraniční statutární orgán bez české identity přes IIG). Zákonná lhůta: nejpozději do 60 dnů ode dne, kdy služba splnila podmínky pro registraci (§ 6 odst. 1 zákona č. 264/2025 Sb.). Pro většinu firem, které podmínky splnily dnem účinnosti zákona 1. listopadu 2025, tato lhůta uplynula 31. prosince 2025; kdo ještě neohlásil, ohlásí bez dalšího odkladu. Do 30 dnů od doručení rozhodnutí o registraci nahlásit kontaktní a doplňující údaje (§ 11)."
+    },
+    "12_3": {
+      "title": "Údržba registrace",
+      "description": "Údržba registrace"
+    },
+    "12_4": {
+      "title": "Doklady o souladu",
+      "description": "Doklady o souladu"
+    }
+  }
+}

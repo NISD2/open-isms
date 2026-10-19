@@ -21,6 +21,7 @@
  */
 import "@/lib/server-guard";
 import { and, eq, inArray, isNull, lte, sql } from "drizzle-orm";
+import { requirementsEn } from "@/i18n/requirements";
 import { logAudit } from "@/lib/audit";
 import {
   computeInitialDeadline,
@@ -39,7 +40,7 @@ import {
   purgeExpiredErasureRecords,
   retryPendingErasureFiles,
 } from "@/lib/gdpr/erase-user";
-import requirementsEn from "@/messages/requirements/en.json";
+import { getRequirementTitle } from "@/lib/messages";
 import { companyAssessment, companyRequirementStatus, notification } from "@/schema";
 import { nis2StatusScope } from "@/server/trpc/helpers/nis2-scope";
 import { drainQueuedBroadcasts } from "@/server/trpc/routers/supplier-portal/broadcast";
@@ -207,11 +208,7 @@ export async function runDeadlines(): Promise<DeadlineStats> {
     if (existingActive.length > 0) continue; // Already has active notifications
 
     const req = status.requirement;
-    const reqKey = req.code.replace(
-      /\./g,
-      "_",
-    ) as keyof typeof requirementsEn.requirements;
-    const reqTitle = requirementsEn.requirements[reqKey]?.title ?? req.code;
+    const reqTitle = getRequirementTitle(requirementsEn, req.code);
     const frequency = req.frequency as Frequency;
     const priority = req.priority as Priority;
     const importance = (req.importance ?? "mandatory") as Importance;

@@ -1,0 +1,60 @@
+{
+  "requirements": {
+    "A_7_1": {
+      "title": "Perimetri di sicurezza fisica",
+      "description": "Definisci e attua perimetri di sicurezza fisica per proteggere le aree sensibili che contengono informazioni e impianti di trattamento."
+    },
+    "A_7_2": {
+      "title": "Accesso fisico",
+      "description": "Proteggi le aree sicure con controlli di accesso appropriati per garantire che solo le persone autorizzate possano accedervi."
+    },
+    "A_7_3": {
+      "title": "Messa in sicurezza di uffici, locali e strutture",
+      "description": "Applica la sicurezza fisica a uffici, locali e strutture in misura proporzionata alla sensibilità delle informazioni ivi trattate."
+    },
+    "A_7_4": {
+      "title": "Monitoraggio della sicurezza fisica",
+      "description": "Monitora i locali per individuare accessi fisici non autorizzati mediante allarmi, videosorveglianza, personale di sorveglianza o altri mezzi appropriati."
+    },
+    "A_7_5": {
+      "title": "Protezione contro le minacce fisiche e ambientali",
+      "description": "Proteggi contro minacce fisiche e ambientali quali incendi, allagamenti, terremoti e danni dolosi."
+    },
+    "A_7_6": {
+      "title": "Lavoro nelle aree sicure",
+      "description": "Definisci e applica procedure per il lavoro nelle aree sicure al fine di prevenire accessi non autorizzati, riprese fotografiche o esfiltrazione di dati."
+    },
+    "A_7_7": {
+      "title": "Scrivania pulita e schermo pulito",
+      "description": "Applica una policy di scrivania pulita per documenti e supporti rimovibili e una policy di schermo pulito per gli impianti di trattamento delle informazioni."
+    },
+    "A_7_8": {
+      "title": "Collocazione e protezione delle apparecchiature",
+      "description": "Colloca e proteggi le apparecchiature per ridurre i rischi derivanti da minacce ambientali, accessi non autorizzati e interferenze."
+    },
+    "A_7_9": {
+      "title": "Sicurezza degli asset fuori sede",
+      "description": "Applica controlli agli asset portati fuori sede, proporzionati ai rischi del lavoro al di fuori delle sedi dell'organizzazione."
+    },
+    "A_7_10": {
+      "title": "Supporti di memorizzazione",
+      "description": "Gestisci i supporti di memorizzazione lungo tutto il loro ciclo di vita: acquisizione, uso, trasporto, smaltimento e sanificazione."
+    },
+    "A_7_11": {
+      "title": "Servizi di supporto",
+      "description": "Proteggi gli impianti di trattamento delle informazioni da interruzioni di alimentazione e altri disservizi causati da guasti dei servizi di supporto."
+    },
+    "A_7_12": {
+      "title": "Sicurezza dei cablaggi",
+      "description": "Proteggi i cablaggi di alimentazione e di telecomunicazione da intercettazioni, interferenze o danni."
+    },
+    "A_7_13": {
+      "title": "Manutenzione delle apparecchiature",
+      "description": "Mantieni correttamente le apparecchiature per garantire la disponibilità e l'integrità continue degli impianti di trattamento delle informazioni."
+    },
+    "A_7_14": {
+      "title": "Smaltimento o riutilizzo sicuro delle apparecchiature",
+      "description": "Verifica che tutti i dati sensibili e il software con licenza siano stati rimossi o sovrascritti prima dello smaltimento o del riutilizzo delle apparecchiature."
+    }
+  }
+}

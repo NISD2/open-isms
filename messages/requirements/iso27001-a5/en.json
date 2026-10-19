@@ -1,0 +1,152 @@
+{
+  "requirements": {
+    "A_5_1": {
+      "title": "Policies for Information Security",
+      "description": "Define, approve, publish, and annually review information security policies covering all relevant topics."
+    },
+    "A_5_2": {
+      "title": "Information Security Roles and Responsibilities",
+      "description": "Assign and document roles and responsibilities for information security across the organization."
+    },
+    "A_5_3": {
+      "title": "Segregation of Duties",
+      "description": "Separate conflicting duties and responsibilities to reduce opportunities for unauthorized modification of information."
+    },
+    "A_5_4": {
+      "title": "Management Responsibilities",
+      "description": "Management must require all personnel to apply information security in accordance with established policies."
+    },
+    "A_5_5": {
+      "title": "Contact with Authorities",
+      "description": "Maintain appropriate contacts with relevant authorities (data protection authority, cybersecurity agency, law enforcement)."
+    },
+    "A_5_6": {
+      "title": "Contact with Special Interest Groups",
+      "description": "Maintain membership or contact with special interest groups, security forums, and professional associations."
+    },
+    "A_5_7": {
+      "title": "Threat Intelligence",
+      "description": "Collect, analyse, and produce threat intelligence relevant to the organization to anticipate and prepare for threats."
+    },
+    "A_5_8": {
+      "title": "Information Security in Project Management",
+      "description": "Integrate information security into project management to ensure security risks are addressed during projects."
+    },
+    "A_5_9": {
+      "title": "Inventory of Information and Other Associated Assets",
+      "description": "Identify, document, and maintain an inventory of information and associated assets with assigned ownership."
+    },
+    "A_5_10": {
+      "title": "Acceptable Use of Information and Other Associated Assets",
+      "description": "Identify, document, and implement acceptable use rules for information and assets, covering devices, data handling, and prohibited activities."
+    },
+    "A_5_11": {
+      "title": "Return of Assets",
+      "description": "Ensure all assets are returned upon termination or change of employment or contract."
+    },
+    "A_5_12": {
+      "title": "Classification of Information",
+      "description": "Classify information by sensitivity (confidential, internal, public) to ensure appropriate handling and protection."
+    },
+    "A_5_13": {
+      "title": "Labelling of Information",
+      "description": "Develop and implement a labelling procedure for information in accordance with the classification scheme."
+    },
+    "A_5_14": {
+      "title": "Information Transfer",
+      "description": "Establish rules and procedures for information transfer via all channels including email, messaging, physical media, and verbal."
+    },
+    "A_5_15": {
+      "title": "Access Control",
+      "description": "Define and implement access control rules based on business and security requirements, using least privilege."
+    },
+    "A_5_16": {
+      "title": "Identity Management",
+      "description": "Manage the full identity lifecycle (provisioning, changes, revocation) for all users and service accounts."
+    },
+    "A_5_17": {
+      "title": "Authentication Information",
+      "description": "Manage authentication information (passwords, keys, tokens) through a formal process including allocation, storage, and revocation."
+    },
+    "A_5_18": {
+      "title": "Access Rights",
+      "description": "Provision, review, modify, and remove access rights in accordance with the access control policy."
+    },
+    "A_5_19": {
+      "title": "Information Security in Supplier Relationships",
+      "description": "Identify and implement controls to protect assets accessible to suppliers; document requirements in supplier agreements."
+    },
+    "A_5_20": {
+      "title": "Addressing Information Security Within Supplier Agreements",
+      "description": "Establish and agree information security requirements with each supplier that may access, process, or store organizational information."
+    },
+    "A_5_21": {
+      "title": "Managing Information Security in the ICT Supply Chain",
+      "description": "Define and implement processes for managing information security risks associated with ICT products and services supply chain."
+    },
+    "A_5_22": {
+      "title": "Monitoring, Review and Change Management of Supplier Services",
+      "description": "Regularly monitor, review, and manage changes to supplier information security practices and service delivery."
+    },
+    "A_5_23": {
+      "title": "Information Security for Use of Cloud Services",
+      "description": "Establish processes for acquiring, using, managing, and exiting from cloud services, including security requirements and exit plans."
+    },
+    "A_5_24": {
+      "title": "Information Security Incident Management Planning and Preparation",
+      "description": "Plan and prepare for incident management with defined roles, responsibilities, procedures, and communication channels."
+    },
+    "A_5_25": {
+      "title": "Assessment and Decision on Information Security Events",
+      "description": "Assess information security events and decide whether they qualify as incidents using a defined classification scheme."
+    },
+    "A_5_26": {
+      "title": "Response to Information Security Incidents",
+      "description": "Respond to incidents in accordance with documented procedures; contain, eradicate, and recover in a structured way."
+    },
+    "A_5_27": {
+      "title": "Learning from Information Security Incidents",
+      "description": "Use knowledge from incidents to reduce the likelihood and impact of future incidents; update controls accordingly."
+    },
+    "A_5_28": {
+      "title": "Collection of Evidence",
+      "description": "Define and apply procedures for identifying, collecting, acquiring, and preserving evidence of information security incidents."
+    },
+    "A_5_29": {
+      "title": "Information Security During Disruption",
+      "description": "Plan how information security will be maintained during disruption. Integrate security requirements into business continuity plans."
+    },
+    "A_5_30": {
+      "title": "ICT Readiness for Business Continuity",
+      "description": "Plan, implement, maintain, and test ICT readiness based on business continuity objectives and ICT continuity requirements."
+    },
+    "A_5_31": {
+      "title": "Legal, Statutory, Regulatory and Contractual Requirements",
+      "description": "Identify, document, and keep current all legal, regulatory, and contractual requirements relevant to information security."
+    },
+    "A_5_32": {
+      "title": "Intellectual Property Rights",
+      "description": "Implement procedures to protect intellectual property rights and comply with software licensing requirements."
+    },
+    "A_5_33": {
+      "title": "Protection of Records",
+      "description": "Protect records from loss, destruction, falsification, unauthorized access, and unauthorized release in accordance with legal requirements."
+    },
+    "A_5_34": {
+      "title": "Privacy and Protection of PII",
+      "description": "Identify and meet privacy and personal data protection requirements in accordance with applicable law (GDPR)."
+    },
+    "A_5_35": {
+      "title": "Independent Review of Information Security",
+      "description": "Review the ISMS approach and implementation independently at planned intervals or when significant changes occur."
+    },
+    "A_5_36": {
+      "title": "Compliance with Policies, Rules and Standards for Information Security",
+      "description": "Regularly review compliance with information security policies, standards, and procedures; document results."
+    },
+    "A_5_37": {
+      "title": "Documented Operating Procedures",
+      "description": "Document, maintain, and make available operating procedures for information processing facilities."
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "requirements": {
+    "A_7_1": {
+      "title": "Physical Security Perimeters",
+      "description": "Define and implement physical security perimeters to protect sensitive areas containing information and processing facilities."
+    },
+    "A_7_2": {
+      "title": "Physical Entry",
+      "description": "Protect secure areas with appropriate entry controls to ensure only authorized persons can gain access."
+    },
+    "A_7_3": {
+      "title": "Securing Offices, Rooms and Facilities",
+      "description": "Apply physical security to offices, rooms, and facilities proportionate to the sensitivity of the information processed there."
+    },
+    "A_7_4": {
+      "title": "Physical Security Monitoring",
+      "description": "Monitor premises for unauthorized physical access using alarms, CCTV, guards, or other appropriate means."
+    },
+    "A_7_5": {
+      "title": "Protecting Against Physical and Environmental Threats",
+      "description": "Protect against physical and environmental threats such as fire, flood, earthquake, and deliberate damage."
+    },
+    "A_7_6": {
+      "title": "Working in Secure Areas",
+      "description": "Define and apply procedures for working in secure areas to prevent unauthorized access, photography, or data exfiltration."
+    },
+    "A_7_7": {
+      "title": "Clear Desk and Clear Screen",
+      "description": "Apply a clear desk policy for papers and removable media, and a clear screen policy for information processing facilities."
+    },
+    "A_7_8": {
+      "title": "Equipment Siting and Protection",
+      "description": "Site and protect equipment to reduce risks from environmental threats, unauthorized access, and interference."
+    },
+    "A_7_9": {
+      "title": "Security of Assets Off-Premises",
+      "description": "Apply controls to assets taken off-premises, proportionate to the risks of working outside the organization's premises."
+    },
+    "A_7_10": {
+      "title": "Storage Media",
+      "description": "Manage storage media throughout its lifecycle: acquisition, use, transportation, disposal, and sanitization."
+    },
+    "A_7_11": {
+      "title": "Supporting Utilities",
+      "description": "Protect information processing facilities from power failures and other disruptions caused by failures in supporting utilities."
+    },
+    "A_7_12": {
+      "title": "Cabling Security",
+      "description": "Protect power and telecommunications cabling from interception, interference, or damage."
+    },
+    "A_7_13": {
+      "title": "Equipment Maintenance",
+      "description": "Maintain equipment correctly to ensure continued availability and integrity of information processing facilities."
+    },
+    "A_7_14": {
+      "title": "Secure Disposal or Re-Use of Equipment",
+      "description": "Verify that all sensitive data and licensed software has been removed or overwritten prior to disposal or re-use of equipment."
+    }
+  }
+}

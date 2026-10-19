@@ -1,0 +1,140 @@
+{
+  "requirements": {
+    "A_8_1": {
+      "title": "Terminaux des utilisateurs",
+      "description": "Protéger les informations présentes sur et traitées par les terminaux des utilisateurs (ordinateurs portables, téléphones) au moyen d'une politique de sécurité des terminaux."
+    },
+    "A_8_2": {
+      "title": "Droits d'accès à privilèges",
+      "description": "Restreindre et gérer avec soin l'attribution et l'utilisation des droits d'accès à privilèges sur tous les systèmes."
+    },
+    "A_8_3": {
+      "title": "Restriction d'accès à l'information",
+      "description": "Restreindre l'accès aux informations et aux systèmes à ce qui est nécessaire au rôle de chaque utilisateur, selon le moindre privilège."
+    },
+    "A_8_4": {
+      "title": "Accès au code source",
+      "description": "Restreindre l'accès au code source des programmes et aux outils associés aux seules personnes autorisées ; appliquer une gestion de versions."
+    },
+    "A_8_5": {
+      "title": "Authentification sécurisée",
+      "description": "Mettre en œuvre des technologies et procédures d'authentification sécurisées, y compris la MFA pour les systèmes sensibles et tous les accès à distance."
+    },
+    "A_8_6": {
+      "title": "Gestion des capacités",
+      "description": "Surveiller et ajuster l'utilisation des ressources et les projections afin de garantir la capacité et les performances requises des systèmes."
+    },
+    "A_8_7": {
+      "title": "Protection contre les logiciels malveillants",
+      "description": "Mettre en œuvre des mesures de protection contre les logiciels malveillants (EDR, AV, signature de code, filtrage des e-mails) accompagnées d'une sensibilisation appropriée des utilisateurs."
+    },
+    "A_8_8": {
+      "title": "Gestion des vulnérabilités techniques",
+      "description": "Identification, évaluation et remédiation rapides des vulnérabilités techniques sur tous les systèmes."
+    },
+    "A_8_9": {
+      "title": "Gestion de la configuration",
+      "description": "Établir, documenter et tenir à jour les configurations (y compris les configurations de sécurité) du matériel, des logiciels et des services cloud."
+    },
+    "A_8_10": {
+      "title": "Suppression de l'information",
+      "description": "Supprimer les informations lorsqu'elles ne sont plus nécessaires, conformément aux exigences légales, contractuelles et métier."
+    },
+    "A_8_11": {
+      "title": "Masquage des données",
+      "description": "Utiliser le masquage, la pseudonymisation ou l'anonymisation des données pour protéger les données à caractère personnel dans les environnements hors production."
+    },
+    "A_8_12": {
+      "title": "Prévention de la fuite de données",
+      "description": "Appliquer des mesures de prévention de la fuite de données aux systèmes, réseaux et terminaux qui traitent des informations sensibles."
+    },
+    "A_8_13": {
+      "title": "Sauvegarde de l'information",
+      "description": "Réaliser et tester régulièrement des copies de sauvegarde des informations, logiciels et images système conformément à une politique de sauvegarde convenue."
+    },
+    "A_8_14": {
+      "title": "Redondance des moyens de traitement de l'information",
+      "description": "Mettre en œuvre une redondance suffisante des moyens de traitement de l'information pour satisfaire aux exigences de disponibilité."
+    },
+    "A_8_15": {
+      "title": "Journalisation",
+      "description": "Produire, protéger et conserver les journaux des activités des utilisateurs, exceptions, défaillances et événements de sécurité pendant les durées de conservation définies."
+    },
+    "A_8_16": {
+      "title": "Activités de surveillance",
+      "description": "Surveiller les réseaux, systèmes et applications afin de détecter les comportements anormaux et les événements de sécurité potentiels."
+    },
+    "A_8_17": {
+      "title": "Synchronisation des horloges",
+      "description": "Synchroniser les horloges de tous les systèmes de traitement de l'information sur une source de temps approuvée pour faciliter la corrélation des journaux et l'analyse forensique."
+    },
+    "A_8_18": {
+      "title": "Utilisation des programmes utilitaires à privilèges",
+      "description": "Maîtriser et restreindre l'utilisation des programmes utilitaires capables de contourner les mesures des systèmes et applications."
+    },
+    "A_8_19": {
+      "title": "Installation de logiciels sur les systèmes en exploitation",
+      "description": "Mettre en œuvre des procédures pour maîtriser l'installation de logiciels sur les systèmes en exploitation par les seules personnes autorisées."
+    },
+    "A_8_20": {
+      "title": "Sécurité des réseaux",
+      "description": "Sécuriser les réseaux et les équipements réseau afin de protéger les informations dans les systèmes et applications."
+    },
+    "A_8_21": {
+      "title": "Sécurité des services réseau",
+      "description": "Identifier, mettre en œuvre et surveiller les mécanismes de sécurité des services réseau, y compris la mise en réseau cloud."
+    },
+    "A_8_22": {
+      "title": "Cloisonnement des réseaux",
+      "description": "Cloisonner les groupes de services d'information, d'utilisateurs et de systèmes d'information au sein du réseau."
+    },
+    "A_8_23": {
+      "title": "Filtrage web",
+      "description": "Maîtriser l'accès aux sites web externes afin de réduire l'exposition aux contenus malveillants."
+    },
+    "A_8_24": {
+      "title": "Utilisation de la cryptographie",
+      "description": "Définir et mettre en œuvre une politique de cryptographie couvrant les algorithmes approuvés, la gestion des clés et les exigences de chiffrement."
+    },
+    "A_8_25": {
+      "title": "Cycle de vie de développement sécurisé",
+      "description": "Établir et appliquer des règles pour le développement sécurisé des logiciels et des systèmes tout au long du cycle de vie de développement."
+    },
+    "A_8_26": {
+      "title": "Exigences de sécurité des applications",
+      "description": "Identifier, spécifier et approuver les exigences de sécurité de l'information pour le développement et l'acquisition d'applications."
+    },
+    "A_8_27": {
+      "title": "Principes d'architecture et d'ingénierie des systèmes sécurisés",
+      "description": "Établir, documenter et appliquer des principes d'ingénierie sécurisée à toutes les activités de développement et d'ingénierie des systèmes."
+    },
+    "A_8_28": {
+      "title": "Codage sécurisé",
+      "description": "Appliquer les principes de codage sécurisé au développement logiciel afin de prévenir les vulnérabilités courantes (OWASP Top 10, injection, XSS)."
+    },
+    "A_8_29": {
+      "title": "Tests de sécurité en développement et en recette",
+      "description": "Définir et mettre en œuvre des processus de tests de sécurité dans le cycle de vie de développement et lors des tests de recette."
+    },
+    "A_8_30": {
+      "title": "Développement externalisé",
+      "description": "Superviser et surveiller les activités de développement de systèmes externalisées afin de garantir le respect des exigences de sécurité."
+    },
+    "A_8_31": {
+      "title": "Séparation des environnements de développement, de test et de production",
+      "description": "Séparer les environnements de développement, de test et de production afin de réduire le risque d'accès non autorisé ou de modification du système de production."
+    },
+    "A_8_32": {
+      "title": "Gestion des changements",
+      "description": "Gérer les changements apportés aux moyens de traitement de l'information et aux systèmes au moyen d'un processus formel de gestion des changements."
+    },
+    "A_8_33": {
+      "title": "Informations de test",
+      "description": "Protéger et gérer les informations de test ; ne jamais utiliser de données de production réelles dans les environnements de test sans mesures appropriées."
+    },
+    "A_8_34": {
+      "title": "Protection des systèmes d'information lors des tests d'audit",
+      "description": "Planifier et convenir des exigences et activités d'audit impliquant la vérification des systèmes en exploitation afin de minimiser les perturbations."
+    }
+  }
+}

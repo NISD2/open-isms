@@ -1,0 +1,100 @@
+{
+  "requirements": {
+    "AI-LIT_1": {
+      "title": "Kompetencje w zakresie AI",
+      "description": "Zapewnij, aby personel obsługujący lub korzystający z systemów AI miał wystarczający poziom kompetencji w zakresie AI (art. 4 aktu w sprawie AI)."
+    },
+    "AI-LIT_2": {
+      "title": "Kompetencje podmiotu stosującego w zakresie AI",
+      "description": "Poinformuj kierownictwo i podmioty stosujące o ich obowiązkach wynikających z aktu w sprawie AI oraz potwierdź program podnoszenia kompetencji (art. 4, art. 26(2))."
+    },
+    "AI-PRO_1": {
+      "title": "Polityka praktyk zakazanych",
+      "description": "Udokumentuj politykę zakazującą praktyk w zakresie AI zabronionych na mocy art. 5(1)(a) do (i) aktu w sprawie AI."
+    },
+    "AI-PRO_2": {
+      "title": "Brak stosowania zakazanej AI",
+      "description": "Przedstaw dowody na to, że w organizacji nie jest stosowana żadna zakazana praktyka w zakresie AI (art. 5)."
+    },
+    "AI-INV_1": {
+      "title": "Inwentaryzacja systemów AI",
+      "description": "Prowadź inwentaryzację systemów AI wraz z ich klasyfikacją ryzyka zgodnie z art. 6 i art. 26 aktu w sprawie AI."
+    },
+    "AI-INV_2": {
+      "title": "Klasyfikacja wysokiego ryzyka",
+      "description": "Zarejestruj klasyfikację wysokiego ryzyka oraz jej zastosowanie dla każdego systemu AI (art. 6, art. 50)."
+    },
+    "AI-INV_3": {
+      "title": "Rola dostawcy lub podmiotu stosującego",
+      "description": "Określ i udokumentuj, czy dla każdego systemu AI działasz jako dostawca, czy jako podmiot stosujący (art. 25)."
+    },
+    "AI-RSK_1": {
+      "title": "System zarządzania ryzykiem AI",
+      "description": "Ustanów system zarządzania ryzykiem dla systemów AI wysokiego ryzyka przez cały ich cykl życia (art. 9 aktu w sprawie AI)."
+    },
+    "AI-RSK_2": {
+      "title": "Przegląd ryzyka AI",
+      "description": "Regularnie przeglądaj i aktualizuj system zarządzania ryzykiem AI (art. 9)."
+    },
+    "AI-FRI_1": {
+      "title": "Ocena skutków dla praw podstawowych",
+      "description": "Przeprowadź i zatwierdź ocenę skutków dla praw podstawowych w odniesieniu do odpowiednich systemów AI wysokiego ryzyka (art. 27 aktu w sprawie AI)."
+    },
+    "AI-OVS_1": {
+      "title": "Środki nadzoru ze strony człowieka",
+      "description": "Wdróż środki nadzoru ze strony człowieka dla eksploatowanych systemów AI wysokiego ryzyka (art. 14, art. 26(2))."
+    },
+    "AI-OVS_2": {
+      "title": "Przegląd nadzoru ze strony człowieka",
+      "description": "Sprawdzaj, czy środki nadzoru ze strony człowieka pozostają skuteczne (art. 14)."
+    },
+    "AI-TRA_1": {
+      "title": "Ujawnienie interakcji z AI",
+      "description": "Informuj osoby, gdy wchodzą w interakcję z systemem AI, chyba że jest to oczywiste (art. 50(1) aktu w sprawie AI)."
+    },
+    "AI-TRA_2": {
+      "title": "Oznaczanie treści syntetycznych",
+      "description": "Oznaczaj wygenerowane lub zmanipulowane przez AI treści dźwiękowe, obrazy, wideo i tekst w sposób nadający się do odczytu maszynowego (art. 50(2))."
+    },
+    "AI-TRA_3": {
+      "title": "Ujawnianie deepfake'ów i rozpoznawania emocji",
+      "description": "Ujawniaj osobom, których to dotyczy, stosowanie deepfake'ów oraz rozpoznawania emocji lub kategoryzacji biometrycznej (art. 50(4))."
+    },
+    "AI-INC_1": {
+      "title": "Polityka zgłaszania poważnych incydentów",
+      "description": "Zdefiniuj procedurę zgłaszania poważnych incydentów AI właściwym organom (art. 73 aktu w sprawie AI)."
+    },
+    "AI-INC_2": {
+      "title": "Powiadomienie o poważnym incydencie",
+      "description": "Zgłaszaj poważne incydenty z udziałem systemów AI wysokiego ryzyka w terminach określonych w akcie w sprawie AI (art. 73)."
+    },
+    "AI-DOC_1": {
+      "title": "Dokumentacja techniczna AI",
+      "description": "Przygotuj i utrzymuj dokumentację techniczną zgodnie z załącznikiem IV do aktu w sprawie AI (art. 11, art. 18)."
+    },
+    "AI-DOC_2": {
+      "title": "Automatyczne rejestrowanie",
+      "description": "Włącz i przechowuj automatyczne rejestry zdarzeń generowane przez systemy AI wysokiego ryzyka (art. 12, art. 19)."
+    },
+    "AI-DOC_3": {
+      "title": "Deklaracja zgodności UE",
+      "description": "Sporządź i podpisz deklarację zgodności UE dla systemów AI wysokiego ryzyka (art. 47, załącznik V)."
+    },
+    "AI-GPI_1": {
+      "title": "Dokumentacja techniczna GPAI",
+      "description": "Utrzymuj dokumentację techniczną dla modeli AI ogólnego przeznaczenia (art. 53(1)(a) aktu w sprawie AI)."
+    },
+    "AI-GPI_2": {
+      "title": "Polityka praw autorskich GPAI",
+      "description": "Wprowadź politykę zapewniającą zgodność z unijnym prawem autorskim w zakresie trenowania modeli GPAI (art. 53(1)(c))."
+    },
+    "AI-GPI_3": {
+      "title": "Podsumowanie danych treningowych GPAI",
+      "description": "Opublikuj wystarczająco szczegółowe podsumowanie treści wykorzystanych do trenowania modelu GPAI (art. 53(1)(d))."
+    },
+    "AI-GPI_4": {
+      "title": "Obowiązki GPAI związane z ryzykiem systemowym",
+      "description": "Spełniaj dodatkowe obowiązki dotyczące modeli GPAI o ryzyku systemowym (art. 55 aktu w sprawie AI)."
+    }
+  }
+}

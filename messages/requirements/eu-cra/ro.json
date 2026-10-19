@@ -1,0 +1,88 @@
+{
+  "requirements": {
+    "CRA-MFG_1": {
+      "title": "Evaluarea riscurilor de securitate cibernetică a produsului",
+      "description": "Efectuați o evaluare a riscurilor de securitate cibernetică pentru produsul cu elemente digitale (art. 13 alin. (2) din CRA)."
+    },
+    "CRA-MFG_2": {
+      "title": "Diligența fabricantului",
+      "description": "Confirmați diligența fabricantului astfel încât produsele să îndeplinească cerințele esențiale (art. 13 alin. (1))."
+    },
+    "CRA-ESS_1": {
+      "title": "Cerințe de securitate prin proiectare",
+      "description": "Proiectați și fabricați produsele astfel încât să îndeplinească cerințele esențiale de securitate cibernetică (anexa I partea I din CRA)."
+    },
+    "CRA-ESS_2": {
+      "title": "Configurație sigură în mod implicit",
+      "description": "Livrați produsele cu o configurație sigură în mod implicit (anexa I partea I, punctul 3 lit. (a))."
+    },
+    "CRA-ESS_3": {
+      "title": "Fără vulnerabilități exploatabile cunoscute",
+      "description": "Introduceți produsele pe piață fără vulnerabilități exploatabile cunoscute (anexa I partea I, punctul 1)."
+    },
+    "CRA-VLN_1": {
+      "title": "Politica de gestionare a vulnerabilităților",
+      "description": "Stabiliți un proces de identificare, documentare și remediere a vulnerabilităților (anexa I partea II, punctele 1-2 din CRA)."
+    },
+    "CRA-VLN_2": {
+      "title": "Divulgarea coordonată a vulnerabilităților",
+      "description": "Adoptați o politică de divulgare coordonată a vulnerabilităților, cu o adresă de contact (anexa I partea II, punctul 5)."
+    },
+    "CRA-VLN_3": {
+      "title": "Furnizarea actualizărilor de securitate",
+      "description": "Furnizați actualizări de securitate fără întârziere și gratuit pe durata perioadei de asistență (anexa I partea II, punctul 3)."
+    },
+    "CRA-VLN_4": {
+      "title": "Testarea vulnerabilităților",
+      "description": "Testați și revizuiți periodic securitatea produsului (anexa I partea II, punctul 8)."
+    },
+    "CRA-INC_1": {
+      "title": "Notificarea de avertizare timpurie",
+      "description": "Transmiteți o avertizare timpurie privind o vulnerabilitate exploatată activ către CSIRT și ENISA (art. 14 alin. (2) lit. (a) din CRA)."
+    },
+    "CRA-INC_2": {
+      "title": "Notificarea vulnerabilităților",
+      "description": "Notificați vulnerabilitatea sau incidentul grav în termenul prevăzut de CRA (art. 14 alin. (2) lit. (b))."
+    },
+    "CRA-INC_3": {
+      "title": "Raportul final privind incidentul",
+      "description": "Transmiteți autorităților raportul final privind vulnerabilitatea sau incidentul (art. 14 alin. (2) lit. (c))."
+    },
+    "CRA-INC_4": {
+      "title": "Notificarea utilizatorilor",
+      "description": "Informați utilizatorii afectați cu privire la incident și la eventualele măsuri corective (art. 14 alin. (4))."
+    },
+    "CRA-CONF_1": {
+      "title": "Evaluarea conformității",
+      "description": "Efectuați procedura de evaluare a conformității aplicabilă produsului (art. 24 din CRA)."
+    },
+    "CRA-CONF_2": {
+      "title": "Marcajul CE și conformitatea",
+      "description": "Aplicați marcajul CE și întocmiți declarația de conformitate UE (art. 27)."
+    },
+    "CRA-DOC_1": {
+      "title": "Documentația tehnică CRA",
+      "description": "Întocmiți și actualizați documentația tehnică conform anexei VII la CRA (art. 28)."
+    },
+    "CRA-SUP_1": {
+      "title": "Perioada de asistență",
+      "description": "Stabiliți și aprobați perioada de asistență în care sunt furnizate actualizările de securitate (art. 13 alin. (8) din CRA)."
+    },
+    "CRA-SBOM_1": {
+      "title": "Lista componentelor software (SBOM)",
+      "description": "Întocmiți un SBOM care acoperă dependențele de nivel superior (anexa I partea II, punctul 1 din CRA)."
+    },
+    "CRA-IMP_1": {
+      "title": "Obligațiile importatorului",
+      "description": "Verificați că produsele importate îndeplinesc cerințele CRA înainte de introducerea lor pe piață (art. 18)."
+    },
+    "CRA-IMP_2": {
+      "title": "Obligațiile distribuitorului",
+      "description": "Verificați conformitatea cu CRA și acționați în caz de neconformitate la distribuirea produselor (art. 19)."
+    },
+    "CRA-OSS_1": {
+      "title": "Obligațiile administratorului de software open-source",
+      "description": "Documentați politica de securitate cibernetică așteptată de la administratorii de software open-source (art. 24 din CRA)."
+    }
+  }
+}

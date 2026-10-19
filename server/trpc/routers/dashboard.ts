@@ -1,35 +1,36 @@
-import { eq, count, and, gte, isNotNull, notInArray, inArray, sql, asc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
+import { and, count, eq, gte, inArray, isNotNull, notInArray, sql } from "drizzle-orm";
+import { requirementsEn } from "@/i18n/requirements";
 import {
-  risk,
+  computeUrgency,
+  daysUntilDeadline,
+  IMPORTANCES,
+  type Importance,
+  PRIORITIES,
+  type Priority,
+} from "@/lib/compliance/deadlines";
+import { getRequirementTitle } from "@/lib/messages";
+import {
   asset,
-  incident,
-  supplier,
-  policy,
-  trainingRecord,
-  exercise,
-  managementReview,
-  kpiMeasurement,
+  bsiIncidentReport,
+  bsiRegistration,
   changeRequest,
-  patchRecord,
-  internalAudit,
-  improvementItem,
   companyRequirementStatus,
+  exercise,
+  improvementItem,
+  incident,
+  internalAudit,
+  kpiMeasurement,
+  managementReview,
+  patchRecord,
+  policy,
   requirement,
   requirementCategory,
-  bsiRegistration,
-  bsiIncidentReport,
+  risk,
+  supplier,
+  trainingRecord,
 } from "@/schema";
-import {
-  daysUntilDeadline,
-  computeUrgency,
-  PRIORITIES,
-  IMPORTANCES,
-  type Priority,
-  type Importance,
-} from "@/lib/compliance/deadlines";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
-import requirementsEn from "@/messages/requirements/en.json";
+import { companyProcedure, router } from "../init";
 
 export const dashboardRouter = router({
   summary: companyProcedure.query(async ({ ctx }) => {
@@ -63,33 +64,111 @@ export const dashboardRouter = router({
       improvementsOpen,
     ] = await Promise.all([
       ctx.db.select({ count: count() }).from(risk).where(eq(risk.companyId, cid)),
-      ctx.db.select({ count: count() }).from(risk).where(and(eq(risk.companyId, cid), gte(risk.riskScore, 15))),
-      ctx.db.select({ treatment: risk.treatment, count: count() }).from(risk).where(eq(risk.companyId, cid)).groupBy(risk.treatment),
+      ctx.db
+        .select({ count: count() })
+        .from(risk)
+        .where(and(eq(risk.companyId, cid), gte(risk.riskScore, 15))),
+      ctx.db
+        .select({ treatment: risk.treatment, count: count() })
+        .from(risk)
+        .where(eq(risk.companyId, cid))
+        .groupBy(risk.treatment),
       ctx.db.select({ count: count() }).from(asset).where(eq(asset.companyId, cid)),
-      ctx.db.select({ count: count() }).from(asset).where(and(eq(asset.companyId, cid), eq(asset.isCritical, true))),
-      ctx.db.select({ count: count() }).from(asset).where(and(eq(asset.companyId, cid), eq(asset.isOT, true))),
+      ctx.db
+        .select({ count: count() })
+        .from(asset)
+        .where(and(eq(asset.companyId, cid), eq(asset.isCritical, true))),
+      ctx.db
+        .select({ count: count() })
+        .from(asset)
+        .where(and(eq(asset.companyId, cid), eq(asset.isOT, true))),
       ctx.db.select({ count: count() }).from(incident).where(eq(incident.companyId, cid)),
-      ctx.db.select({ severity: incident.severity, count: count() }).from(incident).where(eq(incident.companyId, cid)).groupBy(incident.severity),
-      ctx.db.select({ count: count() }).from(supplier).where(eq(supplier.customerCompanyId, cid)),
-      ctx.db.select({ riskLevel: supplier.riskLevel, count: count() }).from(supplier).where(eq(supplier.customerCompanyId, cid)).groupBy(supplier.riskLevel),
+      ctx.db
+        .select({ severity: incident.severity, count: count() })
+        .from(incident)
+        .where(eq(incident.companyId, cid))
+        .groupBy(incident.severity),
+      ctx.db
+        .select({ count: count() })
+        .from(supplier)
+        .where(eq(supplier.customerCompanyId, cid)),
+      ctx.db
+        .select({ riskLevel: supplier.riskLevel, count: count() })
+        .from(supplier)
+        .where(eq(supplier.customerCompanyId, cid))
+        .groupBy(supplier.riskLevel),
       ctx.db.select({ count: count() }).from(policy).where(eq(policy.companyId, cid)),
-      ctx.db.select({ status: policy.status, count: count() }).from(policy).where(eq(policy.companyId, cid)).groupBy(policy.status),
-      ctx.db.select({ count: count() }).from(trainingRecord).where(eq(trainingRecord.companyId, cid)),
-      ctx.db.select({ count: count() }).from(trainingRecord).where(and(eq(trainingRecord.companyId, cid), eq(trainingRecord.isManagement, true))),
+      ctx.db
+        .select({ status: policy.status, count: count() })
+        .from(policy)
+        .where(eq(policy.companyId, cid))
+        .groupBy(policy.status),
+      ctx.db
+        .select({ count: count() })
+        .from(trainingRecord)
+        .where(eq(trainingRecord.companyId, cid)),
+      ctx.db
+        .select({ count: count() })
+        .from(trainingRecord)
+        .where(
+          and(eq(trainingRecord.companyId, cid), eq(trainingRecord.isManagement, true)),
+        ),
       ctx.db.select({ count: count() }).from(exercise).where(eq(exercise.companyId, cid)),
-      ctx.db.select({ count: count() }).from(exercise).where(and(eq(exercise.companyId, cid), isNotNull(exercise.completedAt))),
-      ctx.db.select({ count: count() }).from(kpiMeasurement).where(eq(kpiMeasurement.companyId, cid)),
-      ctx.db.select({ count: count() }).from(changeRequest).where(eq(changeRequest.companyId, cid)),
-      ctx.db.select({ count: count() }).from(changeRequest).where(and(eq(changeRequest.companyId, cid), notInArray(changeRequest.status, ['closed', 'rolled_back']))),
-      ctx.db.select({ count: count() }).from(patchRecord).where(eq(patchRecord.companyId, cid)),
-      ctx.db.select({ count: count() }).from(patchRecord).where(and(eq(patchRecord.companyId, cid), eq(patchRecord.status, "pending"))),
-      ctx.db.select({ count: count() }).from(internalAudit).where(eq(internalAudit.companyId, cid)),
-      ctx.db.select({ count: count() }).from(internalAudit).where(and(eq(internalAudit.companyId, cid), eq(internalAudit.status, "planned"))),
-      ctx.db.select({ count: count() }).from(improvementItem).where(eq(improvementItem.companyId, cid)),
-      ctx.db.select({ count: count() }).from(improvementItem).where(and(eq(improvementItem.companyId, cid), eq(improvementItem.status, "open"))),
+      ctx.db
+        .select({ count: count() })
+        .from(exercise)
+        .where(and(eq(exercise.companyId, cid), isNotNull(exercise.completedAt))),
+      ctx.db
+        .select({ count: count() })
+        .from(kpiMeasurement)
+        .where(eq(kpiMeasurement.companyId, cid)),
+      ctx.db
+        .select({ count: count() })
+        .from(changeRequest)
+        .where(eq(changeRequest.companyId, cid)),
+      ctx.db
+        .select({ count: count() })
+        .from(changeRequest)
+        .where(
+          and(
+            eq(changeRequest.companyId, cid),
+            notInArray(changeRequest.status, ["closed", "rolled_back"]),
+          ),
+        ),
+      ctx.db
+        .select({ count: count() })
+        .from(patchRecord)
+        .where(eq(patchRecord.companyId, cid)),
+      ctx.db
+        .select({ count: count() })
+        .from(patchRecord)
+        .where(and(eq(patchRecord.companyId, cid), eq(patchRecord.status, "pending"))),
+      ctx.db
+        .select({ count: count() })
+        .from(internalAudit)
+        .where(eq(internalAudit.companyId, cid)),
+      ctx.db
+        .select({ count: count() })
+        .from(internalAudit)
+        .where(
+          and(eq(internalAudit.companyId, cid), eq(internalAudit.status, "planned")),
+        ),
+      ctx.db
+        .select({ count: count() })
+        .from(improvementItem)
+        .where(eq(improvementItem.companyId, cid)),
+      ctx.db
+        .select({ count: count() })
+        .from(improvementItem)
+        .where(
+          and(eq(improvementItem.companyId, cid), eq(improvementItem.status, "open")),
+        ),
     ]);
 
-    const toMap = <T extends { count: number }>(rows: (T & { [k: string]: unknown })[], key: string) => {
+    const toMap = <T extends { count: number }>(
+      rows: (T & { [k: string]: unknown })[],
+      key: string,
+    ) => {
       const map: Record<string, number> = {};
       for (const r of rows) {
         const k = String(r[key] ?? "unknown");
@@ -223,14 +302,8 @@ export const dashboardRouter = router({
         categorySlug: requirementCategory.slug,
       })
       .from(companyRequirementStatus)
-      .innerJoin(
-        requirement,
-        eq(companyRequirementStatus.requirementId, requirement.id),
-      )
-      .innerJoin(
-        requirementCategory,
-        eq(requirement.categoryId, requirementCategory.id),
-      )
+      .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
+      .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
       .where(
         and(
           inArray(companyRequirementStatus.assessmentId, assessmentIds),
@@ -266,9 +339,13 @@ export const dashboardRouter = router({
 
       const deadline = new Date(row.nextReviewDate);
       const days = daysUntilDeadline(deadline, now);
-      const priority = PRIORITIES.includes(row.priority as Priority) ? row.priority as Priority : "P3";
-      const importance = IMPORTANCES.includes((row.importance ?? "mandatory") as Importance)
-        ? (row.importance ?? "mandatory") as Importance
+      const priority = PRIORITIES.includes(row.priority as Priority)
+        ? (row.priority as Priority)
+        : "P3";
+      const importance = IMPORTANCES.includes(
+        (row.importance ?? "mandatory") as Importance,
+      )
+        ? ((row.importance ?? "mandatory") as Importance)
         : "mandatory";
       const urgency = computeUrgency(days, priority, importance);
 
@@ -276,10 +353,9 @@ export const dashboardRouter = router({
       if (days >= 0 && days <= 7) dueThisWeekCount++;
       if (days >= 0 && days <= 30) dueThisMonthCount++;
 
-      const reqKey = row.requirementCode.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
       upcoming.push({
         requirementCode: row.requirementCode,
-        requirementTitle: requirementsEn.requirements[reqKey]?.title ?? row.requirementCode,
+        requirementTitle: getRequirementTitle(requirementsEn, row.requirementCode),
         priority: row.priority,
         deadline: row.nextReviewDate,
         daysRemaining: days,

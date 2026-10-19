@@ -11,30 +11,31 @@
  * Every escalation is immutable audit evidence: "person X was notified
  * about deadline Y at time Z at escalation level N."
  */
-import { eq, and } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { requirementsEn } from "@/i18n/requirements";
+import { logAudit } from "@/lib/audit";
+import type { Database } from "@/lib/db";
+import { getRequirementTitle } from "@/lib/messages";
+import { getAppUrl } from "@/lib/utils";
 import {
-  notification,
-  companyRequirementStatus,
   companyAssessment,
+  companyRequirementStatus,
+  notification,
   requirementCategory,
 } from "@/schema";
-import type { Database } from "@/lib/db";
-import { logAudit } from "@/lib/audit";
 import {
-  daysUntilDeadline,
   computeUrgency,
-  type Priority,
+  daysUntilDeadline,
   type Importance,
+  type Priority,
   type Urgency,
 } from "./deadlines";
 import {
-  resolveRecipients,
-  resolveManagement,
-  resolveCategoryLead,
   type RecipientInfo,
+  resolveCategoryLead,
+  resolveManagement,
+  resolveRecipients,
 } from "./resolve-recipients";
-import { getAppUrl } from "@/lib/utils";
-import requirementsEn from "@/messages/requirements/en.json";
 
 // ---------------------------------------------------------------------------
 // Default Escalation Rules — Seeded per company
@@ -166,7 +167,9 @@ export async function processEscalation(
     if (recipients.length === 0) continue;
 
     const urgency: Urgency =
-      rule.recipientType === "management" ? "critical" : computeUrgency(daysLeft, priority, importance);
+      rule.recipientType === "management"
+        ? "critical"
+        : computeUrgency(daysLeft, priority, importance);
 
     const subject = `Escalation Level ${rule.level}: ${req.code} is ${daysOverdue}d overdue`;
 
@@ -178,7 +181,7 @@ export async function processEscalation(
         entityId: req.id,
         triggerField: `escalation_level_${rule.level}`,
         subject,
-        body: `${req.code}: ${requirementsEn.requirements[req.code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements]?.title ?? req.code} — ${daysOverdue} days overdue`,
+        body: `${req.code}: ${getRequirementTitle(requirementsEn, req.code)} — ${daysOverdue} days overdue`,
         channel: "in_app" as const,
         status: "sent" as const,
         scheduledFor: new Date(),
@@ -194,7 +197,7 @@ export async function processEscalation(
         entityId: req.id,
         triggerField: `escalation_level_${rule.level}`,
         subject,
-        body: `${req.code}: ${requirementsEn.requirements[req.code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements]?.title ?? req.code} — ${daysOverdue} days overdue`,
+        body: `${req.code}: ${getRequirementTitle(requirementsEn, req.code)} — ${daysOverdue} days overdue`,
         channel: "email" as const,
         status: "pending" as const,
         scheduledFor: new Date(),

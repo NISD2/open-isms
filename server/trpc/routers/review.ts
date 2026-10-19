@@ -373,10 +373,9 @@ async function notifySubmitter(
             })
           )?.country ?? null);
 
-    const requirementsEn = (await import("@/messages/requirements/en.json")).default
-      .requirements;
-    const reqKey = requirementCode.replace(/\./g, "_") as keyof typeof requirementsEn;
-    const reqTitle = requirementsEn[reqKey]?.title ?? requirementCode;
+    const { requirementsEn } = await import("@/i18n/requirements");
+    const { getRequirementTitle } = await import("@/lib/messages");
+    const reqTitle = getRequirementTitle(requirementsEn, requirementCode);
 
     sendMail({
       emailType: "work.review_decision",

@@ -1,0 +1,96 @@
+{
+  "requirements": {
+    "IS-4_1": {
+      "title": "Kontekst organizacji",
+      "description": "Określ zewnętrzne i wewnętrzne kwestie istotne dla celu ISMS, które wpływają na zdolność osiągania zamierzonych rezultatów."
+    },
+    "IS-4_2": {
+      "title": "Potrzeby stron zainteresowanych",
+      "description": "Zidentyfikuj strony zainteresowane (klientów, regulatorów, personel, dostawców) oraz ich wymagania istotne dla bezpieczeństwa informacji."
+    },
+    "IS-4_3": {
+      "title": "Zakres ISMS",
+      "description": "Zdefiniuj i udokumentuj granice ISMS: które systemy, lokalizacje i działania są objęte i wyłączone oraz dlaczego."
+    },
+    "IS-4_4": {
+      "title": "System zarządzania bezpieczeństwem informacji",
+      "description": "Ustanów, wdróż, utrzymuj i stale doskonal ISMS zgodnie z wymaganiami ISO 27001."
+    },
+    "IS-5_1": {
+      "title": "Przywództwo i zaangażowanie",
+      "description": "Najwyższe kierownictwo musi wykazać zaangażowanie: zatwierdzić politykę bezpieczeństwa informacji, zapewnić zasoby ISMS oraz zintegrować bezpieczeństwo z procesami biznesowymi."
+    },
+    "IS-5_2": {
+      "title": "Polityka bezpieczeństwa informacji",
+      "description": "Ustanów, udokumentuj i zakomunikuj politykę bezpieczeństwa informacji podpisaną przez najwyższe kierownictwo, w tym cele oraz zobowiązanie do ciągłego doskonalenia."
+    },
+    "IS-5_3": {
+      "title": "Role, odpowiedzialności i uprawnienia",
+      "description": "Przydziel i zakomunikuj odpowiedzialności za role w zakresie bezpieczeństwa informacji, w tym CISO/właściciela ISMS, właścicieli aktywów oraz właścicieli procesów."
+    },
+    "IS-6_1": {
+      "title": "Proces oceny ryzyka",
+      "description": "Zdefiniuj i stosuj udokumentowaną metodykę oceny ryzyka obejmującą identyfikację, analizę, ewaluację ryzyka oraz kryteria akceptacji."
+    },
+    "IS-6_2": {
+      "title": "Cele bezpieczeństwa informacji",
+      "description": "Ustanów mierzalne cele bezpieczeństwa informacji zgodne z polityką bezpieczeństwa informacji, udokumentuj plany ich osiągnięcia i śledź postępy."
+    },
+    "IS-6_3": {
+      "title": "Planowanie zmian",
+      "description": "Gdy potrzebne są zmiany w ISMS, planuj je w sposób kontrolowany: oceń cel, konsekwencje, integralność, zasoby i odpowiedzialność."
+    },
+    "IS-7_1": {
+      "title": "Zasoby",
+      "description": "Określ i zapewnij zasoby potrzebne do ustanowienia, wdrożenia, utrzymania i ciągłego doskonalenia ISMS."
+    },
+    "IS-7_2": {
+      "title": "Kompetencje",
+      "description": "Określ wymagania kompetencyjne dla ról istotnych dla ISMS, zapewnij szkolenia i zachowaj dowody kompetencji (rejestry szkoleń, certyfikaty)."
+    },
+    "IS-7_3": {
+      "title": "Świadomość",
+      "description": "Zapewnij, aby osoby wykonujące pracę pod kontrolą organizacji były świadome polityki bezpieczeństwa informacji, swojego wkładu w skuteczność ISMS oraz konsekwencji niezgodności."
+    },
+    "IS-7_4": {
+      "title": "Komunikacja",
+      "description": "Określ wewnętrzne i zewnętrzne komunikaty istotne dla ISMS: co, kiedy, z kim, jak i przez kogo."
+    },
+    "IS-7_5": {
+      "title": "Udokumentowane informacje",
+      "description": "Twórz i utrzymuj udokumentowane informacje wymagane przez ISO 27001 oraz nadzoruj ich tworzenie, aktualizację, dystrybucję i przechowywanie."
+    },
+    "IS-8_1": {
+      "title": "Planowanie i nadzór operacyjny",
+      "description": "Planuj, wdrażaj i nadzoruj procesy potrzebne do spełnienia wymagań bezpieczeństwa informacji oraz realizuj działania określone w punkcie 6."
+    },
+    "IS-8_2": {
+      "title": "Ocena ryzyka bezpieczeństwa informacji",
+      "description": "Przeprowadzaj oceny ryzyka w zaplanowanych odstępach czasu lub w przypadku istotnych zmian; dokumentuj wyniki w rejestrze ryzyk."
+    },
+    "IS-8_3": {
+      "title": "Postępowanie z ryzykiem bezpieczeństwa informacji",
+      "description": "Wybierz i wdróż opcje postępowania z ryzykiem; opracuj plan postępowania z ryzykiem oraz Deklarację Stosowania (SoA)."
+    },
+    "IS-9_1": {
+      "title": "Monitorowanie, pomiary, analiza i ewaluacja",
+      "description": "Określ, co monitorować i mierzyć, jak, kiedy i przez kogo; analizuj i oceniaj wyniki względem celów bezpieczeństwa informacji."
+    },
+    "IS-9_2": {
+      "title": "Audyt wewnętrzny",
+      "description": "Przeprowadzaj audyty wewnętrzne w zaplanowanych odstępach czasu, aby ocenić, czy ISMS jest zgodny z wymaganiami i skutecznie wdrożony."
+    },
+    "IS-9_3": {
+      "title": "Przegląd zarządczy",
+      "description": "Najwyższe kierownictwo dokonuje przeglądu ISMS w zaplanowanych odstępach czasu, obejmując wyniki audytów, KPI, incydenty, zmiany oraz możliwości doskonalenia."
+    },
+    "IS-10_1": {
+      "title": "Ciągłe doskonalenie",
+      "description": "Stale doskonal przydatność, adekwatność i skuteczność ISMS."
+    },
+    "IS-10_2": {
+      "title": "Niezgodność i działania korygujące",
+      "description": "Gdy wystąpi niezgodność: zareaguj, zbadaj przyczynę źródłową, wdróż działanie korygujące i zweryfikuj jego skuteczność."
+    }
+  }
+}

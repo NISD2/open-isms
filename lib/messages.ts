@@ -1,6 +1,11 @@
-import complianceEn from "@/messages/compliance/en.json";
-import requirementsEn from "@/messages/requirements/en.json";
+import {
+  loadRequirements,
+  type RequirementKey,
+  type RequirementsMessages,
+  requirementsEn,
+} from "@/i18n/requirements";
 import { routing } from "@/i18n/routing";
+import complianceEn from "@/messages/compliance/en.json";
 
 /**
  * Locale-resolved message bundles for server code that indexes messages by
@@ -15,10 +20,9 @@ import { routing } from "@/i18n/routing";
  * LOCALES and other client-safe locale utilities live in lib/locale.ts.
  */
 export type ComplianceMessages = typeof complianceEn;
-export type RequirementsMessages = typeof requirementsEn;
+export type { RequirementsMessages };
 
 type CategoryCode = keyof ComplianceMessages["compliance"]["categories"];
-type RequirementKey = keyof RequirementsMessages["requirements"];
 
 const LOCALE_CODES = new Set<string>(routing.locales);
 
@@ -59,10 +63,12 @@ function loadMerged<T>(
 ): Promise<T> {
   const mod =
     ns === "compliance"
-      ? import(`../messages/compliance/${locale}.json`)
-      : import(`../messages/requirements/${locale}.json`);
+      ? import(`../messages/compliance/${locale}.json`).then(
+          (m: { readonly default: Record<string, unknown> }) => m.default,
+        )
+      : loadRequirements(locale);
   return mod.then(
-    (m) => deepMergeMessages(en, m.default as Record<string, unknown>),
+    (messages) => deepMergeMessages(en, messages),
     (err) => {
       console.error(
         `[messages] failed to load ${ns}/${locale}.json, serving English:`,
@@ -76,9 +82,7 @@ function loadMerged<T>(
 const complianceCache = new Map<string, Promise<ComplianceMessages>>();
 const requirementsCache = new Map<string, Promise<RequirementsMessages>>();
 
-export function getComplianceMessages(
-  locale: string,
-): Promise<ComplianceMessages> {
+export function getComplianceMessages(locale: string): Promise<ComplianceMessages> {
   const loc = normalizeLocale(locale);
   if (loc === "en") return Promise.resolve(complianceEn);
   const cached = complianceCache.get(loc);
@@ -88,9 +92,7 @@ export function getComplianceMessages(
   return loading;
 }
 
-export function getRequirementsMessages(
-  locale: string,
-): Promise<RequirementsMessages> {
+export function getRequirementsMessages(locale: string): Promise<RequirementsMessages> {
   const loc = normalizeLocale(locale);
   if (loc === "en") return Promise.resolve(requirementsEn);
   const cached = requirementsCache.get(loc);
@@ -107,10 +109,7 @@ export function getCategory(
   return messages.compliance.categories[code as CategoryCode];
 }
 
-export function getCategoryName(
-  messages: ComplianceMessages,
-  code: string,
-): string {
+export function getCategoryName(messages: ComplianceMessages, code: string): string {
   return getCategory(messages, code)?.name ?? code;
 }
 

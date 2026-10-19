@@ -1,0 +1,140 @@
+{
+  "requirements": {
+    "A_8_1": {
+      "title": "Urządzenia końcowe użytkowników",
+      "description": "Chroń informacje znajdujące się na urządzeniach końcowych użytkowników (laptopach, telefonach) i przez nie przetwarzane za pomocą polityki bezpieczeństwa urządzeń końcowych."
+    },
+    "A_8_2": {
+      "title": "Uprzywilejowane prawa dostępu",
+      "description": "Ograniczaj i starannie zarządzaj nadawaniem oraz wykorzystaniem uprzywilejowanych praw dostępu we wszystkich systemach."
+    },
+    "A_8_3": {
+      "title": "Ograniczenie dostępu do informacji",
+      "description": "Ograniczaj dostęp do informacji i systemów do tego, co jest wymagane dla roli każdego użytkownika, stosując zasadę najmniejszych uprawnień."
+    },
+    "A_8_4": {
+      "title": "Dostęp do kodu źródłowego",
+      "description": "Ograniczaj dostęp do kodu źródłowego programów i powiązanych narzędzi wyłącznie do osób upoważnionych; stosuj kontrolę wersji."
+    },
+    "A_8_5": {
+      "title": "Bezpieczne uwierzytelnianie",
+      "description": "Wdróż bezpieczne technologie i procedury uwierzytelniania, w tym MFA dla systemów wrażliwych oraz całego dostępu zdalnego."
+    },
+    "A_8_6": {
+      "title": "Zarządzanie wydajnością",
+      "description": "Monitoruj i dostosowuj wykorzystanie zasobów oraz prognozy, aby zapewnić wymaganą wydajność i przepustowość systemów."
+    },
+    "A_8_7": {
+      "title": "Ochrona przed złośliwym oprogramowaniem",
+      "description": "Wdróż zabezpieczenia przed złośliwym oprogramowaniem (EDR, AV, podpisywanie kodu, filtrowanie poczty) wsparte odpowiednią świadomością użytkowników."
+    },
+    "A_8_8": {
+      "title": "Zarządzanie podatnościami technicznymi",
+      "description": "Terminowo identyfikuj, oceniaj i usuwaj podatności techniczne we wszystkich systemach."
+    },
+    "A_8_9": {
+      "title": "Zarządzanie konfiguracją",
+      "description": "Ustanów, dokumentuj i utrzymuj konfiguracje (w tym konfiguracje bezpieczeństwa) dla sprzętu, oprogramowania oraz usług chmurowych."
+    },
+    "A_8_10": {
+      "title": "Usuwanie informacji",
+      "description": "Usuwaj informacje, gdy nie są już wymagane, zgodnie z wymaganiami prawnymi, umownymi i biznesowymi."
+    },
+    "A_8_11": {
+      "title": "Maskowanie danych",
+      "description": "Stosuj maskowanie danych, pseudonimizację lub anonimizację, aby chronić dane osobowe w środowiskach nieprodukcyjnych."
+    },
+    "A_8_12": {
+      "title": "Zapobieganie wyciekom danych",
+      "description": "Stosuj środki zapobiegania wyciekom danych w systemach, sieciach oraz na punktach końcowych przetwarzających informacje wrażliwe."
+    },
+    "A_8_13": {
+      "title": "Kopie zapasowe informacji",
+      "description": "Twórz i regularnie testuj kopie zapasowe informacji, oprogramowania oraz obrazów systemów zgodnie z uzgodnioną polityką tworzenia kopii zapasowych."
+    },
+    "A_8_14": {
+      "title": "Redundancja obiektów przetwarzania informacji",
+      "description": "Wdróż wystarczającą redundancję obiektów przetwarzania informacji, aby spełnić wymagania dotyczące dostępności."
+    },
+    "A_8_15": {
+      "title": "Rejestrowanie",
+      "description": "Twórz, chroń i przechowuj logi działań użytkowników, wyjątków, awarii oraz zdarzeń bezpieczeństwa przez zdefiniowane okresy przechowywania."
+    },
+    "A_8_16": {
+      "title": "Działania monitorujące",
+      "description": "Monitoruj sieci, systemy i aplikacje, aby wykrywać nietypowe zachowania oraz potencjalne zdarzenia bezpieczeństwa."
+    },
+    "A_8_17": {
+      "title": "Synchronizacja zegarów",
+      "description": "Synchronizuj zegary wszystkich systemów przetwarzania informacji z zatwierdzonym źródłem czasu, aby wspierać korelację logów i działania śledcze."
+    },
+    "A_8_18": {
+      "title": "Korzystanie z uprzywilejowanych programów narzędziowych",
+      "description": "Kontroluj i ograniczaj korzystanie z programów narzędziowych zdolnych do obchodzenia zabezpieczeń systemów i aplikacji."
+    },
+    "A_8_19": {
+      "title": "Instalacja oprogramowania w systemach produkcyjnych",
+      "description": "Wdróż procedury kontrolujące instalację oprogramowania w systemach produkcyjnych wyłącznie przez osoby upoważnione."
+    },
+    "A_8_20": {
+      "title": "Bezpieczeństwo sieci",
+      "description": "Zabezpiecz sieci i urządzenia sieciowe, aby chronić informacje w systemach i aplikacjach."
+    },
+    "A_8_21": {
+      "title": "Bezpieczeństwo usług sieciowych",
+      "description": "Identyfikuj, wdrażaj i monitoruj mechanizmy bezpieczeństwa usług sieciowych, w tym sieci chmurowych."
+    },
+    "A_8_22": {
+      "title": "Segregacja sieci",
+      "description": "Segreguj grupy usług informacyjnych, użytkowników oraz systemów informacyjnych w obrębie sieci."
+    },
+    "A_8_23": {
+      "title": "Filtrowanie treści internetowych",
+      "description": "Zarządzaj dostępem do zewnętrznych witryn internetowych, aby ograniczyć narażenie na złośliwe treści."
+    },
+    "A_8_24": {
+      "title": "Stosowanie kryptografii",
+      "description": "Zdefiniuj i wdróż politykę kryptografii obejmującą zatwierdzone algorytmy, zarządzanie kluczami oraz wymagania dotyczące szyfrowania."
+    },
+    "A_8_25": {
+      "title": "Cykl życia bezpiecznego tworzenia oprogramowania",
+      "description": "Ustanów i stosuj zasady bezpiecznego tworzenia oprogramowania i systemów przez cały cykl życia tworzenia."
+    },
+    "A_8_26": {
+      "title": "Wymagania bezpieczeństwa aplikacji",
+      "description": "Identyfikuj, specyfikuj i zatwierdzaj wymagania bezpieczeństwa informacji dla tworzenia i pozyskiwania aplikacji."
+    },
+    "A_8_27": {
+      "title": "Zasady bezpiecznej architektury i inżynierii systemów",
+      "description": "Ustanów, udokumentuj i stosuj zasady bezpiecznej inżynierii dla wszystkich działań związanych z tworzeniem i inżynierią systemów."
+    },
+    "A_8_28": {
+      "title": "Bezpieczne kodowanie",
+      "description": "Stosuj zasady bezpiecznego kodowania w tworzeniu oprogramowania, aby zapobiegać typowym podatnościom (OWASP Top 10, wstrzykiwanie, XSS)."
+    },
+    "A_8_29": {
+      "title": "Testy bezpieczeństwa w tworzeniu i odbiorze",
+      "description": "Zdefiniuj i wdróż procesy testowania bezpieczeństwa w cyklu życia tworzenia oraz podczas testów odbiorczych."
+    },
+    "A_8_30": {
+      "title": "Tworzenie zlecone na zewnątrz",
+      "description": "Nadzoruj i monitoruj zlecone na zewnątrz działania związane z tworzeniem systemów, aby zapewnić spełnienie wymagań bezpieczeństwa."
+    },
+    "A_8_31": {
+      "title": "Oddzielenie środowisk tworzenia, testowego i produkcyjnego",
+      "description": "Oddziel środowiska tworzenia, testowania i produkcyjne, aby ograniczyć ryzyko nieuprawnionego dostępu lub zmian w systemie produkcyjnym."
+    },
+    "A_8_32": {
+      "title": "Zarządzanie zmianami",
+      "description": "Zarządzaj zmianami w obiektach przetwarzania informacji i systemach za pomocą formalnego procesu zarządzania zmianami."
+    },
+    "A_8_33": {
+      "title": "Informacje testowe",
+      "description": "Chroń i zarządzaj informacjami testowymi; nigdy nie używaj rzeczywistych danych produkcyjnych w środowiskach testowych bez odpowiednich zabezpieczeń."
+    },
+    "A_8_34": {
+      "title": "Ochrona systemów informacyjnych podczas testów audytowych",
+      "description": "Planuj i uzgadniaj wymagania oraz działania audytowe obejmujące weryfikację systemów produkcyjnych, aby zminimalizować zakłócenia."
+    }
+  }
+}

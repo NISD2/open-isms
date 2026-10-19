@@ -6,10 +6,11 @@
  */
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
+import { requirementsEn } from "@/i18n/requirements";
 import type { Database } from "@/lib/db";
 import type { DigestItem, DigestNextStep } from "@/lib/mail";
+import { getRequirementTitle } from "@/lib/messages";
 import { getAppUrl } from "@/lib/utils";
-import requirementsEn from "@/messages/requirements/en.json";
 import {
   company,
   companyAssessment,
@@ -73,11 +74,7 @@ const CATEGORY_NAME_BY_SLUG: Record<string, string> = Object.fromEntries(
 // ---------------------------------------------------------------------------
 
 function requirementTitle(code: string): string {
-  return (
-    requirementsEn.requirements[
-      code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements
-    ]?.title ?? code
-  );
+  return getRequirementTitle(requirementsEn, code);
 }
 
 /** How far the journey is and its next step, as both digests report them. */

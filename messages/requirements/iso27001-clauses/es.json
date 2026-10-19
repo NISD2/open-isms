@@ -1,0 +1,96 @@
+{
+  "requirements": {
+    "IS-4_1": {
+      "title": "Contexto de la organización",
+      "description": "Determine las cuestiones externas e internas pertinentes para el propósito del ISMS y que afecten a su capacidad de lograr los resultados previstos."
+    },
+    "IS-4_2": {
+      "title": "Necesidades de las partes interesadas",
+      "description": "Identifique las partes interesadas (clientes, reguladores, personal, proveedores) y sus requisitos pertinentes para la seguridad de la información."
+    },
+    "IS-4_3": {
+      "title": "Alcance del ISMS",
+      "description": "Defina y documente los límites del ISMS: qué sistemas, ubicaciones y actividades se incluyen y excluyen, y por qué."
+    },
+    "IS-4_4": {
+      "title": "Sistema de gestión de la seguridad de la información",
+      "description": "Establezca, implemente, mantenga y mejore continuamente un ISMS conforme a los requisitos de la ISO 27001."
+    },
+    "IS-5_1": {
+      "title": "Liderazgo y compromiso",
+      "description": "La alta dirección debe demostrar compromiso: aprobar la política de SI, garantizar los recursos del ISMS e integrar la seguridad en los procesos de negocio."
+    },
+    "IS-5_2": {
+      "title": "Política de seguridad de la información",
+      "description": "Establezca, documente y comunique una política de SI firmada por la alta dirección, que incluya objetivos y el compromiso de mejora continua."
+    },
+    "IS-5_3": {
+      "title": "Roles, responsabilidades y autoridades",
+      "description": "Asigne y comunique las responsabilidades de los roles de seguridad de la información, incluidos el CISO/responsable del ISMS, los propietarios de activos y los propietarios de procesos."
+    },
+    "IS-6_1": {
+      "title": "Proceso de evaluación de riesgos",
+      "description": "Defina y aplique una metodología documentada de evaluación de riesgos que incluya la identificación, el análisis, la valoración de riesgos y los criterios de aceptación."
+    },
+    "IS-6_2": {
+      "title": "Objetivos de seguridad de la información",
+      "description": "Establezca objetivos medibles de SI alineados con la política de SI, documente los planes para alcanzarlos y haga seguimiento del progreso."
+    },
+    "IS-6_3": {
+      "title": "Planificación de los cambios",
+      "description": "Cuando sean necesarios cambios en el ISMS, planifíquelos de forma controlada: evalúe el propósito, las consecuencias, la integridad, los recursos y la rendición de cuentas."
+    },
+    "IS-7_1": {
+      "title": "Recursos",
+      "description": "Determine y proporcione los recursos necesarios para establecer, implementar, mantener y mejorar continuamente el ISMS."
+    },
+    "IS-7_2": {
+      "title": "Competencia",
+      "description": "Determine los requisitos de competencia de los roles relevantes para el ISMS, proporcione formación y conserve evidencias de la competencia (registros de formación, certificados)."
+    },
+    "IS-7_3": {
+      "title": "Concienciación",
+      "description": "Asegúrese de que las personas que realizan trabajos bajo el control de la organización conocen la política de SI, su contribución a la eficacia del ISMS y las implicaciones de las no conformidades."
+    },
+    "IS-7_4": {
+      "title": "Comunicación",
+      "description": "Determine las comunicaciones internas y externas pertinentes para el ISMS: qué, cuándo, con quién, cómo y por quién."
+    },
+    "IS-7_5": {
+      "title": "Información documentada",
+      "description": "Cree y mantenga la información documentada exigida por la ISO 27001 y controle su creación, actualización, distribución y conservación."
+    },
+    "IS-8_1": {
+      "title": "Planificación y control operacional",
+      "description": "Planifique, implemente y controle los procesos necesarios para cumplir los requisitos de SI e implemente las acciones determinadas en el Apartado 6."
+    },
+    "IS-8_2": {
+      "title": "Evaluación de riesgos de seguridad de la información",
+      "description": "Realice evaluaciones de riesgos a intervalos planificados o cuando se produzcan cambios significativos; documente los resultados en un registro de riesgos."
+    },
+    "IS-8_3": {
+      "title": "Tratamiento de riesgos de seguridad de la información",
+      "description": "Seleccione e implemente opciones de tratamiento de riesgos; elabore un plan de tratamiento de riesgos y una Declaración de Aplicabilidad (SoA)."
+    },
+    "IS-9_1": {
+      "title": "Seguimiento, medición, análisis y evaluación",
+      "description": "Defina qué hay que supervisar y medir, cómo, cuándo y por quién; analice y evalúe los resultados frente a los objetivos de SI."
+    },
+    "IS-9_2": {
+      "title": "Auditoría interna",
+      "description": "Realice auditorías internas a intervalos planificados para evaluar si el ISMS se ajusta a los requisitos y está implementado de forma eficaz."
+    },
+    "IS-9_3": {
+      "title": "Revisión por la dirección",
+      "description": "La alta dirección revisa el ISMS a intervalos planificados, abarcando los resultados de auditoría, los KPI, los incidentes, los cambios y las oportunidades de mejora."
+    },
+    "IS-10_1": {
+      "title": "Mejora continua",
+      "description": "Mejore continuamente la idoneidad, la adecuación y la eficacia del ISMS."
+    },
+    "IS-10_2": {
+      "title": "No conformidad y acción correctiva",
+      "description": "Cuando se produzca una no conformidad: reaccione, investigue la causa raíz, implemente la acción correctiva y verifique su eficacia."
+    }
+  }
+}

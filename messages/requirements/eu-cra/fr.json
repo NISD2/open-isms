@@ -1,0 +1,88 @@
+{
+  "requirements": {
+    "CRA-MFG_1": {
+      "title": "Appréciation des risques de cybersécurité du produit",
+      "description": "Réaliser une appréciation des risques de cybersécurité pour le produit comportant des éléments numériques (CRA art. 13(2))."
+    },
+    "CRA-MFG_2": {
+      "title": "Diligence raisonnable du fabricant",
+      "description": "Confirmer la diligence raisonnable du fabricant afin que les produits satisfassent aux exigences essentielles (art. 13(1))."
+    },
+    "CRA-ESS_1": {
+      "title": "Exigences de sécurité dès la conception",
+      "description": "Concevoir et fabriquer les produits de manière à satisfaire aux exigences essentielles de cybersécurité (CRA annexe I partie I)."
+    },
+    "CRA-ESS_2": {
+      "title": "Configuration sécurisée par défaut",
+      "description": "Livrer les produits avec une configuration sécurisée par défaut (annexe I partie I, point 3(a))."
+    },
+    "CRA-ESS_3": {
+      "title": "Absence de vulnérabilités exploitables connues",
+      "description": "Mettre les produits sur le marché sans vulnérabilités exploitables connues (annexe I partie I, point 1)."
+    },
+    "CRA-VLN_1": {
+      "title": "Politique de traitement des vulnérabilités",
+      "description": "Établir un processus d'identification, de documentation et de remédiation des vulnérabilités (CRA annexe I partie II, points 1 à 2)."
+    },
+    "CRA-VLN_2": {
+      "title": "Divulgation coordonnée des vulnérabilités",
+      "description": "Adopter une politique de divulgation coordonnée des vulnérabilités assortie d'une adresse de contact (annexe I partie II, point 5)."
+    },
+    "CRA-VLN_3": {
+      "title": "Fourniture des mises à jour de sécurité",
+      "description": "Fournir des mises à jour de sécurité sans délai et à titre gratuit pendant la période de support (annexe I partie II, point 3)."
+    },
+    "CRA-VLN_4": {
+      "title": "Tests de vulnérabilité",
+      "description": "Tester et revoir régulièrement la sécurité du produit (annexe I partie II, point 8)."
+    },
+    "CRA-INC_1": {
+      "title": "Notification d'alerte précoce",
+      "description": "Adresser une alerte précoce concernant une vulnérabilité activement exploitée au CSIRT et à l'ENISA (CRA art. 14(2)(a))."
+    },
+    "CRA-INC_2": {
+      "title": "Notification de vulnérabilité",
+      "description": "Notifier la vulnérabilité ou l'incident grave dans le délai prévu par le CRA (art. 14(2)(b))."
+    },
+    "CRA-INC_3": {
+      "title": "Rapport final d'incident",
+      "description": "Soumettre aux autorités le rapport final relatif à la vulnérabilité ou à l'incident (art. 14(2)(c))."
+    },
+    "CRA-INC_4": {
+      "title": "Information des utilisateurs",
+      "description": "Informer les utilisateurs concernés de l'incident et des éventuelles mesures correctives (art. 14(4))."
+    },
+    "CRA-CONF_1": {
+      "title": "Évaluation de la conformité",
+      "description": "Réaliser la procédure d'évaluation de la conformité applicable au produit (CRA art. 24)."
+    },
+    "CRA-CONF_2": {
+      "title": "Marquage CE et conformité",
+      "description": "Apposer le marquage CE et établir la déclaration UE de conformité (art. 27)."
+    },
+    "CRA-DOC_1": {
+      "title": "Documentation technique du CRA",
+      "description": "Constituer et tenir à jour la documentation technique conformément à l'annexe VII du CRA (art. 28)."
+    },
+    "CRA-SUP_1": {
+      "title": "Période de support",
+      "description": "Déterminer et valider la période de support pendant laquelle des mises à jour de sécurité sont fournies (CRA art. 13(8))."
+    },
+    "CRA-SBOM_1": {
+      "title": "Nomenclature logicielle (SBOM)",
+      "description": "Produire une nomenclature logicielle (SBOM) couvrant les dépendances de premier niveau (CRA annexe I partie II, point 1)."
+    },
+    "CRA-IMP_1": {
+      "title": "Obligations de l'importateur",
+      "description": "Vérifier que les produits importés satisfont aux exigences du CRA avant leur mise sur le marché (art. 18)."
+    },
+    "CRA-IMP_2": {
+      "title": "Obligations du distributeur",
+      "description": "Vérifier la conformité au CRA et agir en cas de non-conformité lors de la distribution des produits (art. 19)."
+    },
+    "CRA-OSS_1": {
+      "title": "Obligations des dépositaires de logiciels open source",
+      "description": "Documenter la politique de cybersécurité attendue des dépositaires de logiciels open source (CRA art. 24)."
+    }
+  }
+}

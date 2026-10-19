@@ -20,25 +20,22 @@
  *     The wiki is curated/localised, not bulk-translated. See assessment §6.
  */
 
-import { readFile, writeFile, readdir } from "fs/promises";
-import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { z } from "zod";
+import { glossaryPromptBlock } from "./glossary";
 import {
-  SOURCE_LOCALE,
-  TARGET_LOCALES,
-  TRANSLATION_MODEL,
-  WIKI_NAMESPACE,
   getTargetLocale,
   localesForWave,
+  SOURCE_LOCALE,
+  TARGET_LOCALES,
   type TargetLocale,
+  TRANSLATION_MODEL,
+  WIKI_NAMESPACE,
 } from "./plan";
-import { glossaryPromptBlock } from "./glossary";
 
-const MESSAGES_DIR = resolve(
-  dirname(fileURLToPath(import.meta.url)),
-  "../../messages",
-);
+const MESSAGES_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "../../messages");
 
 const CHUNK_SIZE = 60; // strings per model call
 const CONCURRENCY = 4; // concurrent model calls
@@ -209,12 +206,26 @@ async function mapLimit<T, R>(
 // Namespace + file helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * Every translatable unit: a namespace directory holding `<locale>.json`, or, for a namespace
+ * stored in parts (messages/requirements/<part>/<locale>.json), each part as `<namespace>/<part>`.
+ */
 async function listNamespaces(): Promise<string[]> {
   const entries = await readdir(MESSAGES_DIR, { withFileTypes: true });
-  return entries
-    .filter((e) => e.isDirectory())
-    .map((e) => e.name)
-    .sort();
+  const units = await Promise.all(
+    entries
+      .filter((e) => e.isDirectory())
+      .map(async (e): Promise<string[]> => {
+        if (await fileExists(resolve(MESSAGES_DIR, e.name, `${SOURCE_LOCALE}.json`))) {
+          return [e.name];
+        }
+        const parts = await readdir(resolve(MESSAGES_DIR, e.name), {
+          withFileTypes: true,
+        });
+        return parts.filter((p) => p.isDirectory()).map((p) => `${e.name}/${p.name}`);
+      }),
+  );
+  return units.flat().sort();
 }
 
 async function readJson(path: string): Promise<Json> {
@@ -349,7 +360,7 @@ async function translateNamespace(
   }
 
   const output = rebuild(source, translated, { i: 0 });
-  await writeFile(targetPath, JSON.stringify(output, null, 2) + "\n", "utf-8");
+  await writeFile(targetPath, `${JSON.stringify(output, null, 2)}\n`, "utf-8");
   console.log(
     `  wrote ${locale.code}/${namespace} (${strings.length} strings${
       drift ? `, ${drift} placeholder warnings` : ""

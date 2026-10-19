@@ -1,0 +1,200 @@
+{
+  "requirements": {
+    "1_1": {
+      "title": "Instruirea conducerii în securitate cibernetică",
+      "description": "Instruirea conducerii în securitate cibernetică"
+    },
+    "1_2": {
+      "title": "Roluri și responsabilități",
+      "description": "Roluri și responsabilități"
+    },
+    "1_3": {
+      "title": "Alocarea bugetului pentru securitate cibernetică",
+      "description": "Alocarea bugetului pentru securitate cibernetică"
+    },
+    "1_4": {
+      "title": "Recunoașterea răspunderii personale",
+      "description": "Recunoașterea răspunderii personale"
+    },
+    "2_1": {
+      "title": "Metodologia de evaluare a riscurilor",
+      "description": "Metodologia de evaluare a riscurilor"
+    },
+    "2_2": {
+      "title": "Inventarul activelor, perimetru și clasificare",
+      "description": "Inventarul activelor, perimetru și clasificare"
+    },
+    "2_3": {
+      "title": "Registrul riscurilor și tratarea lor",
+      "description": "Registrul riscurilor și tratarea lor"
+    },
+    "2_4": {
+      "title": "Acceptarea riscurilor și aprobarea politicii de securitate a informației",
+      "description": "Acceptarea riscurilor și aprobarea politicii de securitate a informației"
+    },
+    "3_1": {
+      "title": "Planul și echipa de răspuns la incidente",
+      "description": "Planul și echipa de răspuns la incidente"
+    },
+    "3_2": {
+      "title": "Detectare, clasificare și jurnalizare",
+      "description": "Detectare, clasificare și jurnalizare"
+    },
+    "3_3": {
+      "title": "Pregătirea de raportare BSI (24h/72h/1M)",
+      "description": "Pregătirea de raportare BSI (24h/72h/1M)"
+    },
+    "3_4": {
+      "title": "Exercițiu de răspuns la incidente",
+      "description": "Exercițiu de răspuns la incidente"
+    },
+    "3_5": {
+      "title": "Analiza post-incident și comunicare",
+      "description": "Analiza post-incident și comunicare"
+    },
+    "4_1": {
+      "title": "Analiza impactului asupra activității și obiectivele de recuperare",
+      "description": "Analiza impactului asupra activității și obiectivele de recuperare"
+    },
+    "4_2": {
+      "title": "Planul de continuitate a activității și de gestionare a crizelor",
+      "description": "Planul de continuitate a activității și de gestionare a crizelor"
+    },
+    "4_3": {
+      "title": "Planul de recuperare în caz de dezastru",
+      "description": "Planul de recuperare în caz de dezastru"
+    },
+    "4_4": {
+      "title": "Salvare și restaurare",
+      "description": "Salvare și restaurare"
+    },
+    "4_5": {
+      "title": "Testarea BCP/DR",
+      "description": "Testarea BCP/DR"
+    },
+    "5_1": {
+      "title": "Registrul furnizorilor și clasificare",
+      "description": "Registrul furnizorilor și clasificare"
+    },
+    "5_2": {
+      "title": "Securitatea furnizorilor în contracte",
+      "description": "Securitatea furnizorilor în contracte"
+    },
+    "5_3": {
+      "title": "Evaluarea și monitorizarea furnizorilor",
+      "description": "Evaluarea și monitorizarea furnizorilor"
+    },
+    "5_4": {
+      "title": "Notificarea incidentelor de către furnizori",
+      "description": "Notificarea incidentelor de către furnizori"
+    },
+    "6_1": {
+      "title": "Achiziții sigure",
+      "description": "Achiziții sigure"
+    },
+    "6_2": {
+      "title": "Dezvoltare și configurare sigure",
+      "description": "Dezvoltare și configurare sigure"
+    },
+    "6_3": {
+      "title": "Gestionarea vulnerabilităților",
+      "description": "Gestionarea vulnerabilităților"
+    },
+    "6_4": {
+      "title": "Gestionarea actualizărilor de securitate",
+      "description": "Gestionarea actualizărilor de securitate"
+    },
+    "6_5": {
+      "title": "Gestionarea modificărilor",
+      "description": "Gestionarea modificărilor"
+    },
+    "7_1": {
+      "title": "Indicatori și măsurători de securitate",
+      "description": "Indicatori și măsurători de securitate"
+    },
+    "7_2": {
+      "title": "Audit intern",
+      "description": "Audit intern"
+    },
+    "7_3": {
+      "title": "Analiza efectuată de conducere",
+      "description": "Analiza efectuată de conducere"
+    },
+    "7_4": {
+      "title": "Acțiuni corective și îmbunătățire continuă",
+      "description": "Acțiuni corective și îmbunătățire continuă"
+    },
+    "8_1": {
+      "title": "Politica de securitate IT și utilizarea acceptabilă",
+      "description": "Politica de securitate IT și utilizarea acceptabilă"
+    },
+    "8_2": {
+      "title": "Program de conștientizare în securitate",
+      "description": "Program de conștientizare în securitate"
+    },
+    "8_3": {
+      "title": "Instruire specifică rolului și pentru conducere",
+      "description": "Instruire specifică rolului și pentru conducere"
+    },
+    "8_4": {
+      "title": "Eficacitatea instruirii și simulări de phishing",
+      "description": "Eficacitatea instruirii și simulări de phishing"
+    },
+    "9_1": {
+      "title": "Politica și standardele de criptografie",
+      "description": "Politica și standardele de criptografie"
+    },
+    "9_2": {
+      "title": "Criptarea datelor",
+      "description": "Criptarea datelor"
+    },
+    "9_3": {
+      "title": "Gestionarea cheilor și a certificatelor",
+      "description": "Gestionarea cheilor și a certificatelor"
+    },
+    "10_1": {
+      "title": "Politica și modelul de control al accesului",
+      "description": "Politica și modelul de control al accesului"
+    },
+    "10_2": {
+      "title": "Alocarea accesului pe fiecare activ",
+      "description": "Alocarea accesului pe fiecare activ"
+    },
+    "10_3": {
+      "title": "Ciclul de viață al utilizatorului și PAM",
+      "description": "Ciclul de viață al utilizatorului și PAM"
+    },
+    "10_4": {
+      "title": "Revizuirea accesului",
+      "description": "Revizuirea accesului"
+    },
+    "11_1": {
+      "title": "Autentificare: unde este obligatoriu MFA",
+      "description": "Autentificare cu mai mulți factori"
+    },
+    "11_2": {
+      "title": "Comunicații sigure și de urgență",
+      "description": "Comunicații sigure și de urgență"
+    },
+    "11_3": {
+      "title": "Standarde de autentificare",
+      "description": "Standarde de autentificare"
+    },
+    "12_1": {
+      "title": "Clasificare și perimetru NIS2",
+      "description": "Clasificare și perimetru NIS2"
+    },
+    "12_2": {
+      "title": "Înregistrare la BSI",
+      "description": "Crearea contului MUK, finalizarea înregistrării în portalul BSI și transmiterea tuturor datelor obligatorii. Termen legal: cel târziu trei luni după ce compania este considerată pentru prima dată entitate esențială sau importantă (§33(1) BSIG). Pentru entitățile aflate în domeniul de aplicare de la intrarea în vigoare a BSIG la 6 decembrie 2025, acest termen a expirat la 6 martie 2026; înregistrarea devine atunci imediat scadentă."
+    },
+    "12_3": {
+      "title": "Menținerea înregistrării",
+      "description": "Menținerea înregistrării"
+    },
+    "12_4": {
+      "title": "Dovezi de conformitate",
+      "description": "Dovezi de conformitate"
+    }
+  }
+}

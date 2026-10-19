@@ -1,0 +1,88 @@
+{
+  "requirements": {
+    "CRA-MFG_1": {
+      "title": "Product Cybersecurity Risk Assessment",
+      "description": "Perform a cybersecurity risk assessment for the product with digital elements (CRA Art. 13(2))."
+    },
+    "CRA-MFG_2": {
+      "title": "Manufacturer Due Diligence",
+      "description": "Confirm manufacturer due diligence so products meet the essential requirements (Art. 13(1))."
+    },
+    "CRA-ESS_1": {
+      "title": "Secure-by-Design Requirements",
+      "description": "Design and produce products to meet the essential cybersecurity requirements (CRA Annex I Part I)."
+    },
+    "CRA-ESS_2": {
+      "title": "Secure Default Configuration",
+      "description": "Ship products with a secure-by-default configuration (Annex I Part I, point 3(a))."
+    },
+    "CRA-ESS_3": {
+      "title": "No Known Exploitable Vulnerabilities",
+      "description": "Place products on the market without known exploitable vulnerabilities (Annex I Part I, point 1)."
+    },
+    "CRA-VLN_1": {
+      "title": "Vulnerability Handling Policy",
+      "description": "Establish a process to identify, document and remediate vulnerabilities (CRA Annex I Part II, points 1 to 2)."
+    },
+    "CRA-VLN_2": {
+      "title": "Coordinated Vulnerability Disclosure",
+      "description": "Adopt a coordinated vulnerability disclosure policy with a contact address (Annex I Part II, point 5)."
+    },
+    "CRA-VLN_3": {
+      "title": "Security Update Delivery",
+      "description": "Provide security updates without delay and free of charge during the support period (Annex I Part II, point 3)."
+    },
+    "CRA-VLN_4": {
+      "title": "Vulnerability Testing",
+      "description": "Test and review the security of the product on a regular basis (Annex I Part II, point 8)."
+    },
+    "CRA-INC_1": {
+      "title": "Early Warning Notification",
+      "description": "Send an early warning of an actively exploited vulnerability to the CSIRT and ENISA (CRA Art. 14(2)(a))."
+    },
+    "CRA-INC_2": {
+      "title": "Vulnerability Notification",
+      "description": "Notify the vulnerability or severe incident within the CRA deadline (Art. 14(2)(b))."
+    },
+    "CRA-INC_3": {
+      "title": "Final Incident Report",
+      "description": "Submit the final report on the vulnerability or incident to the authorities (Art. 14(2)(c))."
+    },
+    "CRA-INC_4": {
+      "title": "User Notification",
+      "description": "Inform affected users of the incident and any corrective measures (Art. 14(4))."
+    },
+    "CRA-CONF_1": {
+      "title": "Conformity Assessment",
+      "description": "Carry out the applicable conformity assessment procedure for the product (CRA Art. 24)."
+    },
+    "CRA-CONF_2": {
+      "title": "CE Marking and Conformity",
+      "description": "Affix the CE marking and draw up the EU declaration of conformity (Art. 27)."
+    },
+    "CRA-DOC_1": {
+      "title": "CRA Technical Documentation",
+      "description": "Compile and keep up to date the technical documentation per CRA Annex VII (Art. 28)."
+    },
+    "CRA-SUP_1": {
+      "title": "Support Period",
+      "description": "Determine and sign off the support period during which security updates are provided (CRA Art. 13(8))."
+    },
+    "CRA-SBOM_1": {
+      "title": "Software Bill of Materials",
+      "description": "Produce a software bill of materials covering the top-level dependencies (CRA Annex I Part II, point 1)."
+    },
+    "CRA-IMP_1": {
+      "title": "Importer Obligations",
+      "description": "Verify that imported products meet CRA requirements before placing them on the market (Art. 18)."
+    },
+    "CRA-IMP_2": {
+      "title": "Distributor Obligations",
+      "description": "Check CRA conformity and act on non-conformity when distributing products (Art. 19)."
+    },
+    "CRA-OSS_1": {
+      "title": "Open-Source Steward Duties",
+      "description": "Document the cybersecurity policy expected of open-source software stewards (CRA Art. 24)."
+    }
+  }
+}

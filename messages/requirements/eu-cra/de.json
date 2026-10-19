@@ -1,0 +1,88 @@
+{
+  "requirements": {
+    "CRA-MFG_1": {
+      "title": "Cybersicherheits-Risikobewertung des Produkts",
+      "description": "Eine Cybersicherheits-Risikobewertung für das Produkt mit digitalen Elementen durchführen (CRA Art. 13 Abs. 2)."
+    },
+    "CRA-MFG_2": {
+      "title": "Sorgfaltspflicht des Herstellers",
+      "description": "Die Sorgfaltspflicht des Herstellers bestätigen, damit Produkte die grundlegenden Anforderungen erfüllen (Art. 13 Abs. 1)."
+    },
+    "CRA-ESS_1": {
+      "title": "Anforderungen an Secure-by-Design",
+      "description": "Produkte so konzipieren und herstellen, dass sie die grundlegenden Cybersicherheitsanforderungen erfüllen (CRA Anhang I Teil I)."
+    },
+    "CRA-ESS_2": {
+      "title": "Sichere Standardkonfiguration",
+      "description": "Produkte mit einer Secure-by-Default-Konfiguration ausliefern (Anhang I Teil I, Nummer 3 lit. a)."
+    },
+    "CRA-ESS_3": {
+      "title": "Keine bekannten ausnutzbaren Schwachstellen",
+      "description": "Produkte ohne bekannte ausnutzbare Schwachstellen in Verkehr bringen (Anhang I Teil I, Nummer 1)."
+    },
+    "CRA-VLN_1": {
+      "title": "Richtlinie zur Schwachstellenbehandlung",
+      "description": "Einen Prozess zur Identifizierung, Dokumentation und Behebung von Schwachstellen einrichten (CRA Anhang I Teil II, Nummern 1 bis 2)."
+    },
+    "CRA-VLN_2": {
+      "title": "Koordinierte Offenlegung von Schwachstellen",
+      "description": "Eine Richtlinie zur koordinierten Offenlegung von Schwachstellen mit einer Kontaktadresse einführen (Anhang I Teil II, Nummer 5)."
+    },
+    "CRA-VLN_3": {
+      "title": "Bereitstellung von Sicherheitsupdates",
+      "description": "Sicherheitsupdates während des Unterstützungszeitraums unverzüglich und kostenlos bereitstellen (Anhang I Teil II, Nummer 3)."
+    },
+    "CRA-VLN_4": {
+      "title": "Schwachstellentests",
+      "description": "Die Sicherheit des Produkts regelmäßig testen und überprüfen (Anhang I Teil II, Nummer 8)."
+    },
+    "CRA-INC_1": {
+      "title": "Frühwarnung",
+      "description": "Eine Frühwarnung über eine aktiv ausgenutzte Schwachstelle an das CSIRT und die ENISA senden (CRA Art. 14 Abs. 2 lit. a)."
+    },
+    "CRA-INC_2": {
+      "title": "Meldung von Schwachstellen",
+      "description": "Die Schwachstelle oder den schwerwiegenden Vorfall innerhalb der CRA-Frist melden (Art. 14 Abs. 2 lit. b)."
+    },
+    "CRA-INC_3": {
+      "title": "Abschlussbericht zum Vorfall",
+      "description": "Den Abschlussbericht zur Schwachstelle oder zum Vorfall bei den Behörden einreichen (Art. 14 Abs. 2 lit. c)."
+    },
+    "CRA-INC_4": {
+      "title": "Benutzerbenachrichtigung",
+      "description": "Betroffene Nutzer über den Vorfall und etwaige Korrekturmaßnahmen informieren (Art. 14 Abs. 4)."
+    },
+    "CRA-CONF_1": {
+      "title": "Konformitätsbewertung",
+      "description": "Das anwendbare Konformitätsbewertungsverfahren für das Produkt durchführen (CRA Art. 24)."
+    },
+    "CRA-CONF_2": {
+      "title": "CE-Kennzeichnung und Konformität",
+      "description": "Die CE-Kennzeichnung anbringen und die EU-Konformitätserklärung erstellen (Art. 27)."
+    },
+    "CRA-DOC_1": {
+      "title": "Technische Dokumentation nach CRA",
+      "description": "Die technische Dokumentation gemäß CRA Anhang VII erstellen und aktuell halten (Art. 28)."
+    },
+    "CRA-SUP_1": {
+      "title": "Unterstützungszeitraum",
+      "description": "Den Unterstützungszeitraum bestimmen und abzeichnen, in dem Sicherheitsupdates bereitgestellt werden (CRA Art. 13 Abs. 8)."
+    },
+    "CRA-SBOM_1": {
+      "title": "Software-Stückliste (SBOM)",
+      "description": "Eine SBOM erstellen, die die Abhängigkeiten der obersten Ebene abdeckt (CRA Anhang I Teil II, Nummer 1)."
+    },
+    "CRA-IMP_1": {
+      "title": "Pflichten des Einführers",
+      "description": "Vor dem Inverkehrbringen prüfen, ob eingeführte Produkte die CRA-Anforderungen erfüllen (Art. 18)."
+    },
+    "CRA-IMP_2": {
+      "title": "Pflichten des Händlers",
+      "description": "Beim Vertrieb von Produkten die CRA-Konformität prüfen und bei Nichtkonformität handeln (Art. 19)."
+    },
+    "CRA-OSS_1": {
+      "title": "Pflichten von Open-Source-Verwaltern",
+      "description": "Die für Verwalter quelloffener Software erwartete Cybersicherheitsrichtlinie dokumentieren (CRA Art. 24)."
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "requirements": {
+    "IS-4_1": {
+      "title": "Context of the Organization",
+      "description": "Determine external and internal issues relevant to the ISMS purpose and that affect your ability to achieve intended outcomes."
+    },
+    "IS-4_2": {
+      "title": "Needs of Interested Parties",
+      "description": "Identify interested parties (customers, regulators, staff, suppliers) and their requirements relevant to information security."
+    },
+    "IS-4_3": {
+      "title": "ISMS Scope",
+      "description": "Define and document the boundaries of the ISMS: which systems, locations, and activities are included and excluded, and why."
+    },
+    "IS-4_4": {
+      "title": "Information Security Management System",
+      "description": "Establish, implement, maintain, and continually improve an ISMS in accordance with ISO 27001 requirements."
+    },
+    "IS-5_1": {
+      "title": "Leadership and Commitment",
+      "description": "Top management must demonstrate commitment: approve the IS policy, ensure ISMS resources, and integrate security into business processes."
+    },
+    "IS-5_2": {
+      "title": "Information Security Policy",
+      "description": "Establish, document, and communicate an IS policy signed by top management, including objectives and commitment to continual improvement."
+    },
+    "IS-5_3": {
+      "title": "Roles, Responsibilities and Authorities",
+      "description": "Assign and communicate responsibilities for information security roles including CISO/ISMS owner, asset owners, and process owners."
+    },
+    "IS-6_1": {
+      "title": "Risk Assessment Process",
+      "description": "Define and apply a documented risk assessment methodology including risk identification, analysis, evaluation, and acceptance criteria."
+    },
+    "IS-6_2": {
+      "title": "Information Security Objectives",
+      "description": "Establish measurable IS objectives aligned to the IS policy, document plans to achieve them, and track progress."
+    },
+    "IS-6_3": {
+      "title": "Planning of Changes",
+      "description": "When changes to the ISMS are needed, plan them in a controlled manner: assess purpose, consequences, integrity, resources, and accountability."
+    },
+    "IS-7_1": {
+      "title": "Resources",
+      "description": "Determine and provide the resources needed to establish, implement, maintain, and continually improve the ISMS."
+    },
+    "IS-7_2": {
+      "title": "Competence",
+      "description": "Determine competence requirements for ISMS-relevant roles, provide training, and retain evidence of competence (training records, certificates)."
+    },
+    "IS-7_3": {
+      "title": "Awareness",
+      "description": "Ensure persons doing work under the organization's control are aware of the IS policy, their contribution to ISMS effectiveness, and the implications of non-conformity."
+    },
+    "IS-7_4": {
+      "title": "Communication",
+      "description": "Determine the internal and external communications relevant to the ISMS: what, when, with whom, how, and by whom."
+    },
+    "IS-7_5": {
+      "title": "Documented Information",
+      "description": "Create and maintain documented information required by ISO 27001, and control its creation, update, distribution, and retention."
+    },
+    "IS-8_1": {
+      "title": "Operational Planning and Control",
+      "description": "Plan, implement, and control the processes needed to meet IS requirements and implement the actions determined in Clause 6."
+    },
+    "IS-8_2": {
+      "title": "Information Security Risk Assessment",
+      "description": "Perform risk assessments at planned intervals or when significant changes occur; document results in a risk register."
+    },
+    "IS-8_3": {
+      "title": "Information Security Risk Treatment",
+      "description": "Select and implement risk treatment options; produce a risk treatment plan and Statement of Applicability (SoA)."
+    },
+    "IS-9_1": {
+      "title": "Monitoring, Measurement, Analysis and Evaluation",
+      "description": "Define what to monitor and measure, how, when, and by whom; analyse and evaluate results against IS objectives."
+    },
+    "IS-9_2": {
+      "title": "Internal Audit",
+      "description": "Conduct internal audits at planned intervals to assess whether the ISMS conforms to requirements and is effectively implemented."
+    },
+    "IS-9_3": {
+      "title": "Management Review",
+      "description": "Top management reviews the ISMS at planned intervals covering audit results, KPIs, incidents, changes, and improvement opportunities."
+    },
+    "IS-10_1": {
+      "title": "Continual Improvement",
+      "description": "Continually improve the suitability, adequacy, and effectiveness of the ISMS."
+    },
+    "IS-10_2": {
+      "title": "Nonconformity and Corrective Action",
+      "description": "When nonconformity occurs: react, investigate root cause, implement corrective action, and verify its effectiveness."
+    }
+  }
+}

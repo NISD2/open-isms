@@ -1,0 +1,36 @@
+{
+  "requirements": {
+    "A_6_1": {
+      "title": "Verifica del personale",
+      "description": "Esegui controlli di verifica sui precedenti per tutti i candidati all'assunzione, proporzionati alla sensibilità del ruolo e ai requisiti di legge."
+    },
+    "A_6_2": {
+      "title": "Termini e condizioni di impiego",
+      "description": "Imponi contrattualmente a dipendenti e collaboratori il rispetto delle policy di sicurezza delle informazioni come condizione di impiego."
+    },
+    "A_6_3": {
+      "title": "Consapevolezza, istruzione e formazione sulla sicurezza delle informazioni",
+      "description": "Assicura che tutto il personale riceva una formazione adeguata di sensibilizzazione alla sicurezza all'assunzione e annualmente, con formazione specifica per ruolo per il personale tecnico."
+    },
+    "A_6_4": {
+      "title": "Processo disciplinare",
+      "description": "Disponi di un processo disciplinare formale e comunicato per i dipendenti che commettono violazioni della sicurezza delle informazioni."
+    },
+    "A_6_5": {
+      "title": "Responsabilità dopo la cessazione o il cambiamento del rapporto di lavoro",
+      "description": "Definisci e fai rispettare le responsabilità in materia di sicurezza delle informazioni che rimangono in vigore dopo la fine del rapporto di lavoro (riservatezza, restituzione degli asset)."
+    },
+    "A_6_6": {
+      "title": "Accordi di riservatezza o di non divulgazione",
+      "description": "Individua, documenta e riesamina periodicamente i requisiti di riservatezza; utilizza NDA con personale, collaboratori e terze parti pertinenti."
+    },
+    "A_6_7": {
+      "title": "Lavoro da remoto",
+      "description": "Definisci e attua misure di sicurezza per il lavoro da remoto, comprendendo sicurezza della rete, sicurezza fisica e protezione delle apparecchiature."
+    },
+    "A_6_8": {
+      "title": "Segnalazione degli eventi di sicurezza delle informazioni",
+      "description": "Fornisci un meccanismo chiaro e di facile utilizzo affinché il personale segnali eventi e debolezze di sicurezza; dai seguito a tutte le segnalazioni."
+    }
+  }
+}

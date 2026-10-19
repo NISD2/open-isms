@@ -1,0 +1,60 @@
+{
+  "requirements": {
+    "A_7_1": {
+      "title": "Perímetros de seguridad física",
+      "description": "Defina e implemente perímetros de seguridad física para proteger las áreas sensibles que contienen información e instalaciones de tratamiento."
+    },
+    "A_7_2": {
+      "title": "Entrada física",
+      "description": "Proteja las áreas seguras con controles de entrada adecuados para garantizar que solo las personas autorizadas puedan acceder."
+    },
+    "A_7_3": {
+      "title": "Aseguramiento de oficinas, salas e instalaciones",
+      "description": "Aplique seguridad física a las oficinas, salas e instalaciones de forma proporcionada a la sensibilidad de la información tratada en ellas."
+    },
+    "A_7_4": {
+      "title": "Supervisión de la seguridad física",
+      "description": "Supervise las instalaciones para detectar accesos físicos no autorizados mediante alarmas, CCTV, vigilantes u otros medios adecuados."
+    },
+    "A_7_5": {
+      "title": "Protección frente a amenazas físicas y ambientales",
+      "description": "Proteja frente a amenazas físicas y ambientales como incendios, inundaciones, terremotos y daños deliberados."
+    },
+    "A_7_6": {
+      "title": "Trabajo en áreas seguras",
+      "description": "Defina y aplique procedimientos para el trabajo en áreas seguras a fin de evitar el acceso no autorizado, la toma de fotografías o la exfiltración de datos."
+    },
+    "A_7_7": {
+      "title": "Mesa limpia y pantalla limpia",
+      "description": "Aplique una política de mesa limpia para los documentos y soportes extraíbles, y una política de pantalla limpia para las instalaciones de tratamiento de la información."
+    },
+    "A_7_8": {
+      "title": "Ubicación y protección de los equipos",
+      "description": "Ubique y proteja los equipos para reducir los riesgos derivados de amenazas ambientales, accesos no autorizados e interferencias."
+    },
+    "A_7_9": {
+      "title": "Seguridad de los activos fuera de las instalaciones",
+      "description": "Aplique controles a los activos que se sacan de las instalaciones, proporcionados a los riesgos de trabajar fuera de las instalaciones de la organización."
+    },
+    "A_7_10": {
+      "title": "Soportes de almacenamiento",
+      "description": "Gestione los soportes de almacenamiento a lo largo de su ciclo de vida: adquisición, uso, transporte, eliminación y saneamiento."
+    },
+    "A_7_11": {
+      "title": "Servicios de suministro de apoyo",
+      "description": "Proteja las instalaciones de tratamiento de la información frente a cortes de energía y otras interrupciones causadas por fallos en los servicios de suministro de apoyo."
+    },
+    "A_7_12": {
+      "title": "Seguridad del cableado",
+      "description": "Proteja el cableado eléctrico y de telecomunicaciones frente a la interceptación, las interferencias o los daños."
+    },
+    "A_7_13": {
+      "title": "Mantenimiento de los equipos",
+      "description": "Mantenga correctamente los equipos para garantizar la disponibilidad e integridad continuas de las instalaciones de tratamiento de la información."
+    },
+    "A_7_14": {
+      "title": "Eliminación segura o reutilización de los equipos",
+      "description": "Verifique que todos los datos sensibles y el software con licencia se han eliminado o sobrescrito antes de la eliminación o reutilización de los equipos."
+    }
+  }
+}

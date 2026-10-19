@@ -1,0 +1,100 @@
+{
+  "requirements": {
+    "AI-LIT_1": {
+      "title": "AI-geletterdheid",
+      "description": "Zorg dat medewerkers die AI-systemen bedienen of gebruiken over een toereikend niveau van AI-geletterdheid beschikken (AI Act art. 4)."
+    },
+    "AI-LIT_2": {
+      "title": "AI-geletterdheid gebruiksverantwoordelijke",
+      "description": "Informeer het management en gebruiksverantwoordelijken over hun verplichtingen onder de AI Act en bevestig het geletterdheidsprogramma (art. 4, art. 26(2))."
+    },
+    "AI-PRO_1": {
+      "title": "Beleid verboden praktijken",
+      "description": "Documenteer een beleid dat de AI-praktijken verbiedt die zijn verboden onder AI Act art. 5(1)(a) tot en met (i)."
+    },
+    "AI-PRO_2": {
+      "title": "Geen verboden AI in gebruik",
+      "description": "Lever bewijs dat er geen verboden AI-praktijk binnen de organisatie wordt ingezet (art. 5)."
+    },
+    "AI-INV_1": {
+      "title": "Inventaris AI-systemen",
+      "description": "Onderhoud een inventaris van AI-systemen met hun risicoclassificatie onder AI Act art. 6 en art. 26."
+    },
+    "AI-INV_2": {
+      "title": "Classificatie hoog risico",
+      "description": "Leg de classificatie als hoog risico en de toepasselijkheid voor elk AI-systeem vast (art. 6, art. 50)."
+    },
+    "AI-INV_3": {
+      "title": "Rol als aanbieder of gebruiksverantwoordelijke",
+      "description": "Bepaal en documenteer of u voor elk AI-systeem optreedt als aanbieder of als gebruiksverantwoordelijke (art. 25)."
+    },
+    "AI-RSK_1": {
+      "title": "Risicobeheersysteem voor AI",
+      "description": "Stel een risicobeheersysteem op voor AI-systemen met hoog risico gedurende hun gehele levenscyclus (AI Act art. 9)."
+    },
+    "AI-RSK_2": {
+      "title": "Beoordeling AI-risico's",
+      "description": "Beoordeel en actualiseer het risicobeheersysteem voor AI op regelmatige basis (art. 9)."
+    },
+    "AI-FRI_1": {
+      "title": "Effectbeoordeling grondrechten",
+      "description": "Voer een effectbeoordeling op de grondrechten uit en teken deze af voor de betreffende AI-systemen met hoog risico (AI Act art. 27)."
+    },
+    "AI-OVS_1": {
+      "title": "Maatregelen menselijk toezicht",
+      "description": "Implementeer maatregelen voor menselijk toezicht op AI-systemen met hoog risico die in gebruik zijn (art. 14, art. 26(2))."
+    },
+    "AI-OVS_2": {
+      "title": "Beoordeling menselijk toezicht",
+      "description": "Beoordeel of de maatregelen voor menselijk toezicht effectief blijven (art. 14)."
+    },
+    "AI-TRA_1": {
+      "title": "Bekendmaking AI-interactie",
+      "description": "Informeer personen wanneer zij met een AI-systeem interacteren, tenzij dit duidelijk is (AI Act art. 50(1))."
+    },
+    "AI-TRA_2": {
+      "title": "Markering synthetische inhoud",
+      "description": "Markeer door AI gegenereerde of gemanipuleerde audio, beeld, video en tekst op een machineleesbare wijze (art. 50(2))."
+    },
+    "AI-TRA_3": {
+      "title": "Bekendmaking deepfakes en emotieherkenning",
+      "description": "Maak deepfakes en het gebruik van emotieherkenning of biometrische categorisering kenbaar aan de betrokken personen (art. 50(4))."
+    },
+    "AI-INC_1": {
+      "title": "Beleid melding ernstige incidenten",
+      "description": "Definieer een procedure voor het melden van ernstige AI-incidenten aan de autoriteiten (AI Act art. 73)."
+    },
+    "AI-INC_2": {
+      "title": "Melding ernstige incidenten",
+      "description": "Meld ernstige incidenten met AI-systemen met hoog risico binnen de termijnen van de AI Act (art. 73)."
+    },
+    "AI-DOC_1": {
+      "title": "Technische documentatie AI",
+      "description": "Stel technische documentatie op en houd deze actueel conform AI Act bijlage IV (art. 11, art. 18)."
+    },
+    "AI-DOC_2": {
+      "title": "Automatische logging",
+      "description": "Schakel automatische gebeurtenislogboeken van AI-systemen met hoog risico in en bewaar deze (art. 12, art. 19)."
+    },
+    "AI-DOC_3": {
+      "title": "EU-conformiteitsverklaring",
+      "description": "Stel de EU-conformiteitsverklaring voor AI-systemen met hoog risico op en onderteken deze (art. 47, bijlage V)."
+    },
+    "AI-GPI_1": {
+      "title": "Technische documentatie GPAI",
+      "description": "Onderhoud technische documentatie voor AI-modellen voor algemene doeleinden (AI Act art. 53(1)(a))."
+    },
+    "AI-GPI_2": {
+      "title": "Auteursrechtbeleid GPAI",
+      "description": "Voer een beleid in om te voldoen aan het EU-auteursrecht bij de training van GPAI (art. 53(1)(c))."
+    },
+    "AI-GPI_3": {
+      "title": "Samenvatting trainingsdata GPAI",
+      "description": "Publiceer een voldoende gedetailleerde samenvatting van de inhoud die is gebruikt om het GPAI-model te trainen (art. 53(1)(d))."
+    },
+    "AI-GPI_4": {
+      "title": "Verplichtingen GPAI met systeemrisico",
+      "description": "Voldoe aan de aanvullende verplichtingen voor GPAI-modellen met systeemrisico (AI Act art. 55)."
+    }
+  }
+}

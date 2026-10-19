@@ -12,7 +12,7 @@ import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
 import { cn } from "@/lib/utils";
 
 interface RequirementGuidanceProps {
-  /** The requirement's own text, from messages/requirements/{locale}.json. */
+  /** The requirement's own text, from messages/requirements/{part}/{locale}.json. */
   description: string;
   /** Pre-generated long-form guidance, from data/guidance/{locale}.json. */
   guidance: RequirementGuidanceData | null;

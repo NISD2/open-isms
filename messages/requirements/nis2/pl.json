@@ -1,0 +1,200 @@
+{
+  "requirements": {
+    "1_1": {
+      "title": "Szkolenie kierownictwa z bezpieczeństwa cybernetycznego",
+      "description": "Szkolenie kierownictwa z bezpieczeństwa cybernetycznego"
+    },
+    "1_2": {
+      "title": "Role i odpowiedzialności",
+      "description": "Role i odpowiedzialności"
+    },
+    "1_3": {
+      "title": "Alokacja budżetu na bezpieczeństwo cybernetyczne",
+      "description": "Alokacja budżetu na bezpieczeństwo cybernetyczne"
+    },
+    "1_4": {
+      "title": "Potwierdzenie osobistej odpowiedzialności",
+      "description": "Potwierdzenie osobistej odpowiedzialności"
+    },
+    "2_1": {
+      "title": "Metodyka oceny ryzyka",
+      "description": "Metodyka oceny ryzyka"
+    },
+    "2_2": {
+      "title": "Inwentaryzacja, zakres i klasyfikacja aktywów",
+      "description": "Inwentaryzacja, zakres i klasyfikacja aktywów"
+    },
+    "2_3": {
+      "title": "Rejestr ryzyk i postępowanie z ryzykiem",
+      "description": "Rejestr ryzyk i postępowanie z ryzykiem"
+    },
+    "2_4": {
+      "title": "Akceptacja ryzyka i zatwierdzenie polityki bezpieczeństwa informacji",
+      "description": "Akceptacja ryzyka i zatwierdzenie polityki bezpieczeństwa informacji"
+    },
+    "3_1": {
+      "title": "Plan i zespół reagowania na incydenty",
+      "description": "Plan i zespół reagowania na incydenty"
+    },
+    "3_2": {
+      "title": "Wykrywanie, klasyfikacja i rejestrowanie",
+      "description": "Wykrywanie, klasyfikacja i rejestrowanie"
+    },
+    "3_3": {
+      "title": "Gotowość zgłoszeniowa BSI (24h/72h/1M)",
+      "description": "Gotowość zgłoszeniowa BSI (24h/72h/1M)"
+    },
+    "3_4": {
+      "title": "Ćwiczenie reagowania na incydenty",
+      "description": "Ćwiczenie reagowania na incydenty"
+    },
+    "3_5": {
+      "title": "Przegląd poincydentalny i komunikacja",
+      "description": "Przegląd poincydentalny i komunikacja"
+    },
+    "4_1": {
+      "title": "Analiza wpływu na działalność i cele odtwarzania",
+      "description": "Analiza wpływu na działalność i cele odtwarzania"
+    },
+    "4_2": {
+      "title": "Plan ciągłości działania i zarządzania kryzysowego",
+      "description": "Plan ciągłości działania i zarządzania kryzysowego"
+    },
+    "4_3": {
+      "title": "Plan odtwarzania po awarii",
+      "description": "Plan odtwarzania po awarii"
+    },
+    "4_4": {
+      "title": "Kopie zapasowe i odtwarzanie",
+      "description": "Kopie zapasowe i odtwarzanie"
+    },
+    "4_5": {
+      "title": "Testowanie BCP/DR",
+      "description": "Testowanie BCP/DR"
+    },
+    "5_1": {
+      "title": "Rejestr i klasyfikacja dostawców",
+      "description": "Rejestr i klasyfikacja dostawców"
+    },
+    "5_2": {
+      "title": "Bezpieczeństwo dostawców w umowach",
+      "description": "Bezpieczeństwo dostawców w umowach"
+    },
+    "5_3": {
+      "title": "Ocena i monitorowanie dostawców",
+      "description": "Ocena i monitorowanie dostawców"
+    },
+    "5_4": {
+      "title": "Powiadamianie o incydentach dostawcy",
+      "description": "Powiadamianie o incydentach dostawcy"
+    },
+    "6_1": {
+      "title": "Bezpieczne zakupy",
+      "description": "Bezpieczne zakupy"
+    },
+    "6_2": {
+      "title": "Bezpieczne tworzenie i konfiguracja",
+      "description": "Bezpieczne tworzenie i konfiguracja"
+    },
+    "6_3": {
+      "title": "Zarządzanie podatnościami",
+      "description": "Zarządzanie podatnościami"
+    },
+    "6_4": {
+      "title": "Zarządzanie poprawkami",
+      "description": "Zarządzanie poprawkami"
+    },
+    "6_5": {
+      "title": "Zarządzanie zmianami",
+      "description": "Zarządzanie zmianami"
+    },
+    "7_1": {
+      "title": "KPI i metryki bezpieczeństwa",
+      "description": "KPI i metryki bezpieczeństwa"
+    },
+    "7_2": {
+      "title": "Audyt wewnętrzny",
+      "description": "Audyt wewnętrzny"
+    },
+    "7_3": {
+      "title": "Przegląd zarządczy",
+      "description": "Przegląd zarządczy"
+    },
+    "7_4": {
+      "title": "Działania korygujące i ciągłe doskonalenie",
+      "description": "Działania korygujące i ciągłe doskonalenie"
+    },
+    "8_1": {
+      "title": "Polityka bezpieczeństwa IT i zasady dopuszczalnego użytkowania",
+      "description": "Polityka bezpieczeństwa IT i zasady dopuszczalnego użytkowania"
+    },
+    "8_2": {
+      "title": "Program podnoszenia świadomości w zakresie bezpieczeństwa",
+      "description": "Program podnoszenia świadomości w zakresie bezpieczeństwa"
+    },
+    "8_3": {
+      "title": "Szkolenie dla określonych ról i kierownictwa",
+      "description": "Szkolenie dla określonych ról i kierownictwa"
+    },
+    "8_4": {
+      "title": "Skuteczność szkoleń i symulacje phishingu",
+      "description": "Skuteczność szkoleń i symulacje phishingu"
+    },
+    "9_1": {
+      "title": "Polityka i standardy kryptografii",
+      "description": "Polityka i standardy kryptografii"
+    },
+    "9_2": {
+      "title": "Szyfrowanie danych",
+      "description": "Szyfrowanie danych"
+    },
+    "9_3": {
+      "title": "Zarządzanie kluczami i certyfikatami",
+      "description": "Zarządzanie kluczami i certyfikatami"
+    },
+    "10_1": {
+      "title": "Polityka i model kontroli dostępu",
+      "description": "Polityka i model kontroli dostępu"
+    },
+    "10_2": {
+      "title": "Przydzielanie dostępu na poziomie aktywu",
+      "description": "Przydzielanie dostępu na poziomie aktywu"
+    },
+    "10_3": {
+      "title": "Cykl życia użytkownika i PAM",
+      "description": "Cykl życia użytkownika i PAM"
+    },
+    "10_4": {
+      "title": "Przeglądy dostępu",
+      "description": "Przeglądy dostępu"
+    },
+    "11_1": {
+      "title": "Uwierzytelnianie: gdzie MFA jest obowiązkowe",
+      "description": "Uwierzytelnianie wieloskładnikowe"
+    },
+    "11_2": {
+      "title": "Bezpieczna i awaryjna komunikacja",
+      "description": "Bezpieczna i awaryjna komunikacja"
+    },
+    "11_3": {
+      "title": "Standardy uwierzytelniania",
+      "description": "Standardy uwierzytelniania"
+    },
+    "12_1": {
+      "title": "Klasyfikacja i zakres NIS2",
+      "description": "Klasyfikacja i zakres NIS2"
+    },
+    "12_2": {
+      "title": "Rejestracja w BSI",
+      "description": "Założyć konto MUK, ukończyć rejestrację w portalu BSI i przekazać wszystkie obowiązkowe dane. Termin ustawowy: najpóźniej trzy miesiące po tym, jak przedsiębiorstwo po raz pierwszy zostaje uznane za podmiot kluczowy lub ważny (§33(1) BSIG). Dla podmiotów objętych zakresem od wejścia w życie BSIG 6 grudnia 2025 r. termin ten upłynął 6 marca 2026 r.; rejestracja jest wówczas wymagalna natychmiast."
+    },
+    "12_3": {
+      "title": "Utrzymanie rejestracji",
+      "description": "Utrzymanie rejestracji"
+    },
+    "12_4": {
+      "title": "Dowody zgodności",
+      "description": "Dowody zgodności"
+    }
+  }
+}

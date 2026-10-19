@@ -1,0 +1,36 @@
+{
+  "requirements": {
+    "A_6_1": {
+      "title": "Screening",
+      "description": "Perform background verification checks on all candidates for employment, proportionate to role sensitivity and legal requirements."
+    },
+    "A_6_2": {
+      "title": "Terms and Conditions of Employment",
+      "description": "Contractually require employees and contractors to comply with information security policies as a condition of employment."
+    },
+    "A_6_3": {
+      "title": "Information Security Awareness, Education and Training",
+      "description": "Ensure all staff receive appropriate security awareness training at hire and annually, with role-specific training for technical staff."
+    },
+    "A_6_4": {
+      "title": "Disciplinary Process",
+      "description": "Have a formal, communicated disciplinary process for employees who commit information security violations."
+    },
+    "A_6_5": {
+      "title": "Responsibilities After Termination or Change of Employment",
+      "description": "Define and enforce information security responsibilities that remain in effect after employment ends (confidentiality, asset return)."
+    },
+    "A_6_6": {
+      "title": "Confidentiality or Non-Disclosure Agreements",
+      "description": "Identify, document, and regularly review confidentiality requirements; use NDAs with staff, contractors, and relevant third parties."
+    },
+    "A_6_7": {
+      "title": "Remote Working",
+      "description": "Define and implement security measures for remote working covering network security, physical security, and equipment protection."
+    },
+    "A_6_8": {
+      "title": "Information Security Event Reporting",
+      "description": "Provide a clear, easy-to-use mechanism for staff to report security events and weaknesses; act on all reports."
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "requirements": {
+    "A_6_1": {
+      "title": "Weryfikacja kandydatów",
+      "description": "Przeprowadzaj weryfikację przeszłości wszystkich kandydatów do zatrudnienia, proporcjonalnie do wrażliwości roli oraz wymagań prawnych."
+    },
+    "A_6_2": {
+      "title": "Warunki zatrudnienia",
+      "description": "Zobowiąż umownie pracowników i wykonawców do przestrzegania polityk bezpieczeństwa informacji jako warunku zatrudnienia."
+    },
+    "A_6_3": {
+      "title": "Świadomość, edukacja i szkolenia w zakresie bezpieczeństwa informacji",
+      "description": "Zapewnij, aby cały personel odbywał odpowiednie szkolenie uświadamiające z zakresu bezpieczeństwa przy zatrudnieniu i corocznie, ze szkoleniem dla określonych ról dla personelu technicznego."
+    },
+    "A_6_4": {
+      "title": "Proces dyscyplinarny",
+      "description": "Posiadaj formalny, zakomunikowany proces dyscyplinarny wobec pracowników, którzy dopuszczają się naruszeń bezpieczeństwa informacji."
+    },
+    "A_6_5": {
+      "title": "Odpowiedzialności po zakończeniu lub zmianie zatrudnienia",
+      "description": "Zdefiniuj i egzekwuj odpowiedzialności w zakresie bezpieczeństwa informacji, które pozostają w mocy po zakończeniu zatrudnienia (poufność, zwrot aktywów)."
+    },
+    "A_6_6": {
+      "title": "Umowy o zachowaniu poufności lub nieujawnianiu",
+      "description": "Identyfikuj, dokumentuj i regularnie przeglądaj wymagania dotyczące poufności; stosuj NDA z personelem, wykonawcami i odpowiednimi stronami trzecimi."
+    },
+    "A_6_7": {
+      "title": "Praca zdalna",
+      "description": "Zdefiniuj i wdróż środki bezpieczeństwa dla pracy zdalnej obejmujące bezpieczeństwo sieci, bezpieczeństwo fizyczne oraz ochronę sprzętu."
+    },
+    "A_6_8": {
+      "title": "Zgłaszanie zdarzeń bezpieczeństwa informacji",
+      "description": "Zapewnij jasny, łatwy w użyciu mechanizm zgłaszania przez personel zdarzeń i słabości bezpieczeństwa; reaguj na wszystkie zgłoszenia."
+    }
+  }
+}

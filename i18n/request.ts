@@ -1,5 +1,7 @@
 import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
+import { isMissingModule } from "./missing-module";
+import { loadRequirements } from "./requirements";
 import { routing } from "./routing";
 
 const namespaces = [
@@ -63,18 +65,16 @@ type Messages = Record<string, unknown>;
 // Newly added locales (fr/it/es/pl) do not yet have every namespace
 // translated (the wiki `info` namespace is curated separately). Fall back
 // to English per-namespace so a partial locale renders instead of 500ing.
+// The requirement copy is stored in parts (i18n/requirements.ts); a missing
+// part is filled from English by fillMissing below.
 async function load(ns: string, locale: string): Promise<Messages> {
+  if (ns === "requirements") return loadRequirements(locale);
   try {
     return (await import(`../messages/${ns}/${locale}.json`)).default;
   } catch (err) {
     // Only fall back for a genuinely-absent namespace file; surface real
     // errors (e.g. malformed JSON) instead of silently serving English.
-    const message = (err instanceof Error ? err.message : "").toLowerCase();
-    const missing =
-      message.includes("cannot find module") ||
-      message.includes("module not found") ||
-      message.includes("failed to resolve");
-    if (!missing) throw err;
+    if (!isMissingModule(err)) throw err;
     return (await import(`../messages/${ns}/en.json`)).default;
   }
 }
