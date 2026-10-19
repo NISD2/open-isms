@@ -4,12 +4,18 @@ import {
   GOOGLE_SIGNIN_ERRORS,
   type GoogleLinkAccount,
   googleSignInErrorPath,
+  isGoogleAuthoritative,
   isGoogleSignInError,
 } from "./google-link";
 
 const SUB = "108234567890123456789";
 const OTHER_SUB = "109876543210987654321";
 const VERIFIED = new Date("2026-09-01T08:00:00Z");
+
+// A personal Google account on an address Google does not host: the stale-account case.
+const GOOGLE = { subject: SUB, authoritative: false } as const;
+// A Gmail address or a Workspace account: Google is the mailbox.
+const AUTHORITATIVE = { subject: SUB, authoritative: true } as const;
 
 const account = (overrides: Partial<GoogleLinkAccount>): GoogleLinkAccount => ({
   googleSubject: null,
@@ -21,7 +27,10 @@ const account = (overrides: Partial<GoogleLinkAccount>): GoogleLinkAccount => ({
 describe("an account already linked to a Google account", () => {
   test("lets the same Google account in and changes nothing", () => {
     expect(
-      decideGoogleLink(account({ googleSubject: SUB, emailVerifiedAt: VERIFIED }), SUB),
+      decideGoogleLink(
+        account({ googleSubject: SUB, emailVerifiedAt: VERIFIED }),
+        GOOGLE,
+      ),
     ).toEqual({ kind: "sign-in" });
   });
 
@@ -29,40 +38,58 @@ describe("an account already linked to a Google account", () => {
     expect(
       decideGoogleLink(
         account({ googleSubject: SUB, passwordHash: "hash", emailVerifiedAt: VERIFIED }),
-        SUB,
+        GOOGLE,
       ),
     ).toEqual({ kind: "sign-in" });
   });
 
   // The takeover: a second Google account claiming the same verified address.
   test("refuses a different Google account on the same address", () => {
-    expect(
-      decideGoogleLink(
-        account({ googleSubject: SUB, emailVerifiedAt: VERIFIED }),
-        OTHER_SUB,
-      ),
-    ).toEqual({ kind: "refuse", error: GOOGLE_SIGNIN_ERRORS.subjectMismatch });
+    for (const incoming of [GOOGLE, AUTHORITATIVE]) {
+      expect(
+        decideGoogleLink(account({ googleSubject: SUB, emailVerifiedAt: VERIFIED }), {
+          ...incoming,
+          subject: OTHER_SUB,
+        }),
+      ).toEqual({ kind: "refuse", error: GOOGLE_SIGNIN_ERRORS.subjectMismatch });
+    }
   });
 });
 
 describe("an account not yet linked", () => {
-  test("refuses Google on a verified password account and keeps the password", () => {
+  test("refuses Google on a verified password account where Google is not authoritative", () => {
     expect(
-      decideGoogleLink(account({ passwordHash: "hash", emailVerifiedAt: VERIFIED }), SUB),
+      decideGoogleLink(
+        account({ passwordHash: "hash", emailVerifiedAt: VERIFIED }),
+        GOOGLE,
+      ),
     ).toEqual({ kind: "refuse", error: GOOGLE_SIGNIN_ERRORS.passwordAccount });
+  });
+
+  // The 19.10.2026 report: a password signup on a Gmail address could never use Google, and a
+  // reset (which unlinks Google) shut Google out for good.
+  test("links a verified password account where Google is authoritative, keeping the password", () => {
+    expect(
+      decideGoogleLink(
+        account({ passwordHash: "hash", emailVerifiedAt: VERIFIED }),
+        AUTHORITATIVE,
+      ),
+    ).toEqual({ kind: "link", clearPassword: false, markVerified: false });
   });
 
   // A stranger registered the address first and never verified it.
   test("links an unverified password account, clearing the password and verifying", () => {
-    expect(decideGoogleLink(account({ passwordHash: "hash" }), SUB)).toEqual({
-      kind: "link",
-      clearPassword: true,
-      markVerified: true,
-    });
+    for (const incoming of [GOOGLE, AUTHORITATIVE]) {
+      expect(decideGoogleLink(account({ passwordHash: "hash" }), incoming)).toEqual({
+        kind: "link",
+        clearPassword: true,
+        markVerified: true,
+      });
+    }
   });
 
   test("links a verified account with no password (a Google account from before the column)", () => {
-    expect(decideGoogleLink(account({ emailVerifiedAt: VERIFIED }), SUB)).toEqual({
+    expect(decideGoogleLink(account({ emailVerifiedAt: VERIFIED }), GOOGLE)).toEqual({
       kind: "link",
       clearPassword: false,
       markVerified: false,
@@ -70,11 +97,33 @@ describe("an account not yet linked", () => {
   });
 
   test("links an unverified account with no password and verifies it", () => {
-    expect(decideGoogleLink(account({}), SUB)).toEqual({
+    expect(decideGoogleLink(account({}), GOOGLE)).toEqual({
       kind: "link",
       clearPassword: false,
       markVerified: true,
     });
+  });
+});
+
+describe("whether Google vouches for an address", () => {
+  test("a Gmail address, in any case", () => {
+    expect(isGoogleAuthoritative("someone@gmail.com", undefined)).toBe(true);
+    expect(isGoogleAuthoritative("Someone@GMail.com", undefined)).toBe(true);
+  });
+
+  test("a Workspace account, whatever its domain", () => {
+    expect(isGoogleAuthoritative("it@example.de", "example.de")).toBe(true);
+  });
+
+  test("not a personal Google account on someone else's mail domain", () => {
+    expect(isGoogleAuthoritative("it@example.de", undefined)).toBe(false);
+    expect(isGoogleAuthoritative("it@example.de", "")).toBe(false);
+    expect(isGoogleAuthoritative("it@example.de", 42)).toBe(false);
+  });
+
+  test("not a look-alike of Gmail", () => {
+    expect(isGoogleAuthoritative("someone@gmail.com.example.de", undefined)).toBe(false);
+    expect(isGoogleAuthoritative("someone@notgmail.com", undefined)).toBe(false);
   });
 });
 

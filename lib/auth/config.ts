@@ -15,6 +15,7 @@ import {
   GOOGLE_SIGNIN_ERRORS,
   type GoogleSignInError,
   googleSignInErrorPath,
+  isGoogleAuthoritative,
 } from "@/lib/auth/google-link";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import {
@@ -146,6 +147,7 @@ async function admitGoogleAccount(google: {
   email: string;
   name: string;
   subject: string;
+  authoritative: boolean;
 }): Promise<GoogleAdmission> {
   const now = new Date();
 
@@ -190,7 +192,7 @@ async function admitGoogleAccount(google: {
   });
   if (!existing) return { admitted: false, error: GOOGLE_SIGNIN_ERRORS.emailChanged };
 
-  const decision = decideGoogleLink(existing, google.subject);
+  const decision = decideGoogleLink(existing, google);
   if (decision.kind === "refuse") return { admitted: false, error: decision.error };
   if (decision.kind === "sign-in") {
     return { admitted: true, userId: existing.id, isNew: false, provision: false };
@@ -438,6 +440,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: authUser.email,
           name: newName,
           subject,
+          // `hd` is the Workspace domain; Google only sets it on Workspace accounts.
+          authoritative: isGoogleAuthoritative(authUser.email, profile.hd),
         });
         if (!admission.admitted) {
           // A returned path makes Auth.js redirect there without creating a
