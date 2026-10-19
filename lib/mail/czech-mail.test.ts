@@ -194,7 +194,7 @@ describe("other readers keep the mail they had", () => {
     const welcome = await t.welcomeEmail({ name: "Anna", locale: "de" });
     expect(welcome.subject).toBe("Welcome to NISD2");
     expect(welcome.text).toContain(
-      "A good first step is the CEO management training (https://nisd2.eu/training/courses/nis2-ceo).",
+      "A good first step is the free CEO and management course (https://nisd2.eu/training/courses/nis2-ceo).",
     );
     const weekly = await t.weeklyManagementDigestEmail({
       recipientName: "Jan",
