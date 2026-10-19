@@ -253,10 +253,32 @@ test("a second login offers help, and does not offer it twice", async ({ page })
   await expect(page.getByTestId("help-dialog")).toBeHidden();
 });
 
-test("the tour does not arm itself on a later login", async ({ page }) => {
-  await setGuideState("login_count = 5, tour_dismissed_at = NULL");
+/**
+ * Only the requirement walkthrough is tied to the first login. The journey ones
+ * stay armed until dismissed at any login count (resolveHints), so this used to
+ * assert the opposite of the app on /journey and passed only when toBeHidden ran
+ * before the client opened the card.
+ */
+test("the requirement walkthrough does not arm itself on a later login", async ({
+  page,
+}) => {
+  await setGuideState(
+    "login_count = 5, requirement_tour_dismissed_at = NULL, help_offer_dismissed_at = NULL",
+  );
 
-  await page.goto("/journey");
+  await page.goto("/compliance/risk-management/2.1");
+  await expect(page.locator('[data-tour="requirement-status"]')).toBeVisible();
+
+  // A later login does get the offer of help. It renders in a client portal, so
+  // seeing it proves PortalGuide has hydrated and resolved this page's
+  // walkthrough: a toBeHidden before that point passes whatever the gate says.
+  const dialog = page.getByTestId("help-dialog");
+  await expect(dialog).toBeVisible();
+  await dialog.getByTestId("help-close").click();
+  await expect(dialog).toBeHidden();
+
+  // Closing it lifts the hold PortalGuide puts on walkthroughs, so an armed one
+  // would open now, with its opening target already on the page.
   await expect(page.getByTestId("tour-card")).toBeHidden();
 });
 
