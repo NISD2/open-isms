@@ -19,6 +19,7 @@ import {
   companyRequirementStatus,
   complianceFramework,
   requirement,
+  requirementAssignment,
   requirementSatisfaction,
   signOffHistory,
   user,
@@ -235,6 +236,19 @@ async function needsTheTargetsRole(): Promise<string | null> {
     : `a DPO signature made ${SAME_RECORD} ${row.status}; it names no role, so the CISO default applies`;
 }
 
+// rosteredOf reads requirement_assignment: an assigned signer who has not signed owns the row.
+async function leavesARowToItsAssignedSigner(): Promise<string | null> {
+  const t = await tenant("roster", {});
+  await db
+    .insert(requirementAssignment)
+    .values({ statusId: statusIdOf(t, SAME_RECORD), userId: t.userId });
+  const credited = await signSource(t, "ciso");
+  const row = await statusRow(statusIdOf(t, SAME_RECORD));
+  return credited.length === 0 && row.status === "not_started"
+    ? null
+    : `${SAME_RECORD}, still owed by its assigned signer, became ${row.status}`;
+}
+
 async function racingSignOffsWriteOnce(): Promise<string | null> {
   const t = await tenant("race", {});
   await Promise.all(Array.from({ length: 5 }, () => signSource(t, "ciso")));
@@ -252,6 +266,7 @@ const failures = (
         await creditsTheSameRecordOnly(),
         await leavesASetAsideRowAlone(),
         await needsTheTargetsRole(),
+        await leavesARowToItsAssignedSigner(),
         await racingSignOffsWriteOnce(),
       ]
 ).filter((f): f is string => f !== null);
@@ -259,7 +274,7 @@ const failures = (
 for (const f of failures) console.error(`[drill] FAIL: ${f}`);
 if (failures.length === 0) {
   console.log(
-    "[drill] OK: a sign-off credits the same record once, with its history entry, and never an overlap, a set-aside row or a role it does not hold",
+    "[drill] OK: a sign-off credits the same record once, with its history entry, and never an overlap, a set-aside row, a row owed to its assigned signer or a role it does not hold",
   );
 }
 process.exit(failures.length === 0 ? 0 : 1);

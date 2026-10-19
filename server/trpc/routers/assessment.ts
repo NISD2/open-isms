@@ -23,25 +23,20 @@ import {
   signerMeetsRequiredRole,
   signerRoleOf,
 } from "@/lib/compliance/signer-role";
-import type { Database } from "@/lib/db";
 import { leavesNoChoice } from "@/lib/durchgang";
 import { accountEmailLocale, contactEmailChangedEmail, sendMail } from "@/lib/mail";
 import { bumpMcpKeyVersion } from "@/lib/mcp/key-version";
 import { joinCompany } from "@/lib/organization/membership";
 import {
-  auditLog,
-  categoryAssignment,
   company,
   companyAssessment,
   companyMembership,
   companyRequirementStatus,
   complianceFramework,
-  evidence,
   requirement,
   requirementAssignment,
   requirementCategory,
   requirementPrerequisite,
-  requirementSatisfaction,
   user,
 } from "@/schema";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
@@ -772,7 +767,7 @@ export const assessmentRouter = router({
         }
 
         const snapshot = await buildSignOffSnapshot(
-          tx as unknown as Database,
+          tx,
           ctx.companyId,
           statusRow.requirement.templateVersion,
         );
@@ -791,7 +786,7 @@ export const assessmentRouter = router({
           .where(eq(companyRequirementStatus.id, input.statusId))
           .returning();
 
-        await recordSignOffChainEntry(tx as unknown as Database, {
+        await recordSignOffChainEntry(tx, {
           companyId: ctx.companyId,
           statusId: input.statusId,
           requirementId: statusRow.requirement.id,
@@ -1018,7 +1013,7 @@ export const assessmentRouter = router({
           });
 
         const snapshot = await buildSignOffSnapshot(
-          tx as unknown as Database,
+          tx,
           ctx.companyId,
           statusRow.requirement.templateVersion,
         );
@@ -1037,7 +1032,7 @@ export const assessmentRouter = router({
           .where(eq(companyRequirementStatus.id, input.statusId))
           .returning();
 
-        await recordSignOffChainEntry(tx as unknown as Database, {
+        await recordSignOffChainEntry(tx, {
           companyId: ctx.companyId,
           statusId: input.statusId,
           requirementId: statusRow.requirement.id,

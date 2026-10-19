@@ -46,7 +46,6 @@ import {
   snapshotForVersion,
 } from "@/server/trpc/helpers/sign-off-completion";
 import { effectiveSignOffRole } from "@/lib/compliance/signer-role";
-import type { Database } from "@/lib/db";
 
 async function seed() {
   console.log("GDPR framework seed\n");
@@ -217,7 +216,7 @@ async function seed() {
         // a history row. This loop never did, so back-propagated rows had no
         // verifiable chain and verifySignOffChain reported them valid by
         // vacuous truth.
-        await recordSignOffChainEntry(tx as unknown as Database, {
+        await recordSignOffChainEntry(tx, {
           companyId: co.id,
           statusId: unsignedSide.id,
           requirementId: unsignedSide.requirementId,

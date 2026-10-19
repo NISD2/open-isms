@@ -13,15 +13,11 @@
  * `signOffHistory` outside this helper are a smell.
  */
 
-import { eq } from "drizzle-orm";
-import {
-  computeChainedChecksum,
-  getLastSignOffEntry,
-  type ChainDb,
-} from "@nisd2/isms-trpc/audit";
 import type { SignOffSnapshotData } from "@nisd2/isms-schema/tables/sign-off-history";
-import { signOffHistory, evidence } from "@/schema";
-import type { Database } from "@/lib/db";
+import { computeChainedChecksum, getLastSignOffEntry } from "@nisd2/isms-trpc/audit";
+import { eq } from "drizzle-orm";
+import type { DbOrTx } from "@/lib/db";
+import { evidence, signOffHistory } from "@/schema";
 
 /**
  * Inputs for appending a sign-off chain entry. The snapshot's `data` field
@@ -53,16 +49,11 @@ export interface RecordSignOffParams {
  * Status` update so a partial commit cannot leave the chain and the
  * status row in disagreement.
  *
- * `Database` is passed for type ergonomics; at runtime the helper only
- * uses raw SQL builders so a `PgTransaction` is structurally compatible.
- * The cast in `getLastSignOffEntry` is documented as safe by the package.
  */
 export async function recordSignOffChainEntry(
-  db: Database,
+  db: DbOrTx,
   params: RecordSignOffParams,
 ): Promise<void> {
-  const chainDb = db as unknown as ChainDb;
-
   const evidenceRows = await db.query.evidence.findMany({
     where: eq(evidence.requirementStatusId, params.statusId),
     columns: { id: true, fileName: true, contentHash: true, version: true },
@@ -81,7 +72,7 @@ export async function recordSignOffChainEntry(
     })),
   };
 
-  const last = await getLastSignOffEntry(chainDb, params.statusId);
+  const last = await getLastSignOffEntry(db, params.statusId);
   const version = (last?.version ?? 0) + 1;
   const previousChecksum = last?.checksum ?? null;
   const checksum = computeChainedChecksum({

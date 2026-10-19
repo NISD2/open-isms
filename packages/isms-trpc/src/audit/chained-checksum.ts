@@ -1,15 +1,20 @@
 import { createHash } from "node:crypto";
-import { eq, desc } from "drizzle-orm";
-import { signOffHistory } from "@nisd2/isms-schema/tables/sign-off-history";
 import type { SignOffSnapshotData } from "@nisd2/isms-schema/tables/sign-off-history";
-import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { signOffHistory } from "@nisd2/isms-schema/tables/sign-off-history";
+import { desc, eq } from "drizzle-orm";
+import type { NodePgQueryResultHKT } from "drizzle-orm/node-postgres";
+import type { PgDatabase } from "drizzle-orm/pg-core";
+import type { TablesRelationalConfig } from "drizzle-orm/relations";
 
 /**
- * Database parameter accepted by the chain helpers. Uses raw SQL builders
- * only (select/where/orderBy/limit), so the schema generic is irrelevant —
- * any NodePgDatabase or transaction is structurally compatible.
+ * Database parameter accepted by the chain helpers: a database or a
+ * transaction, with any schema. The helpers use the select builder only, so
+ * the schema generic stays open and no caller has to cast.
  */
-export type ChainDb = NodePgDatabase<Record<string, never>>;
+export type ChainDb<
+  TFullSchema extends Record<string, unknown> = Record<string, unknown>,
+  TSchema extends TablesRelationalConfig = TablesRelationalConfig,
+> = PgDatabase<NodePgQueryResultHKT, TFullSchema, TSchema>;
 
 /**
  * Recursively sort object keys for deterministic JSON serialization.
@@ -54,8 +59,11 @@ export function computeChainedChecksum(params: {
  * Get the latest sign-off history entry for a statusId.
  * Returns the last version number and checksum for chaining.
  */
-export async function getLastSignOffEntry(
-  db: ChainDb,
+export async function getLastSignOffEntry<
+  TFullSchema extends Record<string, unknown>,
+  TSchema extends TablesRelationalConfig,
+>(
+  db: ChainDb<TFullSchema, TSchema>,
   statusId: string,
 ): Promise<{ version: number; checksum: string } | null> {
   const rows = await db
@@ -71,8 +79,11 @@ export async function getLastSignOffEntry(
  * Verify the integrity of the sign-off chain for a given statusId.
  * Walks from version 1 to vN, recomputing each checksum and comparing.
  */
-export async function verifySignOffChain(
-  db: ChainDb,
+export async function verifySignOffChain<
+  TFullSchema extends Record<string, unknown>,
+  TSchema extends TablesRelationalConfig,
+>(
+  db: ChainDb<TFullSchema, TSchema>,
   statusId: string,
 ): Promise<{ valid: boolean; brokenAtVersion: number | null }> {
   const entries = await db

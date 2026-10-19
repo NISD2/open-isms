@@ -228,7 +228,7 @@ export async function propagateSatisfaction(
         .returning({ id: companyRequirementStatus.id });
       if (!updated) continue;
 
-      await recordSignOffChainEntry(tx as unknown as Database, {
+      await recordSignOffChainEntry(tx, {
         companyId,
         statusId: target.id,
         requirementId: target.requirementId,

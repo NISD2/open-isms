@@ -1,7 +1,7 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import { and, eq, notInArray } from "drizzle-orm";
 import { DONE_STATUS_LIST } from "@/lib/compliance/journey-position";
-import type { Database, DbOrTx } from "@/lib/db";
+import type { DbOrTx } from "@/lib/db";
 import { companyRequirementStatus } from "@/schema";
 import { buildSignOffSnapshot } from "./assessment-helpers";
 import { rosteredOf } from "./roster";
@@ -78,7 +78,7 @@ export async function signOffRows<R extends SignableRow>(
         .returning({ id: companyRequirementStatus.id });
       if (!updated) continue;
 
-      await recordSignOffChainEntry(tx as unknown as Database, {
+      await recordSignOffChainEntry(tx, {
         companyId: args.companyId,
         statusId: row.statusId,
         requirementId: row.requirementId,
