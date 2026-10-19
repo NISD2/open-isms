@@ -37,8 +37,8 @@ BSI IT-Grundschutz module: `ISMS.1`. Estimated effort: 45 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `1.1` | training | P0 | ongoing | Art. 20(2) | §38(3) BSIG | AI-LIT.2 |
-| `1.2` | proof | P1 | on-change | Art. 21(2)(a) | §30(1) BSIG, CIR 1.2, CIR 10.1.3 | A.5.2, IS-5.3, A.5.3, A.5.4, IS-7.1, IS-7.2, A.6.2, A.6.3 |
-| `1.3` | proof | P1 | on-change | Art. 20(1) | §38(1) BSIG, CIR 1.1.1(e) | IS-5.1, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3 |
+| `1.2` | proof | P1 | on-change | Art. 21(2)(a) | §30(1) BSIG | A.5.2, IS-5.3, A.5.3, A.5.4, IS-7.1, IS-7.2, A.6.2, A.6.3 |
+| `1.3` | proof | P1 | on-change | Art. 20(1) | §38(1) BSIG | IS-5.1, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3 |
 | `1.4` | sign-off | P1 | on-change | Art. 20(1) | §38(2) BSIG | none |
 
 ### RSK: risk-management
@@ -47,10 +47,10 @@ BSI IT-Grundschutz module: `BSI-200-3`. Estimated effort: 60 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `2.1` | document | P0 | on-change | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.2 | G-ROP.1, AI-RSK.1, CRA-MFG.1, IS-6.1, IS-6.2, IS-8.2, IS-8.3, A.5.7, A.5.19, A.5.20, A.5.21 |
-| `2.2` | technical | P0 | ongoing | Art. 21(2)(a), Art. 21(2)(i) | §30(2) Nr. 1 und 9 BSIG, CIR 12 | G-ROP.1, AI-INV.1, A.5.9, A.5.12, A.5.13 |
-| `2.3` | technical | P1 | on-change | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.1, 2.1.4 | G-ROP.1, AI-RSK.2, IS-8.2, IS-8.3, IS-6.1, IS-6.2, A.5.7, A.5.19, A.5.20, A.5.21 |
-| `2.4` | sign-off | P0 | on-change | Art. 20(1), Art. 21(2)(a) | §38(1) BSIG, CIR 1.1.1(k), 1.1.2, 2.1.1, 2.1.4 | G-TOM.1, CRA-MFG.2, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3, IS-6.1, IS-6.2, IS-8.2, IS-8.3, A.5.7, A.5.19, A.5.20, A.5.21 |
+| `2.1` | document | P0 | on-change | Art. 21(2)(a) | §30(2) Nr. 1 BSIG | G-ROP.1, AI-RSK.1, CRA-MFG.1, IS-6.1, IS-6.2, IS-8.2, IS-8.3, A.5.7, A.5.19, A.5.20, A.5.21 |
+| `2.2` | technical | P0 | ongoing | Art. 21(2)(a), Art. 21(2)(i) | §30(2) Nr. 1 und 9 BSIG | G-ROP.1, AI-INV.1, A.5.9, A.5.12, A.5.13 |
+| `2.3` | technical | P1 | on-change | Art. 21(2)(a) | §30(2) Nr. 1 BSIG | G-ROP.1, AI-RSK.2, IS-8.2, IS-8.3, IS-6.1, IS-6.2, A.5.7, A.5.19, A.5.20, A.5.21 |
+| `2.4` | sign-off | P0 | on-change | Art. 20(1), Art. 21(2)(a) | §38(1) BSIG | G-TOM.1, CRA-MFG.2, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3, IS-6.1, IS-6.2, IS-8.2, IS-8.3, A.5.7, A.5.19, A.5.20, A.5.21 |
 
 ### SUP: supply-chain
 
@@ -58,10 +58,10 @@ BSI IT-Grundschutz module: `OPS.2.3`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `5.1` | document | P0 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1-5.2 | G-DPA.1, CRA-IMP.1, A.5.19, A.5.20, A.5.21, A.8.30, A.5.22 |
-| `5.2` | document | P1 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4 | G-DPA.1, G-DPA.2, CRA-IMP.2, A.5.20, A.5.19, A.5.21, A.8.30 |
-| `5.3` | proof | P1 | on-change | Art. 21(3) | §30(2) Nr. 4 BSIG, CIR 5.1.6, 5.1.7 | A.5.21, A.5.19, A.5.20, A.8.30 |
-| `5.4` | proof | P1 | ongoing | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4(d) | A.5.19, A.5.20, A.5.21, A.8.30 |
+| `5.1` | document | P0 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG | G-DPA.1, CRA-IMP.1, A.5.19, A.5.20, A.5.21, A.8.30, A.5.22 |
+| `5.2` | document | P1 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG | G-DPA.1, G-DPA.2, CRA-IMP.2, A.5.20, A.5.19, A.5.21, A.8.30 |
+| `5.3` | proof | P1 | on-change | Art. 21(3) | §30(2) Nr. 4 BSIG | A.5.21, A.5.19, A.5.20, A.8.30 |
+| `5.4` | proof | P1 | ongoing | Art. 21(2)(d) | §30(2) Nr. 4 BSIG | A.5.19, A.5.20, A.5.21, A.8.30 |
 
 ### INC: incident-handling
 
@@ -69,11 +69,11 @@ BSI IT-Grundschutz module: `DER.2.1`. Estimated effort: 50 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `3.1` | document | P0 | on-change | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.1 | G-BRC.1, AI-INC.1, CRA-INC.1, A.5.24, A.5.26 |
-| `3.2` | document | P1 | ongoing | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2, A.5.25, A.5.28, A.8.15, A.8.16, A.8.17, A.6.8 |
+| `3.1` | document | P0 | on-change | Art. 21(2)(b) | §30(2) Nr. 2 BSIG | G-BRC.1, AI-INC.1, CRA-INC.1, A.5.24, A.5.26 |
+| `3.2` | document | P1 | ongoing | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG | G-BRC.2, A.5.25, A.5.28, A.8.15, A.8.16, A.8.17, A.6.8 |
 | `3.3` | proof | P0 | on-change | Art. 23(4) | §32(1) Nr. 1-4, §32(2) BSIG | G-BRC.1, AI-INC.2, CRA-INC.2, A.5.26 |
-| `3.4` | proof | P2 | ongoing | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | A.5.26 |
-| `3.5` | document | P1 | on-change | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.6 | G-BRC.2, G-BRC.3, CRA-INC.3, A.5.27 |
+| `3.4` | proof | P2 | ongoing | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG | A.5.26 |
+| `3.5` | document | P1 | on-change | Art. 21(2)(b) | §30(2) Nr. 2 BSIG | G-BRC.2, G-BRC.3, CRA-INC.3, A.5.27 |
 
 ### CRY: cryptography
 
@@ -81,9 +81,9 @@ BSI IT-Grundschutz module: `CON.1`. Estimated effort: 30 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `9.1` | document | P1 | ongoing | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102 | G-TOM.1, A.8.24, A.5.31 |
-| `9.2` | technical | P1 | ongoing | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(a) | G-TOM.1 |
-| `9.3` | technical | P1 | ongoing | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(c) | none |
+| `9.1` | document | P1 | ongoing | Art. 21(2)(h) | §30(2) Nr. 8 BSIG | G-TOM.1, A.8.24, A.5.31 |
+| `9.2` | technical | P1 | ongoing | Art. 21(2)(h) | §30(2) Nr. 8 BSIG | G-TOM.1 |
+| `9.3` | technical | P1 | ongoing | Art. 21(2)(h) | §30(2) Nr. 8 BSIG | none |
 
 ### ACC: access-control
 
@@ -91,10 +91,10 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `10.1` | document | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.1 | G-TOM.1, A.5.15, A.7.2, A.8.3, A.8.21 |
-| `10.2` | technical | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2, CIR 11.3 | A.5.16, A.5.3, A.5.18, A.8.2, A.8.18 |
-| `10.3` | document | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3 | A.5.18, A.6.1, A.6.5, A.8.2, A.8.18 |
-| `10.4` | proof | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3 | A.5.3, A.5.18, A.8.2, A.8.18 |
+| `10.1` | document | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG | G-TOM.1, A.5.15, A.7.2, A.8.3, A.8.21 |
+| `10.2` | technical | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG | A.5.16, A.5.3, A.5.18, A.8.2, A.8.18 |
+| `10.3` | document | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG | A.5.18, A.6.1, A.6.5, A.8.2, A.8.18 |
+| `10.4` | proof | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG | A.5.3, A.5.18, A.8.2, A.8.18 |
 
 ### AUT: authentication
 
@@ -102,9 +102,9 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 35 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `11.1` | technical | P1 | ongoing | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.7 | G-TOM.1, A.8.5 |
+| `11.1` | technical | P1 | ongoing | Art. 21(2)(j) | §30(2) Nr. 10 BSIG | G-TOM.1, A.8.5 |
 | `11.2` | document | P1 | ongoing | Art. 21(2)(j) | §30(2) Nr. 10 BSIG | none |
-| `11.3` | document | P1 | ongoing | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B | A.5.17 |
+| `11.3` | document | P1 | ongoing | Art. 21(2)(j) | §30(2) Nr. 10 BSIG | A.5.17 |
 
 ### PRO: procurement
 
@@ -112,11 +112,11 @@ BSI IT-Grundschutz module: `OPS.1.1.3`. Estimated effort: 45 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `6.1` | document | P1 | on-change | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.1 | A.5.21, A.5.23 |
-| `6.2` | document | P1 | on-change | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.2, 6.3 | A.8.25, A.8.31, A.8.9 |
-| `6.3` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.5, 6.10 | CRA-VLN.1, A.8.8, A.8.29, A.8.33, A.8.34 |
-| `6.4` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.6 | CRA-VLN.3, A.8.8, A.8.31, A.8.32 |
-| `6.5` | document | P1 | on-change | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.4 | A.8.32, IS-6.3, IS-8.1, A.7.13 |
+| `6.1` | document | P1 | on-change | Art. 21(2)(e) | §30(2) Nr. 5 BSIG | A.5.21, A.5.23 |
+| `6.2` | document | P1 | on-change | Art. 21(2)(e) | §30(2) Nr. 5 BSIG | A.8.25, A.8.31, A.8.9 |
+| `6.3` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG | CRA-VLN.1, A.8.8, A.8.29, A.8.33, A.8.34 |
+| `6.4` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG | CRA-VLN.3, A.8.8, A.8.31, A.8.32 |
+| `6.5` | document | P1 | on-change | Art. 21(2)(e) | §30(2) Nr. 5 BSIG | A.8.32, IS-6.3, IS-8.1, A.7.13 |
 
 ### BCP: business-continuity
 
@@ -124,11 +124,11 @@ BSI IT-Grundschutz module: `DER.4`. Estimated effort: 50 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `4.1` | document | P1 | on-change | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.3 | A.5.29, A.5.30 |
-| `4.2` | document | P1 | on-change | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1, 4.3 | A.5.29, A.5.30, A.5.26 |
-| `4.3` | document | P1 | on-change | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.2 | G-TOM.1, A.5.30, A.5.29 |
-| `4.4` | technical | P1 | ongoing | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.2 | G-TOM.1, A.8.13, A.8.14 |
-| `4.5` | proof | P1 | ongoing | Art. 21(2)(c), Art. 21(2)(f) | §30(2) Nr. 3+6 BSIG, CIR 4.1.4, 4.3.4 | A.5.29, A.5.30, A.8.13, A.8.14, A.5.26 |
+| `4.1` | document | P1 | on-change | Art. 21(2)(c) | §30(2) Nr. 3 BSIG | A.5.29, A.5.30 |
+| `4.2` | document | P1 | on-change | Art. 21(2)(c) | §30(2) Nr. 3 BSIG | A.5.29, A.5.30, A.5.26 |
+| `4.3` | document | P1 | on-change | Art. 21(2)(c) | §30(2) Nr. 3 BSIG | G-TOM.1, A.5.30, A.5.29 |
+| `4.4` | technical | P1 | ongoing | Art. 21(2)(c) | §30(2) Nr. 3 BSIG | G-TOM.1, A.8.13, A.8.14 |
+| `4.5` | proof | P1 | ongoing | Art. 21(2)(c), Art. 21(2)(f) | §30(2) Nr. 3+6 BSIG | A.5.29, A.5.30, A.8.13, A.8.14, A.5.26 |
 
 ### TRN: training
 
@@ -136,10 +136,10 @@ BSI IT-Grundschutz module: `ORP.3`. Estimated effort: 35 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `8.1` | document | P1 | on-change | Art. 21(2)(a), Art. 21(2)(g) | §30(2) Nr. 1+7 BSIG, CIR 1.1.1(i), 1.2.2 | AI-LIT.1, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3, IS-5.3, A.5.2, A.5.3 |
-| `8.2` | training | P1 | ongoing | Art. 21(2)(g) | §30(2) Nr. 7 BSIG, CIR 8.1 | A.6.3, IS-7.2, IS-7.3, A.8.7 |
-| `8.3` | training | P1 | ongoing | Art. 21(2)(g) | §30(2) Nr. 7 BSIG, CIR 8.2 | IS-7.2, A.6.3 |
-| `8.4` | proof | P2 | ongoing | Art. 21(2)(g), Art. 21(2)(f) | §30(2) Nr. 6+7 BSIG, CIR 8.1.3, 8.2.3 | IS-7.3, A.6.3, A.8.7, IS-7.2 |
+| `8.1` | document | P1 | on-change | Art. 21(2)(a), Art. 21(2)(g) | §30(2) Nr. 1+7 BSIG | AI-LIT.1, IS-5.2, A.5.1, A.5.36, A.5.4, IS-9.3, IS-5.3, A.5.2, A.5.3 |
+| `8.2` | training | P1 | ongoing | Art. 21(2)(g) | §30(2) Nr. 7 BSIG | A.6.3, IS-7.2, IS-7.3, A.8.7 |
+| `8.3` | training | P1 | ongoing | Art. 21(2)(g) | §30(2) Nr. 7 BSIG | IS-7.2, A.6.3 |
+| `8.4` | proof | P2 | ongoing | Art. 21(2)(g), Art. 21(2)(f) | §30(2) Nr. 6+7 BSIG | IS-7.3, A.6.3, A.8.7, IS-7.2 |
 
 ### EFF: effectiveness
 
@@ -147,10 +147,10 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `7.1` | proof | P1 | ongoing | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 7.1, 7.2 | G-TOM.1, IS-9.1, IS-6.2, IS-9.3 |
-| `7.2` | proof | P1 | on-change | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 2.3 | G-TOM.1, IS-9.2, A.5.35, IS-10.1, A.8.34 |
-| `7.3` | sign-off | P1 | on-change | Art. 21(2)(f), Art. 20(1) | §30(2) Nr. 6 BSIG, CIR 2.2.1, §38(1) | IS-9.3, IS-9.2, A.5.31, A.5.35, A.5.36 |
-| `7.4` | document | P1 | ongoing | Art. 21(2)(f), Art. 21(4) | §30(2) Nr. 6 BSIG, CIR 2.3.3, Art. 21(4) | IS-9.2, IS-10.1, A.5.35, A.8.34 |
+| `7.1` | proof | P1 | ongoing | Art. 21(2)(f) | §30(2) Nr. 6 BSIG | G-TOM.1, IS-9.1, IS-6.2, IS-9.3 |
+| `7.2` | proof | P1 | on-change | Art. 21(2)(f) | §30(2) Nr. 6 BSIG | G-TOM.1, IS-9.2, A.5.35, IS-10.1, A.8.34 |
+| `7.3` | sign-off | P1 | on-change | Art. 21(2)(f), Art. 20(1) | §30(2) Nr. 6, §38(1) BSIG | IS-9.3, IS-9.2, A.5.31, A.5.35, A.5.36 |
+| `7.4` | document | P1 | ongoing | Art. 21(2)(f), Art. 21(4) | §30(2) Nr. 6 BSIG | IS-9.2, IS-10.1, A.5.35, A.8.34 |
 
 ## GDPR
 

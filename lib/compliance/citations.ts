@@ -73,10 +73,18 @@ export interface CitationSource {
   readonly nationalUrl: string | null;
   /** The requirement's place in Czech law (its row's Czech columns), cited instead of the BSIG on a Czech page. */
   readonly czechRef?: CzechRef | null;
+  /** The Annex point of CIR (EU) 2024/2690 the requirement follows, and where the CIR is published. */
+  readonly cirReference?: string | null;
+  readonly cirUrl?: string | null;
 }
 
 export interface CitationRow {
-  readonly id: "framework" | "national" | CzechPart;
+  /**
+   * "cir" is the CIR's own row, apart from the national law because it binds only the entity types
+   * in its Art. 1. Its citation is the bare Annex point; the renderer words it ("Annex, point 3.1")
+   * and adds that it applies directly only to those services.
+   */
+  readonly id: "framework" | "national" | "cir" | CzechPart;
   readonly label: FrameworkLabel;
   /** Rendered verbatim. A legal citation is never reformatted for looks. */
   readonly citation: string;
@@ -144,13 +152,27 @@ const czechRows = (
   ];
 };
 
+const cirRows = (source: CitationSource): readonly CitationRow[] => {
+  const point = nonEmpty(source.cirReference ?? null);
+  return point === null
+    ? []
+    : [
+        {
+          id: "cir",
+          label: { kind: "literal", text: "CIR 2024/2690" },
+          citation: point,
+          href: nonEmpty(source.cirUrl ?? null),
+        },
+      ];
+};
+
 export function buildCitationRows(
   source: CitationSource,
   locale?: string,
 ): readonly CitationRow[] {
   if (!isFrameworkCode(source.frameworkCode)) return [];
   if (locale === "cs" && source.frameworkCode === "nis2" && source.czechRef)
-    return czechRows(source, source.czechRef);
+    return [...czechRows(source, source.czechRef), ...cirRows(source)];
 
   const style = FRAMEWORK_CITATION_STYLE[source.frameworkCode];
   const typeset = (value: string | null) => {
@@ -184,5 +206,5 @@ export function buildCitationRows(
         },
   ];
 
-  return rows.filter((row) => row !== null);
+  return [...rows.filter((row) => row !== null), ...cirRows(source)];
 }

@@ -25,7 +25,7 @@ A pair is **not** justified when one regime requires something the other doesn't
 
 ### Adding a requirement
 
-Edit the relevant framework file in `src/frameworks/`. Follow the existing `mkReq` factory pattern. Always cite a primary source (BSIG paragraph, CIR section, GDPR article) in `legalRef`.
+Edit the relevant framework file in `src/frameworks/`. Follow the existing `mkReq` factory pattern. Always cite a primary source in `legalRef`: for NIS2 the BSIG paragraph only, which binds every entity; the CIR Annex point goes in `cirReference`, because the CIR binds only the entity types in its Art. 1.
 
 ### Adding a translation key for a requirement
 

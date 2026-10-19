@@ -9,6 +9,7 @@ import { PLATFORM_DEFAULTS } from "@/lib/compliance/platform-defaults";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
 import { signerMeetsRequiredRole, signerRoleOf } from "@/lib/compliance/signer-role";
+import { legislation } from "@/lib/content/citations";
 import { type FieldMeta, introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
 import type { Asset } from "@/schema/types";
@@ -262,6 +263,8 @@ export async function loadRequirementDetail(
       referenceUrl: req.category.referenceUrl,
       nationalUrl: req.category.nationalUrl,
       czechRef: czechRefOf(req),
+      cirReference: req.cirReference,
+      cirUrl: req.cirReference ? legislation("cir-2024-2690").url : null,
     },
     status,
     categoryName: tc(`categories.${req.category.code}.name`),

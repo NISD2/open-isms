@@ -232,6 +232,13 @@
       "when": 1792415100000,
       "tag": "0032_nis2_review_dates_without_legal_basis",
       "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1792415566101,
+      "tag": "0033_framework_data_sync",
+      "breakpoints": true
     }
   ]
 }

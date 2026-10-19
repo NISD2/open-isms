@@ -1,6 +1,6 @@
 "use client";
 
-import type { CzechRef, Frequency } from "@nisd2/grc-data-model/frameworks";
+import type { Frequency } from "@nisd2/grc-data-model/frameworks";
 import {
   Ban,
   CheckCircle2,
@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
-import { buildCitationRows, type FrameworkLabel } from "@/lib/compliance/citations";
+import type { CitationSource } from "@/lib/compliance/citations";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { RoleKey } from "@/lib/compliance/role-keys";
@@ -50,6 +50,7 @@ import { AssetRiskRegister } from "../risks/AssetRiskRegister";
 import { RiskTreatmentView } from "../risks/RiskTreatmentView";
 import { SupplierRiskRegister } from "../suppliers/SupplierRiskRegister";
 import { AccessControlEditor } from "./AccessControlEditor";
+import { CitationList } from "./CitationList";
 import { CryptoPolicyEditor } from "./CryptoPolicyEditor";
 import { DeadlineBadge } from "./DeadlineBadge";
 import { FileUpload } from "./FileUpload";
@@ -89,7 +90,7 @@ const FREQUENCY_LABEL: Readonly<Record<Frequency, string>> = {
 // Types
 // ---------------------------------------------------------------------------
 
-export interface RequirementData {
+export interface RequirementData extends CitationSource {
   id: string;
   code: string;
   title: string;
@@ -97,14 +98,8 @@ export interface RequirementData {
   evidenceType: string;
   priority: string;
   frequency: string;
-  legalRef: string | null;
-  frameworkRef: string | null;
   importance: string | null;
   moduleRef: string | null;
-  frameworkCode: string | null;
-  referenceUrl: string | null;
-  nationalUrl: string | null;
-  czechRef: CzechRef | null;
 }
 
 export interface StatusData {
@@ -227,7 +222,6 @@ export function RequirementDetail({
   const tc = useTranslations("common");
   // Framework names live in the portal namespace, the same catalog the sidebar
   // reads, so a citation is named the way the rest of the app names it.
-  const tp = useTranslations("portal");
   const tTeam = useTranslations("team");
   const tIntake = useTranslations("intake");
   const locale = useLocale();
@@ -300,10 +294,6 @@ export function RequirementDetail({
   const awaitedSigners = pendingSigners
     .map((a) => a.user.name || a.user.email)
     .join(", ");
-
-  const citationRows = buildCitationRows(requirement, locale);
-  const citationLabel = (label: FrameworkLabel) =>
-    label.kind === "message" ? tp(label.key) : label.text;
 
   const [naOpen, setNaOpen] = useState(false);
   const [naReason, setNaReason] = useState("");
@@ -903,38 +893,7 @@ export function RequirementDetail({
                   </dd>
                 </div>
               )}
-              {/* The link sits on the framework name, not on the citation:
-                  it opens that law's source page for this category, which is
-                  not always the exact article the citation names. */}
-              <div data-tour="requirement-legal" className="space-y-2">
-                {/* Wraps, so a long label (a Czech decree) puts its citation on the next
-                    line instead of squeezing it to one word per line. */}
-                {citationRows.map((row) => (
-                  <div
-                    key={row.id}
-                    className="flex flex-wrap items-start justify-between gap-x-3 gap-y-0.5"
-                  >
-                    <dt className="shrink-0 text-muted-foreground">
-                      {row.href ? (
-                        <a
-                          href={row.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 hover:text-foreground transition-colors"
-                        >
-                          {citationLabel(row.label)}
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      ) : (
-                        citationLabel(row.label)
-                      )}
-                    </dt>
-                    <dd className="ml-auto text-right text-xs text-muted-foreground">
-                      {row.citation}
-                    </dd>
-                  </div>
-                ))}
-              </div>
+              <CitationList source={requirement} locale={locale} />
             </dl>
             {teachingLesson && (
               <Link

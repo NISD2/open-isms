@@ -220,8 +220,9 @@ export const nis2Categories: FrameworkCategory[] = [
 // in force 06.12.2025, BGBl. 2025 I Nr. 301) and the OJ text of CIR (EU) 2024/2690
 // (publications.europa.eu/resource/celex/32024R2690). CIR Annex sub-numbering bounds:
 // point 5 = 5.1 (5.1.1-5.1.7) + 5.2 only; point 7 = 7.1-7.3; point 8 = 8.1 + 8.2 only;
-// point 9 = 9.1-9.3 (key management = 9.2(c)(i)-(xii)). The CIR binds §60(1)-type entities
-// directly (§30(3) BSIG); for other entities it is the platform's adopted structure.
+// point 9 = 9.1-9.3 (key management = 9.2(c)(i)-(xii)). `legalRef` cites the BSIG only, which
+// binds every entity; the CIR point goes in `cirReference` and is shown as its own row, because
+// the CIR binds only §60(1)-type entities directly (§30(3) BSIG).
 const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   governance: () => [
     // §38(3) says "regelmäßig" and names NO interval. The 3-year cadence is
@@ -235,13 +236,13 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     }),
     mkReq("1.2", "proof", {
       priority: "P1",
-      legalRef: "§30(1) BSIG, CIR 1.2, CIR 10.1.3",
+      legalRef: "§30(1) BSIG",
       frameworkRef: "Art. 21(2)(a)",
       cirReference: "1.2, 10.1.3",
     }),
     mkReq("1.3", "proof", {
       priority: "P1",
-      legalRef: "§38(1) BSIG, CIR 1.1.1(e)",
+      legalRef: "§38(1) BSIG",
       frameworkRef: "Art. 20(1)",
       cirReference: "1.1.1(e)",
       requiredSignOffRole: "ceo",
@@ -257,26 +258,26 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("2.1", "document", {
       priority: "P0",
       frequency: "on-change",
-      legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.2",
+      legalRef: "§30(2) Nr. 1 BSIG",
       frameworkRef: "Art. 21(2)(a)",
       cirReference: "2.1.2",
     }),
     mkReq("2.2", "technical", {
       priority: "P0",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 1 und 9 BSIG, CIR 12",
+      legalRef: "§30(2) Nr. 1 und 9 BSIG",
       frameworkRef: "Art. 21(2)(a), Art. 21(2)(i)",
       cirReference: "12.1, 12.4",
     }),
     mkReq("2.3", "technical", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.1, 2.1.4",
+      legalRef: "§30(2) Nr. 1 BSIG",
       frameworkRef: "Art. 21(2)(a)",
       cirReference: "2.1.1, 2.1.3, 2.1.4",
     }),
     mkReq("2.4", "sign-off", {
       priority: "P0",
-      legalRef: "§38(1) BSIG, CIR 1.1.1(k), 1.1.2, 2.1.1, 2.1.4",
+      legalRef: "§38(1) BSIG",
       frameworkRef: "Art. 20(1), Art. 21(2)(a)",
       cirReference: "1.1.1(k), 1.1.2, 2.1.1, 2.1.4",
       requiredSignOffRole: "ceo",
@@ -292,7 +293,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // document DER.2.1 names the Institutionsleitung for.
     mkReq("3.1", "document", {
       priority: "P0",
-      legalRef: "§30(2) Nr. 2 BSIG, CIR 3.1",
+      legalRef: "§30(2) Nr. 2 BSIG",
       frameworkRef: "Art. 21(2)(b)",
       cirReference: "3.1",
       requiredSignOffRole: "ceo",
@@ -300,7 +301,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("3.2", "document", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4",
+      legalRef: "§30(2) Nr. 2, §2 Nr. 11 BSIG",
       frameworkRef: "Art. 21(2)(b), Art. 23(3)",
       cirReference: "3.2, 3.3, 3.4",
     }),
@@ -312,13 +313,13 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("3.4", "proof", {
       priority: "P2",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 2+6 BSIG, CIR 3.5",
+      legalRef: "§30(2) Nr. 2+6 BSIG",
       frameworkRef: "Art. 21(2)(f)",
       cirReference: "3.5",
     }),
     mkReq("3.5", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 2 BSIG, CIR 3.6",
+      legalRef: "§30(2) Nr. 2 BSIG",
       frameworkRef: "Art. 21(2)(b)",
       cirReference: "3.6",
     }),
@@ -326,34 +327,34 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   "business-continuity": () => [
     mkReq("4.1", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1.3",
+      legalRef: "§30(2) Nr. 3 BSIG",
       frameworkRef: "Art. 21(2)(c)",
       cirReference: "4.1.3",
     }),
     mkReq("4.2", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1, 4.3",
+      legalRef: "§30(2) Nr. 3 BSIG",
       frameworkRef: "Art. 21(2)(c)",
       cirReference: "4.1, 4.3",
       requiredSignOffRole: "ceo",
     }),
     mkReq("4.3", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1.2",
+      legalRef: "§30(2) Nr. 3 BSIG",
       frameworkRef: "Art. 21(2)(c)",
       cirReference: "4.1.2",
     }),
     mkReq("4.4", "technical", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 3 BSIG, CIR 4.2",
+      legalRef: "§30(2) Nr. 3 BSIG",
       frameworkRef: "Art. 21(2)(c)",
       cirReference: "4.2",
     }),
     mkReq("4.5", "proof", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 3+6 BSIG, CIR 4.1.4, 4.3.4",
+      legalRef: "§30(2) Nr. 3+6 BSIG",
       frameworkRef: "Art. 21(2)(c), Art. 21(2)(f)",
       cirReference: "4.1.4, 4.2.6, 4.3.4",
     }),
@@ -361,27 +362,27 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   "supply-chain": () => [
     mkReq("5.1", "document", {
       priority: "P0",
-      legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1-5.2",
+      legalRef: "§30(2) Nr. 4 BSIG",
       frameworkRef: "Art. 21(2)(d)",
       cirReference: "5.1, 5.2",
     }),
     mkReq("5.2", "document", {
       priority: "P1",
       frequency: "on-change",
-      legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1.4",
+      legalRef: "§30(2) Nr. 4 BSIG",
       frameworkRef: "Art. 21(2)(d)",
       cirReference: "5.1.4",
     }),
     mkReq("5.3", "proof", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1.6, 5.1.7",
+      legalRef: "§30(2) Nr. 4 BSIG",
       frameworkRef: "Art. 21(3)",
       cirReference: "5.1.6, 5.1.7",
     }),
     mkReq("5.4", "proof", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1.4(d)",
+      legalRef: "§30(2) Nr. 4 BSIG",
       frameworkRef: "Art. 21(2)(d)",
       cirReference: "5.1.4(d)",
     }),
@@ -389,33 +390,33 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   procurement: () => [
     mkReq("6.1", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 5 BSIG, CIR 6.1",
+      legalRef: "§30(2) Nr. 5 BSIG",
       frameworkRef: "Art. 21(2)(e)",
       cirReference: "6.1",
     }),
     mkReq("6.2", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 5 BSIG, CIR 6.2, 6.3",
+      legalRef: "§30(2) Nr. 5 BSIG",
       frameworkRef: "Art. 21(2)(e)",
       cirReference: "6.2, 6.3",
     }),
     mkReq("6.3", "technical", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 5 BSIG, CIR 6.5, 6.10",
+      legalRef: "§30(2) Nr. 5 BSIG",
       frameworkRef: "Art. 21(2)(e)",
       cirReference: "6.5, 6.10",
     }),
     mkReq("6.4", "technical", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 5 BSIG, CIR 6.6",
+      legalRef: "§30(2) Nr. 5 BSIG",
       frameworkRef: "Art. 21(2)(e)",
       cirReference: "6.6",
     }),
     mkReq("6.5", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 5 BSIG, CIR 6.4",
+      legalRef: "§30(2) Nr. 5 BSIG",
       frameworkRef: "Art. 21(2)(e)",
       cirReference: "6.4",
     }),
@@ -424,19 +425,19 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("7.1", "proof", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 6 BSIG, CIR 7.1, 7.2",
+      legalRef: "§30(2) Nr. 6 BSIG",
       frameworkRef: "Art. 21(2)(f)",
       cirReference: "7.1, 7.2",
     }),
     mkReq("7.2", "proof", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 6 BSIG, CIR 2.3",
+      legalRef: "§30(2) Nr. 6 BSIG",
       frameworkRef: "Art. 21(2)(f)",
       cirReference: "2.3",
     }),
     mkReq("7.3", "sign-off", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 6 BSIG, CIR 2.2.1, §38(1)",
+      legalRef: "§30(2) Nr. 6, §38(1) BSIG",
       frameworkRef: "Art. 21(2)(f), Art. 20(1)",
       cirReference: "2.2.1",
       requiredSignOffRole: "ceo",
@@ -444,7 +445,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("7.4", "document", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 6 BSIG, CIR 2.3.3, Art. 21(4)",
+      legalRef: "§30(2) Nr. 6 BSIG",
       frameworkRef: "Art. 21(2)(f), Art. 21(4)",
       cirReference: "2.3.3",
     }),
@@ -452,28 +453,28 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   training: () => [
     mkReq("8.1", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 1+7 BSIG, CIR 1.1.1(i), 1.2.2",
+      legalRef: "§30(2) Nr. 1+7 BSIG",
       frameworkRef: "Art. 21(2)(a), Art. 21(2)(g)",
       cirReference: "1.1.1(i), 1.2.2",
     }),
     mkReq("8.2", "training", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 7 BSIG, CIR 8.1",
+      legalRef: "§30(2) Nr. 7 BSIG",
       frameworkRef: "Art. 21(2)(g)",
       cirReference: "8.1",
     }),
     mkReq("8.3", "training", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 7 BSIG, CIR 8.2",
+      legalRef: "§30(2) Nr. 7 BSIG",
       frameworkRef: "Art. 21(2)(g)",
       cirReference: "8.2",
     }),
     mkReq("8.4", "proof", {
       priority: "P2",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 6+7 BSIG, CIR 8.1.3, 8.2.3",
+      legalRef: "§30(2) Nr. 6+7 BSIG",
       frameworkRef: "Art. 21(2)(g), Art. 21(2)(f)",
       cirReference: "8.1.3, 8.2.3",
     }),
@@ -482,21 +483,21 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("9.1", "document", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102",
+      legalRef: "§30(2) Nr. 8 BSIG",
       frameworkRef: "Art. 21(2)(h)",
       cirReference: "9.1, 9.3",
     }),
     mkReq("9.2", "technical", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 8 BSIG, CIR 9.2(a)",
+      legalRef: "§30(2) Nr. 8 BSIG",
       frameworkRef: "Art. 21(2)(h)",
       cirReference: "9.2(a)",
     }),
     mkReq("9.3", "technical", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 8 BSIG, CIR 9.2(c)",
+      legalRef: "§30(2) Nr. 8 BSIG",
       frameworkRef: "Art. 21(2)(h)",
       cirReference: "9.2(c)",
     }),
@@ -504,20 +505,20 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   "access-control": () => [
     mkReq("10.1", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 9 BSIG, CIR 11.1",
+      legalRef: "§30(2) Nr. 9 BSIG",
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "11.1",
     }),
     mkReq("10.2", "technical", {
       priority: "P1",
       frequency: "on-change",
-      legalRef: "§30(2) Nr. 9 BSIG, CIR 11.2, CIR 11.3",
+      legalRef: "§30(2) Nr. 9 BSIG",
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "11.2, 11.3",
     }),
     mkReq("10.3", "document", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3",
+      legalRef: "§30(2) Nr. 9 BSIG",
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "10.2, 10.3, 11.3",
     }),
@@ -526,7 +527,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // policy (quarterly for privileged accounts by default), so the data imposes none.
     mkReq("10.4", "proof", {
       priority: "P1",
-      legalRef: "§30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3",
+      legalRef: "§30(2) Nr. 9 BSIG",
       frameworkRef: "Art. 21(2)(i)",
       cirReference: "11.2.3, 11.3.3",
     }),
@@ -535,7 +536,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("11.1", "technical", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 10 BSIG, CIR 11.7",
+      legalRef: "§30(2) Nr. 10 BSIG",
       frameworkRef: "Art. 21(2)(j)",
       cirReference: "11.7",
     }),
@@ -548,7 +549,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("11.3", "document", {
       priority: "P1",
       frequency: "ongoing",
-      legalRef: "§30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B",
+      legalRef: "§30(2) Nr. 10 BSIG",
       frameworkRef: "Art. 21(2)(j)",
       cirReference: "11.6",
     }),

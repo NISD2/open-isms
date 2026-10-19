@@ -174,25 +174,20 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       referenceUrl: req.category.referenceUrl,
       nationalUrl: req.category.nationalUrl,
       czechRef,
+      cirReference: req.cirReference,
+      cirUrl: legislation("cir-2024-2690").url,
     },
     locale,
   ).map((row) => ({
     label: row.label.kind === "message" ? tPortal(row.label.key) : row.label.text,
-    citation: row.citation,
+    citation:
+      row.id === "cir"
+        ? typesetCitation(tUi("cirAnnex", { ref: row.citation }))
+        : row.citation,
     href: row.href,
-    note: null,
+    note: row.id === "cir" ? typesetCitation(tUi("cirNote")) : null,
   }));
   const czechDuty = locale === "cs" ? czechDutyCitation(czechRef) : null;
-  const cir = req.cirReference
-    ? [
-        {
-          label: "CIR 2024/2690",
-          citation: typesetCitation(tUi("cirAnnex", { ref: req.cirReference })),
-          href: legislation("cir-2024-2690").url,
-          note: typesetCitation(tUi("cirNote")),
-        },
-      ]
-    : [];
   // The running text that may explain a term in place: learn paragraphs, leads, missed lines.
   const prose = [
     ...words.missed,
@@ -216,7 +211,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
         throw new Error(`Item ${code} lists "${term}", which is not in the dictionary`);
       return { term: entry.term, definition: entry.definition, source: entry.legalRef };
     }),
-    citations: [...law, ...cir],
+    citations: law,
     // The duty card cites what its text is written from: the BSIG in German, Czech law in Czech,
     // the directive in English. All of them stay in the rail.
     duty:

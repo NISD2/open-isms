@@ -94,6 +94,17 @@ describe("framework data", () => {
     expect(recurring.map((r) => `${r.code}: ${r.frequency}`)).toEqual([]);
   });
 
+  // legalRef is printed under the BSIG label; a CIR point there reads as everyone's duty.
+  test("a NIS2 legalRef cites the BSIG only", () => {
+    const nis2 = FRAMEWORK_DATA.filter((f) => f.code === "nis2").flatMap((f) =>
+      f.categories.flatMap((c) => f.getRequirements(c.slug)),
+    );
+    const mixed = nis2.filter(
+      (r) => !/^§/.test(r.legalRef) || / CIR|Art\.|NIST|TR-/.test(r.legalRef),
+    );
+    expect(mixed.map((r) => `${r.code}: ${r.legalRef}`)).toEqual([]);
+  });
+
   test("category slugs are unique within each framework", () => {
     for (const f of FRAMEWORK_DATA) {
       expect(duplicates(f.categories.map((c) => c.slug)), f.code).toEqual([]);
