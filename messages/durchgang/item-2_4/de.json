@@ -1,0 +1,123 @@
+{
+  "durchgang": {
+    "items": {
+      "2_4": {
+        "headline": "Die Leitlinie schreiben",
+        "teaser": "Ein kurzes Grundsatzdokument, das die Geschäftsführung freigibt.",
+        "missed": [
+          "Alle Beschäftigten müssen die Leitlinie kennen. Das BSI verlangt, sie bekannt zu geben (IT-Grundschutz ISMS.1.A3), und rät, sie neuen Beschäftigten zu erklären, bevor sie Zugang zu den Systemen bekommen (Standard 200-2).",
+          "Eine Leitlinie veraltet. Das BSI empfiehlt, sie spätestens alle zwei Jahre zu überprüfen (Standard 200-2). Für die Anbieter digitaler Dienste, für die die Durchführungsverordnung (EU) 2024/2690 gilt, ist es mindestens jährlich (Anhang, Nr. 1.1.2)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Ihr Grundsatz zur Informationssicherheit",
+            "body": [
+              "Die Leitlinie zur Informationssicherheit ist ein kurzes Grundsatzdokument: wofür sie gilt, welche Ziele Ihr Unternehmen verfolgt, wer verantwortlich ist und wie es vorgeht. Das BSI nennt sie das sichtbare Bekenntnis der Leitung.",
+              "Unsere Vorlage enthält, was das BSI als Mindestinhalt nennt. Sie ergänzen, was für Ihr Unternehmen gilt, die Geschäftsführung gibt sie frei, und alle Beschäftigten bekommen sie. Mehr als zehn Seiten sind nach dem BSI selten nötig."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte zur Sicherheit in der Informationstechnik (§ 30 Abs. 2 Nr. 1 BSIG), und die Geschäftsleitung muss die Maßnahmen umsetzen und ihre Umsetzung überwachen. Die Leitlinie ist das Dokument, in dem sie das schriftlich festhält."
+          },
+          "leitlinie": {
+            "title": "Ihre Leitlinie",
+            "lead": "Die Vorlage enthält, was das BSI als Mindestinhalt einer Leitlinie nennt, und Ihr Firmenname steht schon darin. Lesen Sie sie, und ergänzen Sie darunter, was zu Ihrem Unternehmen passt.",
+            "document": {
+              "title": "Leitlinie zur Informationssicherheit der {company}",
+              "sections": [
+                {
+                  "heading": "Geltungsbereich",
+                  "text": "Diese Leitlinie gilt für die gesamte {company}: für alle Beschäftigten, alle Standorte und alle Informationen, Programme, Geräte und Dienste, mit denen das Unternehmen arbeitet. Sie gilt auch dann, wenn ein Dienstleister etwas davon für uns betreibt."
+                },
+                {
+                  "heading": "Stellenwert der Informationssicherheit",
+                  "text": "Unsere Arbeit hängt an Informationen und an der IT, die sie verarbeitet. Fallen sie aus, werden sie verfälscht oder gelangen sie in falsche Hände, können wir unsere Leistungen nicht erbringen und schaden unseren Kunden. Informationssicherheit gehört deshalb zu den Aufgaben der Geschäftsführung."
+                },
+                {
+                  "heading": "Ziele",
+                  "text": "Wir schützen die Verfügbarkeit, die Vertraulichkeit und die Integrität unserer Informationen und Systeme. Unsere Leistungen sollen auch bei Störungen weiterlaufen, Daten von Kunden, Beschäftigten und Partnern sollen nur Befugten zugänglich sein, und unsere Angaben sollen richtig und vollständig bleiben. Diese Ziele dienen dem Ziel des Unternehmens, verlässlich zu liefern und das Vertrauen seiner Kunden zu behalten."
+                },
+                {
+                  "heading": "Vorgehen",
+                  "text": "Wir gehen nach dem Risiko vor. Wir führen eine Liste unserer Abläufe, Programme, Geräte und Dienstleister, bewerten die Risiken nach einer festgelegten Methode und ergreifen Maßnahmen, die zu unserer Größe und zu den Risiken passen. Dabei betrachten wir alle Gefahren, auch Feuer, Wasser und Stromausfall."
+                },
+                {
+                  "heading": "Verantwortung und Organisation",
+                  "text": "Die Geschäftsführung trägt die Verantwortung für die Informationssicherheit. Sie setzt die Maßnahmen um und überwacht ihre Umsetzung. Sie legt fest, wer die Informationssicherheit im Alltag koordiniert, und stellt dafür Zeit, Geld und Personal bereit. Alle Beschäftigten halten die Regeln ein, die aus dieser Leitlinie folgen, und melden Auffälligkeiten sofort."
+                },
+                {
+                  "heading": "Durchsetzung und Überprüfung",
+                  "text": "Die Geschäftsführung setzt diese Leitlinie durch und prüft regelmäßig, ob die Maßnahmen wirken. Dazu berichtet ihr die Person, die die Informationssicherheit koordiniert, welche Maßnahmen umgesetzt sind, wo es Probleme gab und was sie vorschlägt. Die Geschäftsführung entscheidet, was geändert wird, hält Ergebnis und Entscheidungen schriftlich fest und sorgt dafür, dass Lücken geschlossen werden. Sie überprüft die Leitlinie selbst regelmäßig, nach größeren Änderungen im Unternehmen und nach schweren Sicherheitsvorfällen, und passt sie an."
+                },
+                {
+                  "heading": "Bekanntgabe und Inkrafttreten",
+                  "text": "Die Leitlinie gilt ab ihrer Freigabe durch die Geschäftsführung. Alle Beschäftigten erhalten sie. Neue Beschäftigte lernen sie kennen, bevor sie Zugang zu unseren Systemen bekommen."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "laws",
+                  "label": "Gesetze und Verträge",
+                  "heading": "Gesetze und Verträge",
+                  "text": "Wir halten die Gesetze und Verträge ein, die unsere Informationssicherheit betreffen, insbesondere das BSI-Gesetz, mit dem Deutschland die NIS-2-Richtlinie umsetzt, die Datenschutz-Grundverordnung und die Vereinbarungen mit unseren Kunden. Alle Beschäftigten sind verpflichtet, sie zu beachten."
+                },
+                {
+                  "id": "contact",
+                  "label": "Ansprechperson",
+                  "heading": "Ansprechperson",
+                  "text": "Fragen zur Informationssicherheit und Hinweise auf Vorfälle gehen an die Person, die die Informationssicherheit koordiniert. Wer das ist, steht in der aktuellen Übersicht der Rollen."
+                },
+                {
+                  "id": "training",
+                  "label": "Schulungen",
+                  "heading": "Schulung und Sensibilisierung",
+                  "text": "Alle Beschäftigten werden regelmäßig zur Informationssicherheit geschult. Die Geschäftsführung nimmt selbst regelmäßig an Schulungen teil."
+                },
+                {
+                  "id": "suppliers",
+                  "label": "Lieferanten und Dienstleister",
+                  "heading": "Lieferanten und Dienstleister",
+                  "text": "Wer für uns arbeitet und dabei an unsere Systeme oder Daten kommt, hält die Regeln dieser Leitlinie ebenfalls ein. Wir vereinbaren das mit unseren Lieferanten und Dienstleistern."
+                },
+                {
+                  "id": "reporting",
+                  "label": "Sicherheitsvorfälle melden",
+                  "heading": "Sicherheitsvorfälle melden",
+                  "text": "Beschäftigte melden Sicherheitsvorfälle und Verdachtsfälle sofort intern. Erhebliche Sicherheitsvorfälle meldet das Unternehmen fristgerecht an das BSI."
+                },
+                {
+                  "id": "violations",
+                  "label": "Folgen von Verstößen",
+                  "heading": "Verstöße",
+                  "text": "Verstöße gegen diese Leitlinie und die Regeln, die aus ihr folgen, können arbeitsrechtliche Folgen haben."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Jährliche Überprüfung",
+                  "heading": "Jährliche Überprüfung",
+                  "text": "Die Geschäftsführung überprüft diese Leitlinie mindestens einmal im Jahr."
+                },
+                {
+                  "id": "indicators",
+                  "label": "Kennzahlen",
+                  "heading": "Kennzahlen",
+                  "text": "Für die Überprüfung nutzen wir wenige Kennzahlen, etwa wie viele Sicherheitsupdates eingespielt sind und wie schnell wir auf Vorfälle reagieren."
+                },
+                {
+                  "id": "independent_review",
+                  "label": "Unabhängige Prüfung",
+                  "heading": "Unabhängige Prüfung",
+                  "text": "Mindestens einmal im Jahr prüft eine fachkundige Person, die die Maßnahmen nicht selbst verantwortet, ob sie wirken."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihre Leitlinie ist geschrieben",
+            "note": "Sobald die Geschäftsführung sie freigegeben hat, geben Sie sie allen Beschäftigten bekannt, etwa per E-Mail oder im Intranet."
+          }
+        }
+      }
+    }
+  }
+}

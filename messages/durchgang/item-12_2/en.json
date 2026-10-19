@@ -1,0 +1,47 @@
+{
+  "durchgang": {
+    "items": {
+      "12_2": {
+        "headline": "Register with {authority}",
+        "teaser": "Your company registers once with {authority}.",
+        "missed": [
+          "After registering, you report any change to these details within two weeks (Art. 3(4) NIS 2).",
+          "If § 28(5) BSIG lifts §§ 30, 32 and 38 BSIG for your telecommunications or energy company, you still register: § 33 BSIG is not on the list of that exception."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Registering with {authority}",
+            "body": [
+              "If NIS 2 applies to your company, it registers once with {authority}, the one in charge in your country. You tell it who you are and how to reach you.",
+              "Each member state runs its own registration, usually online. The next screen shows where yours is."
+            ],
+            "duty": "Registration is a duty of its own, with a deadline set by your country's law. In Germany it is three months after your company first counts as an important or essential entity."
+          },
+          "where": {
+            "title": "Where you register",
+            "lead": "You register in the member state where your company is established. Your country is at the top.",
+            "source": "Art. 26(1) NIS 2: the member state of establishment is in charge. Providers of public electronic communications networks or services register where they provide their services. Providers of cloud computing, data centre and managed services, and similar digital providers, register where their main establishment is."
+          },
+          "confirmation": {
+            "title": "Record the registration",
+            "lead": "Two details, so you know later which access was used and on which day. In Germany the access needs an ELSTER organisation certificate: its activation code comes by letter, a few days after you apply, to the address your tax office has. If the letter has not arrived yet, choose \"Not possible yet\".",
+            "document": "Your access to the portal of {authority}"
+          },
+          "done": {
+            "title": "Registration recorded"
+          }
+        },
+        "fields": {
+          "mukAccountId": {
+            "label": "Account or reference at the portal",
+            "hint": "The ID of the account you registered with, or the reference number the portal gave you. In Germany it is the Benutzerkonto-ID of the ELSTER organisation certificate."
+          },
+          "bsiRegistrationDate": {
+            "label": "Date of registration",
+            "hint": "The day the registration was submitted in the portal."
+          }
+        }
+      }
+    }
+  }
+}

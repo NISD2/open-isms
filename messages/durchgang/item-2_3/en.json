@@ -1,0 +1,43 @@
+{
+  "durchgang": {
+    "items": {
+      "2_3": {
+        "headline": "Rate your risks",
+        "teaser": "Place every piece of software, every device and every supplier on the matrix.",
+        "missed": [
+          "Suppliers count too. The directive requires supply chain security, including the relationships with each direct supplier or service provider (Art. 21(2)(d) NIS 2), taking into account the vulnerabilities specific to each of them (Art. 21(3) NIS 2).",
+          "Rare does not mean small. In the BSI matrix, damage that threatens the existence of the organisation is never low, even if it could occur every 5 years at the most."
+        ],
+        "screens": {
+          "learn": {
+            "title": "How big is which risk?",
+            "body": [
+              "Your list is in place: software, technology and suppliers. Now you rate each entry with the risk assessment method you set. How often does the worst realistic case happen, and how big would the damage be? The matrix turns that into one of four levels.",
+              "That shows you where protection is needed first. Individual threats, for example from the BSI's list of elementary threats, can be added afterwards in the risk register."
+            ],
+            "duty": "The law requires policies on risk analysis. How much protection is proportionate depends, among other things, expressly on the likelihood of incidents and their severity (Art. 21(1) NIS 2)."
+          },
+          "software": {
+            "title": "Rate your software",
+            "lead": "Each program on your list has its own row. Think of its worst realistic case: it goes down, it is attacked or data is lost. Then tap the field in its matrix: further right, the more often it happens; further up, the bigger the damage."
+          },
+          "technology": {
+            "title": "Rate your technology and rooms",
+            "lead": "The same for servers, devices, network and rooms. Think of fire, water and power cuts too."
+          },
+          "suppliers": {
+            "title": "Rate your suppliers",
+            "lead": "Here the worst case is that the supplier fails or has a security incident of its own. The level then also shows in your supplier list."
+          },
+          "map": {
+            "title": "Your risks at a glance",
+            "lead": "Each number counts your entries in that field of the matrix. The further up and to the right, the sooner an entry needs protection. Below, all of them by name, highest level first."
+          },
+          "done": {
+            "title": "Your risks are rated"
+          }
+        }
+      }
+    }
+  }
+}

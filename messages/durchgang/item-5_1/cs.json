@@ -1,0 +1,89 @@
+{
+  "durchgang": {
+    "items": {
+      "5_1": {
+        "headline": "Sepište, kdo pro vás pracuje",
+        "teaser": "Seznam vašich dodavatelů a poskytovatelů služeb.",
+        "missed": [
+          "Nepočítají se jen IT firmy. Patří sem každý dodavatel, který pracuje s vaším IT nebo s vašimi daty, například i daňový poradce s přístupem k údajům zaměstnanců. Rozhoduje stanovený rozsah: zákon řadí dodavatele mezi podpůrná aktiva, a pokud zajišťuje fungování primárních aktiv souvisejících s vaší regulovanou službou, patří do evidence (§ 2 odst. 1 písm. e) a § 12 zákona č. 264/2025 Sb.). Dokud primární aktivum neposoudíte, platí, že do stanoveného rozsahu patří (§ 12 odst. 4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Kdo pro vaši společnost pracuje",
+            "body": [
+              "Bezpečnost vašeho IT zahrnuje i ty, kdo na něm pracují zvenku nebo mají přístup k vašim datům: poskytovatele služeb, dodavatele softwaru a další dodavatele. Zákon je nazývá dodavateli a počítá je mezi podpůrná aktiva, tedy aktiva, na kterých závisí fungování primárních aktiv (§ 2 odst. 1 písm. e) zákona č. 264/2025 Sb.). Prvním krokem je seznam, kdo to je a co pro vás dělají.",
+              "Začněte těmi, bez kterých by vaše firma nefungovala. Seznam časem poroste."
+            ],
+            "duty": "Zákon požaduje evidovat aktiva ve stanoveném rozsahu, k nimž patří i dodavatelé (§ 12 odst. 3 zákona č. 264/2025 Sb.), a zahrnout bezpečnostní požadavky do smluv s dodavateli (§ 13 odst. 5). V režimu vyšších povinností navíc identifikujete a evidujete významné dodavatele (vyhláška č. 409/2025 Sb., § 9 odst. 1 písm. d))."
+          },
+          "list": {
+            "title": "Jak může váš seznam vypadat",
+            "caption": "Jeden řádek na dodavatele a co pro vás dělá. Toto jsou obvyklé druhy:",
+            "rows": [
+              {
+                "name": "Poskytovatel IT služeb",
+                "detail": "spravuje servery, účty a zálohy, má vzdálený přístup"
+              },
+              {
+                "name": "Poskytovatelé softwaru a cloudu",
+                "detail": "například Microsoft pro e-mail a soubory, Pohoda nebo Money pro účetnictví"
+              },
+              {
+                "name": "Telekomunikační operátor",
+                "detail": "připojení k internetu, telefony, mobilní tarify"
+              },
+              {
+                "name": "Webová agentura nebo hosting",
+                "detail": "provozuje web nebo e-shop"
+              },
+              {
+                "name": "Daňový poradce nebo mzdová účetní",
+                "detail": "zpracovává mzdy, vidí údaje zaměstnanců"
+              },
+              {
+                "name": "Servis strojů nebo zařízení",
+                "detail": "servisuje stroje a kvůli diagnostice se připojuje na dálku"
+              },
+              {
+                "name": "Služby pro budovu a ostrahu",
+                "detail": "zabezpečovací systém, přístupové karty, úklid s klíči"
+              },
+              {
+                "name": "Logistika a kurýři",
+                "detail": "doručují vašim zákazníkům, vidí údaje o objednávkách a adresy"
+              }
+            ]
+          },
+          "ready": {
+            "title": "Pro další krok: kniha přijatých faktur",
+            "lead": "Téměř každý, kdo pro vás pracuje, vám posílá faktury. Nejrychleji proto začnete se seznamem z vašeho účetnictví.",
+            "items": [
+              {
+                "name": "Kniha přijatých faktur",
+                "detail": "vaše účetnictví ji umí vyexportovat, například z Pohody, Money nebo jiného účetního softwaru, nebo vám ji pošle účetní či daňový poradce; stačí posledních dvanáct měsíců"
+              },
+              {
+                "name": "Smlouvy a předplatné",
+                "detail": "co platíte kartou nebo inkasem: servisní smlouvy, softwarové licence, cloudové účty"
+              },
+              {
+                "name": "Váš poskytovatel IT služeb",
+                "detail": "ví, které dodavatele za vás využívá"
+              }
+            ],
+            "source": "Osvědčená praxe: každý soupis sestavit z přehledů, které už existují. Tak radí i německá metodika BSI-Standard 200-2.",
+            "confirm": "Knihu přijatých faktur mám po ruce"
+          },
+          "suppliers": {
+            "title": "Vaši dodavatelé",
+            "lead": "Koho jste uvedli jako dodavatele svého softwaru a techniky, ten už v seznamu je. Doplňte ostatní, každého na jeden řádek s tím, co pro vás dělá. V případě pochybností dodavatele raději zapište, než abyste ho vynechali."
+          },
+          "done": {
+            "title": "Váš seznam je hotový",
+            "note": "Když přibude nový dodavatel, doplňte ho do seznamu."
+          }
+        }
+      }
+    }
+  }
+}

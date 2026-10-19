@@ -5,6 +5,7 @@ import {
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
 import { z } from "zod";
+import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import { WALK_LOCALES } from "@/lib/durchgang/types";
 import type { PdfLocale } from "@/lib/pdf/format";
 import type { ExportRecord } from "./company-export";
@@ -79,7 +80,7 @@ export interface ExportNames {
 
 /** The walk's title for a management training row, in `locale`. */
 const managementTrainingTitle = async (locale: PdfLocale): Promise<string> => {
-  const walk: unknown = (await import(`../../messages/durchgang/${locale}.json`)).default;
+  const walk: unknown = DURCHGANG_MESSAGES[locale];
   const title = at(walk, ["durchgang", "ui", "training", "managementTraining"]);
   return typeof title === "string" ? title : "";
 };
@@ -133,7 +134,7 @@ const fieldLabelsIn = (
  */
 async function answerNames(locale: PdfLocale): Promise<AnswerNames> {
   const [walk, guidance, compliance]: unknown[] = await Promise.all([
-    import(`../../messages/durchgang/${locale}.json`).then((m) => m.default),
+    DURCHGANG_MESSAGES[locale],
     import(`../../data/guidance/${locale}.json`).then((m) => m.default),
     import(`../../messages/compliance/${locale}.json`).then((m) => m.default),
   ]);
@@ -162,7 +163,11 @@ async function answerNames(locale: PdfLocale): Promise<AnswerNames> {
  */
 export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
   const named = async ([file, path]: readonly [string, readonly string[]]) => {
-    const json: unknown = (await import(`../../messages/${file}/${locale}.json`)).default;
+    // The walk's copy is stored in parts (i18n/durchgang.ts), not one file per language.
+    const json: unknown =
+      file === "durchgang"
+        ? DURCHGANG_MESSAGES[locale]
+        : (await import(`../../messages/${file}/${locale}.json`)).default;
     return NAMES.parse(at(json, path));
   };
   const [

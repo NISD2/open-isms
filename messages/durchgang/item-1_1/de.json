@@ -1,0 +1,51 @@
+{
+  "durchgang": {
+    "items": {
+      "1_1": {
+        "headline": "Die Geschäftsführung schulen lassen",
+        "teaser": "Jedes Mitglied der Geschäftsführung, regelmäßig.",
+        "missed": [
+          "Die Schulung soll die Ziele aus § 38 Abs. 3 BSIG abdecken: Risiken und Risikomanagement erkennen und bewerten und beurteilen, was sie für die Dienste Ihres Unternehmens bedeuten.",
+          "Das Gesetz sagt nur „regelmäßig“. Seine Begründung liest das als Schulungen, die mindestens alle drei Jahre angeboten werden (BT-Drs. 21/1501, S. 154). Wie lange eine Schulung dauert, legt keines von beiden fest."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Die Schulung der Geschäftsführung",
+            "body": [
+              "Wer das Unternehmen leitet, nimmt regelmäßig an einer Schulung zur Informationssicherheit teil. Das gilt für jedes Mitglied der Geschäftsführung persönlich.",
+              "Einen Kurs dafür bieten wir auf dieser Plattform an. Sie können auch jeden anderen Anbieter wählen; eine Zulassung für Anbieter schreibt das Gesetz nicht vor."
+            ],
+            "duty": "Die Geschäftsführung muss regelmäßig an Schulungen teilnehmen. Einen Abstand nennt das Gesetz nicht; seine Begründung liest „regelmäßig“ als mindestens alle drei Jahre.",
+            "link": "Zum kostenlosen Kurs für die Geschäftsführung"
+          },
+          "record": {
+            "title": "So können Nachweise aussehen",
+            "caption": "Eine Zeile pro Person und Schulung:",
+            "rows": [
+              {
+                "name": "Anna Beispiel, Geschäftsführerin",
+                "detail": "Präsenzschulung bei einem Bildungsträger, 12. März 2026, Teilnahmebescheinigung"
+              },
+              {
+                "name": "Jonas Muster, Geschäftsführer",
+                "detail": "Onlinekurs, 3. April 2026, Zertifikat als PDF"
+              },
+              {
+                "name": "Lea Probe, Geschäftsführerin",
+                "detail": "Webinar eines Branchenverbands, 20. Mai 2026, Bildschirmfoto der Teilnahme"
+              }
+            ],
+            "note": "Das Gesetz schreibt kein Format vor. Eine Präsenzschulung, ein Onlinekurs, ein Webinar oder eine interne Schulung kommen in Frage. Halten Sie fest, wer wann teilgenommen hat und was behandelt wurde."
+          },
+          "trainings": {
+            "title": "Eine Zeile pro Person",
+            "lead": "Tragen Sie für jedes Mitglied der Geschäftsführung die letzte Schulung ein. Einen Nachweis können Sie anhängen; nach einem Webinar gibt es manchmal keinen."
+          },
+          "done": {
+            "title": "Schulung erfasst"
+          }
+        }
+      }
+    }
+  }
+}

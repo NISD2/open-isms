@@ -1,0 +1,102 @@
+{
+  "durchgang": {
+    "ui": {
+      "recorded": "Recorded in your records",
+      "recordedPolicy": "{title}: saved as a draft. Management approves it at the end of the walkthrough.",
+      "recordedIn": {
+        "training_record": "Trainings",
+        "management_review": "Management reviews",
+        "supplier": "Suppliers"
+      },
+      "andMore": "{names} and {count} more",
+      "comesNext": "Next",
+      "byAssistant": "Filled in by the assistant {client} on {date}",
+      "saveFailed": "That was not saved. What you entered is still here. Please try again.",
+      "uploadFirst": "Upload the file here. If you do not have it yet, choose \"Not possible yet\".",
+      "decline": {
+        "tab": "Decided not to do this",
+        "title": "You decided not to do this?",
+        "description": "Then the item counts as done without being implemented. Management signs this decision at the end. Write down why.",
+        "label": "Reason",
+        "placeholder": "For example: we run no servers of our own. Our applications run at a provider certified for this.",
+        "hint": "At least 20 characters. The reason is kept with its date in your records.",
+        "confirm": "Record the decision"
+      },
+      "suppliers": {
+        "name": "Supplier",
+        "namePlaceholder": "for example Muster IT GmbH",
+        "what": "What they do for you",
+        "whatPlaceholder": "for example looks after the servers, has remote access",
+        "add": "Add",
+        "empty": "No supplier on your list yet.",
+        "failed": "That was not saved. Please try again.",
+        "details": "Contracts and contacts on the supplier page",
+        "answers": "See their security answers",
+        "platform": "Runs this platform and processes your data to do so. The provider gave these answers itself in the supplier portal.",
+        "backToRegister": "Back to the supplier list"
+      },
+      "training": {
+        "add": "Add a training",
+        "name": "Name",
+        "provider": "Provider",
+        "providerPlaceholder": "for example an online course or a training institute",
+        "managementTraining": "Management body training (Art. 20(2) NIS 2)",
+        "date": "Date",
+        "proof": "Proof (optional)",
+        "proofHint": "Certificate of attendance, certificate or screenshot. After a webinar there is sometimes none.",
+        "uploading": "Uploading …",
+        "uploadFailed": "The upload did not work. Please try again.",
+        "removeProof": "Remove",
+        "save": "Add",
+        "empty": "No training entered yet.",
+        "withProof": "Proof attached",
+        "withoutProof": "no proof",
+        "atProvider": "Record at the provider",
+        "onPlatform": "Course completed on nisd2.eu, recorded there",
+        "started": "Course started on nisd2.eu",
+        "lessons": "{done} of {total} lessons",
+        "invite": {
+          "title": "Invite to {course}",
+          "lead": "Members of management take the course here. Once they are in your team, their progress shows in the list above.",
+          "label": "Invite someone from management by email",
+          "placeholder": "name@your-company.com",
+          "send": "Send",
+          "invited": "Invitation sent to {email}. After signing in they land in the course.",
+          "notEmailed": "The invitation for {email} was created but no email could be sent. Copy the link from the team page.",
+          "failed": "That did not work. Please try again.",
+          "askAdmin": "To invite someone new, ask an admin of your company. A colleague already in your team starts with the link.",
+          "copyLink": "Copy the link to the course"
+        },
+        "link": "Link to the provider's record (optional)",
+        "linkHint": "Where an online course or a training provider keeps who took part, for example its completion report. Then the proof stays with them, also for many people.",
+        "remove": "Delete",
+        "failed": "That was not saved. Check the link and try again.",
+        "staff": {
+          "who": "Who took part",
+          "what": "Topic",
+          "whatHint": "for example spotting phishing, at the team meeting",
+          "provider": "Provider (optional)",
+          "providerHint": "for example the online course or training institute",
+          "empty": "No training or briefing entered yet.",
+          "proofHint": "List of who took part, slides or an export from the online course."
+        }
+      },
+      "portals": {
+        "yours": "Your country",
+        "others": "{count} other EU member states",
+        "all": "All {count} EU member states",
+        "noCountry": "No country is set for your company yet. Once it is, it appears here at the top.",
+        "setCountry": "Set the country",
+        "asOf": "List as of {date}",
+        "noPortal": "No portal yet",
+        "open": "Open the portal",
+        "status": {
+          "operational": "Open the portal",
+          "pre-registration": "Open the pre-registration",
+          "planned": "Portal announced",
+          "not-yet-available": "No portal yet"
+        }
+      }
+    }
+  }
+}

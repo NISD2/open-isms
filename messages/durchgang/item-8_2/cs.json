@@ -1,0 +1,52 @@
+{
+  "durchgang": {
+    "items": {
+      "8_2": {
+        "headline": "Zaznamenejte školení zaměstnanců",
+        "teaser": "Kdo byl kdy o čem poučen.",
+        "missed": [
+          "Školení potřebují i noví zaměstnanci. Obě vyhlášky žádají vstupní školení a pak pravidelná školení (vyhláška č. 410/2025 Sb., § 5 odst. 2 písm. b) a c); vyhláška č. 409/2025 Sb., § 10 odst. 3 písm. b)). Interval žádná z nich nestanoví.",
+          "Bez záznamu školení později nedoložíte. Obě vyhlášky záznamy přímo ukládají: přehledy o provedených školeních a seznamy školených osob (vyhláška č. 410/2025 Sb., § 5 odst. 3; vyhláška č. 409/2025 Sb., § 10 odst. 5)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Co by měli vaši zaměstnanci vědět",
+            "body": [
+              "Podvodný e-mail (phishing), telefonát od údajné IT podpory, neznámý USB disk: takové útoky míří na vaše zaměstnance. Kdo je pozná, nahlásí je, místo aby klikl.",
+              "Vyhlášky žádají pro nové zaměstnance vstupní školení a potom pravidelná školení; jak často, neurčují. Německý úřad BSI považuje za účelné informovat všechny jednou ročně o novinkách. Patří sem i vysvětlení vaší bezpečnostní politiky. Témata uvádějí přílohy vyhlášek, například techniky sociálního inženýrství, hesla nebo základní reakci na kybernetický bezpečnostní incident (vyhláška č. 410/2025 Sb., příloha č. 3; vyhláška č. 409/2025 Sb., příloha č. 6). Plakát, například nouzová karta IT, je dobrý doplněk. Důležité je zaznamenat, kdo se kdy zúčastnil."
+            ],
+            "duty": "Bezpečnost lidských zdrojů je bezpečnostní opatření v obou režimech (§ 14 odst. 1 písm. a) bod 8 a odst. 2 písm. e) zákona č. 264/2025 Sb.). V režimu nižších povinností vyhláška č. 410/2025 Sb. žádá vstupní a pravidelná školení a jejich přehledy (§ 5 odst. 2 a 3). V režimu vyšších povinností vyhláška č. 409/2025 Sb. žádá plán rozvoje bezpečnostního povědomí, ve kterém sami stanovíte formu, obsah a rozsah školení, a pravidelné ověřování povědomí (§ 10). Jak často a s jakým poskytovatelem, neurčuje žádná z nich.",
+            "link": "Stránka německého úřadu BSI o školení (v němčině)"
+          },
+          "record": {
+            "title": "Jak mohou záznamy vypadat",
+            "caption": "Jeden řádek na každé školení nebo poučení:",
+            "rows": [
+              {
+                "name": "Jak poznat phishing, všichni zaměstnanci",
+                "detail": "porada týmu, 14. ledna 2026, seznam přítomných"
+              },
+              {
+                "name": "Vstupní školení, nová kolegyně v obchodním oddělení",
+                "detail": "první pracovní den, 2. března 2026, bezpečnostní politika vysvětlena a předána"
+              },
+              {
+                "name": "Online kurz bezpečnosti informací, administrativa",
+                "detail": "dokončeno do 30. dubna 2026, export z kurzu"
+              }
+            ],
+            "note": "Formát vyhlášky nepředepisují. Zapište, čeho se školení týkalo, kdo ho absolvoval a kdy; v režimu vyšších povinností musí přehled obsahovat předmět školení a seznam osob (vyhláška č. 409/2025 Sb., § 10 odst. 5)."
+          },
+          "trainings": {
+            "title": "Vaše školení a poučení",
+            "lead": "Zapište, co už proběhlo, jeden řádek na každé školení. Přiložte seznam účastníků nebo export, nebo odkažte na záznam u poskytovatele, například na zprávu o dokončení online kurzu. Jde to i pro mnoho zaměstnanců najednou."
+          },
+          "done": {
+            "title": "Školení máte zaznamenaná",
+            "note": "Další školení zapisujte na stránce Školení, včetně vstupního školení nových zaměstnanců."
+          }
+        }
+      }
+    }
+  }
+}

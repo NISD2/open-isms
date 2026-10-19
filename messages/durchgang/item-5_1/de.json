@@ -1,0 +1,89 @@
+{
+  "durchgang": {
+    "items": {
+      "5_1": {
+        "headline": "Aufschreiben, wer für Sie arbeitet",
+        "teaser": "Eine Liste Ihrer Lieferanten und Dienstleister.",
+        "missed": [
+          "Nicht nur IT-Firmen zählen. Es geht um alle direkten Anbieter und Dienstleister, die Ihre IT oder Ihre Daten berühren, etwa auch das Steuerbüro mit Zugriff auf Personaldaten (§ 30 Abs. 1 und Abs. 2 Nr. 4 BSIG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wer für Ihr Unternehmen arbeitet",
+            "body": [
+              "Zur Sicherheit Ihrer IT gehört auch, wer von außen daran mitarbeitet oder an Ihre Daten kommt: Dienstleister, Softwareanbieter, Lieferanten. Das Gesetz nennt sie Ihre unmittelbaren Anbieter und Diensteanbieter. Der erste Schritt ist eine Liste, wer das ist und was er für Sie tut.",
+              "Fangen Sie mit denen an, ohne die Ihr Betrieb stehen würde. Die Liste wächst mit."
+            ],
+            "duty": "Das Gesetz verlangt Maßnahmen für die Sicherheit der Lieferkette, auch in den Beziehungen zu Ihren direkten Anbietern und Dienstleistern."
+          },
+          "list": {
+            "title": "So kann Ihre Liste aussehen",
+            "caption": "Eine Zeile pro Lieferant, mit dem, was er für Sie tut. Das sind die üblichen Arten:",
+            "rows": [
+              {
+                "name": "IT-Dienstleister",
+                "detail": "betreut Server, Konten und Datensicherungen, hat Fernzugriff"
+              },
+              {
+                "name": "Software- und Cloudanbieter",
+                "detail": "etwa Microsoft für E-Mail und Dateien, DATEV für die Buchhaltung"
+              },
+              {
+                "name": "Telekommunikationsanbieter",
+                "detail": "Internetanschluss, Telefone, Mobilfunkverträge"
+              },
+              {
+                "name": "Webagentur oder Hoster",
+                "detail": "betreibt die Website oder den Webshop"
+              },
+              {
+                "name": "Steuerbüro oder Lohnbüro",
+                "detail": "macht die Lohnabrechnung, sieht Personaldaten"
+              },
+              {
+                "name": "Wartung von Maschinen und Anlagen",
+                "detail": "wartet Maschinen und schaltet sich zur Diagnose aus der Ferne auf"
+              },
+              {
+                "name": "Gebäude- und Sicherheitsdienste",
+                "detail": "Alarmanlage, Zutrittskarten, Reinigung mit Schlüsseln"
+              },
+              {
+                "name": "Logistik und Kurierdienste",
+                "detail": "liefern an Ihre Kunden, sehen Bestell- und Adressdaten"
+              }
+            ]
+          },
+          "ready": {
+            "title": "Für den nächsten Schritt: Ihre Kreditorenliste",
+            "lead": "Fast alle, die für Sie arbeiten, schicken Ihnen Rechnungen. Am schnellsten beginnen Sie deshalb mit der Liste aus Ihrer Buchhaltung.",
+            "items": [
+              {
+                "name": "Kreditorenliste",
+                "detail": "Ihre Buchhaltung kann sie ausgeben, etwa aus DATEV oder Ihrem Buchhaltungsprogramm, oder Ihr Steuerbüro schickt sie Ihnen; die letzten zwölf Monate reichen"
+              },
+              {
+                "name": "Verträge und Abonnements",
+                "detail": "was Sie per Karte oder Lastschrift zahlen: Wartungsverträge, Softwarelizenzen, Cloudkonten"
+              },
+              {
+                "name": "Ihr IT-Dienstleister",
+                "detail": "weiß, welche Anbieter er selbst für Sie einsetzt"
+              }
+            ],
+            "source": "Auf vorhandenen Übersichten aufzubauen, empfiehlt das BSI für jede Bestandsaufnahme (BSI-Standard 200-2).",
+            "confirm": "Ich habe die Kreditorenliste zur Hand"
+          },
+          "suppliers": {
+            "title": "Ihre Lieferanten",
+            "lead": "Wen Sie bei Ihren Programmen und Ihrer Technik als Anbieter genannt haben, steht schon darin. Ergänzen Sie die anderen, je eine Zeile mit dem, was er für Sie tut. Im Zweifel gilt: lieber aufschreiben als weglassen."
+          },
+          "done": {
+            "title": "Ihre Liste steht",
+            "note": "Kommt ein neuer Lieferant dazu, ergänzen Sie ihn auf der Liste."
+          }
+        }
+      }
+    }
+  }
+}

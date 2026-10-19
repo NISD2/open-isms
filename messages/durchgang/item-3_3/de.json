@@ -1,0 +1,94 @@
+{
+  "durchgang": {
+    "items": {
+      "3_3": {
+        "headline": "Wissen, wie Sie einen Vorfall melden",
+        "teaser": "Drei Meldungen an das {authority}, mit festen Fristen.",
+        "missed": [
+          "Die Uhr läuft ab Kenntnis, nicht erst, wenn alles geklärt ist. Melden Sie früh; die zweite Meldung bestätigt oder aktualisiert die erste.",
+          "Das BSI versteht unter Kenntnis den Moment, in dem jemand im Unternehmen innerhalb der Arbeitszeit von dem Vorfall erfährt (BSI, Infopaket Meldepflicht).",
+          "Ist der Schutz personenbezogener Daten verletzt, melden Sie das in der Regel auch der Datenschutzaufsicht: unverzüglich und möglichst binnen 72 Stunden, außer wenn voraussichtlich kein Risiko für die Betroffenen entsteht (Art. 33 DSGVO)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Einen Vorfall melden",
+            "body": [
+              "Ist ein Sicherheitsvorfall erheblich, melden Sie ihn dem {authority}. Erheblich ist er, wenn er Ihren Betrieb schwer stören oder Ihnen finanzielle Verluste bringen kann, oder wenn er anderen erheblichen Schaden zufügen kann.",
+              "Gemeldet wird im BSI-Portal, mit demselben Zugang wie bei der Registrierung."
+            ],
+            "duty": "Erhebliche Vorfälle melden Sie in drei Schritten mit festen Fristen an die gemeinsame Meldestelle des BSI und des Bundesamts für Bevölkerungsschutz und Katastrophenhilfe."
+          },
+          "clock": {
+            "title": "Die drei Fristen",
+            "lead": "Die Uhr läuft ab dem Moment, in dem Ihr Unternehmen von dem Vorfall erfährt. Die dritte Frist beginnt mit der zweiten Meldung.",
+            "source": "§ 32 Abs. 1 und 2 BSIG. Verlangt das BSI es, kommt dazwischen eine Zwischenmeldung. Dauert der Vorfall nach einem Monat noch an, schicken Sie statt der Abschlussmeldung eine Fortschrittsmeldung und die Abschlussmeldung, sobald er bewältigt ist."
+          },
+          "first_report": {
+            "title": "Was das Meldeformular fragt",
+            "caption": "Sie melden im Portal des {authority}, nie hier. Für die frühe Erstmeldung fragt das Formular diese Angaben nacheinander ab. Hier für einen ausgedachten Fall beantwortet, damit Sie im Formular nichts überrascht",
+            "rows": [
+              {
+                "name": "Einstufung",
+                "detail": "Erheblicher Sicherheitsvorfall; Lage: Orange, der Betrieb läuft eingeschränkt"
+              },
+              {
+                "name": "Beschreibung",
+                "detail": "Dateien auf dem Dateiserver sind verschlüsselt, ein Erpresserschreiben liegt bei. Buchhaltung und Auftragsannahme stehen. Ursache vermutlich ein E-Mail-Anhang, Dauer noch offen."
+              },
+              {
+                "name": "Zeitpunkte",
+                "detail": "Eingetreten vermutlich gegen 6:30 Uhr, erkannt um 7:40 Uhr, Stand dieser Meldung 10:15 Uhr"
+              },
+              {
+                "name": "Betroffene Bereiche",
+                "detail": "Verarbeitendes Gewerbe, Maschinenbau; keine kritische Anlage"
+              },
+              {
+                "name": "Verdacht auf Angriff",
+                "detail": "Ja, das Erpresserschreiben deutet auf einen gezielten Angriff hin"
+              },
+              {
+                "name": "Andere Länder",
+                "detail": "Möglich: Kunden in Österreich erhalten ihre Lieferungen später"
+              },
+              {
+                "name": "Maßnahmen",
+                "detail": "Dateiserver vom Netz getrennt, IT-Dienstleister vor Ort, Datensicherung von gestern geprüft"
+              },
+              {
+                "name": "Unter Kontrolle",
+                "detail": "Nein, die Untersuchung läuft"
+              },
+              {
+                "name": "Meldende Person",
+                "detail": "Anna Weber, IT-Leitung, mit Telefon und E-Mail für Rückfragen"
+              }
+            ],
+            "note": "Das Gesetz verlangt in der frühen Erstmeldung nur zwei Angaben: ob ein Angriff dahinterstecken könnte und ob sich der Vorfall auf andere Länder auswirken könnte (§ 32 Abs. 1 Nr. 1 BSIG). Die übrigen fragt das BSI in seinem Formular ab. Was Sie noch nicht wissen, ergänzen Sie mit der zweiten Meldung."
+          },
+          "setup": {
+            "title": "Können Sie heute melden?",
+            "lead": "Prüfen Sie es jetzt, nicht erst im Ernstfall. Sie melden an das CSIRT oder die zuständige Behörde Ihres Landes; Ihre steht unten.",
+            "steps": [
+              "Öffnen Sie unten das Portal des {authority}.",
+              "Melden Sie sich mit dem Zugang aus Ihrer Registrierung an: der Zertifikatsdatei des ELSTER-Organisationszertifikats und ihrem Passwort.",
+              "Prüfen Sie, ob Sie sehen, wo Sie melden: im BSI-Portal der rote Knopf „Sicherheitsvorfall melden“ auf der Startseite. Schicken Sie nichts ab.",
+              "Antworten Sie unten: Ja, wenn die Person, die im Ernstfall führt, oder ihre Vertretung das kann."
+            ],
+            "document": "Ihr Notfallplan",
+            "source": "§ 32 Abs. 1 BSIG: Gemeldet wird an die gemeinsame Meldestelle von BSI und Bundesamt für Bevölkerungsschutz und Katastrophenhilfe, erreichbar über das BSI-Portal (BSI, Anleitung zur Meldung im BSI-Portal). Wer noch nicht registriert ist, meldet über ein Onlineformular im Melde- und Informationsportal des BSI (MIP). Für die anderen EU-Staaten Art. 23 Abs. 1 NIS 2."
+          },
+          "done": {
+            "title": "Meldeweg vorbereitet"
+          }
+        },
+        "fields": {
+          "bsiReportingRegistered": {
+            "label": "Wir können uns im Portal anmelden und melden",
+            "hint": "Nein zum Beispiel, wenn nur eine Person den Zugang hat und gerade weg ist, wenn die Zertifikatsdatei auf dem Rechner von jemandem liegt, der nicht mehr da ist, oder niemand das Passwort mehr weiß. Klären Sie das zuerst und kommen Sie dann zurück."
+          }
+        }
+      }
+    }
+  }
+}

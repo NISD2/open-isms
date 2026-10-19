@@ -1,0 +1,55 @@
+{
+  "durchgang": {
+    "items": {
+      "12_3": {
+        "headline": "Udržovat registraci aktuální",
+        "teaser": "Když se něco změní, nahlásíte to {authority}.",
+        "missed": [
+          "Lhůta 14 dnů běží ode dne, kdy ke změně došlo, ne až od chvíle, kdy se o ní dozvíte (§ 11 odst. 2 zákona č. 264/2025 Sb.). Pevný termín kontroly zákon nestanoví.",
+          "Do postupu při odchodu zaměstnance patří i Portál NÚKIB: pověření zástupce, který odchází, zruší statutární orgán v sekci Chci vyřídit, a odcházející kontaktní osobu nahradíte.",
+          "U kontaktních údajů uveďte, kde to jde, sdílenou e-mailovou schránku. Pak se mění méně často."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Udržujte údaje aktuální",
+            "body": [
+              "Když se změní údaje, které jste {authority} nahlásili, opravíte je v Portálu {authority}.",
+              "Zákon nežádá pravidelnou roční kontrolu. Žádá, abyste změnu nahlásili rychle. Údaje vedené v základních registrech, například sídlo, statutární orgán nebo datovou schránku, hlásit nemusíte: NÚKIB si je načítá sám."
+            ],
+            "duty": "Změny kontaktních a doplňujících údajů hlásíte nejpozději do 14 dnů ode dne změny (§ 11 odst. 2 zákona č. 264/2025 Sb.), změny služby, které mohou změnit váš režim, do 60 dnů (§ 9 odst. 1)."
+          },
+          "changes": {
+            "title": "Kdy údaje aktualizovat",
+            "lead": "Tyto údaje se mohou změnit:",
+            "items": [
+              {
+                "name": "Kontaktní osoby a pověření zástupci",
+                "detail": "někdo odejde nebo převezme jinou práci"
+              },
+              {
+                "name": "Vlastnická struktura a koncern",
+                "detail": "nový vlastník, vstup do koncernu nebo odchod z něj"
+              },
+              {
+                "name": "Telefon a e-mail",
+                "detail": "nové číslo, zrušená schránka; sídlo ani datovou schránku hlásit nemusíte"
+              },
+              {
+                "name": "Doménová jména a veřejné rozsahy IP adres",
+                "detail": "nové připojení k internetu, nový poskytovatel nebo nová doména"
+              },
+              {
+                "name": "Regulované služby a státy, kde je poskytujete",
+                "detail": "nová služba nebo služby v dalším státě; novou regulovanou službu i změnu, která může změnit režim, ohlašujete do 60 dnů"
+              }
+            ],
+            "source": "§ 6 odst. 1, § 9 odst. 1 a § 11 zákona č. 264/2025 Sb.; druhy hlášených údajů stanoví vyhláška č. 334/2025 Sb., § 3. Změny se zadávají v Portálu NÚKIB, ve formuláři Hlášení a změny údajů k regulované službě; údaje ze základních registrů se načítají samy (NÚKIB, Často kladené otázky)."
+          },
+          "done": {
+            "title": "Víte, kdy údaje aktualizovat"
+          }
+        }
+      }
+    }
+  }
+}

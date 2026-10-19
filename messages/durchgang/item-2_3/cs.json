@@ -1,0 +1,43 @@
+{
+  "durchgang": {
+    "items": {
+      "2_3": {
+        "headline": "Ohodnoťte svá rizika",
+        "teaser": "Umístěte do matice každý program, každé zařízení a každého dodavatele.",
+        "missed": [
+          "Počítají se i dodavatelé. Zákon je řadí mezi podpůrná aktiva (§ 2 odst. 1 písm. e) zákona č. 264/2025 Sb.). V režimu vyšších povinností řídíte rizika spojená s dodavateli (vyhláška č. 409/2025 Sb., § 9 odst. 1 písm. c)), v režimu nižších povinností zohledníte hrozby a zranitelnosti dodavatele při uzavírání smlouvy (vyhláška č. 410/2025 Sb., § 3 odst. 5).",
+          "Vzácné neznamená malé. V matici německého BSI nevede dopad ohrožující existenci organizace nikdy k riziku Nízké, i kdyby mohl nastat nejvýš jednou za pět let."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Jak velké je které riziko?",
+            "body": [
+              "Seznam máte: programy, techniku a dodavatele. Teď každou položku ohodnoťte metodikou, kterou jste stanovili. Jak často nastane nejhorší realistický případ a jak velký by byl dopad? Matice z toho udělá jednu ze čtyř úrovní rizika.",
+              "Tak uvidíte, kde je ochrana potřeba nejdřív. Jednotlivé hrozby doplníte potom v registru rizik. V režimu vyšších povinností přitom zvažte alespoň kategorie hrozeb a zranitelností z přílohy č. 3 vyhlášky č. 409/2025 Sb. (§ 8 odst. 1 písm. b)) a u každého rizika rozlište hrozbu i zranitelnost, například poznámkou (příloha č. 4 odst. 5). Seznam elementárních hrozeb německého úřadu BSI poslouží jako doplněk."
+            ],
+            "duty": "Řízení rizik je bezpečnostní opatření v obou režimech (§ 14 odst. 1 písm. a) bod 6 a odst. 2 písm. d) zákona č. 264/2025 Sb.). V režimu vyšších povinností hodnotíte rizika alespoň jednou ročně a při významných změnách, zpracujete zprávu o hodnocení rizik a plán zvládání rizik a riziko nad hranicí akceptovatelnosti snížíte nebo eliminujete (vyhláška č. 409/2025 Sb., § 8 odst. 1, příloha č. 4 odst. 6). Vyhláška č. 410/2025 Sb. pro režim nižších povinností samostatná pravidla řízení rizik nemá; podle příručky NÚKIB tuto roli plní přehled bezpečnostních opatření (§ 3 odst. 2)."
+          },
+          "software": {
+            "title": "Ohodnoťte své programy",
+            "lead": "Každý program ze seznamu má vlastní řádek. Představte si jeho nejhorší realistický případ: vypadne, někdo ho napadne nebo se ztratí data. Pak klepněte na pole v jeho matici: čím víc vpravo, tím častěji se to stává; čím výš, tím větší dopad."
+          },
+          "technology": {
+            "title": "Ohodnoťte techniku a prostory",
+            "lead": "Totéž pro servery, zařízení, síť a prostory. Myslete i na požár, vodu a výpadek proudu."
+          },
+          "suppliers": {
+            "title": "Ohodnoťte své dodavatele",
+            "lead": "Tady je nejhorší případ, že dodavatel selže nebo má sám kybernetický bezpečnostní incident. Úroveň se pak ukáže i ve vašem seznamu dodavatelů."
+          },
+          "map": {
+            "title": "Vaše rizika na první pohled",
+            "lead": "Každé číslo udává, kolik vašich položek leží v tomto poli matice. Čím výš a čím víc vpravo, tím dřív položka potřebuje ochranu. Pod maticí jsou všechny jménem, od nejvyšší úrovně."
+          },
+          "done": {
+            "title": "Rizika máte ohodnocená"
+          }
+        }
+      }
+    }
+  }
+}

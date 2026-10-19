@@ -1,0 +1,157 @@
+{
+  "durchgang": {
+    "items": {
+      "6_3": {
+        "headline": "Die Regeln für Kauf, Updates und Schwachstellen schreiben",
+        "teaser": "Worauf Sie beim Kauf achten, wie Updates kommen und wer Lücken schließt.",
+        "missed": [
+          "Ein Programm, für das es keine Sicherheitsupdates mehr gibt, bleibt verwundbar, auch wenn es noch läuft. Prüfen Sie schon beim Kauf, wie lange der Hersteller Updates liefert.",
+          "Fernwartungszugänge, die dauerhaft offen stehen, sind ein Weg hinein. Das BSI nennt ihre Abschaltung in seinem NIS-2-Infopaket zu Sicherheitsmaßnahmen."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Kaufen, aktualisieren, Lücken schließen",
+            "body": [
+              "Eine Schwachstelle ist eine Eigenschaft eines Programms oder Geräts, die ein Fremder ausnutzen kann, um hineinzukommen oder es zu stören. So beschreibt sie das Gesetz. Beispiele: ein Programm, für das es keine Updates mehr gibt, ein Update, das liegen bleibt, ein Standardpasswort, das nie geändert wurde.",
+              "Die Regeln in diesem Schritt legen fest, worauf Sie beim Kauf achten, wie Updates eingespielt werden, wie Sie mit Schwachstellen umgehen und wo man Ihnen eine meldet. Betreut ein IT-Dienstleister Ihre Systeme, sagen ihm die Regeln, was Sie erwarten."
+            ],
+            "duty": "Das Gesetz verlangt Sicherheit beim Kauf, bei der Entwicklung und bei der Wartung Ihrer IT, und dass Sie mit Schwachstellen umgehen und sie offenlegen."
+          },
+          "updates": {
+            "title": "Wie Updates kommen",
+            "caption": "Sicherheitsupdates im Alltag",
+            "good": {
+              "value": "Sicherheitsupdates kommen automatisch, und der IT-Dienstleister prüft jeden Monat, ob alles aktuell ist.",
+              "note": "Grundschutz++ empfiehlt, Sicherheitsupdates automatisch zu installieren (KONF.8.1.1)."
+            },
+            "bad": {
+              "value": "Updates, wenn jemand Zeit hat.",
+              "note": "Bis dahin bleibt eine bekannte Lücke offen, die ein Angreifer ausnutzen kann."
+            }
+          },
+          "sources": {
+            "title": "Wo Schwachstellen bekannt werden",
+            "lead": "Sie müssen Lücken nicht selbst suchen. Neue Schwachstellen werden öffentlich angekündigt, und Ihre Liste der Programme aus Schritt 2.2 zeigt, welche Meldungen Sie betreffen. Hier lohnt der Blick:",
+            "items": [
+              {
+                "name": "Sicherheitshinweise der Hersteller",
+                "detail": "die Firmen, deren Programme und Geräte Sie nutzen, veröffentlichen sie auf ihrer Website, viele schicken sie nach Anmeldung auch per E-Mail"
+              },
+              {
+                "name": "Der Warn- und Informationsdienst des BSI",
+                "detail": "CERT-Bund, ein Teil des BSI, veröffentlicht unter wid.cert-bund.de neue Schwachstellen in verbreiteten Produkten; per E-Mail kostenlos zu abonnieren"
+              },
+              {
+                "name": "Die europäische Schwachstellendatenbank",
+                "detail": "die ENISA, die Cybersicherheitsagentur der EU, führt veröffentlichte Schwachstellen unter euvd.enisa.europa.eu"
+              },
+              {
+                "name": "Ihr IT-Dienstleister",
+                "detail": "wer Ihre Systeme betreut, verfolgt diese Quellen meist ohnehin; vereinbaren Sie schriftlich, dass er Ihnen Bescheid gibt, wenn Sie betroffen sind"
+              }
+            ],
+            "source": "Das BSI empfiehlt im NIS-2-Infopaket zu Sicherheitsmaßnahmen, Systeme regelmäßig auf bekannte Lücken zu prüfen und Schwachstellen nach Risiko zu behandeln. Der Warndienst: bsi.bund.de, Warn- und Informationsdienst (WID)."
+          },
+          "report": {
+            "title": "Wo man Ihnen eine Schwachstelle meldet",
+            "lead": "Findet jemand eine Lücke in Ihren Systemen, etwa auf Ihrer Website, braucht er eine Adresse dafür. Das BSI empfiehlt, sie öffentlich zu nennen. Hat Ihr Unternehmen eine Kontaktadresse, nutzen die Vorschläge unten deren Domain. Haben Sie noch keine, lassen Sie das Feld leer: Ihre Regeln bekommen dann eine Zeile zum Ausfüllen.",
+            "document": "Ihre Regeln für Kauf, Updates und Schwachstellen"
+          },
+          "rules": {
+            "title": "Ihre Regeln für Kauf, Updates und Schwachstellen",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Kauf, Updates, Schwachstellen und Meldungen, und Ihr Firmenname steht schon darin. Lesen Sie sie, und ergänzen Sie darunter, was bei Ihnen gilt.",
+            "document": {
+              "title": "Regeln für Kauf, Wartung und Schwachstellen der IT der {company}",
+              "sections": [
+                {
+                  "heading": "Geltungsbereich",
+                  "text": "Diese Regeln gelten für alle Programme, Geräte, Clouddienste und Netze, mit denen die {company} arbeitet, auch wenn ein Dienstleister sie für uns betreibt."
+                },
+                {
+                  "heading": "Beim Kauf",
+                  "text": "Bevor wir ein Programm, ein Gerät oder einen Clouddienst kaufen, prüfen wir, ob der Anbieter Sicherheitsupdates liefert und wie lange. Wir kaufen nach Möglichkeit nichts mit bekannten, ausnutzbaren Sicherheitslücken und nichts, dessen Unterstützung bald endet. Bei der Einrichtung ändern wir Standardpasswörter."
+                },
+                {
+                  "heading": "Updates",
+                  "text": "Sicherheitsupdates spielen wir ein, sobald sie verfügbar sind, wo möglich automatisch. Kann ein Update nicht eingespielt werden, halten wir fest, warum, und was wir stattdessen tun."
+                },
+                {
+                  "heading": "Schwachstellen erkennen und beheben",
+                  "text": "Wir verfolgen die Sicherheitshinweise der Hersteller unserer Programme und Geräte, die Warnungen des BSI und die Hinweise unseres IT-Dienstleisters. Betrifft uns eine Schwachstelle, entscheidet die Person, die die Informationssicherheit koordiniert, mit dem IT-Dienstleister, was zu tun ist, schwere Schwachstellen zuerst. Was wir gefunden und getan haben, halten wir fest."
+                },
+                {
+                  "heading": "Schwachstellen melden",
+                  "text": "Hinweise auf Schwachstellen in unseren Systemen nehmen wir unter {vulnerabilityDisclosureUrl} entgegen. Finden wir eine Schwachstelle in einem Produkt, das wir nutzen, melden wir sie dem Hersteller. Reagiert er nicht, können wir sie dem BSI melden, auf Wunsch anonym."
+                },
+                {
+                  "heading": "Überprüfung",
+                  "text": "Wir überprüfen diese Regeln regelmäßig und nach größeren Änderungen an unserer IT."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "hardening",
+                  "label": "Nur was gebraucht wird",
+                  "heading": "Einrichtung",
+                  "text": "Geräte und Programme richten wir nur mit den Funktionen ein, die wir brauchen. Nicht benötigte Dienste und Konten schalten wir ab."
+                },
+                {
+                  "id": "remote",
+                  "label": "Fernwartung",
+                  "heading": "Fernwartung",
+                  "text": "Fernwartungszugänge sind nur offen, solange gewartet wird."
+                },
+                {
+                  "id": "providers",
+                  "label": "Pflichten der Dienstleister",
+                  "heading": "Pflichten der Dienstleister",
+                  "text": "Mit unseren IT-Dienstleistern vereinbaren wir, dass sie Schwachstellen, die uns betreffen, zeitnah beheben."
+                },
+                {
+                  "id": "scans",
+                  "label": "Regelmäßige Prüfung",
+                  "heading": "Regelmäßige Prüfung",
+                  "text": "Wir lassen unsere Systeme regelmäßig auf bekannte Sicherheitslücken prüfen."
+                },
+                {
+                  "id": "changes",
+                  "label": "Größere Änderungen",
+                  "heading": "Größere Änderungen",
+                  "text": "Größere Änderungen an wichtigen Systemen planen wir vorher, halten sie fest und haben einen Weg zurück, falls etwas schiefgeht."
+                },
+                {
+                  "id": "development",
+                  "label": "Eigene Software",
+                  "heading": "Eigene Software",
+                  "text": "Entwickeln wir Software selbst oder lassen sie entwickeln, legen wir die Sicherheitsanforderungen vorher fest und lassen sie vor dem Einsatz prüfen."
+                },
+                {
+                  "id": "securitytxt",
+                  "label": "security.txt",
+                  "heading": "Meldeadresse auf der Website",
+                  "text": "Auf unserer Website steht eine Datei security.txt nach RFC 9116, die sagt, wohin man Schwachstellen meldet."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihre Regeln sind geschrieben",
+            "note": "Geben Sie sie allen, die Ihre IT einrichten und warten, auch Ihrem IT-Dienstleister."
+          }
+        },
+        "fields": {
+          "vulnerabilityDisclosureUrl": {
+            "label": "Meldeadresse für Schwachstellen",
+            "hint": "Eine E-Mail-Adresse, etwa security@ mit Ihrer Domain, oder eine Webseite. Das BSI empfiehlt dazu eine Datei security.txt auf Ihrer Website (RFC 9116).",
+            "suggestions": [
+              "Datei security.txt auf unserer Website",
+              "Kontaktformular auf unserer Website"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

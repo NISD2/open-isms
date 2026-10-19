@@ -1,0 +1,136 @@
+{
+  "durchgang": {
+    "items": {
+      "4_2": {
+        "headline": "Write the business continuity plan",
+        "teaser": "How you keep working when something fails, and who decides then.",
+        "missed": [
+          "Emergency operation does not mean everything runs as usual. For a start, Germany's BSI names fallback processes such as taking orders by hand and keeping records on paper (its guide to business continuity for small companies).",
+          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Keep printed copies, one of them outside the building."
+        ],
+        "screens": {
+          "learn": {
+            "title": "When operations stop",
+            "body": [
+              "The incident response plan says who calls whom and who decides during an attack. This plan goes further: it covers anything that interrupts important work, including fire, water, power cuts or the failure of an important provider. It says how you keep working, who restores the systems and who leads the crisis.",
+              "For a start, Germany's BSI recommends that smaller companies have a plan that keeps operations going at a minimum level: fallback processes, fallback places, and informing staff, suppliers and customers. Our template covers these points."
+            ],
+            "duty": "The law requires business continuity, such as backup management and disaster recovery, and crisis management."
+          },
+          "fallback": {
+            "title": "Working without IT",
+            "caption": "One line of emergency operation",
+            "good": {
+              "value": "We take orders by phone and on paper forms until the order system runs again.",
+              "note": "A fallback process of the kind the BSI names for a start: orders by hand, records on paper."
+            },
+            "bad": {
+              "value": "We wait until the IT works again.",
+              "note": "Until then no orders come in, and nobody knows how long that takes."
+            }
+          },
+          "keep": {
+            "title": "What must keep running",
+            "lead": "These are the processes on your list. Ask of each one: if IT were gone for a whole day, could we simply wait, or would customers, safety or a deadline suffer? Tick the ones that cannot wait, and say in one sentence how they continue. Both then appear in your plan.",
+            "keep": "Must keep running",
+            "how": "How it continues without IT",
+            "example": "for example: orders by phone and on paper forms",
+            "suggestions": [
+              "on paper forms",
+              "by phone",
+              "from a printed list",
+              "by hand, entered later",
+              "from another site",
+              "the provider takes over"
+            ]
+          },
+          "plan": {
+            "title": "Your business continuity plan",
+            "lead": "The template has fixed sections on leadership, emergency operation, recovery and informing people. Your company's name, the person who leads in an emergency (from step 3.1), the processes that must keep running and the order from your risk assessment are already in it. Read it, then add below what applies to you.",
+            "document": {
+              "title": "Business continuity plan of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This plan sets out how {company} keeps working when an event interrupts important work: a cyber attack, an IT or internet outage, fire, water, a power cut or the failure of an important provider. It complements the incident response plan, which governs alerting and the first steps."
+                },
+                {
+                  "heading": "When this plan applies",
+                  "text": "This plan applies when an event interrupts important work for longer than normal troubleshooting takes, or threatens to. In doubt, {emergencyLead} decides."
+                },
+                {
+                  "heading": "Leadership",
+                  "text": "{emergencyLead}, who also leads under the incident response plan, leads the response, brings in the people needed, decides, and records each decision with the time. Decisions about money, customers and staff are taken together with management. If {emergencyLead} cannot be reached, management takes over."
+                },
+                {
+                  "heading": "Alerting and contacts",
+                  "text": "Whom we call and how we reach each other when the IT fails is set out in the incident response plan, with the phone list on paper."
+                },
+                {
+                  "heading": "Emergency operation",
+                  "text": "These processes must keep running, even without IT, and this is how they continue: {criticalProcesses}"
+                },
+                {
+                  "heading": "Recovery",
+                  "text": "Our IT provider or our own IT restores the systems from the backups. A system goes back into use only once it has been checked. The order follows the damage in our risk assessment, the largest first: {recoveryOrder}. In an emergency the lead can decide otherwise."
+                },
+                {
+                  "heading": "Informing people",
+                  "text": "{emergencyLead} or someone they name informs staff, suppliers and customers. Reports to the competent CSIRT or authority follow the incident response plan."
+                },
+                {
+                  "heading": "Back to normal operation",
+                  "text": "{emergencyLead} declares the emergency over. We record what happened and adapt this plan."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "targets",
+                  "label": "Recovery targets",
+                  "heading": "Recovery targets",
+                  "text": "For our most important systems we set how long they may be down at most and how much data may be lost at most. The figures are recorded with the systems on our list."
+                },
+                {
+                  "id": "practice",
+                  "label": "Yearly exercise",
+                  "heading": "Exercise",
+                  "text": "Once a year we walk through an outage around the table and check that we can reach everyone involved."
+                },
+                {
+                  "id": "workplace",
+                  "label": "Fallback workplace",
+                  "heading": "Fallback workplace",
+                  "text": "If the office cannot be used, we keep working remotely or at a fallback location."
+                },
+                {
+                  "id": "power",
+                  "label": "Power cut",
+                  "heading": "Power cut",
+                  "text": "For a power cut it is set which devices must keep running and who decides about emergency power."
+                },
+                {
+                  "id": "providers",
+                  "label": "Providers in an emergency",
+                  "heading": "Providers in an emergency",
+                  "text": "We have agreed with our important providers how we reach them in an emergency and what they then do for us."
+                },
+                {
+                  "id": "paper",
+                  "label": "Printed copy",
+                  "heading": "Printed copy",
+                  "text": "A printed copy of this plan is kept outside the building."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your business continuity plan is written",
+            "note": "Keep a copy that works without IT next to the incident response plan, for example on paper."
+          }
+        }
+      }
+    }
+  }
+}

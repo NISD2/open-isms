@@ -1,0 +1,55 @@
+{
+  "durchgang": {
+    "items": {
+      "12_3": {
+        "headline": "Die Registrierung aktuell halten",
+        "teaser": "Ändert sich etwas, tragen Sie es beim {authority} nach.",
+        "missed": [
+          "Die zwei Wochen laufen ab dem Moment, in dem Ihr Unternehmen von der Änderung erfährt, nicht ab einem festen Prüftermin.",
+          "Das Gesetz nennt die Kontaktdaten des Unternehmens, keine Kontaktperson. Das BSI wendet die zwei Wochen aber auf alle Daten im Portal an, also auch auf sie. Nehmen Sie das BSI-Portal deshalb in den Ablauf auf, wenn jemand das Unternehmen verlässt.",
+          "Tragen Sie für die Kontaktstelle ein Funktionspostfach ein, wie es das BSI empfiehlt. Dann ändert sich seltener etwas."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Die Angaben aktuell halten",
+            "body": [
+              "Ändert sich etwas an dem, was Sie dem BSI bei der Registrierung angegeben haben, tragen Sie es im BSI-Portal nach. Das geht unter „Ihre Registrierung“.",
+              "Eine feste jährliche Prüfung verlangt das Gesetz nicht. Es verlangt, dass Sie schnell sind, wenn sich etwas ändert."
+            ],
+            "duty": "Änderungen melden Sie unverzüglich, spätestens zwei Wochen, nachdem Ihr Unternehmen davon erfahren hat."
+          },
+          "changes": {
+            "title": "Wann Sie etwas nachtragen",
+            "lead": "Diese Angaben können sich ändern:",
+            "items": [
+              {
+                "name": "Kontaktperson und Kontaktstelle",
+                "detail": "jemand geht oder übernimmt eine andere Aufgabe"
+              },
+              {
+                "name": "Name und Rechtsform",
+                "detail": "Umfirmierung oder neue Rechtsform"
+              },
+              {
+                "name": "Anschrift, Telefon und E-Mail",
+                "detail": "Umzug, neue Nummer, abgeschaltetes Postfach"
+              },
+              {
+                "name": "Öffentliche IP-Adressbereiche",
+                "detail": "neuer Internetanschluss oder neuer Anbieter"
+              },
+              {
+                "name": "Sektor und EU-Staaten",
+                "detail": "neues Geschäftsfeld oder Dienste in einem weiteren Land"
+              }
+            ],
+            "source": "§ 33 Abs. 1 und 5 BSIG. Das BSI verlangt, „alle Änderungen an den Registrierungsdaten“ binnen zwei Wochen im BSI-Portal unter „Ihre Registrierung“ nachzutragen (Anleitung des BSI)."
+          },
+          "done": {
+            "title": "Sie wissen, wann Sie nachtragen"
+          }
+        }
+      }
+    }
+  }
+}

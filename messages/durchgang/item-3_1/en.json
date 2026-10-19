@@ -1,0 +1,151 @@
+{
+  "durchgang": {
+    "items": {
+      "3_1": {
+        "headline": "Plan what happens in an incident",
+        "teaser": "Who decides, whom you call, how you reach each other.",
+        "missed": [
+          "The law explicitly names secured voice, video and text communication and, where needed, secured emergency communication systems within the company (§ 30(2) no. 10 BSIG). A phone list on paper does not replace that; it is the fallback when everything else is down.",
+          "Decide who writes the report to {authority}. The first report, an early warning, is due at the latest 24 hours after you become aware of a significant incident (Art. 23(4)(a) NIS 2).",
+          "The plan only helps if it is at hand in an emergency. If it lives only on the server, it is gone with the server. Keep a copy where it can be found without IT, for example on paper or on a phone."
+        ],
+        "screens": {
+          "learn": {
+            "title": "When something happens",
+            "body": [
+              "During an incident there is no time to work out who does what. So write it down beforehand: who decides, whom you call, and how you reach each other when email and the network are down.",
+              "A significant incident also has to be reported to {authority}, the first report within 24 hours. Your plan names who makes sure that happens; the next step, 3.3, shows how reporting works.",
+              "At the end of this step you have your incident response plan, written from your answers. For all staff, Germany's BSI publishes an IT emergency card to put up: it says what to do in an IT emergency and carries your IT emergency number."
+            ],
+            "duty": "The law requires your company to be able to handle security incidents.",
+            "link": "See the BSI's IT emergency card (in German)"
+          },
+          "lead": {
+            "title": "Your emergency contacts",
+            "lead": "One person leads in an emergency (a security incident). Everyone calls one number. You know how to reach each other when email and the network are down, and whom the person leading calls next.",
+            "document": "Your incident response plan"
+          },
+          "plan": {
+            "title": "Your incident response plan",
+            "lead": "Written from your answers: who decides, whom you call, what to do first, how you report to {authority} and how you get back to normal. Read it, then add below what fits your company. An answer still missing shows as a line.",
+            "document": {
+              "title": "Incident response plan of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This plan sets out what happens at {company} when an IT security incident occurs or is suspected: who decides, whom we call, how we reach each other, how we report and how we get back to normal. It applies to all staff. A copy is kept where it can be found without IT, for example on paper."
+                },
+                {
+                  "heading": "If you notice something",
+                  "text": "Anyone who notices or suspects an incident calls the IT emergency number {itEmergencyNumber} at once. If in doubt, call. On the phone, say who you are, which device or program is affected, what you saw, when it started and where the device is. Stop working on the affected device and do nothing further until you are told what to do. Write down what you saw."
+                },
+                {
+                  "heading": "Who leads",
+                  "text": "{incidentLead} leads the response to an incident. This person decides whether an event is a mere disruption or a security incident and whether it has to be reported, and notes every decision with the time. They keep management informed. If they cannot be reached, management takes over."
+                },
+                {
+                  "heading": "Whom we call",
+                  "text": "Depending on how serious the incident is, the lead calls: {incidentEscalationContacts}. A printed list with all phone numbers is kept with this plan, so we have the numbers without a computer or a digital address book. We keep it up to date."
+                },
+                {
+                  "heading": "How we reach each other when IT fails",
+                  "text": "If email, the phone system or the network fail, we reach each other through: {secureCommsChannel}. Everyone on the list knows this channel and has set it up before it is needed."
+                },
+                {
+                  "heading": "First steps",
+                  "text": "People's safety comes before everything else. Affected devices are taken off the network only on the lead's instruction. Before anyone examines or reinstalls a device, we secure logs, photos of the screen and notes. We write down everything that happens, with the time."
+                },
+                {
+                  "heading": "Reporting to the authority",
+                  "text": "If an incident is significant, {company} reports it to the competent CSIRT or authority, through {reportingChannel}: an early warning within 24 hours of becoming aware of it, an incident notification within 72 hours and a final report within one month of the notification (Art. 23(4) NIS 2). {incidentLead} makes sure the reports are made. The early warning says whether we suspect an unlawful or malicious act and whether the incident could affect other countries; everything else we know so far follows with the notification. If personal data is affected, we usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR)."
+                },
+                {
+                  "heading": "Getting back to normal",
+                  "text": "Affected systems go back into use only once the lead agrees: when the cause has been found and removed, restored from backups we know are clean. Afterwards we check that they work as before."
+                },
+                {
+                  "heading": "After the incident",
+                  "text": "Once the incident is dealt with, the lead declares it over and records what happened. We discuss what went well and what did not, and change rules, measures and this plan where needed."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "provider",
+                  "label": "IT service provider",
+                  "heading": "IT service provider",
+                  "text": "Our IT service provider supports us in an incident. We have agreed with them how and when they can be reached, including outside business hours."
+                },
+                {
+                  "id": "hours",
+                  "label": "Outside business hours",
+                  "heading": "Outside business hours",
+                  "text": "The IT emergency number can also be reached outside business hours. Who answers it then is on the phone list."
+                },
+                {
+                  "id": "card",
+                  "label": "IT emergency card",
+                  "heading": "IT emergency card",
+                  "text": "A copy of the BSI's IT emergency card (IT-Notfallkarte) with our number {itEmergencyNumber} is posted at every workplace."
+                },
+                {
+                  "id": "police",
+                  "label": "Police",
+                  "heading": "Police",
+                  "text": "After an attack we consider reporting it to the police, through its cybercrime contact point for businesses where there is one."
+                },
+                {
+                  "id": "customers",
+                  "label": "Informing customers",
+                  "heading": "Informing customers",
+                  "text": "If an incident may affect our services to customers, management decides when and how we inform them."
+                },
+                {
+                  "id": "practice",
+                  "label": "Annual exercise",
+                  "heading": "Exercise",
+                  "text": "Once a year we walk through an incident using this plan and update the plan afterwards."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your incident response plan is written",
+            "note": "Make sure all staff know the emergency number, for example on the BSI's IT emergency card."
+          }
+        },
+        "fields": {
+          "incidentLead": {
+            "label": "Who leads in an emergency (incident)",
+            "hint": "The person who decides what to do and keeps management informed. In a small company this is often whoever looks after NIS 2."
+          },
+          "itEmergencyNumber": {
+            "label": "Emergency number everyone calls",
+            "hint": "Usually the mobile number of the person who leads. If an IT service provider takes these calls for you, their number. It is also the number on the BSI's IT emergency card."
+          },
+          "secureCommsChannel": {
+            "label": "How you reach each other when email and the network are down (at least two ways)",
+            "hint": "Name at least two ways that do not depend on your own IT. Email, and a chat that runs on the same accounts as your email, can fail together with it.",
+            "suggestions": [
+              "Phone calls to mobile numbers",
+              "SMS",
+              "Messenger group on the company phones",
+              "Phone list on paper"
+            ]
+          },
+          "incidentEscalationContacts": {
+            "label": "Whom the person leading calls next",
+            "hint": "Names and phone numbers, by how serious the incident is. Tap an answer, then add the name and number. No law asks for a second person; the plan already says management takes over if the person leading cannot be reached.",
+            "suggestions": [
+              "Deputy",
+              "IT service provider",
+              "Management",
+              "Data protection officer"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

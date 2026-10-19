@@ -1,0 +1,56 @@
+{
+  "durchgang": {
+    "items": {
+      "11_2": {
+        "headline": "Record secured communication",
+        "teaser": "What you use for calls, meetings and messages.",
+        "missed": [
+          "Encrypted transfer protects the way, not the message on the server. For especially confidential content Germany's BSI advises encryption that only sender and recipient can read as well, for example S/MIME or PGP for email."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Phone, video, chat",
+            "body": [
+              "For calls, meetings and messages you use programs and services. Secured here means: the transfer is encrypted, and only authorised people get in. The BSI names the TLS protocol as the standard for securing the transfer.",
+              "How you reach each other when your own IT fails is already in your incident response plan. In this step you record what you use to talk and write day to day."
+            ],
+            "duty": "The law requires secured voice, video and text communication within the company and, where appropriate, secured emergency communication."
+          },
+          "answer": {
+            "title": "An answer that holds",
+            "caption": "How to record what you communicate with",
+            "good": {
+              "value": "Email and chat in Microsoft 365, meetings in Teams, phone calls over the provider's cloud phone system, all transferred encrypted",
+              "note": "Names every tool and says how it is secured."
+            },
+            "bad": {
+              "value": "All secure",
+              "note": "Says nothing about what you use, and cannot be checked."
+            }
+          },
+          "tools": {
+            "title": "Your tools",
+            "lead": "What you use for calls, meetings and messages, and how it is secured. The law names voice, video and text together as one measure, so one answer covers all three. Tap the programs from your list that you use for this, then say how they are secured.",
+            "document": "Secured communication"
+          },
+          "done": {
+            "title": "Your communication is recorded",
+            "note": "When a new tool comes in, add it to this answer."
+          }
+        },
+        "fields": {
+          "secureCommsTools": {
+            "label": "Tools for phone, video and chat",
+            "hint": "For example: Microsoft Teams for meetings and chat, phone calls over the provider's cloud phone system, all transferred encrypted.",
+            "suggestions": [
+              "All transferred encrypted",
+              "Sign-in only with a company account",
+              "Sign-in with a second factor",
+              "Guests join meetings only when let in"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

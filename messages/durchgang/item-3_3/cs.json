@@ -1,0 +1,94 @@
+{
+  "durchgang": {
+    "items": {
+      "3_3": {
+        "headline": "Vědět, jak nahlásit incident",
+        "teaser": "Až tři hlášení s pevnými lhůtami, přes Portál {authority}.",
+        "missed": [
+          "Lhůta běží od zjištění incidentu, ne až od chvíle, kdy je vše jasné. Hlaste včas; oznámení pak aktualizuje údaje z prvotního hlášení (§ 16 odst. 3 písm. a) zákona č. 264/2025 Sb.).",
+          "Povinnost hlásit incidenty začíná nejpozději 1 rok ode dne doručení rozhodnutí o registraci (§ 15 odst. 4). Dobrovolná hlášení přijímá NÚKIB i dříve (§ 15 odst. 5).",
+          "Jde-li o porušení zabezpečení osobních údajů, zpravidla ho ohlašujete i Úřadu pro ochranu osobních údajů: bez zbytečného odkladu a pokud možno do 72 hodin, ledaže je nepravděpodobné, že by porušení mělo za následek riziko pro dotčené osoby (čl. 33 GDPR)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Hlášení kybernetického bezpečnostního incidentu",
+            "body": [
+              "V režimu nižších povinností hlásíte Národnímu CERT incidenty s významným dopadem na poskytování regulované služby: způsobily nebo mohou způsobit závažné provozní narušení služeb nebo finanční ztráty, nebo jiným osobám značnou újmu. Kdy je dopad významný, posuzujete podle únosné míry újmy, kterou si stanovíte (vyhláška č. 410/2025 Sb., § 14). V režimu vyšších povinností hlásíte {authority} všechny incidenty ve stanoveném rozsahu, nejen významné. V obou režimech jde o incidenty s původem v kybernetickém prostoru, u kterých nelze vyloučit úmyslné zavinění (§ 15 zákona č. 264/2025 Sb.).",
+              "Hlásí se v Portálu NÚKIB, se stejným přihlášením jako při ohlášení služby: identitou občana (NIA)."
+            ],
+            "duty": "Incident, který podléhá hlášení, hlásíte ve třech krocích s pevnými lhůtami. Ve vyšším režimu následují druhý a třetí krok, když NÚKIB sdělí, že incident má významný dopad na kybernetický prostor státu (§ 16 odst. 2 a 3 zákona č. 264/2025 Sb.)."
+          },
+          "clock": {
+            "title": "Tři lhůty",
+            "lead": "Lhůty běží od zjištění incidentu. Třetí lhůta začíná oznámením.",
+            "source": "§ 16 odst. 1 a 3 zákona č. 264/2025 Sb.: prvotní hlášení nejpozději do 24 hodin, oznámení nejpozději do 72 hodin po zjištění, závěrečná zpráva nejpozději do 30 dnů od oznámení. Vyžádá-li si to {authority} nebo Národní CERT, podáte mezitím průběžnou zprávu. Trvá-li incident po uplynutí lhůty stále, podáte místo závěrečné zprávy průběžnou zprávu o aktuálním stavu a závěrečnou zprávu nejpozději do 30 dnů od vyřešení incidentu."
+          },
+          "first_report": {
+            "title": "Na co se hlášení ptá",
+            "caption": "Hlásíte v Portálu {authority}, nikdy zde. Co hlášení obsahuje, stanoví vyhláška č. 334/2025 Sb., § 4 odst. 1. Zde vyplněno pro smyšlený případ, aby vás ve formuláři nic nepřekvapilo",
+            "rows": [
+              {
+                "name": "Druh hlášení",
+                "detail": "Prvotní hlášení, do 24 hodin od zjištění"
+              },
+              {
+                "name": "Popis incidentu",
+                "detail": "Soubory na souborovém serveru jsou zašifrované a zůstal po útočníkovi vyděračský vzkaz. Účetnictví a příjem objednávek stojí. Pravděpodobná příčina: příloha e-mailu. Doba trvání zatím není známa."
+              },
+              {
+                "name": "Datum a čas",
+                "detail": "Začátek pravděpodobně kolem 6:30, zjištěno v 7:40, stav hlášení k 10:15"
+              },
+              {
+                "name": "Zasažená aktiva",
+                "detail": "Souborový server, účetní systém a příjem objednávek"
+              },
+              {
+                "name": "Nezákonný zásah",
+                "detail": "Ano, vyděračský vzkaz ukazuje na úmyslný útok"
+              },
+              {
+                "name": "Přeshraniční dopad",
+                "detail": "Možný: zákazníci v Rakousku dostanou zásilky později"
+              },
+              {
+                "name": "Přijatá opatření",
+                "detail": "Souborový server odpojen od sítě, IT dodavatel na místě, včerejší záloha zkontrolována"
+              },
+              {
+                "name": "Stav řešení",
+                "detail": "Neuzavřeno, šetření probíhá"
+              },
+              {
+                "name": "Hlásící osoba",
+                "detail": "Eva Králová, vedoucí IT a pověřená zástupkyně firmy, s telefonem a e-mailem pro dotazy"
+              }
+            ],
+            "note": "V prvotním hlášení zákon žádá jen identifikační údaje, základní údaje o incidentu a dvě odpovědi: zda se domníváte, že incident způsobil nezákonný zásah, a zda by mohl mít přeshraniční dopad (§ 16 odst. 1 zákona). Ostatní údaje vyjmenovává vyhláška č. 334/2025 Sb., § 4 odst. 1, mnohé s dovětkem „jsou-li tyto informace dostupné“. Co ještě nevíte, doplníte v oznámení."
+          },
+          "setup": {
+            "title": "Můžete hlásit už dnes?",
+            "lead": "Vyzkoušejte to teď, ne až při incidentu. Ve vyšším režimu hlásíte NÚKIB, v nižším Národnímu CERT, v obou případech přes Portál NÚKIB. Váš kanál je uveden níže.",
+            "steps": [
+              "Níže otevřete Portál {authority} a v něm sekci Chci vyřídit.",
+              "Přihlaste se svou identitou občana (NIA). Hlásit za firmu smí jen statutární orgán nebo jím pověřený zástupce; kontaktní osoba ne.",
+              "Ověřte, že vidíte formulář pro hlášení incidentu. Nic neodesílejte.",
+              "Níže odpovězte: ano, pokud to zvládne osoba, která při incidentu vede, nebo ten, kdo ji zastupuje."
+            ],
+            "document": "Váš plán reakce na incidenty",
+            "source": "§ 16 odst. 4 zákona č. 264/2025 Sb.: hlásí se přes Portál NÚKIB. Nelze-li ho použít, pošle poskytovatel ve vyšším režimu hlášení na e-mailovou adresu NÚKIB určenou pro hlášení incidentů nebo do jeho datové schránky, v nižším režimu na takovou adresu Národního CERT nebo do jeho datové schránky. Kdo smí hlásit: NÚKIB, Často kladené otázky k formulářům v sekci Chci vyřídit."
+          },
+          "done": {
+            "title": "Hlášení připraveno"
+          }
+        },
+        "fields": {
+          "bsiReportingRegistered": {
+            "label": "Do portálu se umíme přihlásit a hlásit",
+            "hint": "Ne například tehdy, když se umí přihlásit jen jeden člověk a ten je pryč, když pověření má jen někdo, kdo už ve firmě nepracuje, nebo když osoba, která při incidentu vede, není statutárním orgánem ani pověřeným zástupcem. Zástupce pověřuje statutární orgán v sekci Chci vyřídit. Nejdřív to vyřešte, pak se vraťte."
+          }
+        }
+      }
+    }
+  }
+}

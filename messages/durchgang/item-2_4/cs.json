@@ -1,0 +1,123 @@
+{
+  "durchgang": {
+    "items": {
+      "2_4": {
+        "headline": "Napište bezpečnostní politiku",
+        "teaser": "Krátký dokument zásad, který schválí vedení.",
+        "missed": [
+          "Politiku musí znát všichni. Oznamte ji všem zaměstnancům a novým ji vysvětlete při nástupu, ještě než dostanou přístup do systémů. Vyhláška č. 409/2025 Sb. žádá poučit uživatele o bezpečnostní politice formou vstupních a pravidelných školení (§ 10 odst. 3 písm. b)); vyhláška č. 410/2025 Sb. žádá vstupní školení (§ 5 odst. 2 písm. b)) a kontrolu, zda uživatelé bezpečnostní politiku dodržují (§ 5 odst. 1 písm. c)).",
+          "Bezpečnostní politika zastarává. Obě vyhlášky žádají ji pravidelně přezkoumávat a aktualizovat, interval nestanoví (vyhláška č. 410/2025 Sb., § 3 odst. 3 písm. b); vyhláška č. 409/2025 Sb., § 6 odst. 3, kde navíc určíte osobu odpovědnou za přezkum, § 6 odst. 4). Digitální poskytovatelé, na které se vztahuje prováděcí nařízení (EU) 2024/2690, ji přezkoumávají alespoň jednou ročně (příloha, bod 1.1.2)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Vaše bezpečnostní politika",
+            "body": [
+              "Bezpečnostní politika je krátký dokument zásad: na co se vztahuje, jaké cíle vaše firma sleduje, kdo za co odpovídá a jak při zajišťování bezpečnosti postupuje. V režimu vyšších povinností za její stanovení odpovídá vrcholné vedení (vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. b)).",
+              "Naše šablona obsahuje minimální obsah, který uvádí německý úřad BSI, a má oddíly pro to, co u politiky jmenuje vyhláška č. 409/2025 Sb.: hlavní zásady, cíle, bezpečnostní potřeby, práva a povinnosti (§ 3 písm. d)). Doplníte, co platí pro vaši firmu, vedení ji schválí a dostanou ji všichni zaměstnanci. Podle BSI je víc než deset stran potřeba jen zřídka."
+            ],
+            "duty": "Bezpečnostní politiku ukládají obě vyhlášky: v režimu nižších povinností vyhláška č. 410/2025 Sb., § 3 odst. 3, v režimu vyšších povinností vyhláška č. 409/2025 Sb., § 3 písm. d) a § 6. Schválení vedením české předpisy výslovně nežádají; směrnice NIS 2 svěřuje schvalování opatření k řízení rizik řídicím orgánům (čl. 20 odst. 1). Politika je dokument, ve kterém to vedení písemně stvrdí."
+          },
+          "leitlinie": {
+            "title": "Vaše politika",
+            "lead": "Šablona obsahuje minimální obsah politiky podle německého úřadu BSI a název vaší firmy už je v ní. Přečtěte si ji a níže doplňte, co se k vaší firmě hodí.",
+            "document": {
+              "title": "Bezpečnostní politika společnosti {company}",
+              "sections": [
+                {
+                  "heading": "Rozsah platnosti",
+                  "text": "Tato politika platí pro celou společnost {company}: pro všechny zaměstnance, všechna pracoviště a všechny informace, programy, zařízení a služby, se kterými společnost pracuje. Platí i tehdy, když něco z toho pro nás provozuje poskytovatel služeb."
+                },
+                {
+                  "heading": "Proč je pro nás bezpečnost informací důležitá",
+                  "text": "Naše práce závisí na informacích a na IT, které je zpracovává. Pokud přestanou fungovat, někdo je pozmění nebo se dostanou do nesprávných rukou, nemůžeme poskytovat své služby a poškodíme zákazníky. Bezpečnost informací proto patří k povinnostem vedení."
+                },
+                {
+                  "heading": "Cíle",
+                  "text": "Chráníme dostupnost, důvěrnost a integritu našich informací a systémů. Naše služby mají běžet dál, i když se něco pokazí, data zákazníků, zaměstnanců a partnerů mají být přístupná jen oprávněným osobám a naše záznamy mají zůstat správné a úplné. Tyto cíle slouží cíli společnosti spolehlivě dodávat a udržet si důvěru zákazníků."
+                },
+                {
+                  "heading": "Postup",
+                  "text": "Postupujeme podle rizik. Vedeme seznam našich aktiv, tedy procesů, programů, zařízení a dodavatelů, hodnotíme rizika podle stanovené metodiky a přijímáme opatření přiměřená naší velikosti a rizikům. Zohledňujeme přitom všechna nebezpečí, i požár, vodu a výpadek proudu."
+                },
+                {
+                  "heading": "Odpovědnost a organizace",
+                  "text": "Za bezpečnost informací odpovídá vedení. Schvaluje opatření a dohlíží na jejich zavádění. Určuje, kdo bezpečnost informací v běžném provozu koordinuje, a zajišťuje na to čas, peníze a lidi. Všichni zaměstnanci dodržují pravidla, která z této politiky vyplývají, a cokoli neobvyklého ihned hlásí."
+                },
+                {
+                  "heading": "Prosazování a přezkum",
+                  "text": "Vedení tuto politiku prosazuje a pravidelně ověřuje, zda opatření fungují. Osoba, která bezpečnost informací koordinuje, mu k tomu podává zprávu: která opatření jsou zavedena, kde byly problémy a co navrhuje. Vedení rozhodne, co se změní, výsledek a svá rozhodnutí písemně zaznamená a zajistí, aby se nedostatky odstranily. Samotnou politiku pravidelně přezkoumává, také po větších změnách ve společnosti a po závažných kybernetických bezpečnostních incidentech, a upravuje ji."
+                },
+                {
+                  "heading": "Oznámení a účinnost",
+                  "text": "Politika nabývá účinnosti schválením vedením. Dostanou ji všichni zaměstnanci. Noví zaměstnanci se s ní seznámí dřív, než dostanou přístup do našich systémů."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "laws",
+                  "label": "Zákony a smlouvy",
+                  "heading": "Zákony a smlouvy",
+                  "text": "Dodržujeme zákony a smlouvy, které se týkají naší bezpečnosti informací, zejména zákon č. 264/2025 Sb., o kybernetické bezpečnosti, a jeho prováděcí vyhlášky, obecné nařízení o ochraně osobních údajů (GDPR) a dohody se zákazníky. Všichni zaměstnanci je musí dodržovat."
+                },
+                {
+                  "id": "contact",
+                  "label": "Kontaktní osoba",
+                  "heading": "Kontaktní osoba",
+                  "text": "Dotazy k bezpečnosti informací a hlášení kybernetických bezpečnostních incidentů směřují na osobu, která bezpečnost informací koordinuje. Kdo to je, uvádí aktuální přehled rolí."
+                },
+                {
+                  "id": "training",
+                  "label": "Školení",
+                  "heading": "Školení a bezpečnostní povědomí",
+                  "text": "Všichni zaměstnanci absolvují školení bezpečnosti informací při nástupu a poté pravidelně. Vedení se školení pravidelně účastní také."
+                },
+                {
+                  "id": "suppliers",
+                  "label": "Dodavatelé a poskytovatelé služeb",
+                  "heading": "Dodavatelé a poskytovatelé služeb",
+                  "text": "Kdo pro nás pracuje a má přitom přístup k našim systémům nebo datům, dodržuje také pravidla této politiky. Sjednáváme to ve smlouvách s dodavateli a poskytovateli služeb."
+                },
+                {
+                  "id": "reporting",
+                  "label": "Hlášení incidentů",
+                  "heading": "Hlášení kybernetických bezpečnostních incidentů",
+                  "text": "Zaměstnanci hlásí kybernetické bezpečnostní incidenty i podezření na ně ihned interně. Incidenty, které podle zákona o kybernetické bezpečnosti hlásit musíme, hlásí společnost v zákonných lhůtách přes Portál NÚKIB (§§ 15 a 16 zákona č. 264/2025 Sb.)."
+                },
+                {
+                  "id": "violations",
+                  "label": "Důsledky porušení",
+                  "heading": "Porušení",
+                  "text": "Porušení této politiky a pravidel, která z ní vyplývají, může mít pracovněprávní důsledky."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Roční přezkum",
+                  "heading": "Roční přezkum",
+                  "text": "Vedení tuto politiku přezkoumává alespoň jednou ročně."
+                },
+                {
+                  "id": "indicators",
+                  "label": "Ukazatele",
+                  "heading": "Ukazatele",
+                  "text": "Pro přezkum používáme několik ukazatelů, například kolik bezpečnostních aktualizací je nainstalováno a jak rychle reagujeme na incidenty."
+                },
+                {
+                  "id": "independent_review",
+                  "label": "Nezávislá kontrola",
+                  "heading": "Nezávislá kontrola",
+                  "text": "Alespoň jednou ročně ověří odborně způsobilá osoba, která za opatření neodpovídá, zda fungují."
+                }
+              ],
+              "own": "Další pravidla",
+              "signature": "Schválení vedením společnosti {company}"
+            }
+          },
+          "done": {
+            "title": "Politiku máte napsanou",
+            "note": "Jakmile ji vedení schválí, oznamte ji všem zaměstnancům, například e-mailem nebo na intranetu."
+          }
+        }
+      }
+    }
+  }
+}

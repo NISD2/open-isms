@@ -1,5 +1,7 @@
 import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
+import { WALK_LOCALES } from "@/lib/durchgang/types";
+import { DURCHGANG_MESSAGES } from "./durchgang";
 import { isMissingModule } from "./missing-module";
 import { loadRequirements } from "./requirements";
 import { routing } from "./routing";
@@ -66,9 +68,13 @@ type Messages = Record<string, unknown>;
 // translated (the wiki `info` namespace is curated separately). Fall back
 // to English per-namespace so a partial locale renders instead of 500ing.
 // The requirement copy is stored in parts (i18n/requirements.ts); a missing
-// part is filled from English by fillMissing below.
+// part is filled from English by fillMissing below. So is the walk's
+// (i18n/durchgang.ts), which exists in its three languages only.
 async function load(ns: string, locale: string): Promise<Messages> {
   if (ns === "requirements") return loadRequirements(locale);
+  if (ns === "durchgang") {
+    return DURCHGANG_MESSAGES[WALK_LOCALES.find((l) => l === locale) ?? "en"];
+  }
   try {
     return (await import(`../messages/${ns}/${locale}.json`)).default;
   } catch (err) {

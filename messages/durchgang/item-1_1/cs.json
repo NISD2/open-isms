@@ -1,0 +1,51 @@
+{
+  "durchgang": {
+    "items": {
+      "1_1": {
+        "headline": "Zajistit školení vedení",
+        "teaser": "Každý člen vrcholného vedení, vstupně a pak pravidelně.",
+        "missed": [
+          "Obsah školení určují vyhlášky. V režimu nižších povinností jde o poučení vedení o jeho povinnostech a o bezpečnostní politice, zejména v oblasti zajišťování kybernetické bezpečnosti (vyhláška č. 410/2025 Sb., § 5 odst. 2 písm. a)). V režimu vyšších povinností navíc o systému řízení bezpečnosti informací, řízení rizik a řízení kontinuity činností, aby vedení umělo určovat rizika a posoudit zvolené postupy a jejich dopady na regulovanou službu (vyhláška č. 409/2025 Sb., § 10 odst. 3 písm. a)).",
+          "Interval ani délku školení vyhlášky nestanoví. O školeních vedete přehled a seznam školených osob (vyhláška č. 410/2025 Sb., § 5 odst. 3; vyhláška č. 409/2025 Sb., § 10 odst. 5)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Školení vrcholného vedení",
+            "body": [
+              "Vrcholné vedení, tedy statutární orgán (u s.r.o. jednatelé), prokazatelně absolvuje školení v kybernetické bezpečnosti: nejdřív vstupní, pak pravidelná. Podle manuálu NÚKIB pro režim nižších povinností se to týká každého člena vrcholného vedení.",
+              "NÚKIB nabízí vlastní Kurz pro vrcholné vedení na osveta.nukib.gov.cz a jeho certifikát uznává jako doklad o splnění této povinnosti. Zvolit můžete i jiného poskytovatele; vyhlášky neurčují, kdo školení vede. Kurz na této platformě můžete absolvovat navíc."
+            ],
+            "duty": "Vrcholné vedení prokazatelně absolvuje vstupní a pravidelná školení (vyhláška č. 410/2025 Sb., § 4 písm. b) a § 5 odst. 2 písm. a); vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a) a § 10 odst. 3 písm. a)). Interval vyhlášky nestanoví.",
+            "link": "Přejít na náš bezplatný kurz pro vedení (doplněk)"
+          },
+          "record": {
+            "title": "Jak může vypadat záznam",
+            "caption": "Jeden řádek na osobu a školení:",
+            "rows": [
+              {
+                "name": "Jana Nováková, jednatelka",
+                "detail": "Prezenční školení ve vzdělávací agentuře, 12. března 2026, osvědčení o účasti"
+              },
+              {
+                "name": "Petr Svoboda, jednatel",
+                "detail": "Kurz pro vrcholné vedení NÚKIB online, 3. dubna 2026, certifikát absolventa jako PDF"
+              },
+              {
+                "name": "Lucie Dvořáková, jednatelka",
+                "detail": "Webinář oborového svazu, 20. května 2026, snímek obrazovky s účastí"
+              }
+            ],
+            "note": "Vyhlášky nepředepisují, zda školení proběhne prezenčně, nebo online. V úvahu přichází prezenční školení, online kurz, webinář i interní školení. Zaznamenejte, kdo se kdy zúčastnil a co bylo obsahem: přehled o školeních a seznam školených osob vyhlášky žádají."
+          },
+          "trainings": {
+            "title": "Jeden řádek na osobu",
+            "lead": "Pro každého člena vrcholného vedení zapište poslední školení. Doklad můžete přiložit; po webináři někdy žádný není."
+          },
+          "done": {
+            "title": "Školení zaznamenáno"
+          }
+        }
+      }
+    }
+  }
+}

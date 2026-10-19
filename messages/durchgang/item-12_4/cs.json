@@ -1,0 +1,78 @@
+{
+  "durchgang": {
+    "items": {
+      "12_4": {
+        "headline": "Detekovat útoky a doložit plnění opatření",
+        "teaser": "Jen pro subjekty kritické infrastruktury: detekce kybernetických bezpečnostních událostí a audit alespoň jednou za 2 roky.",
+        "missed": [
+          "Režim vyšších povinností se váže ke službě odpovídající prvku kritické infrastruktury, který byl u vašeho subjektu určen (§ 5 písm. d) zákona č. 264/2025 Sb.). Který režim platí, ukazuje Portál NÚKIB (Chci vyřídit, Přehled podání).",
+          "Nelze-li v odůvodněných případech provést audit v celém rozsahu do 2 let, lze ho provádět průběžně po systematických celcích tak, aby byl celý rozsah pokryt alespoň jednou za 5 let (vyhláška č. 409/2025 Sb., § 16 odst. 5)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Detekovat útoky automaticky",
+            "body": [
+              "Ve firemním profilu je jako typ subjektu uvedeno „Provozovatel KRITIS“. Proto vidíte tento krok. Ostatní firmy ho nemají.",
+              "Nejbližší český pojem je subjekt kritické infrastruktury podle předpisů o krizovém řízení a kritické infrastruktuře. Službu odpovídající jeho prvku kritické infrastruktury registruje NÚKIB z moci úřední a její poskytovatel je v režimu vyšších povinností (§ 5 písm. d), § 6 odst. 3 a § 8 odst. 3 zákona č. 264/2025 Sb.). Pro tento režim žádá vyhláška č. 409/2025 Sb. nástroje, které detekují kybernetické bezpečnostní události v síti i na jednotlivých technických aktivech (§ 21), a nástroj pro jejich nepřetržité vyhodnocování (§ 23).",
+              "Opatření zavádíte v míře nezbytné pro zajištění kybernetické bezpečnosti regulované služby (§ 13 odst. 2 zákona)."
+            ],
+            "duty": "V režimu vyšších povinností používáte nástroj pro detekci kybernetických bezpečnostních událostí a pravidelně a bezodkladně ho aktualizujete, včetně nastavení a detekčních pravidel (vyhláška č. 409/2025 Sb., § 21)."
+          },
+          "detection": {
+            "title": "Který nástroj detekuje útoky?",
+            "lead": "Uveďte nástroj a která aktiva sleduje. Pokud zatím žádný neběží, zvolte „Zatím nelze“.",
+            "document": "Detekce kybernetických bezpečnostních událostí"
+          },
+          "evidence": {
+            "title": "Alespoň jednou za 2 roky: audit kybernetické bezpečnosti",
+            "lead": "Auditem kybernetické bezpečnosti ověřujete, že opatření jsou zavedena, detekce včetně. Provádí ho auditor kybernetické bezpečnosti, který hodnotí nezávisle a nestranně a nezastává jinou bezpečnostní roli (vyhláška č. 409/2025 Sb., § 5 odst. 4, § 16 odst. 6). K auditu patří:",
+            "items": [
+              {
+                "name": "Posouzení opatření",
+                "detail": "zda jsou zavedena opatření podle zákona a vyhlášky a zda jsou v souladu s předpisy, smlouvami a nejlepší praxí (§ 16 odst. 2)"
+              },
+              {
+                "name": "Nápravná opatření",
+                "detail": "k výsledkům auditu, přijatá bez zbytečného odkladu (§ 16 odst. 3 písm. b))"
+              },
+              {
+                "name": "Seznámení vedení",
+                "detail": "vrcholné vedení se prokazatelně seznamuje s výsledky auditů (§ 4 odst. 2 písm. e))"
+              },
+              {
+                "name": "Využití výsledků",
+                "detail": "v plánu rozvoje bezpečnostního povědomí a v řízení rizik (§ 16 odst. 3 písm. a))"
+              }
+            ],
+            "source": "Vyhláška č. 409/2025 Sb., § 16 odst. 4: audit při významných změnách, v pravidelných intervalech alespoň jednou za 2 roky a podle plánu auditu. V režimu nižších povinností vyhláška č. 410/2025 Sb. audit nepředepisuje; dokladem je přehled bezpečnostních opatření, který alespoň jednou ročně aktualizujete včetně vyhodnocení účinnosti a uchováváte alespoň 4 roky (§ 3 odst. 2)."
+          },
+          "last": {
+            "title": "Kdy proběhl poslední audit?",
+            "lead": "Den, kdy byl dokončen poslední audit kybernetické bezpečnosti. Pokud ještě žádný nebyl, nechte pole prázdné a pokračujte.",
+            "document": "Audity kybernetické bezpečnosti"
+          },
+          "done": {
+            "title": "Detekce a audit zaznamenány"
+          }
+        },
+        "fields": {
+          "attackDetectionSystem": {
+            "label": "Nástroj pro detekci kybernetických bezpečnostních událostí",
+            "hint": "Co to je, kdo ho provozuje a která aktiva sleduje. Například: SIEM našeho dodavatele, sleduje síť řídicích systémů a body vzdáleného přístupu.",
+            "suggestions": [
+              "Centrální vyhodnocování záznamů (SIEM)",
+              "Detekce průniku v síti (IDS)",
+              "Detekce na serverech a počítačích (EDR)",
+              "Dohled zajišťovaný dodavatelem (SOC)",
+              "Dohled nad sítí řídicích systémů"
+            ]
+          },
+          "lastKritisEvidenceDate": {
+            "label": "Poslední audit kybernetické bezpečnosti",
+            "hint": "Datum je uvedeno v dokumentaci auditu. Řekne vám ho ten, kdo audit zadal nebo provedl."
+          }
+        }
+      }
+    }
+  }
+}

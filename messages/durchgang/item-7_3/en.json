@@ -1,0 +1,157 @@
+{
+  "durchgang": {
+    "items": {
+      "7_3": {
+        "headline": "Record the management review",
+        "teaser": "Management checks whether the measures work and approves your documents.",
+        "missed": [
+          "Management can only oversee what it knows. Germany's BSI advises reports to management that cover above all problems, successes and opportunities for improvement (IT-Grundschutz ISMS.1.A12).",
+          "Decisions without an owner and a date stay undone. For every task, record who does it by when."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What management sees and decides",
+            "body": [
+              "Sit down, look at where things stand, decide: that is the management review. The person who coordinates information security reports what is in place, where things are stuck and what they propose. Management decides what happens next and records it.",
+              "In this step you enter the review and approve the documents the walkthrough wrote, which are saved as drafts so far. The law does not say how often or in what form."
+            ],
+            "duty": "§ 38(1) BSIG: management implements and oversees the measures; Art. 20(1) NIS 2: it approves them. Procedures check they work (§ 30(2) no. 6)."
+          },
+          "inputs": {
+            "title": "What goes on the table",
+            "lead": "Have ready for the review:",
+            "items": [
+              {
+                "name": "What is in place",
+                "detail": "the finished steps of this walkthrough and what is still open"
+              },
+              {
+                "name": "Problems",
+                "detail": "incidents, outages and anything that did not work"
+              },
+              {
+                "name": "Risks",
+                "detail": "your rated risks, highest first; they are on the next step"
+              },
+              {
+                "name": "Proposals",
+                "detail": "what the person who coordinates information security would change"
+              }
+            ],
+            "source": "Under IT-Grundschutz ISMS.1.A12 of Germany's BSI, reports to management cover in particular problems, successes and opportunities for improvement."
+          },
+          "risks": {
+            "title": "Your risks for management",
+            "lead": "This is where your software, technology and suppliers stand today. The further up and to the right, the sooner an entry needs protection. Management decides where to act first."
+          },
+          "record": {
+            "title": "What an entry can look like",
+            "caption": "A management review, made up:",
+            "rows": [
+              {
+                "name": "Date and participants",
+                "detail": "12 February 2026; management, information security coordinator, IT provider"
+              },
+              {
+                "name": "Looked at",
+                "detail": "walkthrough status, two incidents, the five highest risks"
+              },
+              {
+                "name": "Decided",
+                "detail": "policies approved; second factor for remote access"
+              },
+              {
+                "name": "To do",
+                "detail": "test a restore, IT provider, by the end of March; phishing briefing, coordinator, in April"
+              }
+            ],
+            "note": "The law prescribes neither a meeting nor minutes. Record the date, who took part, the decisions and the tasks."
+          },
+          "review": {
+            "title": "Your management review",
+            "lead": "Enter the review: when, who, what was decided and what has to be done."
+          },
+          "approve": {
+            "title": "Management approves the documents",
+            "lead": "These are the documents this walkthrough wrote. Management reads each one and approves it here, signed in with its own account. Nothing is printed or scanned."
+          },
+          "ongoing": {
+            "title": "From now on, in your hands",
+            "lead": "The approval records what your company does. From now on it is up to you to do it. These duties stay once the walkthrough is finished.",
+            "groups": [
+              {
+                "title": "When something happens",
+                "items": [
+                  {
+                    "name": "A significant incident",
+                    "detail": "An early warning to the BSI within 24 hours of becoming aware, the notification after 72 hours and the final report one month after the notification at the latest.",
+                    "basis": "§ 32(1) BSIG"
+                  },
+                  {
+                    "name": "A registration detail changes",
+                    "detail": "Update it in the BSI's portal within two weeks of becoming aware. For example a new contact person or new public IP addresses.",
+                    "basis": "§ 33(5) BSIG"
+                  },
+                  {
+                    "name": "The BSI orders you to inform your customers",
+                    "detail": "Inform the recipients of your services without undue delay.",
+                    "basis": "§ 35(1) BSIG"
+                  },
+                  {
+                    "name": "A significant cyber threat, in certain sectors",
+                    "detail": "If your company is in finance, social security and basic income support for jobseekers, digital infrastructure, ICT service management or digital providers: tell the recipients of your services who may be affected, and the BSI, without undue delay what the recipients can do in response, and inform them of the threat itself. This applies only where the recipients' interests outweigh your company's.",
+                    "basis": "§ 35(2) BSIG"
+                  },
+                  {
+                    "name": "A new program or a new service provider",
+                    "detail": "Add it to the list and assess its risk, as your security policy sets out under “Approach”.",
+                    "basis": "Your security policy"
+                  }
+                ]
+              },
+              {
+                "title": "Regularly",
+                "items": [
+                  {
+                    "name": "The management review",
+                    "detail": "Repeat it so management oversees the implementation. The law sets no interval; if your security policy has the yearly review, a year applies.",
+                    "basis": "§ 38(1) BSIG"
+                  },
+                  {
+                    "name": "Management training",
+                    "detail": "Every member, at least every three years, as the explanatory memorandum reads “regularly”.",
+                    "basis": "§ 38(3) BSIG"
+                  },
+                  {
+                    "name": "Staff training",
+                    "detail": "The BSI considers it useful to train new staff when they start and to brief everyone on changes once a year.",
+                    "basis": "§ 30(2) no. 7 BSIG"
+                  }
+                ]
+              },
+              {
+                "title": "Continuously",
+                "items": [
+                  {
+                    "name": "Implement and oversee the measures",
+                    "detail": "Do what the documents set out: keep the second factor on, install security updates, test the restore.",
+                    "basis": "§ 38(1) BSIG"
+                  },
+                  {
+                    "name": "Close the open points",
+                    "detail": "Act without undue delay on what the approval showed as still open.",
+                    "basis": "Art. 21(4) NIS 2 (directive, the BSIG has no sentence of its own for it)"
+                  }
+                ]
+              }
+            ]
+          },
+          "done": {
+            "title": "Your management review is recorded",
+            "note": "The approved documents apply from the day management approved them and are listed under your policies."
+          }
+        }
+      }
+    }
+  }
+}

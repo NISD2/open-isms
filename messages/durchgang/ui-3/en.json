@@ -1,0 +1,141 @@
+{
+  "durchgang": {
+    "ui": {
+      "noStatus": "This item is not in your assessment yet. It appears once your company is set up.",
+      "cirAnnex": "Annex, point {ref}",
+      "cirNote": "Applies directly only to certain digital services (Art. 1 of the Regulation).",
+      "matrix": {
+        "impact": "How big the damage would be",
+        "frequency": "How often it happens",
+        "legend": "Legend",
+        "reading": "{frequency} and {impact} gives the level {level}",
+        "count": "{count, plural, =0 {no entries} one {# entry} other {# entries}}",
+        "damageAxis": "damage",
+        "oftenAxis": "how often"
+      },
+      "reporting": {
+        "yours": "Your country",
+        "csirt": "Its CSIRT: {name}",
+        "checked": "You report in the same portal as the registration, with the same access. On its start page, the red button \"Sicherheitsvorfall melden\" (report a security incident) opens the form.",
+        "unchecked": "Your authority's website says which channel to use. Look it up now, not during an incident.",
+        "openPortal": "Open the {name}",
+        "website": "Authority's website",
+        "noCountry": "No country is set for your company yet. Once it is, your authority appears here at the top.",
+        "setCountry": "Set the country",
+        "others": "The authorities in the other {count} EU member states"
+      },
+      "riskmap": {
+        "byLevel": "By level",
+        "editHint": "Tap a name or a filled field to change its rating here.",
+        "sheetTitle": "{count, plural, one {Change the rating} other {Change # ratings}}",
+        "sheetDescription": "Pick another field. The map behind follows at once, and the change is saved when you go on.",
+        "empty": "Nothing is rated yet. You rate your software, technology and suppliers in step 2.3.",
+        "several": "{count, plural, one {One entry has} other {# entries have}} several risks in the risk register. They appear only in the list, at their highest level."
+      },
+      "critical": {
+        "empty": "No process is on your list yet. You add your processes in step 2.2."
+      },
+      "thresholds": {
+        "important": "Important entity",
+        "essential": "Essential entity",
+        "employees": "from {count} employees",
+        "or": "or",
+        "money": "turnover above EUR {turnover} million and balance sheet above EUR {balanceSheet} million",
+        "annex": "sectors in Annex 1 and 2",
+        "annex1": "sectors in Annex 1 only"
+      },
+      "clock": {
+        "fromKnowledge": "from becoming aware",
+        "fromNotification": "after the notification",
+        "hours": "{count} hours",
+        "days": "{count, plural, one {# day} other {# days}}",
+        "months": "{count, plural, one {# month} other {# months}}"
+      },
+      "wait": {
+        "title": "No problem. What is missing?",
+        "description": "The item goes on your waiting list. You carry on with the next one and come back when it works.",
+        "unclear": "Write to us and we will explain it.",
+        "ask": "Ask a question",
+        "noteLabel": "Note for later (optional)",
+        "notePlaceholder": "For example: ask the IT provider for the IP addresses",
+        "confirm": "Put on the waiting list"
+      },
+      "places": {
+        "label": "In the NIS 2 walkthrough"
+      },
+      "home": {
+        "unlock": "Order now",
+        "toJourney": "Continue in your journey, as before",
+        "price": "{price} net a year, plus VAT. 30 days money back.",
+        "setupSection": "Getting started",
+        "setupHeadline": "Set up your company",
+        "setupLead": "The name and the sector are the same as in the registration. Everything else you enter where it is needed.",
+        "setupNameHint": "As in the registration, with its legal form. This is also how it appears in your documents.",
+        "setupSectorHint": "You give the sector in the registration too.",
+        "setupEntityTypeHint": "How the law classifies your company (Art. 3 NIS 2, in Germany § 28 BSIG). Telecoms, trust services and DNS have thresholds of their own.",
+        "setupEntityTypes": {
+          "essential": "Annex I sector, from 250 employees, or more than 50 million euros turnover and more than 43 million euros balance sheet total.",
+          "important": "Annex I or II sector, from 50 employees, or more than 10 million euros each in turnover and balance sheet total.",
+          "kritis": "You operate a critical facility."
+        },
+        "open": "Open",
+        "toSignOff": "Not signed off yet. Jump to sign-off",
+        "next": "Next",
+        "waiting": "Still waiting",
+        "continue": "Continue your NIS 2 implementation",
+        "allFilled": "Every item is filled in.",
+        "allFilledNote": "When something in your company changes, open the item and change it there. A changed document goes to management for approval again.",
+        "yourWay": "Your path",
+        "filled": "Awaiting sign-off",
+        "declined": "Decided not to do",
+        "signed": "Signed off",
+        "notApplicable": "Does not apply",
+        "preview": "What “{step}” looks like",
+        "previewAlt": "The step “{step}” shown with a made-up company",
+        "continueHere": "Continue now",
+        "forward": {
+          "action": "Forward to management",
+          "title": "Forward to management",
+          "lead": "Your management gets an invitation to this account. After signing in they see one page with what the walkthrough is, which documents it writes and what it costs, and can order there. The order is for your company; no second account is created.",
+          "name": "Name",
+          "email": "Email",
+          "placeholder": "name@your-company.com",
+          "send": "Send invitation",
+          "sentTitle": "Invitation sent to {name}",
+          "sentText": "Once the invitation to {email} is accepted, your management is part of this account and can order. There is nothing more for you to do.",
+          "notEmailed": "The invitation is created, but the email could not be sent.",
+          "close": "Done",
+          "refused": {
+            "member": "This address already belongs to your team.",
+            "limit": "Several invitations have already been sent from your account today. Please try again tomorrow.",
+            "failed": "That did not work. Please try again."
+          }
+        }
+      },
+      "intro": {
+        "eyebrow": "NIS 2 for mid-sized companies",
+        "title": "You are in the right place.",
+        "lead": "You have been asked to take care of NIS 2 and do not know where to start? That is how almost everyone feels. We go through it with you, item by item.",
+        "points": [
+          {
+            "title": "One thing at a time",
+            "text": "You only ever see one item. We explain it before you enter anything."
+          },
+          {
+            "title": "Methods we recommend",
+            "text": "Where a proven method exists, we show it to you. You decide whether to adopt it."
+          },
+          {
+            "title": "Leaving things open is fine",
+            "text": "What cannot be done yet, you set aside and carry on with the next item."
+          },
+          {
+            "title": "A signature at the end",
+            "text": "Management reviews everything and signs."
+          }
+        ],
+        "start": "Let's start"
+      }
+    }
+  }
+}

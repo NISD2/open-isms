@@ -1,0 +1,78 @@
+{
+  "durchgang": {
+    "items": {
+      "4_4": {
+        "headline": "Zaznamenejte své zálohy",
+        "teaser": "Jak často zálohujete a kdy naposledy fungovala obnova.",
+        "missed": [
+          "Záloha u stejného poskytovatele, který drží i původní data, není podle německého úřadu BSI oddělené uložení, a to ani u cloudových služeb (Grundschutz++ NOT.4.10).",
+          "Útočník může zálohu ve stejné síti zašifrovat spolu se vším ostatním. Obě vyhlášky požadují oddělit zálohovací prostředí od provozního (vyhláška č. 410/2025 Sb., § 11 písm. a); vyhláška č. 409/2025 Sb., § 18 písm. a) a § 26 odst. 5). Německý úřad BSI navíc doporučuje jednu kopii mimo síť (Grundschutz++ NOT.4.14)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Záloha, ze které lze obnovit",
+            "body": [
+              "Záloha je kopie vašich dat, kterou obnovíte po výpadku, útoku nebo chybě. Pomůže jen tehdy, když kopie incident přežije a dá se z ní opravdu obnovit.",
+              "V tomto kroku u každého zálohovacího systému ve vašem seznamu zaznamenáte, jak často zálohuje a kdy z něj naposledy fungovala obnova. Kde jsou kopie uloženy, zůstává na stránce požadavku."
+            ],
+            "duty": "V obou režimech patří pravidelné zálohy informací, dat, konfigurací a nastavení technických aktiv k řízení kontinuity činností a obnově služby (vyhláška č. 410/2025 Sb., § 6 písm. c); vyhláška č. 409/2025 Sb., § 15 písm. e) a § 26 odst. 2)."
+          },
+          "copy": {
+            "title": "Kde je kopie uložena",
+            "caption": "Kopie, která útok přežije",
+            "good": {
+              "value": "Jedna kopie je uložena mimo síť, například na disku ve skříni nebo v úložišti, které nikdo nemůže smazat ani změnit.",
+              "note": "Oddělené zálohovací prostředí požadují obě vyhlášky (vyhláška č. 410/2025 Sb., § 11 písm. a); vyhláška č. 409/2025 Sb., § 26 odst. 5). V režimu vyšších povinností musí být uložené zálohy chráněny alespoň šifrováním (vyhláška č. 409/2025 Sb., § 26 odst. 3 písm. c)). Kopii mimo síť doporučuje německá metodika Grundschutz++ (NOT.4.10, NOT.4.14)."
+            },
+            "bad": {
+              "value": "Záloha leží na disku ve stejné síti jako server.",
+              "note": "Pokud útočník zašifruje server, zašifruje spolu s ním i zálohu."
+            }
+          },
+          "ask": {
+            "title": "Na co se nejdřív zeptat",
+            "lead": "Než odpovíte na další obrazovce, zeptejte se toho, kdo se stará o vaše IT:",
+            "items": [
+              {
+                "name": "Které zálohovací systémy",
+                "detail": "co vytváří vaše zálohy, například zálohovací software, NAS nebo cloudová zálohovací služba; každý je jeden řádek na další obrazovce"
+              },
+              {
+                "name": "Jak často každý zálohuje",
+                "detail": "průběžně, každou hodinu, denně nebo týdně, a které systémy zálohuje: servery, souborová úložiště, databáze"
+              },
+              {
+                "name": "Poslední obnova z každého",
+                "detail": "kdy se z něj naposledy obnovila data a zda byla úplná a čitelná; podle německé metodiky BSI stačí jeden vzorek"
+              },
+              {
+                "name": "Vaši poskytovatelé cloudu a softwaru zvlášť",
+                "detail": "zálohují své vlastní systémy; zeptejte se každého, co pro vás uchovává a jak byste svá data dostali zpět. Jejich odpovědi na další obrazovku nepatří"
+              }
+            ],
+            "source": "Vyhláška č. 410/2025 Sb. požaduje pravidelné zálohy (§ 6 písm. c)); vyhláška č. 409/2025 Sb. navíc pravidelné testování jejich integrity, dostupnosti a obnovitelnosti a dokumentování výsledků testů (§ 26 odst. 3 písm. a), b)). Žádná z nich nestanoví čísla pro jednotlivé systémy. Kontrola vzorkem: německá metodika Grundschutz++ NOT.4.16.1."
+          },
+          "systems": {
+            "title": "Vaše zálohovací systémy",
+            "lead": "Každý zálohovací systém z vašeho seznamu s tím, co jste se dozvěděli. U zálohy, ze které se nikdy neobnovovalo, není ověřeno, že funguje. V režimu vyšších povinností vyhláška požaduje pravidelně testovat obnovitelnost záloh a výsledky dokumentovat (vyhláška č. 409/2025 Sb., § 26 odst. 3 písm. a), b)). V režimu nižších povinností test výslovně nežádá; že ho potřebujete, je náš výklad: při každoroční aktualizaci přehledu bezpečnostních opatření hodnotíte jejich účinnost (vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. b)).",
+            "frequency": "Jak často zálohuje",
+            "options": {
+              "real_time": "průběžně",
+              "hourly": "každou hodinu",
+              "daily": "denně",
+              "weekly": "týdně"
+            },
+            "lastRestore": "Poslední úspěšná obnova z něj",
+            "lastRestoreHint": "Den, kdy se z něj naposledy úplně obnovila data, při testu nebo naostro. Pokud zatím žádná obnova nefungovala, nechte pole prázdné a jednu naplánujte.",
+            "empty": "Ve vašem seznamu zatím není žádný zálohovací systém.",
+            "add": "Přidat zálohovací systém do seznamu"
+          },
+          "done": {
+            "title": "Vaše zálohy jsou zaznamenány",
+            "note": "Obnovu ze zálohy testujte pravidelně; v režimu vyšších povinností to vyhláška č. 409/2025 Sb. požaduje (§ 26 odst. 3 písm. a)). Po každém testu zapište nové datum."
+          }
+        }
+      }
+    }
+  }
+}

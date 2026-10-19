@@ -1,0 +1,138 @@
+{
+  "durchgang": {
+    "items": {
+      "9_1": {
+        "headline": "Sepište kryptografickou politiku",
+        "teaser": "Kde šifrujete a kdo uchovává klíče.",
+        "missed": [
+          "Klíč pro obnovu šifrovaného disku nepatří na stejné zařízení. IT-Grundschutz německého úřadu BSI požaduje uchovávat dlouhodobé klíče offline, mimo systémy v provozu (CON.1.A2).",
+          "Šifrovaná záloha pomůže jen tehdy, když klíč stále existuje. Když se klíč ztratí spolu se serverem, je ztracená i záloha. IT-Grundschutz požaduje, aby šifrovaná data zůstala přístupná i po dlouhé době (CON.1.A2). V režimu vyšších povinností vyhláška žádá pravidelně testovat obnovitelnost záloh (vyhláška č. 409/2025 Sb., § 26 odst. 3 písm. a)).",
+          "Certifikáty vyprší. Když vyprší certifikát vašeho webu, prohlížeče varují vaše návštěvníky. IT-Grundschutz požaduje obnovovat časově omezené certifikáty včas (CON.1.A4). V režimu vyšších povinností vyhláška žádá nástroj pro správu kryptografických klíčů a certifikátů (vyhláška č. 409/2025 Sb., § 25 odst. 3 písm. b))."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Kde šifrujete a kdo má klíče",
+            "body": [
+              "Šifrování chrání data tam, kde se vám mohou dostat z rukou: na ztraceném notebooku, na cestě internetem, v záloze uložené mimo firmu. Bez klíče je nikdo nepřečte.",
+              "Zaznamenávají to dvě věci: váš seznam přijatých algoritmů a kryptografická politika, která říká, kde šifrujete a jak zacházíte s klíči a certifikáty, například s certifikátem vašeho webu, a seznam do sebe přebírá. Které algoritmy jsou aktuálně odolné, uvádí NÚKIB v dokumentu „Minimální požadavky na kryptografické algoritmy“ (verze 4.1, Portál NÚKIB, podpůrné materiály). Technická směrnice TR-02102, kterou německý úřad BSI každý rok aktualizuje, slouží jen jako doplněk."
+            ],
+            "duty": "Obě vyhlášky žádají používat aktuálně odolné kryptografické algoritmy, prosazovat bezpečné nakládání s nimi a zohledňovat doporučení a metodiky NÚKIB (vyhláška č. 410/2025 Sb., § 13 odst. 1; vyhláška č. 409/2025 Sb., § 25 odst. 1). V režimu vyšších povinností navíc nástroj pro správu klíčů a certifikátů (§ 25 odst. 3).",
+            "link": "NÚKIB: Minimální požadavky na kryptografické algoritmy"
+          },
+          "list": {
+            "title": "Vaše přijaté algoritmy",
+            "lead": "Algoritmy, které vaše společnost používá pro šifrování, podpisy a zabezpečená spojení, a ty, které už nepoužívá. Dokud nevedete vlastní seznam, ukazujeme zde seznam podle dokumentu NÚKIB „Minimální požadavky na kryptografické algoritmy“ (verze 4.1 ze 4. března 2026), který obě vyhlášky žádají zohlednit: přijaté jsou jen algoritmy, které NÚKIB schvaluje, a sady TLS složené pouze z nich. Vaše politika na další obrazovce seznam převezme. Co u vás platí jinak, upravte po jednotlivých položkách na stránce požadavku.",
+            "document": "Seznam kryptografických algoritmů",
+            "categories": {
+              "symmetric": "Šifrování",
+              "hash": "Hašovací funkce",
+              "asymmetric": "Podpisy a klíče",
+              "key_exchange": "Výměna klíčů",
+              "tls": "TLS"
+            },
+            "status": {
+              "approved": "Přijato",
+              "deprecated": "Jen pro stávající použití, ne pro nové",
+              "prohibited": "Nepoužívat"
+            },
+            "bsi": "NÚKIB, „Minimální požadavky na kryptografické algoritmy“, verze 4.1",
+            "own": "Váš vlastní seznam",
+            "applies": "Tento seznam platí pro nás",
+            "change": "Jednotlivé položky změníte na stránce požadavku"
+          },
+          "konzept": {
+            "title": "Vaše kryptografická politika",
+            "lead": "Šablona má pevné oddíly o algoritmech, klíčích a odpovědnosti a název vaší společnosti už v ní je. Přečtěte si ji a pod ni doplňte, kde šifrujete. Co už je nastaveno, vám řekne ten, kdo spravuje vaše IT. Doložka o zálohách pokrývá všechny ukládané zálohy, jak to v režimu vyšších povinností žádá vyhláška č. 409/2025 Sb. (§ 26 odst. 3 písm. c)); v tomto režimu doplňte i nástroj pro správu klíčů a certifikátů (§ 25 odst. 3 písm. b)).",
+            "document": {
+              "title": "Kryptografická politika společnosti {company}",
+              "sections": [
+                {
+                  "heading": "Účel a rozsah platnosti",
+                  "text": "Tato politika stanoví, jak společnost {company} používá šifrování a jiné kryptografické algoritmy, aby nepovolané osoby nemohly informace číst ani je nepozorovaně měnit. Platí pro všechna zařízení, software a služby, se kterými společnost pracuje, včetně těch, které pro nás provozuje dodavatel."
+                },
+                {
+                  "heading": "Algoritmy",
+                  "text": "Používáme pouze aktuálně odolné kryptografické algoritmy a doporučené délky klíčů, u kterých nejsou známy zranitelnosti. Zohledňujeme přitom doporučení a metodiky NÚKIB v oblasti kryptografických algoritmů. Při nákupu zařízení, softwaru a služeb dbáme na to, aby takové algoritmy používaly. Náš seznam algoritmů:\n{acceptedCrypto}"
+                },
+                {
+                  "heading": "Klíče a certifikáty",
+                  "text": "Tajné klíče a klíče pro obnovu uchováváme tam, kam nepovolané osoby nemají přístup, a odděleně od zařízení, která odemykají. Certifikáty, například certifikát našeho webu, obnovujeme před vypršením jejich platnosti. Pokud se klíč dostal do nepovolaných rukou nebo na to máme podezření, nahradíme ho. Klíče, které už nepotřebujeme, bezpečně zlikvidujeme."
+                },
+                {
+                  "heading": "Odpovědnost",
+                  "text": "Vedení určí, kdo tuto politiku zavádí a kdo spravuje klíče a certifikáty. Pokud pro nás systémy provozuje dodavatel, sjednáme s ním, že se touto politikou řídí. Znají ji všichni, kdo šifrované systémy nastavují nebo spravují."
+                },
+                {
+                  "heading": "Přezkum",
+                  "text": "Tuto politiku pravidelně přezkoumáváme. Pokud se o algoritmu, který používáme, zjistí, že není bezpečný, zabezpečíme ho jinak nebo ho nahradíme."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "tr02102",
+                  "label": "TR-02102 jako doplněk",
+                  "heading": "Doplňkové měřítko",
+                  "text": "Vedle doporučení NÚKIB používáme jako doplňkové měřítko pro bezpečné algoritmy a délky klíčů technickou směrnici TR-02102 německého úřadu BSI v její aktuální verzi."
+                },
+                {
+                  "id": "laptops",
+                  "label": "Notebooky",
+                  "heading": "Notebooky",
+                  "text": "Disky všech notebooků jsou šifrované."
+                },
+                {
+                  "id": "mobile",
+                  "label": "Pracovní telefony a tablety",
+                  "heading": "Pracovní telefony a tablety",
+                  "text": "Pracovní telefony a tablety jsou chráněné zámkem obrazovky a jejich úložiště je šifrované."
+                },
+                {
+                  "id": "removable",
+                  "label": "USB disky",
+                  "heading": "USB disky a externí disky",
+                  "text": "Kdo si odnáší data společnosti na USB disku nebo externím disku, zašifruje je."
+                },
+                {
+                  "id": "backups",
+                  "label": "Zálohy",
+                  "heading": "Zálohy",
+                  "text": "Všechny ukládané zálohy jsou šifrované podle této politiky, včetně záloh mimo naše prostory a u dodavatele. Klíč k nim uchováváme odděleně, abychom zálohu dokázali přečíst i po výpadku."
+                },
+                {
+                  "id": "remote",
+                  "label": "Web a vzdálený přístup",
+                  "heading": "Web a vzdálený přístup",
+                  "text": "Náš web a vzdálený přístup k našim systémům jsou dostupné jen přes šifrovaná spojení."
+                },
+                {
+                  "id": "confidential_mail",
+                  "label": "Důvěrné e-maily",
+                  "heading": "Důvěrné e-maily",
+                  "text": "Zvlášť důvěrný obsah posíláme e-mailem jen zašifrovaný tak, aby ho mohl přečíst jen příjemce, například pomocí S/MIME nebo PGP."
+                },
+                {
+                  "id": "yearly",
+                  "label": "Roční kontrola",
+                  "heading": "Roční kontrola",
+                  "text": "Alespoň jednou ročně ověříme, zda jsou používané algoritmy a délky klíčů stále dostatečně bezpečné, a porovnáme je s aktuálními doporučeními NÚKIB."
+                },
+                {
+                  "id": "post_quantum",
+                  "label": "Kvantově odolné algoritmy",
+                  "heading": "Kvantově odolné algoritmy",
+                  "text": "U dat, která musí zůstat důvěrná mnoho let, plánujeme přechod na kvantově odolné algoritmy. Vycházíme přitom z aktuálních doporučení NÚKIB v oblasti kryptografických algoritmů a doplňkově z doporučení německého úřadu BSI."
+                }
+              ],
+              "own": "Další pravidla",
+              "signature": "Schválení vedením společnosti {company}"
+            }
+          },
+          "done": {
+            "title": "Vaše kryptografická politika je sepsána",
+            "note": "Předejte ji všem, kdo nastavují vaše zařízení a služby, včetně vašeho dodavatele IT služeb."
+          }
+        }
+      }
+    }
+  }
+}

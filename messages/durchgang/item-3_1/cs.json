@@ -1,0 +1,151 @@
+{
+  "durchgang": {
+    "items": {
+      "3_1": {
+        "headline": "Naplánujte, co se stane při incidentu",
+        "teaser": "Kdo rozhoduje, komu voláte, jak se spojíte.",
+        "missed": [
+          "Vyhlášky výslovně jmenují zabezpečenou hlasovou, audiovizuální a textovou komunikaci včetně e-mailu a zabezpečenou nouzovou komunikaci v rámci organizace (vyhláška č. 410/2025 Sb., § 13 odst. 2; vyhláška č. 409/2025 Sb., § 25 odst. 2). Papírový seznam telefonních čísel to nenahrazuje; je to nouzové řešení pro chvíli, kdy nefunguje nic jiného.",
+          "Rozhodněte, kdo podává hlášení. Prvotní hlášení je třeba podat bez zbytečného odkladu, nejpozději do 24 hodin po zjištění incidentu (§ 16 odst. 1 zákona č. 264/2025 Sb.): v režimu vyšších povinností NÚKIB, v režimu nižších povinností Národnímu CERT. V režimu nižších povinností hlásíte jen incidenty s významným dopadem a hranici si stanovíte sami jako únosnou míru újmy (vyhláška č. 410/2025 Sb., § 10 písm. b) a § 14).",
+          "Plán pomůže jen tehdy, když je v nouzi po ruce. Pokud je uložen jen na serveru, zmizí spolu se serverem. Mějte kopii tam, kde ji lze najít i bez IT, například na papíře nebo v telefonu."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Když se něco stane",
+            "body": [
+              "Při incidentu není čas zjišťovat, kdo co dělá. Proto to sepište předem: kdo rozhoduje, komu voláte a jak se spojíte, když nefunguje e-mail a síť.",
+              "Některé incidenty musíte také nahlásit, prvotní hlášení do 24 hodin po zjištění: v režimu vyšších povinností NÚKIB, v režimu nižších povinností Národnímu CERT, v obou případech přes Portál NÚKIB (§ 15 a 16 zákona č. 264/2025 Sb.). Váš plán určuje, kdo se o to postará; následující krok 3.3 ukazuje, jak hlášení probíhá.",
+              "Na konci tohoto kroku máte plán reakce na incidenty, sepsaný z vašich odpovědí. Pro všechny zaměstnance se hodí kartička k vyvěšení, která říká, co dělat při nouzové situaci v IT, a nese vaše nouzové číslo IT. Vzorem může být IT nouzová karta (IT-Notfallkarte) německého úřadu BSI, která je v němčině."
+            ],
+            "duty": "Zákon požaduje, aby vaše společnost uměla zvládat kybernetické bezpečnostní incidenty.",
+            "link": "IT nouzová karta německého úřadu BSI (v němčině)"
+          },
+          "lead": {
+            "title": "Vaše nouzové kontakty",
+            "lead": "V nouzové situaci (při kybernetickém bezpečnostním incidentu) vede jedna osoba. Všichni volají na jedno číslo. Víte, jak se spojíte, když nefunguje e-mail a síť, a komu vedoucí osoba volá dál.",
+            "document": "Váš plán reakce na incidenty"
+          },
+          "plan": {
+            "title": "Váš plán reakce na incidenty",
+            "lead": "Sepsaný z vašich odpovědí: kdo rozhoduje, komu voláte, co udělat nejdřív, jak incident nahlásíte NÚKIB nebo Národnímu CERT a jak se vrátíte k běžnému provozu. Přečtěte si ho a níže doplňte, co odpovídá vaší společnosti. Odpověď, která ještě chybí, se zobrazí jako čára.",
+            "document": {
+              "title": "Plán reakce na incidenty společnosti {company}",
+              "sections": [
+                {
+                  "heading": "Účel a rozsah",
+                  "text": "Tento plán stanoví, co se ve společnosti {company} děje, když nastane kybernetický bezpečnostní incident nebo je na něj podezření: kdo rozhoduje, komu voláme, jak se spojíme, jak incident hlásíme a jak se vrátíme k běžnému provozu. Platí pro všechny zaměstnance. Jeho kopie je uložena tam, kde ji lze najít i bez IT, například v tištěné podobě."
+                },
+                {
+                  "heading": "Když si něčeho všimnete",
+                  "text": "Kdo zaznamená incident, podezření na něj, neobvyklé chování zařízení či programu nebo podezření na zranitelnost, okamžitě volá nouzové číslo IT {itEmergencyNumber}. V případě pochybností volejte. Do telefonu řekněte, kdo jste, kterého zařízení nebo programu se to týká, co jste viděli, kdy to začalo a kde zařízení je. Přestaňte na zasaženém zařízení pracovat a nic dalšího nedělejte, dokud nedostanete pokyn. Zapište si, co jste viděli."
+                },
+                {
+                  "heading": "Kdo vede",
+                  "text": "{incidentLead} vede reakci na incident. Tato osoba rozhoduje, zda jde o pouhou poruchu, nebo o incident, a zda se musí hlásit, a každé rozhodnutí si zapíše i s časem. Průběžně informuje vedení. Není-li k zastižení, přebírá řízení vedení."
+                },
+                {
+                  "heading": "Komu voláme",
+                  "text": "Podle závažnosti incidentu vedoucí osoba volá: {incidentEscalationContacts}. U tohoto plánu je uložen tištěný seznam se všemi telefonními čísly, abychom čísla měli i bez počítače a digitálního adresáře. Seznam udržujeme aktuální."
+                },
+                {
+                  "heading": "Jak se spojíme, když IT selže",
+                  "text": "Pokud selže e-mail, telefonní ústředna nebo síť, spojíme se takto: {secureCommsChannel}. Každý na seznamu tento způsob spojení zná a má ho nastavený předem, ještě než bude potřeba."
+                },
+                {
+                  "heading": "První kroky",
+                  "text": "Bezpečnost lidí má přednost přede vším ostatním. Zasažená zařízení se odpojují od sítě jen na pokyn vedoucí osoby. Než kdokoli zařízení prozkoumá nebo přeinstaluje, zajistíme záznamy (logy), fotografie obrazovky a poznámky. Vše, co se děje, zapisujeme i s časem."
+                },
+                {
+                  "heading": "Hlášení incidentu",
+                  "text": "Režim povinností společnosti {company} ukazuje Portál NÚKIB (Chci vyřídit, Přehled podání). V režimu vyšších povinností hlásíme NÚKIB každý incident, který se projevil ve stanoveném rozsahu, má původ v kybernetickém prostoru a u něhož nelze do 24 hodin vyloučit úmyslné zavinění (§ 15 odst. 1 zákona č. 264/2025 Sb.). V režimu nižších povinností hlásíme takový incident Národnímu CERT, má-li významný dopad na poskytování regulované služby (§ 15 odst. 2); významný je, když přesáhne námi stanovenou únosnou míru újmy a současně je některá oblast posouzení vyhodnocena jako významná (vyhláška č. 410/2025 Sb., § 14 odst. 2). Hlásíme přes Portál NÚKIB, postup uvádí {reportingChannel}; nelze-li portál použít, posíláme hlášení e-mailem nebo do datové schránky příjemce (§ 16 odst. 4 zákona). Prvotní hlášení podáme bez zbytečného odkladu, nejpozději do 24 hodin po zjištění incidentu. U incidentu s významným dopadem (v režimu vyšších povinností tehdy, sdělí-li NÚKIB, že má významný dopad na kybernetický prostor státu) následuje do 72 hodin po zjištění oznámení a nejpozději do 30 dnů od předložení oznámení závěrečná zpráva (§ 16 zákona). {incidentLead} zajistí, že hlášení jsou podána. Prvotní hlášení uvádí, zda se domníváme, že incident způsobil nezákonný zásah nebo že by mohl mít přeshraniční dopad; aktualizované informace, prvotní posouzení, dopad a indikátory kompromitace doplníme v oznámení. Jsou-li zasaženy osobní údaje, ohlásíme porušení zabezpečení zpravidla také Úřadu pro ochranu osobních údajů, pokud možno do 72 hodin (čl. 33 GDPR)."
+                },
+                {
+                  "heading": "Návrat k běžnému provozu",
+                  "text": "Zasažené systémy se znovu používají, jen když s tím vedoucí osoba souhlasí: až je příčina nalezena a odstraněna a systémy jsou obnoveny ze záloh, o kterých víme, že jsou čisté. Potom ověříme, že fungují jako dřív."
+                },
+                {
+                  "heading": "Po incidentu",
+                  "text": "Když je incident zvládnut, vedoucí osoba ho prohlásí za ukončený a zaznamená, co se stalo, včetně příčiny, pokud je známa. Probereme, co se povedlo a co ne, a podle potřeby upravíme pravidla, opatření a tento plán, aby se incident neopakoval."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "provider",
+                  "label": "Poskytovatel IT služeb",
+                  "heading": "Poskytovatel IT služeb",
+                  "text": "Náš poskytovatel IT služeb nás při incidentu podporuje. Dohodli jsme se s ním, jak a kdy je k zastižení, i mimo pracovní dobu."
+                },
+                {
+                  "id": "hours",
+                  "label": "Mimo pracovní dobu",
+                  "heading": "Mimo pracovní dobu",
+                  "text": "Nouzové číslo IT je dostupné i mimo pracovní dobu. Kdo ho v té době přijímá, je uvedeno v seznamu telefonních čísel."
+                },
+                {
+                  "id": "card",
+                  "label": "IT nouzová karta",
+                  "heading": "IT nouzová karta",
+                  "text": "Na každém pracovišti je vyvěšena IT nouzová karta s naším nouzovým číslem {itEmergencyNumber} a s pokyny, co dělat při nouzové situaci v IT."
+                },
+                {
+                  "id": "police",
+                  "label": "Policie",
+                  "heading": "Policie",
+                  "text": "Po útoku zvážíme podání trestního oznámení Policii České republiky."
+                },
+                {
+                  "id": "customers",
+                  "label": "Informování zákazníků",
+                  "heading": "Informování zákazníků",
+                  "text": "Může-li incident ovlivnit naše služby zákazníkům, rozhoduje vedení, kdy a jak je informujeme. NÚKIB nám může informování uložit nebo zakázat (§ 19 odst. 1 zákona č. 264/2025 Sb.)."
+                },
+                {
+                  "id": "practice",
+                  "label": "Každoroční cvičení",
+                  "heading": "Cvičení",
+                  "text": "Jednou ročně projdeme podle tohoto plánu modelový incident a plán poté aktualizujeme."
+                }
+              ],
+              "own": "Další pravidla",
+              "signature": "Schválení vedením společnosti {company}"
+            }
+          },
+          "done": {
+            "title": "Váš plán reakce na incidenty je sepsán",
+            "note": "Postarejte se, aby všichni zaměstnanci znali nouzové číslo, například z IT nouzové karty vyvěšené na pracovišti."
+          }
+        },
+        "fields": {
+          "incidentLead": {
+            "label": "Kdo vede v nouzové situaci (při incidentu)",
+            "hint": "Osoba, která rozhoduje, co dělat, a průběžně informuje vedení. V malé společnosti je to často ten, kdo má na starosti kybernetickou bezpečnost."
+          },
+          "itEmergencyNumber": {
+            "label": "Nouzové číslo, na které volají všichni",
+            "hint": "Obvykle mobilní číslo osoby, která vede. Pokud tyto hovory za vás přijímá poskytovatel IT služeb, jeho číslo. Toto číslo uvedete i na IT nouzové kartě."
+          },
+          "secureCommsChannel": {
+            "label": "Jak se spojíte, když nefunguje e-mail a síť (alespoň dvěma způsoby)",
+            "hint": "Uveďte alespoň dva způsoby, které nezávisí na vašem vlastním IT. E-mail a chat, který běží na stejných účtech jako e-mail, mohou selhat současně.",
+            "suggestions": [
+              "Telefonáty na mobilní čísla",
+              "SMS",
+              "Skupina v messengeru na služebních telefonech",
+              "Seznam telefonních čísel na papíře"
+            ]
+          },
+          "incidentEscalationContacts": {
+            "label": "Komu vedoucí osoba volá dál",
+            "hint": "Jména a telefonní čísla podle závažnosti incidentu. Klepněte na odpověď a doplňte jméno a číslo. Druhou osobu pro vedení při incidentu vyhlášky nežádají; plán už stanoví, že není-li vedoucí osoba k zastižení, přebírá řízení vedení. V režimu vyšších povinností ale musí být zastupitelný manažer kybernetické bezpečnosti (vyhláška č. 409/2025 Sb., § 4 odst. 5).",
+            "suggestions": [
+              "Zástupce",
+              "Poskytovatel IT služeb",
+              "Vedení",
+              "Pověřenec pro ochranu osobních údajů"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

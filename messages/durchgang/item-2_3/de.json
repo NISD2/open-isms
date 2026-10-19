@@ -1,0 +1,43 @@
+{
+  "durchgang": {
+    "items": {
+      "2_3": {
+        "headline": "Risiken bewerten",
+        "teaser": "Jedes Programm, jedes Gerät und jeden Lieferanten mit der Matrix einstufen.",
+        "missed": [
+          "Lieferanten gehören dazu. Das Gesetz verlangt Maßnahmen auch für die Beziehungen zu Ihren direkten Anbietern und Dienstleistern (§ 30 Abs. 2 Nr. 4 BSIG).",
+          "Selten heißt nicht klein. In der Matrix des BSI ist ein existenzbedrohender Schaden nie gering, selbst wenn er höchstens alle fünf Jahre eintreten könnte."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wie groß ist welches Risiko?",
+            "body": [
+              "Ihre Liste steht: Programme, Technik und Lieferanten. Jetzt bewerten Sie jeden Eintrag mit der Methode zur Risikobewertung, die Sie festgelegt haben. Wie oft kommt der schlimmste realistische Fall vor, und wie groß wäre der Schaden? Die Matrix macht daraus eine von vier Stufen.",
+              "So sehen Sie, wo Schutz zuerst nötig ist. Einzelne Gefährdungen, etwa aus der Liste der elementaren Gefährdungen des BSI, ergänzen Sie danach im Risikoregister."
+            ],
+            "duty": "Das Gesetz verlangt Konzepte zur Risikoanalyse. Wie viel Schutz verhältnismäßig ist, richtet sich unter anderem ausdrücklich danach, wie wahrscheinlich und wie schwer Sicherheitsvorfälle sind (§ 30 Abs. 1 BSIG)."
+          },
+          "software": {
+            "title": "Ihre Programme bewerten",
+            "lead": "Jedes Programm auf Ihrer Liste hat eine eigene Zeile. Denken Sie an seinen schlimmsten realistischen Fall: Es fällt aus, wird angegriffen oder Daten gehen verloren. Dann tippen Sie das Feld in seiner Matrix an: je weiter rechts, desto öfter kommt es vor; je weiter oben, desto größer der Schaden."
+          },
+          "technology": {
+            "title": "Ihre Technik und Räume bewerten",
+            "lead": "Dasselbe für Server, Geräte, Netz und Räume. Denken Sie auch an Feuer, Wasser und Stromausfall."
+          },
+          "suppliers": {
+            "title": "Ihre Lieferanten bewerten",
+            "lead": "Hier ist der schlimmste Fall, dass der Lieferant ausfällt oder selbst einen Sicherheitsvorfall hat. Die Stufe steht danach auch in Ihrer Lieferantenliste."
+          },
+          "map": {
+            "title": "Ihre Risiken auf einen Blick",
+            "lead": "Jede Zahl zählt Ihre Einträge in diesem Feld der Matrix. Je weiter oben rechts, desto eher braucht ein Eintrag Schutz. Darunter stehen alle mit Namen, die höchste Stufe zuerst."
+          },
+          "done": {
+            "title": "Ihre Risiken sind bewertet"
+          }
+        }
+      }
+    }
+  }
+}

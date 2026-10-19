@@ -1,0 +1,77 @@
+{
+  "durchgang": {
+    "items": {
+      "11_1": {
+        "headline": "Festhalten, wo ein zweiter Faktor schützt",
+        "teaser": "Für jedes Programm auf Ihrer Liste: Passwort allein oder mit zweitem Faktor.",
+        "missed": [
+          "Der Fernzugang Ihres IT-Dienstleisters zur Wartung ist auch ein Zugang von außen. Grundschutz++ des BSI empfiehlt für alles, was von außen erreichbar ist, einen zweiten Faktor, der auch gegen Phishing schützt (BER.5.8).",
+          "Konten mit Administratorrechten zuerst: Grundschutz++ empfiehlt den zweiten Faktor ausdrücklich für Zugänge mit weitreichenden Berechtigungen (BER.5.9)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Passwort und etwas, das Sie in der Hand haben",
+            "body": [
+              "Ein Passwort lässt sich erraten, abfangen oder in einem fremden Datenleck finden. Ein zweiter Faktor ist etwas, das Sie zusätzlich in der Hand haben: eine App auf dem Diensthandy, die einen Code zeigt oder die Anmeldung bestätigt, oder einen Sicherheitsschlüssel. Wer nur das Passwort kennt, kommt dann nicht hinein.",
+              "Ein bestimmtes Sicherheitsniveau schreibt das Gesetz nicht vor, sagt das BSI; Sie entscheiden nach Ihrer Risikoanalyse. In diesem Schritt kreuzen Sie für jedes Programm auf Ihrer Liste an, ob die Anmeldung schon einen zweiten Faktor braucht."
+            ],
+            "duty": "Das Gesetz verlangt Lösungen, bei denen die Anmeldung mehr als ein Passwort braucht (mehrere Faktoren) oder laufend geprüft wird (kontinuierliche Authentifizierung)."
+          },
+          "where_first": {
+            "title": "Wo zuerst",
+            "caption": "Welche Anmeldungen einen zweiten Faktor zuerst brauchen",
+            "good": {
+              "value": "E-Mail, Fernzugriff und Administratorkonten mit App oder Sicherheitsschlüssel",
+              "note": "Grundschutz++ empfiehlt den zweiten Faktor für alles, was von außen erreichbar ist, und für Zugänge mit weitreichenden Rechten (BER.5.8, BER.5.9)."
+            },
+            "bad": {
+              "value": "Fernzugriff von zu Hause nur mit Passwort",
+              "note": "Dann reicht ein erratenes oder abgefangenes Passwort, um in Ihr Netz zu kommen."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Alle Nutzer des Firmenkontos in der Cloud mit einer Authentifizierungsapp",
+                  "note": "Ein Konto öffnet meist E-Mail, Dateien und Chat zugleich. Ein gestohlenes Passwort öffnet dann alle drei."
+                },
+                "bad": {
+                  "value": "Zweiter Faktor nur für die Geschäftsführung",
+                  "note": "Eine Phishing-Mail erreicht jedes Postfach, und Angreifer nehmen das Konto, das am leichtesten ist."
+                }
+              },
+              {
+                "good": {
+                  "value": "Administratorkonten mit Sicherheitsschlüssel",
+                  "note": "Ein Sicherheitsschlüssel prüft, bei welcher Website er sich anmeldet. Eine gefälschte Anmeldeseite kann ihn nicht nutzen."
+                },
+                "bad": {
+                  "value": "Administratorkonten mit Codes per SMS",
+                  "note": "Eine SMS lässt sich auf eine andere SIM-Karte umleiten. Für Konten mit allen Rechten nehmen Sie eine App oder einen Schlüssel."
+                }
+              }
+            ]
+          },
+          "logins": {
+            "title": "Wo ein zweiter Faktor schützt",
+            "lead": "Kreuzen Sie für jedes Programm und jeden Zugang auf Ihrer Liste an, wie man sich anmeldet, und wo ein zweiter Faktor an ist, welcher: Er kann von Programm zu Programm verschieden sein. Jede Zeile beginnt bei „Nur Passwort“, der sicheren Annahme; ändern Sie, was Sie besser wissen, oder wählen Sie „Noch nicht bekannt“. Melden Sie sich bei mehreren über ein Firmenkonto an, etwa bei Microsoft, gilt für sie dieselbe Antwort. Was Sie nicht wissen, kann Ihnen sagen, wer Ihre IT betreut.",
+            "mfa": "Mit zweitem Faktor",
+            "password": "Nur Passwort",
+            "unknown": "Noch nicht bekannt",
+            "which": "Welcher:",
+            "methods": {
+              "app": "App auf dem Handy",
+              "security_key": "Sicherheitsschlüssel",
+              "company_account": "Über das Firmenkonto",
+              "sms": "Code per SMS",
+              "email": "Code per E-Mail"
+            }
+          },
+          "done": {
+            "title": "Ihre Anmeldungen sind festgehalten",
+            "note": "Wo nur ein Passwort steht, entscheiden Sie nach dem Risiko, ob Sie einen zweiten Faktor einschalten. Fangen Sie bei dem an, was von außen erreichbar ist."
+          }
+        }
+      }
+    }
+  }
+}

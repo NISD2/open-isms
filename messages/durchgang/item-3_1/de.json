@@ -1,0 +1,151 @@
+{
+  "durchgang": {
+    "items": {
+      "3_1": {
+        "headline": "Planen, was bei einem Vorfall passiert",
+        "teaser": "Wer entscheidet, wen Sie anrufen, wie Sie sich erreichen.",
+        "missed": [
+          "Das Gesetz nennt gesicherte Sprach-, Video- und Textkommunikation und, wo nötig, gesicherte Notfallkommunikationssysteme im Unternehmen (§ 30 Abs. 2 Nr. 10 BSIG). Eine Telefonliste auf Papier ersetzt das nicht; sie ist der Rückfall, wenn alles andere steht.",
+          "Legen Sie fest, wer die Meldung an das {authority} schreibt. Die erste Meldung ist spätestens 24 Stunden, nachdem Sie von einem erheblichen Vorfall erfahren haben, fällig (§ 32 Abs. 1 BSIG).",
+          "Der Plan hilft nur, wenn er im Ernstfall greifbar ist. Liegt er allein auf dem Server, ist er mit dem Server weg. Legen Sie eine Fassung dorthin, wo sie auch ohne IT zu finden ist, zum Beispiel auf Papier oder auf einem Handy."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wenn etwas passiert",
+            "body": [
+              "Während eines Vorfalls ist keine Zeit, zu überlegen, wer was tut. Deshalb halten Sie es vorher fest: wer entscheidet, wen Sie anrufen und wie Sie sich erreichen, wenn E-Mail und Netz nicht gehen.",
+              "Einen erheblichen Vorfall müssen Sie außerdem dem {authority} melden, die erste Meldung binnen 24 Stunden. Ihr Plan legt fest, wer dafür sorgt; wie das Melden geht, zeigt der nächste Schritt, 3.3.",
+              "Am Ende dieses Schritts steht Ihr Notfallplan, aus Ihren Antworten geschrieben. Für alle Beschäftigten gibt das BSI dazu eine IT-Notfallkarte zum Aushängen heraus: Sie sagt, was bei einem IT-Notfall zu tun ist, und trägt Ihre IT-Notfallnummer."
+            ],
+            "duty": "Das Gesetz verlangt, dass Ihr Unternehmen Sicherheitsvorfälle bewältigen kann.",
+            "link": "IT-Notfallkarte des BSI ansehen"
+          },
+          "lead": {
+            "title": "Ihre Kontakte im Ernstfall",
+            "lead": "Eine Person führt im Ernstfall (bei einem Sicherheitsvorfall). Alle rufen eine Nummer an. Sie wissen, wie Sie sich erreichen, wenn E-Mail und Netz ausfallen, und wen die Person, die führt, als Nächstes anruft.",
+            "document": "Ihr Notfallplan"
+          },
+          "plan": {
+            "title": "Ihr Notfallplan",
+            "lead": "Aus Ihren Antworten geschrieben: wer entscheidet, wen Sie anrufen, was sofort zu tun ist, wie Sie dem {authority} melden und wie Sie wieder in den Normalbetrieb kommen. Lesen Sie ihn, und ergänzen Sie darunter, was zu Ihrem Unternehmen passt. Eine noch fehlende Antwort steht als Linie da.",
+            "document": {
+              "title": "Notfallplan für IT-Sicherheitsvorfälle der {company}",
+              "sections": [
+                {
+                  "heading": "Zweck und Geltungsbereich",
+                  "text": "Dieser Plan legt fest, was bei der {company} geschieht, wenn ein IT-Sicherheitsvorfall eintritt oder vermutet wird: wer entscheidet, wen wir anrufen, wie wir uns erreichen, wie wir melden und wie wir zum Normalbetrieb zurückkehren. Er gilt für alle Beschäftigten. Eine Fassung liegt dort, wo sie auch ohne IT zu finden ist, zum Beispiel auf Papier."
+                },
+                {
+                  "heading": "Wer etwas bemerkt",
+                  "text": "Wer einen Vorfall bemerkt oder vermutet, ruft sofort die IT-Notfallnummer {itEmergencyNumber} an. Im Zweifel rufen Sie an. Sagen Sie am Telefon, wer Sie sind, welches Gerät oder Programm betroffen ist, was Sie beobachtet haben, wann es angefangen hat und wo das Gerät steht. Arbeiten Sie mit dem betroffenen Gerät nicht weiter und unternehmen Sie nichts, bis Sie eine Anweisung bekommen. Schreiben Sie auf, was Sie gesehen haben."
+                },
+                {
+                  "heading": "Leitung",
+                  "text": "{incidentLead} leitet die Bewältigung eines Vorfalls. Diese Person entscheidet, ob ein Ereignis eine bloße Störung oder ein Sicherheitsvorfall ist und ob er gemeldet werden muss, und hält jede Entscheidung mit Uhrzeit fest. Sie informiert die Geschäftsführung. Ist sie nicht erreichbar, übernimmt die Geschäftsführung."
+                },
+                {
+                  "heading": "Wen wir anrufen",
+                  "text": "Je nach Schwere des Vorfalls ruft die Leitung an: {incidentEscalationContacts}. Eine gedruckte Liste mit allen Telefonnummern liegt bei diesem Plan, damit wir die Nummern auch ohne Computer und digitales Adressbuch haben. Wir halten sie aktuell."
+                },
+                {
+                  "heading": "Wie wir uns erreichen, wenn die IT ausfällt",
+                  "text": "Fallen E-Mail, Telefonanlage oder Netz aus, erreichen wir uns über: {secureCommsChannel}. Alle, die auf der Liste stehen, kennen diesen Weg und haben ihn eingerichtet, bevor er gebraucht wird."
+                },
+                {
+                  "heading": "Sofortmaßnahmen",
+                  "text": "Die Sicherheit von Menschen geht allem anderen vor. Betroffene Geräte nehmen wir nur auf Anweisung der Leitung vom Netz. Bevor jemand ein Gerät untersucht oder neu aufsetzt, sichern wir Protokolle, Fotos des Bildschirms und Notizen. Alles, was geschieht, schreiben wir mit Uhrzeit auf."
+                },
+                {
+                  "heading": "Meldung an das BSI",
+                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn über {reportingChannel}: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. Die frühe Erstmeldung sagt, ob wir eine rechtswidrige oder böswillige Handlung vermuten und ob sich der Vorfall auf andere Länder auswirken könnte; alles Weitere, was wir bis dahin wissen, folgt mit der zweiten Meldung. Sind personenbezogene Daten betroffen, melden wir das in der Regel auch der Datenschutzaufsicht, möglichst binnen 72 Stunden (Art. 33 DSGVO)."
+                },
+                {
+                  "heading": "Zurück zum Normalbetrieb",
+                  "text": "Betroffene Systeme gehen erst wieder in Betrieb, wenn die Leitung zustimmt: wenn die Ursache gefunden und beseitigt ist, wiederhergestellt aus Datensicherungen, die nachweislich sauber sind. Danach prüfen wir, ob sie wie vorher funktionieren."
+                },
+                {
+                  "heading": "Nach dem Vorfall",
+                  "text": "Ist der Vorfall bewältigt, erklärt die Leitung ihn für beendet und hält fest, was geschehen ist. Wir besprechen, was gut lief und was nicht, und ändern Regeln, Maßnahmen und diesen Plan, wo es nötig ist."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "provider",
+                  "label": "IT-Dienstleister",
+                  "heading": "IT-Dienstleister",
+                  "text": "Unser IT-Dienstleister unterstützt uns bei einem Vorfall. Wir haben mit ihm abgesprochen, wie und wann er erreichbar ist, auch außerhalb der Geschäftszeiten."
+                },
+                {
+                  "id": "hours",
+                  "label": "Außerhalb der Geschäftszeiten",
+                  "heading": "Außerhalb der Geschäftszeiten",
+                  "text": "Die IT-Notfallnummer ist auch außerhalb der Geschäftszeiten erreichbar. Wer sie dann annimmt, steht in der Telefonliste."
+                },
+                {
+                  "id": "card",
+                  "label": "IT-Notfallkarte",
+                  "heading": "IT-Notfallkarte",
+                  "text": "An jedem Arbeitsplatz hängt die IT-Notfallkarte des BSI mit unserer Nummer {itEmergencyNumber}."
+                },
+                {
+                  "id": "police",
+                  "label": "Polizei",
+                  "heading": "Polizei",
+                  "text": "Nach einem Angriff prüfen wir, ob wir Anzeige erstatten. Ansprechpartner ist die Zentrale Ansprechstelle für Cybercrime (ZAC) beim Landeskriminalamt unseres Bundeslandes."
+                },
+                {
+                  "id": "customers",
+                  "label": "Kunden informieren",
+                  "heading": "Kunden informieren",
+                  "text": "Kann ein Vorfall unsere Leistungen für Kunden beeinträchtigen, entscheidet die Geschäftsführung, wann und wie wir sie informieren."
+                },
+                {
+                  "id": "practice",
+                  "label": "Jährliche Übung",
+                  "heading": "Übung",
+                  "text": "Einmal im Jahr spielen wir einen Vorfall nach diesem Plan durch und passen den Plan danach an."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihr Notfallplan ist geschrieben",
+            "note": "Geben Sie die Notfallnummer allen Beschäftigten bekannt, zum Beispiel mit der IT-Notfallkarte des BSI."
+          }
+        },
+        "fields": {
+          "incidentLead": {
+            "label": "Wer im Ernstfall (Sicherheitsvorfall) führt",
+            "hint": "Die Person, die entscheidet, was zu tun ist, und die Geschäftsführung auf dem Laufenden hält. In einem kleinen Unternehmen ist das oft, wer sich um NIS 2 kümmert."
+          },
+          "itEmergencyNumber": {
+            "label": "Notfallnummer, die alle anrufen",
+            "hint": "Meist die Handynummer der Person, die führt. Nimmt ein IT-Dienstleister diese Anrufe für Sie an, dessen Nummer. Es ist auch die Nummer auf der IT-Notfallkarte des BSI."
+          },
+          "secureCommsChannel": {
+            "label": "Wie Sie sich erreichen, wenn E-Mail und Netz ausfallen (mindestens zwei Wege)",
+            "hint": "Nennen Sie mindestens zwei Wege, die nicht an Ihrer eigenen IT hängen. Die E-Mail, und ein Chat, der über dieselben Konten läuft wie die E-Mail, können zusammen mit ihr ausfallen.",
+            "suggestions": [
+              "Anrufe auf die Handynummern",
+              "SMS",
+              "Messengergruppe auf den Diensthandys",
+              "Telefonliste auf Papier"
+            ]
+          },
+          "incidentEscalationContacts": {
+            "label": "Wen die Person, die führt, als Nächstes anruft",
+            "hint": "Namen und Telefonnummern, nach Schwere des Vorfalls. Tippen Sie eine Antwort an und ergänzen Sie Name und Nummer. Eine zweite Person verlangt kein Gesetz; der Plan sagt schon, dass die Geschäftsführung übernimmt, wenn die Person, die führt, nicht erreichbar ist.",
+            "suggestions": [
+              "Vertretung",
+              "IT-Dienstleister",
+              "Geschäftsführung",
+              "Datenschutzbeauftragte"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

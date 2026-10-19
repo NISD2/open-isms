@@ -1,0 +1,47 @@
+{
+  "durchgang": {
+    "items": {
+      "12_2": {
+        "headline": "Beim {authority} registrieren",
+        "teaser": "Ihr Unternehmen meldet sich einmal beim {authority} an.",
+        "missed": [
+          "Ein neues Organisationszertifikat braucht einen Aktivierungsbrief, der per Post kommt. Das dauert nach Angabe von Mein Unternehmenskonto mindestens fünf Werktage. Beantragen Sie es früh.",
+          "Gelten für Ihr Telekommunikations- oder Energieunternehmen nach § 28 Abs. 5 BSIG die §§ 30, 32 und 38 BSIG nicht, registrieren müssen Sie sich trotzdem: § 33 BSIG steht nicht auf der Liste dieser Ausnahme."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Die Registrierung beim {authority}",
+            "body": [
+              "Jedes Unternehmen, für das NIS 2 gilt, meldet sich einmal beim Bundesamt für Sicherheit in der Informationstechnik (BSI) an. Dabei geben Sie an, wer Sie sind und wie das BSI Sie erreicht.",
+              "Das geht online über das Portal des BSI. Hinein kommen Sie mit „Mein Unternehmenskonto“ und einem ELSTER-Organisationszertifikat. Hat Ihr Unternehmen schon eins, etwa aus der Steuer, nutzen Sie dieses."
+            ],
+            "duty": "Die Registrierung ist eine eigene Pflicht. Sie ist spätestens drei Monate fällig, nachdem Ihr Unternehmen als wichtige oder besonders wichtige Einrichtung gilt."
+          },
+          "where": {
+            "title": "Wo Sie sich registrieren",
+            "lead": "Sie registrieren sich in dem EU-Staat, in dem Ihr Unternehmen niedergelassen ist. Für Deutschland ist das das BSI. Ihr Land steht oben.",
+            "source": "Art. 26 Abs. 1 NIS 2: Zuständig ist der Staat der Niederlassung. Wer öffentliche Telekommunikationsnetze betreibt oder Telekommunikationsdienste anbietet, registriert sich dort, wo er die Dienste erbringt. Anbieter von Clouddiensten, Rechenzentren, verwalteten Diensten und ähnliche digitale Anbieter registrieren sich dort, wo ihre Hauptniederlassung liegt."
+          },
+          "confirmation": {
+            "title": "Halten Sie die Registrierung fest",
+            "lead": "Zwei Angaben. Damit wissen Sie später, mit welchem Zertifikat und an welchem Tag registriert wurde. Für den Zugang brauchen Sie ein ELSTER-Organisationszertifikat: Den Aktivierungscode schickt ELSTER einige Tage nach dem Antrag per Brief an die Adresse, die beim Finanzamt hinterlegt ist. Ist der Brief noch nicht da, wählen Sie „Geht noch nicht“.",
+            "document": "Ihr Zugang zum {authority}-Portal"
+          },
+          "done": {
+            "title": "Registrierung erfasst"
+          }
+        },
+        "fields": {
+          "mukAccountId": {
+            "label": "Benutzerkonto-ID des Organisationszertifikats",
+            "hint": "Jedes ELSTER-Organisationszertifikat trägt eine eigene Kennziffer, die Benutzerkonto-ID. Wer das Zertifikat verwaltet, kann sie Ihnen nennen."
+          },
+          "bsiRegistrationDate": {
+            "label": "Tag der Registrierung",
+            "hint": "Der Tag, an dem im BSI-Portal „Registrierung abschließen“ geklickt wurde."
+          }
+        }
+      }
+    }
+  }
+}

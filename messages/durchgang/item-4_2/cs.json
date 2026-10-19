@@ -1,0 +1,136 @@
+{
+  "durchgang": {
+    "items": {
+      "4_2": {
+        "headline": "Sepište plán kontinuity činností",
+        "teaser": "Jak pracujete dál, když něco selže, a kdo pak rozhoduje.",
+        "missed": [
+          "Nouzový provoz neznamená, že vše běží jako obvykle. Německý úřad BSI ve své příručce ke kontinuitě provozu pro malé firmy uvádí pro začátek náhradní postupy, například přijímání objednávek ručně a vedení záznamů na papíře.",
+          "Plán pomůže, jen když je v nouzi po ruce. Pokud je uložený jen na serveru, zmizí se serverem. Mějte vytištěné kopie, jednu z nich mimo budovu."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Když se provoz zastaví",
+            "body": [
+              "Plán reakce na incidenty říká, kdo komu volá a kdo během útoku rozhoduje. Tento plán jde dál: pokrývá vše, co přeruší důležitou práci, tedy i požár, vodu, výpadek proudu nebo výpadek důležitého dodavatele. Říká, jak pracujete dál, kdo obnoví systémy a kdo řídí krizi.",
+              "Německý úřad BSI doporučuje menším firmám pro začátek plán, který udrží provoz alespoň na minimální úrovni: náhradní postupy, náhradní pracoviště a informování zaměstnanců, dodavatelů a zákazníků. Naše šablona tyto body pokrývá."
+            ],
+            "duty": "Zákon o kybernetické bezpečnosti řadí řízení kontinuity činností mezi bezpečnostní opatření (§ 14 zákona č. 264/2025 Sb.). V režimu nižších povinností (vyhláška č. 410/2025 Sb., § 6) stanovíte prioritu, pořadí a postupy obnovy technických aktiv, odpovědné osoby a pravidelné zálohy. V režimu vyšších povinností (vyhláška č. 409/2025 Sb., § 15) navíc provedete analýzu dopadů, stanovíte cíle a politiku řízení kontinuity a plány kontinuity a obnovy pravidelně testujete; vedení se na analýze dopadů podílí a testování zajistí (§ 4 odst. 1 písm. h), i))."
+          },
+          "fallback": {
+            "title": "Práce bez IT",
+            "caption": "Jeden řádek nouzového provozu",
+            "good": {
+              "value": "Objednávky přijímáme telefonicky a na papírových formulářích, dokud systém objednávek znovu neběží.",
+              "note": "Náhradní postup, jaký pro začátek uvádí německý úřad BSI: objednávky ručně, záznamy na papíře."
+            },
+            "bad": {
+              "value": "Počkáme, až IT zase pojede.",
+              "note": "Do té doby nepřijdou žádné objednávky a nikdo neví, jak dlouho to potrvá."
+            }
+          },
+          "keep": {
+            "title": "Co musí běžet dál",
+            "lead": "Toto jsou procesy z vašeho seznamu. U každého se zeptejte: kdyby IT celý den nefungovalo, můžeme prostě počkat, nebo by to odnesli zákazníci, bezpečnost či nějaká lhůta? Označte ty, které čekat nemohou, a jednou větou napište, jak pokračují. Obojí se pak objeví ve vašem plánu.",
+            "keep": "Musí běžet dál",
+            "how": "Jak pokračuje bez IT",
+            "example": "například: objednávky telefonicky a na papírových formulářích",
+            "suggestions": [
+              "na papírových formulářích",
+              "telefonicky",
+              "z vytištěného seznamu",
+              "ručně, do systému později",
+              "z jiného pracoviště",
+              "převezme to dodavatel"
+            ]
+          },
+          "plan": {
+            "title": "Váš plán kontinuity činností",
+            "lead": "Šablona má pevné oddíly o řízení, nouzovém provozu, obnově a informování. Je v ní už název vaší firmy, osoba, která řídí v nouzi (z kroku 3.1), procesy, které musí běžet dál, a pořadí z vašeho hodnocení rizik. Přečtěte si ji a dole doplňte, co platí pro vás.",
+            "document": {
+              "title": "Plán kontinuity činností společnosti {company}",
+              "sections": [
+                {
+                  "heading": "Účel a rozsah",
+                  "text": "Tento plán stanoví, jak společnost {company} pracuje dál, když nějaká událost přeruší důležitou práci: kybernetický útok, výpadek IT nebo internetu, požár, voda, výpadek proudu nebo výpadek důležitého dodavatele. Doplňuje plán reakce na incidenty, který upravuje vyrozumění a první kroky."
+                },
+                {
+                  "heading": "Kdy plán platí",
+                  "text": "Plán platí, když událost přeruší důležitou práci na déle, než trvá běžné odstraňování závad, nebo když to hrozí. V pochybnostech rozhoduje {emergencyLead}."
+                },
+                {
+                  "heading": "Řízení",
+                  "text": "Reakci řídí {emergencyLead}, stejně jako podle plánu reakce na incidenty: přizve potřebné lidi, rozhoduje a každé rozhodnutí zapíše s časem. O penězích, zákaznících a zaměstnancích rozhoduje společně s vedením. Není-li {emergencyLead} k zastižení, převezme řízení vedení."
+                },
+                {
+                  "heading": "Vyrozumění a kontakty",
+                  "text": "Koho voláme a jak se spojíme, když IT selže, stanoví plán reakce na incidenty, včetně telefonního seznamu na papíře."
+                },
+                {
+                  "heading": "Nouzový provoz",
+                  "text": "Tyto procesy musí běžet dál i bez IT a takto pokračují: {criticalProcesses}"
+                },
+                {
+                  "heading": "Obnova",
+                  "text": "Systémy obnoví ze záloh náš dodavatel IT nebo naše vlastní IT. Systém se vrací do provozu až po kontrole. Pořadí se řídí škodou podle našeho hodnocení rizik, od největší: {recoveryOrder}. V nouzi může ten, kdo reakci řídí, rozhodnout jinak."
+                },
+                {
+                  "heading": "Informování",
+                  "text": "{emergencyLead} nebo osoba, kterou určí, informuje zaměstnance, dodavatele a zákazníky. Hlášení incidentu NÚKIB, případně Národnímu CERT, se řídí plánem reakce na incidenty."
+                },
+                {
+                  "heading": "Návrat do běžného provozu",
+                  "text": "{emergencyLead} ohlásí konec nouzového provozu. Zapíšeme, co se stalo, a plán upravíme."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "targets",
+                  "label": "Cíle obnovy",
+                  "heading": "Cíle obnovy",
+                  "text": "Pro naše nejdůležitější systémy stanovíme, jak dlouho smějí nejvýše stát (doba obnovení chodu) a o kolik dat můžeme nejvýše přijít (bod obnovení dat). Hodnoty vedeme u systémů na našem seznamu."
+                },
+                {
+                  "id": "practice",
+                  "label": "Roční cvičení",
+                  "heading": "Cvičení",
+                  "text": "Jednou ročně u stolu projdeme výpadek a ověříme, že zastihneme všechny, kdo jsou zapojeni."
+                },
+                {
+                  "id": "workplace",
+                  "label": "Náhradní pracoviště",
+                  "heading": "Náhradní pracoviště",
+                  "text": "Když kancelář nelze používat, pracujeme dál na dálku nebo na náhradním místě."
+                },
+                {
+                  "id": "power",
+                  "label": "Výpadek proudu",
+                  "heading": "Výpadek proudu",
+                  "text": "Pro výpadek proudu je stanoveno, která zařízení musí běžet dál a kdo rozhoduje o nouzovém napájení."
+                },
+                {
+                  "id": "providers",
+                  "label": "Dodavatelé v nouzi",
+                  "heading": "Dodavatelé v nouzi",
+                  "text": "S důležitými dodavateli máme dohodnuto, jak je v nouzi zastihneme a co pro nás pak udělají."
+                },
+                {
+                  "id": "paper",
+                  "label": "Tištěná kopie",
+                  "heading": "Tištěná kopie",
+                  "text": "Tištěná kopie tohoto plánu je uložena mimo budovu."
+                }
+              ],
+              "own": "Další pravidla",
+              "signature": "Schválení vedením společnosti {company}"
+            }
+          },
+          "done": {
+            "title": "Váš plán kontinuity činností je sepsaný",
+            "note": "Kopii, která funguje i bez IT, mějte u plánu reakce na incidenty, například na papíře."
+          }
+        }
+      }
+    }
+  }
+}

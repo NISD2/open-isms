@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import de from "@/messages/durchgang/de.json";
+import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import {
   acceptedCryptoText,
   BLANK,
@@ -10,6 +10,8 @@ import {
   policyTitle,
   recoveryOrderText,
 } from "./policy";
+
+const { de } = DURCHGANG_MESSAGES;
 
 test("prints the processes that must keep running with their line, and a blank for none", () => {
   expect(

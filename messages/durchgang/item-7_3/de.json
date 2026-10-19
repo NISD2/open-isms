@@ -1,0 +1,157 @@
+{
+  "durchgang": {
+    "items": {
+      "7_3": {
+        "headline": "Die Managementbewertung festhalten",
+        "teaser": "Die Geschäftsführung prüft, ob die Maßnahmen wirken, und gibt Ihre Dokumente frei.",
+        "missed": [
+          "Überwachen kann die Geschäftsleitung nur, was sie kennt. Das BSI rät zu Berichten an die Leitung, die vor allem Probleme, Erfolge und Verbesserungsmöglichkeiten enthalten (IT-Grundschutz ISMS.1.A12).",
+          "Beschlüsse ohne Verantwortliche und Termin bleiben liegen. Halten Sie bei jeder Aufgabe fest, wer sie bis wann erledigt."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Was die Geschäftsführung sieht und entscheidet",
+            "body": [
+              "Zusammensetzen, auf den Stand schauen, entscheiden: Das ist die Managementbewertung. Die Person, die die Informationssicherheit koordiniert, berichtet, was umgesetzt ist, wo es hakt und was sie vorschlägt. Die Geschäftsführung entscheidet, was als Nächstes passiert, und hält es fest.",
+              "In diesem Schritt tragen Sie die Bewertung ein und geben die Dokumente frei, die der Durchgang geschrieben hat und die bisher als Entwurf gespeichert sind. Wie oft und in welcher Form, legt das Gesetz nicht fest."
+            ],
+            "duty": "Das Gesetz verpflichtet die Geschäftsleitung, die Maßnahmen umzusetzen und ihre Umsetzung zu überwachen, und verlangt Verfahren, mit denen Sie prüfen, ob die Maßnahmen wirken."
+          },
+          "inputs": {
+            "title": "Was auf den Tisch gehört",
+            "lead": "Legen Sie für die Bewertung bereit:",
+            "items": [
+              {
+                "name": "Was umgesetzt ist",
+                "detail": "die erledigten Schritte dieses Durchgangs und was noch aussteht"
+              },
+              {
+                "name": "Probleme",
+                "detail": "Vorfälle, Ausfälle und alles, was nicht geklappt hat"
+              },
+              {
+                "name": "Risiken",
+                "detail": "Ihre bewerteten Risiken, die höchsten zuerst; sie stehen auf dem nächsten Schritt"
+              },
+              {
+                "name": "Vorschläge",
+                "detail": "was die Person, die die Informationssicherheit koordiniert, ändern würde"
+              }
+            ],
+            "source": "Nach IT-Grundschutz ISMS.1.A12 des BSI enthalten Berichte an die Leitung „insbesondere Probleme, Erfolge und Verbesserungsmöglichkeiten“."
+          },
+          "risks": {
+            "title": "Ihre Risiken für die Geschäftsführung",
+            "lead": "So stehen Ihre Programme, Technik und Lieferanten heute. Je weiter oben rechts, desto eher braucht ein Eintrag Schutz. Die Geschäftsführung entscheidet, wo sie zuerst handelt."
+          },
+          "record": {
+            "title": "So kann ein Eintrag aussehen",
+            "caption": "Eine Managementbewertung, ausgedacht:",
+            "rows": [
+              {
+                "name": "Datum und Teilnehmende",
+                "detail": "12. Februar 2026; Geschäftsführung, Koordination Informationssicherheit, IT-Dienstleister"
+              },
+              {
+                "name": "Angeschaut",
+                "detail": "Stand des Durchgangs, zwei Vorfälle, die fünf höchsten Risiken"
+              },
+              {
+                "name": "Entschieden",
+                "detail": "Konzepte freigegeben; zweiter Faktor für den Fernzugriff"
+              },
+              {
+                "name": "Zu erledigen",
+                "detail": "Wiederherstellung testen, IT-Dienstleister, bis Ende März; Unterweisung Phishing, Koordination, im April"
+              }
+            ],
+            "note": "Das Gesetz schreibt weder eine Sitzung noch ein Protokoll vor. Halten Sie Datum, Beteiligte, Entscheidungen und Aufgaben fest."
+          },
+          "review": {
+            "title": "Ihre Managementbewertung",
+            "lead": "Tragen Sie die Bewertung ein: wann, wer, was entschieden wurde und was zu tun ist."
+          },
+          "approve": {
+            "title": "Die Geschäftsführung gibt die Dokumente frei",
+            "lead": "Das sind die Dokumente, die dieser Durchgang geschrieben hat. Die Geschäftsführung liest jedes und gibt es hier frei, angemeldet mit ihrem eigenen Zugang. Gedruckt oder eingescannt wird nichts."
+          },
+          "ongoing": {
+            "title": "Ab jetzt in Ihrer Hand",
+            "lead": "Mit der Freigabe ist festgehalten, was Ihr Unternehmen tut. Ab jetzt liegt es bei Ihnen, es auch zu tun. Diese Pflichten bleiben, wenn der Durchgang abgeschlossen ist.",
+            "groups": [
+              {
+                "title": "Wenn etwas passiert",
+                "items": [
+                  {
+                    "name": "Ein erheblicher Sicherheitsvorfall",
+                    "detail": "Erstmeldung an das BSI spätestens 24 Stunden, nachdem Sie davon wissen, die Meldung nach 72 Stunden und die Abschlussmeldung spätestens einen Monat nach der Meldung.",
+                    "basis": "§ 32 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Eine Angabe der Registrierung ändert sich",
+                    "detail": "Im Portal des BSI nachtragen, spätestens zwei Wochen, nachdem Sie davon wissen. Zum Beispiel eine neue Kontaktperson oder neue öffentliche IP-Adressen.",
+                    "basis": "§ 33 Abs. 5 BSIG"
+                  },
+                  {
+                    "name": "Das BSI ordnet an, Ihre Kunden zu informieren",
+                    "detail": "Die Empfänger Ihrer Dienste unverzüglich unterrichten.",
+                    "basis": "§ 35 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Eine erhebliche Cyberbedrohung, in bestimmten Sektoren",
+                    "detail": "Gehört Ihr Unternehmen zu Finanzwesen, Sozialversicherung und Grundsicherung für Arbeitsuchende, digitaler Infrastruktur, Verwaltung von IKT-Diensten oder Digitalen Diensten: den möglicherweise betroffenen Empfängern Ihrer Dienste und dem BSI unverzüglich mitteilen, was die Empfänger dagegen tun können, und sie über die Bedrohung selbst informieren. Das gilt nur, wenn die Interessen der Empfänger die Ihres Unternehmens überwiegen.",
+                    "basis": "§ 35 Abs. 2 BSIG"
+                  },
+                  {
+                    "name": "Ein neues Programm oder ein neuer Dienstleister",
+                    "detail": "In die Liste aufnehmen und das Risiko bewerten, wie es Ihre Leitlinie unter „Vorgehen“ festlegt.",
+                    "basis": "Ihre Leitlinie"
+                  }
+                ]
+              },
+              {
+                "title": "Regelmäßig",
+                "items": [
+                  {
+                    "name": "Die Managementbewertung",
+                    "detail": "Wiederholen, damit die Geschäftsführung die Umsetzung überwacht. Einen Abstand nennt das Gesetz nicht; hat Ihre Leitlinie die jährliche Überprüfung, gilt ein Jahr.",
+                    "basis": "§ 38 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Die Schulung der Geschäftsführung",
+                    "detail": "Jedes Mitglied, mindestens alle drei Jahre, so liest die Gesetzesbegründung „regelmäßig“.",
+                    "basis": "§ 38 Abs. 3 BSIG"
+                  },
+                  {
+                    "name": "Die Schulung der Beschäftigten",
+                    "detail": "Das BSI hält es für zweckmäßig, neue Beschäftigte bei der Ersteinweisung zu schulen und einmal im Jahr über Neuerungen zu informieren.",
+                    "basis": "§ 30 Abs. 2 Nr. 7 BSIG"
+                  }
+                ]
+              },
+              {
+                "title": "Laufend",
+                "items": [
+                  {
+                    "name": "Die Maßnahmen umsetzen und überwachen",
+                    "detail": "Tun, was die Dokumente festlegen: den zweiten Faktor eingeschaltet halten, Sicherheitsupdates einspielen, die Wiederherstellung testen.",
+                    "basis": "§ 38 Abs. 1 BSIG"
+                  },
+                  {
+                    "name": "Die offenen Punkte schließen",
+                    "detail": "Was die Freigabe als noch offen gezeigt hat, unverzüglich angehen.",
+                    "basis": "Art. 21 Abs. 4 NIS 2 (Richtlinie, das BSIG hat keinen eigenen Satz dazu)"
+                  }
+                ]
+              }
+            ]
+          },
+          "done": {
+            "title": "Ihre Managementbewertung ist festgehalten",
+            "note": "Die freigegebenen Dokumente gelten ab dem Tag, an dem die Geschäftsführung sie freigegeben hat, und stehen in Ihren Richtlinien."
+          }
+        }
+      }
+    }
+  }
+}

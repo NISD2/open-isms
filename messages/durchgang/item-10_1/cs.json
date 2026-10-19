@@ -1,0 +1,135 @@
+{
+  "durchgang": {
+    "items": {
+      "10_1": {
+        "headline": "Sepište politiku zaměstnanců, přístupů a aktiv",
+        "teaser": "Kdo má kam přístup a co se stane, když někdo odejde.",
+        "missed": [
+          "Účty v cloudových službách, které nejsou napojené na firemní přihlašování, se při odchodu zaměstnance snadno zapomenou. Německý úřad BSI řadí chybějící centrální přehled mezi důležitá rizika, protože v nouzi pak nejde zablokovat všechny účty najednou. V režimu vyšších povinností žádá vyhláška č. 409/2025 Sb. centralizovanou správu identit a centralizovaný nástroj pro řízení přístupových práv (§ 19 odst. 1 písm. f), § 20).",
+          "Vzdálený přístup vašeho dodavatele IT ke správě systémů je přístup jako každý jiný: jen v rozsahu, který práce vyžaduje, a končí s ní. Při ukončení nebo změně smluvního vztahu, na jehož základě přístup vznikl, žádají vyhlášky deaktivaci účtu a bezodkladné odebrání přístupových práv (vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. f); vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. j))."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Kdo má kam přístup",
+            "body": [
+              "Přístup vzniká, když někdo nastoupí. Rizikem se stává, když zůstane i poté, co už není potřeba: po změně pozice, po odchodu, po skončení smlouvy. Obě vyhlášky žádají bezodkladné odebrání nebo změnu přístupových práv při změně pozice a deaktivaci účtu při ukončení smluvního vztahu (vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. e), f); vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. i), j)).",
+              "Tato politika pokrývá v jednom dokumentu tři oblasti, které zákon o kybernetické bezpečnosti řadí mezi bezpečnostní opatření: bezpečnost lidských zdrojů, řízení přístupu a řízení aktiv. Pro část o IT je základem váš seznam softwaru, zařízení a dodavatelů."
+            ],
+            "duty": "Zákon o kybernetické bezpečnosti řadí mezi bezpečnostní opatření bezpečnost lidských zdrojů, řízení přístupu a řízení aktiv (§ 14 zákona č. 264/2025 Sb.). Podrobnosti stanoví v režimu nižších povinností vyhláška č. 410/2025 Sb. (§ 3 odst. 4, §§ 5, 7 a 8), v režimu vyšších povinností vyhláška č. 409/2025 Sb. (§§ 7, 10, 13, 19 a 20)."
+          },
+          "leaver": {
+            "title": "Poslední pracovní den",
+            "caption": "Co se stane s přístupy, když někdo odchází",
+            "good": {
+              "value": "Poslední pracovní den IT zablokuje všechny účty, i ty v cloudových službách. Notebook, klíče a průkaz se vrátí.",
+              "note": "Deaktivaci účtu a bezodkladné odebrání přístupových práv při ukončení smluvního vztahu žádá vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. f) (vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. j)). Vrácení dokumentů, klíčů, zařízení a průkazů uvádí německý IT-Grundschutz (ORP.2.A2)."
+            },
+            "bad": {
+              "value": "Účet zůstane otevřený, dokud si na něj někdo nevzpomene.",
+              "note": "Neodstraněné účty bývalých zaměstnanců řadí německý úřad BSI mezi důležitá rizika."
+            }
+          },
+          "konzept": {
+            "title": "Vaše politika pro zaměstnance, přístupy a IT",
+            "lead": "Šablona má pevné oddíly o nástupu, změně pozice a odchodu, o externích pracovnících, o přístupech a o správě IT a je v ní už název vaší firmy. Přečtěte si ji a dole doplňte, co platí pro vás.",
+            "document": {
+              "title": "Politika zaměstnanců, přístupů a aktiv společnosti {company}",
+              "sections": [
+                {
+                  "heading": "Účel",
+                  "text": "Tato politika stanoví, jak ve společnosti {company} zajišťujeme, aby zaměstnanci zacházeli s informacemi bezpečně, aby k softwaru a datům měli přístup jen oprávnění lidé a abychom věděli, jaké systémy a software máme."
+                },
+                {
+                  "heading": "Noví zaměstnanci",
+                  "text": "Noví zaměstnanci se zavážou k mlčenlivosti a seznámí se s bezpečnostní politikou a s pravidly, která platí pro jejich práci. Teprve potom dostanou přístup do našich systémů, a to jen v rozsahu, který jejich práce vyžaduje."
+                },
+                {
+                  "heading": "Změna pozice a odchod",
+                  "text": "Když někdo změní pozici, upravíme jeho přístupy a odebereme ty, které už nepotřebuje. Když někdo ze společnosti odchází, bezodkladně deaktivujeme jeho účty a odebereme přístupová práva, převezmeme zpět dokumenty, zařízení, klíče a průkazy a připomeneme mu, že mlčenlivost trvá i nadále."
+                },
+                {
+                  "heading": "Dodavatelé služeb a další externí pracovníci",
+                  "text": "Externí pracovníci dostanou jen přístupy, které jejich práce vyžaduje, a jen na dobu, po kterou trvá. Než uvidí důvěrné informace, písemně je zavážeme k mlčenlivosti."
+                },
+                {
+                  "heading": "Přístupy a oprávnění",
+                  "text": "Každý identifikátor uživatele patří právě jedné osobě. Přístupová práva a oprávnění přidělujeme jen v rozsahu nezbytně nutném pro práci. Vedení určí, kdo přístupy schvaluje a kdo je zřizuje."
+                },
+                {
+                  "heading": "Správa našeho IT",
+                  "text": "Vedeme seznam našich procesů, softwaru, zařízení a dodavatelů a průběžně ho aktualizujeme. Vše nové zapíšeme do seznamu dřív, než to začneme používat. Zařízení a datová média, která vyřazujeme, bezpečně vymažeme nebo zničíme a odebereme ze seznamu."
+                },
+                {
+                  "heading": "Přezkoumání",
+                  "text": "Tuto politiku přezkoumáváme pravidelně a po větších změnách ve společnosti."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "access_review",
+                  "label": "Přezkoumání oprávnění",
+                  "heading": "Přezkoumání přístupových práv",
+                  "text": "Jednou ročně zkontrolujeme, kdo má přístup k jakému softwaru a datům, a odebereme, co už není potřeba. Účty s administrátorskými právy kontrolujeme každé čtvrtletí. Výsledek zaznamenáme."
+                },
+                {
+                  "id": "admin_accounts",
+                  "label": "Oddělené administrátorské účty",
+                  "heading": "Administrátorské účty",
+                  "text": "Administrátorská práva jsou jen na oddělených administrátorských účtech. Pro e-mail a internet používají administrátoři i účet bez těchto práv."
+                },
+                {
+                  "id": "admin_mfa",
+                  "label": "Druhý faktor pro administrátory",
+                  "heading": "Druhý faktor pro administrátory",
+                  "text": "Účty s administrátorskými právy se přihlašují jen s druhým faktorem, například aplikací v pracovním telefonu nebo bezpečnostním klíčem."
+                },
+                {
+                  "id": "roles",
+                  "label": "Práva přes role",
+                  "heading": "Role",
+                  "text": "Práva přidělujeme přes role, například účetnictví nebo obchod, a ne jednotlivým účtům."
+                },
+                {
+                  "id": "shared",
+                  "label": "Sdílené účty",
+                  "heading": "Sdílené účty",
+                  "text": "Účty, které by používalo více lidí společně, nezřizujeme: každý uživatel a administrátor má jedinečný identifikátor a uživatelský a administrátorský účet jedné osoby jsou oddělené (vyhláška č. 410/2025 Sb., § 7 odst. 1 písm. a); vyhláška č. 409/2025 Sb., § 13 odst. 2 písm. b))."
+                },
+                {
+                  "id": "inactive",
+                  "label": "Nepoužívané účty",
+                  "heading": "Nepoužívané účty",
+                  "text": "Účty, které se dlouho nepoužívají, zablokujeme."
+                },
+                {
+                  "id": "passwords",
+                  "label": "Hesla",
+                  "heading": "Hesla",
+                  "text": "Každé heslo používáme jen pro jeden systém, držíme ho v tajnosti a měníme ho, jakmile vznikne podezření, že ho někdo zná. Kde se přihlašujeme jen heslem, bez druhého faktoru, klíče nebo certifikátu, vynucujeme délku hesla alespoň 12 znaků u uživatelských účtů, 17 znaků u administrátorských účtů a 22 znaků u účtů technických aktiv a změnu hesla nejméně jednou za 18 měsíců."
+                },
+                {
+                  "id": "visitors",
+                  "label": "Návštěvy",
+                  "heading": "Návštěvy",
+                  "text": "Návštěvy, řemeslníci a další cizí osoby, které jsou na místě jen krátce, vstupují do místností se servery nebo síťovou technikou jen v doprovodu."
+                },
+                {
+                  "id": "deputies",
+                  "label": "Zástupci",
+                  "heading": "Zástupci",
+                  "text": "Pro důležité úkoly je určen zástupce, který ví, co dělat."
+                }
+              ],
+              "own": "Další pravidla",
+              "signature": "Schválení vedením společnosti {company}"
+            }
+          },
+          "done": {
+            "title": "Vaše politika je sepsaná",
+            "note": "Používejte ji vždy, když někdo nastupuje, mění pozici nebo odchází."
+          }
+        }
+      }
+    }
+  }
+}

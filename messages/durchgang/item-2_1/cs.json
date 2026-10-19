@@ -1,0 +1,61 @@
+{
+  "durchgang": {
+    "items": {
+      "2_1": {
+        "headline": "Stanovte, jak hodnotíte rizika",
+        "teaser": "Doporučujeme hotovou metodiku hodnocení rizik.",
+        "missed": [
+          "Nepočítají se jen útoky. Hrozbou je podle zákona „jakákoliv potenciální okolnost, událost nebo jednání“, které může vést ke kybernetickému bezpečnostnímu incidentu (§ 2 odst. 2 písm. c) zákona č. 264/2025 Sb.). Směrnice NIS 2 výslovně žádá chránit i fyzické prostředí systémů (čl. 21 odst. 2), například před požárem, vodou nebo výpadkem proudu. Vyhláška č. 409/2025 Sb. mezi kategoriemi hrozeb, které musíte zvážit, jmenuje i narušení fyzické bezpečnosti a přerušení dodávek elektrické energie (příloha č. 3)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Jak hodnotíte rizika",
+            "body": [
+              "Než začnete rizika zapisovat, stanovte, jak je budete hodnotit. Pak je každý ve firmě hodnotí podle stejných pravidel.",
+              "nisd2.eu doporučuje jednoduchou hotovou metodiku hodnocení rizik. Každé riziko dostane dvě hodnocení: jak často může nastat a jak velký by byl dopad. Z obou vychází jedna ze čtyř úrovní rizika. Metodika pochází z BSI-Standard 200-3, který vydal německý Spolkový úřad pro bezpečnost informačních technologií (BSI)."
+            ],
+            "duty": "Řízení rizik je bezpečnostní opatření v obou režimech (§ 14 odst. 1 písm. a) bod 6 a odst. 2 písm. d) zákona č. 264/2025 Sb.). V režimu nižších povinností vyhláška č. 410/2025 Sb. metodiku nepředepisuje. V režimu vyšších povinností vyhláška č. 409/2025 Sb. žádá metodiku včetně kritérií akceptovatelnosti rizik (§ 8 odst. 1 písm. a)). Hodnocení rizik může proběhnout i jiným způsobem, pokud zajistí stejnou nebo vyšší úroveň a hrozbu i zranitelnost půjde dál rozlišit (§ 8 odst. 3, příloha č. 4 odst. 5)."
+          },
+          "matrix": {
+            "title": "Příklad matice rizik",
+            "lead": "Vodorovně: jak často něco nastane. Svisle: jak velký by byl dopad. Kde se obojí potká, je úroveň rizika.",
+            "source": "BSI-Standard 200-3 (německá metodika), obrázek 3. Je tam uvedena jako příklad, který má organizace přizpůsobit svým potřebám. Pásma četnosti mají stejné hranice jako stupnice hrozeb ve vyhlášce č. 409/2025 Sb. (příloha č. 4, tab. č. 1)."
+          },
+          "reading": {
+            "title": "Jak matici číst",
+            "caption": "Šest příkladů, od rizika Nízké po riziko Velmi vysoké. Vyberte jeden a matice ukáže, kam patří.",
+            "examples": [
+              "Ztratí se firemní telefon, což se stává jednou za rok až jednou za měsíc. Je šifrovaný a dá se na dálku zablokovat, takže dopad je zanedbatelný.",
+              "Server vypadne jednou za rok až jednou za měsíc. Dopad je omezený a zvládnutelný.",
+              "Požár zničí serverovnu i všechna data v ní. Stane se to nejvýš jednou za pět let, ale dopad by ohrožoval existenci organizace.",
+              "Někdo naletí na podvodný e-mail a z převzaté schránky odcházejí faktury se špatným číslem účtu. Stává se to jednou za rok až jednou za měsíc a dopad je značný.",
+              "Vyděračský software (ransomware) zašifruje všechny systémy i zálohy. Stane se to jednou za pět let až jednou za rok a dopad by ohrožoval existenci organizace.",
+              "Neudržovaný skladový systém vypadne několikrát za měsíc. Pokaždé se na den zastaví expedice a dopad je značný."
+            ]
+          },
+          "adopt": {
+            "title": "Převezměte metodiku hodnocení rizik",
+            "lead": "Hotovou metodiku z BSI-Standard 200-3 (německá metodika) vám dáme jako šablonu. Jedním kliknutím se stane metodikou hodnocení rizik vaší firmy a od té chvíle podle ní hodnotíte každé riziko. Ve vašich záznamech bude vypadat takto:",
+            "lines": [
+              {
+                "label": "Metodika hodnocení rizik",
+                "text": "Analýza rizik podle BSI-Standard 200-3 (německá metodika)"
+              },
+              {
+                "label": "Úrovně",
+                "text": "Čtyři pro četnost, čtyři pro dopad, čtyři úrovně rizika"
+              },
+              {
+                "label": "Matice",
+                "text": "Přiřazení podle obrázku 3 standardu"
+              }
+            ]
+          },
+          "done": {
+            "title": "Metodika hodnocení rizik je stanovena"
+          }
+        }
+      }
+    }
+  }
+}

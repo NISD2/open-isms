@@ -1,0 +1,55 @@
+{
+  "durchgang": {
+    "items": {
+      "12_3": {
+        "headline": "Keep the registration up to date",
+        "teaser": "When something changes, update it with {authority}.",
+        "missed": [
+          "The directive counts the two weeks from the date of the change (Art. 3(4) NIS 2). Germany counts them from when the company learns of the change (§ 33(5) BSIG). Neither sets a fixed review date.",
+          "If your portal also records a contact person, add updating it to what happens when someone leaves the company.",
+          "Give a shared mailbox as the point of contact. Then less changes."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Keep the details up to date",
+            "body": [
+              "When something changes in what you gave {authority} at registration, update it in its portal.",
+              "The law does not require a fixed yearly check. It requires you to be quick when something changes."
+            ],
+            "duty": "Report changes without delay, and at the latest within two weeks."
+          },
+          "changes": {
+            "title": "When to update",
+            "lead": "These details can change:",
+            "items": [
+              {
+                "name": "Contact person and point of contact",
+                "detail": "someone leaves or takes on a different job"
+              },
+              {
+                "name": "Name and legal form",
+                "detail": "a change of company name or legal form"
+              },
+              {
+                "name": "Address, phone and email",
+                "detail": "a move, a new number, a mailbox switched off"
+              },
+              {
+                "name": "Public IP address ranges",
+                "detail": "a new internet connection or a new provider"
+              },
+              {
+                "name": "Sector and EU member states",
+                "detail": "a new line of business or services in another country"
+              }
+            ],
+            "source": "Art. 3(4) NIS 2. In Germany: § 33(1) and (5) BSIG, and the BSI asks for all changes to the registration data to be made in its portal."
+          },
+          "done": {
+            "title": "You know when to update"
+          }
+        }
+      }
+    }
+  }
+}

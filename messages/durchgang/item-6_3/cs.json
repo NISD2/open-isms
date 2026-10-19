@@ -1,0 +1,157 @@
+{
+  "durchgang": {
+    "items": {
+      "6_3": {
+        "headline": "Sepište pravidla pro nákup, aktualizace a zranitelnosti",
+        "teaser": "Co prověříte při nákupu, jak se instalují aktualizace a kdo odstraňuje zranitelnosti.",
+        "missed": [
+          "Software, pro který už nevycházejí bezpečnostní aktualizace, zůstává zranitelný, i když stále běží. Už při nákupu proto prověřte, jak dlouho bude výrobce aktualizace dodávat. V režimu vyšších povinností to vyhláška žádá výslovně: dostupnost bezpečnostních aktualizací po celý životní cyklus aktiva (vyhláška č. 409/2025 Sb., § 12 odst. 2 písm. c)).",
+          "Přístup pro vzdálenou údržbu, který zůstává stále otevřený, je cesta dovnitř. Vyhláška č. 410/2025 Sb. žádá vzdálená připojení a vzdálenou správu omezit na nezbytně nutná (§ 11 písm. d)), vyhláška č. 409/2025 Sb. je časově omezit (§ 18 písm. f))."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Nákup, aktualizace a oprava zranitelností",
+            "body": [
+              "Zranitelnost je slabé místo aktiva nebo bezpečnostního opatření, které může být zneužito hrozbou. Tak ji definuje zákon o kybernetické bezpečnosti (§ 2 odst. 2 písm. h) zákona č. 264/2025 Sb.). Příklady: software, pro který už nevycházejí aktualizace, aktualizace, která čeká na instalaci, výchozí heslo, které nikdo nezměnil.",
+              "Pravidla v tomto kroku stanoví, co prověříte při nákupu, jak se instalují aktualizace, jak naložíte se zranitelnostmi a kde vám je lidé mohou nahlásit. Pokud vaše systémy spravuje dodavatel IT služeb, pravidla mu řeknou, co od něj očekáváte."
+            ],
+            "duty": "Obě vyhlášky žádají stanovit bezpečnostní požadavky na akvizici, vývoj a údržbu, aplikovat schválené bezpečnostní aktualizace a aktiva, která výrobce už nepodporuje, evidovat a chránit náhradními opatřeními (vyhláška č. 410/2025 Sb., § 3 odst. 6 a § 12, aktualizace „bezodkladně“; vyhláška č. 409/2025 Sb., § 12 a § 24 odst. 1 a 2)."
+          },
+          "updates": {
+            "title": "Jak přicházejí aktualizace",
+            "caption": "Bezpečnostní aktualizace v běžném provozu",
+            "good": {
+              "value": "Bezpečnostní aktualizace se instalují automaticky a dodavatel IT služeb každý měsíc kontroluje, že je vše aktuální.",
+              "note": "Vyhláška č. 410/2025 Sb. žádá schválené bezpečnostní aktualizace aplikovat bezodkladně (§ 12 písm. a)), vyhláška č. 409/2025 Sb. jejich aplikování zajistit (§ 24 odst. 1). Automatickou instalaci doporučuje německý Grundschutz++ (KONF.8.1.1)."
+            },
+            "bad": {
+              "value": "Aktualizace, až na ně bude mít někdo čas.",
+              "note": "Do té doby zůstává otevřená známá zranitelnost, kterou může útočník zneužít."
+            }
+          },
+          "sources": {
+            "title": "Kde se zranitelnosti zveřejňují",
+            "lead": "Nové zranitelnosti se zveřejňují a váš seznam softwaru z kroku 2.2 ukáže, která oznámení se vás týkají. Vedle toho obě vyhlášky žádají pravidelné skenování zranitelností, viz poznámka níže. Tato místa stojí za sledování:",
+            "items": [
+              {
+                "name": "Bezpečnostní upozornění výrobců",
+                "detail": "firmy, jejichž software a zařízení používáte, je zveřejňují na svém webu a mnohé je po registraci posílají i e-mailem"
+              },
+              {
+                "name": "Varování NÚKIB a Národní CERT",
+                "detail": "NÚKIB vydává varování před závažnými hrozbami a zranitelnostmi, dotčeným poskytovatelům je oznamuje přes Portál NÚKIB a zveřejňuje je na své úřední desce (§ 22 zákona č. 264/2025 Sb.); Národní CERT (tým CSIRT.CZ, csirt.cz) vyhledává a hodnotí zranitelnosti (§ 43 odst. 1 písm. d) zákona)"
+              },
+              {
+                "name": "Evropská databáze zranitelností",
+                "detail": "ENISA, agentura EU pro kybernetickou bezpečnost, vede zveřejněné zranitelnosti na euvd.enisa.europa.eu"
+              },
+              {
+                "name": "Váš dodavatel IT služeb",
+                "detail": "kdo spravuje vaše systémy, tyto zdroje obvykle už sleduje; sjednejte písemně, že vám dá vědět, když se vás zranitelnost týká"
+              }
+            ],
+            "source": "Skenování zranitelností: v režimu nižších povinností pravidelné skenování relevantních technických aktiv, interval vyhláška nestanoví (vyhláška č. 410/2025 Sb., § 12 písm. c)). V režimu vyšších povinností skenování z vnitřní i vnější sítě alespoň jednou ročně (§ 24 odst. 4), penetrační testy s ohledem na hodnocení aktiv a rizik před uvedením do provozu, při významné změně, pokud o nich rozhodnete na základě řízení rizik (§ 11 odst. 3), a alespoň jednou za 2 roky (§ 24 odst. 5), a opětovné otestování nálezů (§ 24 odst. 6), vše vyhláška č. 409/2025 Sb."
+          },
+          "report": {
+            "title": "Kde vám lidé nahlásí zranitelnost",
+            "lead": "Když někdo najde zranitelnost ve vašich systémech, například na vašem webu, potřebuje adresu, kam ji nahlásit. Osvědčená praxe je tuto adresu zveřejnit. Pokud má vaše společnost kontaktní e-mail, návrhy níže používají jeho doménu. Pokud ho zatím nemáte, nechte pole prázdné: vaše pravidla pak dostanou řádek k vyplnění.",
+            "document": "Vaše pravidla pro nákup, aktualizace a zranitelnosti"
+          },
+          "rules": {
+            "title": "Vaše pravidla pro nákup, aktualizace a zranitelnosti",
+            "lead": "Šablona má pevné oddíly o nákupu, aktualizacích, zranitelnostech a hlášení a název vaší společnosti už v ní je. Přečtěte si ji a pod ni doplňte, co platí u vás. V režimu vyšších povinností sem doplňte penetrační testy podle § 24 odst. 5 vyhlášky č. 409/2025 Sb.",
+            "document": {
+              "title": "Pravidla pro nákup, údržbu a zabezpečení IT společnosti {company}",
+              "sections": [
+                {
+                  "heading": "Rozsah platnosti",
+                  "text": "Tato pravidla platí pro veškerý software, zařízení, cloudové služby a sítě, se kterými společnost {company} pracuje, včetně těch, které pro nás provozuje dodavatel."
+                },
+                {
+                  "heading": "Při nákupu",
+                  "text": "Než koupíme software, zařízení nebo cloudovou službu, prověříme, zda dodavatel poskytuje bezpečnostní aktualizace a jak dlouho. Pokud to jde, nekupujeme nic se známými zneužitelnými zranitelnostmi a nic, čemu brzy končí podpora. U produktů s přihlašováním nebo šifrováním ověříme, že splňují naše pravidla pro ověřování identity a pro kryptografii. Při zprovoznění změníme výchozí hesla."
+                },
+                {
+                  "heading": "Aktualizace",
+                  "text": "Schválené bezpečnostní aktualizace instalujeme bezodkladně, kde je to možné, automaticky. Pokud aktualizaci nelze nainstalovat nebo výrobce systém už nepodporuje, vedeme takové systémy v evidenci, zaznamenáme důvod a zavedeme opatření, která zajistí obdobnou nebo vyšší úroveň bezpečnosti. Jejich komunikaci v síti omezíme na nezbytně nutnou."
+                },
+                {
+                  "heading": "Zjišťování a odstraňování zranitelností",
+                  "text": "Sledujeme bezpečnostní upozornění výrobců našeho softwaru a zařízení, varování NÚKIB, informace Národního CERT a upozornění našeho dodavatele IT služeb. Pokud se nás zranitelnost týká, rozhodne osoba, která u nás koordinuje kybernetickou bezpečnost, společně s dodavatelem IT služeb, co uděláme, závažné zranitelnosti nejdříve. Zaznamenáme, co jsme zjistili a co jsme udělali."
+                },
+                {
+                  "heading": "Hlášení zranitelností",
+                  "text": "Hlášení zranitelností v našich systémech přijímáme takto: {vulnerabilityDisclosureUrl}. Pokud najdeme zranitelnost v produktu, který používáme, nahlásíme ji výrobci. Pokud výrobce nereaguje, můžeme ji nahlásit NÚKIB, který je koordinátorem koordinovaného zveřejňování zranitelností (§ 42 odst. 5 písm. d) zákona č. 264/2025 Sb.)."
+                },
+                {
+                  "heading": "Přezkum",
+                  "text": "Tato pravidla pravidelně přezkoumáváme, a také po větších změnách našeho IT."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "hardening",
+                  "label": "Jen to, co je potřeba",
+                  "heading": "Nastavení",
+                  "text": "Zařízení a software nastavujeme jen s funkcemi, které potřebujeme. Služby a účty, které nepotřebujeme, vypneme."
+                },
+                {
+                  "id": "remote",
+                  "label": "Vzdálená údržba",
+                  "heading": "Vzdálená údržba",
+                  "text": "Přístup pro vzdálenou údržbu je otevřený jen po dobu, kdy údržba probíhá."
+                },
+                {
+                  "id": "providers",
+                  "label": "Povinnosti dodavatelů",
+                  "heading": "Povinnosti dodavatelů",
+                  "text": "S dodavateli IT služeb sjednáváme, že zranitelnosti, které se nás týkají, odstraní bez zbytečného odkladu."
+                },
+                {
+                  "id": "scans",
+                  "label": "Pravidelné skenování",
+                  "heading": "Pravidelné skenování zranitelností",
+                  "text": "Technická aktiva, která slouží naší regulované službě, necháváme alespoň jednou ročně skenovat na zranitelnosti z vnitřní i vnější sítě. Nálezy řešíme podle rizika a po opravě je znovu otestujeme."
+                },
+                {
+                  "id": "changes",
+                  "label": "Významné změny",
+                  "heading": "Významné změny",
+                  "text": "Významné změny důležitých systémů předem naplánujeme a posoudíme jejich rizika, před uvedením do provozu je otestujeme, zaznamenáme je a ponecháme si cestu zpět pro případ, že se něco pokazí."
+                },
+                {
+                  "id": "development",
+                  "label": "Vlastní software",
+                  "heading": "Vlastní software",
+                  "text": "Pokud software vyvíjíme sami nebo si ho necháváme vyvinout, předem stanovíme bezpečnostní požadavky a před nasazením ho necháme prověřit."
+                },
+                {
+                  "id": "securitytxt",
+                  "label": "security.txt",
+                  "heading": "Adresa pro hlášení na webu",
+                  "text": "Na našem webu je soubor security.txt podle RFC 9116, který uvádí, kam hlásit zranitelnosti."
+                }
+              ],
+              "own": "Další pravidla",
+              "signature": "Schválení vedením společnosti {company}"
+            }
+          },
+          "done": {
+            "title": "Vaše pravidla jsou sepsána",
+            "note": "Předejte je všem, kdo nastavují a udržují vaše IT, včetně vašeho dodavatele IT služeb."
+          }
+        },
+        "fields": {
+          "vulnerabilityDisclosureUrl": {
+            "label": "Adresa pro hlášení zranitelností",
+            "hint": "E-mailová adresa, například security@ ve vaší doméně, nebo webová stránka. Osvědčená praxe je k tomu soubor security.txt na vašem webu (RFC 9116).",
+            "suggestions": [
+              "Soubor security.txt na našem webu",
+              "Kontaktní formulář na našem webu"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

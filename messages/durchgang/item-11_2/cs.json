@@ -1,0 +1,56 @@
+{
+  "durchgang": {
+    "items": {
+      "11_2": {
+        "headline": "Zaznamenat zabezpečenou komunikaci",
+        "teaser": "Čím telefonujete, vedete schůzky a píšete zprávy.",
+        "missed": [
+          "Šifrovaný přenos chrání cestu, ne zprávu na serveru. Osvědčená praxe: u zvlášť důvěrného obsahu navíc šifrování, které přečte jen odesílatel a příjemce, například S/MIME nebo PGP u e-mailu."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Telefon, video, chat",
+            "body": [
+              "Pro hovory, schůzky a zprávy používáte programy a služby. Zabezpečené zde znamená: přenos je šifrovaný a dovnitř se dostanou jen oprávnění. Přenos se běžně zabezpečuje protokolem TLS; při volbě šifrování obě vyhlášky žádají zohlednit doporučení NÚKIB v oblasti kryptografických algoritmů.",
+              "Jak se spojíte, když vlastní IT selže (nouzová komunikace), už stojí ve vašem plánu reakce na incidenty. V tomto kroku zaznamenáte, čím mluvíte a píšete každý den."
+            ],
+            "duty": "Obě vyhlášky shodně žádají bezpečnou hlasovou, audiovizuální a textovou komunikaci, včetně e-mailové, a bezpečnou nouzovou komunikaci v rámci organizace (vyhláška č. 410/2025 Sb., § 13 odst. 2; vyhláška č. 409/2025 Sb., § 25 odst. 2)."
+          },
+          "answer": {
+            "title": "Odpověď, která obstojí",
+            "caption": "Jak zaznamenat, čím komunikujete",
+            "good": {
+              "value": "E-mail a chat v Microsoft 365, schůzky v Teams, hovory přes cloudovou ústřednu poskytovatele, vše přenášeno šifrovaně",
+              "note": "Jmenuje každý nástroj a říká, jak je zabezpečený."
+            },
+            "bad": {
+              "value": "Vše je bezpečné",
+              "note": "Neříká, co používáte, a nedá se ověřit."
+            }
+          },
+          "tools": {
+            "title": "Vaše nástroje",
+            "lead": "Čím telefonujete, vedete schůzky a píšete zprávy a jak je to zabezpečené. Vyhlášky uvádějí hlasovou, audiovizuální a textovou komunikaci včetně e-mailu v jednom ustanovení, proto jedna odpověď pokryje vše. Vyberte ze svého seznamu programy, které k tomu používáte, a pak napište, jak jsou zabezpečené.",
+            "document": "Zabezpečená komunikace"
+          },
+          "done": {
+            "title": "Vaše komunikace je zaznamenána",
+            "note": "Když přibude nový nástroj, doplňte ho do této odpovědi."
+          }
+        },
+        "fields": {
+          "secureCommsTools": {
+            "label": "Nástroje pro telefon, video, chat a e-mail",
+            "hint": "Například: Microsoft Teams pro schůzky a chat, hovory přes cloudovou ústřednu poskytovatele, vše přenášeno šifrovaně.",
+            "suggestions": [
+              "Vše přenášeno šifrovaně",
+              "Přihlášení jen firemním účtem",
+              "Přihlášení s druhým faktorem",
+              "Hosté vstupují do schůzek jen po schválení"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

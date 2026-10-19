@@ -4,6 +4,7 @@ import {
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
 import { z } from "zod";
+import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
@@ -13,13 +14,12 @@ import {
   REQUIREMENT_FIELD_MAP,
 } from "@/lib/compliance/requirement-fields";
 import { getTermEntry } from "@/lib/dictionary/glossary";
-import cs from "@/messages/durchgang/cs.json";
-import de from "@/messages/durchgang/de.json";
-import en from "@/messages/durchgang/en.json";
 import { marker } from "./copy";
 import { askedFields, resolveItem, WAIT_REASONS, WALK, walkOf } from "./index";
 import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
 import type { AnyItem, AnyScreen, ScreenKind } from "./types";
+
+const { de, en, cs } = DURCHGANG_MESSAGES;
 
 const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>

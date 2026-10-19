@@ -1,0 +1,46 @@
+{
+  "durchgang": {
+    "items": {
+      "12_2": {
+        "headline": "Ohlásit službu {authority}",
+        "teaser": "Vaše firma ohlásí regulovanou službu {authority}, ten pak rozhodne o registraci.",
+        "missed": [
+          "Do 30 dnů od doručení rozhodnutí o registraci hlásíte kontaktní a doplňující údaje (§ 11 odst. 1 zákona č. 264/2025 Sb.), jejich změny pak nejpozději do 14 dnů (§ 11 odst. 2)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Ohlášení a registrace u {authority}",
+            "body": [
+              "Splňuje-li vaše služba podmínky pro registraci, ohlásíte ji v Portálu {authority}. Uvedete, kdo jste a jaké regulované služby poskytujete (vyhláška č. 334/2025 Sb., § 3 odst. 2). {authority} pak vydá rozhodnutí o registraci. Režim (vyšší, nebo nižší povinnosti) v něm uveden není, protože se může měnit; ukazuje ho Portál {authority} v Přehledu podání.",
+              "Většina firem službu už ohlásila: kdo splnil podmínky dnem účinnosti zákona 1. listopadu 2025, měl lhůtu do 31. prosince 2025. Kdo ještě neohlásil, ohlásí bez dalšího odkladu. Další obrazovka ukazuje, kde se ohlašuje."
+            ],
+            "duty": "Ohlášení je samostatná povinnost: nejpozději do 60 dnů ode dne, kdy služba splnila podmínky pro registraci (§ 6 odst. 1 zákona č. 264/2025 Sb.)."
+          },
+          "where": {
+            "title": "Kde se ohlašuje",
+            "lead": "Službu ohlašujete v členském státě, kde je vaše firma usazena. Váš stát je nahoře.",
+            "source": "Čl. 26 odst. 1 NIS 2: příslušný je členský stát, v němž je subjekt usazen. Poskytovatelé veřejných sítí nebo služeb elektronických komunikací se registrují tam, kde služby poskytují. Poskytovatelé cloudových služeb, služeb datových center, řízených služeb a podobní digitální poskytovatelé se registrují tam, kde mají hlavní provozovnu."
+          },
+          "confirmation": {
+            "title": "Zaznamenejte registraci",
+            "lead": "Dva údaje: rozhodnutí o registraci a den jeho doručení. Režim vaší služby, na kterém závisí další kroky, rozhodnutí neuvádí; ukazuje ho Portál NÚKIB v Přehledu podání. Ohlášení podává statutární orgán nebo jím pověřený zástupce, přihlášený identitou občana (NIA). Pokud jste službu teprve ohlásili a rozhodnutí ještě nepřišlo, zvolte „Zatím nelze“.",
+            "document": "Rozhodnutí {authority} o registraci"
+          },
+          "done": {
+            "title": "Registrace zaznamenána"
+          }
+        },
+        "fields": {
+          "mukAccountId": {
+            "label": "Číslo jednací rozhodnutí o registraci",
+            "hint": "Je uvedeno na rozhodnutí NÚKIB. Podle něj rozhodnutí kdykoli dohledáte."
+          },
+          "bsiRegistrationDate": {
+            "label": "Den doručení rozhodnutí o registraci",
+            "hint": "Od tohoto dne běží lhůty: do 30 dnů hlásíte kontaktní a doplňující údaje (§ 11 odst. 1) a nejpozději do 1 roku začnete zavádět bezpečnostní opatření a hlásit incidenty (§ 13 odst. 4, § 15 odst. 4)."
+          }
+        }
+      }
+    }
+  }
+}

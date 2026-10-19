@@ -1,0 +1,152 @@
+{
+  "durchgang": {
+    "items": {
+      "7_3": {
+        "headline": "Zapište přezkoumání vedením",
+        "teaser": "Vedení kontroluje, zda opatření fungují, a schvaluje vaše dokumenty.",
+        "missed": [
+          "Vedení může dohlížet jen na to, o čem ví. Německý úřad BSI doporučuje zprávy pro vedení, které pokrývají hlavně problémy, úspěchy a příležitosti ke zlepšení (IT-Grundschutz ISMS.1.A12).",
+          "Rozhodnutí bez odpovědné osoby a termínu zůstanou nesplněná. U každého úkolu zapište, kdo ho udělá a do kdy."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Co vedení vidí a o čem rozhoduje",
+            "body": [
+              "Sednout si, podívat se, jak věci stojí, a rozhodnout: to je přezkoumání vedením. Ten, kdo ve firmě koordinuje kybernetickou bezpečnost, shrne, co je zavedeno, kde se věci zasekly a co navrhuje. Vedení rozhodne, co bude dál, a zapíše to.",
+              "V tomto kroku zapíšete přezkoumání a vedení schválí dokumenty, které průvodce vytvořil a které jsou zatím uložené jako koncepty. České vyhlášky žádají, aby se vedení se stavem bezpečnostních opatření prokazatelně seznamovalo; schválení v aplikaci je váš způsob, jak to doložit. Formu nepředepisují, účinnost opatření se ale vyhodnocuje nejméně jednou ročně."
+            ],
+            "duty": "V režimu nižších povinností (vyhláška č. 410/2025 Sb.) alespoň jednou ročně aktualizujete přehled bezpečnostních opatření včetně vyhodnocení jejich účinnosti (§ 3 odst. 2 písm. b)) a vedení se prokazatelně seznamuje se stavem jejich plnění (§ 4 písm. d)). V režimu vyšších povinností (vyhláška č. 409/2025 Sb.) alespoň jednou ročně vyhodnotíte účinnost systému řízení bezpečnosti informací a zpracujete zprávu o přezkoumání (§ 3 písm. f), g)); vedení se s ní prokazatelně seznamuje, stejně jako se zprávou o hodnocení rizik, plánem zvládání rizik a výsledky analýzy dopadů a auditů (§ 4 odst. 2)."
+          },
+          "inputs": {
+            "title": "Co patří na stůl",
+            "lead": "Pro přezkoumání si připravte:",
+            "items": [
+              {
+                "name": "Co je zavedeno",
+                "detail": "hotové kroky tohoto průvodce a co je ještě otevřené"
+              },
+              {
+                "name": "Problémy",
+                "detail": "incidenty, výpadky a vše, co nefungovalo"
+              },
+              {
+                "name": "Rizika",
+                "detail": "vaše ohodnocená rizika, nejvyšší napřed; najdete je v dalším kroku"
+              },
+              {
+                "name": "Návrhy",
+                "detail": "co by změnil ten, kdo koordinuje kybernetickou bezpečnost"
+              }
+            ],
+            "source": "Podle IT-Grundschutz ISMS.1.A12 německého úřadu BSI pokrývají zprávy pro vedení zejména problémy, úspěchy a příležitosti ke zlepšení. V režimu vyšších povinností stanoví, co roční vyhodnocení obsahuje, vyhláška č. 409/2025 Sb., § 3 písm. f)."
+          },
+          "risks": {
+            "title": "Vaše rizika pro vedení",
+            "lead": "Takto dnes stojí váš software, technika a dodavatelé. Čím výš a víc vpravo, tím dřív položka potřebuje ochranu. Vedení rozhodne, kde jednat nejdřív."
+          },
+          "record": {
+            "title": "Jak může záznam vypadat",
+            "caption": "Přezkoumání vedením, smyšlený příklad:",
+            "rows": [
+              {
+                "name": "Datum a účastníci",
+                "detail": "12. února 2026; vedení, osoba pověřená kybernetickou bezpečností, dodavatel IT"
+              },
+              {
+                "name": "Probráno",
+                "detail": "stav průvodce, dva incidenty, pět nejvyšších rizik"
+              },
+              {
+                "name": "Rozhodnuto",
+                "detail": "politiky schváleny; druhý faktor pro vzdálený přístup"
+              },
+              {
+                "name": "Úkoly",
+                "detail": "otestovat obnovu ze zálohy, dodavatel IT, do konce března; poučení o phishingu, osoba pověřená kybernetickou bezpečností, v dubnu"
+              }
+            ],
+            "note": "Vyhláška č. 410/2025 Sb. nepředepisuje schůzi ani zápis, seznámení vedení ale musí být prokazatelné. V režimu vyšších povinností žádá vyhláška č. 409/2025 Sb. zprávu o přezkoumání (§ 3 písm. g)) a nejméně jednou ročně jednání výboru pro řízení kybernetické bezpečnosti, o kterém se pořizuje záznam (§ 4 odst. 3). Zapište datum, účastníky, rozhodnutí a úkoly."
+          },
+          "review": {
+            "title": "Vaše přezkoumání vedením",
+            "lead": "Zapište přezkoumání: kdy, kdo, co se rozhodlo a co je potřeba udělat."
+          },
+          "approve": {
+            "title": "Vedení schvaluje dokumenty",
+            "lead": "Toto jsou dokumenty, které vytvořil tento průvodce. Vedení si každý přečte a schválí ho zde, přihlášené vlastním účtem. Nic se netiskne ani neskenuje."
+          },
+          "ongoing": {
+            "title": "Od teď ve vašich rukou",
+            "lead": "Schválení zaznamenává, co vaše firma dělá. Od teď je na vás, abyste to dělali. Tyto povinnosti trvají i po dokončení průvodce.",
+            "groups": [
+              {
+                "title": "Když se něco stane",
+                "items": [
+                  {
+                    "name": "Kybernetický bezpečnostní incident",
+                    "detail": "Prvotní hlášení nejpozději do 24 hodin po zjištění. Má-li incident významný dopad (v režimu vyšších povinností vám to do 24 hodin po hlášení sdělí NÚKIB), následuje oznámení do 72 hodin po zjištění a závěrečná zpráva nejpozději do 30 dnů od oznámení. Režim vyšších povinností hlásí NÚKIB, režim nižších povinností Národnímu CERT, a to jen incidenty s významným dopadem; obojí přes Portál NÚKIB.",
+                    "basis": "§§ 15 a 16 zákona č. 264/2025 Sb."
+                  },
+                  {
+                    "name": "Změní se kontaktní nebo doplňující údaj",
+                    "detail": "Změnu nahlaste přes Portál NÚKIB nejpozději do 14 dnů ode dne změny, pokud nejde o údaj vedený v základních registrech. Například nová kontaktní osoba nebo nové rozsahy IP adres, které služba využívá. Změny služby, které mohou změnit váš režim, hlaste do 60 dnů.",
+                    "basis": "§ 9 odst. 1, § 11 odst. 2 zákona č. 264/2025 Sb."
+                  },
+                  {
+                    "name": "Informování uživatelů vaší služby",
+                    "detail": "Pokud vám to NÚKIB rozhodnutím uloží, informujte uživatele své regulované služby o incidentu v rozsahu, který stanoví; informování může také zakázat. Hrozí-li uživatelům významná hrozba, sdělte jim bez zbytečného odkladu, co mohou udělat, aby byl dopad co nejmenší.",
+                    "basis": "§ 19 zákona č. 264/2025 Sb."
+                  },
+                  {
+                    "name": "Nový program nebo nový dodavatel služeb",
+                    "detail": "Zapište ho do seznamu a posuďte jeho riziko, jak to stanoví vaše bezpečnostní politika v oddílu „Postup“.",
+                    "basis": "Vaše bezpečnostní politika"
+                  }
+                ]
+              },
+              {
+                "title": "Pravidelně",
+                "items": [
+                  {
+                    "name": "Přezkoumání vedením",
+                    "detail": "Opakujte ho alespoň jednou ročně, aby vedení dohlíželo na zavádění opatření. Obě vyhlášky žádají roční vyhodnocení účinnosti: v režimu nižších povinností jako aktualizaci přehledu bezpečnostních opatření, v režimu vyšších povinností jako vyhodnocení systému řízení bezpečnosti informací se zprávou o přezkoumání.",
+                    "basis": "vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. b), § 4 písm. d); vyhláška č. 409/2025 Sb., § 3 písm. f), g), § 4 odst. 2"
+                  },
+                  {
+                    "name": "Školení vedení",
+                    "detail": "Vedení prokazatelně absolvuje vstupní a pravidelná školení; interval vyhlášky nestanoví. NÚKIB nabízí pro oba režimy vlastní Kurz pro vrcholné vedení (osveta.nukib.gov.cz).",
+                    "basis": "vyhláška č. 410/2025 Sb., § 4 písm. b), § 5 odst. 2 písm. a); vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a), § 10 odst. 3 písm. a)"
+                  },
+                  {
+                    "name": "Školení zaměstnanců",
+                    "detail": "Vstupní školení pro nové zaměstnance a pravidelná školení pro všechny; interval vyhlášky nestanoví. Veďte přehled o školeních a seznam školených osob.",
+                    "basis": "vyhláška č. 410/2025 Sb., § 5 odst. 2 a 3; vyhláška č. 409/2025 Sb., § 10 odst. 3 a 5"
+                  }
+                ]
+              },
+              {
+                "title": "Průběžně",
+                "items": [
+                  {
+                    "name": "Zavádět opatření a dohlížet na ně",
+                    "detail": "Dělejte, co dokumenty stanoví: nechte zapnutý druhý faktor, instalujte bezpečnostní aktualizace, zkoušejte obnovu ze zálohy.",
+                    "basis": "§ 13 odst. 2 zákona č. 264/2025 Sb."
+                  },
+                  {
+                    "name": "Uzavřít otevřené body",
+                    "detail": "Co schválení ukázalo jako ještě otevřené, řešte v termínech, které jste u bodů určili. V režimu nižších povinností patří takové body s termínem, prioritou a odpovědnou osobou do přehledu bezpečnostních opatření, v režimu vyšších povinností do plánu zvládání rizik.",
+                    "basis": "vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. a) bod 2; vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. g) a odst. 2"
+                  }
+                ]
+              }
+            ]
+          },
+          "done": {
+            "title": "Přezkoumání vedením je zapsané",
+            "note": "Schválené dokumenty platí ode dne, kdy je vedení schválilo, a najdete je mezi svými politikami."
+          }
+        }
+      }
+    }
+  }
+}

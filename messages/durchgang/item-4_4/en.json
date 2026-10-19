@@ -1,0 +1,78 @@
+{
+  "durchgang": {
+    "items": {
+      "4_4": {
+        "headline": "Record your backups",
+        "teaser": "How often you back up, and when a restore last worked.",
+        "missed": [
+          "A backup with the same provider that holds the original data does not count as separate storage for Germany's BSI, cloud services included (Grundschutz++ NOT.4.10).",
+          "An attacker can encrypt a backup on the same network along with everything else. The BSI therefore recommends a copy kept separate from the network (Grundschutz++ NOT.4.14)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "A backup you can restore",
+            "body": [
+              "A backup is a copy of your data that you bring back after an outage, an attack or a mistake. It only helps if a copy survives the incident and can really be restored.",
+              "In this step you record, for each backup system on your list, how often it backs up and when a restore from it last worked. Where the copies are kept stays on the requirement page."
+            ],
+            "duty": "The law names backup management and disaster recovery explicitly as part of business continuity."
+          },
+          "copy": {
+            "title": "Where the copy is kept",
+            "caption": "A copy that survives an attack",
+            "good": {
+              "value": "One copy is kept off the network, for example on a disk in a cupboard or in storage that nobody can delete or change.",
+              "note": "Grundschutz++ recommends keeping backups separate from the original data and one copy off the network (NOT.4.10, NOT.4.14)."
+            },
+            "bad": {
+              "value": "The backup sits on a drive in the same network as the server.",
+              "note": "If an attacker encrypts the server, the backup is encrypted along with it."
+            }
+          },
+          "ask": {
+            "title": "What to ask first",
+            "lead": "Ask whoever looks after your IT, before you answer on the next screen:",
+            "items": [
+              {
+                "name": "Which backup systems",
+                "detail": "what makes your backups, for example backup software, a NAS or a cloud backup service; each one is a line on the next screen"
+              },
+              {
+                "name": "How often each one backs up",
+                "detail": "continuously, hourly, daily or weekly, for the systems it backs up: servers, file storage, databases"
+              },
+              {
+                "name": "The last restore from each",
+                "detail": "when data last came back from it, and whether it was complete and readable; one sample is enough for the BSI"
+              },
+              {
+                "name": "Your cloud and software providers, separately",
+                "detail": "they back up their own systems; ask each one what they keep for you and how you would get your data back. Their answers do not go on the next screen"
+              }
+            ],
+            "source": "Germany's BSI, emergency management checklist: make backups regularly and test regularly that they can be restored. Checking by samples: Grundschutz++ NOT.4.16.1. The law names backup management, not figures per system (§ 30(2) no. 3 BSIG)."
+          },
+          "systems": {
+            "title": "Your backup systems",
+            "lead": "Each backup system on your list, with what you were told. A backup that was never restored is not shown to work: the law asks for effective measures (§ 30(1) BSIG). That is our reading, not the wording of the law.",
+            "frequency": "How often it backs up",
+            "options": {
+              "real_time": "continuously",
+              "hourly": "hourly",
+              "daily": "daily",
+              "weekly": "weekly"
+            },
+            "lastRestore": "Last restore from it that worked",
+            "lastRestoreHint": "The day data last came back from it complete, as a test or for real. If none has worked yet, leave it empty and plan one.",
+            "empty": "No backup system is on your list yet.",
+            "add": "Add a backup system to your list"
+          },
+          "done": {
+            "title": "Your backups are recorded",
+            "note": "Germany's BSI advises testing restores regularly. Enter the new date after each test."
+          }
+        }
+      }
+    }
+  }
+}

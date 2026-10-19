@@ -1,0 +1,94 @@
+{
+  "durchgang": {
+    "items": {
+      "3_3": {
+        "headline": "Know how to report an incident",
+        "teaser": "Three reports to {authority}, with fixed deadlines.",
+        "missed": [
+          "The clock runs from when you learn of it, not from when everything is clear. Report early; the second report confirms or updates the first.",
+          "In Germany the BSI reads \"becoming aware\" as the moment someone in the company finds out about the incident during working hours (BSI, Meldepflicht info pack).",
+          "If it is a personal data breach, you usually also notify the data protection authority: without undue delay and, where feasible, within 72 hours, unless the breach is unlikely to result in a risk to the people affected (Art. 33 GDPR)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Reporting an incident",
+            "body": [
+              "If a security incident is significant, you report it to your national CSIRT or {authority}. It is significant if it can seriously disrupt your operations or cause you financial losses, or if it can cause considerable damage to others.",
+              "Your country sets the channel. In Germany it is the BSI portal, with the same access as for the registration."
+            ],
+            "duty": "You report significant incidents in three steps with fixed deadlines."
+          },
+          "clock": {
+            "title": "The three deadlines",
+            "lead": "The clock runs from the moment your company learns of the incident. The third deadline starts with the second report.",
+            "source": "Art. 23(4) NIS 2. If {authority} asks for one, an interim report comes in between. If the incident is still going on after a month, send a progress report instead of the final report, and the final report within a month of dealing with it."
+          },
+          "first_report": {
+            "title": "What the reporting form will ask",
+            "caption": "You report in {authority}'s portal, never here. In Germany the BSI's form asks for these details in the early warning, one after the other. Answered here for a made-up case, so nothing on the form surprises you",
+            "rows": [
+              {
+                "name": "Classification",
+                "detail": "Significant incident; situation: orange, operations restricted"
+              },
+              {
+                "name": "Description",
+                "detail": "Files on the file server are encrypted and a ransom note was left. Accounting and order intake are down. Probably caused by an email attachment; duration still unknown."
+              },
+              {
+                "name": "Times",
+                "detail": "Probably started around 6:30, detected at 7:40, this report as of 10:15"
+              },
+              {
+                "name": "Affected areas",
+                "detail": "Manufacturing, machinery; no critical facility"
+              },
+              {
+                "name": "Suspected attack",
+                "detail": "Yes, the ransom note points to a deliberate attack"
+              },
+              {
+                "name": "Other countries",
+                "detail": "Possible: customers in Austria will receive their deliveries late"
+              },
+              {
+                "name": "Measures",
+                "detail": "File server taken off the network, IT service provider on site, yesterday's backup checked"
+              },
+              {
+                "name": "Under control",
+                "detail": "No, the investigation is ongoing"
+              },
+              {
+                "name": "Reporting person",
+                "detail": "Anna Weber, head of IT, with phone and email for questions"
+              }
+            ],
+            "note": "The law asks for only two things in the early warning: whether the incident is suspected of being caused by unlawful or malicious acts, and whether it could have a cross-border impact (Art. 23(4)(a) NIS 2). The rest is what the reporting form asks for. Whatever you do not know yet, you add with the second report."
+          },
+          "setup": {
+            "title": "Can you report today?",
+            "lead": "Check it now, not during an incident. You report to your country's CSIRT or competent authority; yours is below.",
+            "steps": [
+              "Open the portal of {authority} below. In Germany that is the BSI portal.",
+              "Sign in with the access from your registration. In Germany that is the ELSTER organisation certificate file and its password.",
+              "Check that you can see where to report. In the BSI portal it is the red button \"Sicherheitsvorfall melden\" on the start page. Do not send anything.",
+              "Answer below: yes if the person who leads in an emergency, or their deputy, can do this."
+            ],
+            "document": "Your incident response plan",
+            "source": "Art. 23(1) NIS 2. In Germany, § 32(1) BSIG: reports go to the reporting office the BSI runs together with the BBK, reached through the BSI portal (BSI, instructions for reporting in the BSI portal). A company that is not registered yet reports through an online form in the BSI's reporting and information portal (MIP)."
+          },
+          "done": {
+            "title": "Reporting prepared"
+          }
+        },
+        "fields": {
+          "bsiReportingRegistered": {
+            "label": "We can sign in to the portal and report",
+            "hint": "No, for example, if only one person has the login and is away, if the certificate file sits on the computer of someone who has left, or if nobody remembers its password. Sort that out first, then come back."
+          }
+        }
+      }
+    }
+  }
+}

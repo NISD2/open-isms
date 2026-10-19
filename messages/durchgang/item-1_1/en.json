@@ -1,0 +1,51 @@
+{
+  "durchgang": {
+    "items": {
+      "1_1": {
+        "headline": "Get management trained",
+        "teaser": "Every member of management, regularly.",
+        "missed": [
+          "The training should cover the goals of § 38(3) BSIG: recognising and assessing risks and risk management, and judging what they mean for your company's services.",
+          "The law says only \"regularly\". Its explanatory memorandum reads that as training offered at least every three years (BT-Drs. 21/1501, p. 154). Neither sets how long a training lasts."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Training for management",
+            "body": [
+              "Whoever runs the company takes part in information security training regularly. This applies to every member of management personally.",
+              "We offer a course for this on this platform. You can also choose any other provider; the law does not require providers to be accredited."
+            ],
+            "duty": "Management has to take part in training regularly. The law sets no interval; its explanatory memorandum reads “regularly” as at least every three years.",
+            "link": "Go to the free course for management"
+          },
+          "record": {
+            "title": "What records can look like",
+            "caption": "One line per person and training:",
+            "rows": [
+              {
+                "name": "Anna Example, managing director",
+                "detail": "In-person training at a training institute, 12 March 2026, certificate of attendance"
+              },
+              {
+                "name": "Jonas Sample, managing director",
+                "detail": "Online course, 3 April 2026, certificate as a PDF"
+              },
+              {
+                "name": "Lea Specimen, managing director",
+                "detail": "Webinar by an industry association, 20 May 2026, screenshot of attendance"
+              }
+            ],
+            "note": "The law prescribes no format. In-person training, an online course, a webinar or an in-house session all come into question. Record who took part, when, and what it covered."
+          },
+          "trainings": {
+            "title": "One line per person",
+            "lead": "Enter the latest training for every member of management. You can attach proof; after a webinar there is sometimes none."
+          },
+          "done": {
+            "title": "Training recorded"
+          }
+        }
+      }
+    }
+  }
+}

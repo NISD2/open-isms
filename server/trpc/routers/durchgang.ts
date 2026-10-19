@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { createTranslator } from "next-intl";
 import { z } from "zod";
+import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
   CATALOG_LABELS,
@@ -86,9 +87,6 @@ import {
 } from "@/lib/durchgang";
 import { renderDocumentMarkdown } from "@/lib/mail/markdown";
 import { getRegistrationPortals } from "@/lib/registration-portals";
-import durchgangCs from "@/messages/durchgang/cs.json";
-import durchgangDe from "@/messages/durchgang/de.json";
-import durchgangEn from "@/messages/durchgang/en.json";
 import {
   asset,
   assetProvider,
@@ -204,9 +202,9 @@ const logWalk = (entry: Parameters<typeof logAudit>[0] & { action: DurchgangActi
 const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);
 
 const NAMESPACES = {
-  de: durchgangDe.durchgang,
-  en: durchgangEn.durchgang,
-  cs: durchgangCs.durchgang,
+  de: DURCHGANG_MESSAGES.de.durchgang,
+  en: DURCHGANG_MESSAGES.en.durchgang,
+  cs: DURCHGANG_MESSAGES.cs.durchgang,
 } as const;
 
 const actorOf = (ctx: {

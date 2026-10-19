@@ -1,0 +1,69 @@
+{
+  "durchgang": {
+    "items": {
+      "2_2": {
+        "headline": "Sepište, co vaše firma má",
+        "teaser": "Seznam procesů, programů a zařízení, se kterými pracujete.",
+        "missed": [
+          "Na seznam patří i programy pronajaté z cloudu, například e-mail nebo účetnictví. Evidovat musíte i primární aktiva, která ze stanoveného rozsahu vyjmete, včetně důvodů jejich vyjmutí (§ 12 odst. 3 zákona č. 264/2025 Sb.)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "S čím vaše firma pracuje",
+            "body": [
+              "Chránit můžete jen to, co znáte. Proto sepište, s čím vaše firma pracuje: procesy, informace, programy, zařízení, nosiče dat, místnosti a sítě. Zákon o kybernetické bezpečnosti tomu říká aktiva. Primární aktiva jsou informace, které zpracováváte, a služby, které poskytujete. Podpůrná aktiva zajišťují jejich fungování, například zaměstnanci, dodavatelé, technická aktiva jako programy a zařízení, a budovy (§ 2 odst. 1 písm. d) až f) zákona č. 264/2025 Sb.).",
+              "Seznam nemusí být dokonalý. Když přibude něco nového, doplňte to. Zákon ostatně žádá stanovený rozsah pravidelně přezkoumávat a aktualizovat (§ 12 odst. 5 zákona)."
+            ],
+            "duty": "V obou režimech vymezíte stanovený rozsah: určíte všechna primární aktiva, posoudíte, která souvisejí s regulovanou službou, a k nim určíte podpůrná aktiva (§ 12 zákona č. 264/2025 Sb.). V režimu vyšších povinností navíc hodnotíte primární aktiva z hlediska důvěrnosti, integrity a dostupnosti na stupnici alespoň o čtyřech úrovních (Nízká, Střední, Vysoká, Kritická); jiný počet úrovní je možný, dodrží-li jednoznačné vazby na tuto stupnici (vyhláška č. 409/2025 Sb., § 7 a příloha č. 1). Toto hodnocení průvodce nedělá. Vyhláška č. 410/2025 Sb. stupnici aktiv nepředepisuje."
+          },
+          "list": {
+            "title": "Jak může váš seznam vypadat",
+            "caption": "Stačí krátce. Jeden řádek na každou věc:",
+            "rows": [
+              {
+                "name": "Mzdy",
+                "detail": "zpracovává externí účetní kancelář"
+              },
+              {
+                "name": "E-mail",
+                "detail": "Microsoft 365, všichni zaměstnanci"
+              },
+              {
+                "name": "Kancelářské počítače",
+                "detail": "dvanáct, v sídle firmy"
+              }
+            ]
+          },
+          "processes": {
+            "title": "Co vaše firma dělá každý den",
+            "lead": "Zaškrtněte, co u vás běží. V pochybnostech raději zapište, než vynechte."
+          },
+          "business_apps": {
+            "title": "Programy pro zákazníky, zaměstnance a peníze",
+            "lead": "Čím obsluhujete zákazníky, vyplácíte mzdy a vedete účetnictví."
+          },
+          "shared_apps": {
+            "title": "Programy, které používají všichni",
+            "lead": "E-mail, úložiště souborů, chat a vše, co má jen vaše odvětví."
+          },
+          "technology": {
+            "title": "Technika a prostory",
+            "lead": "Servery, zařízení, síť a místa, kde se pracuje."
+          },
+          "which_software": {
+            "title": "Který program přesně a od koho?",
+            "lead": "Zapište, co skutečně používáte, například „Pohoda“ místo druhu „Účetnictví“. Vedle uveďte, kdo program dodává: ten, kdo vám za něj posílá fakturu. Vaše účetnictví, například v Pohodě, eviduje všechny, kterým platíte."
+          },
+          "which_technology": {
+            "title": "Která technika přesně a od koho?",
+            "lead": "Totéž pro zařízení, síť a prostory, například u připojení k internetu název vašeho poskytovatele. Co provozujete sami, žádného dodavatele nemá."
+          },
+          "done": {
+            "title": "Seznam máte hotový",
+            "note": "Když přibude něco nového, kdykoli to na seznam doplňte."
+          }
+        }
+      }
+    }
+  }
+}

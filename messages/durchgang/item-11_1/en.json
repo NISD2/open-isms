@@ -1,0 +1,77 @@
+{
+  "durchgang": {
+    "items": {
+      "11_1": {
+        "headline": "Record where a second factor protects",
+        "teaser": "For each program on your list: password alone, or with a second factor.",
+        "missed": [
+          "Your IT provider's remote maintenance access is also access from outside. Grundschutz++ of Germany's BSI recommends a second factor that also resists phishing for everything reachable from outside (BER.5.8).",
+          "Administrator accounts first: Grundschutz++ recommends the second factor explicitly for access with far-reaching rights (BER.5.9)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "A password and something you hold",
+            "body": [
+              "A password can be guessed, intercepted or found in someone else's data leak. A second factor is something you hold as well: an app on the work phone that shows a code or confirms the sign-in, or a security key. Anyone who only knows the password then cannot get in.",
+              "The law sets no particular assurance level, says Germany's BSI; you decide from your risk analysis. In this step you mark, for each program on your list, whether signing in already takes a second factor."
+            ],
+            "duty": "The law requires solutions where signing in takes more than a password (multi-factor authentication) or is checked continuously (continuous authentication)."
+          },
+          "where_first": {
+            "title": "Where first",
+            "caption": "Which sign-ins need a second factor first",
+            "good": {
+              "value": "Email, remote access and administrator accounts with an app or a security key",
+              "note": "Grundschutz++ recommends the second factor for everything reachable from outside and for access with far-reaching rights (BER.5.8, BER.5.9)."
+            },
+            "bad": {
+              "value": "Remote access from home with a password only",
+              "note": "Then a guessed or intercepted password is enough to get into your network."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Every user of the company's cloud account with an authenticator app",
+                  "note": "One account usually opens email, files and chat at once, so one stolen password would open all three."
+                },
+                "bad": {
+                  "value": "A second factor for management only",
+                  "note": "A phishing email reaches every inbox, and attackers use whichever account is easiest."
+                }
+              },
+              {
+                "good": {
+                  "value": "Administrator accounts with a security key",
+                  "note": "A security key checks which website it signs in to, so a fake sign-in page cannot use it."
+                },
+                "bad": {
+                  "value": "Administrator accounts with codes by SMS",
+                  "note": "A text message can be redirected to another SIM card. For accounts with full rights, choose an app or a key."
+                }
+              }
+            ]
+          },
+          "logins": {
+            "title": "Where a second factor protects",
+            "lead": "For each program and access on your list, mark how people sign in, and where a second factor is on, which one: it can differ from program to program. Each row starts at \"Password only\", the safe assumption; change it where you know better, or mark \"Not known yet\". Where several are reached through one company account, for example with Microsoft, they share the same answer. Whoever looks after your IT can tell you what you do not know.",
+            "mfa": "Second factor",
+            "password": "Password only",
+            "unknown": "Not known yet",
+            "which": "Which one:",
+            "methods": {
+              "app": "App on the phone",
+              "security_key": "Security key",
+              "company_account": "Through the company account",
+              "sms": "Code by SMS",
+              "email": "Code by email"
+            }
+          },
+          "done": {
+            "title": "Your sign-ins are recorded",
+            "note": "Where only a password is marked, decide from the risk whether to switch on a second factor. Start with what is reachable from outside."
+          }
+        }
+      }
+    }
+  }
+}

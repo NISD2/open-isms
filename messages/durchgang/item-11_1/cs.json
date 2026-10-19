@@ -1,0 +1,77 @@
+{
+  "durchgang": {
+    "items": {
+      "11_1": {
+        "headline": "Zaznamenejte, kde chrání druhý faktor",
+        "teaser": "U každého programu ze seznamu: jen heslo, nebo i druhý faktor.",
+        "missed": [
+          "Vzdálený přístup vašeho dodavatele IT služeb kvůli údržbě je také přístup zvenčí. Vyhlášky žádají vícefaktorové ověření pro administrátory, uživatele i technická aktiva, tedy i pro účty, přes které se dodavatel připojuje (vyhláška č. 410/2025 Sb., § 8 odst. 2; vyhláška č. 409/2025 Sb., § 19 odst. 2). Německý Grundschutz++ doporučuje pro vše, co je dostupné zvenčí, druhý faktor odolný i proti phishingu (BER.5.8).",
+          "Nejdříve administrátorské účty: mají nejširší oprávnění. Pokud se do nich zatím přihlašuje jen heslem, musí systém vynucovat délku hesla alespoň 17 znaků, u uživatelů 12. Německý Grundschutz++ doporučuje druhý faktor výslovně pro přístupy s rozsáhlými oprávněními (BER.5.9)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Heslo a něco, co máte u sebe",
+            "body": [
+              "Heslo se dá uhodnout, zachytit nebo najít v cizím úniku dat. Druhý faktor je něco, co máte navíc u sebe: aplikace v pracovním telefonu, která ukáže kód nebo potvrdí přihlášení, nebo bezpečnostní klíč. Kdo zná jen heslo, se pak dovnitř nedostane.",
+              "Obě vyhlášky stanoví pořadí. Na prvním místě je vícefaktorové ověření s alespoň dvěma různými typy faktorů, nebo aktuálně odolné kontinuální ověřování založené na modelu nulové důvěry. Dokud ho nemáte, ověření kryptografickými klíči nebo certifikáty. Dokud nemáte ani to, hesla, u kterých systém vynucuje délku alespoň 12 znaků pro účty uživatelů, 17 znaků pro účty administrátorů a 22 znaků pro účty technických aktiv (vyhláška č. 410/2025 Sb., § 8 odst. 2 až 4; vyhláška č. 409/2025 Sb., § 19 odst. 2 a 4). V tomto kroku u každého programu ze svého seznamu označíte, zda přihlášení už vyžaduje druhý faktor."
+            ],
+            "duty": "Vyhlášky žádají pro ověření identity administrátorů, uživatelů i technických aktiv vícefaktorové ověření s alespoň dvěma různými typy faktorů, nebo kontinuální ověřování založené na modelu nulové důvěry (vyhláška č. 410/2025 Sb., § 8 odst. 2; vyhláška č. 409/2025 Sb., § 19 odst. 2 písm. a))."
+          },
+          "where_first": {
+            "title": "Kde začít",
+            "caption": "Která přihlášení potřebují druhý faktor nejdříve",
+            "good": {
+              "value": "E-mail, vzdálený přístup a administrátorské účty s aplikací nebo bezpečnostním klíčem",
+              "note": "Vyhlášky žádají vícefaktorové ověření u všech účtů; toto pořadí je plán, jak se k tomu dostat. Německý Grundschutz++ doporučuje druhý faktor pro vše, co je dostupné zvenčí, a pro přístupy s rozsáhlými oprávněními (BER.5.8, BER.5.9)."
+            },
+            "bad": {
+              "value": "Vzdálený přístup z domova jen s heslem",
+              "note": "Pak stačí uhodnuté nebo zachycené heslo, aby se někdo dostal do vaší sítě."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Všichni uživatelé firemního cloudového účtu s ověřovací aplikací",
+                  "note": "Jeden účet obvykle otevírá e-mail, soubory i chat najednou, takže jedno ukradené heslo by otevřelo všechny tři."
+                },
+                "bad": {
+                  "value": "Druhý faktor jen pro vedení",
+                  "note": "Phishingový e-mail dorazí do každé schránky a útočníci použijí ten účet, který je nejsnazší."
+                }
+              },
+              {
+                "good": {
+                  "value": "Administrátorské účty s bezpečnostním klíčem",
+                  "note": "Bezpečnostní klíč ověřuje, ke kterému webu se přihlašuje, takže ho falešná přihlašovací stránka nemůže použít."
+                },
+                "bad": {
+                  "value": "Administrátorské účty s kódy přes SMS",
+                  "note": "SMS lze přesměrovat na jinou SIM kartu. Pro účty s plnými oprávněními zvolte aplikaci nebo klíč."
+                }
+              }
+            ]
+          },
+          "logins": {
+            "title": "Kde chrání druhý faktor",
+            "lead": "U každého programu a přístupu ze svého seznamu označte, jak se do něj přihlašuje, a kde je druhý faktor zapnutý, tak jaký: může se lišit program od programu. Každý řádek začíná na „Pouze heslo“, což je opatrný předpoklad; změňte ho tam, kde víte víc, nebo zvolte „Zatím nevíme“. Kde se k více programům přihlašujete jedním firemním účtem, například u Microsoftu, platí pro ně stejná odpověď. Co nevíte, vám řekne ten, kdo spravuje vaše IT.",
+            "mfa": "Druhý faktor",
+            "password": "Pouze heslo",
+            "unknown": "Zatím nevíme",
+            "which": "Jaký:",
+            "methods": {
+              "app": "Aplikace v telefonu",
+              "security_key": "Bezpečnostní klíč",
+              "company_account": "Přes firemní účet",
+              "sms": "Kód přes SMS",
+              "email": "Kód e-mailem"
+            }
+          },
+          "done": {
+            "title": "Vaše přihlášení jsou zaznamenána",
+            "note": "Kde je označeno pouze heslo, vyhlášky žádají přejít na druhý faktor; do té doby klíče nebo certifikáty, nebo alespoň hesla s vynucenou minimální délkou. Začněte tím, co je dostupné zvenčí. V režimu nižších povinností patří stav s termínem zavedení do přehledu bezpečnostních opatření (vyhláška č. 410/2025 Sb., § 3 odst. 2). V režimu vyšších povinností vedete evidenci technických aktiv, účtů a autentizačních mechanismů, které vícefaktorové ověření zatím nesplňují, s odůvodněním (vyhláška č. 409/2025 Sb., § 19 odst. 3)."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "durchgang": {
+    "items": {
+      "5_1": {
+        "headline": "Write down who works for you",
+        "teaser": "A list of your suppliers and service providers.",
+        "missed": [
+          "It is not only IT firms that count. It covers every direct supplier and service provider that touches your IT or your data, including for example the tax adviser with access to staff data (§ 30(1) and (2) no. 4 BSIG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Who works for your company",
+            "body": [
+              "The security of your IT also covers whoever works on it from outside or can reach your data: service providers, software vendors, suppliers. The law calls them your direct suppliers and service providers. The first step is a list of who they are and what they do for you.",
+              "Start with the ones your business could not run without. The list grows over time."
+            ],
+            "duty": "The law requires measures for supply chain security, including in your relationships with your direct suppliers and service providers."
+          },
+          "list": {
+            "title": "What your list can look like",
+            "caption": "One line per supplier, with what they do for you. These are the usual kinds:",
+            "rows": [
+              {
+                "name": "IT service provider",
+                "detail": "looks after servers, accounts and backups, has remote access"
+              },
+              {
+                "name": "Software and cloud providers",
+                "detail": "for example Microsoft for email and files, DATEV for the books"
+              },
+              {
+                "name": "Telecom provider",
+                "detail": "internet connection, phones, mobile contracts"
+              },
+              {
+                "name": "Web agency or host",
+                "detail": "runs the website or the webshop"
+              },
+              {
+                "name": "Tax adviser or payroll office",
+                "detail": "runs payroll, sees staff data"
+              },
+              {
+                "name": "Machine or equipment maintenance",
+                "detail": "services machines and connects remotely for diagnostics"
+              },
+              {
+                "name": "Building and security services",
+                "detail": "alarm system, access cards, cleaning with keys"
+              },
+              {
+                "name": "Logistics and couriers",
+                "detail": "ship to your customers, see order and address data"
+              }
+            ]
+          },
+          "ready": {
+            "title": "For the next step: your list of creditors",
+            "lead": "Almost everyone who works for you sends you invoices. So the quickest start is the list from your accounting.",
+            "items": [
+              {
+                "name": "List of creditors",
+                "detail": "your bookkeeping can export it, for example from DATEV or your accounting software, or your tax adviser sends it; the last twelve months are enough"
+              },
+              {
+                "name": "Contracts and subscriptions",
+                "detail": "what you pay by card or direct debit: maintenance contracts, software licences, cloud accounts"
+              },
+              {
+                "name": "Your IT service provider",
+                "detail": "knows which vendors it uses on your behalf"
+              }
+            ],
+            "source": "Building on overviews that already exist is how the BSI advises compiling any inventory (BSI-Standard 200-2).",
+            "confirm": "I have the list of creditors at hand"
+          },
+          "suppliers": {
+            "title": "Your suppliers",
+            "lead": "Whoever you named as the provider of your software and technology is already on it. Add the others, one line each with what they do for you. When in doubt, write it down rather than leave it out."
+          },
+          "done": {
+            "title": "Your list is in place",
+            "note": "When a new supplier comes along, add it to the list."
+          }
+        }
+      }
+    }
+  }
+}

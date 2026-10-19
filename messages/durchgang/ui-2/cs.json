@@ -1,0 +1,102 @@
+{
+  "durchgang": {
+    "ui": {
+      "recorded": "Zaznamenáno ve vaší dokumentaci",
+      "recordedPolicy": "{title}: uloženo jako koncept. Vedení dokument schválí na konci průvodce.",
+      "recordedIn": {
+        "training_record": "Školení",
+        "management_review": "Přezkumy vedení",
+        "supplier": "Dodavatelé"
+      },
+      "andMore": "{names} a další ({count})",
+      "comesNext": "Následuje",
+      "byAssistant": "Zapsáno asistentem {client} dne {date}",
+      "saveFailed": "Nepodařilo se uložit. Vaše zadání tu zůstává. Zkuste to prosím znovu.",
+      "uploadFirst": "Nahrajte soubor sem. Pokud ho ještě nemáte, zvolte „Zatím nelze“.",
+      "decline": {
+        "tab": "Rozhodnuto nezavádět",
+        "title": "Rozhodli jste se to nedělat?",
+        "description": "Pak se bod počítá jako hotový, aniž by byl zaveden. Vedení toto rozhodnutí na konci schválí. Zapište, proč. Podle českého práva ale nelze vynechat vše: povinnosti přímo ze zákona, například evidenci aktiv podle § 12 zákona č. 264/2025 Sb., nikdy, a v režimu nižších povinností ani opatření podle § 3 až 6 a § 10 vyhlášky č. 410/2025 Sb.; nezavedení jiného opatření tam odůvodníte v přehledu bezpečnostních opatření. V režimu vyšších povinností lze opatření vynechat jen na základě řízení rizik, s odůvodněním v prohlášení o aplikovatelnosti (vyhláška č. 409/2025 Sb., § 8 odst. 1 písm. f) a odst. 4).",
+        "label": "Odůvodnění",
+        "placeholder": "Například: nemáme vlastní servery. Naše aplikace běží u poskytovatele, který je pro to certifikovaný.",
+        "hint": "Alespoň 20 znaků. Odůvodnění se uloží s datem do vaší dokumentace.",
+        "confirm": "Zaznamenat rozhodnutí"
+      },
+      "suppliers": {
+        "name": "Dodavatel",
+        "namePlaceholder": "například Vzor IT s.r.o.",
+        "what": "Co pro vás dělá",
+        "whatPlaceholder": "například spravuje servery, má vzdálený přístup",
+        "add": "Přidat",
+        "empty": "Na vašem seznamu zatím není žádný dodavatel.",
+        "failed": "Nepodařilo se uložit. Zkuste to prosím znovu.",
+        "details": "Smlouvy a kontakty na stránce dodavatele",
+        "answers": "Zobrazit jeho odpovědi k bezpečnosti",
+        "platform": "Provozuje tuto platformu a za tím účelem zpracovává vaše data. Tyto odpovědi uvedl poskytovatel sám na portálu pro dodavatele.",
+        "backToRegister": "Zpět na seznam dodavatelů"
+      },
+      "training": {
+        "add": "Přidat školení",
+        "name": "Jméno",
+        "provider": "Poskytovatel",
+        "providerPlaceholder": "například online kurz nebo vzdělávací instituce",
+        "managementTraining": "Školení vedení (čl. 20 odst. 2 NIS 2)",
+        "date": "Datum",
+        "proof": "Doklad (nepovinné)",
+        "proofHint": "Potvrzení o účasti, certifikát nebo snímek obrazovky. Po webináři někdy žádný doklad není.",
+        "uploading": "Nahrává se …",
+        "uploadFailed": "Nahrání se nepodařilo. Zkuste to prosím znovu.",
+        "removeProof": "Odebrat",
+        "save": "Přidat",
+        "empty": "Zatím není zapsáno žádné školení.",
+        "withProof": "Doklad přiložen",
+        "withoutProof": "bez dokladu",
+        "atProvider": "Záznam u poskytovatele",
+        "onPlatform": "Kurz dokončen na nisd2.eu, zaznamenáno tam",
+        "started": "Kurz zahájen na nisd2.eu",
+        "lessons": "{done} z {total} lekcí",
+        "invite": {
+          "title": "Pozvat na kurz {course}",
+          "lead": "Členové vedení absolvují kurz zde. Jakmile budou ve vašem týmu, jejich postup se zobrazí v seznamu výše.",
+          "label": "Pozvat někoho z vedení e-mailem",
+          "placeholder": "jmeno@firma.cz",
+          "send": "Odeslat",
+          "invited": "Pozvánka odeslána na {email}. Po přihlášení se otevře kurz.",
+          "notEmailed": "Pozvánka pro {email} byla vytvořena, ale e-mail se nepodařilo odeslat. Odkaz zkopírujte na stránce Tým.",
+          "failed": "To se nepodařilo. Zkuste to prosím znovu.",
+          "askAdmin": "Pro pozvání nového člena požádejte správce vaší společnosti. Kolega, který už je ve vašem týmu, začne přes odkaz.",
+          "copyLink": "Zkopírovat odkaz na kurz"
+        },
+        "link": "Odkaz na záznam u poskytovatele (nepovinné)",
+        "linkHint": "Kde online kurz nebo poskytovatel školení eviduje, kdo se zúčastnil, například v protokolu o absolvování. Doklad pak zůstává u něj, i pro mnoho osob.",
+        "remove": "Smazat",
+        "failed": "Nepodařilo se uložit. Zkontrolujte odkaz a zkuste to znovu.",
+        "staff": {
+          "who": "Kdo se účastnil",
+          "what": "Téma",
+          "whatHint": "například rozpoznání phishingu, na poradě týmu",
+          "provider": "Poskytovatel (nepovinné)",
+          "providerHint": "například online kurz nebo vzdělávací instituce",
+          "empty": "Zatím není zapsáno žádné školení ani poučení.",
+          "proofHint": "Seznam účastníků, prezentace nebo export z online kurzu."
+        }
+      },
+      "portals": {
+        "yours": "Vaše země",
+        "others": "Další členské státy EU ({count})",
+        "all": "Všechny členské státy EU ({count})",
+        "noCountry": "Pro vaši společnost zatím není nastavena země. Jakmile bude, zobrazí se zde nahoře.",
+        "setCountry": "Nastavit zemi",
+        "asOf": "Stav seznamu k {date}",
+        "noPortal": "Zatím bez portálu",
+        "open": "Otevřít portál",
+        "status": {
+          "operational": "Otevřít portál",
+          "pre-registration": "Otevřít předregistraci",
+          "planned": "Portál je ohlášen",
+          "not-yet-available": "Zatím bez portálu"
+        }
+      }
+    }
+  }
+}

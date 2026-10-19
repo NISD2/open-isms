@@ -1,0 +1,56 @@
+{
+  "durchgang": {
+    "items": {
+      "11_2": {
+        "headline": "Gesicherte Kommunikation festhalten",
+        "teaser": "Womit Sie telefonieren, Besprechungen halten und Nachrichten schreiben.",
+        "missed": [
+          "Eine verschlüsselte Übertragung schützt den Weg, nicht die Nachricht auf dem Server. Für besonders vertrauliche Inhalte rät das BSI zusätzlich zu einer Verschlüsselung, die nur Absender und Empfänger lesen können, etwa mit S/MIME oder PGP bei E-Mails."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Telefon, Video, Chat",
+            "body": [
+              "Für Gespräche, Besprechungen und Nachrichten nutzen Sie Programme und Dienste. Gesichert heißt hier: Die Übertragung ist verschlüsselt, und nur Befugte kommen hinein. Als Standard für die Absicherung der Übertragung nennt das BSI das Protokoll TLS.",
+              "Wie Sie sich erreichen, wenn Ihre eigene IT ausfällt, steht schon in Ihrem Notfallplan. In diesem Schritt halten Sie fest, womit Sie im Alltag sprechen und schreiben."
+            ],
+            "duty": "Das Gesetz verlangt, dass Gespräche, Videokonferenzen und Textnachrichten im Unternehmen gesichert sind, und wo nötig auch die Kommunikation im Notfall."
+          },
+          "answer": {
+            "title": "Eine Antwort, die trägt",
+            "caption": "Wie Sie festhalten, womit Sie kommunizieren",
+            "good": {
+              "value": "E-Mail und Chat über Microsoft 365, Besprechungen in Teams, Telefonie über die Telefonanlage des Anbieters in der Cloud, alles verschlüsselt übertragen",
+              "note": "Nennt jedes Werkzeug und sagt, wie es gesichert ist."
+            },
+            "bad": {
+              "value": "Alles sicher",
+              "note": "Sagt nicht, womit Sie kommunizieren, und lässt sich nicht prüfen."
+            }
+          },
+          "tools": {
+            "title": "Ihre Werkzeuge",
+            "lead": "Womit Sie telefonieren, Besprechungen halten und Nachrichten schreiben, und wie es gesichert ist. Das Gesetz nennt Sprache, Video und Text zusammen als eine Maßnahme, darum deckt eine Antwort alle drei ab. Tippen Sie die Programme aus Ihrer Liste an, die Sie dafür nutzen, und sagen Sie dann, wie sie gesichert sind.",
+            "document": "Gesicherte Kommunikation"
+          },
+          "done": {
+            "title": "Ihre Kommunikation ist festgehalten",
+            "note": "Kommt ein neues Werkzeug dazu, ergänzen Sie diese Angabe."
+          }
+        },
+        "fields": {
+          "secureCommsTools": {
+            "label": "Werkzeuge für Telefon, Video und Chat",
+            "hint": "Zum Beispiel: Microsoft Teams für Besprechungen und Chat, Telefonie über die Telefonanlage des Anbieters in der Cloud, alles verschlüsselt übertragen.",
+            "suggestions": [
+              "Alles verschlüsselt übertragen",
+              "Anmeldung nur mit Firmenkonto",
+              "Anmeldung mit zweitem Faktor",
+              "Gäste kommen nur nach Freigabe in Besprechungen"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

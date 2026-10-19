@@ -1,0 +1,141 @@
+{
+  "durchgang": {
+    "ui": {
+      "noStatus": "Tento bod ve vašem hodnocení zatím není. Objeví se, jakmile bude vaše společnost nastavena.",
+      "cirAnnex": "Příloha, bod {ref}",
+      "cirNote": "Přímo se vztahuje jen na určité digitální služby (čl. 1 nařízení).",
+      "matrix": {
+        "impact": "Jak velká by byla škoda",
+        "frequency": "Jak často k tomu dochází",
+        "legend": "Legenda",
+        "reading": "{frequency} a {impact} dává úroveň {level}",
+        "count": "{count, plural, =0 {žádná položka} one {# položka} few {# položky} many {# položky} other {# položek}}",
+        "damageAxis": "škoda",
+        "oftenAxis": "jak často"
+      },
+      "reporting": {
+        "yours": "Vaše země",
+        "csirt": "Příslušný CSIRT: {name}",
+        "checked": "Hlásíte ve stejném portálu jako při registraci, se stejným přístupem. Na jeho úvodní stránce otevře formulář červené tlačítko „Sicherheitsvorfall melden“ (nahlásit bezpečnostní incident).",
+        "unchecked": "Jakou cestou hlásit, uvádí web vašeho úřadu. Zjistěte si to hned, ne až během incidentu.",
+        "openPortal": "Otevřít {name}",
+        "website": "Web úřadu",
+        "noCountry": "Pro vaši společnost zatím není nastavena země. Jakmile bude, zobrazí se zde nahoře váš úřad.",
+        "setCountry": "Nastavit zemi",
+        "others": "Úřady v ostatních členských státech EU ({count})"
+      },
+      "riskmap": {
+        "byLevel": "Podle úrovně",
+        "editHint": "Klepněte na název nebo vyplněné pole a změňte hodnocení přímo zde.",
+        "sheetTitle": "{count, plural, one {Změnit hodnocení} few {Změnit # hodnocení} many {Změnit # hodnocení} other {Změnit # hodnocení}}",
+        "sheetDescription": "Vyberte jiné pole. Mapa v pozadí se hned přizpůsobí a změna se uloží, až budete pokračovat.",
+        "empty": "Zatím není nic ohodnoceno. Software, techniku a dodavatele hodnotíte v kroku 2.3.",
+        "several": "{count, plural, one {Jedna položka má} few {# položky mají} many {# položky má} other {# položek má}} v registru rizik více rizik. Zobrazují se jen v seznamu, se svou nejvyšší úrovní."
+      },
+      "critical": {
+        "empty": "Na vašem seznamu zatím není žádný proces. Procesy přidáte v kroku 2.2."
+      },
+      "thresholds": {
+        "important": "Důležitý subjekt",
+        "essential": "Základní subjekt",
+        "employees": "od {count} zaměstnanců",
+        "or": "nebo",
+        "money": "obrat nad {turnover} mil. EUR a bilanční suma nad {balanceSheet} mil. EUR",
+        "annex": "odvětví z příloh I a II NIS 2",
+        "annex1": "jen odvětví z přílohy I NIS 2"
+      },
+      "clock": {
+        "fromKnowledge": "po zjištění incidentu",
+        "fromNotification": "od předložení oznámení",
+        "hours": "{count} hodin",
+        "days": "{count, plural, one {# den} few {# dny} many {# dne} other {# dní}}",
+        "months": "{count, plural, one {# měsíc} few {# měsíce} many {# měsíce} other {# měsíců}}"
+      },
+      "wait": {
+        "title": "Nevadí. Co chybí?",
+        "description": "Bod se přesune mezi čekající. Pokračujete dalším bodem a vrátíte se, až to půjde.",
+        "unclear": "Napište nám a vysvětlíme vám to.",
+        "ask": "Položit otázku",
+        "noteLabel": "Poznámka na později (nepovinné)",
+        "notePlaceholder": "Například: zeptat se IT dodavatele na IP adresy",
+        "confirm": "Přesunout mezi čekající"
+      },
+      "places": {
+        "label": "V průvodci NIS 2"
+      },
+      "home": {
+        "unlock": "Objednat",
+        "toJourney": "Pokračovat ve své cestě jako dosud",
+        "price": "{price} ročně bez DPH. Do 30 dnů vrácení peněz.",
+        "setupSection": "Začínáme",
+        "setupHeadline": "Nastavte svou společnost",
+        "setupLead": "Název a odvětví jsou stejné jako v registraci u NÚKIB. Vše ostatní zadáte tam, kde to bude potřeba.",
+        "setupNameHint": "Jako v registraci, včetně právní formy. Takto se název objeví i ve vašich dokumentech.",
+        "setupSectorHint": "V ohlášení u NÚKIB uvádíte regulované služby; odvětví zvolte podle nich.",
+        "setupEntityTypeHint": "Jak vaši společnost řadí směrnice (čl. 3 NIS 2). Telekomunikace, služby vytvářející důvěru a DNS mají vlastní prahy. V Česku se režim povinností (vyšší, nebo nižší) řídí § 8 zákona č. 264/2025 Sb. a vyhláškou č. 408/2025 Sb. Aktuální režim ukazuje Portál NÚKIB (Chci vyřídit, Přehled podání); rozhodnutí o registraci ho neuvádí, protože se může měnit.",
+        "setupEntityTypes": {
+          "essential": "Odvětví z přílohy I NIS 2, od 250 zaměstnanců, nebo obrat nad 50 mil. EUR a zároveň bilanční suma nad 43 mil. EUR.",
+          "important": "Odvětví z přílohy I nebo II NIS 2, od 50 zaměstnanců, nebo obrat i bilanční suma nad 10 mil. EUR.",
+          "kritis": "Jste subjektem kritické infrastruktury."
+        },
+        "open": "Otevřené",
+        "toSignOff": "Zatím neschváleno. Přejít ke schválení",
+        "next": "Na řadě",
+        "waiting": "Stále čeká",
+        "continue": "Pokračovat v zavádění NIS 2",
+        "allFilled": "Všechny body jsou vyplněné.",
+        "allFilledNote": "Když se ve vaší společnosti něco změní, otevřete příslušný bod a změňte to tam. Změněný dokument jde znovu ke schválení vedení.",
+        "yourWay": "Vaše cesta",
+        "filled": "Čeká na schválení",
+        "declined": "Rozhodnuto nezavádět",
+        "signed": "Schváleno",
+        "notApplicable": "Nevztahuje se",
+        "preview": "Jak vypadá krok „{step}“",
+        "previewAlt": "Krok „{step}“ na příkladu smyšlené společnosti",
+        "continueHere": "Pokračovat teď",
+        "forward": {
+          "action": "Předat vedení",
+          "title": "Předat vedení",
+          "lead": "Vaše vedení dostane pozvánku do tohoto účtu. Po přihlášení uvidí na jedné stránce, co průvodce je, jaké dokumenty vytváří a kolik stojí, a může ho tam objednat. Objednávka platí pro vaši společnost; druhý účet nevzniká.",
+          "name": "Jméno",
+          "email": "E-mail",
+          "placeholder": "jmeno@firma.cz",
+          "send": "Odeslat pozvánku",
+          "sentTitle": "Pozvánka pro {name} odeslána",
+          "sentText": "Jakmile bude pozvánka na {email} přijata, vaše vedení bude součástí tohoto účtu a může objednat. Vy už nemusíte nic dělat.",
+          "notEmailed": "Pozvánka je vytvořena, ale e-mail se nepodařilo odeslat.",
+          "close": "Hotovo",
+          "refused": {
+            "member": "Tato adresa už patří do vašeho týmu.",
+            "limit": "Z vašeho účtu už dnes odešlo několik pozvánek. Zkuste to prosím zítra.",
+            "failed": "To se nepodařilo. Zkuste to prosím znovu."
+          }
+        }
+      },
+      "intro": {
+        "eyebrow": "NIS 2 pro střední firmy",
+        "title": "Jste na správném místě.",
+        "lead": "Máte se postarat o NIS 2 a nevíte, kde začít? Tak to má skoro každý. Projdeme to s vámi bod po bodu.",
+        "points": [
+          {
+            "title": "Jedno po druhém",
+            "text": "Vždy vidíte jen jeden bod. Než cokoli zadáte, vysvětlíme ho."
+          },
+          {
+            "title": "Metody, které doporučujeme",
+            "text": "Kde existuje osvědčená metoda, ukážeme vám ji. Vy rozhodnete, zda ji převezmete."
+          },
+          {
+            "title": "Nechat něco otevřené je v pořádku",
+            "text": "Co zatím nejde, odložíte a pokračujete dalším bodem."
+          },
+          {
+            "title": "Na konci podpis",
+            "text": "Vedení vše projde a podepíše."
+          }
+        ],
+        "start": "Začněme"
+      }
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "durchgang": {
+    "ui": {
+      "noStatus": "Für diesen Punkt fehlt noch der Eintrag in Ihrer Bewertung. Er erscheint, sobald Ihr Unternehmen eingerichtet ist.",
+      "cirAnnex": "Anhang, Nr. {ref}",
+      "cirNote": "Gilt unmittelbar nur für bestimmte digitale Dienste (Art. 1 der Verordnung).",
+      "matrix": {
+        "impact": "Wie groß der Schaden wäre",
+        "frequency": "Wie oft es eintritt",
+        "legend": "Legende",
+        "reading": "{frequency} und {impact} ergibt die Stufe {level}",
+        "count": "{count, plural, =0 {kein Eintrag} one {# Eintrag} other {# Einträge}}",
+        "damageAxis": "Schaden",
+        "oftenAxis": "wie oft"
+      },
+      "reporting": {
+        "yours": "Ihr Land",
+        "csirt": "Das CSIRT dort: {name}",
+        "checked": "Sie melden im selben Portal wie bei der Registrierung, mit demselben Zugang. Auf der Startseite öffnet der rote Knopf „Sicherheitsvorfall melden“ das Formular.",
+        "unchecked": "Auf der Website Ihrer Behörde steht, über welchen Weg Sie melden. Schlagen Sie es jetzt nach, nicht erst im Ernstfall.",
+        "openPortal": "Zum {name}",
+        "website": "Website der Behörde",
+        "noCountry": "Für Ihr Unternehmen ist noch kein Land hinterlegt. Dann stünde Ihre Behörde hier oben.",
+        "setCountry": "Land eintragen",
+        "others": "Die Behörden der {count} anderen EU-Staaten"
+      },
+      "riskmap": {
+        "byLevel": "Nach Stufe",
+        "editHint": "Tippen Sie auf einen Namen oder ein gefülltes Feld, um die Bewertung hier zu ändern.",
+        "sheetTitle": "{count, plural, one {Bewertung ändern} other {# Bewertungen ändern}}",
+        "sheetDescription": "Wählen Sie ein anderes Feld. Die Karte dahinter folgt sofort, gespeichert wird, wenn Sie weitergehen.",
+        "empty": "Noch ist nichts bewertet. Sie bewerten Ihre Programme, Technik und Lieferanten in Schritt 2.3.",
+        "several": "{count, plural, one {Ein Eintrag hat} other {# Einträge haben}} mehrere Risiken im Risikoregister. Sie stehen nur in der Liste, mit ihrer höchsten Stufe."
+      },
+      "critical": {
+        "empty": "Noch steht kein Ablauf auf Ihrer Liste. Sie tragen Ihre Abläufe in Schritt 2.2 ein."
+      },
+      "thresholds": {
+        "important": "Wichtige Einrichtung",
+        "essential": "Besonders wichtige Einrichtung",
+        "employees": "ab {count} Beschäftigten",
+        "or": "oder",
+        "money": "Umsatz über {turnover} Mio. Euro und Bilanzsumme über {balanceSheet} Mio. Euro",
+        "annex": "Branchen aus Anlage 1 und 2",
+        "annex1": "nur Branchen aus Anlage 1"
+      },
+      "clock": {
+        "fromKnowledge": "ab Kenntnis",
+        "fromNotification": "nach der Meldung",
+        "hours": "{count} Stunden",
+        "days": "{count, plural, one {# Tag} other {# Tage}}",
+        "months": "{count, plural, one {# Monat} other {# Monate}}"
+      },
+      "wait": {
+        "title": "Kein Problem. Was fehlt noch?",
+        "description": "Der Punkt kommt auf Ihre Warteliste. Sie machen mit dem nächsten weiter und kommen zurück, wenn es geht.",
+        "unclear": "Schreiben Sie uns, wir erklären es Ihnen.",
+        "ask": "Frage stellen",
+        "noteLabel": "Notiz für später (freiwillig)",
+        "notePlaceholder": "Zum Beispiel: IT-Dienstleister nach den IP-Adressen fragen",
+        "confirm": "Auf die Warteliste"
+      },
+      "places": {
+        "label": "Im NIS 2 Durchgang"
+      },
+      "home": {
+        "unlock": "Jetzt bestellen",
+        "toJourney": "Weiter im Weg, wie bisher",
+        "price": "{price} netto im Jahr, zzgl. USt. 30 Tage Geld zurück.",
+        "setupSection": "Vorbereitung",
+        "setupHeadline": "Ihr Unternehmen anlegen",
+        "setupLead": "Name und Sektor sind dieselben wie bei der Registrierung. Alles Weitere tragen Sie dort ein, wo es gebraucht wird.",
+        "setupNameHint": "Wie bei der Registrierung, mit Rechtsform. So steht er auch in Ihren Dokumenten.",
+        "setupSectorHint": "Den Sektor geben Sie auch bei der Registrierung an.",
+        "setupEntityTypeHint": "Wie § 28 BSIG Ihr Unternehmen einstuft. Für Telekommunikation, Vertrauensdienste und DNS gelten eigene Schwellen.",
+        "setupEntityTypes": {
+          "essential": "Sektor aus Anlage 1, ab 250 Beschäftigten oder mit mehr als 50 Mio. Euro Umsatz und mehr als 43 Mio. Euro Bilanzsumme.",
+          "important": "Sektor aus Anlage 1 oder 2, ab 50 Beschäftigten oder mit jeweils mehr als 10 Mio. Euro Umsatz und Bilanzsumme.",
+          "kritis": "Sie betreiben eine kritische Anlage."
+        },
+        "open": "Offen",
+        "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
+        "next": "Als Nächstes",
+        "waiting": "Wartet noch",
+        "continue": "NIS 2 Umsetzung fortsetzen",
+        "allFilled": "Alle Punkte sind ausgefüllt.",
+        "allFilledNote": "Ändert sich etwas in Ihrem Unternehmen, öffnen Sie den Punkt und ändern es dort. Ein geändertes Dokument geht noch einmal zur Freigabe an die Geschäftsführung.",
+        "yourWay": "Ihr Weg",
+        "filled": "Wartet auf Freigabe",
+        "declined": "Bewusst nicht umgesetzt",
+        "signed": "Freigegeben",
+        "notApplicable": "Trifft nicht zu",
+        "preview": "So sieht „{step}“ aus",
+        "previewAlt": "Der Schritt „{step}“ am Beispiel einer erfundenen Firma",
+        "continueHere": "Jetzt weitermachen",
+        "forward": {
+          "action": "An die Geschäftsführung weiterleiten",
+          "title": "An die Geschäftsführung weiterleiten",
+          "lead": "Ihre Geschäftsführung bekommt eine Einladung in dieses Konto. Nach der Anmeldung sieht sie auf einer Seite, was der Durchgang ist, welche Dokumente er schreibt und was er kostet, und kann dort bestellen. Die Bestellung gilt für Ihr Unternehmen, ein zweites Konto entsteht nicht.",
+          "name": "Name",
+          "email": "E-Mail",
+          "placeholder": "name@ihre-firma.de",
+          "send": "Einladung senden",
+          "sentTitle": "Einladung an {name} verschickt",
+          "sentText": "Sobald die Einladung an {email} angenommen ist, gehört Ihre Geschäftsführung zu diesem Konto und kann bestellen. Sie selbst müssen dafür nichts weiter tun.",
+          "notEmailed": "Die Einladung ist angelegt, aber die E-Mail konnte nicht verschickt werden.",
+          "close": "Fertig",
+          "refused": {
+            "member": "Diese Adresse gehört schon zu Ihrem Team.",
+            "limit": "Heute sind aus Ihrem Konto schon mehrere Einladungen verschickt worden. Morgen geht es wieder.",
+            "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
+          }
+        }
+      },
+      "intro": {
+        "eyebrow": "NIS 2 für den Mittelstand",
+        "title": "Sie sind hier richtig.",
+        "lead": "Sie sollen sich um NIS 2 kümmern und wissen nicht, wo Sie anfangen? Das geht fast allen so. Wir gehen es mit Ihnen durch, Punkt für Punkt.",
+        "points": [
+          {
+            "title": "Eins nach dem anderen",
+            "text": "Sie sehen immer nur einen Punkt. Wir erklären ihn, bevor Sie etwas eintragen."
+          },
+          {
+            "title": "Die Vorgaben des BSI",
+            "text": "Wo das BSI eine Methode empfiehlt, zeigen wir sie Ihnen. Sie entscheiden, ob Sie sie übernehmen."
+          },
+          {
+            "title": "Offen lassen ist erlaubt",
+            "text": "Was noch nicht geht, legen Sie zur Seite und machen mit dem nächsten Punkt weiter."
+          },
+          {
+            "title": "Am Ende eine Unterschrift",
+            "text": "Die Geschäftsführung sieht alles durch und unterschreibt."
+          }
+        ],
+        "start": "Los geht's"
+      }
+    }
+  }
+}

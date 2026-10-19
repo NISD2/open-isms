@@ -1,5 +1,6 @@
 import "@/lib/server-guard";
 import { z } from "zod";
+import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import { logAudit } from "@/lib/audit";
 import { isReviewerRole } from "@/lib/auth/roles";
 import { signedOffByModule } from "@/lib/compliance/module-recheck";
@@ -7,9 +8,6 @@ import { db } from "@/lib/db";
 import { type AnyItem, resolveItem, WALK, type WalkLocale } from "@/lib/durchgang";
 import { UPLOAD_ENCRYPTION } from "@/lib/storage";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
-import cs from "@/messages/durchgang/cs.json";
-import de from "@/messages/durchgang/de.json";
-import en from "@/messages/durchgang/en.json";
 import { enforceAssignment } from "@/server/trpc/guards";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
@@ -41,9 +39,9 @@ import {
 
 /** The walk's words per language: the `durchgang` namespace, as the page reads it. */
 const COPY = {
-  de: de.durchgang,
-  en: en.durchgang,
-  cs: cs.durchgang,
+  de: DURCHGANG_MESSAGES.de.durchgang,
+  en: DURCHGANG_MESSAGES.en.durchgang,
+  cs: DURCHGANG_MESSAGES.cs.durchgang,
 } as const satisfies Record<WalkLocale, unknown>;
 
 /** Rows one call may add: enough for a register, small enough to read back. */

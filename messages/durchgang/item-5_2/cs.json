@@ -1,0 +1,54 @@
+{
+  "durchgang": {
+    "items": {
+      "5_2": {
+        "headline": "Zaznamenejte, co máte s dodavateli sjednáno",
+        "teaser": "U každého dodavatele: co říká smlouva o bezpečnosti?",
+        "missed": [
+          "Zpracovává-li za vás poskytovatel osobní údaje, část toho už upravuje smlouva o zpracování osobních údajů: musí přijmout opatření podle čl. 32 GDPR a ohlásit vám porušení zabezpečení osobních údajů bez zbytečného odkladu (čl. 28 odst. 3 písm. c) a čl. 33 odst. 2 GDPR). Kybernetický bezpečnostní incident, který se osobních údajů netýká, tím pokrytý není.",
+          "Velcí poskytovatelé smlouvy vyjednávají jen zřídka. Pak rozhodují jejich obchodní podmínky. Než zvolíte „Nic z toho není sjednáno“, přečtěte si je."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Co je s kým sjednáno",
+            "body": [
+              "Vaši dodavatelé jsou v seznamu a u každého jste ohodnotili riziko. Teď jde o samotný vztah: co je s každým z nich sjednáno, aby pro vás pracoval bezpečně?",
+              "Při uzavírání smlouvy s dodavatelem do stanoveného rozsahu zohledníte hrozby a zranitelnosti spojené s tímto dodavatelem a celkovou kvalitu jeho produktů a postupů v kybernetické bezpečnosti, včetně bezpečného vývoje (vyhláška č. 410/2025 Sb., § 3 odst. 5); v režimu vyšších povinností u významných dodavatelů hodnotíte rizika před uzavřením smlouvy (vyhláška č. 409/2025 Sb., § 9 odst. 2 písm. a)). V českém právu je smlouva povinná: zavádíte-li bezpečnostní opatření prostřednictvím dodavatele, musíte požadavky z něj vyplývající zahrnout do smlouvy (§ 13 odst. 5 zákona č. 264/2025 Sb.). Co má smlouva podle potřeby upravit, vyjmenovává příloha č. 2 vyhlášky 410; pro významné dodavatele v režimu vyšších povinností příloha č. 5 vyhlášky č. 409/2025 Sb. (§ 9 odst. 1 písm. f)). Omezit dodavateli přístup se vyplatí také, smlouvu to ale nenahradí."
+            ],
+            "duty": "Zavádíte-li bezpečnostní opatření prostřednictvím dodavatele, zákon požaduje vybírat dodavatele podle požadavků tohoto opatření a zahrnout tyto požadavky do smlouvy s ním (§ 13 odst. 5 zákona č. 264/2025 Sb.)."
+          },
+          "clause": {
+            "title": "Jak mohou taková ujednání vypadat",
+            "caption": "Smyšlený příklad ze servisní smlouvy s poskytovatelem IT služeb:",
+            "rows": [
+              {
+                "name": "Bezpečnostní opatření",
+                "detail": "Poskytovatel chrání přístup k našim systémům podle současného stavu techniky a uděluje jej jen pracovníkům, kteří ho k práci potřebují."
+              },
+              {
+                "name": "Incidenty",
+                "detail": "Bez zbytečného odkladu nás informuje o každém kybernetickém bezpečnostním incidentu, který může zasáhnout naše systémy nebo data, a pomáhá nám ho zvládnout."
+              },
+              {
+                "name": "Aktualizace",
+                "detail": "Bezpečnostní aktualizace pro systémy, které spravuje, instaluje neprodleně a upozorní nás, když systém přestane dostávat aktualizace."
+              }
+            ],
+            "note": "Tyto tři ukázky pokrývají jen část toho, co vyhlášky vyjmenovávají (příloha č. 2 písm. k) a část písm. a) a m)). Příloha č. 2 vyhlášky č. 410/2025 Sb. uvádí 14 druhů ustanovení, která smlouva obsahuje, jsou-li pro daného dodavatele relevantní: bezpečnost informací (důvěrnost včetně mlčenlivosti, integrita, dostupnost), audit dodavatele, řetězení dodavatelů, exit strategie, sankce za porušení smluvních povinností, oprávnění užívat data, autorství programového kódu a licence, důvěrnost smluvního vztahu, dodržování vašich bezpečnostních politik, řízení změn, kybernetické bezpečnostní incidenty, kontinuita činností, SLA a úroveň bezpečnostních opatření, bezpečný vývoj. Příloha č. 5 vyhlášky č. 409/2025 Sb. uvádí pro významné dodavatele 18 druhů, navíc mimo jiné povinnost dodavatele informovat o změně ovládání a o žádosti cizozemského orgánu o data, formát předání dat, likvidaci dat a právo odstoupit od smlouvy při významné změně kontroly nad dodavatelem. Vyhlášky určují témata, ne přesné znění."
+          },
+          "contracts": {
+            "title": "Co má každý sjednáno",
+            "lead": "Zaškrtněte, co upravuje smlouva, smlouva o zpracování osobních údajů nebo obchodní podmínky. U každého jména je vaše hodnocení z posouzení rizik.",
+            "security": "Bezpečnostní požadavky, například na přístup a aktualizace",
+            "incidents": "Povinnost hlásit vám kybernetické bezpečnostní incidenty",
+            "none": "Nic z toho není sjednáno"
+          },
+          "done": {
+            "title": "Vaše ujednání jsou zaznamenána",
+            "note": "Chybějící požadavky do smlouvy doplňte, například dodatkem nebo při příštím prodloužení: vždy u dodavatelů, přes které zavádíte bezpečnostní opatření (§ 13 odst. 5 zákona), v režimu nižších povinností u každého dodavatele do stanoveného rozsahu (vyhláška č. 410/2025 Sb., § 3 odst. 5), v režimu vyšších povinností u významných dodavatelů (vyhláška č. 409/2025 Sb., § 9 odst. 1 písm. f)). U ostatních rozhodnete sami, zda to otevřete."
+          }
+        }
+      }
+    }
+  }
+}

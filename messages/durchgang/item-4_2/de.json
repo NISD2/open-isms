@@ -1,0 +1,136 @@
+{
+  "durchgang": {
+    "items": {
+      "4_2": {
+        "headline": "Den Notfallplan für den Betrieb schreiben",
+        "teaser": "Wie Sie weiterarbeiten, wenn etwas ausfällt, und wer dann entscheidet.",
+        "missed": [
+          "Notbetrieb heißt nicht, dass alles läuft wie immer. Das BSI nennt für den Einstieg Ersatzabläufe wie Bestellungen von Hand und Dokumentation auf Papier (Einstieg in das BCM für KMU).",
+          "Der Plan hilft nur, wenn er im Ernstfall greifbar ist. Liegt er allein auf dem Server, ist er mit dem Server weg. Bewahren Sie eine gedruckte Fassung auf, eine davon außerhalb des Gebäudes."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wenn der Betrieb steht",
+            "body": [
+              "Der Notfallplan für IT-Sicherheitsvorfälle sagt, wer bei einem Angriff anruft und entscheidet. Dieser Plan geht weiter: Er gilt für alles, was wichtige Arbeit unterbricht, auch Feuer, Wasser, Stromausfall oder den Ausfall eines wichtigen Dienstleisters. Er sagt, wie Sie weiterarbeiten, wer die Systeme wiederherstellt und wer die Krise leitet.",
+              "Für den Einstieg empfiehlt das BSI kleineren Unternehmen einen Plan, der den Betrieb auf einem Mindestniveau fortsetzt: Ersatzabläufe, Ersatzorte und die Information von Beschäftigten, Lieferanten und Kunden. Unsere Vorlage enthält diese Punkte."
+            ],
+            "duty": "Das Gesetz verlangt Maßnahmen, die den Betrieb aufrechterhalten, etwa Datensicherung und Wiederherstellung nach einem Notfall, und ein Krisenmanagement."
+          },
+          "fallback": {
+            "title": "Weiterarbeiten ohne IT",
+            "caption": "Eine Zeile Notbetrieb",
+            "good": {
+              "value": "Aufträge nehmen wir per Telefon und auf Papierformularen an, bis die Warenwirtschaft wieder läuft.",
+              "note": "Ein Ersatzablauf, wie ihn das BSI für den Einstieg nennt: Bestellungen von Hand, Dokumentation auf Papier."
+            },
+            "bad": {
+              "value": "Wir warten, bis die IT wieder geht.",
+              "note": "Bis dahin gehen keine Aufträge ein, und niemand weiß, wie lange das dauert."
+            }
+          },
+          "keep": {
+            "title": "Was weiterlaufen muss",
+            "lead": "Das sind die Abläufe von Ihrer Liste. Fragen Sie bei jedem: Wäre die IT einen ganzen Tag weg, könnten wir einfach warten, oder litten Kunden, Sicherheit oder eine Frist? Kreuzen Sie an, was nicht warten kann, und schreiben Sie in einem Satz dazu, wie es weitergeht. Beides steht dann in Ihrem Plan.",
+            "keep": "Muss weiterlaufen",
+            "how": "So geht es ohne IT weiter",
+            "example": "zum Beispiel: Aufträge per Telefon und auf Papierformularen",
+            "suggestions": [
+              "auf Papierformularen",
+              "per Telefon",
+              "nach einer gedruckten Liste",
+              "von Hand, später nachgetragen",
+              "von einem anderen Standort",
+              "der Dienstleister übernimmt"
+            ]
+          },
+          "plan": {
+            "title": "Ihr Notfallplan für den Betrieb",
+            "lead": "Die Vorlage enthält feste Abschnitte zu Leitung, Notbetrieb, Wiederherstellung und Information. Ihr Firmenname, die Person, die im Ernstfall führt (aus Schritt 3.1), die Abläufe, die weiterlaufen müssen, und die Reihenfolge aus Ihrer Risikobewertung stehen schon darin. Lesen Sie ihn, und ergänzen Sie darunter, was bei Ihnen gilt.",
+            "document": {
+              "title": "Notfallplan für den Betrieb der {company}",
+              "sections": [
+                {
+                  "heading": "Zweck und Geltungsbereich",
+                  "text": "Dieser Plan legt fest, wie die {company} weiterarbeitet, wenn ein Ereignis wichtige Arbeit unterbricht: ein Cyberangriff, ein Ausfall von IT oder Internet, Feuer, Wasser, Stromausfall oder der Ausfall eines wichtigen Dienstleisters. Er ergänzt den Notfallplan für IT-Sicherheitsvorfälle, der die Alarmierung und die ersten Schritte regelt."
+                },
+                {
+                  "heading": "Wann dieser Plan gilt",
+                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als die übliche Störungsbehebung braucht, oder wenn das droht. Im Zweifel entscheidet {emergencyLead}."
+                },
+                {
+                  "heading": "Leitung",
+                  "text": "{emergencyLead}, die Person, die auch nach dem Notfallplan für IT-Sicherheitsvorfälle führt, leitet die Bewältigung, holt die nötigen Personen dazu, entscheidet und hält jede Entscheidung mit Uhrzeit fest. Entscheidungen über Geld, Kunden und Personal trifft sie gemeinsam mit der Geschäftsführung. Ist {emergencyLead} nicht erreichbar, übernimmt die Geschäftsführung."
+                },
+                {
+                  "heading": "Alarmierung und Kontakte",
+                  "text": "Wen wir anrufen und wie wir uns erreichen, wenn die IT ausfällt, steht im Notfallplan für IT-Sicherheitsvorfälle, mit der Telefonliste auf Papier."
+                },
+                {
+                  "heading": "Notbetrieb",
+                  "text": "Diese Abläufe müssen weiterlaufen, auch ohne IT, und so gehen sie weiter: {criticalProcesses}"
+                },
+                {
+                  "heading": "Wiederherstellung",
+                  "text": "Unser IT-Dienstleister oder unsere eigene IT stellt die Systeme aus den Datensicherungen wieder her. Ein System geht erst wieder in Betrieb, wenn es geprüft ist. Die Reihenfolge folgt dem Schaden aus unserer Risikobewertung, der größte zuerst: {recoveryOrder}. Im Ernstfall kann die Leitung anders entscheiden."
+                },
+                {
+                  "heading": "Informieren",
+                  "text": "{emergencyLead} oder jemand, den diese Person benennt, informiert Beschäftigte, Lieferanten und Kunden. Meldungen an das BSI laufen nach dem Notfallplan für IT-Sicherheitsvorfälle."
+                },
+                {
+                  "heading": "Zurück zum Normalbetrieb",
+                  "text": "{emergencyLead} erklärt den Notfall für beendet. Wir halten fest, was geschehen ist, und passen diesen Plan an."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "targets",
+                  "label": "Wiederherstellungsziele",
+                  "heading": "Wiederherstellungsziele",
+                  "text": "Für die wichtigsten Systeme legen wir fest, wie lange sie höchstens ausfallen dürfen und wie viele Daten höchstens verloren gehen dürfen. Die Werte stehen bei den Systemen in unserer Liste."
+                },
+                {
+                  "id": "practice",
+                  "label": "Jährliche Übung",
+                  "heading": "Übung",
+                  "text": "Einmal im Jahr spielen wir einen Ausfall am Tisch durch und prüfen, ob wir alle Beteiligten erreichen."
+                },
+                {
+                  "id": "workplace",
+                  "label": "Ausweicharbeitsplatz",
+                  "heading": "Ausweicharbeitsplatz",
+                  "text": "Ist das Büro nicht nutzbar, arbeiten wir mobil oder an einem Ausweichort weiter."
+                },
+                {
+                  "id": "power",
+                  "label": "Stromausfall",
+                  "heading": "Stromausfall",
+                  "text": "Für einen Stromausfall ist festgelegt, welche Geräte weiterlaufen müssen und wer über Notstrom entscheidet."
+                },
+                {
+                  "id": "providers",
+                  "label": "Dienstleister im Notfall",
+                  "heading": "Dienstleister im Notfall",
+                  "text": "Mit unseren wichtigen Dienstleistern haben wir abgesprochen, wie wir sie im Notfall erreichen und was sie dann für uns tun."
+                },
+                {
+                  "id": "paper",
+                  "label": "Gedruckte Fassung",
+                  "heading": "Gedruckte Fassung",
+                  "text": "Eine gedruckte Fassung dieses Plans liegt außerhalb des Gebäudes."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihr Notfallplan für den Betrieb ist geschrieben",
+            "note": "Legen Sie eine Fassung, die ohne IT funktioniert, neben den Notfallplan für IT-Sicherheitsvorfälle, zum Beispiel auf Papier."
+          }
+        }
+      }
+    }
+  }
+}
