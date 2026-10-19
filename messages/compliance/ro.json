@@ -323,76 +323,16 @@
         "threatLandscape": "Furnizorii de GPAI care nu respecta obligatiile de transparenta sunt supusi direct masurilor de aplicare ale Oficiului UE pentru IA, cu amenzi conform art. 101.",
         "bsiGuidance": ""
       },
-      "CRA-MFG": {
-        "name": "Obligatiile producatorului",
-        "description": "Evaluarea riscurilor de securitate cibernetica pentru fiecare produs si aprobarea organului de conducere inainte de introducerea produsului pe piata UE.",
-        "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Producatorii care livreaza fara o evaluare documentata a riscurilor nu au nicio aparare atunci cand apar vulnerabilitati exploatate activ.",
-        "bsiGuidance": ""
-      },
-      "CRA-ESS": {
-        "name": "Cerinte esentiale de securitate cibernetica",
-        "description": "Conformitatea cu Anexa I Partea I: nicio vulnerabilitate exploatabila cunoscuta la introducerea pe piata, sigur in mod implicit, protectia confidentialitatii, integritatii si disponibilitatii datelor.",
-        "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Produsele care nu respecta cerintele esentiale nu pot ramane legal pe piata UE si declanseaza nivelul cel mai ridicat de sanctiuni.",
-        "bsiGuidance": ""
-      },
-      "CRA-VLN": {
-        "name": "Tratarea vulnerabilitatilor",
-        "description": "Tratarea documentata a vulnerabilitatilor, politica de divulgare coordonata, actualizari de securitate fara intarziere si divulgarea publica a vulnerabilitatilor remediate.",
-        "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Furnizorii fara un proces de tratare a vulnerabilitatilor nu pot respecta cascada de raportare de 24h / 72h / 14 zile si devin raspunzatori pentru incidentele din aval.",
-        "bsiGuidance": ""
-      },
-      "CRA-INC": {
-        "name": "Raportarea exploatarii active",
-        "description": "Avertizare timpurie in 24 de ore catre ENISA si CSIRT, notificare in 72 de ore, raport final in 14 zile pentru vulnerabilitatile exploatate activ si incidentele grave.",
-        "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Termenele de raportare ratate (altele decat termenul de 24h pentru IMM-uri) declanseaza nivelul cel mai ridicat de sanctiuni si competentele de rechemare a produselor.",
-        "bsiGuidance": ""
-      },
-      "CRA-CONF": {
-        "name": "Evaluarea conformitatii",
-        "description": "Calea de evaluare a conformitatii pe clasa de produs (autoevaluare Modulul A, Modulul B+C cu organism notificat sau Modulul H sistem al calitatii), urmata de marcajul CE.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
-        "threatLandscape": "Produsele fara o evaluare valida a conformitatii nu pot fi introduse pe piata UE incepand cu 11 decembrie 2027.",
-        "bsiGuidance": ""
-      },
-      "CRA-DOC": {
-        "name": "Documentatie tehnica",
-        "description": "Mentineti documentatia tehnica conform Anexei VII pentru fiecare produs introdus pe piata UE.",
-        "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Documentatia tehnica lipsa sau incompleta blocheaza verificarea de supraveghere a pietei si declanseaza retragerea produsului.",
-        "bsiGuidance": ""
-      },
-      "CRA-SUP": {
-        "name": "Perioada de asistenta",
-        "description": "Angajati-va public la o perioada de asistenta pentru actualizari de securitate (in mod implicit cinci ani sau durata de viata preconizata a produsului, oricare dintre acestea este mai lunga).",
-        "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "Neacordarea asistentei pe intreaga perioada expune producatorul la pretentii din partea clientilor blocati cu produse nesigure.",
-        "bsiGuidance": ""
-      },
-      "CRA-SBOM": {
-        "name": "Lista materialelor software",
-        "description": "Generati si mentineti o lista a materialelor software care poate fi citita automat pentru fiecare produs introdus pe piata UE.",
-        "legalBasis": "Annex I Part II §1 EU CRA",
-        "threatLandscape": "Fara un SBOM, producatorii nu pot identifica ce produse contin o componenta vulnerabila si rateaza fereastra de raportare de la art. 14.",
-        "bsiGuidance": ""
-      },
-      "CRA-IMP": {
-        "name": "Importator si distribuitor",
-        "description": "Importatorii verifica conformitatea producatorului inainte de introducerea pe piata; distribuitorii efectueaza diligenta necesara privind marcajele de conformitate.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Importatorii si distribuitorii care omit verificarea preiau raspunderea producatorului conform art. 22.",
-        "bsiGuidance": ""
-      },
-      "CRA-OSS": {
-        "name": "Administrator de software cu sursa deschisa",
-        "description": "Administratorii de software cu sursa deschisa adopta o politica de securitate cibernetica, o divulgare coordonata a vulnerabilitatilor si raporteaza vulnerabilitatile exploatate activ.",
-        "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "Administratorii de software cu sursa deschisa sunt scutiti de sanctiuni conform art. 64(10), dar utilizatorii comerciali din aval depind in continuare de raportarea lor.",
-        "bsiGuidance": ""
-      },
+      "CRA-MFG": { "name": "Obligatiile producatorului" },
+      "CRA-ESS": { "name": "Cerinte esentiale de securitate cibernetica" },
+      "CRA-VLN": { "name": "Tratarea vulnerabilitatilor" },
+      "CRA-INC": { "name": "Raportarea exploatarii active" },
+      "CRA-CONF": { "name": "Evaluarea conformitatii" },
+      "CRA-DOC": { "name": "Documentatie tehnica" },
+      "CRA-SUP": { "name": "Perioada de asistenta" },
+      "CRA-SBOM": { "name": "Lista materialelor software" },
+      "CRA-IMP": { "name": "Importator si distribuitor" },
+      "CRA-OSS": { "name": "Administrator de software cu sursa deschisa" },
       "DPO": {
         "name": "Responsabil cu protecția datelor",
         "description": "Evaluarea obligației de desemnare în temeiul §38 BDSG și al art. 37 din GDPR, precum și funcția și sarcinile persoanei desemnate",

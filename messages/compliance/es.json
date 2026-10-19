@@ -323,76 +323,16 @@
         "threatLandscape": "Los proveedores de GPAI que incumplen las obligaciones de transparencia se enfrentan directamente a la aplicación coercitiva de la Oficina de IA de la UE, con multas conforme al Art. 101.",
         "bsiGuidance": ""
       },
-      "CRA-MFG": {
-        "name": "Obligaciones del fabricante",
-        "description": "Evaluación y gestión de riesgos de ciberseguridad por producto y aprobación del órgano de dirección antes de introducir el producto en el mercado de la UE.",
-        "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Los fabricantes que comercializan sin una evaluación de riesgos documentada carecen de defensa cuando salen a la luz vulnerabilidades activamente explotadas.",
-        "bsiGuidance": ""
-      },
-      "CRA-ESS": {
-        "name": "Requisitos esenciales de ciberseguridad",
-        "description": "Cumplimiento del Anexo I Parte I: ninguna vulnerabilidad explotable conocida en el momento de la introducción en el mercado, seguro por defecto, protección de la confidencialidad, integridad y disponibilidad de los datos.",
-        "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Los productos que no cumplen los requisitos esenciales no pueden permanecer legalmente en el mercado de la UE y activan el nivel de sanción más alto.",
-        "bsiGuidance": ""
-      },
-      "CRA-VLN": {
-        "name": "Gestión de vulnerabilidades",
-        "description": "Gestión documentada de vulnerabilidades, política de divulgación coordinada, actualizaciones de seguridad sin demora y divulgación pública de las vulnerabilidades corregidas.",
-        "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Los proveedores sin un proceso de gestión de vulnerabilidades no pueden cumplir la cascada de notificación de 24 h / 72 h / 14 días y se hacen responsables de los incidentes posteriores.",
-        "bsiGuidance": ""
-      },
-      "CRA-INC": {
-        "name": "Notificación de explotación activa",
-        "description": "Alerta temprana de 24 horas a ENISA y al CSIRT, notificación de 72 horas e informe final de 14 días para las vulnerabilidades activamente explotadas y los incidentes graves.",
-        "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "El incumplimiento de los plazos de notificación (salvo el plazo de 24 h para las pymes) activa el nivel de sanción más alto y las facultades de retirada del producto.",
-        "bsiGuidance": ""
-      },
-      "CRA-CONF": {
-        "name": "Evaluación de la conformidad",
-        "description": "Vía de evaluación de la conformidad por clase de producto (autoevaluación Módulo A, Módulo B+C con organismo notificado o Módulo H sistema de calidad) seguida del marcado CE.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
-        "threatLandscape": "Los productos sin una evaluación de la conformidad válida no podrán introducirse en el mercado de la UE a partir del 11 de diciembre de 2027.",
-        "bsiGuidance": ""
-      },
-      "CRA-DOC": {
-        "name": "Documentación técnica",
-        "description": "Mantener la documentación técnica del Anexo VII para cada producto introducido en el mercado de la UE.",
-        "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Una documentación técnica ausente o incompleta bloquea la verificación de la vigilancia del mercado y activa la retirada del producto.",
-        "bsiGuidance": ""
-      },
-      "CRA-SUP": {
-        "name": "Periodo de soporte",
-        "description": "Comprometerse públicamente a un periodo de soporte de actualizaciones de seguridad (por defecto cinco años o la vida útil prevista del producto, el que sea más largo).",
-        "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "No dar soporte durante todo el periodo expone al fabricante a reclamaciones de los clientes que quedan atrapados con productos inseguros.",
-        "bsiGuidance": ""
-      },
-      "CRA-SBOM": {
-        "name": "Lista de materiales de software",
-        "description": "Generar y mantener una lista de materiales de software legible por máquina para cada producto introducido en el mercado de la UE.",
-        "legalBasis": "Annex I Part II §1 EU CRA",
-        "threatLandscape": "Sin un SBOM, los fabricantes no pueden rastrear qué productos contienen un componente vulnerable e incumplen el plazo de notificación del Art. 14.",
-        "bsiGuidance": ""
-      },
-      "CRA-IMP": {
-        "name": "Importador y distribuidor",
-        "description": "Los importadores verifican el cumplimiento del fabricante antes de la introducción en el mercado; los distribuidores ejercen la diligencia debida sobre los marcados de conformidad.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Los importadores y distribuidores que omiten la verificación heredan la responsabilidad del fabricante conforme al Art. 22.",
-        "bsiGuidance": ""
-      },
-      "CRA-OSS": {
-        "name": "Administrador de código abierto",
-        "description": "Los administradores de software de código abierto adoptan una política de ciberseguridad, una divulgación coordinada de vulnerabilidades y notifican las vulnerabilidades activamente explotadas.",
-        "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "Los administradores de OSS están exentos de sanciones conforme al Art. 64(10), pero los usuarios comerciales posteriores siguen dependiendo de sus notificaciones.",
-        "bsiGuidance": ""
-      },
+      "CRA-MFG": { "name": "Obligaciones del fabricante" },
+      "CRA-ESS": { "name": "Requisitos esenciales de ciberseguridad" },
+      "CRA-VLN": { "name": "Gestión de vulnerabilidades" },
+      "CRA-INC": { "name": "Notificación de explotación activa" },
+      "CRA-CONF": { "name": "Evaluación de la conformidad" },
+      "CRA-DOC": { "name": "Documentación técnica" },
+      "CRA-SUP": { "name": "Periodo de soporte" },
+      "CRA-SBOM": { "name": "Lista de materiales de software" },
+      "CRA-IMP": { "name": "Importador y distribuidor" },
+      "CRA-OSS": { "name": "Administrador de código abierto" },
       "DPO": {
         "name": "Delegado de protección de datos",
         "description": "Evaluación de la obligación de designación conforme al §38 BDSG y al art. 37 del GDPR, y posición y funciones de la persona designada",

@@ -222,7 +222,7 @@ export const craNis2SatisfactionPairs: SatisfactionPair[] = [
   [
     "CRA-VLN.3",
     "6.4",
-    "Security updates without delay align with the NIS2 patch management cadence.",
+    "The maker issues updates; 6.4 has the entity install them. No shared record.",
   ],
   [
     "CRA-INC.1",
@@ -281,7 +281,7 @@ export const craAiActSatisfactionPairs: SatisfactionPair[] = [
   [
     "CRA-DOC.1",
     "AI-DOC.2",
-    "Annex VII technical documentation includes the logging and traceability evidence Art. 12 AI Act requires.",
+    "Annex VII holds no logging evidence; the AI Act Art. 12 logs are a capability of the system itself.",
   ],
 ];
 

@@ -323,76 +323,16 @@
         "threatLandscape": "Dostawcy GPAI, którzy nie spełniają obowiązków w zakresie przejrzystości, podlegają bezpośrednio egzekwowaniu przez Urząd ds. AI UE, z karami zgodnie z art. 101.",
         "bsiGuidance": ""
       },
-      "CRA-MFG": {
-        "name": "Obowiązki producenta",
-        "description": "Ocena i zarządzanie ryzykiem cyberbezpieczeństwa dla każdego produktu oraz zatwierdzenie przez organ zarządzający przed wprowadzeniem produktu na rynek UE.",
-        "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Producenci, którzy dostarczają produkt bez udokumentowanej oceny ryzyka, nie mają obrony, gdy ujawnią się aktywnie wykorzystywane podatności.",
-        "bsiGuidance": ""
-      },
-      "CRA-ESS": {
-        "name": "Zasadnicze wymagania cyberbezpieczeństwa",
-        "description": "Zgodność z Załącznikiem I Część I: brak znanych podatnych na wykorzystanie luk w chwili wprowadzenia na rynek, bezpieczne domyślnie, ochrona poufności, integralności i dostępności danych.",
-        "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Produkty, które nie spełniają wymagań zasadniczych, nie mogą legalnie pozostać na rynku UE i uruchamiają najwyższy poziom kar.",
-        "bsiGuidance": ""
-      },
-      "CRA-VLN": {
-        "name": "Obsługa podatności",
-        "description": "Udokumentowana obsługa podatności, polityka skoordynowanego ujawniania, aktualizacje zabezpieczeń bez zbędnej zwłoki oraz publiczne ujawnianie usuniętych podatności.",
-        "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Dostawcy bez procesu obsługi podatności nie są w stanie dotrzymać kaskady raportowania 24h / 72h / 14 dni i ponoszą odpowiedzialność za incydenty u odbiorców.",
-        "bsiGuidance": ""
-      },
-      "CRA-INC": {
-        "name": "Zgłaszanie aktywnego wykorzystywania",
-        "description": "24-godzinne wczesne ostrzeżenie do ENISA i CSIRT, 72-godzinne zgłoszenie, 14-dniowy raport końcowy dla aktywnie wykorzystywanych podatności i poważnych incydentów.",
-        "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Niedotrzymane terminy raportowania (inne niż 24-godzinny termin dla MŚP) uruchamiają najwyższy poziom kar oraz uprawnienia do wycofania produktu.",
-        "bsiGuidance": ""
-      },
-      "CRA-CONF": {
-        "name": "Ocena zgodności",
-        "description": "Ścieżka oceny zgodności w zależności od klasy produktu (samoocena Moduł A, Moduł B+C z jednostką notyfikowaną lub Moduł H system jakości), a następnie oznakowanie CE.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
-        "threatLandscape": "Produkty bez ważnej oceny zgodności nie mogą zostać wprowadzone na rynek UE od 11 grudnia 2027 r.",
-        "bsiGuidance": ""
-      },
-      "CRA-DOC": {
-        "name": "Dokumentacja techniczna",
-        "description": "Prowadź dokumentację techniczną z Załącznika VII dla każdego produktu wprowadzonego na rynek UE.",
-        "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Brakująca lub niekompletna dokumentacja techniczna blokuje weryfikację przez nadzór rynku i uruchamia wycofanie produktu.",
-        "bsiGuidance": ""
-      },
-      "CRA-SUP": {
-        "name": "Okres wsparcia",
-        "description": "Publicznie zobowiąż się do okresu wsparcia aktualizacjami zabezpieczeń (domyślnie pięć lat lub oczekiwany okres życia produktu, zależnie od tego, który jest dłuższy).",
-        "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "Brak wsparcia przez cały okres naraża producenta na roszczenia klientów pozostawionych z niezabezpieczonymi produktami.",
-        "bsiGuidance": ""
-      },
-      "CRA-SBOM": {
-        "name": "Wykaz materiałów oprogramowania (SBOM)",
-        "description": "Generuj i utrzymuj odczytywalny maszynowo wykaz materiałów oprogramowania (SBOM) dla każdego produktu wprowadzonego na rynek UE.",
-        "legalBasis": "Annex I Part II §1 EU CRA",
-        "threatLandscape": "Bez SBOM producenci nie są w stanie ustalić, które produkty zawierają podatny komponent, i nie dotrzymują okna raportowania z art. 14.",
-        "bsiGuidance": ""
-      },
-      "CRA-IMP": {
-        "name": "Importer i dystrybutor",
-        "description": "Importerzy weryfikują zgodność producenta przed wprowadzeniem na rynek; dystrybutorzy przeprowadzają należytą staranność w zakresie oznakowań zgodności.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Importerzy i dystrybutorzy, którzy pominą weryfikację, przejmują odpowiedzialność producenta zgodnie z art. 22.",
-        "bsiGuidance": ""
-      },
-      "CRA-OSS": {
-        "name": "Opiekun oprogramowania open source",
-        "description": "Opiekunowie oprogramowania open source przyjmują politykę cyberbezpieczeństwa, skoordynowane ujawnianie podatności oraz zgłaszają aktywnie wykorzystywane podatności.",
-        "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "Opiekunowie OSS są zwolnieni z kar na podstawie art. 64(10), lecz komercyjni użytkownicy końcowi nadal zależą od ich zgłoszeń.",
-        "bsiGuidance": ""
-      },
+      "CRA-MFG": { "name": "Obowiązki producenta" },
+      "CRA-ESS": { "name": "Zasadnicze wymagania cyberbezpieczeństwa" },
+      "CRA-VLN": { "name": "Obsługa podatności" },
+      "CRA-INC": { "name": "Zgłaszanie aktywnego wykorzystywania" },
+      "CRA-CONF": { "name": "Ocena zgodności" },
+      "CRA-DOC": { "name": "Dokumentacja techniczna" },
+      "CRA-SUP": { "name": "Okres wsparcia" },
+      "CRA-SBOM": { "name": "Wykaz materiałów oprogramowania (SBOM)" },
+      "CRA-IMP": { "name": "Importer i dystrybutor" },
+      "CRA-OSS": { "name": "Opiekun oprogramowania open source" },
       "DPO": {
         "name": "Inspektor ochrony danych",
         "description": "Ocena obowiązku wyznaczenia na podstawie §38 BDSG i art. 37 GDPR oraz status i zadania osoby wyznaczonej",

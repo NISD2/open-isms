@@ -297,72 +297,72 @@
       },
       "CRA-MFG": {
         "name": "Herstellerpflichten",
-        "description": "Cyberrisikobewertung je Produkt und Freigabe durch die Geschäftsleitung vor dem Inverkehrbringen auf dem EU-Markt.",
+        "description": "Eine Bewertung der Cybersicherheitsrisiken für jedes Produkt, bevor es auf dem EU-Markt in Verkehr gebracht wird, dokumentiert und während des Unterstützungszeitraums nach Bedarf aktualisiert (Art. 13 Abs. 2, 3).",
         "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Hersteller, die ohne dokumentierte Risikobewertung ausliefern, stehen ohne Verteidigung da, wenn aktiv ausgenutzte Schwachstellen auftauchen.",
+        "threatLandscape": "Die Bewertung gehört zur technischen Dokumentation des Produkts (Art. 13 Abs. 4).",
         "bsiGuidance": ""
       },
       "CRA-ESS": {
         "name": "Grundlegende Cybersicherheitsanforderungen",
         "description": "Einhaltung von Anhang I Teil I: keine bekannten ausnutzbaren Schwachstellen beim Inverkehrbringen, sichere Voreinstellungen, Schutz von Vertraulichkeit, Integrität und Verfügbarkeit der Daten.",
-        "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Produkte, die die grundlegenden Anforderungen verfehlen, dürfen nicht auf dem EU-Markt bleiben und lösen die höchste Bußgeldstufe aus.",
+        "legalBasis": "Anhang I Teil I EU CRA",
+        "threatLandscape": "Ein Produkt darf nur auf dem Markt bereitgestellt werden, wenn es Anhang I Teil I erfüllt und die Verfahren des Herstellers Teil II erfüllen (Art. 6).",
         "bsiGuidance": ""
       },
       "CRA-VLN": {
         "name": "Schwachstellenmanagement",
         "description": "Dokumentierte Schwachstellenbehandlung, koordinierte Offenlegung, Sicherheitsupdates ohne Verzögerung und öffentliche Bekanntgabe behobener Schwachstellen.",
-        "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Anbieter ohne Schwachstellenprozess können die Meldekaskade von 24 Stunden, 72 Stunden und 14 Tagen nicht einhalten und haften für Folgevorfälle.",
+        "legalBasis": "Anhang I Teil II EU CRA",
+        "threatLandscape": "Die Meldepflichten nach Art. 14, die seit dem 11. September 2026 gelten, bauen auf diesem Verfahren auf.",
         "bsiGuidance": ""
       },
       "CRA-INC": {
         "name": "Meldung aktiver Ausnutzung",
-        "description": "Frühwarnung an ENISA und CSIRT innerhalb von 24 Stunden, Meldung innerhalb von 72 Stunden, Abschlussbericht nach 14 Tagen bei aktiv ausgenutzten Schwachstellen und schwerwiegenden Vorfällen.",
+        "description": "Bei einer aktiv ausgenutzten Schwachstelle oder einem schwerwiegenden Vorfall: eine Frühwarnung innerhalb von 24 Stunden und eine Meldung innerhalb von 72 Stunden an das als Koordinator benannte CSIRT und die ENISA. Der Abschlussbericht folgt bei einer Schwachstelle spätestens 14 Tage, nachdem eine Korrektur oder Abhilfemaßnahme verfügbar ist, bei einem Vorfall innerhalb eines Monats nach der Meldung (Art. 14 Abs. 2, 4).",
         "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Versäumte Meldefristen (außer der 24-Stunden-Frist für KMU) lösen die höchste Bußgeldstufe und Rückrufbefugnisse aus.",
+        "threatLandscape": "Kleinstunternehmen und kleine Unternehmen erhalten kein Bußgeld, wenn sie die Frühwarnung binnen 24 Stunden versäumen; alle anderen Fristen gelten auch für sie (Art. 64 Abs. 10 Buchst. a).",
         "bsiGuidance": ""
       },
       "CRA-CONF": {
         "name": "Konformitätsbewertung",
-        "description": "Konformitätsbewertungsverfahren je Produktklasse (Selbstbewertung Modul A, Modul B+C mit benannter Stelle oder Qualitätssystem Modul H), anschließend CE-Kennzeichnung.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
+        "description": "Ein Konformitätsbewertungsverfahren je Produktklasse (internes Kontrollverfahren, Modul A; EU-Baumusterprüfung mit anschließender Konformität mit der Bauart, Module B und C; umfassende Qualitätssicherung, Modul H; oder ein europäisches Schema für die Cybersicherheitszertifizierung, wo verfügbar), danach die CE-Kennzeichnung (Art. 32, 30).",
+        "legalBasis": "Art. 28 bis 32 EU CRA",
         "threatLandscape": "Produkte ohne gültige Konformitätsbewertung dürfen ab dem 11. Dezember 2027 nicht mehr auf dem EU-Markt bereitgestellt werden.",
         "bsiGuidance": ""
       },
       "CRA-DOC": {
         "name": "Technische Dokumentation",
         "description": "Technische Dokumentation nach Anhang VII für jedes auf dem EU-Markt bereitgestellte Produkt pflegen.",
-        "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Fehlende oder unvollständige technische Dokumentation blockiert die Überprüfung durch die Marktüberwachung und führt zur Marktrücknahme.",
+        "legalBasis": "Art. 31 · Anhang VII EU CRA",
+        "threatLandscape": "Sie wird für die Marktüberwachungsbehörden mindestens zehn Jahre nach dem Inverkehrbringen aufbewahrt, oder für den Unterstützungszeitraum, wenn der länger ist (Art. 13 Abs. 13).",
         "bsiGuidance": ""
       },
       "CRA-SUP": {
-        "name": "Supportzeitraum",
-        "description": "Öffentliche Zusage eines Zeitraums für Sicherheitsupdates (standardmäßig fünf Jahre oder die erwartete Produktlebensdauer, je nachdem, was länger ist).",
+        "name": "Unterstützungszeitraum",
+        "description": "Einen Unterstützungszeitraum von mindestens fünf Jahren festlegen; wird das Produkt voraussichtlich kürzer genutzt, entspricht der Zeitraum dieser erwarteten Nutzungsdauer (Art. 13 Abs. 8).",
         "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "Wer den vollen Zeitraum nicht abdeckt, riskiert Ansprüche von Kunden, die auf unsicheren Produkten sitzen bleiben.",
+        "threatLandscape": "Jedes Sicherheitsupdate bleibt nach seiner Veröffentlichung mindestens zehn Jahre verfügbar, oder für den Rest des Unterstützungszeitraums, wenn der länger ist (Art. 13 Abs. 9).",
         "bsiGuidance": ""
       },
       "CRA-SBOM": {
         "name": "Software Bill of Materials",
-        "description": "Maschinenlesbare Software-Stückliste (SBOM) für jedes auf dem EU-Markt bereitgestellte Produkt erstellen und pflegen.",
-        "legalBasis": "Annex I Part II §1 EU CRA",
+        "description": "Eine Software-Stückliste (SBOM) in einem gängigen, maschinenlesbaren Format erstellen, die mindestens die obersten Abhängigkeiten des Produkts erfasst.",
+        "legalBasis": "Anhang I Teil II Nr. 1 EU CRA",
         "threatLandscape": "Ohne SBOM können Hersteller nicht nachvollziehen, welche Produkte eine verwundbare Komponente enthalten, und verpassen das Meldefenster nach Art. 14.",
         "bsiGuidance": ""
       },
       "CRA-IMP": {
         "name": "Einführer und Händler",
         "description": "Einführer prüfen die Konformität des Herstellers vor dem Inverkehrbringen; Händler prüfen Konformitätskennzeichnungen mit gebotener Sorgfalt.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Einführer und Händler, die diese Prüfung versäumen, übernehmen nach Art. 22 die Herstellerhaftung.",
+        "legalBasis": "Art. 19, Art. 20 EU CRA",
+        "threatLandscape": "Ein Einführer oder Händler, der ein Produkt unter eigenem Namen oder eigener Marke in Verkehr bringt oder es wesentlich verändert, übernimmt die Pflichten des Herstellers (Art. 21).",
         "bsiGuidance": ""
       },
       "CRA-OSS": {
         "name": "Verwalter quelloffener Software",
         "description": "Verwalter quelloffener Software führen eine Cybersicherheitsrichtlinie und koordinierte Schwachstellenoffenlegung ein und melden aktiv ausgenutzte Schwachstellen.",
         "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "OSS-Verwalter sind nach Art. 64(10) von Bußgeldern ausgenommen; nachgelagerte kommerzielle Nutzer sind dennoch auf ihre Meldungen angewiesen.",
+        "threatLandscape": "Verwalter quelloffener Software erhalten für Verstöße gegen den CRA kein Bußgeld (Art. 64 Abs. 10 Buchst. b).",
         "bsiGuidance": ""
       },
       "DPA": {

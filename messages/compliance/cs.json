@@ -332,30 +332,30 @@
       },
       "CRA-MFG": {
         "name": "Povinnosti výrobce",
-        "description": "Posouzení kybernetického rizika jednotlivého produktu a schválení řídicím orgánem před uvedením produktu na trh EU.",
+        "description": "Posouzení kybernetických rizik u každého produktu před jeho uvedením na trh EU, zdokumentované a podle potřeby aktualizované během doby podpory (čl. 13 odst. 2 a 3).",
         "legalBasis": "čl. 13 nařízení EU CRA",
-        "threatLandscape": "Výrobci, kteří dodávají bez zdokumentovaného posouzení rizik, nemají žádnou obranu, když se objeví aktivně zneužívané zranitelnosti.",
+        "threatLandscape": "Posouzení je součástí technické dokumentace produktu (čl. 13 odst. 4).",
         "bsiGuidance": ""
       },
       "CRA-ESS": {
         "name": "Základní požadavky na kybernetickou bezpečnost",
         "description": "Soulad s přílohou I částí I: žádné známé zneužitelné zranitelnosti při uvedení na trh, bezpečné ve výchozím nastavení, ochrana důvěrnosti, integrity a dostupnosti dat.",
         "legalBasis": "příloha I část I nařízení EU CRA",
-        "threatLandscape": "Produkty, které nesplňují základní požadavky, nemohou legálně zůstat na trhu EU a spouštějí nejvyšší sankční pásmo.",
+        "threatLandscape": "Produkt lze dodávat na trh, jen pokud splňuje přílohu I část I a postupy výrobce splňují část II (čl. 6).",
         "bsiGuidance": ""
       },
       "CRA-VLN": {
         "name": "Zacházení se zranitelnostmi",
         "description": "Zdokumentované zacházení se zranitelnostmi, zásada koordinovaného zveřejňování, bezpečnostní aktualizace bez prodlení a veřejné zveřejnění opravených zranitelností.",
         "legalBasis": "příloha I část II nařízení EU CRA",
-        "threatLandscape": "Dodavatelé bez procesu zacházení se zranitelnostmi nemohou splnit kaskádu hlášení 24 hodin / 72 hodin / 14 dnů a stávají se odpovědnými za navazující incidenty.",
+        "threatLandscape": "Na tomto postupu stojí povinnosti hlášení podle čl. 14, které platí od 11. září 2026.",
         "bsiGuidance": ""
       },
       "CRA-INC": {
         "name": "Hlášení aktivního zneužití",
         "description": "Včasné varování do 24 hodin pro ENISA a CSIRT a oznámení do 72 hodin u aktivně zneužívaných zranitelností i závažných incidentů; závěrečná zpráva u zranitelnosti do 14 dnů od dostupnosti nápravného opatření, u závažného incidentu do jednoho měsíce od oznámení.",
         "legalBasis": "čl. 14 nařízení EU CRA",
-        "threatLandscape": "Zmeškané lhůty pro hlášení (kromě 24hodinové lhůty u mikropodniků a malých podniků, čl. 64 odst. 10) spouštějí nejvyšší sankční pásmo a pravomoci ke stažení produktu z trhu.",
+        "threatLandscape": "Mikropodniky a malé podniky nedostanou pokutu za zmeškání včasného varování do 24 hodin; ostatní lhůty platí i pro ně (čl. 64 odst. 10 písm. a)).",
         "bsiGuidance": ""
       },
       "CRA-CONF": {
@@ -369,19 +369,19 @@
         "name": "Technická dokumentace",
         "description": "Veďte technickou dokumentaci podle přílohy VII pro každý produkt uvedený na trh EU.",
         "legalBasis": "čl. 31 · příloha VII nařízení EU CRA",
-        "threatLandscape": "Chybějící nebo neúplná technická dokumentace blokuje ověření ze strany dozoru nad trhem a spouští stažení produktu.",
+        "threatLandscape": "Uchovává se pro orgány dozoru nad trhem nejméně 10 let po uvedení produktu na trh, nebo po dobu podpory, je-li delší (čl. 13 odst. 13).",
         "bsiGuidance": ""
       },
       "CRA-SUP": {
         "name": "Doba podpory",
         "description": "Veřejně se zavažte k době podpory bezpečnostních aktualizací (nejméně pět let; očekává-li se, že produkt bude používán kratší dobu, odpovídá doba podpory očekávané době používání).",
         "legalBasis": "čl. 13(8) nařízení EU CRA",
-        "threatLandscape": "Neposkytnutí podpory po celou dobu vystavuje výrobce nárokům zákazníků uvízlých na nezabezpečených produktech.",
+        "threatLandscape": "Každá bezpečnostní aktualizace zůstává dostupná nejméně 10 let po vydání, nebo po zbytek doby podpory, je-li delší (čl. 13 odst. 9).",
         "bsiGuidance": ""
       },
       "CRA-SBOM": {
         "name": "Soupis softwarových komponent",
-        "description": "Vytvořte a udržujte strojově čitelný soupis softwarových komponent (SBOM) pro každý produkt uvedený na trh EU.",
+        "description": "Vytvořte soupis softwarových komponent (SBOM) v běžně používaném a strojově čitelném formátu, který zahrnuje alespoň závislosti nejvyšší úrovně produktu.",
         "legalBasis": "příloha I část II bod 1 nařízení EU CRA",
         "threatLandscape": "Bez SBOM nedokážou výrobci dohledat, které produkty obsahují zranitelnou komponentu, a zmeškají okno pro hlášení podle čl. 14.",
         "bsiGuidance": ""
@@ -397,7 +397,7 @@
         "name": "Správce open-source",
         "description": "Správci open-source softwaru přijmou zásadu kybernetické bezpečnosti, koordinované zveřejňování zranitelností a hlásí aktivně zneužívané zranitelnosti.",
         "legalBasis": "čl. 24 nařízení EU CRA",
-        "threatLandscape": "Správci OSS jsou podle čl. 64(10) osvobozeni od sankcí, ale navazující komerční uživatelé na jejich hlášení nadále spoléhají.",
+        "threatLandscape": "Správci softwaru s otevřeným zdrojovým kódem nedostávají za porušení CRA pokuty (čl. 64 odst. 10 písm. b)).",
         "bsiGuidance": ""
       },
       "DPO": {

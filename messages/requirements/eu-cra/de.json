@@ -38,7 +38,7 @@
     },
     "CRA-INC_1": {
       "title": "Frühwarnung",
-      "description": "Eine Frühwarnung über eine aktiv ausgenutzte Schwachstelle an das CSIRT und die ENISA senden (CRA Art. 14 Abs. 2 lit. a)."
+      "description": "Eine Frühwarnung über eine aktiv ausgenutzte Schwachstelle unverzüglich, in jedem Fall innerhalb von 24 Stunden, nachdem sie bekannt wurde, an das als Koordinator benannte CSIRT und die ENISA senden (CRA Art. 14 Abs. 2 lit. a)."
     },
     "CRA-INC_2": {
       "title": "Meldung von Schwachstellen",
@@ -66,7 +66,7 @@
     },
     "CRA-SUP_1": {
       "title": "Unterstützungszeitraum",
-      "description": "Den Unterstützungszeitraum so festlegen, dass er der voraussichtlichen Nutzungsdauer des Produkts entspricht, und die dabei berücksichtigten Angaben in die technische Dokumentation aufnehmen (CRA Art. 13 Abs. 8). Die Verordnung verlangt keine Unterschrift; in diesem Produkt zeichnet die Geschäftsleitung ihn ab."
+      "description": "Den Unterstützungszeitraum so festlegen, dass er der voraussichtlichen Nutzungsdauer des Produkts entspricht, und die dabei berücksichtigten Angaben in die technische Dokumentation aufnehmen (CRA Art. 13 Abs. 8). Er beträgt mindestens fünf Jahre, es sei denn, das Produkt wird voraussichtlich kürzer genutzt. Die Verordnung verlangt keine Unterschrift; in diesem Produkt zeichnet die Geschäftsleitung ihn ab."
     },
     "CRA-SBOM_1": {
       "title": "Software-Stückliste (SBOM)",

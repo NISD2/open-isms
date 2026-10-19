@@ -38,7 +38,7 @@
     },
     "CRA-INC_1": {
       "title": "Early Warning Notification",
-      "description": "Send an early warning of an actively exploited vulnerability to the CSIRT and ENISA (CRA Art. 14(2)(a))."
+      "description": "Send an early warning of an actively exploited vulnerability to the CSIRT designated as coordinator and ENISA without undue delay and in any event within 24 hours of becoming aware of it (CRA Art. 14(2)(a))."
     },
     "CRA-INC_2": {
       "title": "Vulnerability Notification",
@@ -66,7 +66,7 @@
     },
     "CRA-SUP_1": {
       "title": "Support Period",
-      "description": "Determine the support period so that it reflects how long the product is expected to be in use, and record what you took into account in the technical documentation (CRA Art. 13(8)). The CRA asks for no signature; in this product management signs it off."
+      "description": "Determine the support period so that it reflects how long the product is expected to be in use, and record what you took into account in the technical documentation (CRA Art. 13(8)). It is at least five years, unless the product is expected to be in use for less. The CRA asks for no signature; in this product management signs it off."
     },
     "CRA-SBOM_1": {
       "title": "Software Bill of Materials",

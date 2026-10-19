@@ -323,76 +323,16 @@
         "threatLandscape": "Os prestadores de GPAI que não cumprem as obrigações de transparência enfrentam diretamente a aplicação coerciva pelo Serviço de IA da UE, com coimas ao abrigo do Art. 101.",
         "bsiGuidance": ""
       },
-      "CRA-MFG": {
-        "name": "Obrigações do fabricante",
-        "description": "Avaliação de risco de cibersegurança por produto e aprovação do órgão de gestão antes de colocar o produto no mercado da UE.",
-        "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Os fabricantes que expedem sem uma avaliação de risco documentada não têm defesa quando surgem vulnerabilidades ativamente exploradas.",
-        "bsiGuidance": ""
-      },
-      "CRA-ESS": {
-        "name": "Requisitos essenciais de cibersegurança",
-        "description": "Cumprimento do Anexo I, Parte I: ausência de vulnerabilidades exploráveis conhecidas no momento da colocação no mercado, segurança por defeito, proteção da confidencialidade, integridade e disponibilidade dos dados.",
-        "legalBasis": "Anexo I Parte I EU CRA",
-        "threatLandscape": "Os produtos que não cumprem os requisitos essenciais não podem permanecer legalmente no mercado da UE e acionam o escalão de coima mais elevado.",
-        "bsiGuidance": ""
-      },
-      "CRA-VLN": {
-        "name": "Tratamento de vulnerabilidades",
-        "description": "Tratamento documentado de vulnerabilidades, política de divulgação coordenada, atualizações de segurança sem demora e divulgação pública das vulnerabilidades corrigidas.",
-        "legalBasis": "Anexo I Parte II EU CRA",
-        "threatLandscape": "Os fornecedores sem um processo de tratamento de vulnerabilidades não conseguem cumprir a cascata de comunicação de 24h / 72h / 14 dias e tornam-se responsáveis por incidentes a jusante.",
-        "bsiGuidance": ""
-      },
-      "CRA-INC": {
-        "name": "Comunicação de exploração ativa",
-        "description": "Alerta precoce de 24 horas à ENISA e ao CSIRT, notificação de 72 horas, relatório final de 14 dias para vulnerabilidades ativamente exploradas e incidentes graves.",
-        "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Os prazos de comunicação não cumpridos (exceto o prazo de 24h para PME) acionam o escalão de coima mais elevado e os poderes de retirada de produto.",
-        "bsiGuidance": ""
-      },
-      "CRA-CONF": {
-        "name": "Avaliação da conformidade",
-        "description": "Via de avaliação da conformidade por classe de produto (autoavaliação Módulo A, Módulo B+C com organismo notificado, ou Módulo H sistema de qualidade), seguida da marcação CE.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
-        "threatLandscape": "Os produtos sem uma avaliação da conformidade válida não podem ser colocados no mercado da UE a partir de 11 de dezembro de 2027.",
-        "bsiGuidance": ""
-      },
-      "CRA-DOC": {
-        "name": "Documentação técnica",
-        "description": "Manter a documentação técnica do Anexo VII para cada produto colocado no mercado da UE.",
-        "legalBasis": "Art. 28 · Anexo VII EU CRA",
-        "threatLandscape": "A documentação técnica em falta ou incompleta bloqueia a verificação por fiscalização do mercado e aciona a retirada do produto.",
-        "bsiGuidance": ""
-      },
-      "CRA-SUP": {
-        "name": "Período de suporte",
-        "description": "Comprometer-se publicamente com um período de suporte de atualizações de segurança (por defeito cinco anos ou a vida útil prevista do produto, consoante o que for mais longo).",
-        "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "A falta de suporte durante todo o período expõe o fabricante a reclamações de clientes que ficam presos a produtos inseguros.",
-        "bsiGuidance": ""
-      },
-      "CRA-SBOM": {
-        "name": "Lista de materiais de software",
-        "description": "Gerar e manter uma lista de materiais de software legível por máquina para cada produto colocado no mercado da UE.",
-        "legalBasis": "Anexo I Parte II §1 EU CRA",
-        "threatLandscape": "Sem uma SBOM, os fabricantes não conseguem identificar que produtos contêm um componente vulnerável e perdem a janela de comunicação do Art. 14.",
-        "bsiGuidance": ""
-      },
-      "CRA-IMP": {
-        "name": "Importador e distribuidor",
-        "description": "Os importadores verificam a conformidade do fabricante antes da colocação no mercado; os distribuidores realizam a devida diligência sobre as marcações de conformidade.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Os importadores e distribuidores que não fazem a verificação herdam a responsabilidade do fabricante ao abrigo do Art. 22.",
-        "bsiGuidance": ""
-      },
-      "CRA-OSS": {
-        "name": "Administrador de código aberto",
-        "description": "Os administradores de software de código aberto adotam uma política de cibersegurança, divulgação coordenada de vulnerabilidades e comunicam as vulnerabilidades ativamente exploradas.",
-        "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "Os administradores de OSS estão isentos de coimas ao abrigo do Art. 64(10), mas os utilizadores comerciais a jusante continuam a depender das suas comunicações.",
-        "bsiGuidance": ""
-      },
+      "CRA-MFG": { "name": "Obrigações do fabricante" },
+      "CRA-ESS": { "name": "Requisitos essenciais de cibersegurança" },
+      "CRA-VLN": { "name": "Tratamento de vulnerabilidades" },
+      "CRA-INC": { "name": "Comunicação de exploração ativa" },
+      "CRA-CONF": { "name": "Avaliação da conformidade" },
+      "CRA-DOC": { "name": "Documentação técnica" },
+      "CRA-SUP": { "name": "Período de suporte" },
+      "CRA-SBOM": { "name": "Lista de materiais de software" },
+      "CRA-IMP": { "name": "Importador e distribuidor" },
+      "CRA-OSS": { "name": "Administrador de código aberto" },
       "DPO": {
         "name": "Encarregado da proteção de dados",
         "description": "Avaliação da obrigação de designação nos termos do §38 BDSG e do art. 37.o do GDPR, bem como posição e funções da pessoa designada",

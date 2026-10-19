@@ -288,76 +288,16 @@
         "threatLandscape": "GPAI-aanbieders die transparantieverplichtingen verzuimen, vallen direct onder handhaving door het EU AI Office, met boetes volgens art. 101.",
         "bsiGuidance": ""
       },
-      "CRA-MFG": {
-        "name": "Fabrikantverplichtingen",
-        "description": "Cyberrisicobeoordeling per product en goedkeuring door de directie vóór het in de handel brengen op de EU-markt.",
-        "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Fabrikanten die zonder gedocumenteerde risicobeoordeling leveren, staan zonder verweer wanneer actief uitgebuite kwetsbaarheden opduiken.",
-        "bsiGuidance": ""
-      },
-      "CRA-ESS": {
-        "name": "Essentiële cyberbeveiligingseisen",
-        "description": "Naleving van bijlage I deel I: geen bekende uitbuitbare kwetsbaarheden bij het in de handel brengen, veilige standaardinstellingen, bescherming van vertrouwelijkheid, integriteit en beschikbaarheid van gegevens.",
-        "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Producten die niet aan de essentiële eisen voldoen, mogen niet op de EU-markt blijven en activeren de hoogste boetecategorie.",
-        "bsiGuidance": ""
-      },
-      "CRA-VLN": {
-        "name": "Kwetsbaarhedenbeheer",
-        "description": "Gedocumenteerde afhandeling van kwetsbaarheden, gecoördineerde openbaarmaking, beveiligingsupdates zonder vertraging en publieke bekendmaking van verholpen kwetsbaarheden.",
-        "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Aanbieders zonder kwetsbaarhedenproces kunnen de meldcascade van 24 uur, 72 uur en 14 dagen niet halen en zijn aansprakelijk voor vervolgincidenten.",
-        "bsiGuidance": ""
-      },
-      "CRA-INC": {
-        "name": "Melding van actieve uitbuiting",
-        "description": "Vroegtijdige waarschuwing aan ENISA en het CSIRT binnen 24 uur, melding binnen 72 uur, eindrapport na 14 dagen bij actief uitgebuite kwetsbaarheden en ernstige incidenten.",
-        "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Gemiste meldtermijnen (behalve de 24-uurstermijn voor kmo's) activeren de hoogste boetecategorie en terugroepbevoegdheden.",
-        "bsiGuidance": ""
-      },
-      "CRA-CONF": {
-        "name": "Conformiteitsbeoordeling",
-        "description": "Conformiteitsbeoordelingsprocedure per productklasse (zelfbeoordeling module A, module B+C met aangemelde instantie of kwaliteitssysteem module H), gevolgd door CE-markering.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
-        "threatLandscape": "Producten zonder geldige conformiteitsbeoordeling mogen vanaf 11 december 2027 niet meer op de EU-markt worden aangeboden.",
-        "bsiGuidance": ""
-      },
-      "CRA-DOC": {
-        "name": "Technische documentatie",
-        "description": "Technische documentatie volgens bijlage VII bijhouden voor elk op de EU-markt aangeboden product.",
-        "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Ontbrekende of onvolledige technische documentatie blokkeert de controle door het markttoezicht en leidt tot het uit de handel nemen van het product.",
-        "bsiGuidance": ""
-      },
-      "CRA-SUP": {
-        "name": "Ondersteuningsperiode",
-        "description": "Publieke toezegging van een periode voor beveiligingsupdates (standaard vijf jaar of de verwachte levensduur van het product, als die langer is).",
-        "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "Wie de volledige periode niet dekt, riskeert claims van klanten die met onveilige producten blijven zitten.",
-        "bsiGuidance": ""
-      },
-      "CRA-SBOM": {
-        "name": "Software Bill of Materials",
-        "description": "Machineleesbare software-stuklijst (SBOM) opstellen en bijhouden voor elk op de EU-markt aangeboden product.",
-        "legalBasis": "Annex I Part II §1 EU CRA",
-        "threatLandscape": "Zonder SBOM kunnen fabrikanten niet nagaan welke producten een kwetsbare component bevatten en missen ze het meldvenster van art. 14.",
-        "bsiGuidance": ""
-      },
-      "CRA-IMP": {
-        "name": "Importeurs en distributeurs",
-        "description": "Importeurs controleren de conformiteit van de fabrikant vóór het in de handel brengen; distributeurs controleren conformiteitsmarkeringen met de nodige zorgvuldigheid.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Importeurs en distributeurs die deze controle verzuimen, nemen volgens art. 22 de fabrikantaansprakelijkheid over.",
-        "bsiGuidance": ""
-      },
-      "CRA-OSS": {
-        "name": "Beheerder van opensourcesoftware",
-        "description": "Beheerders van opensourcesoftware voeren een cyberbeveiligingsbeleid en gecoördineerde openbaarmaking van kwetsbaarheden in en melden actief uitgebuite kwetsbaarheden.",
-        "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "OSS-beheerders zijn volgens art. 64, lid 10, vrijgesteld van boetes; commerciële afnemers verderop in de keten blijven niettemin afhankelijk van hun meldingen.",
-        "bsiGuidance": ""
-      },
+      "CRA-MFG": { "name": "Fabrikantverplichtingen" },
+      "CRA-ESS": { "name": "Essentiële cyberbeveiligingseisen" },
+      "CRA-VLN": { "name": "Kwetsbaarhedenbeheer" },
+      "CRA-INC": { "name": "Melding van actieve uitbuiting" },
+      "CRA-CONF": { "name": "Conformiteitsbeoordeling" },
+      "CRA-DOC": { "name": "Technische documentatie" },
+      "CRA-SUP": { "name": "Ondersteuningsperiode" },
+      "CRA-SBOM": { "name": "Software Bill of Materials" },
+      "CRA-IMP": { "name": "Importeurs en distributeurs" },
+      "CRA-OSS": { "name": "Beheerder van opensourcesoftware" },
       "DPA": {
         "name": "Verwerkersovereenkomsten",
         "description": "Verwerkersovereenkomsten volgens art. 28 AVG met alle verwerkers die persoonsgegevens verwerken",

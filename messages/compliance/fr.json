@@ -323,76 +323,16 @@
         "threatLandscape": "Les fournisseurs de GPAI qui manquent à leurs obligations de transparence s'exposent directement à l'application de la réglementation par le Bureau de l'IA de l'UE, avec des amendes au titre de l'art. 101.",
         "bsiGuidance": ""
       },
-      "CRA-MFG": {
-        "name": "Obligations du fabricant",
-        "description": "Évaluation et gestion des risques de cybersécurité par produit et approbation par l'organe de direction avant la mise sur le marché de l'UE.",
-        "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Les fabricants qui livrent sans évaluation des risques documentée n'ont aucune défense lorsque des vulnérabilités activement exploitées apparaissent.",
-        "bsiGuidance": ""
-      },
-      "CRA-ESS": {
-        "name": "Exigences essentielles de cybersécurité",
-        "description": "Conformité à l'annexe I partie I : aucune vulnérabilité exploitable connue lors de la mise sur le marché, sécurité par défaut, protection de la confidentialité, de l'intégrité et de la disponibilité des données.",
-        "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Les produits qui ne satisfont pas aux exigences essentielles ne peuvent légalement rester sur le marché de l'UE et déclenchent le palier de sanction le plus élevé.",
-        "bsiGuidance": ""
-      },
-      "CRA-VLN": {
-        "name": "Traitement des vulnérabilités",
-        "description": "Traitement documenté des vulnérabilités, politique de divulgation coordonnée, mises à jour de sécurité sans délai et divulgation publique des vulnérabilités corrigées.",
-        "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Les éditeurs dépourvus de processus de traitement des vulnérabilités ne peuvent pas respecter la cascade de notification 24 h / 72 h / 14 jours et deviennent responsables des incidents en aval.",
-        "bsiGuidance": ""
-      },
-      "CRA-INC": {
-        "name": "Notification d'exploitation active",
-        "description": "Alerte précoce de 24 heures à l'ENISA et au CSIRT, notification de 72 heures, rapport final de 14 jours pour les vulnérabilités activement exploitées et les incidents graves.",
-        "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Les échéances de notification manquées (hormis le délai de 24 h pour les PME) déclenchent le palier de sanction le plus élevé et les pouvoirs de rappel de produit.",
-        "bsiGuidance": ""
-      },
-      "CRA-CONF": {
-        "name": "Évaluation de la conformité",
-        "description": "Procédure d'évaluation de la conformité par classe de produit (autoévaluation Module A, Module B+C avec organisme notifié ou Module H système qualité) suivie du marquage CE.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
-        "threatLandscape": "Les produits sans évaluation de la conformité valide ne peuvent pas être mis sur le marché de l'UE à compter du 11 décembre 2027.",
-        "bsiGuidance": ""
-      },
-      "CRA-DOC": {
-        "name": "Documentation technique",
-        "description": "Tenir la documentation technique de l'annexe VII pour chaque produit mis sur le marché de l'UE.",
-        "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Une documentation technique manquante ou incomplète bloque la vérification par la surveillance du marché et déclenche le retrait du produit.",
-        "bsiGuidance": ""
-      },
-      "CRA-SUP": {
-        "name": "Période de support",
-        "description": "S'engager publiquement sur une période de support en mises à jour de sécurité (par défaut cinq ans ou la durée de vie attendue du produit, la plus longue des deux étant retenue).",
-        "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "Ne pas assurer le support pendant toute la période expose le fabricant à des recours de la part des clients laissés avec des produits non sécurisés.",
-        "bsiGuidance": ""
-      },
-      "CRA-SBOM": {
-        "name": "Nomenclature logicielle",
-        "description": "Générer et tenir une nomenclature logicielle lisible par machine pour chaque produit mis sur le marché de l'UE.",
-        "legalBasis": "Annex I Part II §1 EU CRA",
-        "threatLandscape": "Sans SBOM, les fabricants ne peuvent pas déterminer quels produits contiennent un composant vulnérable et manquent la fenêtre de notification de l'art. 14.",
-        "bsiGuidance": ""
-      },
-      "CRA-IMP": {
-        "name": "Importateur et distributeur",
-        "description": "Les importateurs vérifient la conformité du fabricant avant la mise sur le marché ; les distributeurs effectuent une diligence raisonnable sur les marquages de conformité.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Les importateurs et distributeurs qui omettent la vérification héritent de la responsabilité du fabricant au titre de l'art. 22.",
-        "bsiGuidance": ""
-      },
-      "CRA-OSS": {
-        "name": "Dépositaire open source",
-        "description": "Les dépositaires de logiciels open source adoptent une politique de cybersécurité, une divulgation coordonnée des vulnérabilités et notifient les vulnérabilités activement exploitées.",
-        "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "Les dépositaires OSS sont exemptés de sanctions au titre de l'art. 64(10), mais les utilisateurs commerciaux en aval dépendent toujours de leurs notifications.",
-        "bsiGuidance": ""
-      },
+      "CRA-MFG": { "name": "Obligations du fabricant" },
+      "CRA-ESS": { "name": "Exigences essentielles de cybersécurité" },
+      "CRA-VLN": { "name": "Traitement des vulnérabilités" },
+      "CRA-INC": { "name": "Notification d'exploitation active" },
+      "CRA-CONF": { "name": "Évaluation de la conformité" },
+      "CRA-DOC": { "name": "Documentation technique" },
+      "CRA-SUP": { "name": "Période de support" },
+      "CRA-SBOM": { "name": "Nomenclature logicielle" },
+      "CRA-IMP": { "name": "Importateur et distributeur" },
+      "CRA-OSS": { "name": "Dépositaire open source" },
       "DPO": {
         "name": "Délégué à la protection des données",
         "description": "Évaluation de l'obligation de désignation au titre du §38 BDSG et de l'art. 37 du GDPR, ainsi que fonction et missions de la personne désignée",

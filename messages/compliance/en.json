@@ -332,56 +332,56 @@
       },
       "CRA-MFG": {
         "name": "Manufacturer Obligations",
-        "description": "Per-product cybersecurity risk assessment and management body sign-off before placing the product on the EU market.",
+        "description": "A cybersecurity risk assessment for each product before it is placed on the EU market, documented and updated as appropriate during the support period (Art. 13(2), (3)).",
         "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Manufacturers that ship without a documented risk assessment have no defence when actively exploited vulnerabilities surface.",
+        "threatLandscape": "The assessment is part of the product's technical documentation (Art. 13(4)).",
         "bsiGuidance": ""
       },
       "CRA-ESS": {
         "name": "Essential Cybersecurity Requirements",
         "description": "Compliance with Annex I Part I: no known exploitable vulnerabilities at placing on market, secure by default, protection of data confidentiality, integrity, availability.",
         "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Products that fail essential requirements cannot legally remain on the EU market and trigger the highest penalty tier.",
+        "threatLandscape": "A product is made available on the market only where it meets Part I of Annex I and the manufacturer's processes meet Part II (Art. 6).",
         "bsiGuidance": ""
       },
       "CRA-VLN": {
         "name": "Vulnerability Handling",
         "description": "Documented vulnerability handling, coordinated disclosure policy, security updates without delay, and public disclosure of fixed vulnerabilities.",
         "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Vendors without a vulnerability handling process cannot meet the 24h / 72h / 14-day reporting cascade and become liable for downstream incidents.",
+        "threatLandscape": "The reporting duties of Art. 14, which apply since 11 September 2026, rest on this process.",
         "bsiGuidance": ""
       },
       "CRA-INC": {
         "name": "Active Exploitation Reporting",
-        "description": "24-hour early warning to ENISA and CSIRT, 72-hour notification, 14-day final report for actively exploited vulnerabilities and severe incidents.",
+        "description": "For an actively exploited vulnerability or a severe incident: an early warning within 24 hours and a notification within 72 hours to the CSIRT designated as coordinator and ENISA. The final report follows within 14 days after a corrective or mitigating measure is available for a vulnerability, and within one month after the notification for an incident (Art. 14(2), (4)).",
         "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Missed reporting deadlines (other than the 24h deadline for SMEs) trigger the highest penalty tier and product-recall powers.",
+        "threatLandscape": "Micro and small enterprises are not fined for missing the 24-hour early warning; every other deadline holds for them too (Art. 64(10)(a)).",
         "bsiGuidance": ""
       },
       "CRA-CONF": {
         "name": "Conformity Assessment",
-        "description": "Conformity assessment route per product class (self-assessment Module A, Module B+C with notified body, or Module H quality system) followed by CE marking.",
-        "legalBasis": "Art. 24, Art. 27 EU CRA",
+        "description": "A conformity assessment route per product class (internal control, module A; EU-type examination followed by conformity to type, modules B and C; full quality assurance, module H; or a European cybersecurity certification scheme where available), then the CE marking (Art. 32, 30).",
+        "legalBasis": "Art. 28 to 32 EU CRA",
         "threatLandscape": "Products without valid conformity assessment cannot be placed on the EU market from 11 December 2027.",
         "bsiGuidance": ""
       },
       "CRA-DOC": {
         "name": "Technical Documentation",
         "description": "Maintain Annex VII technical documentation for each product placed on the EU market.",
-        "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Missing or incomplete technical documentation blocks market surveillance verification and triggers product withdrawal.",
+        "legalBasis": "Art. 31 · Annex VII EU CRA",
+        "threatLandscape": "It is kept for market surveillance authorities for at least 10 years after the product is placed on the market, or for the support period if that is longer (Art. 13(13)).",
         "bsiGuidance": ""
       },
       "CRA-SUP": {
         "name": "Support Period",
-        "description": "Publicly commit to a security update support period (default five years or expected product life, whichever is longer).",
+        "description": "Set a support period of at least five years; where the product is expected to be in use for less than five years, the support period matches that expected use (Art. 13(8)).",
         "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "Failure to support the full period exposes the manufacturer to claims from customers stranded on insecure products.",
+        "threatLandscape": "Each security update stays available for at least 10 years after it is issued, or for the rest of the support period if that is longer (Art. 13(9)).",
         "bsiGuidance": ""
       },
       "CRA-SBOM": {
         "name": "Software Bill of Materials",
-        "description": "Generate and maintain a machine-readable Software Bill of Materials for each product placed on the EU market.",
+        "description": "Draw up a software bill of materials in a commonly used and machine-readable format, covering at the very least the product's top-level dependencies.",
         "legalBasis": "Annex I Part II §1 EU CRA",
         "threatLandscape": "Without an SBOM, manufacturers cannot trace which products contain a vulnerable component and miss the Art. 14 reporting window.",
         "bsiGuidance": ""
@@ -389,15 +389,15 @@
       "CRA-IMP": {
         "name": "Importer and Distributor",
         "description": "Importers verify manufacturer compliance before placing on market; distributors perform due diligence on conformity markings.",
-        "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Importers and distributors that miss verification inherit manufacturer liability under Art. 22.",
+        "legalBasis": "Art. 19, Art. 20 EU CRA",
+        "threatLandscape": "An importer or distributor that places a product under its own name or trademark, or modifies it substantially, takes on the manufacturer's obligations (Art. 21).",
         "bsiGuidance": ""
       },
       "CRA-OSS": {
         "name": "Open-Source Steward",
         "description": "Open-source software stewards adopt a cybersecurity policy, coordinated vulnerability disclosure, and report actively exploited vulnerabilities.",
         "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "OSS stewards are penalty-exempt under Art. 64(10), but downstream commercial users still depend on their reporting.",
+        "threatLandscape": "Open-source software stewards are not fined for infringements of the CRA (Art. 64(10)(b)).",
         "bsiGuidance": ""
       },
       "DPO": {
