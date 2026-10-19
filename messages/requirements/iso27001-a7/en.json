@@ -2,59 +2,59 @@
   "requirements": {
     "A_7_1": {
       "title": "Physical Security Perimeters",
-      "description": "Define and implement physical security perimeters to protect sensitive areas containing information and processing facilities."
+      "description": "Areas holding sensitive information or IT, such as server rooms or archives, have defined boundaries that are physically secured."
     },
     "A_7_2": {
       "title": "Physical Entry",
-      "description": "Protect secure areas with appropriate entry controls to ensure only authorized persons can gain access."
+      "description": "Entry to secured areas is controlled so that only authorised people get in, for example with keys, badges and visitor logs."
     },
     "A_7_3": {
       "title": "Securing Offices, Rooms and Facilities",
-      "description": "Apply physical security to offices, rooms, and facilities proportionate to the sensitivity of the information processed there."
+      "description": "Offices, rooms and other facilities get physical protection that matches what is kept or processed in them."
     },
     "A_7_4": {
       "title": "Physical Security Monitoring",
-      "description": "Monitor premises for unauthorized physical access using alarms, CCTV, guards, or other appropriate means."
+      "description": "The premises are watched for unauthorised entry, for example with alarms, cameras or a security service."
     },
     "A_7_5": {
       "title": "Protecting Against Physical and Environmental Threats",
-      "description": "Protect against physical and environmental threats such as fire, flood, earthquake, and deliberate damage."
+      "description": "Facilities are protected against fire, water, power surges, storms and deliberate damage, according to the risks at the site."
     },
     "A_7_6": {
       "title": "Working in Secure Areas",
-      "description": "Define and apply procedures for working in secure areas to prevent unauthorized access, photography, or data exfiltration."
+      "description": "Special rules apply to work in secured areas, for example no unaccompanied visitors or no photos."
     },
     "A_7_7": {
       "title": "Clear Desk and Clear Screen",
-      "description": "Apply a clear desk policy for papers and removable media, and a clear screen policy for information processing facilities."
+      "description": "Desks are cleared of papers and storage media when not in use, and screens lock when people step away."
     },
     "A_7_8": {
       "title": "Equipment Siting and Protection",
-      "description": "Site and protect equipment to reduce risks from environmental threats, unauthorized access, and interference."
+      "description": "Equipment is placed and protected so that heat, water, dust, theft and prying eyes do not harm it."
     },
     "A_7_9": {
       "title": "Security of Assets Off-Premises",
-      "description": "Apply controls to assets taken off-premises, proportionate to the risks of working outside the organization's premises."
+      "description": "Laptops, phones and other company devices used outside the premises are protected against loss, theft and onlookers."
     },
     "A_7_10": {
       "title": "Storage Media",
-      "description": "Manage storage media throughout its lifecycle: acquisition, use, transportation, disposal, and sanitization."
+      "description": "USB sticks, disks and other storage media are handled securely from purchase through use and transport to destruction."
     },
     "A_7_11": {
       "title": "Supporting Utilities",
-      "description": "Protect information processing facilities from power failures and other disruptions caused by failures in supporting utilities."
+      "description": "IT is protected against failures of power, cooling and other utilities, for example with an uninterruptible power supply."
     },
     "A_7_12": {
       "title": "Cabling Security",
-      "description": "Protect power and telecommunications cabling from interception, interference, or damage."
+      "description": "Power and network cables are laid and protected so that they cannot easily be tapped, disturbed or damaged."
     },
     "A_7_13": {
       "title": "Equipment Maintenance",
-      "description": "Maintain equipment correctly to ensure continued availability and integrity of information processing facilities."
+      "description": "Equipment is serviced as its manufacturer recommends so that it stays available and reliable, also when outside technicians work on it."
     },
     "A_7_14": {
       "title": "Secure Disposal or Re-Use of Equipment",
-      "description": "Verify that all sensitive data and licensed software has been removed or overwritten prior to disposal or re-use of equipment."
+      "description": "Before devices are disposed of or reused, the company checks that the data and licensed software on them have been securely removed."
     }
   }
 }

@@ -1,140 +1,106 @@
 {
   "requirements": {
     "A_8_1": {
-      "title": "Dispositivi endpoint degli utenti",
-      "description": "Proteggi le informazioni presenti sui dispositivi endpoint degli utenti (laptop, telefoni) e da essi trattate mediante una policy di sicurezza degli endpoint."
+      "title": "Dispositivi endpoint degli utenti"
     },
     "A_8_2": {
-      "title": "Diritti di accesso privilegiato",
-      "description": "Limita e gestisci con attenzione l'assegnazione e l'uso dei diritti di accesso privilegiato su tutti i sistemi."
+      "title": "Diritti di accesso privilegiato"
     },
     "A_8_3": {
-      "title": "Restrizione dell'accesso alle informazioni",
-      "description": "Limita l'accesso a informazioni e sistemi a quanto necessario per il ruolo di ciascun utente, applicando il principio del privilegio minimo."
+      "title": "Restrizione dell'accesso alle informazioni"
     },
     "A_8_4": {
-      "title": "Accesso al codice sorgente",
-      "description": "Limita l'accesso al codice sorgente dei programmi e ai relativi strumenti alle sole persone autorizzate; applica il controllo di versione."
+      "title": "Accesso al codice sorgente"
     },
     "A_8_5": {
-      "title": "Autenticazione sicura",
-      "description": "Attua tecnologie e procedure di autenticazione sicura, compresa la MFA per i sistemi sensibili e per tutti gli accessi da remoto."
+      "title": "Autenticazione sicura"
     },
     "A_8_6": {
-      "title": "Gestione della capacità",
-      "description": "Monitora e adegua l'utilizzo delle risorse e le relative proiezioni per garantire la capacità e le prestazioni richieste del sistema."
+      "title": "Gestione della capacità"
     },
     "A_8_7": {
-      "title": "Protezione contro il malware",
-      "description": "Attua controlli di protezione contro il malware (EDR, AV, firma del codice, filtraggio delle email) supportati da un'adeguata consapevolezza degli utenti."
+      "title": "Protezione contro il malware"
     },
     "A_8_8": {
-      "title": "Gestione delle vulnerabilità tecniche",
-      "description": "Identificazione, valutazione e correzione tempestive delle vulnerabilità tecniche su tutti i sistemi."
+      "title": "Gestione delle vulnerabilità tecniche"
     },
     "A_8_9": {
-      "title": "Gestione della configurazione",
-      "description": "Stabilisci, documenta e mantieni le configurazioni (comprese quelle di sicurezza) per hardware, software e servizi cloud."
+      "title": "Gestione della configurazione"
     },
     "A_8_10": {
-      "title": "Cancellazione delle informazioni",
-      "description": "Cancella le informazioni quando non sono più necessarie, in conformità ai requisiti legali, contrattuali e aziendali."
+      "title": "Cancellazione delle informazioni"
     },
     "A_8_11": {
-      "title": "Mascheramento dei dati",
-      "description": "Utilizza il mascheramento, la pseudonimizzazione o l'anonimizzazione dei dati per proteggere i dati personali negli ambienti non di produzione."
+      "title": "Mascheramento dei dati"
     },
     "A_8_12": {
-      "title": "Prevenzione della fuga di dati",
-      "description": "Applica misure di prevenzione della fuga di dati a sistemi, reti ed endpoint che trattano informazioni sensibili."
+      "title": "Prevenzione della fuga di dati"
     },
     "A_8_13": {
-      "title": "Backup delle informazioni",
-      "description": "Effettua e collauda periodicamente copie di backup di informazioni, software e immagini di sistema in conformità a una policy di backup concordata."
+      "title": "Backup delle informazioni"
     },
     "A_8_14": {
-      "title": "Ridondanza degli impianti di trattamento delle informazioni",
-      "description": "Attua una ridondanza sufficiente negli impianti di trattamento delle informazioni per soddisfare i requisiti di disponibilità."
+      "title": "Ridondanza degli impianti di trattamento delle informazioni"
     },
     "A_8_15": {
-      "title": "Logging",
-      "description": "Produci, proteggi e conserva i log delle attività degli utenti, delle eccezioni, dei guasti e degli eventi di sicurezza per i periodi di conservazione definiti."
+      "title": "Logging"
     },
     "A_8_16": {
-      "title": "Attività di monitoraggio",
-      "description": "Monitora reti, sistemi e applicazioni per rilevare comportamenti anomali e potenziali eventi di sicurezza."
+      "title": "Attività di monitoraggio"
     },
     "A_8_17": {
-      "title": "Sincronizzazione degli orologi",
-      "description": "Sincronizza gli orologi di tutti i sistemi di trattamento delle informazioni con una fonte temporale approvata per supportare la correlazione dei log e l'analisi forense."
+      "title": "Sincronizzazione degli orologi"
     },
     "A_8_18": {
-      "title": "Uso di programmi di utilità privilegiati",
-      "description": "Controlla e limita l'uso dei programmi di utilità in grado di scavalcare i controlli di sistema e applicativi."
+      "title": "Uso di programmi di utilità privilegiati"
     },
     "A_8_19": {
-      "title": "Installazione di software sui sistemi operativi",
-      "description": "Attua procedure per controllare l'installazione di software sui sistemi operativi da parte delle sole persone autorizzate."
+      "title": "Installazione di software sui sistemi operativi"
     },
     "A_8_20": {
-      "title": "Sicurezza delle reti",
-      "description": "Metti in sicurezza le reti e i dispositivi di rete per proteggere le informazioni nei sistemi e nelle applicazioni."
+      "title": "Sicurezza delle reti"
     },
     "A_8_21": {
-      "title": "Sicurezza dei servizi di rete",
-      "description": "Individua, attua e monitora i meccanismi di sicurezza per i servizi di rete, compreso il networking in cloud."
+      "title": "Sicurezza dei servizi di rete"
     },
     "A_8_22": {
-      "title": "Segregazione delle reti",
-      "description": "Segrega all'interno della rete i gruppi di servizi informativi, di utenti e di sistemi informativi."
+      "title": "Segregazione delle reti"
     },
     "A_8_23": {
-      "title": "Filtraggio web",
-      "description": "Gestisci l'accesso ai siti web esterni per ridurre l'esposizione a contenuti dannosi."
+      "title": "Filtraggio web"
     },
     "A_8_24": {
-      "title": "Uso della crittografia",
-      "description": "Definisci e attua una policy crittografica che copra gli algoritmi approvati, la gestione delle chiavi e i requisiti di cifratura."
+      "title": "Uso della crittografia"
     },
     "A_8_25": {
-      "title": "Ciclo di vita dello sviluppo sicuro",
-      "description": "Stabilisci e applica regole per lo sviluppo sicuro di software e sistemi lungo tutto il ciclo di vita dello sviluppo."
+      "title": "Ciclo di vita dello sviluppo sicuro"
     },
     "A_8_26": {
-      "title": "Requisiti di sicurezza delle applicazioni",
-      "description": "Individua, specifica e approva i requisiti di sicurezza delle informazioni per lo sviluppo e l'approvvigionamento delle applicazioni."
+      "title": "Requisiti di sicurezza delle applicazioni"
     },
     "A_8_27": {
-      "title": "Principi di architettura e ingegneria sicura dei sistemi",
-      "description": "Stabilisci, documenta e applica principi di ingegneria sicura per tutte le attività di sviluppo e ingegneria dei sistemi."
+      "title": "Principi di architettura e ingegneria sicura dei sistemi"
     },
     "A_8_28": {
-      "title": "Codifica sicura",
-      "description": "Applica principi di codifica sicura allo sviluppo del software per prevenire le vulnerabilità comuni (OWASP Top 10, injection, XSS)."
+      "title": "Codifica sicura"
     },
     "A_8_29": {
-      "title": "Test di sicurezza nello sviluppo e nell'accettazione",
-      "description": "Definisci e attua processi di test di sicurezza nel ciclo di vita dello sviluppo e durante i test di accettazione."
+      "title": "Test di sicurezza nello sviluppo e nell'accettazione"
     },
     "A_8_30": {
-      "title": "Sviluppo affidato all'esterno",
-      "description": "Supervisiona e monitora le attività di sviluppo dei sistemi affidate all'esterno per garantire il soddisfacimento dei requisiti di sicurezza."
+      "title": "Sviluppo affidato all'esterno"
     },
     "A_8_31": {
-      "title": "Separazione degli ambienti di sviluppo, test e produzione",
-      "description": "Separa gli ambienti di sviluppo, test e produzione per ridurre il rischio di accessi o modifiche non autorizzate al sistema di produzione."
+      "title": "Separazione degli ambienti di sviluppo, test e produzione"
     },
     "A_8_32": {
-      "title": "Gestione delle modifiche",
-      "description": "Gestisci le modifiche agli impianti di trattamento delle informazioni e ai sistemi mediante un processo formale di gestione delle modifiche."
+      "title": "Gestione delle modifiche"
     },
     "A_8_33": {
-      "title": "Informazioni di test",
-      "description": "Proteggi e gestisci le informazioni di test; non utilizzare mai dati reali di produzione negli ambienti di test senza controlli appropriati."
+      "title": "Informazioni di test"
     },
     "A_8_34": {
-      "title": "Protezione dei sistemi informativi durante i test di audit",
-      "description": "Pianifica e concorda i requisiti e le attività di audit che comportano la verifica dei sistemi operativi al fine di ridurre al minimo le interruzioni."
+      "title": "Protezione dei sistemi informativi durante i test di audit"
     }
   }
 }

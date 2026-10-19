@@ -2,59 +2,59 @@
   "requirements": {
     "A_7_1": {
       "title": "Physische Sicherheitszonen",
-      "description": "Physische Sicherheitszonen zum Schutz sensibler Bereiche mit Informationen und Verarbeitungseinrichtungen definieren und umsetzen."
+      "description": "Bereiche mit sensiblen Informationen oder IT, etwa Serverräume oder Archive, haben festgelegte Grenzen, die physisch gesichert sind."
     },
     "A_7_2": {
       "title": "Physischer Zutritt",
-      "description": "Sichere Bereiche mit angemessenen Zutrittskontrollmaßnahmen sichern, damit nur autorisierte Personen Zutritt erhalten."
+      "description": "Der Zutritt zu gesicherten Bereichen wird so gesteuert, dass nur Berechtigte hineinkommen, etwa mit Schlüsseln, Ausweisen und Besucherlisten."
     },
     "A_7_3": {
       "title": "Absicherung von Büros, Räumen und Einrichtungen",
-      "description": "Physische Sicherheit für Büros, Räume und Einrichtungen verhältnismäßig zur Sensitivität der dort verarbeiteten Informationen anwenden."
+      "description": "Büros, Räume und andere Einrichtungen erhalten physischen Schutz, der zu dem passt, was dort aufbewahrt oder verarbeitet wird."
     },
     "A_7_4": {
       "title": "Physische Sicherheitsüberwachung",
-      "description": "Betriebsgelände auf unbefugten physischen Zugang überwachen: Alarmanlagen, CCTV, Wachpersonal oder andere geeignete Mittel."
+      "description": "Das Gelände wird auf unbefugten Zutritt überwacht, etwa mit Alarmanlagen, Kameras oder einem Wachdienst."
     },
     "A_7_5": {
       "title": "Schutz vor physischen und umweltbedingten Bedrohungen",
-      "description": "Schutz vor physischen und umweltbedingten Bedrohungen wie Brand, Überschwemmung, Erdbeben und vorsätzlicher Beschädigung."
+      "description": "Einrichtungen sind nach den Risiken am Standort gegen Feuer, Wasser, Überspannung, Sturm und vorsätzliche Beschädigung geschützt."
     },
     "A_7_6": {
       "title": "Arbeiten in sicheren Bereichen",
-      "description": "Verfahren für das Arbeiten in sicheren Bereichen definieren und anwenden, um unbefugten Zugang, Fotografie oder Datenexfiltration zu verhindern."
+      "description": "Für die Arbeit in gesicherten Bereichen gelten besondere Regeln, etwa keine Besucher ohne Begleitung oder keine Fotos."
     },
     "A_7_7": {
       "title": "Aufgeräumter Arbeitsplatz und gesperrter Bildschirm",
-      "description": "Clean-Desk-Richtlinie für Papiere und Wechseldatenträger sowie Clean-Screen-Richtlinie für Informationsverarbeitungseinrichtungen anwenden."
+      "description": "Schreibtische werden von Papieren und Datenträgern freigeräumt, wenn sie nicht gebraucht werden, und Bildschirme sperren, wenn jemand den Platz verlässt."
     },
     "A_7_8": {
       "title": "Aufstellung und Schutz von Geräten",
-      "description": "Geräte so aufstellen und schützen, dass Risiken durch Umweltbedrohungen, unbefugten Zugang und Interferenzen reduziert werden."
+      "description": "Geräte werden so aufgestellt und geschützt, dass Hitze, Wasser, Staub, Diebstahl und fremde Blicke ihnen nicht schaden."
     },
     "A_7_9": {
       "title": "Sicherheit von Assets außerhalb des Betriebsgeländes",
-      "description": "Maßnahmen für außerhalb des Betriebsgeländes mitgenommene Assets verhältnismäßig zu den Risiken des externen Betriebs anwenden."
+      "description": "Laptops, Smartphones und andere Firmengeräte, die außerhalb der Räumlichkeiten genutzt werden, sind gegen Verlust, Diebstahl und neugierige Blicke geschützt."
     },
     "A_7_10": {
       "title": "Speichermedien",
-      "description": "Speichermedien über ihren gesamten Lebenszyklus verwalten: Beschaffung, Nutzung, Transport, Entsorgung und Löschverfahren."
+      "description": "Speichermedien wie Sticks und Festplatten werden von der Beschaffung über Nutzung und Transport bis zur Vernichtung sicher behandelt."
     },
     "A_7_11": {
       "title": "Versorgungseinrichtungen",
-      "description": "Informationsverarbeitungseinrichtungen vor Stromausfällen und anderen Störungen durch Versorgungseinrichtungen schützen."
+      "description": "Die IT ist gegen Ausfälle von Strom, Kühlung und anderen Versorgungen geschützt, etwa durch eine unterbrechungsfreie Stromversorgung."
     },
     "A_7_12": {
       "title": "Verkabelungssicherheit",
-      "description": "Strom- und Telekommunikationskabel vor Abhören, Interferenz oder Beschädigung schützen."
+      "description": "Kabel für Strom und Netzwerk werden so verlegt und geschützt, dass sie sich nicht leicht abhören, stören oder beschädigen lassen."
     },
     "A_7_13": {
       "title": "Gerätewartung",
-      "description": "Geräte korrekt warten, um dauerhafte Verfügbarkeit und Integrität der Informationsverarbeitungseinrichtungen sicherzustellen."
+      "description": "Geräte werden nach den Vorgaben des Herstellers gewartet, damit sie verfügbar und zuverlässig bleiben, auch wenn externe Techniker daran arbeiten."
     },
     "A_7_14": {
       "title": "Sichere Entsorgung oder Wiederverwendung von Geräten",
-      "description": "Vor der Entsorgung oder Wiederverwendung sicherstellen, dass alle sensiblen Daten und Lizenzsoftware entfernt oder überschrieben wurden."
+      "description": "Bevor Geräte entsorgt oder weiterverwendet werden, prüft das Unternehmen, dass Daten und lizenzierte Software darauf sicher entfernt sind."
     }
   }
 }

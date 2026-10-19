@@ -1,152 +1,115 @@
 {
   "requirements": {
     "A_5_1": {
-      "title": "Policy per la sicurezza delle informazioni",
-      "description": "Definisci, approva, pubblica e riesamina annualmente le policy di sicurezza delle informazioni che coprono tutti i temi rilevanti."
+      "title": "Policy per la sicurezza delle informazioni"
     },
     "A_5_2": {
-      "title": "Ruoli e responsabilità per la sicurezza delle informazioni",
-      "description": "Assegna e documenta i ruoli e le responsabilità per la sicurezza delle informazioni in tutta l'organizzazione."
+      "title": "Ruoli e responsabilità per la sicurezza delle informazioni"
     },
     "A_5_3": {
-      "title": "Separazione dei compiti",
-      "description": "Separa i compiti e le responsabilità in conflitto per ridurre le possibilità di modifica non autorizzata delle informazioni."
+      "title": "Separazione dei compiti"
     },
     "A_5_4": {
-      "title": "Responsabilità della direzione",
-      "description": "La direzione deve esigere che tutto il personale applichi la sicurezza delle informazioni in conformità alle policy stabilite."
+      "title": "Responsabilità della direzione"
     },
     "A_5_5": {
-      "title": "Contatti con le autorità",
-      "description": "Mantieni contatti appropriati con le autorità competenti (autorità di protezione dei dati, agenzia per la cibersicurezza, forze dell'ordine)."
+      "title": "Contatti con le autorità"
     },
     "A_5_6": {
-      "title": "Contatti con gruppi di interesse specialistici",
-      "description": "Mantieni l'adesione o il contatto con gruppi di interesse specialistici, forum sulla sicurezza e associazioni professionali."
+      "title": "Contatti con gruppi di interesse specialistici"
     },
     "A_5_7": {
-      "title": "Threat intelligence",
-      "description": "Raccogli, analizza e produci threat intelligence rilevante per l'organizzazione al fine di anticipare le minacce e prepararsi ad esse."
+      "title": "Threat intelligence"
     },
     "A_5_8": {
-      "title": "Sicurezza delle informazioni nella gestione dei progetti",
-      "description": "Integra la sicurezza delle informazioni nella gestione dei progetti per garantire che i rischi di sicurezza siano affrontati nel corso dei progetti."
+      "title": "Sicurezza delle informazioni nella gestione dei progetti"
     },
     "A_5_9": {
-      "title": "Inventario delle informazioni e degli altri asset associati",
-      "description": "Individua, documenta e mantieni un inventario delle informazioni e degli asset associati con l'attribuzione della proprietà."
+      "title": "Inventario delle informazioni e degli altri asset associati"
     },
     "A_5_10": {
-      "title": "Uso accettabile delle informazioni e degli altri asset associati",
-      "description": "Individua, documenta e attua le regole di uso accettabile per le informazioni e gli asset, comprendendo dispositivi, gestione dei dati e attività vietate."
+      "title": "Uso accettabile delle informazioni e degli altri asset associati"
     },
     "A_5_11": {
-      "title": "Restituzione degli asset",
-      "description": "Assicura che tutti gli asset siano restituiti alla cessazione o al cambiamento del rapporto di lavoro o del contratto."
+      "title": "Restituzione degli asset"
     },
     "A_5_12": {
-      "title": "Classificazione delle informazioni",
-      "description": "Classifica le informazioni in base alla sensibilità (riservate, interne, pubbliche) per garantire una gestione e una protezione adeguate."
+      "title": "Classificazione delle informazioni"
     },
     "A_5_13": {
-      "title": "Etichettatura delle informazioni",
-      "description": "Sviluppa e attua una procedura di etichettatura delle informazioni in conformità allo schema di classificazione."
+      "title": "Etichettatura delle informazioni"
     },
     "A_5_14": {
-      "title": "Trasferimento delle informazioni",
-      "description": "Stabilisci regole e procedure per il trasferimento delle informazioni tramite tutti i canali, tra cui email, messaggistica, supporti fisici e comunicazione verbale."
+      "title": "Trasferimento delle informazioni"
     },
     "A_5_15": {
-      "title": "Controllo degli accessi",
-      "description": "Definisci e attua le regole di controllo degli accessi in base ai requisiti aziendali e di sicurezza, applicando il principio del privilegio minimo."
+      "title": "Controllo degli accessi"
     },
     "A_5_16": {
-      "title": "Gestione delle identità",
-      "description": "Gestisci l'intero ciclo di vita dell'identità (provisioning, modifiche, revoca) per tutti gli utenti e gli account di servizio."
+      "title": "Gestione delle identità"
     },
     "A_5_17": {
-      "title": "Informazioni di autenticazione",
-      "description": "Gestisci le informazioni di autenticazione (password, chiavi, token) attraverso un processo formale che comprenda assegnazione, conservazione e revoca."
+      "title": "Informazioni di autenticazione"
     },
     "A_5_18": {
-      "title": "Diritti di accesso",
-      "description": "Assegna, riesamina, modifica e rimuovi i diritti di accesso in conformità alla policy di controllo degli accessi."
+      "title": "Diritti di accesso"
     },
     "A_5_19": {
-      "title": "Sicurezza delle informazioni nei rapporti con i fornitori",
-      "description": "Individua e attua controlli per proteggere gli asset accessibili ai fornitori; documenta i requisiti negli accordi con i fornitori."
+      "title": "Sicurezza delle informazioni nei rapporti con i fornitori"
     },
     "A_5_20": {
-      "title": "Trattazione della sicurezza delle informazioni negli accordi con i fornitori",
-      "description": "Stabilisci e concorda i requisiti di sicurezza delle informazioni con ogni fornitore che può accedere, trattare o conservare informazioni dell'organizzazione."
+      "title": "Trattazione della sicurezza delle informazioni negli accordi con i fornitori"
     },
     "A_5_21": {
-      "title": "Gestione della sicurezza delle informazioni nella catena di approvvigionamento TIC",
-      "description": "Definisci e attua processi per la gestione dei rischi di sicurezza delle informazioni associati alla catena di approvvigionamento di prodotti e servizi TIC."
+      "title": "Gestione della sicurezza delle informazioni nella catena di approvvigionamento TIC"
     },
     "A_5_22": {
-      "title": "Monitoraggio, riesame e gestione delle modifiche dei servizi dei fornitori",
-      "description": "Monitora, riesamina e gestisci periodicamente le modifiche alle prassi di sicurezza delle informazioni e all'erogazione dei servizi dei fornitori."
+      "title": "Monitoraggio, riesame e gestione delle modifiche dei servizi dei fornitori"
     },
     "A_5_23": {
-      "title": "Sicurezza delle informazioni nell'uso dei servizi cloud",
-      "description": "Stabilisci processi per l'acquisizione, l'uso, la gestione e l'uscita dai servizi cloud, comprensivi di requisiti di sicurezza e piani di uscita."
+      "title": "Sicurezza delle informazioni nell'uso dei servizi cloud"
     },
     "A_5_24": {
-      "title": "Pianificazione e preparazione della gestione degli incidenti di sicurezza delle informazioni",
-      "description": "Pianifica e preparati alla gestione degli incidenti con ruoli, responsabilità, procedure e canali di comunicazione definiti."
+      "title": "Pianificazione e preparazione della gestione degli incidenti di sicurezza delle informazioni"
     },
     "A_5_25": {
-      "title": "Valutazione e decisione sugli eventi di sicurezza delle informazioni",
-      "description": "Valuta gli eventi di sicurezza delle informazioni e decidi se si qualifichino come incidenti utilizzando uno schema di classificazione definito."
+      "title": "Valutazione e decisione sugli eventi di sicurezza delle informazioni"
     },
     "A_5_26": {
-      "title": "Risposta agli incidenti di sicurezza delle informazioni",
-      "description": "Rispondi agli incidenti in conformità alle procedure documentate; contieni, eradica e ripristina in modo strutturato."
+      "title": "Risposta agli incidenti di sicurezza delle informazioni"
     },
     "A_5_27": {
-      "title": "Apprendimento dagli incidenti di sicurezza delle informazioni",
-      "description": "Utilizza le conoscenze tratte dagli incidenti per ridurre la probabilità e l'impatto di incidenti futuri; aggiorna i controlli di conseguenza."
+      "title": "Apprendimento dagli incidenti di sicurezza delle informazioni"
     },
     "A_5_28": {
-      "title": "Raccolta delle evidenze",
-      "description": "Definisci e applica procedure per identificare, raccogliere, acquisire e conservare le evidenze degli incidenti di sicurezza delle informazioni."
+      "title": "Raccolta delle evidenze"
     },
     "A_5_29": {
-      "title": "Sicurezza delle informazioni durante le interruzioni",
-      "description": "Pianifica come la sicurezza delle informazioni sarà mantenuta durante le interruzioni. Integra i requisiti di sicurezza nei piani di continuità operativa."
+      "title": "Sicurezza delle informazioni durante le interruzioni"
     },
     "A_5_30": {
-      "title": "Prontezza TIC per la continuità operativa",
-      "description": "Pianifica, attua, mantieni e collauda la prontezza TIC sulla base degli obiettivi di continuità operativa e dei requisiti di continuità TIC."
+      "title": "Prontezza TIC per la continuità operativa"
     },
     "A_5_31": {
-      "title": "Requisiti legali, statutari, regolamentari e contrattuali",
-      "description": "Individua, documenta e mantieni aggiornati tutti i requisiti legali, regolamentari e contrattuali rilevanti per la sicurezza delle informazioni."
+      "title": "Requisiti legali, statutari, regolamentari e contrattuali"
     },
     "A_5_32": {
-      "title": "Diritti di proprietà intellettuale",
-      "description": "Attua procedure per proteggere i diritti di proprietà intellettuale e rispettare i requisiti di licenza del software."
+      "title": "Diritti di proprietà intellettuale"
     },
     "A_5_33": {
-      "title": "Protezione delle registrazioni",
-      "description": "Proteggi le registrazioni da perdita, distruzione, falsificazione, accesso non autorizzato e divulgazione non autorizzata in conformità ai requisiti legali."
+      "title": "Protezione delle registrazioni"
     },
     "A_5_34": {
-      "title": "Privacy e protezione delle PII",
-      "description": "Individua e soddisfa i requisiti di privacy e protezione dei dati personali in conformità alla normativa applicabile (GDPR)."
+      "title": "Privacy e protezione delle PII"
     },
     "A_5_35": {
-      "title": "Riesame indipendente della sicurezza delle informazioni",
-      "description": "Riesamina in modo indipendente l'approccio e l'attuazione dell'ISMS a intervalli pianificati o al verificarsi di modifiche significative."
+      "title": "Riesame indipendente della sicurezza delle informazioni"
     },
     "A_5_36": {
-      "title": "Conformità a policy, regole e standard per la sicurezza delle informazioni",
-      "description": "Riesamina periodicamente la conformità a policy, standard e procedure di sicurezza delle informazioni; documenta i risultati."
+      "title": "Conformità a policy, regole e standard per la sicurezza delle informazioni"
     },
     "A_5_37": {
-      "title": "Procedure operative documentate",
-      "description": "Documenta, mantieni e rendi disponibili le procedure operative per gli impianti di trattamento delle informazioni."
+      "title": "Procedure operative documentate"
     }
   }
 }

@@ -1,36 +1,28 @@
 {
   "requirements": {
     "A_6_1": {
-      "title": "Sélection des candidats",
-      "description": "Effectuer des vérifications d'antécédents sur tous les candidats à l'embauche, proportionnées à la sensibilité du rôle et aux exigences légales."
+      "title": "Sélection des candidats"
     },
     "A_6_2": {
-      "title": "Conditions d'emploi",
-      "description": "Exiger contractuellement des employés et des prestataires qu'ils respectent les politiques de sécurité de l'information comme condition d'emploi."
+      "title": "Conditions d'emploi"
     },
     "A_6_3": {
-      "title": "Sensibilisation, éducation et formation à la sécurité de l'information",
-      "description": "S'assurer que l'ensemble du personnel reçoit une formation de sensibilisation à la sécurité appropriée à l'embauche puis annuellement, avec une formation spécifique au rôle pour le personnel technique."
+      "title": "Sensibilisation, éducation et formation à la sécurité de l'information"
     },
     "A_6_4": {
-      "title": "Processus disciplinaire",
-      "description": "Disposer d'un processus disciplinaire formel et communiqué pour les employés qui commettent des violations de la sécurité de l'information."
+      "title": "Processus disciplinaire"
     },
     "A_6_5": {
-      "title": "Responsabilités après la cessation ou le changement d'emploi",
-      "description": "Définir et faire appliquer les responsabilités de sécurité de l'information qui demeurent en vigueur après la fin de l'emploi (confidentialité, restitution des actifs)."
+      "title": "Responsabilités après la cessation ou le changement d'emploi"
     },
     "A_6_6": {
-      "title": "Accords de confidentialité ou de non-divulgation",
-      "description": "Identifier, documenter et revoir régulièrement les exigences de confidentialité ; utiliser des NDA avec le personnel, les prestataires et les tiers concernés."
+      "title": "Accords de confidentialité ou de non-divulgation"
     },
     "A_6_7": {
-      "title": "Travail à distance",
-      "description": "Définir et mettre en œuvre des mesures de sécurité pour le travail à distance couvrant la sécurité réseau, la sécurité physique et la protection des équipements."
+      "title": "Travail à distance"
     },
     "A_6_8": {
-      "title": "Signalement des événements de sécurité de l'information",
-      "description": "Fournir un mécanisme clair et simple permettant au personnel de signaler les événements et faiblesses de sécurité ; donner suite à tous les signalements."
+      "title": "Signalement des événements de sécurité de l'information"
     }
   }
 }

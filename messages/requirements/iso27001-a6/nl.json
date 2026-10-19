@@ -1,36 +1,28 @@
 {
   "requirements": {
     "A_6_1": {
-      "title": "Screening",
-      "description": "Achtergrondcontroles uitvoeren voor alle sollicitanten, proportioneel aan de gevoeligheid van de rol en wettelijke vereisten."
+      "title": "Screening"
     },
     "A_6_2": {
-      "title": "Arbeidsvoorwaarden",
-      "description": "Medewerkers en contractanten contractueel verplichten tot naleving van IS-beleid als arbeidsvoorwaarde."
+      "title": "Arbeidsvoorwaarden"
     },
     "A_6_3": {
-      "title": "IS-bewustzijn, opleiding en training",
-      "description": "Zorgen dat alle medewerkers bij indiensttreding en jaarlijks passende IS-bewustwordingstraining ontvangen."
+      "title": "IS-bewustzijn, opleiding en training"
     },
     "A_6_4": {
-      "title": "Disciplinaire procedure",
-      "description": "Een formele, gecommuniceerde disciplinaire procedure hebben voor medewerkers die IS-overtredingen begaan."
+      "title": "Disciplinaire procedure"
     },
     "A_6_5": {
-      "title": "Verantwoordelijkheden na beëindiging of wijziging van dienstverband",
-      "description": "IS-verantwoordelijkheden die na beëindiging van het dienstverband gelden definiëren en handhaven (vertrouwelijkheid, teruggave activa)."
+      "title": "Verantwoordelijkheden na beëindiging of wijziging van dienstverband"
     },
     "A_6_6": {
-      "title": "Vertrouwelijkheids- of geheimhoudingsovereenkomsten",
-      "description": "Vertrouwelijkheidsvereisten identificeren, documenteren en regelmatig herzien; NDA's gebruiken met medewerkers, contractanten en relevante derden."
+      "title": "Vertrouwelijkheids- of geheimhoudingsovereenkomsten"
     },
     "A_6_7": {
-      "title": "Thuiswerken",
-      "description": "Beveiligingsmaatregelen voor thuiswerken definiëren en implementeren: netwerkbeveiliging, fysieke beveiliging en apparatuurbeveiliging."
+      "title": "Thuiswerken"
     },
     "A_6_8": {
-      "title": "Melding van IS-gebeurtenissen",
-      "description": "Een duidelijk, eenvoudig te gebruiken mechanisme bieden voor medewerkers om beveiligingsgebeurtenissen en zwakheden te melden."
+      "title": "Melding van IS-gebeurtenissen"
     }
   }
 }

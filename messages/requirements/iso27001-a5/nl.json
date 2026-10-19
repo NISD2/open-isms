@@ -1,152 +1,115 @@
 {
   "requirements": {
     "A_5_1": {
-      "title": "Beleid voor informatiebeveiliging",
-      "description": "Informatiebeveiligingsbeleid definiëren, goedkeuren, publiceren en jaarlijks herzien voor alle relevante onderwerpen."
+      "title": "Beleid voor informatiebeveiliging"
     },
     "A_5_2": {
-      "title": "Rollen en verantwoordelijkheden voor informatiebeveiliging",
-      "description": "Rollen en verantwoordelijkheden voor informatiebeveiliging toewijzen en documenteren in de hele organisatie."
+      "title": "Rollen en verantwoordelijkheden voor informatiebeveiliging"
     },
     "A_5_3": {
-      "title": "Functiescheiding",
-      "description": "Conflicterende taken en verantwoordelijkheden scheiden om kansen voor ongeautoriseerde wijziging van informatie te beperken."
+      "title": "Functiescheiding"
     },
     "A_5_4": {
-      "title": "Managementverantwoordelijkheden",
-      "description": "Het management moet van alle medewerkers verlangen dat zij informatiebeveiliging toepassen conform het vastgestelde beleid."
+      "title": "Managementverantwoordelijkheden"
     },
     "A_5_5": {
-      "title": "Contact met autoriteiten",
-      "description": "Passende contacten onderhouden met relevante autoriteiten (gegevensbeschermingsautoriteit, cyberveiligheidsagentschap, rechtshandhaving)."
+      "title": "Contact met autoriteiten"
     },
     "A_5_6": {
-      "title": "Contact met speciale belangengroepen",
-      "description": "Lidmaatschap of contact onderhouden met speciale belangengroepen, beveiligingsforums en beroepsverenigingen."
+      "title": "Contact met speciale belangengroepen"
     },
     "A_5_7": {
-      "title": "Dreigingsinformatie",
-      "description": "Voor de organisatie relevante dreigingsinformatie verzamelen, analyseren en produceren om dreigingen te anticiperen en te bereiden."
+      "title": "Dreigingsinformatie"
     },
     "A_5_8": {
-      "title": "Informatiebeveiliging in projectmanagement",
-      "description": "Informatiebeveiliging integreren in projectmanagement zodat beveiligingsrisico's worden aangepakt tijdens projecten."
+      "title": "Informatiebeveiliging in projectmanagement"
     },
     "A_5_9": {
-      "title": "Inventaris van informatie en bijbehorende activa",
-      "description": "Inventaris van informatie en bijbehorende activa met toegewezen eigenaarschap identificeren, documenteren en onderhouden."
+      "title": "Inventaris van informatie en bijbehorende activa"
     },
     "A_5_10": {
-      "title": "Aanvaardbaar gebruik van informatie en activa",
-      "description": "Regels voor aanvaardbaar gebruik van informatie en activa documenteren en implementeren: apparaten, gegevensverwerking, verboden activiteiten."
+      "title": "Aanvaardbaar gebruik van informatie en activa"
     },
     "A_5_11": {
-      "title": "Teruggave van activa",
-      "description": "Zekerstellen dat alle activa worden teruggegeven bij beëindiging of wijziging van arbeids- of contractverhoudingen."
+      "title": "Teruggave van activa"
     },
     "A_5_12": {
-      "title": "Classificatie van informatie",
-      "description": "Informatie classificeren naar gevoeligheid (vertrouwelijk, intern, openbaar) voor passende bescherming."
+      "title": "Classificatie van informatie"
     },
     "A_5_13": {
-      "title": "Labeling van informatie",
-      "description": "Labelprocedure voor informatie ontwikkelen en implementeren conform het classificatieschema."
+      "title": "Labeling van informatie"
     },
     "A_5_14": {
-      "title": "Informatieoverdracht",
-      "description": "Regels en procedures voor informatieoverdracht via alle kanalen vaststellen: e-mail, berichten, fysieke media en mondeling."
+      "title": "Informatieoverdracht"
     },
     "A_5_15": {
-      "title": "Toegangscontrole",
-      "description": "Toegangscontroleregelgeving definiëren en implementeren op basis van bedrijfs- en beveiligingsvereisten, met minimale toegangsrechten."
+      "title": "Toegangscontrole"
     },
     "A_5_16": {
-      "title": "Identiteitsbeheer",
-      "description": "De volledige identiteitslevenscyclus (provisioning, wijzigingen, intrekking) voor alle gebruikers en serviceaccounts beheren."
+      "title": "Identiteitsbeheer"
     },
     "A_5_17": {
-      "title": "Authenticatie-informatie",
-      "description": "Authenticatie-informatie (wachtwoorden, sleutels, tokens) beheren via een formeel proces incl. toewijzing, opslag en intrekking."
+      "title": "Authenticatie-informatie"
     },
     "A_5_18": {
-      "title": "Toegangsrechten",
-      "description": "Toegangsrechten verlenen, herzien, wijzigen en intrekken conform het toegangscontrolebeleid."
+      "title": "Toegangsrechten"
     },
     "A_5_19": {
-      "title": "Informatiebeveiliging in leveranciersrelaties",
-      "description": "Maatregelen identificeren en implementeren ter bescherming van activa die toegankelijk zijn voor leveranciers; vastleggen in leveranciersovereenkomsten."
+      "title": "Informatiebeveiliging in leveranciersrelaties"
     },
     "A_5_20": {
-      "title": "IS-vereisten in leveranciersovereenkomsten",
-      "description": "Informatiebeveiligingseisen vaststellen en overeenkomen met elke leverancier die toegang heeft tot organisatie-informatie of deze verwerkt."
+      "title": "IS-vereisten in leveranciersovereenkomsten"
     },
     "A_5_21": {
-      "title": "IS in de ICT-toeleveringsketen",
-      "description": "Processen definiëren en implementeren voor het beheren van IS-risico's in de ICT-producten- en dienstentoeleveringsketen."
+      "title": "IS in de ICT-toeleveringsketen"
     },
     "A_5_22": {
-      "title": "Monitoring, beoordeling en wijzigingsbeheer van leveranciersdiensten",
-      "description": "IS-praktijken en dienstverlening van leveranciers regelmatig monitoren, beoordelen en wijzigingen beheren."
+      "title": "Monitoring, beoordeling en wijzigingsbeheer van leveranciersdiensten"
     },
     "A_5_23": {
-      "title": "Informatiebeveiliging bij gebruik van clouddiensten",
-      "description": "Processen voor aanschaf, gebruik, beheer en beëindiging van clouddiensten vaststellen incl. beveiligingsvereisten en exitplannen."
+      "title": "Informatiebeveiliging bij gebruik van clouddiensten"
     },
     "A_5_24": {
-      "title": "Planning en voorbereiding van IS-incidentbeheer",
-      "description": "Incidentbeheer plannen en voorbereiden met gedefinieerde rollen, verantwoordelijkheden, procedures en communicatiekanalen."
+      "title": "Planning en voorbereiding van IS-incidentbeheer"
     },
     "A_5_25": {
-      "title": "Beoordeling en besluitvorming over IS-gebeurtenissen",
-      "description": "IS-gebeurtenissen beoordelen en op basis van een classificatieschema beslissen of ze als incident worden aangemerkt."
+      "title": "Beoordeling en besluitvorming over IS-gebeurtenissen"
     },
     "A_5_26": {
-      "title": "Reactie op informatiebeveiligingsincidenten",
-      "description": "Op incidenten reageren conform gedocumenteerde procedures; gestructureerd indammen, verwijderen en herstellen."
+      "title": "Reactie op informatiebeveiligingsincidenten"
     },
     "A_5_27": {
-      "title": "Leren van IS-incidenten",
-      "description": "Kennis uit incidenten gebruiken om de kans en impact van toekomstige incidenten te verminderen; maatregelen dienovereenkomstig bijwerken."
+      "title": "Leren van IS-incidenten"
     },
     "A_5_28": {
-      "title": "Bewijsverzameling",
-      "description": "Procedures definiëren en toepassen voor het identificeren, verzamelen, verkrijgen en bewaren van bewijs bij IS-incidenten."
+      "title": "Bewijsverzameling"
     },
     "A_5_29": {
-      "title": "Informatiebeveiliging tijdens verstoringen",
-      "description": "Plannen hoe IS bij verstoringen gehandhaafd blijft. Beveiligingsvereisten integreren in bedrijfscontinuïteitsplannen."
+      "title": "Informatiebeveiliging tijdens verstoringen"
     },
     "A_5_30": {
-      "title": "ICT-gereedheid voor bedrijfscontinuïteit",
-      "description": "ICT-gereedheid plannen, implementeren, onderhouden en testen op basis van bedrijfscontinuïteitsdoelstellingen."
+      "title": "ICT-gereedheid voor bedrijfscontinuïteit"
     },
     "A_5_31": {
-      "title": "Wettelijke, statutaire, regelgevende en contractuele vereisten",
-      "description": "Alle wettelijke, regelgevende en contractuele vereisten relevant voor IS identificeren, documenteren en actueel houden."
+      "title": "Wettelijke, statutaire, regelgevende en contractuele vereisten"
     },
     "A_5_32": {
-      "title": "Intellectuele eigendomsrechten",
-      "description": "Procedures implementeren ter bescherming van intellectuele eigendomsrechten en naleving van softwarelicentievereisten."
+      "title": "Intellectuele eigendomsrechten"
     },
     "A_5_33": {
-      "title": "Bescherming van registers",
-      "description": "Registers beschermen tegen verlies, vernietiging, vervalsing, ongeautoriseerde toegang en ongeautoriseerde openbaarmaking conform wettelijke vereisten."
+      "title": "Bescherming van registers"
     },
     "A_5_34": {
-      "title": "Privacy en bescherming van persoonsgegevens",
-      "description": "Privacy- en persoonsdatavereisten identificeren en naleven conform toepasselijk recht (AVG)."
+      "title": "Privacy en bescherming van persoonsgegevens"
     },
     "A_5_35": {
-      "title": "Onafhankelijke beoordeling van informatiebeveiliging",
-      "description": "De ISMS-aanpak en -implementatie onafhankelijk beoordelen op geplande intervallen of bij significante wijzigingen."
+      "title": "Onafhankelijke beoordeling van informatiebeveiliging"
     },
     "A_5_36": {
-      "title": "Naleving van IS-beleid en -normen",
-      "description": "Naleving van informatiebeveiligingsbeleid, -normen en -procedures regelmatig beoordelen; resultaten documenteren."
+      "title": "Naleving van IS-beleid en -normen"
     },
     "A_5_37": {
-      "title": "Gedocumenteerde bedrijfsprocedures",
-      "description": "Bedrijfsprocedures voor informatieverwerking documenteren, onderhouden en beschikbaar stellen."
+      "title": "Gedocumenteerde bedrijfsprocedures"
     }
   }
 }

@@ -1,60 +1,46 @@
 {
   "requirements": {
     "A_7_1": {
-      "title": "Fyzické bezpečnostní perimetry",
-      "description": "Definujte a zaveďte fyzické bezpečnostní perimetry k ochraně citlivých oblastí obsahujících informace a zařízení pro jejich zpracování."
+      "title": "Fyzické bezpečnostní perimetry"
     },
     "A_7_2": {
-      "title": "Fyzický vstup",
-      "description": "Chraňte zabezpečené oblasti vhodnými vstupními kontrolami, abyste zajistili, že přístup mohou získat pouze oprávněné osoby."
+      "title": "Fyzický vstup"
     },
     "A_7_3": {
-      "title": "Zabezpečení kanceláří, místností a zařízení",
-      "description": "Uplatňujte fyzickou bezpečnost u kanceláří, místností a zařízení úměrně citlivosti zde zpracovávaných informací."
+      "title": "Zabezpečení kanceláří, místností a zařízení"
     },
     "A_7_4": {
-      "title": "Monitorování fyzické bezpečnosti",
-      "description": "Monitorujte prostory na neoprávněný fyzický přístup pomocí alarmů, kamerového systému, ostrahy nebo jiných vhodných prostředků."
+      "title": "Monitorování fyzické bezpečnosti"
     },
     "A_7_5": {
-      "title": "Ochrana před fyzickými a environmentálními hrozbami",
-      "description": "Chraňte se před fyzickými a environmentálními hrozbami, jako jsou požár, povodeň, zemětřesení a úmyslné poškození."
+      "title": "Ochrana před fyzickými a environmentálními hrozbami"
     },
     "A_7_6": {
-      "title": "Práce v zabezpečených oblastech",
-      "description": "Definujte a uplatňujte postupy pro práci v zabezpečených oblastech, abyste zabránili neoprávněnému přístupu, fotografování nebo úniku dat."
+      "title": "Práce v zabezpečených oblastech"
     },
     "A_7_7": {
-      "title": "Čistý stůl a čistá obrazovka",
-      "description": "Uplatňujte politiku čistého stolu pro dokumenty a vyměnitelná média a politiku čisté obrazovky pro zařízení zpracovávající informace."
+      "title": "Čistý stůl a čistá obrazovka"
     },
     "A_7_8": {
-      "title": "Umístění a ochrana zařízení",
-      "description": "Umístěte a chraňte zařízení tak, abyste snížili rizika z environmentálních hrozeb, neoprávněného přístupu a rušení."
+      "title": "Umístění a ochrana zařízení"
     },
     "A_7_9": {
-      "title": "Bezpečnost aktiv mimo prostory organizace",
-      "description": "Uplatňujte kontroly na aktiva odnášená mimo prostory organizace úměrně rizikům práce mimo prostory organizace."
+      "title": "Bezpečnost aktiv mimo prostory organizace"
     },
     "A_7_10": {
-      "title": "Paměťová média",
-      "description": "Spravujte paměťová média po celý jejich životní cyklus: pořízení, použití, přepravu, likvidaci a sanitizaci."
+      "title": "Paměťová média"
     },
     "A_7_11": {
-      "title": "Podpůrné inženýrské sítě",
-      "description": "Chraňte zařízení zpracovávající informace před výpadky napájení a dalšími narušeními způsobenými selháním podpůrných inženýrských sítí."
+      "title": "Podpůrné inženýrské sítě"
     },
     "A_7_12": {
-      "title": "Bezpečnost kabeláže",
-      "description": "Chraňte napájecí a telekomunikační kabeláž před odposlechem, rušením nebo poškozením."
+      "title": "Bezpečnost kabeláže"
     },
     "A_7_13": {
-      "title": "Údržba zařízení",
-      "description": "Správně udržujte zařízení, abyste zajistili trvalou dostupnost a integritu zařízení zpracovávajících informace."
+      "title": "Údržba zařízení"
     },
     "A_7_14": {
-      "title": "Bezpečná likvidace nebo opětovné použití zařízení",
-      "description": "Ověřte, že všechna citlivá data a licencovaný software byly před likvidací nebo opětovným použitím zařízení odstraněny nebo přepsány."
+      "title": "Bezpečná likvidace nebo opětovné použití zařízení"
     }
   }
 }

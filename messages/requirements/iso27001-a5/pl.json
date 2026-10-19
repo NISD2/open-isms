@@ -1,152 +1,115 @@
 {
   "requirements": {
     "A_5_1": {
-      "title": "Polityki bezpieczeństwa informacji",
-      "description": "Zdefiniuj, zatwierdź, opublikuj i corocznie przeglądaj polityki bezpieczeństwa informacji obejmujące wszystkie istotne tematy."
+      "title": "Polityki bezpieczeństwa informacji"
     },
     "A_5_2": {
-      "title": "Role i odpowiedzialności w zakresie bezpieczeństwa informacji",
-      "description": "Przydziel i udokumentuj role oraz odpowiedzialności w zakresie bezpieczeństwa informacji w całej organizacji."
+      "title": "Role i odpowiedzialności w zakresie bezpieczeństwa informacji"
     },
     "A_5_3": {
-      "title": "Rozdzielenie obowiązków",
-      "description": "Rozdziel sprzeczne obowiązki i odpowiedzialności, aby ograniczyć możliwości nieuprawnionej modyfikacji informacji."
+      "title": "Rozdzielenie obowiązków"
     },
     "A_5_4": {
-      "title": "Odpowiedzialności kierownictwa",
-      "description": "Kierownictwo musi wymagać od całego personelu stosowania bezpieczeństwa informacji zgodnie z ustanowionymi politykami."
+      "title": "Odpowiedzialności kierownictwa"
     },
     "A_5_5": {
-      "title": "Kontakty z organami",
-      "description": "Utrzymuj odpowiednie kontakty z właściwymi organami (organem ochrony danych, agencją ds. bezpieczeństwa cybernetycznego, organami ścigania)."
+      "title": "Kontakty z organami"
     },
     "A_5_6": {
-      "title": "Kontakty z grupami zainteresowań specjalnych",
-      "description": "Utrzymuj członkostwo lub kontakt z grupami zainteresowań specjalnych, forami bezpieczeństwa oraz stowarzyszeniami zawodowymi."
+      "title": "Kontakty z grupami zainteresowań specjalnych"
     },
     "A_5_7": {
-      "title": "Wywiad o zagrożeniach",
-      "description": "Gromadź, analizuj i opracowuj informacje wywiadowcze o zagrożeniach istotnych dla organizacji, aby przewidywać zagrożenia i się na nie przygotować."
+      "title": "Wywiad o zagrożeniach"
     },
     "A_5_8": {
-      "title": "Bezpieczeństwo informacji w zarządzaniu projektami",
-      "description": "Zintegruj bezpieczeństwo informacji z zarządzaniem projektami, aby zapewnić uwzględnienie ryzyk bezpieczeństwa podczas projektów."
+      "title": "Bezpieczeństwo informacji w zarządzaniu projektami"
     },
     "A_5_9": {
-      "title": "Inwentaryzacja informacji i innych powiązanych aktywów",
-      "description": "Identyfikuj, dokumentuj i utrzymuj inwentaryzację informacji oraz powiązanych aktywów wraz z przypisaną własnością."
+      "title": "Inwentaryzacja informacji i innych powiązanych aktywów"
     },
     "A_5_10": {
-      "title": "Dopuszczalne użytkowanie informacji i innych powiązanych aktywów",
-      "description": "Identyfikuj, dokumentuj i wdrażaj zasady dopuszczalnego użytkowania informacji i aktywów, obejmujące urządzenia, postępowanie z danymi oraz działania zabronione."
+      "title": "Dopuszczalne użytkowanie informacji i innych powiązanych aktywów"
     },
     "A_5_11": {
-      "title": "Zwrot aktywów",
-      "description": "Zapewnij zwrot wszystkich aktywów w przypadku zakończenia lub zmiany zatrudnienia bądź umowy."
+      "title": "Zwrot aktywów"
     },
     "A_5_12": {
-      "title": "Klasyfikacja informacji",
-      "description": "Klasyfikuj informacje według wrażliwości (poufne, wewnętrzne, publiczne), aby zapewnić odpowiednie postępowanie i ochronę."
+      "title": "Klasyfikacja informacji"
     },
     "A_5_13": {
-      "title": "Oznaczanie informacji",
-      "description": "Opracuj i wdróż procedurę oznaczania informacji zgodnie ze schematem klasyfikacji."
+      "title": "Oznaczanie informacji"
     },
     "A_5_14": {
-      "title": "Przekazywanie informacji",
-      "description": "Ustanów zasady i procedury przekazywania informacji wszystkimi kanałami, w tym pocztą e-mail, komunikatorami, nośnikami fizycznymi oraz ustnie."
+      "title": "Przekazywanie informacji"
     },
     "A_5_15": {
-      "title": "Kontrola dostępu",
-      "description": "Zdefiniuj i wdróż zasady kontroli dostępu w oparciu o wymagania biznesowe i bezpieczeństwa, stosując zasadę najmniejszych uprawnień."
+      "title": "Kontrola dostępu"
     },
     "A_5_16": {
-      "title": "Zarządzanie tożsamością",
-      "description": "Zarządzaj pełnym cyklem życia tożsamości (nadawanie, zmiany, odwoływanie) dla wszystkich użytkowników i kont usługowych."
+      "title": "Zarządzanie tożsamością"
     },
     "A_5_17": {
-      "title": "Informacje uwierzytelniające",
-      "description": "Zarządzaj informacjami uwierzytelniającymi (hasłami, kluczami, tokenami) za pomocą formalnego procesu obejmującego nadawanie, przechowywanie i odwoływanie."
+      "title": "Informacje uwierzytelniające"
     },
     "A_5_18": {
-      "title": "Prawa dostępu",
-      "description": "Nadawaj, przeglądaj, modyfikuj i usuwaj prawa dostępu zgodnie z polityką kontroli dostępu."
+      "title": "Prawa dostępu"
     },
     "A_5_19": {
-      "title": "Bezpieczeństwo informacji w relacjach z dostawcami",
-      "description": "Identyfikuj i wdrażaj zabezpieczenia chroniące aktywa dostępne dla dostawców; dokumentuj wymagania w umowach z dostawcami."
+      "title": "Bezpieczeństwo informacji w relacjach z dostawcami"
     },
     "A_5_20": {
-      "title": "Uwzględnianie bezpieczeństwa informacji w umowach z dostawcami",
-      "description": "Ustanów i uzgodnij wymagania bezpieczeństwa informacji z każdym dostawcą, który może uzyskać dostęp do informacji organizacji, je przetwarzać lub przechowywać."
+      "title": "Uwzględnianie bezpieczeństwa informacji w umowach z dostawcami"
     },
     "A_5_21": {
-      "title": "Zarządzanie bezpieczeństwem informacji w łańcuchu dostaw ICT",
-      "description": "Zdefiniuj i wdróż procesy zarządzania ryzykiem bezpieczeństwa informacji związanym z łańcuchem dostaw produktów i usług ICT."
+      "title": "Zarządzanie bezpieczeństwem informacji w łańcuchu dostaw ICT"
     },
     "A_5_22": {
-      "title": "Monitorowanie, przegląd i zarządzanie zmianami usług dostawców",
-      "description": "Regularnie monitoruj, przeglądaj i zarządzaj zmianami w praktykach bezpieczeństwa informacji dostawców oraz świadczeniu usług."
+      "title": "Monitorowanie, przegląd i zarządzanie zmianami usług dostawców"
     },
     "A_5_23": {
-      "title": "Bezpieczeństwo informacji przy korzystaniu z usług chmurowych",
-      "description": "Ustanów procesy pozyskiwania, korzystania, zarządzania i wychodzenia z usług chmurowych, w tym wymagania bezpieczeństwa oraz plany wyjścia."
+      "title": "Bezpieczeństwo informacji przy korzystaniu z usług chmurowych"
     },
     "A_5_24": {
-      "title": "Planowanie i przygotowanie zarządzania incydentami bezpieczeństwa informacji",
-      "description": "Planuj i przygotuj się do zarządzania incydentami z określonymi rolami, odpowiedzialnościami, procedurami oraz kanałami komunikacji."
+      "title": "Planowanie i przygotowanie zarządzania incydentami bezpieczeństwa informacji"
     },
     "A_5_25": {
-      "title": "Ocena i decyzja w sprawie zdarzeń bezpieczeństwa informacji",
-      "description": "Oceniaj zdarzenia bezpieczeństwa informacji i decyduj, czy kwalifikują się jako incydenty, używając zdefiniowanego schematu klasyfikacji."
+      "title": "Ocena i decyzja w sprawie zdarzeń bezpieczeństwa informacji"
     },
     "A_5_26": {
-      "title": "Reagowanie na incydenty bezpieczeństwa informacji",
-      "description": "Reaguj na incydenty zgodnie z udokumentowanymi procedurami; powstrzymuj, eliminuj i odtwarzaj w sposób ustrukturyzowany."
+      "title": "Reagowanie na incydenty bezpieczeństwa informacji"
     },
     "A_5_27": {
-      "title": "Wyciąganie wniosków z incydentów bezpieczeństwa informacji",
-      "description": "Wykorzystuj wiedzę z incydentów, aby zmniejszyć prawdopodobieństwo i skutki przyszłych incydentów; odpowiednio aktualizuj zabezpieczenia."
+      "title": "Wyciąganie wniosków z incydentów bezpieczeństwa informacji"
     },
     "A_5_28": {
-      "title": "Gromadzenie dowodów",
-      "description": "Zdefiniuj i stosuj procedury identyfikowania, gromadzenia, pozyskiwania i zabezpieczania dowodów incydentów bezpieczeństwa informacji."
+      "title": "Gromadzenie dowodów"
     },
     "A_5_29": {
-      "title": "Bezpieczeństwo informacji podczas zakłóceń",
-      "description": "Zaplanuj, jak bezpieczeństwo informacji będzie utrzymywane podczas zakłóceń. Zintegruj wymagania bezpieczeństwa z planami ciągłości działania."
+      "title": "Bezpieczeństwo informacji podczas zakłóceń"
     },
     "A_5_30": {
-      "title": "Gotowość ICT do zapewnienia ciągłości działania",
-      "description": "Planuj, wdrażaj, utrzymuj i testuj gotowość ICT w oparciu o cele ciągłości działania oraz wymagania ciągłości ICT."
+      "title": "Gotowość ICT do zapewnienia ciągłości działania"
     },
     "A_5_31": {
-      "title": "Wymagania prawne, ustawowe, regulacyjne i umowne",
-      "description": "Identyfikuj, dokumentuj i utrzymuj w aktualności wszystkie wymagania prawne, regulacyjne i umowne istotne dla bezpieczeństwa informacji."
+      "title": "Wymagania prawne, ustawowe, regulacyjne i umowne"
     },
     "A_5_32": {
-      "title": "Prawa własności intelektualnej",
-      "description": "Wdróż procedury chroniące prawa własności intelektualnej i zapewniające zgodność z wymaganiami licencyjnymi oprogramowania."
+      "title": "Prawa własności intelektualnej"
     },
     "A_5_33": {
-      "title": "Ochrona zapisów",
-      "description": "Chroń zapisy przed utratą, zniszczeniem, fałszowaniem, nieuprawnionym dostępem oraz nieuprawnionym ujawnieniem zgodnie z wymaganiami prawnymi."
+      "title": "Ochrona zapisów"
     },
     "A_5_34": {
-      "title": "Prywatność i ochrona danych osobowych",
-      "description": "Identyfikuj i spełniaj wymagania dotyczące prywatności oraz ochrony danych osobowych zgodnie z obowiązującym prawem (GDPR)."
+      "title": "Prywatność i ochrona danych osobowych"
     },
     "A_5_35": {
-      "title": "Niezależny przegląd bezpieczeństwa informacji",
-      "description": "Przeglądaj podejście do ISMS i jego wdrożenie w sposób niezależny w zaplanowanych odstępach czasu lub w przypadku istotnych zmian."
+      "title": "Niezależny przegląd bezpieczeństwa informacji"
     },
     "A_5_36": {
-      "title": "Zgodność z politykami, zasadami i standardami bezpieczeństwa informacji",
-      "description": "Regularnie przeglądaj zgodność z politykami, standardami i procedurami bezpieczeństwa informacji; dokumentuj wyniki."
+      "title": "Zgodność z politykami, zasadami i standardami bezpieczeństwa informacji"
     },
     "A_5_37": {
-      "title": "Udokumentowane procedury operacyjne",
-      "description": "Dokumentuj, utrzymuj i udostępniaj procedury operacyjne dla obiektów przetwarzania informacji."
+      "title": "Udokumentowane procedury operacyjne"
     }
   }
 }

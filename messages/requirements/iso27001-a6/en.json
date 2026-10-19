@@ -2,35 +2,35 @@
   "requirements": {
     "A_6_1": {
       "title": "Screening",
-      "description": "Perform background verification checks on all candidates for employment, proportionate to role sensitivity and legal requirements."
+      "description": "Before hiring, the company checks candidates' backgrounds as far as the law allows and the role justifies, for example certificates or references."
     },
     "A_6_2": {
       "title": "Terms and Conditions of Employment",
-      "description": "Contractually require employees and contractors to comply with information security policies as a condition of employment."
+      "description": "Agreements with employees and contractors state their responsibilities and the company's for information security."
     },
     "A_6_3": {
       "title": "Information Security Awareness, Education and Training",
-      "description": "Ensure all staff receive appropriate security awareness training at hire and annually, with role-specific training for technical staff."
+      "description": "Staff learn the security rules and risks that matter for their work, and people with special tasks get deeper training. Recommendation: train new staff when they join and everyone once a year."
     },
     "A_6_4": {
       "title": "Disciplinary Process",
-      "description": "Have a formal, communicated disciplinary process for employees who commit information security violations."
+      "description": "The company has a known, fair process for dealing with breaches of the security rules."
     },
     "A_6_5": {
       "title": "Responsibilities After Termination or Change of Employment",
-      "description": "Define and enforce information security responsibilities that remain in effect after employment ends (confidentiality, asset return)."
+      "description": "Security duties that continue after someone leaves or changes role, such as confidentiality, are agreed and communicated."
     },
     "A_6_6": {
       "title": "Confidentiality or Non-Disclosure Agreements",
-      "description": "Identify, document, and regularly review confidentiality requirements; use NDAs with staff, contractors, and relevant third parties."
+      "description": "The company decides where confidentiality agreements are needed, uses them with staff and outside parties, and keeps them current."
     },
     "A_6_7": {
       "title": "Remote Working",
-      "description": "Define and implement security measures for remote working covering network security, physical security, and equipment protection."
+      "description": "Rules and technical measures protect information when staff work from home or on the road, for example secure connections and privacy screens."
     },
     "A_6_8": {
       "title": "Information Security Event Reporting",
-      "description": "Provide a clear, easy-to-use mechanism for staff to report security events and weaknesses; act on all reports."
+      "description": "Staff have a simple way to report security events or weaknesses they notice, and know that they should use it."
     }
   }
 }

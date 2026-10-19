@@ -2,139 +2,139 @@
   "requirements": {
     "A_8_1": {
       "title": "User Endpoint Devices",
-      "description": "Protect information on and processed by user endpoint devices (laptops, phones) using an endpoint security policy."
+      "description": "Laptops, phones and other user devices are set up and managed so that the information on them is protected, for example with encryption, screen lock and remote wipe."
     },
     "A_8_2": {
       "title": "Privileged Access Rights",
-      "description": "Restrict and carefully manage the allocation and use of privileged access rights across all systems."
+      "description": "Administrator and other far-reaching rights go to as few people as possible, only for as long as needed, and their use is controlled."
     },
     "A_8_3": {
       "title": "Information Access Restriction",
-      "description": "Restrict access to information and systems to what is required for each user's role, using least privilege."
+      "description": "Access to information and to system functions is limited according to the access rules."
     },
     "A_8_4": {
       "title": "Access to Source Code",
-      "description": "Restrict access to program source code and associated tools to authorized persons only; apply version control."
+      "description": "Read and write access to source code and development tools is limited to the people who need it."
     },
     "A_8_5": {
       "title": "Secure Authentication",
-      "description": "Implement secure authentication technologies and procedures including MFA for sensitive systems and all remote access."
+      "description": "Logins use methods that fit the risk, so that the person logging in is the person they claim to be. Recommendation: multi-factor authentication for remote access and administrator accounts."
     },
     "A_8_6": {
       "title": "Capacity Management",
-      "description": "Monitor and adjust resource usage and projections to ensure required system capacity and performance."
+      "description": "The company watches how much computing power, storage and network it uses and plans ahead so that systems do not run out."
     },
     "A_8_7": {
       "title": "Protection Against Malware",
-      "description": "Implement malware protection controls (EDR, AV, code signing, email filtering) supported by appropriate user awareness."
+      "description": "Devices and systems are protected against malware, and staff know how to spot it. Recommendation: endpoint protection, email filtering and limited rights to install software."
     },
     "A_8_8": {
       "title": "Management of Technical Vulnerabilities",
-      "description": "Timely identification, evaluation, and remediation of technical vulnerabilities across all systems."
+      "description": "The company learns about vulnerabilities in the systems it uses, assesses how exposed it is, and fixes or mitigates them in time."
     },
     "A_8_9": {
       "title": "Configuration Management",
-      "description": "Establish, document, and maintain configurations (including security configurations) for hardware, software, and cloud services."
+      "description": "Secure settings for hardware, software, services and networks are defined, applied and kept under control."
     },
     "A_8_10": {
       "title": "Information Deletion",
-      "description": "Delete information when it is no longer required, in accordance with legal, contractual, and business requirements."
+      "description": "Information that is no longer needed is deleted from systems, devices and storage media, in line with legal and contractual retention rules."
     },
     "A_8_11": {
       "title": "Data Masking",
-      "description": "Use data masking, pseudonymization, or anonymization to protect personal data in non-production environments."
+      "description": "Where data does not need to be seen in full, it is masked, pseudonymised or anonymised, for example in test systems or reports."
     },
     "A_8_12": {
       "title": "Data Leakage Prevention",
-      "description": "Apply data leakage prevention measures to systems, networks, and endpoints that process sensitive information."
+      "description": "Measures stop sensitive information from leaving the company unnoticed, by email, upload, storage media or other channels."
     },
     "A_8_13": {
       "title": "Information Backup",
-      "description": "Make and regularly test backup copies of information, software, and system images in accordance with an agreed backup policy."
+      "description": "Copies of information, software and systems are made regularly, and restoring them is tested."
     },
     "A_8_14": {
       "title": "Redundancy of Information Processing Facilities",
-      "description": "Implement sufficient redundancy in information processing facilities to meet availability requirements."
+      "description": "Systems that must stay available have enough redundancy, such as a second server or line, to keep running when one part fails."
     },
     "A_8_15": {
       "title": "Logging",
-      "description": "Produce, protect, and retain logs of user activities, exceptions, faults, and security events for defined retention periods."
+      "description": "Systems record relevant activities, errors and security events, and the logs are protected and kept for a set time."
     },
     "A_8_16": {
       "title": "Monitoring Activities",
-      "description": "Monitor networks, systems, and applications to detect anomalous behaviour and potential security events."
+      "description": "Networks, systems and applications are watched for unusual behaviour so that possible incidents are noticed and acted on."
     },
     "A_8_17": {
       "title": "Clock Synchronization",
-      "description": "Synchronize clocks of all information processing systems to an approved time source to support log correlation and forensics."
+      "description": "All systems take their time from the same reliable source, so that logs can be compared."
     },
     "A_8_18": {
       "title": "Use of Privileged Utility Programs",
-      "description": "Control and restrict the use of utility programs capable of overriding system and application controls."
+      "description": "Tools that can get around system or application controls are limited to the few people who need them, and their use is controlled."
     },
     "A_8_19": {
       "title": "Installation of Software on Operational Systems",
-      "description": "Implement procedures to control software installation on operational systems by authorized persons only."
+      "description": "Software is installed on production systems only through a controlled process, by authorised people."
     },
     "A_8_20": {
       "title": "Networks Security",
-      "description": "Secure networks and network devices to protect information in systems and applications."
+      "description": "Networks and network devices are secured and managed so that the information passing through them is protected."
     },
     "A_8_21": {
       "title": "Security of Network Services",
-      "description": "Identify, implement, and monitor security mechanisms for network services, including cloud networking."
+      "description": "The security features and service levels of network services, in-house or bought in, are defined and checked."
     },
     "A_8_22": {
       "title": "Segregation of Networks",
-      "description": "Segregate groups of information services, users, and information systems within the network."
+      "description": "The network is divided into separate zones, for example office, servers, guests and production, so that a problem in one zone does not spread."
     },
     "A_8_23": {
       "title": "Web Filtering",
-      "description": "Manage access to external websites to reduce exposure to malicious content."
+      "description": "Access to websites is filtered to keep staff away from harmful content."
     },
     "A_8_24": {
       "title": "Use of Cryptography",
-      "description": "Define and implement a cryptography policy covering approved algorithms, key management, and encryption requirements."
+      "description": "Rules say where and how encryption is used, which methods are allowed and how keys are managed."
     },
     "A_8_25": {
       "title": "Secure Development Life Cycle",
-      "description": "Establish and apply rules for the secure development of software and systems throughout the development lifecycle."
+      "description": "Security rules apply throughout the development of software and systems, from requirements to release."
     },
     "A_8_26": {
       "title": "Application Security Requirements",
-      "description": "Identify, specify, and approve information security requirements for application development and procurement."
+      "description": "Security requirements are set before applications are developed or bought."
     },
     "A_8_27": {
       "title": "Secure System Architecture and Engineering Principles",
-      "description": "Establish, document, and apply secure engineering principles for all development and system engineering activities."
+      "description": "Principles for designing secure systems are written down and applied in every development and change."
     },
     "A_8_28": {
       "title": "Secure Coding",
-      "description": "Apply secure coding principles to software development to prevent common vulnerabilities (OWASP Top 10, injection, XSS)."
+      "description": "Developers follow secure coding practices to avoid common weaknesses. Recommendation: work from a public reference list such as the OWASP Top 10."
     },
     "A_8_29": {
       "title": "Security Testing in Development and Acceptance",
-      "description": "Define and implement security testing processes in the development lifecycle and during acceptance testing."
+      "description": "Security is tested during development and before new or changed systems are accepted."
     },
     "A_8_30": {
       "title": "Outsourced Development",
-      "description": "Supervise and monitor outsourced system development activities to ensure security requirements are met."
+      "description": "When development is outsourced, the company sets the security requirements and checks that they are met."
     },
     "A_8_31": {
       "title": "Separation of Development, Test and Production Environments",
-      "description": "Separate development, testing, and production environments to reduce the risk of unauthorized access or changes to the production system."
+      "description": "Development, test and production run in separate environments, so that work in progress cannot affect live systems."
     },
     "A_8_32": {
       "title": "Change Management",
-      "description": "Manage changes to information processing facilities and systems through a formal change management process."
+      "description": "Changes to systems and IT facilities follow a controlled process: request, assess, approve, test and record."
     },
     "A_8_33": {
       "title": "Test Information",
-      "description": "Protect and manage test information; never use live production data in test environments without appropriate controls."
+      "description": "Data used for testing is chosen and protected with care, and production data is used in tests only with protection that matches it."
     },
     "A_8_34": {
       "title": "Protection of Information Systems During Audit Testing",
-      "description": "Plan and agree audit requirements and activities involving verification of operational systems to minimize disruption."
+      "description": "Audits and technical tests on live systems are planned and agreed with the system owners, so that they do not disrupt operations."
     }
   }
 }

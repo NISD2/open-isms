@@ -2,151 +2,151 @@
   "requirements": {
     "A_5_1": {
       "title": "Policies for Information Security",
-      "description": "Define, approve, publish, and annually review information security policies covering all relevant topics."
+      "description": "The company writes its security rules down, in one overall policy and shorter ones on single topics such as passwords or remote work, and makes sure the people they apply to have read them. Recommendation: management approves them, and they are reviewed once a year."
     },
     "A_5_2": {
       "title": "Information Security Roles and Responsibilities",
-      "description": "Assign and document roles and responsibilities for information security across the organization."
+      "description": "Each security task has a named owner, from the person running the ISMS to the owners of systems and information, and everyone knows who is responsible for what."
     },
     "A_5_3": {
       "title": "Segregation of Duties",
-      "description": "Separate conflicting duties and responsibilities to reduce opportunities for unauthorized modification of information."
+      "description": "Tasks that would let one person cause and hide a mistake or misuse, such as ordering and approving a payment or granting and using an access right, are split between different people."
     },
     "A_5_4": {
       "title": "Management Responsibilities",
-      "description": "Management must require all personnel to apply information security in accordance with established policies."
+      "description": "Managers expect their teams to follow the security rules and set the example themselves."
     },
     "A_5_5": {
       "title": "Contact with Authorities",
-      "description": "Maintain appropriate contacts with relevant authorities (data protection authority, cybersecurity agency, law enforcement)."
+      "description": "The company knows which authorities to contact and when, such as the data protection authority, its CSIRT or competent authority and the police, and keeps their contact details current."
     },
     "A_5_6": {
       "title": "Contact with Special Interest Groups",
-      "description": "Maintain membership or contact with special interest groups, security forums, and professional associations."
+      "description": "Staff with security tasks keep in touch with outside groups that share security knowledge, such as industry associations, warning services or regional security networks."
     },
     "A_5_7": {
       "title": "Threat Intelligence",
-      "description": "Collect, analyse, and produce threat intelligence relevant to the organization to anticipate and prepare for threats."
+      "description": "The company gathers information about threats that concern it, for example warnings from authorities and vendors, and adjusts its measures to it."
     },
     "A_5_8": {
       "title": "Information Security in Project Management",
-      "description": "Integrate information security into project management to ensure security risks are addressed during projects."
+      "description": "Security is part of every project from the start: risks are considered when the project is planned and checked before its results go live."
     },
     "A_5_9": {
       "title": "Inventory of Information and Other Associated Assets",
-      "description": "Identify, document, and maintain an inventory of information and associated assets with assigned ownership."
+      "description": "The company keeps a list of its information and of the systems, devices and services that hold it, each with an owner, and keeps the list current."
     },
     "A_5_10": {
       "title": "Acceptable Use of Information and Other Associated Assets",
-      "description": "Identify, document, and implement acceptable use rules for information and assets, covering devices, data handling, and prohibited activities."
+      "description": "Written rules say how staff may use company information and devices, for example private use of laptops, where files are stored or the use of public Wi-Fi."
     },
     "A_5_11": {
       "title": "Return of Assets",
-      "description": "Ensure all assets are returned upon termination or change of employment or contract."
+      "description": "When someone leaves or changes role, they hand back the devices, keys, documents and other company property they hold."
     },
     "A_5_12": {
       "title": "Classification of Information",
-      "description": "Classify information by sensitivity (confidential, internal, public) to ensure appropriate handling and protection."
+      "description": "Information is sorted into a few protection levels, for example public, internal and confidential, so that everyone knows how carefully to handle it."
     },
     "A_5_13": {
       "title": "Labelling of Information",
-      "description": "Develop and implement a labelling procedure for information in accordance with the classification scheme."
+      "description": "Documents and data carry a visible mark of their protection level, following the same scheme."
     },
     "A_5_14": {
       "title": "Information Transfer",
-      "description": "Establish rules and procedures for information transfer via all channels including email, messaging, physical media, and verbal."
+      "description": "Rules cover how information may be passed on, by email, file transfer, messenger, on paper or in conversation, and agreements cover transfers to outside parties."
     },
     "A_5_15": {
       "title": "Access Control",
-      "description": "Define and implement access control rules based on business and security requirements, using least privilege."
+      "description": "Rules say who may access which information and systems, based on what each person needs for their work and no more."
     },
     "A_5_16": {
       "title": "Identity Management",
-      "description": "Manage the full identity lifecycle (provisioning, changes, revocation) for all users and service accounts."
+      "description": "Every user account and technical account belongs to exactly one identity, which is created, changed and removed through a controlled process."
     },
     "A_5_17": {
       "title": "Authentication Information",
-      "description": "Manage authentication information (passwords, keys, tokens) through a formal process including allocation, storage, and revocation."
+      "description": "Passwords, keys and tokens are handed out, stored and changed through a controlled process, and users know how to keep them secret."
     },
     "A_5_18": {
       "title": "Access Rights",
-      "description": "Provision, review, modify, and remove access rights in accordance with the access control policy."
+      "description": "Access rights are granted, changed and removed according to the access rules and checked regularly. Recommendation: check them every quarter."
     },
     "A_5_19": {
       "title": "Information Security in Supplier Relationships",
-      "description": "Identify and implement controls to protect assets accessible to suppliers; document requirements in supplier agreements."
+      "description": "The company identifies the risks that come with each supplier, above all those with access to its information or systems, and decides how to handle them."
     },
     "A_5_20": {
       "title": "Addressing Information Security Within Supplier Agreements",
-      "description": "Establish and agree information security requirements with each supplier that may access, process, or store organizational information."
+      "description": "Contracts with suppliers who handle company information state the security requirements they have to meet."
     },
     "A_5_21": {
       "title": "Managing Information Security in the ICT Supply Chain",
-      "description": "Define and implement processes for managing information security risks associated with ICT products and services supply chain."
+      "description": "For IT products and services it buys, the company also looks at the security of its suppliers' own suppliers, for example through component lists or by passing its requirements on along the chain."
     },
     "A_5_22": {
       "title": "Monitoring, Review and Change Management of Supplier Services",
-      "description": "Regularly monitor, review, and manage changes to supplier information security practices and service delivery."
+      "description": "The company checks regularly whether suppliers deliver the agreed security, and handles changes to their services in a controlled way."
     },
     "A_5_23": {
       "title": "Information Security for Use of Cloud Services",
-      "description": "Establish processes for acquiring, using, managing, and exiting from cloud services, including security requirements and exit plans."
+      "description": "Before using a cloud service the company sets its security requirements, and it plans how to manage the service and how to leave it, including getting its data back."
     },
     "A_5_24": {
       "title": "Information Security Incident Management Planning and Preparation",
-      "description": "Plan and prepare for incident management with defined roles, responsibilities, procedures, and communication channels."
+      "description": "The company prepares for incidents before they happen: who does what, how incidents are reported and escalated, and whom to inform."
     },
     "A_5_25": {
       "title": "Assessment and Decision on Information Security Events",
-      "description": "Assess information security events and decide whether they qualify as incidents using a defined classification scheme."
+      "description": "Reported security events are assessed against agreed criteria to decide whether they count as incidents."
     },
     "A_5_26": {
       "title": "Response to Information Security Incidents",
-      "description": "Respond to incidents in accordance with documented procedures; contain, eradicate, and recover in a structured way."
+      "description": "Incidents are handled along the prepared procedure: contain them, remove the cause, recover, and record what was done."
     },
     "A_5_27": {
       "title": "Learning from Information Security Incidents",
-      "description": "Use knowledge from incidents to reduce the likelihood and impact of future incidents; update controls accordingly."
+      "description": "After an incident the company reviews what happened and uses the findings to improve its measures."
     },
     "A_5_28": {
       "title": "Collection of Evidence",
-      "description": "Define and apply procedures for identifying, collecting, acquiring, and preserving evidence of information security incidents."
+      "description": "When an incident may lead to legal steps, the company secures evidence in a way that keeps it usable, for example logs and copies of affected systems."
     },
     "A_5_29": {
       "title": "Information Security During Disruption",
-      "description": "Plan how information security will be maintained during disruption. Integrate security requirements into business continuity plans."
+      "description": "Plans for disruptions and emergencies keep security in place while the company runs in emergency mode."
     },
     "A_5_30": {
       "title": "ICT Readiness for Business Continuity",
-      "description": "Plan, implement, maintain, and test ICT readiness based on business continuity objectives and ICT continuity requirements."
+      "description": "The IT systems that critical business processes depend on can be restored within the time the business needs, and this is tested."
     },
     "A_5_31": {
       "title": "Legal, Statutory, Regulatory and Contractual Requirements",
-      "description": "Identify, document, and keep current all legal, regulatory, and contractual requirements relevant to information security."
+      "description": "The company lists the laws, regulations and contracts that set security requirements for it, and keeps the list current."
     },
     "A_5_32": {
       "title": "Intellectual Property Rights",
-      "description": "Implement procedures to protect intellectual property rights and comply with software licensing requirements."
+      "description": "The company respects other people's rights in software and content, for example by tracking its software licences, and protects its own."
     },
     "A_5_33": {
       "title": "Protection of Records",
-      "description": "Protect records from loss, destruction, falsification, unauthorized access, and unauthorized release in accordance with legal requirements."
+      "description": "Records the company has to keep, such as accounting and contract records, are protected against loss, tampering and unauthorised access for as long as they must be kept."
     },
     "A_5_34": {
       "title": "Privacy and Protection of PII",
-      "description": "Identify and meet privacy and personal data protection requirements in accordance with applicable law (GDPR)."
+      "description": "The company knows which data protection laws apply to the personal data it handles, such as the GDPR, and meets their requirements."
     },
     "A_5_35": {
       "title": "Independent Review of Information Security",
-      "description": "Review the ISMS approach and implementation independently at planned intervals or when significant changes occur."
+      "description": "Someone independent of the people who run security, internal or external, reviews how the company manages information security from time to time and after major changes."
     },
     "A_5_36": {
       "title": "Compliance with Policies, Rules and Standards for Information Security",
-      "description": "Regularly review compliance with information security policies, standards, and procedures; document results."
+      "description": "Managers and the security team check whether the security rules are actually followed, and record the results."
     },
     "A_5_37": {
       "title": "Documented Operating Procedures",
-      "description": "Document, maintain, and make available operating procedures for information processing facilities."
+      "description": "Procedures for running IT, such as starting systems, backups or handling faults, are written down and available to the staff who need them."
     }
   }
 }

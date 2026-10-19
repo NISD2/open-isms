@@ -1,36 +1,28 @@
 {
   "requirements": {
     "A_6_1": {
-      "title": "Verificarea candidaților",
-      "description": "Efectuați verificări ale antecedentelor pentru toți candidații la angajare, proporțional cu sensibilitatea rolului și cu cerințele legale."
+      "title": "Verificarea candidaților"
     },
     "A_6_2": {
-      "title": "Termenii și condițiile de angajare",
-      "description": "Solicitați contractual angajaților și contractanților să respecte politicile de securitate a informației ca o condiție a angajării."
+      "title": "Termenii și condițiile de angajare"
     },
     "A_6_3": {
-      "title": "Conștientizare, educație și instruire în securitatea informației",
-      "description": "Asigurați-vă că tot personalul primește instruire adecvată de conștientizare în securitate la angajare și anual, cu instruire specifică rolului pentru personalul tehnic."
+      "title": "Conștientizare, educație și instruire în securitatea informației"
     },
     "A_6_4": {
-      "title": "Proces disciplinar",
-      "description": "Dispuneți de un proces disciplinar formal și comunicat pentru angajații care comit încălcări ale securității informației."
+      "title": "Proces disciplinar"
     },
     "A_6_5": {
-      "title": "Responsabilități după încetarea sau schimbarea raportului de muncă",
-      "description": "Definiți și aplicați responsabilitățile de securitate a informației care rămân în vigoare după încetarea raportului de muncă (confidențialitate, returnarea activelor)."
+      "title": "Responsabilități după încetarea sau schimbarea raportului de muncă"
     },
     "A_6_6": {
-      "title": "Acorduri de confidențialitate sau de nedivulgare",
-      "description": "Identificați, documentați și revizuiți periodic cerințele de confidențialitate; utilizați acorduri de nedivulgare cu personalul, contractanții și terții relevanți."
+      "title": "Acorduri de confidențialitate sau de nedivulgare"
     },
     "A_6_7": {
-      "title": "Munca la distanță",
-      "description": "Definiți și implementați măsuri de securitate pentru munca la distanță, care acoperă securitatea rețelei, securitatea fizică și protecția echipamentelor."
+      "title": "Munca la distanță"
     },
     "A_6_8": {
-      "title": "Raportarea evenimentelor de securitate a informației",
-      "description": "Asigurați un mecanism clar și ușor de utilizat prin care personalul să raporteze evenimentele și deficiențele de securitate; acționați în baza tuturor rapoartelor."
+      "title": "Raportarea evenimentelor de securitate a informației"
     }
   }
 }

@@ -1,60 +1,46 @@
 {
   "requirements": {
     "A_7_1": {
-      "title": "Perímetros de Segurança Física",
-      "description": "Defina e implemente perímetros de segurança física para proteger as áreas sensíveis que contêm informação e instalações de tratamento."
+      "title": "Perímetros de Segurança Física"
     },
     "A_7_2": {
-      "title": "Entrada Física",
-      "description": "Proteja as áreas seguras com controlos de entrada adequados, de modo a garantir que apenas as pessoas autorizadas conseguem aceder."
+      "title": "Entrada Física"
     },
     "A_7_3": {
-      "title": "Proteção de Escritórios, Salas e Instalações",
-      "description": "Aplique segurança física a escritórios, salas e instalações de forma proporcional à sensibilidade da informação aí tratada."
+      "title": "Proteção de Escritórios, Salas e Instalações"
     },
     "A_7_4": {
-      "title": "Monitorização da Segurança Física",
-      "description": "Monitorize as instalações contra acessos físicos não autorizados, recorrendo a alarmes, CCTV, vigilantes ou outros meios adequados."
+      "title": "Monitorização da Segurança Física"
     },
     "A_7_5": {
-      "title": "Proteção contra Ameaças Físicas e Ambientais",
-      "description": "Proteja contra ameaças físicas e ambientais como incêndio, inundação, sismo e dano deliberado."
+      "title": "Proteção contra Ameaças Físicas e Ambientais"
     },
     "A_7_6": {
-      "title": "Trabalho em Áreas Seguras",
-      "description": "Defina e aplique procedimentos para o trabalho em áreas seguras, de modo a impedir acessos não autorizados, fotografias ou exfiltração de dados."
+      "title": "Trabalho em Áreas Seguras"
     },
     "A_7_7": {
-      "title": "Secretária Limpa e Ecrã Limpo",
-      "description": "Aplique uma política de secretária limpa para documentos em papel e suportes amovíveis, e uma política de ecrã limpo para as instalações de tratamento de informação."
+      "title": "Secretária Limpa e Ecrã Limpo"
     },
     "A_7_8": {
-      "title": "Localização e Proteção de Equipamento",
-      "description": "Localize e proteja o equipamento de modo a reduzir os riscos de ameaças ambientais, acesso não autorizado e interferência."
+      "title": "Localização e Proteção de Equipamento"
     },
     "A_7_9": {
-      "title": "Segurança dos Ativos Fora das Instalações",
-      "description": "Aplique controlos aos ativos retirados das instalações, proporcionais aos riscos de trabalhar fora das instalações da organização."
+      "title": "Segurança dos Ativos Fora das Instalações"
     },
     "A_7_10": {
-      "title": "Suportes de Armazenamento",
-      "description": "Faça a gestão dos suportes de armazenamento ao longo do seu ciclo de vida: aquisição, utilização, transporte, eliminação e sanitização."
+      "title": "Suportes de Armazenamento"
     },
     "A_7_11": {
-      "title": "Serviços de Apoio",
-      "description": "Proteja as instalações de tratamento de informação contra falhas de energia e outras disrupções causadas por falhas nos serviços de apoio."
+      "title": "Serviços de Apoio"
     },
     "A_7_12": {
-      "title": "Segurança da Cablagem",
-      "description": "Proteja a cablagem de energia e de telecomunicações contra interceção, interferência ou dano."
+      "title": "Segurança da Cablagem"
     },
     "A_7_13": {
-      "title": "Manutenção de Equipamento",
-      "description": "Faça a manutenção correta do equipamento para garantir a disponibilidade e a integridade contínuas das instalações de tratamento de informação."
+      "title": "Manutenção de Equipamento"
     },
     "A_7_14": {
-      "title": "Eliminação Segura ou Reutilização de Equipamento",
-      "description": "Verifique se todos os dados sensíveis e o software licenciado foram removidos ou sobrescritos antes da eliminação ou reutilização do equipamento."
+      "title": "Eliminação Segura ou Reutilização de Equipamento"
     }
   }
 }

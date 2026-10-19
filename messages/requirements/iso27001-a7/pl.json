@@ -1,60 +1,46 @@
 {
   "requirements": {
     "A_7_1": {
-      "title": "Fizyczne granice bezpieczeństwa",
-      "description": "Zdefiniuj i wdróż fizyczne granice bezpieczeństwa chroniące obszary wrażliwe zawierające informacje i obiekty przetwarzania."
+      "title": "Fizyczne granice bezpieczeństwa"
     },
     "A_7_2": {
-      "title": "Wejście fizyczne",
-      "description": "Chroń obszary bezpieczne odpowiednimi kontrolami wejścia, aby zapewnić dostęp wyłącznie osobom upoważnionym."
+      "title": "Wejście fizyczne"
     },
     "A_7_3": {
-      "title": "Zabezpieczanie biur, pomieszczeń i obiektów",
-      "description": "Stosuj zabezpieczenia fizyczne biur, pomieszczeń i obiektów proporcjonalnie do wrażliwości przetwarzanych tam informacji."
+      "title": "Zabezpieczanie biur, pomieszczeń i obiektów"
     },
     "A_7_4": {
-      "title": "Monitorowanie bezpieczeństwa fizycznego",
-      "description": "Monitoruj obiekty pod kątem nieuprawnionego dostępu fizycznego za pomocą alarmów, monitoringu CCTV, ochrony lub innych odpowiednich środków."
+      "title": "Monitorowanie bezpieczeństwa fizycznego"
     },
     "A_7_5": {
-      "title": "Ochrona przed zagrożeniami fizycznymi i środowiskowymi",
-      "description": "Chroń przed zagrożeniami fizycznymi i środowiskowymi, takimi jak pożar, powódź, trzęsienie ziemi oraz celowe uszkodzenie."
+      "title": "Ochrona przed zagrożeniami fizycznymi i środowiskowymi"
     },
     "A_7_6": {
-      "title": "Praca w obszarach bezpiecznych",
-      "description": "Zdefiniuj i stosuj procedury pracy w obszarach bezpiecznych, aby zapobiec nieuprawnionemu dostępowi, fotografowaniu lub wyprowadzaniu danych."
+      "title": "Praca w obszarach bezpiecznych"
     },
     "A_7_7": {
-      "title": "Czyste biurko i czysty ekran",
-      "description": "Stosuj politykę czystego biurka dla dokumentów i nośników wymiennych oraz politykę czystego ekranu dla obiektów przetwarzania informacji."
+      "title": "Czyste biurko i czysty ekran"
     },
     "A_7_8": {
-      "title": "Rozmieszczenie i ochrona sprzętu",
-      "description": "Rozmieszczaj i chroń sprzęt, aby ograniczyć ryzyka związane z zagrożeniami środowiskowymi, nieuprawnionym dostępem oraz zakłóceniami."
+      "title": "Rozmieszczenie i ochrona sprzętu"
     },
     "A_7_9": {
-      "title": "Bezpieczeństwo aktywów poza siedzibą",
-      "description": "Stosuj zabezpieczenia aktywów wynoszonych poza siedzibę, proporcjonalnie do ryzyk pracy poza obiektami organizacji."
+      "title": "Bezpieczeństwo aktywów poza siedzibą"
     },
     "A_7_10": {
-      "title": "Nośniki danych",
-      "description": "Zarządzaj nośnikami danych przez cały ich cykl życia: pozyskanie, użytkowanie, transport, utylizację oraz oczyszczanie."
+      "title": "Nośniki danych"
     },
     "A_7_11": {
-      "title": "Media wspomagające",
-      "description": "Chroń obiekty przetwarzania informacji przed awariami zasilania i innymi zakłóceniami spowodowanymi awariami mediów wspomagających."
+      "title": "Media wspomagające"
     },
     "A_7_12": {
-      "title": "Bezpieczeństwo okablowania",
-      "description": "Chroń okablowanie zasilające i telekomunikacyjne przed przechwyceniem, zakłóceniami lub uszkodzeniem."
+      "title": "Bezpieczeństwo okablowania"
     },
     "A_7_13": {
-      "title": "Konserwacja sprzętu",
-      "description": "Prawidłowo konserwuj sprzęt, aby zapewnić ciągłą dostępność i integralność obiektów przetwarzania informacji."
+      "title": "Konserwacja sprzętu"
     },
     "A_7_14": {
-      "title": "Bezpieczna utylizacja lub ponowne wykorzystanie sprzętu",
-      "description": "Zweryfikuj, czy wszystkie dane wrażliwe i licencjonowane oprogramowanie zostały usunięte lub nadpisane przed utylizacją bądź ponownym wykorzystaniem sprzętu."
+      "title": "Bezpieczna utylizacja lub ponowne wykorzystanie sprzętu"
     }
   }
 }

@@ -1,36 +1,28 @@
 {
   "requirements": {
     "A_6_1": {
-      "title": "Verificação de Antecedentes",
-      "description": "Realize verificações de antecedentes a todos os candidatos a emprego, proporcionais à sensibilidade do papel e aos requisitos legais."
+      "title": "Verificação de Antecedentes"
     },
     "A_6_2": {
-      "title": "Termos e Condições de Emprego",
-      "description": "Exija contratualmente que os colaboradores e prestadores cumpram as políticas de segurança da informação como condição de emprego."
+      "title": "Termos e Condições de Emprego"
     },
     "A_6_3": {
-      "title": "Sensibilização, Educação e Formação em Segurança da Informação",
-      "description": "Assegure que todo o pessoal recebe formação adequada de sensibilização para a segurança na contratação e anualmente, com formação específica por papel para o pessoal técnico."
+      "title": "Sensibilização, Educação e Formação em Segurança da Informação"
     },
     "A_6_4": {
-      "title": "Processo Disciplinar",
-      "description": "Disponha de um processo disciplinar formal e comunicado para os colaboradores que cometam infrações de segurança da informação."
+      "title": "Processo Disciplinar"
     },
     "A_6_5": {
-      "title": "Responsabilidades Após o Termo ou a Alteração do Emprego",
-      "description": "Defina e aplique as responsabilidades de segurança da informação que se mantêm em vigor após o termo do emprego (confidencialidade, devolução de ativos)."
+      "title": "Responsabilidades Após o Termo ou a Alteração do Emprego"
     },
     "A_6_6": {
-      "title": "Acordos de Confidencialidade ou de Não Divulgação",
-      "description": "Identifique, documente e reveja regularmente os requisitos de confidencialidade; utilize NDAs com o pessoal, os prestadores e os terceiros relevantes."
+      "title": "Acordos de Confidencialidade ou de Não Divulgação"
     },
     "A_6_7": {
-      "title": "Trabalho Remoto",
-      "description": "Defina e implemente medidas de segurança para o trabalho remoto, abrangendo a segurança da rede, a segurança física e a proteção do equipamento."
+      "title": "Trabalho Remoto"
     },
     "A_6_8": {
-      "title": "Comunicação de Eventos de Segurança da Informação",
-      "description": "Disponibilize um mecanismo claro e fácil de utilizar para que o pessoal comunique eventos e fragilidades de segurança; atue sobre todas as comunicações."
+      "title": "Comunicação de Eventos de Segurança da Informação"
     }
   }
 }

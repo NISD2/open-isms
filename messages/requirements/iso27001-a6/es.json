@@ -1,36 +1,28 @@
 {
   "requirements": {
     "A_6_1": {
-      "title": "Investigación de antecedentes",
-      "description": "Realice comprobaciones de verificación de antecedentes a todos los candidatos a un empleo, proporcionadas a la sensibilidad del puesto y a los requisitos legales."
+      "title": "Investigación de antecedentes"
     },
     "A_6_2": {
-      "title": "Términos y condiciones del empleo",
-      "description": "Exija contractualmente a los empleados y contratistas que cumplan las políticas de seguridad de la información como condición del empleo."
+      "title": "Términos y condiciones del empleo"
     },
     "A_6_3": {
-      "title": "Concienciación, educación y formación en seguridad de la información",
-      "description": "Garantice que todo el personal reciba la formación adecuada de concienciación en seguridad al ser contratado y anualmente, con formación específica por rol para el personal técnico."
+      "title": "Concienciación, educación y formación en seguridad de la información"
     },
     "A_6_4": {
-      "title": "Proceso disciplinario",
-      "description": "Disponga de un proceso disciplinario formal y comunicado para los empleados que cometan infracciones de seguridad de la información."
+      "title": "Proceso disciplinario"
     },
     "A_6_5": {
-      "title": "Responsabilidades tras la finalización o el cambio de empleo",
-      "description": "Defina y haga cumplir las responsabilidades de seguridad de la información que siguen vigentes tras el fin del empleo (confidencialidad, devolución de activos)."
+      "title": "Responsabilidades tras la finalización o el cambio de empleo"
     },
     "A_6_6": {
-      "title": "Acuerdos de confidencialidad o de no divulgación",
-      "description": "Identifique, documente y revise periódicamente los requisitos de confidencialidad; utilice NDA con el personal, los contratistas y los terceros pertinentes."
+      "title": "Acuerdos de confidencialidad o de no divulgación"
     },
     "A_6_7": {
-      "title": "Teletrabajo",
-      "description": "Defina e implemente medidas de seguridad para el teletrabajo, que cubran la seguridad de la red, la seguridad física y la protección de los equipos."
+      "title": "Teletrabajo"
     },
     "A_6_8": {
-      "title": "Notificación de eventos de seguridad de la información",
-      "description": "Proporcione un mecanismo claro y fácil de usar para que el personal notifique eventos y debilidades de seguridad; actúe ante todas las notificaciones."
+      "title": "Notificación de eventos de seguridad de la información"
     }
   }
 }

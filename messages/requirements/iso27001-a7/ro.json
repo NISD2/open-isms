@@ -1,60 +1,46 @@
 {
   "requirements": {
     "A_7_1": {
-      "title": "Perimetre de securitate fizică",
-      "description": "Definiți și implementați perimetre de securitate fizică pentru a proteja zonele sensibile care conțin informații și facilități de prelucrare."
+      "title": "Perimetre de securitate fizică"
     },
     "A_7_2": {
-      "title": "Acces fizic",
-      "description": "Protejați zonele securizate cu controale de acces adecvate pentru a vă asigura că numai persoanele autorizate pot obține acces."
+      "title": "Acces fizic"
     },
     "A_7_3": {
-      "title": "Securizarea birourilor, încăperilor și facilităților",
-      "description": "Aplicați securitatea fizică birourilor, încăperilor și facilităților proporțional cu sensibilitatea informației prelucrate acolo."
+      "title": "Securizarea birourilor, încăperilor și facilităților"
     },
     "A_7_4": {
-      "title": "Monitorizarea securității fizice",
-      "description": "Monitorizați incintele pentru acces fizic neautorizat folosind alarme, CCTV, agenți de pază sau alte mijloace adecvate."
+      "title": "Monitorizarea securității fizice"
     },
     "A_7_5": {
-      "title": "Protecția împotriva amenințărilor fizice și de mediu",
-      "description": "Protejați împotriva amenințărilor fizice și de mediu, precum incendiu, inundație, cutremur și deteriorare intenționată."
+      "title": "Protecția împotriva amenințărilor fizice și de mediu"
     },
     "A_7_6": {
-      "title": "Lucrul în zone securizate",
-      "description": "Definiți și aplicați proceduri pentru lucrul în zone securizate, pentru a preveni accesul neautorizat, fotografierea sau exfiltrarea de date."
+      "title": "Lucrul în zone securizate"
     },
     "A_7_7": {
-      "title": "Birou curat și ecran curat",
-      "description": "Aplicați o politică de birou curat pentru documente și suporturi amovibile și o politică de ecran curat pentru facilitățile de prelucrare a informației."
+      "title": "Birou curat și ecran curat"
     },
     "A_7_8": {
-      "title": "Amplasarea și protecția echipamentelor",
-      "description": "Amplasați și protejați echipamentele pentru a reduce riscurile generate de amenințările de mediu, accesul neautorizat și interferențe."
+      "title": "Amplasarea și protecția echipamentelor"
     },
     "A_7_9": {
-      "title": "Securitatea activelor în afara incintelor",
-      "description": "Aplicați controale activelor scoase din incinte, proporțional cu riscurile lucrului în afara incintelor organizației."
+      "title": "Securitatea activelor în afara incintelor"
     },
     "A_7_10": {
-      "title": "Suporturi de stocare",
-      "description": "Gestionați suporturile de stocare pe tot parcursul ciclului de viață: achiziție, utilizare, transport, eliminare și igienizare."
+      "title": "Suporturi de stocare"
     },
     "A_7_11": {
-      "title": "Utilități de suport",
-      "description": "Protejați facilitățile de prelucrare a informației împotriva căderilor de tensiune și a altor perturbări cauzate de defecțiuni ale utilităților de suport."
+      "title": "Utilități de suport"
     },
     "A_7_12": {
-      "title": "Securitatea cablajelor",
-      "description": "Protejați cablajele de alimentare și de telecomunicații împotriva interceptării, interferențelor sau deteriorării."
+      "title": "Securitatea cablajelor"
     },
     "A_7_13": {
-      "title": "Întreținerea echipamentelor",
-      "description": "Întrețineți echipamentele corect pentru a asigura disponibilitatea și integritatea continuă a facilităților de prelucrare a informației."
+      "title": "Întreținerea echipamentelor"
     },
     "A_7_14": {
-      "title": "Eliminarea sigură sau reutilizarea echipamentelor",
-      "description": "Verificați că toate datele sensibile și software-ul licențiat au fost eliminate sau suprascrise înainte de eliminarea sau reutilizarea echipamentelor."
+      "title": "Eliminarea sigură sau reutilizarea echipamentelor"
     }
   }
 }

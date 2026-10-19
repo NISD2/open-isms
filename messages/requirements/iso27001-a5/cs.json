@@ -1,152 +1,115 @@
 {
   "requirements": {
     "A_5_1": {
-      "title": "Politiky bezpečnosti informací",
-      "description": "Definujte, schvalte, zveřejněte a každoročně přezkoumávejte politiky bezpečnosti informací pokrývající všechna relevantní témata."
+      "title": "Politiky bezpečnosti informací"
     },
     "A_5_2": {
-      "title": "Role a odpovědnosti v bezpečnosti informací",
-      "description": "Přidělte a zdokumentujte role a odpovědnosti za bezpečnost informací v celé organizaci."
+      "title": "Role a odpovědnosti v bezpečnosti informací"
     },
     "A_5_3": {
-      "title": "Oddělení povinností",
-      "description": "Oddělte konfliktní povinnosti a odpovědnosti, abyste omezili příležitosti k neoprávněné úpravě informací."
+      "title": "Oddělení povinností"
     },
     "A_5_4": {
-      "title": "Odpovědnosti vedení",
-      "description": "Vedení musí požadovat, aby všichni pracovníci uplatňovali bezpečnost informací v souladu se stanovenými politikami."
+      "title": "Odpovědnosti vedení"
     },
     "A_5_5": {
-      "title": "Kontakt s úřady",
-      "description": "Udržujte vhodné kontakty s relevantními úřady (úřad pro ochranu osobních údajů, agentura pro kybernetickou bezpečnost, orgány činné v trestním řízení)."
+      "title": "Kontakt s úřady"
     },
     "A_5_6": {
-      "title": "Kontakt se zájmovými skupinami",
-      "description": "Udržujte členství nebo kontakt se zájmovými skupinami, bezpečnostními fóry a profesními sdruženími."
+      "title": "Kontakt se zájmovými skupinami"
     },
     "A_5_7": {
-      "title": "Zpravodajství o hrozbách",
-      "description": "Shromažďujte, analyzujte a vytvářejte zpravodajství o hrozbách relevantních pro organizaci, abyste mohli hrozby předvídat a připravit se na ně."
+      "title": "Zpravodajství o hrozbách"
     },
     "A_5_8": {
-      "title": "Bezpečnost informací v řízení projektů",
-      "description": "Začleňte bezpečnost informací do řízení projektů, abyste zajistili řešení bezpečnostních rizik v průběhu projektů."
+      "title": "Bezpečnost informací v řízení projektů"
     },
     "A_5_9": {
-      "title": "Inventář informací a dalších souvisejících aktiv",
-      "description": "Identifikujte, zdokumentujte a udržujte inventář informací a souvisejících aktiv s přiděleným vlastnictvím."
+      "title": "Inventář informací a dalších souvisejících aktiv"
     },
     "A_5_10": {
-      "title": "Přijatelné užívání informací a dalších souvisejících aktiv",
-      "description": "Identifikujte, zdokumentujte a zaveďte pravidla přijatelného užívání informací a aktiv pokrývající zařízení, nakládání s daty a zakázané činnosti."
+      "title": "Přijatelné užívání informací a dalších souvisejících aktiv"
     },
     "A_5_11": {
-      "title": "Vrácení aktiv",
-      "description": "Zajistěte, aby byla všechna aktiva vrácena při ukončení nebo změně pracovního poměru či smlouvy."
+      "title": "Vrácení aktiv"
     },
     "A_5_12": {
-      "title": "Klasifikace informací",
-      "description": "Klasifikujte informace podle citlivosti (důvěrné, interní, veřejné), abyste zajistili odpovídající nakládání a ochranu."
+      "title": "Klasifikace informací"
     },
     "A_5_13": {
-      "title": "Označování informací",
-      "description": "Vytvořte a zaveďte postup označování informací v souladu s klasifikačním schématem."
+      "title": "Označování informací"
     },
     "A_5_14": {
-      "title": "Přenos informací",
-      "description": "Stanovte pravidla a postupy pro přenos informací všemi kanály včetně e-mailu, zpráv, fyzických médií a ústního sdělení."
+      "title": "Přenos informací"
     },
     "A_5_15": {
-      "title": "Řízení přístupu",
-      "description": "Definujte a zaveďte pravidla řízení přístupu na základě podnikových a bezpečnostních požadavků s využitím principu nejmenších oprávnění."
+      "title": "Řízení přístupu"
     },
     "A_5_16": {
-      "title": "Správa identit",
-      "description": "Spravujte celý životní cyklus identit (zřízení, změny, odebrání) pro všechny uživatele a servisní účty."
+      "title": "Správa identit"
     },
     "A_5_17": {
-      "title": "Ověřovací informace",
-      "description": "Spravujte ověřovací informace (hesla, klíče, tokeny) formálním procesem zahrnujícím přidělení, uložení a odebrání."
+      "title": "Ověřovací informace"
     },
     "A_5_18": {
-      "title": "Přístupová práva",
-      "description": "Zřizujte, přezkoumávejte, upravujte a odebírejte přístupová práva v souladu s politikou řízení přístupu."
+      "title": "Přístupová práva"
     },
     "A_5_19": {
-      "title": "Bezpečnost informací ve vztazích s dodavateli",
-      "description": "Identifikujte a zaveďte kontroly k ochraně aktiv přístupných dodavatelům; zdokumentujte požadavky ve smlouvách s dodavateli."
+      "title": "Bezpečnost informací ve vztazích s dodavateli"
     },
     "A_5_20": {
-      "title": "Řešení bezpečnosti informací ve smlouvách s dodavateli",
-      "description": "Stanovte a dohodněte požadavky na bezpečnost informací s každým dodavatelem, který může mít přístup k informacím organizace, zpracovávat je nebo ukládat."
+      "title": "Řešení bezpečnosti informací ve smlouvách s dodavateli"
     },
     "A_5_21": {
-      "title": "Řízení bezpečnosti informací v dodavatelském řetězci ICT",
-      "description": "Definujte a zaveďte procesy pro řízení rizik bezpečnosti informací spojených s dodavatelským řetězcem produktů a služeb ICT."
+      "title": "Řízení bezpečnosti informací v dodavatelském řetězci ICT"
     },
     "A_5_22": {
-      "title": "Monitorování, přezkoumání a řízení změn služeb dodavatelů",
-      "description": "Pravidelně monitorujte, přezkoumávejte a řiďte změny postupů bezpečnosti informací dodavatelů a poskytování jejich služeb."
+      "title": "Monitorování, přezkoumání a řízení změn služeb dodavatelů"
     },
     "A_5_23": {
-      "title": "Bezpečnost informací při využívání cloudových služeb",
-      "description": "Stanovte procesy pro pořizování, využívání, řízení a ukončení cloudových služeb včetně bezpečnostních požadavků a plánů ukončení."
+      "title": "Bezpečnost informací při využívání cloudových služeb"
     },
     "A_5_24": {
-      "title": "Plánování a příprava řízení incidentů bezpečnosti informací",
-      "description": "Plánujte a připravte řízení incidentů s definovanými rolemi, odpovědnostmi, postupy a komunikačními kanály."
+      "title": "Plánování a příprava řízení incidentů bezpečnosti informací"
     },
     "A_5_25": {
-      "title": "Posouzení a rozhodnutí o událostech bezpečnosti informací",
-      "description": "Posuzujte události bezpečnosti informací a rozhodněte, zda se kvalifikují jako incidenty, podle definovaného klasifikačního schématu."
+      "title": "Posouzení a rozhodnutí o událostech bezpečnosti informací"
     },
     "A_5_26": {
-      "title": "Reakce na incidenty bezpečnosti informací",
-      "description": "Reagujte na incidenty v souladu se zdokumentovanými postupy; strukturovaně omezte, odstraňte a obnovte provoz."
+      "title": "Reakce na incidenty bezpečnosti informací"
     },
     "A_5_27": {
-      "title": "Poučení z incidentů bezpečnosti informací",
-      "description": "Využijte poznatky z incidentů ke snížení pravděpodobnosti a dopadu budoucích incidentů; odpovídajícím způsobem aktualizujte kontroly."
+      "title": "Poučení z incidentů bezpečnosti informací"
     },
     "A_5_28": {
-      "title": "Shromažďování důkazů",
-      "description": "Definujte a uplatňujte postupy pro identifikaci, shromažďování, získávání a uchovávání důkazů o incidentech bezpečnosti informací."
+      "title": "Shromažďování důkazů"
     },
     "A_5_29": {
-      "title": "Bezpečnost informací během narušení",
-      "description": "Naplánujte, jak bude bezpečnost informací udržována během narušení. Začleňte bezpečnostní požadavky do plánů kontinuity podnikání."
+      "title": "Bezpečnost informací během narušení"
     },
     "A_5_30": {
-      "title": "Připravenost ICT pro kontinuitu podnikání",
-      "description": "Plánujte, implementujte, udržujte a testujte připravenost ICT na základě cílů kontinuity podnikání a požadavků na kontinuitu ICT."
+      "title": "Připravenost ICT pro kontinuitu podnikání"
     },
     "A_5_31": {
-      "title": "Právní, zákonné, regulační a smluvní požadavky",
-      "description": "Identifikujte, zdokumentujte a udržujte aktuální všechny právní, regulační a smluvní požadavky relevantní pro bezpečnost informací."
+      "title": "Právní, zákonné, regulační a smluvní požadavky"
     },
     "A_5_32": {
-      "title": "Práva duševního vlastnictví",
-      "description": "Zaveďte postupy k ochraně práv duševního vlastnictví a dodržujte licenční požadavky na software."
+      "title": "Práva duševního vlastnictví"
     },
     "A_5_33": {
-      "title": "Ochrana záznamů",
-      "description": "Chraňte záznamy před ztrátou, zničením, falšováním, neoprávněným přístupem a neoprávněným zveřejněním v souladu s právními požadavky."
+      "title": "Ochrana záznamů"
     },
     "A_5_34": {
-      "title": "Soukromí a ochrana osobních údajů",
-      "description": "Identifikujte a plňte požadavky na soukromí a ochranu osobních údajů v souladu s platnými právními předpisy (GDPR)."
+      "title": "Soukromí a ochrana osobních údajů"
     },
     "A_5_35": {
-      "title": "Nezávislé přezkoumání bezpečnosti informací",
-      "description": "Nezávisle přezkoumávejte přístup k ISMS a jeho implementaci v plánovaných intervalech nebo při výskytu významných změn."
+      "title": "Nezávislé přezkoumání bezpečnosti informací"
     },
     "A_5_36": {
-      "title": "Soulad s politikami, pravidly a standardy pro bezpečnost informací",
-      "description": "Pravidelně přezkoumávejte soulad s politikami, standardy a postupy bezpečnosti informací; zdokumentujte výsledky."
+      "title": "Soulad s politikami, pravidly a standardy pro bezpečnost informací"
     },
     "A_5_37": {
-      "title": "Zdokumentované provozní postupy",
-      "description": "Zdokumentujte, udržujte a zpřístupněte provozní postupy pro zařízení zpracovávající informace."
+      "title": "Zdokumentované provozní postupy"
     }
   }
 }

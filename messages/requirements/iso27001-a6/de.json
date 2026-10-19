@@ -2,35 +2,35 @@
   "requirements": {
     "A_6_1": {
       "title": "Überprüfung von Bewerbern",
-      "description": "Hintergrundüberprüfungen für alle Kandidaten verhältnismäßig zur Rollensensitivität und den rechtlichen Anforderungen durchführen."
+      "description": "Vor einer Einstellung prüft das Unternehmen den Hintergrund von Bewerbern, soweit das Gesetz es erlaubt und die Rolle es rechtfertigt, etwa Zeugnisse oder Referenzen."
     },
     "A_6_2": {
       "title": "Beschäftigungsbedingungen",
-      "description": "Mitarbeitern und Auftragnehmern vertraglich die Einhaltung von IS-Leitlinien als Beschäftigungsbedingung vorschreiben."
+      "description": "Verträge mit Beschäftigten und Auftragnehmern nennen deren Pflichten und die des Unternehmens für die Informationssicherheit."
     },
     "A_6_3": {
       "title": "Sensibilisierung, Schulung und Training zur Informationssicherheit",
-      "description": "Sicherstellen, dass alle Mitarbeiter bei Einstellung und jährlich angemessene IS-Sensibilisierungsschulungen erhalten."
+      "description": "Beschäftigte lernen die Sicherheitsregeln und Risiken ihrer Arbeit kennen, und Personen mit besonderen Aufgaben werden vertieft geschult. Empfehlung: neue Beschäftigte beim Eintritt schulen und alle einmal im Jahr."
     },
     "A_6_4": {
       "title": "Disziplinarverfahren",
-      "description": "Ein formelles, kommuniziertes Disziplinarverfahren für Mitarbeiter haben, die IS-Verstöße begehen."
+      "description": "Das Unternehmen hat ein bekanntes, faires Verfahren für den Umgang mit Verstößen gegen die Sicherheitsregeln."
     },
     "A_6_5": {
       "title": "Verantwortlichkeiten nach Beendigung oder Änderung der Beschäftigung",
-      "description": "IS-Verantwortlichkeiten, die nach Beendigung des Arbeitsverhältnisses gelten, definieren und durchsetzen (Vertraulichkeit, Asset-Rückgabe)."
+      "description": "Sicherheitspflichten, die nach Austritt oder Rollenwechsel fortgelten, etwa die Vertraulichkeit, sind vereinbart und mitgeteilt."
     },
     "A_6_6": {
       "title": "Vertraulichkeits- und Geheimhaltungsvereinbarungen",
-      "description": "Vertraulichkeitsanforderungen identifizieren, dokumentieren und regelmäßig überprüfen; NDAs mit Mitarbeitern, Auftragnehmern und Dritten verwenden."
+      "description": "Das Unternehmen legt fest, wo Vertraulichkeitsvereinbarungen nötig sind, schließt sie mit Beschäftigten und Externen und hält sie aktuell."
     },
     "A_6_7": {
       "title": "Telearbeit",
-      "description": "Sicherheitsmaßnahmen für Telearbeit definieren und umsetzen: Netzwerksicherheit, physische Sicherheit und Geräteschutz."
+      "description": "Regeln und technische Maßnahmen schützen Informationen bei der Arbeit von zu Hause oder unterwegs, etwa sichere Verbindungen und Sichtschutz am Bildschirm."
     },
     "A_6_8": {
       "title": "Meldung von Sicherheitsereignissen",
-      "description": "Klaren, einfach nutzbaren Mechanismus für Mitarbeiter bereitstellen, um Sicherheitsereignisse und Schwachstellen zu melden."
+      "description": "Beschäftigte haben einen einfachen Weg, bemerkte Sicherheitsereignisse oder Schwachstellen zu melden, und wissen, dass sie ihn nutzen sollen."
     }
   }
 }

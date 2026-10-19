@@ -1,140 +1,106 @@
 {
   "requirements": {
     "A_8_1": {
-      "title": "Koncová zařízení uživatelů",
-      "description": "Chraňte informace na koncových zařízeních uživatelů (notebooky, telefony) a informace jimi zpracovávané pomocí politiky zabezpečení koncových bodů."
+      "title": "Koncová zařízení uživatelů"
     },
     "A_8_2": {
-      "title": "Privilegovaná přístupová práva",
-      "description": "Omezte a pečlivě spravujte přidělování a používání privilegovaných přístupových práv napříč všemi systémy."
+      "title": "Privilegovaná přístupová práva"
     },
     "A_8_3": {
-      "title": "Omezení přístupu k informacím",
-      "description": "Omezte přístup k informacím a systémům na to, co je nezbytné pro roli každého uživatele, s využitím principu nejmenších oprávnění."
+      "title": "Omezení přístupu k informacím"
     },
     "A_8_4": {
-      "title": "Přístup ke zdrojovému kódu",
-      "description": "Omezte přístup ke zdrojovému kódu programů a souvisejícím nástrojům pouze na oprávněné osoby; uplatňujte správu verzí."
+      "title": "Přístup ke zdrojovému kódu"
     },
     "A_8_5": {
-      "title": "Bezpečné ověřování",
-      "description": "Zaveďte technologie a postupy bezpečného ověřování včetně MFA pro citlivé systémy a veškerý vzdálený přístup."
+      "title": "Bezpečné ověřování"
     },
     "A_8_6": {
-      "title": "Správa kapacity",
-      "description": "Monitorujte a upravujte využití zdrojů a prognózy, abyste zajistili požadovanou kapacitu a výkon systému."
+      "title": "Správa kapacity"
     },
     "A_8_7": {
-      "title": "Ochrana před malwarem",
-      "description": "Zaveďte kontroly ochrany před malwarem (EDR, AV, podepisování kódu, filtrování e-mailů) podpořené odpovídajícím povědomím uživatelů."
+      "title": "Ochrana před malwarem"
     },
     "A_8_8": {
-      "title": "Správa technických zranitelností",
-      "description": "Včas identifikujte, vyhodnocujte a odstraňujte technické zranitelnosti napříč všemi systémy."
+      "title": "Správa technických zranitelností"
     },
     "A_8_9": {
-      "title": "Správa konfigurací",
-      "description": "Stanovte, zdokumentujte a udržujte konfigurace (včetně bezpečnostních konfigurací) pro hardware, software a cloudové služby."
+      "title": "Správa konfigurací"
     },
     "A_8_10": {
-      "title": "Výmaz informací",
-      "description": "Vymažte informace, jakmile již nejsou potřebné, v souladu s právními, smluvními a podnikovými požadavky."
+      "title": "Výmaz informací"
     },
     "A_8_11": {
-      "title": "Maskování dat",
-      "description": "Používejte maskování dat, pseudonymizaci nebo anonymizaci k ochraně osobních údajů v neprodukčních prostředích."
+      "title": "Maskování dat"
     },
     "A_8_12": {
-      "title": "Prevence úniku dat",
-      "description": "Uplatňujte opatření na prevenci úniku dat u systémů, sítí a koncových bodů, které zpracovávají citlivé informace."
+      "title": "Prevence úniku dat"
     },
     "A_8_13": {
-      "title": "Zálohování informací",
-      "description": "Vytvářejte a pravidelně testujte záložní kopie informací, softwaru a obrazů systémů v souladu s dohodnutou politikou zálohování."
+      "title": "Zálohování informací"
     },
     "A_8_14": {
-      "title": "Redundance zařízení zpracovávajících informace",
-      "description": "Zaveďte dostatečnou redundanci u zařízení zpracovávajících informace ke splnění požadavků na dostupnost."
+      "title": "Redundance zařízení zpracovávajících informace"
     },
     "A_8_15": {
-      "title": "Protokolování",
-      "description": "Vytvářejte, chraňte a uchovávejte protokoly o činnostech uživatelů, výjimkách, chybách a bezpečnostních událostech po definovanou dobu uchovávání."
+      "title": "Protokolování"
     },
     "A_8_16": {
-      "title": "Monitorování činností",
-      "description": "Monitorujte sítě, systémy a aplikace k detekci anomálního chování a potenciálních bezpečnostních událostí."
+      "title": "Monitorování činností"
     },
     "A_8_17": {
-      "title": "Synchronizace hodin",
-      "description": "Synchronizujte hodiny všech systémů zpracovávajících informace se schváleným časovým zdrojem na podporu korelace protokolů a forenzní analýzy."
+      "title": "Synchronizace hodin"
     },
     "A_8_18": {
-      "title": "Používání privilegovaných systémových nástrojů",
-      "description": "Řiďte a omezte používání systémových nástrojů schopných obejít kontroly systémů a aplikací."
+      "title": "Používání privilegovaných systémových nástrojů"
     },
     "A_8_19": {
-      "title": "Instalace softwaru na provozní systémy",
-      "description": "Zaveďte postupy k řízení instalace softwaru na provozní systémy pouze oprávněnými osobami."
+      "title": "Instalace softwaru na provozní systémy"
     },
     "A_8_20": {
-      "title": "Zabezpečení sítí",
-      "description": "Zabezpečte sítě a síťová zařízení k ochraně informací v systémech a aplikacích."
+      "title": "Zabezpečení sítí"
     },
     "A_8_21": {
-      "title": "Bezpečnost síťových služeb",
-      "description": "Identifikujte, zaveďte a monitorujte bezpečnostní mechanismy pro síťové služby, včetně cloudového síťování."
+      "title": "Bezpečnost síťových služeb"
     },
     "A_8_22": {
-      "title": "Segregace sítí",
-      "description": "Oddělujte skupiny informačních služeb, uživatelů a informačních systémů v rámci sítě."
+      "title": "Segregace sítí"
     },
     "A_8_23": {
-      "title": "Filtrování webu",
-      "description": "Řiďte přístup k externím webovým stránkám ke snížení vystavení škodlivému obsahu."
+      "title": "Filtrování webu"
     },
     "A_8_24": {
-      "title": "Používání kryptografie",
-      "description": "Definujte a zaveďte politiku kryptografie pokrývající schválené algoritmy, správu klíčů a požadavky na šifrování."
+      "title": "Používání kryptografie"
     },
     "A_8_25": {
-      "title": "Životní cyklus bezpečného vývoje",
-      "description": "Stanovte a uplatňujte pravidla pro bezpečný vývoj softwaru a systémů v celém vývojovém životním cyklu."
+      "title": "Životní cyklus bezpečného vývoje"
     },
     "A_8_26": {
-      "title": "Bezpečnostní požadavky na aplikace",
-      "description": "Identifikujte, specifikujte a schvalte požadavky na bezpečnost informací pro vývoj a pořizování aplikací."
+      "title": "Bezpečnostní požadavky na aplikace"
     },
     "A_8_27": {
-      "title": "Bezpečná architektura systémů a principy inženýrství",
-      "description": "Stanovte, zdokumentujte a uplatňujte principy bezpečného inženýrství pro všechny činnosti vývoje a systémového inženýrství."
+      "title": "Bezpečná architektura systémů a principy inženýrství"
     },
     "A_8_28": {
-      "title": "Bezpečné kódování",
-      "description": "Uplatňujte principy bezpečného kódování při vývoji softwaru k prevenci běžných zranitelností (OWASP Top 10, injektáž, XSS)."
+      "title": "Bezpečné kódování"
     },
     "A_8_29": {
-      "title": "Bezpečnostní testování při vývoji a přejímce",
-      "description": "Definujte a zaveďte procesy bezpečnostního testování ve vývojovém životním cyklu a během přejímacího testování."
+      "title": "Bezpečnostní testování při vývoji a přejímce"
     },
     "A_8_30": {
-      "title": "Externě zajišťovaný vývoj",
-      "description": "Dohlížejte na externě zajišťovaný vývoj systémů a monitorujte jej, abyste zajistili splnění bezpečnostních požadavků."
+      "title": "Externě zajišťovaný vývoj"
     },
     "A_8_31": {
-      "title": "Oddělení vývojového, testovacího a produkčního prostředí",
-      "description": "Oddělte vývojové, testovací a produkční prostředí ke snížení rizika neoprávněného přístupu nebo změn produkčního systému."
+      "title": "Oddělení vývojového, testovacího a produkčního prostředí"
     },
     "A_8_32": {
-      "title": "Řízení změn",
-      "description": "Řiďte změny zařízení zpracovávajících informace a systémů prostřednictvím formálního procesu řízení změn."
+      "title": "Řízení změn"
     },
     "A_8_33": {
-      "title": "Testovací informace",
-      "description": "Chraňte a spravujte testovací informace; nikdy nepoužívejte živá produkční data v testovacích prostředích bez odpovídajících kontrol."
+      "title": "Testovací informace"
     },
     "A_8_34": {
-      "title": "Ochrana informačních systémů během auditního testování",
-      "description": "Plánujte a dohodněte požadavky a činnosti auditu zahrnující ověřování provozních systémů tak, aby se minimalizovalo narušení provozu."
+      "title": "Ochrana informačních systémů během auditního testování"
     }
   }
 }

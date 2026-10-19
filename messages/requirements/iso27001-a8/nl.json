@@ -1,140 +1,106 @@
 {
   "requirements": {
     "A_8_1": {
-      "title": "Gebruikersapparatuur",
-      "description": "Informatie op en verwerkt door gebruikersapparatuur (laptops, telefoons) beschermen via een eindpuntbeveiligingsbeleid."
+      "title": "Gebruikersapparatuur"
     },
     "A_8_2": {
-      "title": "Bevoorrechte toegangsrechten",
-      "description": "De toewijzing en het gebruik van bevoorrechte toegangsrechten op alle systemen beperken en zorgvuldig beheren."
+      "title": "Bevoorrechte toegangsrechten"
     },
     "A_8_3": {
-      "title": "Beperking van informatietoegang",
-      "description": "Toegang tot informatie en systemen beperken tot wat nodig is voor de rol van elke gebruiker, met minimale rechten."
+      "title": "Beperking van informatietoegang"
     },
     "A_8_4": {
-      "title": "Toegang tot broncode",
-      "description": "Toegang tot programmabroncode en bijbehorende tools beperken tot geautoriseerde personen; versiebeheer toepassen."
+      "title": "Toegang tot broncode"
     },
     "A_8_5": {
-      "title": "Veilige authenticatie",
-      "description": "Veilige authenticatietechnologieën en -procedures implementeren inclusief MFA voor gevoelige systemen en alle externe toegang."
+      "title": "Veilige authenticatie"
     },
     "A_8_6": {
-      "title": "Capaciteitsbeheer",
-      "description": "Resourcegebruik en -prognoses monitoren en aanpassen om de vereiste systeemcapaciteit en -prestaties te borgen."
+      "title": "Capaciteitsbeheer"
     },
     "A_8_7": {
-      "title": "Bescherming tegen malware",
-      "description": "Malwarebeschermingsmaatregelen implementeren (EDR, AV, codeondertekening, e-mailfiltering) ondersteund door gebruikersbewustzijn."
+      "title": "Bescherming tegen malware"
     },
     "A_8_8": {
-      "title": "Beheer van technische kwetsbaarheden",
-      "description": "Technische kwetsbaarheden op alle systemen tijdig identificeren, beoordelen en verhelpen."
+      "title": "Beheer van technische kwetsbaarheden"
     },
     "A_8_9": {
-      "title": "Configuratiebeheer",
-      "description": "Configuraties (inclusief beveiligingsconfiguraties) voor hardware, software en clouddiensten opstellen, documenteren en onderhouden."
+      "title": "Configuratiebeheer"
     },
     "A_8_10": {
-      "title": "Verwijdering van informatie",
-      "description": "Informatie verwijderen wanneer deze niet meer nodig is, conform wettelijke, contractuele en bedrijfsvereisten."
+      "title": "Verwijdering van informatie"
     },
     "A_8_11": {
-      "title": "Datamaskering",
-      "description": "Datamaskering, pseudonimisering of anonimisering gebruiken ter bescherming van persoonsgegevens in niet-productieomgevingen."
+      "title": "Datamaskering"
     },
     "A_8_12": {
-      "title": "Preventie van gegevenslekken",
-      "description": "Maatregelen voor preventie van gegevenslekken toepassen op systemen, netwerken en eindpunten die gevoelige informatie verwerken."
+      "title": "Preventie van gegevenslekken"
     },
     "A_8_13": {
-      "title": "Back-up van informatie",
-      "description": "Back-upkopieën van informatie, software en systeemimages maken en regelmatig testen conform een back-upbeleid."
+      "title": "Back-up van informatie"
     },
     "A_8_14": {
-      "title": "Redundantie van informatieverwerking",
-      "description": "Voldoende redundantie implementeren in informatieverwerking om aan beschikbaarheidsvereisten te voldoen."
+      "title": "Redundantie van informatieverwerking"
     },
     "A_8_15": {
-      "title": "Logging",
-      "description": "Logbestanden van gebruikersactiviteiten, uitzonderingen, fouten en beveiligingsgebeurtenissen aanmaken, beschermen en bewaren voor gedefinieerde perioden."
+      "title": "Logging"
     },
     "A_8_16": {
-      "title": "Monitoringactiviteiten",
-      "description": "Netwerken, systemen en applicaties monitoren om afwijkend gedrag en potentiële beveiligingsgebeurtenissen te detecteren."
+      "title": "Monitoringactiviteiten"
     },
     "A_8_17": {
-      "title": "Klokkensynchronisatie",
-      "description": "Klokken van alle informatieverwerking synchroniseren met een goedgekeurde tijdbron voor logcorrelatie en forensisch onderzoek."
+      "title": "Klokkensynchronisatie"
     },
     "A_8_18": {
-      "title": "Gebruik van bevoorrechte hulpprogramma's",
-      "description": "Gebruik van hulpprogramma's die systeem- en applicatiecontroles kunnen omzeilen, beheersen en beperken."
+      "title": "Gebruik van bevoorrechte hulpprogramma's"
     },
     "A_8_19": {
-      "title": "Installatie van software op operationele systemen",
-      "description": "Procedures implementeren voor het beheren van softwareinstallatie op operationele systemen door geautoriseerde personen."
+      "title": "Installatie van software op operationele systemen"
     },
     "A_8_20": {
-      "title": "Netwerkbeveiliging",
-      "description": "Netwerken en netwerkapparaten beveiligen ter bescherming van informatie in systemen en applicaties."
+      "title": "Netwerkbeveiliging"
     },
     "A_8_21": {
-      "title": "Beveiliging van netwerkdiensten",
-      "description": "Beveiligingsmechanismen voor netwerkdiensten inclusief cloudnetwerken identificeren, implementeren en monitoren."
+      "title": "Beveiliging van netwerkdiensten"
     },
     "A_8_22": {
-      "title": "Netwerksegmentatie",
-      "description": "Groepen informatiediensten, gebruikers en informatiesystemen binnen het netwerk segmenteren."
+      "title": "Netwerksegmentatie"
     },
     "A_8_23": {
-      "title": "Webfiltering",
-      "description": "Toegang tot externe websites beheren om blootstelling aan schadelijke inhoud te verminderen."
+      "title": "Webfiltering"
     },
     "A_8_24": {
-      "title": "Gebruik van cryptografie",
-      "description": "Cryptografiebeleid definiëren en implementeren met goedgekeurde algoritmen, sleutelbeheer en versleutelingsvereisten."
+      "title": "Gebruik van cryptografie"
     },
     "A_8_25": {
-      "title": "Veilige ontwikkelingslevenscyclus",
-      "description": "Regels voor veilige ontwikkeling van software en systemen gedurende de gehele ontwikkelingslevenscyclus vaststellen en toepassen."
+      "title": "Veilige ontwikkelingslevenscyclus"
     },
     "A_8_26": {
-      "title": "Beveiligingsvereisten voor applicaties",
-      "description": "IS-vereisten voor applicatieontwikkeling en -inkoop identificeren, specificeren en goedkeuren."
+      "title": "Beveiligingsvereisten voor applicaties"
     },
     "A_8_27": {
-      "title": "Veilige systeemarchitectuur en engineeringprincipes",
-      "description": "Veilige engineeringprincipes voor alle ontwikkelings- en systeemtechniekactiviteiten vaststellen, documenteren en toepassen."
+      "title": "Veilige systeemarchitectuur en engineeringprincipes"
     },
     "A_8_28": {
-      "title": "Veilig coderen",
-      "description": "Veilige coderingsprincipes toepassen bij softwareontwikkeling om veelvoorkomende kwetsbaarheden te voorkomen (OWASP Top 10, injectie, XSS)."
+      "title": "Veilig coderen"
     },
     "A_8_29": {
-      "title": "Beveiligingstesten in ontwikkeling en acceptatie",
-      "description": "Beveiligingstestprocessen definiëren en implementeren in de ontwikkelingslevenscyclus en bij acceptatietesten."
+      "title": "Beveiligingstesten in ontwikkeling en acceptatie"
     },
     "A_8_30": {
-      "title": "Uitbestede ontwikkeling",
-      "description": "Uitbestede systeemontwikkelingsactiviteiten toezicht houden en monitoren om te zorgen dat beveiligingsvereisten worden nagekomen."
+      "title": "Uitbestede ontwikkeling"
     },
     "A_8_31": {
-      "title": "Scheiding van ontwikkel-, test- en productieomgevingen",
-      "description": "Ontwikkel-, test- en productieomgevingen scheiden om het risico van ongeautoriseerde toegang tot of wijzigingen in het productiesysteem te beperken."
+      "title": "Scheiding van ontwikkel-, test- en productieomgevingen"
     },
     "A_8_32": {
-      "title": "Wijzigingsbeheer",
-      "description": "Wijzigingen in informatieverwerking en systemen beheren via een formeel wijzigingsbeheerproces."
+      "title": "Wijzigingsbeheer"
     },
     "A_8_33": {
-      "title": "Testinformatie",
-      "description": "Testinformatie beschermen en beheren; nooit live productiedata gebruiken in testomgevingen zonder passende maatregelen."
+      "title": "Testinformatie"
     },
     "A_8_34": {
-      "title": "Bescherming van IS bij audittesten",
-      "description": "Auditvereisten en -activiteiten voor verificatie van operationele systemen plannen en afstemmen om verstoringen te minimaliseren."
+      "title": "Bescherming van IS bij audittesten"
     }
   }
 }

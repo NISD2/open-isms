@@ -2,139 +2,139 @@
   "requirements": {
     "A_8_1": {
       "title": "Endgeräte der Benutzer",
-      "description": "Informationen auf und verarbeitet durch Benutzer-Endgeräte (Laptops, Smartphones) durch eine Endgeräte-Sicherheitsrichtlinie schützen."
+      "description": "Laptops, Smartphones und andere Endgeräte werden so eingerichtet und verwaltet, dass die Informationen darauf geschützt sind, etwa durch Verschlüsselung, Bildschirmsperre und Fernlöschung."
     },
     "A_8_2": {
       "title": "Privilegierte Zugriffsrechte",
-      "description": "Zuweisung und Nutzung privilegierter Zugriffsrechte auf allen Systemen einschränken und sorgfältig verwalten."
+      "description": "Administratorrechte und andere weitreichende Rechte erhalten so wenige Personen wie möglich, nur so lange wie nötig, und ihre Nutzung wird kontrolliert."
     },
     "A_8_3": {
       "title": "Einschränkung des Informationszugriffs",
-      "description": "Zugriff auf Informationen und Systeme auf das für die Rolle Erforderliche beschränken (Prinzip der minimalen Rechtevergabe)."
+      "description": "Der Zugang zu Informationen und Systemfunktionen ist nach den Zugangsregeln beschränkt."
     },
     "A_8_4": {
       "title": "Zugriff auf Quellcode",
-      "description": "Zugriff auf Programmquellcode und zugehörige Tools auf autorisierte Personen beschränken; Versionskontrolle anwenden."
+      "description": "Lesender und schreibender Zugriff auf Quellcode und Entwicklungswerkzeuge ist auf die Personen beschränkt, die ihn brauchen."
     },
     "A_8_5": {
       "title": "Sichere Authentifizierung",
-      "description": "Sichere Authentifizierungstechnologien und -verfahren umsetzen, inkl. MFA für sensible Systeme und alle Fernzugriffe."
+      "description": "Anmeldungen nutzen Verfahren, die zum Risiko passen, damit die angemeldete Person die ist, die sie vorgibt zu sein. Empfehlung: Mehrfaktorauthentisierung für Fernzugriffe und Administratorkonten."
     },
     "A_8_6": {
       "title": "Kapazitätsmanagement",
-      "description": "Ressourcennutzung und -prognosen überwachen und anpassen, um erforderliche Systemkapazität und -leistung sicherzustellen."
+      "description": "Das Unternehmen beobachtet die Auslastung von Rechenleistung, Speicher und Netz und plant voraus, damit den Systemen die Kapazität nicht ausgeht."
     },
     "A_8_7": {
       "title": "Schutz vor Schadsoftware",
-      "description": "Malware-Schutzmaßnahmen (EDR, AV, Code-Signierung, E-Mail-Filterung) in Verbindung mit Benutzersensibilisierung umsetzen."
+      "description": "Geräte und Systeme sind gegen Schadsoftware geschützt, und Beschäftigte wissen, wie sie sie erkennen. Empfehlung: Schutz auf den Endgeräten, Filterung von E-Mails und eingeschränkte Rechte zur Installation von Software."
     },
     "A_8_8": {
       "title": "Verwaltung technischer Schwachstellen",
-      "description": "Technische Schwachstellen auf allen Systemen zeitnah identifizieren, bewerten und beheben."
+      "description": "Das Unternehmen erfährt von Schwachstellen in den Systemen, die es nutzt, bewertet, wie stark es betroffen ist, und behebt oder entschärft sie rechtzeitig."
     },
     "A_8_9": {
       "title": "Konfigurationsmanagement",
-      "description": "Konfigurationen (inkl. Sicherheitskonfigurationen) für Hardware, Software und Cloud-Dienste erstellen, dokumentieren und pflegen."
+      "description": "Sichere Einstellungen für Hardware, Software, Dienste und Netze sind festgelegt, umgesetzt und unter Kontrolle."
     },
     "A_8_10": {
       "title": "Löschung von Informationen",
-      "description": "Informationen löschen, wenn sie nicht mehr benötigt werden, gemäß gesetzlichen, vertraglichen und geschäftlichen Anforderungen."
+      "description": "Nicht mehr benötigte Informationen werden aus Systemen, Geräten und von Speichermedien gelöscht, im Einklang mit gesetzlichen und vertraglichen Aufbewahrungsregeln."
     },
     "A_8_11": {
       "title": "Datenmaskierung",
-      "description": "Datenmaskierung, Pseudonymisierung oder Anonymisierung zum Schutz personenbezogener Daten in Nicht-Produktionsumgebungen verwenden."
+      "description": "Wo Daten nicht vollständig sichtbar sein müssen, werden sie maskiert, pseudonymisiert oder anonymisiert, etwa in Testsystemen oder Auswertungen."
     },
     "A_8_12": {
       "title": "Verhinderung von Datenlecks",
-      "description": "Maßnahmen zur Verhinderung von Datenlecks auf Systemen, Netzwerken und Endgeräten anwenden, die sensible Informationen verarbeiten."
+      "description": "Maßnahmen verhindern, dass sensible Informationen unbemerkt das Unternehmen verlassen, per E-Mail, Upload, Datenträger oder auf anderen Wegen."
     },
     "A_8_13": {
       "title": "Sicherung von Informationen",
-      "description": "Sicherungskopien von Informationen, Software und System-Images gemäß einer Backup-Richtlinie erstellen und regelmäßig testen."
+      "description": "Kopien von Informationen, Software und Systemen werden regelmäßig erstellt, und ihre Wiederherstellung wird getestet."
     },
     "A_8_14": {
       "title": "Redundanz von Informationsverarbeitungseinrichtungen",
-      "description": "Ausreichende Redundanz in Informationsverarbeitungseinrichtungen umsetzen, um Verfügbarkeitsanforderungen zu erfüllen."
+      "description": "Systeme, die verfügbar bleiben müssen, haben genug Redundanz, etwa einen zweiten Server oder eine zweite Leitung, um beim Ausfall eines Teils weiterzulaufen."
     },
     "A_8_15": {
       "title": "Protokollierung",
-      "description": "Protokolle zu Benutzeraktivitäten, Ausnahmen, Fehlern und Sicherheitsereignissen für definierte Aufbewahrungszeiten erstellen, schützen und aufbewahren."
+      "description": "Systeme zeichnen relevante Aktivitäten, Fehler und Sicherheitsereignisse auf, und die Protokolle werden geschützt und für eine festgelegte Zeit aufbewahrt."
     },
     "A_8_16": {
       "title": "Überwachungsaktivitäten",
-      "description": "Netzwerke, Systeme und Anwendungen überwachen, um anomales Verhalten und potenzielle Sicherheitsereignisse zu erkennen."
+      "description": "Netze, Systeme und Anwendungen werden auf ungewöhnliches Verhalten überwacht, damit mögliche Vorfälle erkannt und bearbeitet werden."
     },
     "A_8_17": {
       "title": "Uhrensynchronisation",
-      "description": "Uhren aller Informationsverarbeitungssysteme mit einer genehmigten Zeitquelle synchronisieren, um Protokollkorrelation und Forensik zu unterstützen."
+      "description": "Alle Systeme beziehen ihre Uhrzeit aus derselben verlässlichen Quelle, damit sich Protokolle vergleichen lassen."
     },
     "A_8_18": {
       "title": "Nutzung privilegierter Dienstprogramme",
-      "description": "Nutzung von Dienstprogrammen, die System- und Anwendungssteuerungen überwinden können, kontrollieren und einschränken."
+      "description": "Werkzeuge, die Kontrollen von Systemen oder Anwendungen umgehen können, sind auf wenige Personen beschränkt, und ihre Nutzung wird kontrolliert."
     },
     "A_8_19": {
       "title": "Installation von Software auf Betriebssystemen",
-      "description": "Verfahren zur Steuerung der Softwareinstallation auf Betriebssystemen durch autorisierte Personen umsetzen."
+      "description": "Software wird auf Produktivsystemen nur in einem geregelten Ablauf durch berechtigte Personen installiert."
     },
     "A_8_20": {
       "title": "Netzwerksicherheit",
-      "description": "Netzwerke und Netzwerkgeräte sichern, um Informationen in Systemen und Anwendungen zu schützen."
+      "description": "Netze und Netzwerkgeräte werden so gesichert und verwaltet, dass die übertragenen Informationen geschützt sind."
     },
     "A_8_21": {
       "title": "Sicherheit von Netzwerkdiensten",
-      "description": "Sicherheitsmechanismen für Netzwerkdienste einschließlich Cloud-Netzwerken identifizieren, umsetzen und überwachen."
+      "description": "Sicherheitsfunktionen und Leistungsniveaus von Netzwerkdiensten, intern oder eingekauft, sind festgelegt und werden überprüft."
     },
     "A_8_22": {
       "title": "Netzwerktrennung",
-      "description": "Gruppen von Informationsdiensten, Nutzern und Informationssystemen innerhalb des Netzwerks trennen."
+      "description": "Das Netz ist in getrennte Zonen aufgeteilt, etwa Büro, Server, Gäste und Produktion, damit sich ein Problem in einer Zone nicht ausbreitet."
     },
     "A_8_23": {
       "title": "Webfilterung",
-      "description": "Zugriff auf externe Websites verwalten, um das Risiko durch schädliche Inhalte zu reduzieren."
+      "description": "Der Zugriff auf Websites wird gefiltert, um Beschäftigte von schädlichen Inhalten fernzuhalten."
     },
     "A_8_24": {
       "title": "Einsatz von Kryptografie",
-      "description": "Kryptografierichtlinie mit genehmigten Algorithmen, Schlüsselmanagement und Verschlüsselungsanforderungen definieren und umsetzen."
+      "description": "Regeln legen fest, wo und wie verschlüsselt wird, welche Verfahren zulässig sind und wie Schlüssel verwaltet werden."
     },
     "A_8_25": {
       "title": "Sicherer Entwicklungslebenszyklus",
-      "description": "Regeln für die sichere Entwicklung von Software und Systemen über den gesamten Entwicklungslebenszyklus festlegen und anwenden."
+      "description": "Sicherheitsregeln gelten während der gesamten Entwicklung von Software und Systemen, von den Anforderungen bis zur Freigabe."
     },
     "A_8_26": {
       "title": "Anforderungen an die Anwendungssicherheit",
-      "description": "IS-Anforderungen für Anwendungsentwicklung und -beschaffung identifizieren, spezifizieren und genehmigen."
+      "description": "Sicherheitsanforderungen werden festgelegt, bevor Anwendungen entwickelt oder gekauft werden."
     },
     "A_8_27": {
       "title": "Grundsätze für sichere Systemarchitektur und Systementwicklung",
-      "description": "Sichere Engineering-Grundsätze für alle Entwicklungs- und Systemtechnikaktivitäten etablieren, dokumentieren und anwenden."
+      "description": "Grundsätze für den Entwurf sicherer Systeme sind schriftlich festgehalten und werden bei jeder Entwicklung und Änderung angewendet."
     },
     "A_8_28": {
       "title": "Sicheres Codieren",
-      "description": "Sichere Kodierungsprinzipien in der Softwareentwicklung anwenden, um häufige Schwachstellen zu vermeiden (OWASP Top 10, Injection, XSS)."
+      "description": "Entwickler folgen sicheren Programmierpraktiken, um verbreitete Schwachstellen zu vermeiden. Empfehlung: mit einer öffentlichen Referenzliste wie den OWASP Top 10 arbeiten."
     },
     "A_8_29": {
       "title": "Sicherheitstests in Entwicklung und Abnahme",
-      "description": "Sicherheitstestprozesse im Entwicklungslebenszyklus und bei Abnahmetests definieren und umsetzen."
+      "description": "Die Sicherheit wird während der Entwicklung und vor der Abnahme neuer oder geänderter Systeme getestet."
     },
     "A_8_30": {
       "title": "Ausgelagerte Entwicklung",
-      "description": "Ausgelagerte Systementwicklungsaktivitäten überwachen, um sicherzustellen, dass Sicherheitsanforderungen erfüllt werden."
+      "description": "Wird Entwicklung ausgelagert, legt das Unternehmen die Sicherheitsanforderungen fest und prüft, ob sie erfüllt werden."
     },
     "A_8_31": {
       "title": "Trennung von Entwicklungs-, Test- und Produktionsumgebungen",
-      "description": "Entwicklungs-, Test- und Produktionsumgebungen trennen, um unbefugten Zugriff auf oder Änderungen am Produktionssystem zu reduzieren."
+      "description": "Entwicklung, Test und Produktion laufen in getrennten Umgebungen, damit laufende Arbeiten die Produktivsysteme nicht beeinträchtigen."
     },
     "A_8_32": {
       "title": "Änderungsmanagement",
-      "description": "Änderungen an Informationsverarbeitungseinrichtungen und Systemen durch einen formalen Änderungsmanagementprozess verwalten."
+      "description": "Änderungen an Systemen und Einrichtungen der IT folgen einem geregelten Ablauf: beantragen, bewerten, freigeben, testen und dokumentieren."
     },
     "A_8_33": {
       "title": "Testinformationen",
-      "description": "Testinformationen schützen und verwalten; niemals Live-Produktionsdaten ohne angemessene Kontrollen in Testumgebungen verwenden."
+      "description": "Testdaten werden sorgfältig ausgewählt und geschützt, und Produktivdaten werden in Tests nur mit dazu passendem Schutz verwendet."
     },
     "A_8_34": {
       "title": "Schutz von IS bei Audittests",
-      "description": "Anforderungen und Aktivitäten für Audits von Betriebssystemen planen und abstimmen, um Betriebsunterbrechungen zu minimieren."
+      "description": "Audits und technische Prüfungen an laufenden Systemen werden mit den Systemverantwortlichen geplant und abgestimmt, damit sie den Betrieb nicht stören."
     }
   }
 }
