@@ -14,7 +14,7 @@ import {
 import { z } from "zod";
 import { isBackupSystem } from "@/lib/asset-inventory/catalog-labels";
 import { toDateString } from "@/lib/compliance/deadlines";
-import { isDoneStatus } from "@/lib/compliance/journey-position";
+import { DONE_STATUS_LIST, isDoneStatus } from "@/lib/compliance/journey-position";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   type AnyItem,
@@ -192,9 +192,6 @@ const ofCompany = (db: DbOrTx, companyId: string) =>
       .where(eq(companyAssessment.companyId, companyId)),
   );
 
-/** Rows already decided: signed off, approved, or recorded not applicable. */
-const DECIDED = ["completed", "approved", "not_applicable"] as const;
-
 /**
  * The reason a decision not to do an item will be signed with, or null once the item is filled
  * in or picked up again. A row already decided keeps what it has.
@@ -212,7 +209,7 @@ export async function declineReason(
       and(
         eq(companyRequirementStatus.id, statusId),
         ofCompany(db, companyId),
-        notInArray(companyRequirementStatus.status, [...DECIDED]),
+        notInArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
       ),
     );
 }
@@ -267,7 +264,7 @@ export async function signDeclined(
       and(
         inArray(companyRequirementStatus.id, [...args.statusIds]),
         ofCompany(db, args.companyId),
-        notInArray(companyRequirementStatus.status, [...DECIDED]),
+        notInArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
         isNotNull(companyRequirementStatus.notApplicableReason),
         ne(companyRequirementStatus.notApplicableReason, ""),
       ),

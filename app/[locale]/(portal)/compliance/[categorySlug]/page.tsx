@@ -14,6 +14,7 @@ import {
 } from "@/lib/compliance/access";
 import { legalRefFor } from "@/lib/compliance/czech-law";
 import { getNextCategory, getPrevCategory } from "@/lib/compliance/helpers";
+import { isDoneStatus } from "@/lib/compliance/journey-position";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { api } from "@/lib/trpc/server";
 
@@ -206,11 +207,7 @@ export default async function CategoryStepPage({
           <ExportPolicyButton
             assessmentId={assessment.id}
             categoryCode={category.code}
-            disabled={
-              !statuses.every((s) =>
-                ["completed", "approved", "not_applicable"].includes(s.currentStatus),
-              )
-            }
+            disabled={!statuses.every((s) => isDoneStatus(s.currentStatus))}
           />
         )}
       </div>

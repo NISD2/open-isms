@@ -5,7 +5,7 @@
  */
 
 import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
-import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "./role-keys";
+import { ALL_ROLE_KEYS, DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "./role-keys";
 
 /**
  * The role stamped on a sign-off: the signer's compliance role in the company they have open,
@@ -21,7 +21,12 @@ export function signerRoleOf(session: { jobTitle: string | null; role: string })
  * fall back to the platform default rather than accepting any signer.
  */
 export function effectiveSignOffRole(requiredSignOffRole: string | null): RoleKey {
-  return (requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE;
+  if (requiredSignOffRole === null) return DEFAULT_SIGN_OFF_ROLE;
+  const role = ALL_ROLE_KEYS.find((key) => key === requiredSignOffRole);
+  // An unknown role in the data must not quietly become the default signer.
+  if (role === undefined)
+    throw new Error(`Unknown sign-off role: ${requiredSignOffRole}`);
+  return role;
 }
 
 /**

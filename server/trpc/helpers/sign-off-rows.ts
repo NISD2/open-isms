@@ -1,5 +1,6 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, notInArray } from "drizzle-orm";
+import { DONE_STATUS_LIST } from "@/lib/compliance/journey-position";
 import type { Database, DbOrTx } from "@/lib/db";
 import { companyRequirementStatus } from "@/schema";
 import { buildSignOffSnapshot } from "./assessment-helpers";
@@ -71,7 +72,7 @@ export async function signOffRows<R extends SignableRow>(
         .where(
           and(
             eq(companyRequirementStatus.id, row.statusId),
-            sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved', 'not_applicable')`,
+            notInArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
           ),
         )
         .returning({ id: companyRequirementStatus.id });

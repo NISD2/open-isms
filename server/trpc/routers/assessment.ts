@@ -580,7 +580,7 @@ export const assessmentRouter = router({
         .select({
           categoryId: requirement.categoryId,
           total: sql<number>`count(*)::int`,
-          completed: sql<number>`count(*) filter (where ${companyRequirementStatus.status} in ('completed', 'approved', 'not_applicable'))::int`,
+          completed: sql<number>`count(*) filter (where ${inArray(companyRequirementStatus.status, [...DONE_STATUS_LIST])})::int`,
         })
         .from(companyRequirementStatus)
         .innerJoin(
@@ -1210,7 +1210,7 @@ export const assessmentRouter = router({
           and(
             eq(companyRequirementStatus.assessmentId, input.assessmentId),
             eq(requirement.categoryId, input.categoryId),
-            sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved', 'not_applicable')`,
+            notInArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
           ),
         );
 
