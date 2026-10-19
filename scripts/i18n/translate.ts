@@ -20,11 +20,11 @@
  *     The wiki is curated/localised, not bulk-translated. See assessment §6.
  */
 
-import { readdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readFile, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import { z } from "zod";
 import { glossaryPromptBlock } from "./glossary";
+import { listNamespaces, MESSAGES_DIR } from "./namespaces";
 import {
   getTargetLocale,
   localesForWave,
@@ -34,8 +34,6 @@ import {
   TRANSLATION_MODEL,
   WIKI_NAMESPACE,
 } from "./plan";
-
-const MESSAGES_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "../../messages");
 
 const CHUNK_SIZE = 60; // strings per model call
 const CONCURRENCY = 4; // concurrent model calls
@@ -205,28 +203,6 @@ async function mapLimit<T, R>(
 // ---------------------------------------------------------------------------
 // Namespace + file helpers
 // ---------------------------------------------------------------------------
-
-/**
- * Every translatable unit: a namespace directory holding `<locale>.json`, or, for a namespace
- * stored in parts (messages/requirements/<part>/<locale>.json), each part as `<namespace>/<part>`.
- */
-async function listNamespaces(): Promise<string[]> {
-  const entries = await readdir(MESSAGES_DIR, { withFileTypes: true });
-  const units = await Promise.all(
-    entries
-      .filter((e) => e.isDirectory())
-      .map(async (e): Promise<string[]> => {
-        if (await fileExists(resolve(MESSAGES_DIR, e.name, `${SOURCE_LOCALE}.json`))) {
-          return [e.name];
-        }
-        const parts = await readdir(resolve(MESSAGES_DIR, e.name), {
-          withFileTypes: true,
-        });
-        return parts.filter((p) => p.isDirectory()).map((p) => `${e.name}/${p.name}`);
-      }),
-  );
-  return units.flat().sort();
-}
 
 async function readJson(path: string): Promise<Json> {
   const raw = await readFile(path, "utf-8");
