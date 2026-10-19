@@ -9,12 +9,12 @@ import { rateLimit } from "@/lib/rate-limit";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
+import type { ToolOutcome } from "./gates";
 import {
   FillItemInput,
   fillItem,
   GetWalkthroughInput,
   getWalkthrough,
-  type ToolOutcome,
   UploadFileInput,
   uploadFile,
 } from "./tools";
