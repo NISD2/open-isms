@@ -1404,7 +1404,7 @@ export default async function Nis2ToolPage({
             size="lg"
             className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
           >
-            <SignInLink query={{ mode: "register" }}>{landing("guided.cta")}</SignInLink>
+            <SignInLink query={{ mode: "register" }}>{tiers("paid.cta")}</SignInLink>
           </Button>
           <TalkFirst size="button" />
         </div>

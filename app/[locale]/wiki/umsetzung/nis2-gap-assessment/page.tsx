@@ -12,12 +12,12 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
 import { wikiLocale } from "@/lib/content/wiki-locale";
 import { pageAlternates, pageOg } from "@/lib/seo";
 
@@ -67,6 +67,7 @@ export default async function GapAssessmentLandingPage({
   const { locale: rawLocale } = await params;
   const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
+  const offer = await getTranslations("pricing.tiers");
 
   return (
     <GlossedProse locale={locale}>
@@ -91,16 +92,13 @@ export default async function GapAssessmentLandingPage({
             {t("gapAssessmentLanding.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            <Link
-              href={{
-                pathname: "/auth/signin",
-                query: { callbackUrl: "/gap-assessment" },
-              }}
+            <SignInLink
+              query={{ mode: "register", callbackUrl: "/gap-assessment" }}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
             >
-              {t("gapAssessmentLanding.cta")}
+              {offer("paid.cta")}
               <ArrowRight className="size-4" />
-            </Link>
+            </SignInLink>
           </div>
         </header>
 

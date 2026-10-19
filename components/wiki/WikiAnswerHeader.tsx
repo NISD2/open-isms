@@ -42,7 +42,7 @@ export async function WikiAnswerHeader({
     }
   | { shot: true; art?: never }
 )) {
-  const t = await getTranslations("landing");
+  const offer = await getTranslations("pricing.tiers");
   return (
     <header
       className={
@@ -75,7 +75,7 @@ export async function WikiAnswerHeader({
                 size="lg"
                 className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
               >
-                <SignInLink query={{ mode: "register" }}>{t("guided.cta")}</SignInLink>
+                <SignInLink query={{ mode: "register" }}>{offer("paid.cta")}</SignInLink>
               </Button>
               <TalkFirst size="button" />
             </div>

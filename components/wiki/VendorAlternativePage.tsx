@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,6 @@ import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { SourceText } from "@/components/wiki/SourceText";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { Link } from "@/i18n/navigation";
 import { wikiLocale } from "@/lib/content/wiki-locale";
 
 const goodAtKeys = ["automation", "frameworks", "trust"] as const;
@@ -34,6 +34,7 @@ export async function VendorAlternativePage({
 }) {
   const locale = wikiLocale(rawLocale);
   const t = await getTranslations("info");
+  const offer = await getTranslations("pricing.tiers");
 
   return (
     <GlossedProse locale={locale}>
@@ -215,7 +216,7 @@ export async function VendorAlternativePage({
           </CardHeader>
           <CardContent>
             <Button asChild>
-              <Link href="/auth/signin">{t(`${namespace}.cta`)}</Link>
+              <SignInLink query={{ mode: "register" }}>{offer("paid.cta")}</SignInLink>
             </Button>
           </CardContent>
         </Card>

@@ -53,6 +53,8 @@ export async function PublicNav({
   variant?: "site" | "docs";
 } = {}) {
   const t = await getTranslations("landing");
+  // Every button that starts the product makes the order button's promise (pricing.tiers).
+  const offer = await getTranslations("pricing.tiers");
   const isDocs = variant === "docs";
   const session = isDocs ? null : await auth();
   const user = session?.user;
@@ -150,7 +152,13 @@ export async function PublicNav({
               </Button>
             ) : (
               <Button size="sm" asChild>
-                <SignInLink query={{ mode: "register" }}>{t("nav.cta")}</SignInLink>
+                {/* Below 1280 px the nav has no room for the promise in every language (it ran
+                    off the screen at 390, 640 and 1024 px); the short label stays there, and every
+                    page's main button below carries the promise. */}
+                <SignInLink query={{ mode: "register" }}>
+                  <span className="xl:hidden">{t("nav.cta")}</span>
+                  <span className="hidden xl:inline">{offer("paid.cta")}</span>
+                </SignInLink>
               </Button>
             )}
           </div>

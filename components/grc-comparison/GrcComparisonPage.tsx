@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,7 +24,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Link } from "@/i18n/navigation";
 import type { LocalisedVendor, LocalisedVendorDataset } from "@/lib/grc-vendors/localize";
 import type {
   VendorCategory,
@@ -207,6 +207,7 @@ export function GrcComparisonPage({ dataset, stats }: Props) {
 }
 
 function Hero({ t }: { t: ReturnType<typeof useTranslations<"grcComparison">> }) {
+  const offer = useTranslations("pricing.tiers");
   return (
     <section className="mx-auto max-w-4xl space-y-6 text-center">
       <p className="text-xs font-semibold uppercase tracking-wider text-primary">
@@ -218,7 +219,7 @@ function Hero({ t }: { t: ReturnType<typeof useTranslations<"grcComparison">> })
       <p className="text-base text-muted-foreground md:text-lg">{t("hero.subtitle")}</p>
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
         <Button asChild size="lg">
-          <Link href="/auth/signin">{t("hero.ctaPlatform")}</Link>
+          <SignInLink query={{ mode: "register" }}>{offer("paid.cta")}</SignInLink>
         </Button>
         <Button asChild size="lg" variant="outline">
           <a href="#methodology">{t("hero.ctaMethodology")}</a>
@@ -547,6 +548,7 @@ function Methodology({
 }
 
 function CallToAction({ t }: { t: ReturnType<typeof useTranslations<"grcComparison">> }) {
+  const offer = useTranslations("pricing.tiers");
   return (
     <section className="mx-auto max-w-4xl">
       <Card>
@@ -556,7 +558,7 @@ function CallToAction({ t }: { t: ReturnType<typeof useTranslations<"grcComparis
             {t("cta.body")}
           </p>
           <Button asChild size="lg">
-            <Link href="/auth/signin">{t("cta.button")}</Link>
+            <SignInLink query={{ mode: "register" }}>{offer("paid.cta")}</SignInLink>
           </Button>
         </CardContent>
       </Card>

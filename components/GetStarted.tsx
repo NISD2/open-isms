@@ -52,7 +52,7 @@ export async function GetStarted({
 }
 
 async function StartButton({ href }: { href?: Href }) {
-  const t = await getTranslations("landing.guided");
+  const t = await getTranslations("pricing.tiers.paid");
   return (
     <Button
       asChild

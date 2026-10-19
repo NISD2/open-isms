@@ -38,6 +38,7 @@ export async function generateMetadata({
 
 export default async function LandingPage() {
   const t = await getTranslations("landing");
+  const offer = await getTranslations("pricing.tiers");
 
   return (
     <MotionProvider>
@@ -85,7 +86,9 @@ export default async function LandingPage() {
                   size="lg"
                   className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <SignInLink query={{ mode: "register" }}>{t("guided.cta")}</SignInLink>
+                  <SignInLink query={{ mode: "register" }}>
+                    {offer("paid.cta")}
+                  </SignInLink>
                 </Button>
                 {/* A call with us, next to starting alone. */}
                 <TalkFirst size="button" />

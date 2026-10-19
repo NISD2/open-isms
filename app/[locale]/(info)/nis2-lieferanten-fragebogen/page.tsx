@@ -6,6 +6,7 @@ import {
 import { Download, ExternalLink, FileCode, FileText } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { JsonLd } from "@/components/JsonLd";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@/i18n/navigation";
 import { pickLocalized } from "@/lib/locale";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
@@ -67,6 +67,7 @@ export default async function SupplierQuestionnairePage({
   const { locale: rawLocale } = await params;
   const locale = rawLocale;
   const t = await getTranslations("info");
+  const offer = await getTranslations("pricing.tiers");
   const grouped = groupBySection(supplierQuestionnaire);
   const conditionWords = {
     onlyIf: t("supplierQuestionnaire.field.onlyIf"),
@@ -300,7 +301,7 @@ export default async function SupplierQuestionnairePage({
         </CardHeader>
         <CardContent>
           <Button asChild>
-            <Link href="/auth/signin">{t("supplierQuestionnaire.cta")}</Link>
+            <SignInLink query={{ mode: "register" }}>{offer("paid.cta")}</SignInLink>
           </Button>
         </CardContent>
       </Card>
