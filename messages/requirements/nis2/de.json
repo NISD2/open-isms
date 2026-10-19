@@ -118,7 +118,7 @@
     },
     "7_3": {
       "title": "Managementbewertung",
-      "description": "Das Unternehmen überprüft regelmäßig die Einhaltung seiner Leitlinien, und die Geschäftsleitung lässt sich den Stand der Informationssicherheit regelmäßig berichten (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Gap-Analyse."
+      "description": "Die Geschäftsleitung überwacht die Umsetzung der Maßnahmen (§38 Abs. 1 BSIG), und ihre Wirksamkeit wird nach einem festgelegten Verfahren bewertet (§30 Abs. 2 Nr. 6 BSIG). Für die Einrichtungsarten der CIR überprüft das Unternehmen außerdem regelmäßig die Einhaltung seiner Leitlinien, und die Geschäftsleitung lässt sich den Stand der Informationssicherheit regelmäßig berichten (CIR 2.2.1). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Lückenanalyse."
     },
     "7_4": {
       "title": "Korrekturmaßnahmen & kontinuierliche Verbesserung",
