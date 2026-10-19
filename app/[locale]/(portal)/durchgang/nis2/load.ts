@@ -10,6 +10,7 @@ import { buildCitationRows, typesetCitation } from "@/lib/compliance/citations";
 import { czechDutyCitation, czechRefOf } from "@/lib/compliance/czech-law";
 import { legislation } from "@/lib/content/citations";
 import { db } from "@/lib/db";
+import { getTermEntry } from "@/lib/dictionary/glossary";
 import {
   type AnyItem,
   type AnyScreen,
@@ -114,7 +115,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   const [
     words,
     tc,
-    tInfo,
     tPortal,
     tUi,
     statuses,
@@ -130,7 +130,6 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   ] = await Promise.all([
     wordsOf(item),
     getTranslations("compliance"),
-    getTranslations("info"),
     getTranslations("portal"),
     getTranslations("durchgang.ui"),
     assessment
@@ -211,13 +210,12 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     title: words.headline,
     image: imageFor(code),
     missed: words.missed,
-    terms: item.glossary.map((key) => ({
-      term: tInfo(`glossary.terms.${key}.term`),
-      definition: tInfo(`glossary.terms.${key}.definition`),
-      source: tInfo.has(`glossary.terms.${key}.legalRef`)
-        ? tInfo(`glossary.terms.${key}.legalRef`)
-        : null,
-    })),
+    terms: item.glossary.map((term) => {
+      const entry = getTermEntry(term, locale);
+      if (!entry)
+        throw new Error(`Item ${code} lists "${term}", which is not in the dictionary`);
+      return { term: entry.term, definition: entry.definition, source: entry.legalRef };
+    }),
     citations: [...law, ...cir],
     // The duty card cites what its text is written from: the BSIG in German, Czech law in Czech,
     // the directive in English. All of them stay in the rail.

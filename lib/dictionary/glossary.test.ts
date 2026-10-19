@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import type { DictionaryTerm } from "@/lib/training/schemas";
-import { getGlossary, glossaryByLetter, isInGlossary } from "./glossary";
+import { getGlossary, getTermEntry, glossaryByLetter, isInGlossary } from "./glossary";
 import { getMergedDictionary } from "./index";
 import { getTermUses, type TermUse, taughtIn } from "./usage";
 
@@ -64,6 +64,23 @@ describe("the A to Z index", () => {
     const plain = letters.map(({ letter }) => letter).filter((letter) => letter !== "#");
     expect(plain).toEqual([...plain].sort());
     expect(letters[0]?.letter).toBe("#");
+  });
+});
+
+describe("one dictionary term, as the walkthrough's rail reads it", () => {
+  test("is found whether or not the glossary lists it, in the reader's language", () => {
+    const listed = new Set(getGlossary("en").map((entry) => entry.term));
+    expect(listed.has("Yardstick")).toBe(false);
+    expect(getTermEntry("Yardstick", "en")?.definition).toBeTruthy();
+    expect(getTermEntry("management body", "de")?.term).toBe("Management body");
+    expect(getTermEntry("Management body", "de")?.definition).not.toBe(
+      getTermEntry("Management body", "en")?.definition,
+    );
+  });
+
+  test("carries the provision it rests on and says nothing for an unknown term", () => {
+    expect(getTermEntry("Essential entity", "en")?.legalRef).toContain("BSIG");
+    expect(getTermEntry("no such term", "en")).toBeUndefined();
   });
 });
 

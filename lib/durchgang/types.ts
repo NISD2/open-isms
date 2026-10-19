@@ -332,7 +332,7 @@ export interface Item<C extends CategoryCode> {
    * not to do an item goes to management's signature in the approval.
    */
   readonly mustDo?: string;
-  /** Keys under `info.glossary.terms`. */
+  /** Dictionary terms the item's rail explains, by their English term (`lib/dictionary`). */
   readonly glossary: readonly string[];
   /**
    * The day the item's copy passed the primary-source fact-check. Required: an item without a

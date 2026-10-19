@@ -12,12 +12,10 @@ import {
   CUSTOM_EDITOR_KEYS,
   REQUIREMENT_FIELD_MAP,
 } from "@/lib/compliance/requirement-fields";
+import { getTermEntry } from "@/lib/dictionary/glossary";
 import cs from "@/messages/durchgang/cs.json";
 import de from "@/messages/durchgang/de.json";
 import en from "@/messages/durchgang/en.json";
-import infoCs from "@/messages/info/cs.json";
-import infoDe from "@/messages/info/de.json";
-import infoEn from "@/messages/info/en.json";
 import { marker } from "./copy";
 import { askedFields, resolveItem, WAIT_REASONS, WALK, walkOf } from "./index";
 import { NIS2_SCRIPT, NOT_WALKED } from "./nis2";
@@ -96,9 +94,9 @@ const screensOf = (item: (typeof NIS2_SCRIPT)[number]): readonly AnyScreen[] =>
   item.screens;
 
 const LOCALES = [
-  ["de", de.durchgang, infoDe.info.glossary.terms],
-  ["en", en.durchgang, infoEn.info.glossary.terms],
-  ["cs", cs.durchgang, infoCs.info.glossary.terms],
+  ["de", de.durchgang],
+  ["en", en.durchgang],
+  ["cs", cs.durchgang],
 ] as const;
 
 describe("the NIS 2 script", () => {
@@ -386,7 +384,7 @@ describe("the words of the Durchgang", () => {
     }
   });
 
-  for (const [locale, namespace, glossary] of LOCALES) {
+  for (const [locale, namespace] of LOCALES) {
     test(`every item reads completely in ${locale}, with nothing left over`, () => {
       const errors = NIS2_SCRIPT.flatMap((item) => {
         const resolved = resolveItem(namespace, item);
@@ -427,7 +425,12 @@ describe("the words of the Durchgang", () => {
 
     test(`every glossary term an item links exists in ${locale}`, () => {
       for (const item of NIS2_SCRIPT) {
-        for (const key of item.glossary) expect(Object.hasOwn(glossary, key)).toBe(true);
+        for (const term of item.glossary) {
+          expect({ term, found: getTermEntry(term, locale) !== undefined }).toEqual({
+            term,
+            found: true,
+          });
+        }
       }
     });
   }

@@ -50,6 +50,34 @@ function groupByTerm(): ReadonlyMap<string, Group> {
   return groups;
 }
 
+const GROUPS = groupByTerm();
+
+function entryOf(group: Group, locale: Locale): GlossaryEntry {
+  const { winner } = group;
+  const aliasMap: Partial<Record<string, string[]>> | undefined = winner.aliases;
+  return {
+    term: winner.term,
+    slug: slugify(winner.term),
+    definition: pickLocale(winner.definition, locale),
+    legalRef: group.legalRef ? pickLocale(group.legalRef, locale) || null : null,
+    aliases: (aliasMap?.[locale] ?? []).filter(
+      (alias) => alias.toLowerCase() !== winner.term.toLowerCase(),
+    ),
+    sources: group.sources,
+  };
+}
+
+/**
+ * One dictionary term in a locale, listed on the public glossary or not. The
+ * walkthrough's reference rail reads its terms here, so it shows the same
+ * checked definition as the glossary and the hover.
+ */
+export function getTermEntry(term: string, locale: Locale): GlossaryEntry | undefined {
+  const group = GROUPS.get(term.toLowerCase());
+  const entry = group && entryOf(group, locale);
+  return entry && entry.definition !== "" ? entry : undefined;
+}
+
 const entriesCache = new Map<Locale, readonly GlossaryEntry[]>();
 
 /** The terms the public glossary lists, A to Z in the locale's own collation. */
@@ -58,22 +86,9 @@ export function getGlossary(locale: Locale): readonly GlossaryEntry[] {
   if (cached) return cached;
 
   const collator = new Intl.Collator(locale);
-  const entries = [...groupByTerm().values()]
+  const entries = [...GROUPS.values()]
     .filter((group) => group.listed)
-    .map((group): GlossaryEntry => {
-      const { winner } = group;
-      const aliasMap: Partial<Record<string, string[]>> | undefined = winner.aliases;
-      return {
-        term: winner.term,
-        slug: slugify(winner.term),
-        definition: pickLocale(winner.definition, locale),
-        legalRef: group.legalRef ? pickLocale(group.legalRef, locale) || null : null,
-        aliases: (aliasMap?.[locale] ?? []).filter(
-          (alias) => alias.toLowerCase() !== winner.term.toLowerCase(),
-        ),
-        sources: group.sources,
-      };
-    })
+    .map((group) => entryOf(group, locale))
     .filter((entry) => entry.definition !== "")
     .sort((a, b) => collator.compare(a.term, b.term));
 
