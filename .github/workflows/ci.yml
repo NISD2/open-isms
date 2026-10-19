@@ -139,13 +139,15 @@ jobs:
           AUTH_SECRET: "ci_build_dummy_value_not_a_real_secret_0000"
           RESEND_API_KEY: "re_dummy_for_ci_build"
 
-  # What happens to a customer's database when a migration fails. Every other
-  # migration test asks whether the good path works; this one deliberately
-  # breaks it, because "your data is untouched" is a promise docs/updating.md
-  # makes to people storing audit evidence, and it was untested until now.
-  migration-failure:
+  # Promises only a real database can show, one drill each, on one Postgres. The
+  # unit suite has no database, so none of these is tested anywhere else. The
+  # drills run in order on the same database; each says what it expects.
+  database-drills:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      DATABASE_URL: postgres://drill:drill@localhost:5432/drill
+      AUTH_SECRET: "ci-drill-secret-at-least-32-characters-long"
     services:
       postgres:
         image: postgres:17-alpine
@@ -169,47 +171,45 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
+      # Every other migration test asks whether the good path works; this one
+      # breaks it, because "your data is untouched" is a promise docs/updating.md
+      # makes to people storing audit evidence.
       - name: a failing migration leaves the database untouched
         run: bash scripts/ci/migration-failure-drill.sh
-        env:
-          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
 
-      # Same live database, and the only automated check on the path a
-      # self-hoster with no mail transport depends on. Asserts the account is
-      # created and signable-in, that a restart does NOT rewrite its password,
-      # and that a bad value is refused without stopping startup.
+      # The only automated check on the path a self-hoster with no mail
+      # transport depends on. Asserts the account is created and signable-in,
+      # that a restart does NOT rewrite its password, and that a bad value is
+      # refused without stopping startup.
       - name: the bootstrap admin creates an account and never rewrites one
         run: bash scripts/ci/bootstrap-admin-drill.sh
         env:
-          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
           PGPASSWORD: drill
 
-      # Same migrated database. The attempt cap and single use of an OTP only
-      # hold if concurrent UPDATEs are conditional, which no unit test with a
-      # fake database can show.
+      # The attempt cap and single use of an OTP only hold if concurrent
+      # UPDATEs are conditional.
       - name: parallel OTP guesses stay within the attempt cap
         run: bun scripts/ci/otp-concurrency-drill.ts
-        env:
-          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
-          AUTH_SECRET: "ci-drill-secret-at-least-32-characters-long"
 
       # The failure every reinstall produces. What is under test is the
       # message, not the connection: a stack trace here costs a support thread
       # and reads as a broken release.
       - name: a refused database password is explained, not thrown
         run: bash scripts/ci/wrong-password-drill.sh
-        env:
-          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
 
-      # Same migrated database; the drill above ends by migrating it again. The
-      # rate limit is only a ceiling if parallel hits on one key serialise on
-      # its row, and the sweep only safe if it never resets a live window. The
-      # unit suite has no database, so neither is tested anywhere else.
+      # The drill above ends by migrating the database again. The rate limit is
+      # only a ceiling if parallel hits on one key serialise on its row, and the
+      # sweep only safe if it never resets a live window.
       - name: parallel hits on one rate-limit key allow exactly the limit
         run: bun scripts/ci/rate-limit-drill.ts
-        env:
-          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
-          AUTH_SECRET: "ci-drill-secret-at-least-32-characters-long"
+
+      # A sign-off credits the same record in another framework once, with its
+      # history entry, and never an overlap, a set-aside row or a role the signer
+      # lacks. The framework data comes from the file a self-hoster applies.
+      - name: a sign-off credits the other framework once, and only where it may
+        run: |
+          psql "$DATABASE_URL" -q -v ON_ERROR_STOP=1 -f db/framework-seed.sql
+          bun scripts/ci/propagation-drill.ts
 
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and

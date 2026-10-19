@@ -34,7 +34,7 @@ bun run e2e:image   # against the published image rather than a local build
 | Workflow | Trigger | What it proves |
 |---|---|---|
 | **CI** | every push | typecheck, unit tests, build, migration guards, shellcheck, and that the framework reference table still matches the data |
-| **CI / migration-failure** | every push | a failing migration leaves the database untouched, by actually running one |
+| **CI / database-drills** | every push | against a real Postgres: a failing migration leaves the database untouched, the bootstrap admin is never rewritten, OTP attempts and rate limits hold under concurrency, a wrong database password is explained, and a sign-off credits another framework once and only where it may |
 | **CI / compose** | every push | the self-host compose file and the Caddy config are valid |
 | **E2E** | pull requests | the browser suite against a real stack |
 | **Self-host stack** | pull requests, and weekly | install, update, rollback and a full backup-restore drill against real containers |
