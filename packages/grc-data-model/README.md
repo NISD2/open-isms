@@ -62,8 +62,8 @@ Each call is idempotent and scoped to the framework code; existing rows for othe
 |---|---|
 | `/schema` | Drizzle tables: framework, requirement, requirement-satisfaction, supplier, asset, risk, incident |
 | `/enums` | 16 GRC-core PG enums (incident severity, evidence type, transfer mechanism, etc.) |
-| `/frameworks` | Categories + requirements for NIS 2 (12 / 49), GDPR (5 / 7), EU AI Act (5 / 24), CRA (4 / 21), ISO 27001:2022 (5 / 116) |
-| `/satisfaction-pairs` | NIS 2 ↔ GDPR (11), AI Act ↔ NIS 2 (7), AI Act ↔ GDPR (5), CRA ↔ NIS 2 (9), CRA ↔ AI Act (4), CRA ↔ GDPR (2), ISO 27001 ↔ NIS 2 (73) |
+| `/frameworks` | Categories + requirements for NIS 2, GDPR, EU AI Act, CRA and ISO 27001:2022, listed once in `FRAMEWORK_DATA`; counts in [REFERENCE.md](./REFERENCE.md#coverage-summary) |
+| `/satisfaction-pairs` | Links between requirements of two frameworks (NIS 2, GDPR, AI Act, CRA, ISO 27001), each with its kind and rationale; counts in [REFERENCE.md](./REFERENCE.md#cross-framework-satisfaction-pairs) |
 | `/mappings/nis2-gdpr` | Article-level concept mapping |
 | `/seed` | `seedFramework(db, spec)` and `linkSatisfactionPairs(db, pairs)` to populate a Postgres database with the framework data |
 
