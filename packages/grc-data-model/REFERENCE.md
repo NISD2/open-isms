@@ -160,28 +160,28 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `G-DPA.1` | document | P1 | annual | Art. 28 | GDPR Art. 28(3) | 5.1, 5.2 |
-| `G-DPA.2` | document | P1 | annual | Art. 28 | GDPR Art. 28(2), Art. 28(4) | 5.2 |
+| `G-DPA.1` | document | P1 | on-change | Art. 28 | GDPR Art. 28(1), (3), (9) | 5.1, 5.2 |
+| `G-DPA.2` | document | P1 | on-change | Art. 28 | GDPR Art. 28(2), 28(3)(d) | 5.2 |
 
 ### ROP: gdpr-records-of-processing
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `G-ROP.1` | document | P0 | annual | Art. 30 | GDPR Art. 30(1), (5) | 2.1, 2.2, 2.3, AI-TRA.1, AI-DOC.1 |
+| `G-ROP.1` | document | P0 | on-change | Art. 30 | GDPR Art. 30(1), (5) | 2.1, 2.2, 2.3, AI-TRA.1, AI-DOC.1 |
 
 ### TOM: gdpr-toms
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `G-TOM.1` | document | P0 | annual | Art. 32 | GDPR Art. 32(1) | 2.4, 9.1, 9.2, 4.4, 4.3, 7.1, 7.2, 10.1, 11.1, AI-FRI.1, AI-RSK.1, CRA-ESS.1 |
+| `G-TOM.1` | document | P0 | on-change | Art. 32 | GDPR Art. 32(1) | 2.4, 9.1, 9.2, 4.4, 4.3, 7.1, 7.2, 10.1, 11.1, AI-FRI.1, AI-RSK.1, CRA-ESS.1 |
 
 ### BRC: gdpr-breach-response
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
-| `G-BRC.1` | document | P0 | annual | Art. 33 | GDPR Art. 33(1)-(4) | 3.1, 3.3, AI-INC.1, CRA-VLN.1 |
+| `G-BRC.1` | document | P0 | on-change | Art. 33 | GDPR Art. 33(1), (3), (4) | 3.1, 3.3, AI-INC.1, CRA-VLN.1 |
 | `G-BRC.2` | document | P1 | on-change | Art. 33 | GDPR Art. 33(5) | 3.2, 3.5 |
-| `G-BRC.3` | document | P1 | on-change | Art. 34 | GDPR Art. 34 | 3.5 |
+| `G-BRC.3` | document | P1 | on-change | Art. 34 | GDPR Art. 34, §29(1) BDSG | 3.5 |
 
 ### DSR: gdpr-data-subject-rights
 
@@ -501,17 +501,17 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 | First | Second | Kind | Rationale |
 |---|---|---|---|
-| `5.1` | `G-DPA.1` | overlapping | Same supplier rows feed both; the Art. 28 DPA itself is evidenced by the 5.2 contract clauses, not by the register alone. |
+| `5.1` | `G-DPA.1` | overlapping | Same supplier rows feed both; neither the register nor the 5.2 clauses is the Art. 28 agreement. |
 | `5.2` | `G-DPA.1` | overlapping | CIR 5.1.4 covers part of an Art. 28(3) DPA: its cybersecurity requirements (a) speak to Art. 28(3)(c), its audit rights (e) to (h), its subcontracting rules (g) to (d), its termination retrieval and disposal (h) to (g). Art. 28(3) points (a), (b), (e) and (f) have no CIR counterpart: documented instructions, confidentiality, assistance with data subject rights, and assistance with Arts. 32 to 36. Nor does CIR 5.1.4 carry the Art. 28(3) statement of subject-matter, duration, nature, purpose, data types and categories of data subjects. CIR 5.1.4 clauses are also owed only 'where appropriate'; Art. 28(3) is unconditional. A 5.2 clause set is not a DPA. |
-| `5.2` | `G-DPA.2` | equivalent | Sub-processor lists live on the same supplier rows used for NIS2 governance and Art. 28(2)/(4). |
-| `2.1` | `G-ROP.1` | overlapping | Asset classification methodology defines the systems recorded in the Art. 30 register. |
+| `5.2` | `G-DPA.2` | overlapping | Same supplier rows hold sub-processor lists; the Art. 28(2) authorisation is not recorded. |
+| `2.1` | `G-ROP.1` | overlapping | The 2.1 method rates assets; Art. 30 records processing activities. |
 | `2.2` | `G-ROP.1` | overlapping | Asset rows inform the Art. 30 record, but a RoPA documents processing activities (purposes, recipients, retention), not IT assets. |
-| `2.3` | `G-ROP.1` | overlapping | Asset criticality under NIS2 informs Art. 30/35 high-risk processing. |
-| `3.1` | `G-BRC.1` | equivalent | Same incident response procedure satisfies the NIS2 detection-to-notification flow and the GDPR Art. 33 breach response. |
-| `3.2` | `G-BRC.2` | equivalent | Same incident rows; NIS2 detection/logging ↔ Art. 33(5) breach documentation. |
-| `3.3` | `G-BRC.1` | overlapping | Same underlying event, separate filings: the NIS2 24h/72h/1-month cascade goes to the BSI/BBK Meldestelle, the GDPR Art. 33 single 72h notification to the data protection authority. |
+| `2.3` | `G-ROP.1` | overlapping | Asset ratings can point to high-risk processing (Art. 35); Art. 30 records no risk. |
+| `3.1` | `G-BRC.1` | overlapping | The incident plan can carry the Art. 33 notification but lacks its risk test and the late-filing reasons. |
+| `3.2` | `G-BRC.2` | overlapping | Incident rows can hold Art. 33(5) facts, effects and remedy, but only for IT incidents; Art. 4(12) is wider. |
+| `3.3` | `G-BRC.1` | overlapping | Same underlying event, separate filings: the NIS2 24h/72h/1-month cascade goes to the BSI/BBK Meldestelle, the GDPR Art. 33 notification, in phases if need be (Art. 33(4)), to the data protection authority. |
 | `3.5` | `G-BRC.2` | overlapping | Post-incident review evidence overlaps the Art. 33(5) breach documentation; the BSI final report itself is §32(1) Nr. 4 BSIG, tracked under 3.3. |
-| `2.4` | `G-TOM.1` | overlapping | CEO sign-off on the Art. 21(2) risk treatment plan attests the TOMs posture Art. 32 requires. |
+| `2.4` | `G-TOM.1` | overlapping | The risk treatment plan lists measures Art. 32 asks for too; Art. 32 asks for the measures, not an approval. |
 | `9.1` | `G-TOM.1` | overlapping | Art. 21(2)(h) ↔ Art. 32(1)(a): the CIR 9.1 cryptography policy is the documented position on encryption that Art. 32(1)(a) expects. Scope differs in one direction only: Art. 32(1)(a) names pseudonymisation alongside encryption and NIS2 does not, so the policy can satisfy the encryption half and leave pseudonymisation unaddressed. |
 | `9.2` | `G-TOM.1` | overlapping | Art. 21(2)(h) ↔ Art. 32(1)(a): encryption at rest and in transit is the same control under both regimes. NIS2 applies it to network and information systems, Art. 32 to personal data, so the measure carries over while the scope statement does not. |
 | `4.4` | `G-TOM.1` | overlapping | Art. 21(2)(c) ↔ Art. 32(1)(c): 'the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident' is what a tested backup and restore programme evidences. A restore that has never been tested evidences neither. |
@@ -519,8 +519,8 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | `7.1` | `G-TOM.1` | overlapping | Art. 21(2)(f) ↔ Art. 32(1)(d): 'a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures'. The CIR 7.1 KPI records are that process running. Art. 32(1)(d) is the one enumerated item creating an ongoing duty rather than a one-off measure. |
 | `7.2` | `G-TOM.1` | overlapping | Art. 21(2)(f) ↔ Art. 32(1)(d): the internal audit programme is the assessing and evaluating half of the same clause, where 7.1 is the measuring half. |
 | `10.1` | `G-TOM.1` | overlapping | Art. 21(2)(i) ↔ Art. 32(1)(b): the access control policy is the primary evidence for 'ongoing confidentiality' of processing systems. Art. 32(1)(b) also covers integrity, availability and resilience, which this requirement does not reach. |
-| `11.1` | `G-TOM.1` | overlapping | Art. 21(2)(j) ↔ Art. 32 by implication: Art. 32 nowhere names MFA, and its 'appropriate measures' clause is what carries it. CIR 11.7 mandates MFA outright for the eleven digital-service entity types; for everyone else Art. 21(1) proportionality decides, exactly as Art. 32(1) does. Never 'equivalent': one is a named control, the other an open standard that the control happens to meet. |
-| `3.5` | `G-BRC.3` | overlapping | Art. 23(1) subpara. 2 ↔ Art. 34: both require telling people outside the authority about an incident, and the post-incident communication is where a company decides who hears what. The duties do not merge. NIS2 addresses the recipients of the service when provision is adversely affected; Art. 34 addresses the data subjects when the breach is likely to result in a high risk to their rights and freedoms, and the Art. 34(3) carve-outs apply to the GDPR side only. |
+| `11.1` | `G-TOM.1` | overlapping | Art. 21(2)(j) ↔ Art. 32 by implication: Art. 32 nowhere names MFA, and its 'appropriate measures' clause is what carries it. CIR 11.7.1 asks for MFA or continuous authentication where appropriate, for the CIR's entity types; for everyone else Art. 21(1) proportionality decides, exactly as Art. 32(1) does. Never 'equivalent': one is a named control, the other an open standard that the control happens to meet. |
+| `3.5` | `G-BRC.3` | overlapping | Art. 23(1) ↔ Art. 34: both require telling people outside the authority about an incident, and the post-incident communication is where a company decides who hears what. The duties do not merge. NIS2 addresses the recipients of the service when provision is adversely affected; Art. 34 addresses the data subjects when the breach is likely to result in a high risk to their rights and freedoms, and the Art. 34(3) carve-outs apply to the GDPR side only. |
 
 ### EU AI Act and NIS2 (7)
 
@@ -672,17 +672,17 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 | NIS2 Article | GDPR Article | Concept | Link Type | Notes |
 |---|---|---|---|---|
-| Art. 35 | Art. 4(12), Art. 33, Art. 55, Art. 56, Art. 58(2)(i) | Infringements entailing a personal data breach — competent authority must inform DPA; ne bis in idem on fines | directive_explicit | Art. 35(1) NIS 2 (verbatim): where competent authorities become aware in supervision or enforcement that an infringement of Art. 21 or Art. 23 NIS 2 by an essential or important entity can entail a personal data breach as defined in Art. 4(12) GDPR which is to be notified pursuant to Art. 33 GDPR, they shall without undue delay inform the supervisory authorities referred to in Art. 55 or 56 GDPR. Art. 35(2): where DPA imposes an Art. 58(2)(i) GDPR fine, the NIS 2 competent authority shall not impose an Art. 34 NIS 2 administrative fine for an infringement arising from the same conduct. Art. 35(3): where the GDPR supervisory authority is established in another Member State, the NIS 2 competent authority informs the supervisory authority established in its own Member State. |
+| Art. 35 | Art. 4(12), Art. 33, Art. 55, Art. 56, Art. 58(2)(i) | Infringements entailing a personal data breach — competent authority must inform DPA; ne bis in idem on fines | directive_explicit | Art. 35(1) NIS 2 (paraphrased): where competent authorities become aware in supervision or enforcement that an infringement of Articles 21 and 23 NIS 2 by an essential or important entity can entail a personal data breach as defined in Art. 4(12) GDPR which is to be notified pursuant to Art. 33 GDPR, they shall without undue delay inform the supervisory authorities referred to in Art. 55 or 56 GDPR. Art. 35(2): where DPA imposes an Art. 58(2)(i) GDPR fine, the NIS 2 competent authority shall not impose an Art. 34 NIS 2 administrative fine for an infringement arising from the same conduct. Art. 35(3): where the GDPR supervisory authority is established in another Member State, the NIS 2 competent authority informs the supervisory authority established in its own Member State. |
 | Art. 21(1) | Art. 32(1) | Appropriate technical and organisational measures — verbatim language overlap | verbatim_language | Both articles use nearly identical chapeau: 'appropriate technical and organisational measures', 'state of the art', 'cost of implementation'. The substantive overlap is here. NIS 2 adds 'and proportionate' and 'operational' to the measure types. |
 | Art. 21(2)(d) | Art. 28 | Supply-chain security ↔ Processor agreements | shared_data | The supplier row is the same. NIS 2 cares about supplier cybersecurity posture; GDPR Art. 28(3)(c) requires the processor contract to obligate the processor to take all Art. 32 GDPR measures. The GDPR DPA is the contractual baseline; NIS 2 adds risk-based ongoing oversight (Art. 21(2)(d) + Art. 21(3)). |
 | Art. 21(2)(h) | Art. 32(1)(a) | Cryptography and encryption measures | shared_data | Same TOMs entry tagged with both regimes. Note: GDPR Art. 32(1)(a) names pseudonymisation alongside encryption — NIS 2 Art. 21(2)(h) does not. |
 | Art. 21(2)(c) | Art. 32(1)(c) | Business continuity, recovery from incident, availability and resilience | shared_data | GDPR Art. 32(1)(c): 'the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident'. NIS 2 Art. 21(2)(c) covers BCP + crisis management more broadly. |
 | Art. 21(2)(f) | Art. 32(1)(d) | Effectiveness assessment of security measures | shared_data | GDPR Art. 32(1)(d): 'a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures'. NIS 2 Art. 21(2)(f) requires the same in the cybersecurity context. Same operational artefact satisfies both. |
-| Art. 21(2)(i) | Art. 28(3)(b), Art. 32 | HR security, confidentiality, access control | shared_data | Art. 28(3)(b) GDPR requires persons authorised to process to be bound by confidentiality. NIS 2 Art. 21(2)(i) covers HR security + access control + asset management as the cybersecurity equivalent. |
-| Art. 21(2)(j) | Art. 32 (implicit) | MFA, continuous authentication, secure communications and emergency comms | structural_overlap | GDPR Art. 32 does not name MFA explicitly. The 'appropriate measures' clause implicitly covers it. CIR 2024/2690 explicitly mandates MFA for 11 digital-service-provider categories. For other entities, Art. 21(1) proportionality applies. |
-| Art. 20(2) | Art. 39(1)(b) | Management body training | structural_overlap | NIS 2 Art. 20(2) requires management body training; non-delegable per §38(3) BSIG. GDPR Art. 39(1)(b) tasks the DPO with awareness-raising and training of staff (including management). Different audiences, distinct obligations. |
+| Art. 21(2)(i) | Art. 29, Art. 32(4) | HR security, confidentiality, access control | shared_data | For the company's own staff, Art. 29 GDPR: persons acting under the authority of the controller 'shall not process those data except on instructions from the controller', and Art. 32(4): the controller takes steps to ensure they do not. NIS 2 Art. 21(2)(i) covers HR security + access control + asset management as the cybersecurity equivalent. Art. 28(3)(b), confidentiality of the processor's staff, is a clause in the processor contract and belongs to the supply-chain row. |
+| Art. 21(2)(j) | Art. 32 (implicit) | MFA, continuous authentication, secure communications and emergency comms | structural_overlap | GDPR Art. 32 does not name MFA explicitly. The 'appropriate measures' clause implicitly covers it. CIR 2024/2690 Annex 11.7.1, for the entity types the CIR covers, asks for multiple authentication factors or continuous authentication 'where appropriate, in accordance with the classification of the asset to be accessed'. For other entities, Art. 21(1) proportionality applies. |
+| Art. 20(2) | Art. 39(1)(b) | Management body training | structural_overlap | NIS 2 Art. 20(2) requires management body training; non-delegable per §38(3) BSIG. GDPR Art. 39(1)(b) tasks the DPO with monitoring compliance, including the awareness-raising and training of staff involved in processing operations. Different audiences, distinct obligations. |
 | Art. 21(2)(g) | Art. 39(1)(b) | Basic cyber hygiene practices and cybersecurity training (staff) | structural_overlap | NIS 2 Art. 21(2)(g): cyber hygiene + training for all staff. GDPR Art. 39(1)(b): DPO oversees awareness-raising and training 'of staff involved in processing operations'. GDPR scope is data-protection-specific and may be a staff subset; NIS 2 scope is broader. |
-| Art. 23 | Art. 33, Art. 34 | Incident notification (parallel workflows) | parallel_workflow | Same incident may trigger both: NIS 2 Art. 23 24h/72h/intermediate/1mo to CSIRT; GDPR Art. 33 72h to supervisory authority; GDPR Art. 34 to data subjects when high risk. Different recipients, thresholds, and content. Until Art. 23a NIS 2 (Digital Omnibus 2026) Single Entry Point applies (~2028), both notifications must be filed in parallel. |
+| Art. 23 | Art. 33, Art. 34 | Incident notification (parallel workflows) | parallel_workflow | Same incident may trigger both: NIS 2 Art. 23 24h/72h/intermediate/1mo to CSIRT; GDPR Art. 33 72h to supervisory authority; GDPR Art. 34 to data subjects when high risk. Different recipients, thresholds, and content. Recital 106 asks Member States to provide technical means such as a single entry point; that eases filing but merges neither duty into the other, so both notifications are owed. |
 | (none) | Art. 30 | Records of processing activities — explicitly NOT a supplier register | no_mapping | GDPR Art. 30 requires the controller's records of its own processing activities (purposes, data categories, recipients, retention, security summary). Art. 30(1)(d) describes CATEGORIES of recipients, not a list of individual suppliers. The correct GDPR analog for NIS 2 Art. 21(2)(d) supply-chain security is Art. 28 (Processor), not Art. 30. This row exists to prevent future authors from re-introducing this common error. |
 
 ## Coverage Summary
