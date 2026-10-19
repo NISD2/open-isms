@@ -2,7 +2,7 @@
   "requirements": {
     "IS-4_1": {
       "title": "Kontext der Organisation",
-      "description": "Das Unternehmen benennt, was in ihm und um es herum seine Informationssicherheit beeinflusst: was es wo tut, welche Gesetze und Verträge gelten und welchen Bedrohungen es ausgesetzt ist. Geltungsbereich, Risiken und Ziele werden an diesem Bild ausgerichtet. Seit der Änderung 1:2024 gehört dazu die Entscheidung, ob der Klimawandel ein relevantes Thema ist."
+      "description": "Das Unternehmen benennt, was in ihm und um es herum seine Informationssicherheit beeinflusst: was es wo tut, welche Gesetze und Verträge gelten und welchen Bedrohungen es ausgesetzt ist. Geltungsbereich, Risiken und Ziele werden an diesem Bild ausgerichtet. Seit der Änderung 1:2024 gehört dazu die Frage, ob der Klimawandel für das ISMS eine Rolle spielt."
     },
     "IS-4_2": {
       "title": "Erfordernisse interessierter Parteien",
@@ -30,7 +30,7 @@
     },
     "IS-6_1": {
       "title": "Umgang mit Risiken und Chancen",
-      "description": "Das Unternehmen plant, wie es mit Risiken und Chancen für seine Informationssicherheit umgeht: die Methode der Risikobeurteilung (wie Risiken erkannt, analysiert und bewertet werden und wann ein Risiko akzeptabel ist), die Behandlung jedes Risikos und die Erklärung zur Anwendbarkeit (Statement of Applicability, SoA), die aufführt, welche Maßnahmen das Unternehmen anwendet und welche nicht, jeweils mit dem Grund."
+      "description": "Das Unternehmen plant, wie es mit Risiken und Chancen für seine Informationssicherheit umgeht: die Methode der Risikobeurteilung (wie Risiken erkannt, analysiert und bewertet werden und wann ein Risiko akzeptabel ist), die Behandlung jedes Risikos und die Erklärung zur Anwendbarkeit (Statement of Applicability, SoA), die aufführt, welche Maßnahmen das Unternehmen anwendet und welche nicht, jeweils mit dem Grund. Die gewählten Maßnahmen werden mit Anhang A abgeglichen, damit keine nötige versehentlich fehlt."
     },
     "IS-6_2": {
       "title": "Informationssicherheitsziele",
@@ -74,15 +74,15 @@
     },
     "IS-9_1": {
       "title": "Überwachung, Messung, Analyse und Bewertung",
-      "description": "Das Unternehmen legt fest, was es an der Informationssicherheit misst und wie, erhebt die Werte und bewertet, ob das ISMS und seine Maßnahmen wirken."
+      "description": "Das Unternehmen legt fest, was es an der Informationssicherheit misst und wie, erhebt die Werte, bewertet, ob das ISMS und seine Maßnahmen wirken, und bewahrt die Ergebnisse als Nachweis auf."
     },
     "IS-9_2": {
       "title": "Internes Audit",
-      "description": "Das Unternehmen auditiert sein ISMS regelmäßig intern und bewahrt Auditprogramm und Ergebnisse auf. Empfehlung: Auditoren, die nicht ihre eigene Arbeit prüfen."
+      "description": "Das Unternehmen auditiert sein ISMS in geplanten Abständen intern, um zu prüfen, ob es wie vorgesehen wirkt, und bewahrt Auditprogramm und Ergebnisse als Nachweis auf. Empfehlung: Auditoren, die nicht ihre eigene Arbeit prüfen."
     },
     "IS-9_3": {
       "title": "Managementbewertung",
-      "description": "Die oberste Leitung bewertet das ISMS regelmäßig anhand von Auditergebnissen, Messwerten, Vorfällen und Änderungen und entscheidet, was verbessert wird."
+      "description": "Die oberste Leitung bewertet das ISMS regelmäßig anhand von Auditergebnissen, Messwerten, Vorfällen und Änderungen, entscheidet, was verbessert wird, und bewahrt die Ergebnisse als Nachweis auf."
     },
     "IS-10_1": {
       "title": "Fortlaufende Verbesserung",

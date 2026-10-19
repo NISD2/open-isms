@@ -10,7 +10,7 @@
     },
     "A_8_3": {
       "title": "Einschränkung des Informationszugriffs",
-      "description": "Der Zugang zu Informationen und Systemfunktionen ist nach den Zugangsregeln beschränkt."
+      "description": "Der Zugriff auf Informationen und Systemfunktionen ist nach den Zugriffsregeln beschränkt."
     },
     "A_8_4": {
       "title": "Zugriff auf Quellcode",
@@ -66,14 +66,14 @@
     },
     "A_8_17": {
       "title": "Uhrensynchronisation",
-      "description": "Alle Systeme beziehen ihre Uhrzeit aus derselben verlässlichen Quelle, damit sich Protokolle vergleichen lassen."
+      "description": "Die Uhren aller Systeme sind synchronisiert, damit sich Protokolle vergleichen lassen. Empfehlung: eine verlässliche Zeitquelle für alle."
     },
     "A_8_18": {
       "title": "Nutzung privilegierter Dienstprogramme",
       "description": "Werkzeuge, die Kontrollen von Systemen oder Anwendungen umgehen können, sind auf wenige Personen beschränkt, und ihre Nutzung wird kontrolliert."
     },
     "A_8_19": {
-      "title": "Installation von Software auf Betriebssystemen",
+      "title": "Installation von Software auf Produktivsystemen",
       "description": "Software wird auf Produktivsystemen nur in einem geregelten Ablauf durch berechtigte Personen installiert."
     },
     "A_8_20": {

@@ -2,7 +2,7 @@
   "requirements": {
     "IS-4_1": {
       "title": "Understanding the Organization and Its Context",
-      "description": "The company names what inside it and around it bears on its information security: what it does and where, the laws and contracts it answers to, and the threats it faces. Scope, risks and objectives are planned against this picture. Since Amendment 1:2024 this includes deciding whether climate change is a relevant issue."
+      "description": "The company names what inside it and around it bears on its information security: what it does and where, the laws and contracts it answers to, and the threats it faces. Scope, risks and objectives are planned against this picture. Since Amendment 1:2024 this includes whether climate change matters for the ISMS."
     },
     "IS-4_2": {
       "title": "Understanding the Needs and Expectations of Interested Parties",
@@ -30,7 +30,7 @@
     },
     "IS-6_1": {
       "title": "Actions to Address Risks and Opportunities",
-      "description": "The company plans how it deals with risks and opportunities for its information security: the method for assessing risks (how they are found, analysed and rated, and when a risk is acceptable), the treatment chosen for each risk, and the Statement of Applicability (SoA), which lists the controls the company applies and those it leaves out, each with its reason."
+      "description": "The company plans how it deals with risks and opportunities for its information security: the method for assessing risks (how they are found, analysed and rated, and when a risk is acceptable), the treatment chosen for each risk, and the Statement of Applicability (SoA), which lists the controls the company applies and those it leaves out, each with its reason. The chosen controls are compared with Annex A so that none needed is left out by oversight."
     },
     "IS-6_2": {
       "title": "Information Security Objectives and Planning to Achieve Them",
@@ -74,15 +74,15 @@
     },
     "IS-9_1": {
       "title": "Monitoring, Measurement, Analysis and Evaluation",
-      "description": "The company decides what it measures about information security and how, collects the figures, and evaluates whether the ISMS and its controls work."
+      "description": "The company decides what it measures about information security and how, collects the figures, evaluates whether the ISMS and its controls work, and keeps the results as evidence."
     },
     "IS-9_2": {
       "title": "Internal Audit",
-      "description": "The company audits its ISMS internally on a regular basis and keeps the audit programme and the results. Recommendation: auditors who do not audit their own work."
+      "description": "The company audits its ISMS internally at planned intervals to check that it works as intended, and keeps the audit programme and the results as evidence. Recommendation: auditors who do not audit their own work."
     },
     "IS-9_3": {
       "title": "Management Review",
-      "description": "Top management reviews the ISMS regularly, based on audit results, measurements, incidents and changes, and decides what to improve."
+      "description": "Top management reviews the ISMS regularly, based on audit results, measurements, incidents and changes, decides what to improve, and keeps the results as evidence."
     },
     "IS-10_1": {
       "title": "Continual Improvement",

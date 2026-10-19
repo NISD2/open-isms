@@ -66,7 +66,7 @@
     },
     "A_8_17": {
       "title": "Clock Synchronization",
-      "description": "All systems take their time from the same reliable source, so that logs can be compared."
+      "description": "The clocks of all systems are synchronised, so that logs can be compared. Recommendation: one reliable time source for all of them."
     },
     "A_8_18": {
       "title": "Use of Privileged Utility Programs",
