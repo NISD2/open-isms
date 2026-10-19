@@ -10,9 +10,10 @@ import type { user } from "@/schema";
  *
  * A verified password account takes a Google sign-in only where Google is authoritative for the
  * address: a Gmail address, or a Google Workspace account (Google's own rule, "Verify the Google ID
- * token on your server side"). There the Google account IS the mailbox, so no stale personal
- * account can hold it, and the password stays: the owner signs in either way. Anywhere else the
- * password account refuses Google, which is the stale-account case above. Without this, an owner
+ * token on your server side"). There Google vouches for the address itself, so no stale personal
+ * account can hold it, and whoever passes could take the account through "Forgot password" anyway.
+ * The password stays: the owner signs in either way. Anywhere else the password account refuses
+ * Google, which is the stale-account case above. Without this, an owner
  * who signed up with a password on their Gmail address could never use Google, and a password
  * reset, which unlinks Google, locked them out of it for good.
  *
