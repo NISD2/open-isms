@@ -118,7 +118,6 @@ export default async function PricingPage({
         monthlyPrice={formatWholeEuro(monthlyNetCents(offer.netCents), rawLocale)}
         monthlyListPrice={formatWholeEuro(monthlyNetCents(ANNUAL_NET_CENTS), rawLocale)}
         grandfathered={offer.netCents === GRANDFATHERED_NET_CENTS}
-        grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
         signedIn={offer.signedIn}
       />
 

@@ -80,7 +80,6 @@ export default async function BillingPage({
           monthlyPrice={formatWholeEuro(monthlyNetCents(status.netCents), locale)}
           monthlyListPrice={formatWholeEuro(monthlyNetCents(ANNUAL_NET_CENTS), locale)}
           grandfathered={status.netCents === GRANDFATHERED_NET_CENTS}
-          grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, locale)}
           signedIn
         />
       </div>

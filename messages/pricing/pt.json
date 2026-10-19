@@ -42,15 +42,16 @@
       },
       "approvalLink": "Quem decide é outra pessoa? Uma página para a sua administração",
       "free": {
-        "name": "Aprender",
-        "description": "Para quem quer compreender a NIS 2.",
+        "name": "Self Serve",
+        "description": "Tudo para implementar a NIS 2 por conta própria.",
         "price": "0 €",
         "priceSub": "para sempre",
         "cta": "Ir para os cursos",
         "features": {
           "courses": "Todos os cursos, incluindo <course>para a administração</course>",
           "wiki": "A wiki NIS 2",
-          "tools": "Ferramentas para <risk>avaliação de riscos</risk> e <structure>inventário de ativos</structure>"
+          "tools": "Ferramentas para <risk>avaliação de riscos</risk> e <structure>inventário de ativos</structure>",
+          "selfHost": "<selfHost>Alojar por conta própria</selfHost> a aplicação nisd2.eu"
         }
       },
       "paid": {

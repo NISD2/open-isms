@@ -42,15 +42,16 @@
       },
       "approvalLink": "Rozhoduje někdo jiný? Jedna stránka pro vaše vedení",
       "free": {
-        "name": "Učení",
-        "description": "Pro každého, kdo chce NIS 2 pochopit.",
+        "name": "Self Serve",
+        "description": "Vše pro to, abyste NIS 2 zavedli sami.",
         "price": "0 €",
         "priceSub": "navždy",
         "cta": "Přejít na kurzy",
         "features": {
           "courses": "Všechny kurzy, včetně kurzu <course>pro vedení</course>",
           "wiki": "Wiki o NIS 2",
-          "tools": "Nástroje pro <risk>posouzení rizik</risk> a <structure>evidenci aktiv</structure>"
+          "tools": "Nástroje pro <risk>posouzení rizik</risk> a <structure>evidenci aktiv</structure>",
+          "selfHost": "Aplikaci nisd2.eu <selfHost>provozovat na vlastních serverech</selfHost>"
         }
       },
       "paid": {

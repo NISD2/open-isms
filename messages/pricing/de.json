@@ -42,15 +42,16 @@
       },
       "approvalLink": "Entscheidet jemand anderes? Eine Seite für Ihre Geschäftsführung",
       "free": {
-        "name": "Lernen",
-        "description": "Für alle, die NIS 2 verstehen wollen.",
+        "name": "Self Serve",
+        "description": "Alles, um NIS 2 selbst umzusetzen.",
         "price": "0 €",
         "priceSub": "dauerhaft",
         "cta": "Zu den Kursen",
         "features": {
           "courses": "Alle Kurse, auch <course>für die Geschäftsleitung</course>",
           "wiki": "Das NIS 2 Wiki",
-          "tools": "Werkzeuge für <risk>Risikobewertung</risk> und <structure>Strukturanalyse</structure>"
+          "tools": "Werkzeuge für <risk>Risikobewertung</risk> und <structure>Strukturanalyse</structure>",
+          "selfHost": "Die nisd2.eu App <selfHost>selbst hosten</selfHost>"
         }
       },
       "paid": {

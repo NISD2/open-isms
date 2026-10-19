@@ -42,15 +42,16 @@
       },
       "approvalLink": "Decyduje ktoś inny? Jedna strona dla Twojego kierownictwa",
       "free": {
-        "name": "Nauka",
-        "description": "Dla każdego, kto chce zrozumieć NIS 2.",
+        "name": "Self Serve",
+        "description": "Wszystko, aby samodzielnie wdrożyć NIS 2.",
         "price": "0 €",
         "priceSub": "na zawsze",
         "cta": "Przejdź do kursów",
         "features": {
           "courses": "Wszystkie kursy, także <course>dla kierownictwa</course>",
           "wiki": "Wiki o NIS 2",
-          "tools": "Narzędzia do <risk>oceny ryzyka</risk> i <structure>inwentaryzacji aktywów</structure>"
+          "tools": "Narzędzia do <risk>oceny ryzyka</risk> i <structure>inwentaryzacji aktywów</structure>",
+          "selfHost": "<selfHost>Samodzielny hosting</selfHost> aplikacji nisd2.eu"
         }
       },
       "paid": {

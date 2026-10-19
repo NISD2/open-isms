@@ -42,15 +42,16 @@
       },
       "approvalLink": "Decide altcineva? O pagină pentru conducerea dumneavoastră",
       "free": {
-        "name": "Învățare",
-        "description": "Pentru oricine vrea să înțeleagă NIS 2.",
+        "name": "Self Serve",
+        "description": "Tot ce vă trebuie pentru a implementa singuri NIS 2.",
         "price": "€0",
         "priceSub": "pentru totdeauna",
         "cta": "Mergeți la cursuri",
         "features": {
           "courses": "Toate cursurile, inclusiv <course>pentru conducere</course>",
           "wiki": "Wiki-ul NIS 2",
-          "tools": "Instrumente pentru <risk>evaluarea riscurilor</risk> și <structure>inventarul activelor</structure>"
+          "tools": "Instrumente pentru <risk>evaluarea riscurilor</risk> și <structure>inventarul activelor</structure>",
+          "selfHost": "<selfHost>Găzduiți singuri</selfHost> aplicația nisd2.eu"
         }
       },
       "paid": {

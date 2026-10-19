@@ -42,15 +42,16 @@
       },
       "approvalLink": "Beslist iemand anders? Eén pagina voor uw directie",
       "free": {
-        "name": "Leren",
-        "description": "Voor iedereen die NIS 2 wil begrijpen.",
+        "name": "Self Serve",
+        "description": "Alles om NIS 2 zelf te implementeren.",
         "price": "€ 0",
         "priceSub": "voor altijd",
         "cta": "Naar de cursussen",
         "features": {
           "courses": "Alle cursussen, ook <course>voor de directie</course>",
           "wiki": "De NIS 2 wiki",
-          "tools": "Tools voor <risk>risicobeoordeling</risk> en <structure>asset-inventarisatie</structure>"
+          "tools": "Tools voor <risk>risicobeoordeling</risk> en <structure>asset-inventarisatie</structure>",
+          "selfHost": "De nisd2.eu app <selfHost>zelf hosten</selfHost>"
         }
       },
       "paid": {

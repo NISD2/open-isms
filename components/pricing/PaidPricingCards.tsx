@@ -5,7 +5,6 @@ import {
   FileText,
   Info,
   Receipt,
-  Scale,
   Send,
   Shield,
   ShieldCheck,
@@ -41,7 +40,7 @@ import { gapAnalysisRange } from "./gap-analysis-prices";
 // presses send (lib/mail/digest-outbox.ts), so the list does not promise email. "MCP server" is
 // paid only: the consent page, Settings and every MCP request check mayWalkDurchgang, and the
 // assistant cannot finish or approve an item (lib/mcp).
-const freeFeatures = ["courses", "wiki", "tools"] as const;
+const freeFeatures = ["courses", "wiki", "tools", "selfHost"] as const;
 const paidFeatures = [
   "guided",
   "mcp",
@@ -60,27 +59,18 @@ const PAID_CARD_ID = "durchgang";
 type Href = ComponentProps<typeof Link>["href"];
 const MCP_WIKI_PAGE = "/wiki/ki-assistenten/was-der-assistent-ausfuellt" as Href;
 
-// From the LICENSE files and package.json licence fields (the README's table is older than
-// they are). `spdx` is shown as is; the other two rows carry translated wording.
-const LICENCES = [
-  { key: "app", packages: ["app", "@nisd2/isms-*"], spdx: "AGPL-3.0-or-later" },
-  {
-    key: "dual",
-    packages: [
-      "@nisd2/grc-data-model",
-      "@nisd2/nis2-supply-chain-questionnaire-schema",
-      "@nisd2/incident-notification-schema",
-    ],
-    spdx: null,
-  },
-  { key: "courses", packages: ["courses/"], spdx: null },
-] as const;
-
 const moneyBackPoints = ["first", "cancel", "refund", "data"] as const;
 const unlimitedPoints = ["structure", "users", "payment"] as const;
 
 const externalLink =
   "underline decoration-primary/30 underline-offset-4 hover:decoration-primary";
+
+/** A `t.rich` tag that links its text, as the feature lines do. */
+const linkTo = (href: Href) => (chunks: ReactNode) => (
+  <Link href={href} className={externalLink}>
+    {chunks}
+  </Link>
+);
 
 /**
  * A tooltip styled like the app's popovers (popover tokens, border, shadow) rather than the
@@ -384,13 +374,7 @@ export function PaidFeatureList() {
               </InfoPanel>
             </Tooltip>
           ) : key === "mcp" ? (
-            t.rich("paid.features.mcp", {
-              mcp: (chunks) => (
-                <Link href={MCP_WIKI_PAGE} className={externalLink}>
-                  {chunks}
-                </Link>
-              ),
-            })
+            t.rich("paid.features.mcp", { mcp: linkTo(MCP_WIKI_PAGE) })
           ) : (
             t(`paid.features.${key}`)
           )}
@@ -448,7 +432,6 @@ export function PaidPricingCards({
   monthlyPrice,
   monthlyListPrice,
   grandfathered,
-  grandfatheredPrice,
   signedIn,
 }: {
   /** Whether /bestellen exists for this visitor (lib/billing/ordering-access.ts). */
@@ -461,11 +444,7 @@ export function PaidPricingCards({
   readonly monthlyListPrice: string;
   /** Whether this visitor is a grandfathered account holder (AGB B4). */
   readonly grandfathered: boolean;
-  readonly grandfatheredPrice: string;
-  /**
-   * Whether the visitor is signed in: the order button registers first without it, and the
-   * earlier-signup price note is shown only then.
-   */
+  /** Whether the visitor is signed in: the order button registers first without it. */
   readonly signedIn: boolean;
 }) {
   const t = useTranslations("pricing.tiers");
@@ -486,21 +465,10 @@ export function PaidPricingCards({
           features={freeFeatures.map((key) => ({
             key,
             content: t.rich(`free.features.${key}`, {
-              course: (chunks) => (
-                <Link href="/training/nis2-ceo" className={externalLink}>
-                  {chunks}
-                </Link>
-              ),
-              risk: (chunks) => (
-                <Link href="/risikobewertung" className={externalLink}>
-                  {chunks}
-                </Link>
-              ),
-              structure: (chunks) => (
-                <Link href="/strukturanalyse" className={externalLink}>
-                  {chunks}
-                </Link>
-              ),
+              course: linkTo("/training/nis2-ceo"),
+              risk: linkTo("/risikobewertung"),
+              structure: linkTo("/strukturanalyse"),
+              selfHost: linkTo("/open-source"),
             }),
           }))}
         />
@@ -567,51 +535,8 @@ export function PaidPricingCards({
         </Card>
       </div>
 
-      {/* Self-hosting stays free and says so, as one line rather than a third card: a 0 € card
-          beside the paid one, listing everything in the walkthrough, read as the same product
-          for nothing, and /open-source was the page visitors most often went to from here. */}
-      <p className="mx-auto max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
-        {t("selfHost.line")}{" "}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              type="button"
-              className="cursor-help underline decoration-muted-foreground/40 decoration-dotted underline-offset-4 hover:text-foreground"
-            >
-              {t("selfHost.features.licence")}
-            </button>
-          </TooltipTrigger>
-          <InfoPanel
-            title={t("selfHost.licences.title")}
-            icon={<Scale className="size-4 text-primary" />}
-          >
-            <dl className="divide-y">
-              {LICENCES.map((licence) => (
-                <div key={licence.key} className="space-y-1 py-2.5 first:pt-0 last:pb-0">
-                  <dt className="font-medium">
-                    {licence.spdx ?? t(`selfHost.licences.${licence.key}`)}
-                  </dt>
-                  {licence.packages.map((name) => (
-                    <dd
-                      key={name}
-                      className="break-all font-mono text-xs text-muted-foreground"
-                    >
-                      {name}
-                    </dd>
-                  ))}
-                </div>
-              ))}
-            </dl>
-          </InfoPanel>
-        </Tooltip>
-        {" · "}
-        <Link href="/open-source" className={externalLink}>
-          {t("selfHost.cta")}
-        </Link>
-      </p>
-
-      {/* Only the terms here: "by invoice" is under the order button and the open source
-          under the self-hosting line, both directly above. */}
+      {/* Only the terms here: "by invoice" is under the order button, and self-hosting is a
+          line of the Self Serve card (Simon, 19.10.2026). */}
       <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
         <FileText className="size-4 text-primary" />
         <span>
@@ -629,14 +554,6 @@ export function PaidPricingCards({
           })}
         </span>
       </p>
-
-      {/* Only for someone signed in: a visitor arriving cold would read the earlier price as
-          "others pay half" right under the offer. */}
-      {signedIn && !grandfathered ? (
-        <p className="text-center text-sm text-muted-foreground">
-          {t("paid.grandfatheredNote", { price: grandfatheredPrice })}
-        </p>
-      ) : null}
     </div>
   );
 
