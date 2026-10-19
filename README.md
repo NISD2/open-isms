@@ -202,3 +202,5 @@ Published npm packages have their own licenses:
 | `@nisd2/nis2-supply-chain-questionnaire-schema` | MIT (code) + CC BY 4.0 (content) |
 | `@nisd2/incident-notification-schema` | Dual: AGPL-3.0 + commercial |
 | `@nisd2/isms-*` (workspace-only) | AGPL-3.0-or-later |
+
+Laws and standards the repository refers to, ISO/IEC 27001 and the BSI IT-Grundschutz-Kompendium among them, are not licensed by any of the above: [LICENSE-DATA.md](./LICENSE-DATA.md) records what the repository holds of each and on what terms.

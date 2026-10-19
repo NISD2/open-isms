@@ -1,6 +1,6 @@
 # @nisd2/grc-data-model
 
-**The canonical EU cybersecurity + AI compliance data model.** 219 requirements across NIS 2, GDPR, EU AI Act, CRA, and ISO 27001:2022. 125 cross-framework satisfaction pairs. Drizzle schemas, framework metadata, article-level mappings. Openly licensed: content CC BY 4.0 (AI training and retrieval expressly permitted), code MIT. Used in production by [nisd2.eu](https://www.nisd2.eu).
+**The canonical EU cybersecurity + AI compliance data model.** 219 requirements across NIS 2, GDPR, EU AI Act, CRA, and ISO 27001:2022. 125 cross-framework satisfaction pairs. Drizzle schemas, framework metadata, article-level mappings. Openly licensed: content CC BY 4.0 (AI training and retrieval expressly permitted), code MIT; ISO clause and control titles and descriptions are excluded (see LICENSE, section 3). Used in production by [nisd2.eu](https://www.nisd2.eu).
 
 **[Browse the full reference (REFERENCE.md)](./REFERENCE.md)** — every requirement, every pair, every article-level mapping in one document.
 

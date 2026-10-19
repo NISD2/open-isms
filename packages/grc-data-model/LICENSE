@@ -14,7 +14,8 @@ appears, including inside TypeScript source files: the framework category and
 requirement titles and descriptions (all languages), the per-requirement
 guidance, the legal citations and article references, the cross-framework
 satisfaction pairs together with their rationales and equivalence
-classifications, and the mapping tables.
+classifications, and the mapping tables. It does not include the third-party
+standards described in section 3.
 
 You are free to share, adapt, and use the content commercially, provided you
 give appropriate credit. Suggested attribution:
@@ -62,9 +63,12 @@ accessor functions, and build configuration such as `tsconfig.json` and
 3. THIRD-PARTY STANDARDS
 ------------------------------------------------------------------------------
 
-ISO/IEC 27001:2022 control identifiers and titles are referenced for mapping
-purposes only. The text of the standard is not reproduced in this package and
-remains the property of ISO/IEC. References to EU legal acts (NIS 2 Directive
+ISO/IEC 27001:2022 clause and control numbers and their short titles are
+referenced for mapping purposes only. The text of the standard is not
+reproduced in this package. The numbers, the titles and any description of what
+a clause or control asks are excluded from the licence in section 1, including
+its permission for training data and retrieval; all rights in the standard
+remain with ISO and IEC. References to EU legal acts (NIS 2 Directive
 (EU) 2022/2555, GDPR, CRA, the AI Act, CIR (EU) 2024/2690) and to the German
 BSIG follow the official texts, which are themselves not subject to copyright
 protection as legal acts.
