@@ -21,6 +21,11 @@ describe("effectiveSignOffRole", () => {
   test("falls back to the platform default when none is named", () => {
     expect(effectiveSignOffRole(null)).toBe("ciso");
   });
+
+  // A role the app does not know must not quietly become the default signer.
+  test("throws on a role that is not a compliance role", () => {
+    expect(() => effectiveSignOffRole("board")).toThrow("Unknown sign-off role: board");
+  });
 });
 
 describe("signerMeetsRequiredRole", () => {

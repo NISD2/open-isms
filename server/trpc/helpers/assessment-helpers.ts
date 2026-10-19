@@ -1,7 +1,6 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
-import { DONE_STATUS_LIST, DONE_STATUSES } from "@/lib/compliance/journey-position";
-import { signerMeetsRequiredRole } from "@/lib/compliance/signer-role";
+import { DONE_STATUS_LIST } from "@/lib/compliance/journey-position";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   company,
@@ -11,7 +10,7 @@ import {
   requirementCategory,
 } from "@/schema";
 import { rosteredOf } from "./roster";
-import { satisfactionTargets } from "./satisfaction-targets";
+import { satisfactionTargets, takesCredit } from "./satisfaction-targets";
 import { recordSignOffChainEntry } from "./sign-off-chain";
 import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
 
@@ -100,7 +99,7 @@ export async function recalculateProgress(db: Database, assessmentId: string) {
  *
  * Role gate (audit B-4, 2026-06-10): a credit is only applied when the
  * source signer could have signed the target directly
- * (`signerMeetsRequiredRole`). Without the gate, signing a CISO-required
+ * (`signerMeetsRequiredRole`, via takesCredit). Without the gate, signing a CISO-required
  * requirement (e.g. SUP-5.1) was crediting linked CEO-required requirements
  * with `signedOffRole=ciso`, which a §38 BSIG auditor reads as a CISO
  * signing for the board.
@@ -110,7 +109,8 @@ export async function recalculateProgress(db: Database, assessmentId: string) {
  * Without these, verifySignOffChain short-circuits to valid=true on every
  * propagated row and the integrity story collapses.
  *
- * Idempotent: skips status rows already in 'completed' or 'approved'.
+ * Idempotent: a target that is signed, approved, set aside or waiting for its
+ * own assigned signers is left as it is (takesCredit).
  *
  * Returns the requirement IDs that received credit.
  */
@@ -186,19 +186,15 @@ export async function propagateSatisfaction(
 
   await db.transaction(async (tx) => {
     for (const target of orderedTargets) {
-      // Done, set aside or waiting for its own signers: credit writes over none of them.
-      if (DONE_STATUSES.has(target.status) || rostered.has(target.id)) continue;
-
-      // The target is signed under the same rule as a direct sign-off: its
-      // required role, the default when it names none, or management.
-      if (
-        !signerMeetsRequiredRole({
-          signerRole: signedOffRole,
+      const eligible = takesCredit(
+        {
+          status: target.status,
           requiredSignOffRole: target.requirement.requiredSignOffRole,
-        })
-      ) {
-        continue;
-      }
+          rostered: rostered.has(target.id),
+        },
+        signedOffRole,
+      );
+      if (!eligible) continue;
 
       // The snapshot arrives from the source requirement's sign-off, so it
       // carries the source's templateVersion. Re-stamp it with the target's

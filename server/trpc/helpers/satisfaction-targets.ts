@@ -1,7 +1,33 @@
 /**
  * Which requirements a sign-off credits through the satisfaction graph (propagateSatisfaction).
- * Pure, so the walk can be tested without a database.
+ * Pure, so the walk and the credit rule can be tested without a database.
  */
+
+import { DONE_STATUSES } from "@/lib/compliance/journey-position";
+import { signerMeetsRequiredRole } from "@/lib/compliance/signer-role";
+
+export interface CreditTarget {
+  readonly status: string;
+  readonly requiredSignOffRole: string | null;
+  /** Its own assigned signers still owe a signature. */
+  readonly rostered: boolean;
+}
+
+/**
+ * Whether a target the walk reached takes the credit. Not when it is already signed, approved or
+ * set aside, since credit writes over none of those; not when its assigned signers owe a signature,
+ * since it is theirs to sign; and only when the source's signer could have signed it directly.
+ */
+export function takesCredit(target: CreditTarget, signedOffRole: string): boolean {
+  return (
+    !DONE_STATUSES.has(target.status) &&
+    !target.rostered &&
+    signerMeetsRequiredRole({
+      signerRole: signedOffRole,
+      requiredSignOffRole: target.requiredSignOffRole,
+    })
+  );
+}
 
 export interface SatisfactionEdge {
   readonly requirementAId: string;

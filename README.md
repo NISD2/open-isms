@@ -141,7 +141,7 @@ bun add @nisd2/grc-data-model @nisd2/incident-notification-schema @nisd2/nis2-su
 
 | package | what it gives you |
 |---|---|
-| [`@nisd2/grc-data-model`](https://www.npmjs.com/package/@nisd2/grc-data-model) | 219 requirements across NIS 2, GDPR, the EU AI Act, the CRA and ISO 27001:2022, with 125 cross-framework satisfaction pairs and Drizzle-compatible Postgres schemas |
+| [`@nisd2/grc-data-model`](https://www.npmjs.com/package/@nisd2/grc-data-model) | 219 requirements across NIS 2, GDPR, the EU AI Act, the CRA and ISO 27001:2022, cross-framework links marked as the same record or a partial overlap, and Drizzle-compatible Postgres schemas |
 | [`@nisd2/incident-notification-schema`](https://www.npmjs.com/package/@nisd2/incident-notification-schema) | the NIS 2 Article 23 incident notification format as a typed Zod schema |
 | [`@nisd2/nis2-supply-chain-questionnaire-schema`](https://www.npmjs.com/package/@nisd2/nis2-supply-chain-questionnaire-schema) | the questions a regulated entity asks its suppliers, as Zod plus JSON Schema |
 

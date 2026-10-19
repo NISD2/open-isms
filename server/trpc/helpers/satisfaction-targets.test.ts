@@ -1,5 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { type SatisfactionEdge, satisfactionTargets } from "./satisfaction-targets";
+import {
+  type SatisfactionEdge,
+  satisfactionTargets,
+  takesCredit,
+} from "./satisfaction-targets";
 
 const FRAMEWORK: Readonly<Record<string, string>> = {
   "nis2-2.1": "nis2",
@@ -86,5 +90,36 @@ describe("satisfactionTargets", () => {
       ),
     ).toEqual([]);
     expect(satisfactionTargets(EDGES, "ghost", frameworkOf)).toEqual([]);
+  });
+});
+
+describe("takesCredit", () => {
+  const open = { status: "in_progress", requiredSignOffRole: null, rostered: false };
+
+  test("credits an open target the signer could have signed directly", () => {
+    expect(takesCredit(open, "ciso")).toBe(true);
+    expect(takesCredit({ ...open, status: "not_started" }, "ciso")).toBe(true);
+    expect(takesCredit({ ...open, status: "needs_review" }, "ciso")).toBe(true);
+    expect(takesCredit({ ...open, status: "rejected" }, "ciso")).toBe(true);
+  });
+
+  // A signature, an approval or a recorded "not applicable" is someone's decision; credit
+  // from another framework never writes over it.
+  test("leaves a signed, approved or set-aside target as it is", () => {
+    for (const status of ["completed", "approved", "not_applicable"]) {
+      expect(takesCredit({ ...open, status }, "ciso")).toBe(false);
+    }
+  });
+
+  test("leaves a target whose own assigned signers still owe a signature", () => {
+    expect(takesCredit({ ...open, rostered: true }, "ceo")).toBe(false);
+  });
+
+  // Signing a CISO item must not put a CISO signature on an item that asks for management.
+  test("credits only where the signer holds the target's role, or is management", () => {
+    expect(takesCredit({ ...open, requiredSignOffRole: "ceo" }, "ciso")).toBe(false);
+    expect(takesCredit({ ...open, requiredSignOffRole: "ceo" }, "ceo")).toBe(true);
+    expect(takesCredit({ ...open, requiredSignOffRole: "dpo" }, "ceo")).toBe(true);
+    expect(takesCredit(open, "admin")).toBe(false);
   });
 });
