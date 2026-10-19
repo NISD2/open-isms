@@ -13,10 +13,10 @@ complement them are official texts. The repository cites them, and quotes them w
 shown in the law's own words. Citations follow the official texts on EUR-Lex,
 gesetze-im-internet.de and e-Sbírka.
 
-EU legal acts: © European Union, https://eur-lex.europa.eu. The Commission allows its documents,
-including those the Publications Office publishes for it, to be reused on condition that the source
-is acknowledged and the meaning is not distorted (Commission Decision 2011/833/EU, Articles 4 and
-6); this paragraph is that acknowledgement. German statutes are official works without copyright
+EU legal acts: © European Union, https://eur-lex.europa.eu. They are cited and quoted with the
+source acknowledged; this paragraph is that acknowledgement. For the Commission's own documents,
+such as Implementing Regulation (EU) 2024/2690, Commission Decision 2011/833/EU allows reuse on
+that condition and on condition that the meaning is not distorted (Articles 4 and 6). German statutes are official works without copyright
 protection (§ 5(1) UrhG).
 
 ## ISO/IEC standards
