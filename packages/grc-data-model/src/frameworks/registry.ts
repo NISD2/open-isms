@@ -43,7 +43,7 @@ export const FRAMEWORK_DATA = [
     code: "iso27001",
     name: "ISO/IEC 27001:2022",
     source:
-      "Clause and Annex A control numbers of ISO/IEC 27001:2022; the standard's text is not reproduced",
+      "Clause and Annex A control numbers of ISO/IEC 27001:2022 with Amendment 1:2024; the standard's text is not reproduced",
     categories: iso27001Categories,
     getRequirements: getIso27001RequirementsForCategory,
   },

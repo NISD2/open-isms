@@ -197,7 +197,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 ## ISO/IEC 27001:2022
 
-5 categories, 116 requirements. Cites Clause and Annex A control numbers of ISO/IEC 27001:2022; the standard's text is not reproduced.
+5 categories, 116 requirements. Cites Clause and Annex A control numbers of ISO/IEC 27001:2022 with Amendment 1:2024; the standard's text is not reproduced.
 
 ### ISMS: isms-clauses
 
