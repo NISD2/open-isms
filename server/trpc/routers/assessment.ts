@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, asc, eq, inArray, isNull, ne, notInArray, or, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, isNull, notInArray, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
@@ -18,6 +18,11 @@ import {
   MIN_DECLINE_REASON,
   reopenChange,
 } from "@/lib/compliance/sign-off-state";
+import {
+  requiredRoleRefusal,
+  signerMeetsRequiredRole,
+  signerRoleOf,
+} from "@/lib/compliance/signer-role";
 import type { Database } from "@/lib/db";
 import { leavesNoChoice } from "@/lib/durchgang";
 import { accountEmailLocale, contactEmailChangedEmail, sendMail } from "@/lib/mail";
@@ -39,7 +44,7 @@ import {
   requirementSatisfaction,
   user,
 } from "@/schema";
-import { enforceAssignment, signerRoleOf, verifyAssessmentOwnership } from "../guards";
+import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
 import {
   buildSignOffSnapshot,
   propagateSatisfaction,
@@ -51,17 +56,14 @@ import {
   WORK_STATUSES,
 } from "../helpers/manual-status";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
+import { rosteredOf } from "../helpers/roster";
 import {
   createAssessmentsForFrameworks,
   processTeamRoleAssignments,
 } from "../helpers/setup-helpers";
 import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
-import {
-  completedSignOffValues,
-  requiredRoleRefusal,
-  signerMeetsRequiredRole,
-} from "../helpers/sign-off-completion";
-import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
+import { completedSignOffValues } from "../helpers/sign-off-completion";
+import { signOffRows } from "../helpers/sign-off-rows";
 import { lockStatusRow } from "../helpers/status-lock";
 import {
   announceWithdrawal,
@@ -524,6 +526,14 @@ export const assessmentRouter = router({
             message: requiredRoleRefusal(statusRow.requirement.requiredSignOffRole),
           });
         }
+        // Set aside past the people still to sign it, one decision would
+        // stand in for several signatures.
+        if ((await rosteredOf(ctx.db, [statusRow.id])).has(statusRow.id)) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Assigned signers have not signed this requirement yet.",
+          });
+        }
       }
 
       const now = new Date();
@@ -691,6 +701,24 @@ export const assessmentRouter = router({
         // one and cannot offer what this would refuse.
         const pendingSigners = pendingSignersOf(lockedAssignments);
 
+        // Every signer meets the required role, on a roster or alone. Being
+        // assigned says who signs, not that they may: an admin could otherwise
+        // assign themselves and sign in a role they do not hold. Checked on
+        // the re-sign too, so a requirement whose required role changed is
+        // not signed again by its original signer under the old rule.
+        // Refuse loudly. See signerMeetsRequiredRole.
+        if (
+          !signerMeetsRequiredRole({
+            signerRole: signedOffRole,
+            requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
+          })
+        ) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: requiredRoleRefusal(statusRow.requirement.requiredSignOffRole),
+          });
+        }
+
         if (pendingSigners.length > 0) {
           const myAssignment = pendingSigners.find((a) => a.userId === ctx.userId);
           if (!myAssignment) {
@@ -726,27 +754,8 @@ export const assessmentRouter = router({
           }
         } else {
           // Single-requirement path: nobody is pending, so this requirement
-          // has no roster — either it never had one, or every assignee has
-          // already signed and their rows are receipts. Both are signed under
-          // the required role, which is also what restores the gate on a
-          // re-sign: reaching here through `length > 0` previously skipped
-          // signerMeetsRequiredRole entirely, so a requirement whose required
-          // role had since changed could be re-signed by its original signer
-          // without ever meeting the new rule.
-          //
-          // Refuse loudly. See signerMeetsRequiredRole.
-          if (
-            !signerMeetsRequiredRole({
-              signerRole: signedOffRole,
-              requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
-            })
-          ) {
-            throw new TRPCError({
-              code: "FORBIDDEN",
-              message: requiredRoleRefusal(statusRow.requirement.requiredSignOffRole),
-            });
-          }
-
+          // has no roster: either it never had one, or every assignee has
+          // already signed and their rows are receipts.
           await tx
             .insert(requirementAssignment)
             .values({

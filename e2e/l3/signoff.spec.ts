@@ -7,16 +7,22 @@
  * already saved answers and every target is signable (saving answers
  * flips completed requirements back to in_progress by design).
  */
-import { test, expect, type Page } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import { E2E_STORAGE_STATE_MANAGER, E2E_MANAGER_EMAIL, E2E_USER_EMAIL } from "../lib/env";
+import { E2E_MANAGER_EMAIL, E2E_STORAGE_STATE_MANAGER, E2E_USER_EMAIL } from "../lib/env";
 import { gotoRequirement, makeSignable, signOffViaUi } from "../lib/journey";
 
-const SINGLE_TARGET = "3.1"; // incident lead — no required role, admin signs alone
+const SINGLE_TARGET = "3.1"; // incident lead: default role (CISO), management signs alone
 const NOFM_TARGET = "1.4"; // personal liability — CEO-role, two assigned signers
 
-async function statusRow(code: string): Promise<{ id: string; status: string; signed_off_by: string | null }> {
-  const rows = await e2eQuery<{ id: string; status: string; signed_off_by: string | null }>(
+async function statusRow(
+  code: string,
+): Promise<{ id: string; status: string; signed_off_by: string | null }> {
+  const rows = await e2eQuery<{
+    id: string;
+    status: string;
+    signed_off_by: string | null;
+  }>(
     `SELECT s.id, s.status, s.signed_off_by
        FROM company_requirement_status s
        JOIN requirement r ON r.id = s.requirement_id
@@ -29,7 +35,9 @@ async function statusRow(code: string): Promise<{ id: string; status: string; si
   return rows[0];
 }
 
-test("single signer: admin sign-off completes the requirement", async ({ page }) => {
+test("single signer: management's sign-off completes the requirement", async ({
+  page,
+}) => {
   await makeSignable(page, SINGLE_TARGET);
   const before = await statusRow(SINGLE_TARGET);
   expect(before.status).not.toBe("completed");
@@ -85,7 +93,9 @@ test("N-of-M: two assigned signers, partial then complete", async ({ page, brows
   await expect(page.getByTestId(`journey-node-${NOFM_TARGET}`)).toContainText("1/2");
 
   // Signer 2 (management member, real second session): completes it.
-  const managerContext = await browser.newContext({ storageState: E2E_STORAGE_STATE_MANAGER });
+  const managerContext = await browser.newContext({
+    storageState: E2E_STORAGE_STATE_MANAGER,
+  });
   const managerPage = await managerContext.newPage();
   await signOffViaUi(managerPage, NOFM_TARGET);
   await managerContext.close();
@@ -251,10 +261,9 @@ test("reopen: withdrawing a sign-off clears the attestation and keeps the histor
     `SELECT count(*)::text AS n FROM sign_off_history WHERE status_id = $1`,
     [before.id],
   );
-  expect(
-    Number(chainAfter[0].n),
-    "sign_off_history must survive a withdrawal",
-  ).toBe(Number(chainBefore[0].n));
+  expect(Number(chainAfter[0].n), "sign_off_history must survive a withdrawal").toBe(
+    Number(chainBefore[0].n),
+  );
   expect(Number(chainAfter[0].n)).toBeGreaterThan(0);
 
   // And the withdrawal itself is recorded. Asserted against the table rather

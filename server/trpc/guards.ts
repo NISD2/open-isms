@@ -149,12 +149,3 @@ export function assertOwnObjectKey(
     });
   }
 }
-
-/**
- * The role stamped on a sign-off: the signer's compliance role in the company they have open,
- * falling back to their membership role. Both come from the session, which resolves the open
- * company's membership on every request.
- */
-export function signerRoleOf(session: { jobTitle: string | null; role: string }): string {
-  return session.jobTitle ?? session.role;
-}

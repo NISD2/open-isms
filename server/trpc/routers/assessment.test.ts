@@ -38,10 +38,17 @@ function setup(opts: {
   signedOffAt?: Date | null;
   code?: string;
   requiredSignOffRole?: string | null;
+  /** Whether assigned signers still owe a signature (rosteredOf). */
+  pendingSigners?: boolean;
 }) {
   const statusWrites: { values: unknown; where: SQL }[] = [];
   const reads: string[] = [];
   const db = {
+    select: () => ({
+      from: () => ({
+        where: async () => (opts.pendingSigners ? [{ statusId: STATUS }] : []),
+      }),
+    }),
     query: {
       companyRequirementStatus: {
         findFirst: async () => {
@@ -219,6 +226,24 @@ describe("assessment.updateRequirementStatus", () => {
     expect(statusWrites).toEqual([]);
   });
 
+  // One decision must not stand in for the signatures of the people assigned.
+  test("refuses not applicable while assigned signers still owe a signature", async () => {
+    const { caller, statusWrites } = setup({
+      readStatus: "in_progress",
+      rowStillMatches: true,
+      jobTitle: "ceo",
+      pendingSigners: true,
+    });
+    await expect(
+      caller.updateRequirementStatus({
+        statusId: STATUS,
+        status: "not_applicable",
+        notApplicableReason: REASON,
+      }),
+    ).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(statusWrites).toEqual([]);
+  });
+
   test("records the reason and who set it aside", async () => {
     const { caller, statusWrites } = setup({
       readStatus: "in_progress",
@@ -256,6 +281,8 @@ function lockingSetup(opts: {
   locked: { status: string; signedOffAt: Date | null };
   role: "admin" | "member";
   stopAfterSignerLock?: boolean;
+  /** The signer rows the lock returns: an assigned roster, when given. */
+  signers?: readonly { id: string; userId: string; signedOffAt: Date | null }[];
 }) {
   const steps: Step[] = [];
   const db = {
@@ -298,7 +325,7 @@ function lockingSetup(opts: {
                 return [{ id: STATUS, signedOffBy: null, ...opts.locked }];
               }
               if (opts.stopAfterSignerLock) throw STOP;
-              return [];
+              return opts.signers ?? [];
             },
           }),
       }),
@@ -353,6 +380,21 @@ describe("assessment.signOff", () => {
       companyRequirementStatus,
       requirementAssignment,
     ]);
+  });
+
+  // Being assigned says who signs, not that they may: an admin who put
+  // themselves on the roster still needs the requirement's role.
+  test("refuses an assigned signer who does not hold the role", async () => {
+    const { caller, steps } = lockingSetup({
+      readStatus: "in_progress",
+      locked: { status: "in_progress", signedOffAt: null },
+      role: "admin",
+      signers: [{ id: "signer-1", userId: USER, signedOffAt: null }],
+    });
+    await expect(caller.signOff({ statusId: STATUS })).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+    expect(steps.filter((s) => s.step === "update")).toEqual([]);
   });
 });
 

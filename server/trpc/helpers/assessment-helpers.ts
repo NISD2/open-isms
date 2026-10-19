@@ -1,5 +1,7 @@
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
+import { DONE_STATUS_LIST, DONE_STATUSES } from "@/lib/compliance/journey-position";
+import { signerMeetsRequiredRole } from "@/lib/compliance/signer-role";
 import type { Database, DbOrTx } from "@/lib/db";
 import {
   company,
@@ -8,13 +10,10 @@ import {
   requirement,
   requirementCategory,
 } from "@/schema";
+import { rosteredOf } from "./roster";
 import { satisfactionTargets } from "./satisfaction-targets";
 import { recordSignOffChainEntry } from "./sign-off-chain";
-import {
-  completedSignOffValues,
-  signerMeetsRequiredRole,
-  snapshotForVersion,
-} from "./sign-off-completion";
+import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
 
 /** Build a sign-off snapshot capturing company profile + operational counts at sign-off time */
 export async function buildSignOffSnapshot(
@@ -180,10 +179,16 @@ export async function propagateSatisfaction(
   // they need it: propagation runs inside an ordinary sign-off request, so it
   // is the loop most likely to be holding a row a concurrent bulk call wants.
   const orderedTargets = [...targetStatuses].sort((a, b) => a.id.localeCompare(b.id));
+  // A target whose assigned signers still owe a signature is theirs to sign.
+  const rostered = await rosteredOf(
+    db,
+    orderedTargets.map((t) => t.id),
+  );
 
   await db.transaction(async (tx) => {
     for (const target of orderedTargets) {
-      if (target.status === "completed" || target.status === "approved") continue;
+      // Done, set aside or waiting for its own signers: credit writes over none of them.
+      if (DONE_STATUSES.has(target.status) || rostered.has(target.id)) continue;
 
       // The target is signed under the same rule as a direct sign-off: its
       // required role, the default when it names none, or management.
@@ -206,7 +211,9 @@ export async function propagateSatisfaction(
         target.requirement.templateVersion,
       );
 
-      await tx
+      // The status guard repeats on the write, as in signOffRows: a row someone
+      // signed or set aside since the read keeps what they recorded.
+      const [updated] = await tx
         .update(companyRequirementStatus)
         .set(
           completedSignOffValues({
@@ -217,7 +224,14 @@ export async function propagateSatisfaction(
             now,
           }),
         )
-        .where(eq(companyRequirementStatus.id, target.id));
+        .where(
+          and(
+            eq(companyRequirementStatus.id, target.id),
+            notInArray(companyRequirementStatus.status, [...DONE_STATUS_LIST]),
+          ),
+        )
+        .returning({ id: companyRequirementStatus.id });
+      if (!updated) continue;
 
       await recordSignOffChainEntry(tx as unknown as Database, {
         companyId,

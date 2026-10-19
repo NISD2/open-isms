@@ -28,6 +28,7 @@ import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-default
 import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import { MAX_DECLINE_REASON, MIN_DECLINE_REASON } from "@/lib/compliance/sign-off-state";
+import { signerRoleOf } from "@/lib/compliance/signer-role";
 import type { DbOrTx } from "@/lib/db";
 import {
   type AnyScreen,
@@ -107,7 +108,7 @@ import {
   supplier,
 } from "@/schema";
 import { improvementItemInsertSchema } from "@/schema/validators";
-import { signerRoleOf, verifyMemberReferences } from "../guards";
+import { verifyMemberReferences } from "../guards";
 import {
   propagateSatisfaction,
   recalculateProgress,
@@ -140,7 +141,8 @@ import {
   specifyAssetsInput,
   writePolicyInput,
 } from "../helpers/durchgang-inputs";
-import { rosteredOf, signOffRows } from "../helpers/sign-off-rows";
+import { rosteredOf } from "../helpers/roster";
+import { signOffRows } from "../helpers/sign-off-rows";
 import {
   activatedCompanyProcedure,
   companyProcedure,

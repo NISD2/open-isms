@@ -154,6 +154,10 @@ export interface RequirementDetailProps {
   currentUserId: string;
   guidance: RequirementGuidanceData | null;
   requiredSignOffRole: RoleKey;
+  /** Whether the viewer holds the role to sign this requirement or set it
+   *  aside (signerMeetsRequiredRole), so the page offers only what the server
+   *  accepts. */
+  mayDecide: boolean;
   assignments: AssignmentRow[];
   editorInitialData: Record<string, unknown> | null;
   prerequisites?: PrerequisiteStatus[];
@@ -213,6 +217,7 @@ export function RequirementDetail({
   currentUserId,
   guidance,
   requiredSignOffRole,
+  mayDecide,
   assignments,
   editorInitialData,
   prerequisites = [],
@@ -971,7 +976,15 @@ export function RequirementDetail({
               )
             ) : (
               <>
-                {!leavesNoChoice(requirement.code) && (
+                {!mayDecide && isAdmin && (
+                  <Link
+                    href="/team"
+                    className="text-sm text-primary underline-offset-4 hover:underline"
+                  >
+                    {t("setYourRole")}
+                  </Link>
+                )}
+                {mayDecide && !leavesNoChoice(requirement.code) && (
                   <Button variant="outline" size="sm" onClick={() => setNaOpen(true)}>
                     <Ban className="mr-1.5 h-3.5 w-3.5" />
                     {t("notApplicable")}
@@ -980,9 +993,13 @@ export function RequirementDetail({
                 <SignOffButton
                   isSubmitting={isPending}
                   disabledReason={
-                    blockedByRoster
-                      ? t("assignedTo", { name: awaitedSigners })
-                      : undefined
+                    !mayDecide
+                      ? t("signerRoleNeeded", {
+                          role: tTeam(`roles.${requiredSignOffRole}`),
+                        })
+                      : blockedByRoster
+                        ? t("assignedTo", { name: awaitedSigners })
+                        : undefined
                   }
                   onSignOff={handleSignOff}
                 />

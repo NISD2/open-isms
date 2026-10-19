@@ -39,6 +39,8 @@
     "notApplicablePlaceholder": "Explain why this requirement doesn't apply to your organization (§30 BSIG proportionality)...",
     "confirmNotApplicable": "Confirm N/A",
     "notApplicableHint": "At least 20 characters. The reason is kept with its date in your records.",
+    "signerRoleNeeded": "In this app, {role} or management signs this off.",
+    "setYourRole": "Is that you? Set your role under Team.",
     "reopen": "Withdraw sign-off",
     "reopenTitle": "Withdraw this sign-off?",
     "reopenDescription": "The requirement goes back into editing and will need signing off again. The sign-off history entry stays: an auditor still sees that it was signed and later withdrawn.",
