@@ -7,15 +7,15 @@
  * References: companies, users (risk acceptance), assets (via riskAsset join)
  */
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
-  integer,
-  timestamp,
   date,
   index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
   uniqueIndex,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 import { asset } from "./asset";
 import { supplier } from "./supplier";
@@ -60,7 +60,7 @@ export const risk = pgTable(
   (table) => [
     index("idx_risk_company").on(table.companyId),
     index("idx_risk_score").on(table.riskScore),
-  ]
+  ],
 );
 
 export const riskAsset = pgTable(
@@ -76,9 +76,7 @@ export const riskAsset = pgTable(
     notes: text("notes"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
-  (table) => [
-    uniqueIndex("idx_risk_assets_pair").on(table.riskId, table.assetId),
-  ]
+  (table) => [uniqueIndex("idx_risk_assets_pair").on(table.riskId, table.assetId)],
 );
 
 export const riskSupplier = pgTable(
@@ -94,7 +92,5 @@ export const riskSupplier = pgTable(
     notes: text("notes"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
-  (table) => [
-    uniqueIndex("idx_risk_supplier_pair").on(table.riskId, table.supplierId),
-  ]
+  (table) => [uniqueIndex("idx_risk_supplier_pair").on(table.riskId, table.supplierId)],
 );

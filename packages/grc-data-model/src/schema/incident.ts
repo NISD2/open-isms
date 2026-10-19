@@ -1,15 +1,15 @@
+import { sql } from "drizzle-orm";
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
   boolean,
-  integer,
-  timestamp,
   decimal,
   index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 import { incidentSeverityEnum, situationColorEnum } from "../enums";
 
 export const incident = pgTable(
@@ -39,7 +39,10 @@ export const incident = pgTable(
 
     affectedUsersCount: integer("affected_users_count"),
     affectedSystemsCount: integer("affected_systems_count"),
-    estimatedFinancialDamage: decimal("estimated_financial_damage", { precision: 15, scale: 2 }),
+    estimatedFinancialDamage: decimal("estimated_financial_damage", {
+      precision: 15,
+      scale: 2,
+    }),
     hasReputationalHarm: boolean("has_reputational_harm").default(false),
     serviceDeliveryImpact: text("service_delivery_impact"),
 

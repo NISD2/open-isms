@@ -150,9 +150,12 @@ async function seed() {
       statusRowsCreated += missingReqs.length;
     }
 
-    // Back-propagate: for each satisfaction pair, if the source side is
-    // already signed and the target side is not, copy the sign-off across.
-    const pairs = await db.query.requirementSatisfaction.findMany();
+    // Back-propagate: for each pair on the same record, if the source side is
+    // already signed and the target side is not, copy the sign-off across. A
+    // partial overlap gives no credit, as in propagateSatisfaction.
+    const pairs = await db.query.requirementSatisfaction.findMany({
+      where: eq(schema.requirementSatisfaction.equivalenceKind, "equivalent"),
+    });
     for (const pair of pairs) {
       const [signedSide, unsignedSide] = await resolveSidesForCompany(
         db,

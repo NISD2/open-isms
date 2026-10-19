@@ -38,7 +38,7 @@
  */
 import { and, type ExtractTablesWithRelations, eq } from "drizzle-orm";
 import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
-import { frameworkEnum } from "./enums";
+import type { frameworkEnum } from "./enums";
 import {
   czechRefColumns,
   type FrameworkCategory,

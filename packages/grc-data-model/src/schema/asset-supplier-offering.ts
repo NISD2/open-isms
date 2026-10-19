@@ -1,17 +1,17 @@
 import {
+  boolean,
+  index,
+  integer,
   pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
   uuid,
   varchar,
-  text,
-  boolean,
-  integer,
-  timestamp,
-  index,
-  uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { assetServiceTypeEnum } from "../enums";
 import { asset } from "./asset";
 import { supplier } from "./supplier";
-import { assetServiceTypeEnum } from "../enums";
 
 /**
  * Per-asset-per-customer technical declarations. The architecturally-correct
@@ -43,10 +43,14 @@ export const assetSupplierOffering = pgTable(
 
     onPremSbomProvided: boolean("on_prem_sbom_provided"),
     onPremSignedReleases: boolean("on_prem_signed_releases"),
-    onPremVulnerabilityDisclosurePolicy: boolean("on_prem_vulnerability_disclosure_policy"),
+    onPremVulnerabilityDisclosurePolicy: boolean(
+      "on_prem_vulnerability_disclosure_policy",
+    ),
     onPremPatchSlaCriticalHours: integer("on_prem_patch_sla_critical_hours"),
 
-    proServicesBackgroundCheckScope: varchar("pro_services_background_check_scope", { length: 20 }),
+    proServicesBackgroundCheckScope: varchar("pro_services_background_check_scope", {
+      length: 20,
+    }),
     proServicesNdaInPlace: boolean("pro_services_nda_in_place"),
     proServicesCustomerPremisesPolicy: boolean("pro_services_customer_premises_policy"),
 

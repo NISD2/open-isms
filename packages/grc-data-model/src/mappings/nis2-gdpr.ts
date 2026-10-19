@@ -80,25 +80,25 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
     nis2Article: "Art. 21(2)(d)",
     gdprArticle: "Art. 28",
     concept: "Supply-chain security ↔ Processor agreements",
-    linkType: "shared_data",
+    linkType: "structural_overlap",
     notes:
-      "The supplier row is the same. NIS 2 cares about supplier cybersecurity posture; GDPR Art. 28(3)(c) requires the processor contract to obligate the processor to take all Art. 32 GDPR measures. The GDPR DPA is the contractual baseline; NIS 2 adds risk-based ongoing oversight (Art. 21(2)(d) + Art. 21(3)).",
+      "The supplier is the same; the records are not: a NIS 2 supplier row is no Art. 28(3) contract. NIS 2 cares about supplier cybersecurity posture; GDPR Art. 28(3)(c) requires the processor contract to obligate the processor to take all Art. 32 GDPR measures. The GDPR DPA is the contractual baseline; NIS 2 adds risk-based ongoing oversight (Art. 21(2)(d) + Art. 21(3)).",
     eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 28)",
   },
   {
     nis2Article: "Art. 21(2)(h)",
     gdprArticle: "Art. 32(1)(a)",
     concept: "Cryptography and encryption measures",
-    linkType: "shared_data",
+    linkType: "structural_overlap",
     notes:
-      "Same TOMs entry tagged with both regimes. Note: GDPR Art. 32(1)(a) names pseudonymisation alongside encryption — NIS 2 Art. 21(2)(h) does not.",
+      "The same encryption measure can serve both. GDPR Art. 32(1)(a) names pseudonymisation alongside encryption; NIS 2 Art. 21(2)(h) does not.",
     eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(a))",
   },
   {
     nis2Article: "Art. 21(2)(c)",
     gdprArticle: "Art. 32(1)(c)",
     concept: "Business continuity, recovery from incident, availability and resilience",
-    linkType: "shared_data",
+    linkType: "structural_overlap",
     notes:
       "GDPR Art. 32(1)(c): 'the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident'. NIS 2 Art. 21(2)(c) covers BCP + crisis management more broadly.",
     eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(c))",
@@ -107,16 +107,16 @@ export const nis2GdprMapping: ReadonlyArray<MappingRow> = [
     nis2Article: "Art. 21(2)(f)",
     gdprArticle: "Art. 32(1)(d)",
     concept: "Effectiveness assessment of security measures",
-    linkType: "shared_data",
+    linkType: "structural_overlap",
     notes:
-      "GDPR Art. 32(1)(d): 'a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures'. NIS 2 Art. 21(2)(f) requires the same in the cybersecurity context. Same operational artefact satisfies both.",
+      "GDPR Art. 32(1)(d): 'a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures'. NIS 2 Art. 21(2)(f) asks for the same in the cybersecurity context; the GDPR one also covers measures for personal data that NIS 2 does not reach.",
     eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 32(1)(d))",
   },
   {
     nis2Article: "Art. 21(2)(i)",
     gdprArticle: "Art. 29, Art. 32(4)",
     concept: "HR security, confidentiality, access control",
-    linkType: "shared_data",
+    linkType: "structural_overlap",
     notes:
       "For the company's own staff, Art. 29 GDPR: persons acting under the authority of the controller 'shall not process those data except on instructions from the controller', and Art. 32(4): the controller takes steps to ensure they do not. NIS 2 Art. 21(2)(i) covers HR security + access control + asset management as the cybersecurity equivalent. Art. 28(3)(b), confidentiality of the processor's staff, is a clause in the processor contract and belongs to the supply-chain row.",
     eurLexCitation: "https://eur-lex.europa.eu/eli/reg/2016/679/oj (Art. 29, Art. 32(4))",

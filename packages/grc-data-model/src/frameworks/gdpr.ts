@@ -211,7 +211,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // "ongoing", not "on-change": the clock starts when a request arrives,
     // which is not a change to anything the company controls.
     mkReq("G-DSR.1", "document", {
-      legalRef: "GDPR Art. 12(3)-(6), Art. 15-22",
+      legalRef: "GDPR Art. 12(3)-(6), Art. 15-22, §§34, 35 BDSG",
       frameworkRef: "Art. 12-22",
       priority: "P1",
       frequency: "ongoing",
@@ -219,12 +219,11 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   ],
   "gdpr-data-protection-officer": () => [
     // The GDPR compels appointment in the three Art. 37(1) cases. Point (c)
-    // reads "special categories of data pursuant to Article 9 and personal data
-    // relating to criminal convictions" in English, and "oder" in German. The
-    // Article 29 Working Party's DPO guidelines (WP243 rev.01) read "or": "there
-    // is no policy reason for the two criteria having to be applied
-    // simultaneously". So large-scale processing of health data as a core
-    // activity is enough, which can catch NIS 2 entities in health care whatever
+    // reads "special categories of data pursuant to Article 9 or personal data
+    // relating to criminal convictions" since the corrigendum of 23.5.2018
+    // (OJ L 127, p. 2), in every language. So large-scale processing of health
+    // data as a core activity is enough, which can catch NIS 2 entities in
+    // health care whatever
     // the headcount. §38(1) BDSG uses the Art. 37(4) opening clause to add a German
     // threshold: "in der Regel mindestens 20 Personen ständig mit der
     // automatisierten Verarbeitung personenbezogener Daten" employed, plus two
