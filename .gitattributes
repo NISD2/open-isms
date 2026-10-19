@@ -35,6 +35,12 @@ public/images/**/*.svg linguist-generated
 # scripts/sync-disposable-domains.ts, from an upstream list
 lib/auth/disposable-domains.txt linguist-vendored
 
+# scripts/generate-guidance.ts
+data/guidance/*.json linguist-generated
+
+# The hooks run under sh, which a CRLF checkout (Git for Windows' default) breaks.
+.githooks/* text eol=lf
+
 # Datasets, not code: one record per event, release, vendor or country, added or corrected one
 # entry at a time and read by code, never edited as a whole. They grow by design, so the size
 # check skips them. Not linguist-generated: people write them, and their diffs stay expanded.

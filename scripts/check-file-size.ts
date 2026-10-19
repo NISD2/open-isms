@@ -50,7 +50,9 @@ const findingsOf = (scope: Scope): readonly Finding[] => {
   return changed
     .filter(({ path }) => !skipped.has(path))
     .flatMap(({ path, from }: ChangedPath): Finding[] => {
-      const bytes = sizeOf(scope.after(path)) ?? 0;
+      const bytes = sizeOf(scope.after(path));
+      // A changed file git cannot size is an error, not a small file.
+      if (bytes === null) throw new Error(`${path}: git could not read its staged size`);
       if (!isOverLimit(bytes) || isBinary(scope.after(path))) return [];
       return [
         { path, verdict: verdictOf({ path, bytes, previousBytes: before(scope, from) }) },

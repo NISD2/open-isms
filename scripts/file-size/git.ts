@@ -47,7 +47,8 @@ export const stagedScope = (): Scope => ({
   bases: resolves("HEAD")
     ? ["HEAD", ...(resolves("MERGE_HEAD") ? ["MERGE_HEAD"] : [])]
     : [],
-  after: (path) => `:${path}`,
+  // Stage 0 named explicitly: git would read a path like "0:big.ts" as a stage number.
+  after: (path) => `:0:${path}`,
   diff: ["--cached"],
   attributes: ["--cached"],
 });
