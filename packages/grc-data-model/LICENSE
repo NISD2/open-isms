@@ -69,9 +69,11 @@ reproduced in this package. The numbers, the titles and any description of what
 a clause or control asks are excluded from the licence in section 1, including
 its permission for training data and retrieval; all rights in the standard
 remain with ISO and IEC. References to EU legal acts (NIS 2 Directive
-(EU) 2022/2555, GDPR, CRA, the AI Act, CIR (EU) 2024/2690) and to the German
-BSIG follow the official texts, which are themselves not subject to copyright
-protection as legal acts.
+(EU) 2022/2555, GDPR, CRA, the AI Act, CIR (EU) 2024/2690) follow the official
+texts on EUR-Lex, (c) European Union, https://eur-lex.europa.eu, cited with
+the source acknowledged (see LICENSE-DATA.md at the repository root). German
+statutes such as the BSIG are official works without copyright protection
+(section 5(1) UrhG).
 
 ------------------------------------------------------------------------------
 4. NO WARRANTY ON COMPLIANCE OUTCOMES
