@@ -1,7 +1,5 @@
-import ceoDict from "@/courses/nis2-ceo/dictionary";
-import tabletopDict from "@/courses/nis2-tabletop/dictionary";
-import craDict from "@/courses/cra-sbom/dictionary";
 import type { Locale } from "@/lib/seo";
+import { DICTIONARY_SOURCES } from "./sources";
 
 export interface WikiTerm {
   /** Original casing, used as the dictionary entry key. */
@@ -16,6 +14,14 @@ export interface WikiTerm {
 
 const cache = new Map<Locale, ReadonlyMap<string, WikiTerm>>();
 
+/** A dictionary value for the locale, falling back to English, then German. */
+export function pickLocale(
+  values: Readonly<Record<string, string>>,
+  locale: Locale,
+): string {
+  return values[locale] ?? values.en ?? values.de ?? "";
+}
+
 /**
  * Merged dictionary across all three course sources (CEO, tabletop, CRA).
  * The map key is the lowercased term, the value is the locale-resolved entry.
@@ -28,10 +34,9 @@ export function getMergedDictionary(locale: Locale): ReadonlyMap<string, WikiTer
   if (hit) return hit;
 
   const merged = new Map<string, WikiTerm>();
-  for (const source of [ceoDict, tabletopDict, craDict]) {
-    for (const entry of source) {
-      const def =
-        entry.definition[locale] ?? entry.definition.en ?? entry.definition.de ?? "";
+  for (const { terms } of DICTIONARY_SOURCES) {
+    for (const entry of terms) {
+      const def = pickLocale(entry.definition, locale);
       if (!def) continue;
       const wikiTerm: WikiTerm = {
         term: entry.term,
@@ -43,9 +48,7 @@ export function getMergedDictionary(locale: Locale): ReadonlyMap<string, WikiTer
       // Course dictionaries carry aliases for de/en/nl only; newer locales
       // simply have none. Widen the alias map (not the locale) so an unknown
       // locale yields undefined rather than falsely narrowing the locale type.
-      const aliasMap = entry.aliases as
-        | Partial<Record<string, string[]>>
-        | undefined;
+      const aliasMap = entry.aliases as Partial<Record<string, string[]>> | undefined;
       const aliases = aliasMap?.[locale];
       const surfaces = [entry.term, ...(aliases ?? [])];
       for (const surface of surfaces) {
@@ -60,6 +63,6 @@ export function getMergedDictionary(locale: Locale): ReadonlyMap<string, WikiTer
   return merged;
 }
 
-function slugify(term: string): string {
+export function slugify(term: string): string {
   return term.toLowerCase().replace(/\s+/g, "-");
 }

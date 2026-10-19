@@ -4755,157 +4755,26 @@
     "glossary": {
       "meta": {
         "title": "Glossário NIS2 - Termos-chave explicados",
-        "description": "Cada termo da NIS2 e do BSIG explicado em linguagem clara. De Wesentliche Einrichtung a CSIRT, o que os termos realmente significam para a sua empresa."
+        "description": "Termos da NIS2, do BSIG e do CRA em linguagem simples, com a lição que ensina cada um. De entidade essencial a SBOM."
       },
       "title": "Glossário de terminologia NIS2",
-      "subtitle": "Cada termo que irá encontrar durante a conformidade NIS2, explicado em linguagem clara. Sem jargão, sem juridiquês, apenas o que cada termo significa e por que importa para a sua empresa.",
-      "intro": "A conformidade NIS2 traz o seu próprio vocabulário: uma mistura de terminologia jurídica da UE, direito administrativo alemão e jargão de cibersegurança. Este glossário explica cada termo da forma como precisa de o compreender: o que significa na prática, não só o que as letras representam. Onde um termo tem um equivalente alemão de uso corrente do BSIG, incluímo-lo.",
-      "terms": {
-        "wesentlicheEinrichtung": {
-          "term": "Entidade essencial",
-          "definition": "Empresas em setores de alta criticidade (Anexo I da NIS2) acima do limiar de dimensão. Na Alemanha, estas enfrentam os requisitos mais rigorosos e as sanções mais elevadas ao abrigo do §28 BSIG. Pense em: energia, transportes, banca, saúde, água, infraestrutura digital. As entidades essenciais estão sujeitas a auditorias proativas do BSI: o BSI pode inspecioná-lo sem um fator desencadeador específico.",
-          "german": "Besonders wichtige Einrichtung",
-          "legalRef": "§28(1) BSIG, Diretiva NIS2 Art. 3(1)"
-        },
-        "wichtigeEinrichtung": {
-          "term": "Entidade importante",
-          "definition": "Empresas noutros setores no âmbito (Anexo II da NIS2) acima do limiar de dimensão. As mesmas obrigações fundamentais das entidades essenciais, mas sanções máximas mais baixas e supervisão reativa em vez de proativa: o BSI investiga se algo correr mal, não numa periodicidade de rotina. Pense em: resíduos, alimentação, fabrico, postal, produtos químicos, investigação.",
-          "german": "Wichtige Einrichtung",
-          "legalRef": "§28(2) BSIG, Diretiva NIS2 Art. 3(2)"
-        },
-        "bsig": {
-          "term": "BSIG (BSI-Gesetz)",
-          "definition": "A lei federal alemã que rege o BSI (Serviço Federal de Segurança da Informação) e as obrigações de cibersegurança. O NIS2UmsuCG alterou o BSIG e transpõe a NIS2 na Alemanha sobretudo através dele. Quando alguém diz 'conformidade NIS2 na Alemanha', refere-se à conformidade com o BSIG alterado. Esta é a lei que se lhe aplica, não a própria Diretiva NIS2.",
-          "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
-          "legalRef": "BSIG na redação dada pelo NIS2UmsuCG"
-        },
-        "nis2Directive": {
-          "term": "Diretiva NIS2",
-          "definition": "A legislação ao nível da UE (Diretiva 2022/2555) que exigiu que todos os Estados-Membros implementassem regulação de cibersegurança para entidades críticas e importantes. Define os requisitos mínimos e cada país transpô-la depois para a lei nacional. Na Alemanha, isto tornou-se o BSIG alterado. Não cumpre a Diretiva diretamente; cumpre o BSIG.",
-          "legalRef": "Diretiva (UE) 2022/2555"
-        },
-        "cir2024": {
-          "term": "CIR 2024/2690",
-          "definition": "O Regulamento de Execução da UE que estabelece os requisitos técnicos e metodológicos das medidas referidas no artigo 21.º, n.º 2, da NIS2, mas apenas para determinados tipos de entidades: prestadores de serviços de DNS, registos de nomes de TLD, prestadores de serviços de computação em nuvem, prestadores de serviços de centro de dados, fornecedores de redes de distribuição de conteúdos, prestadores de serviços geridos, prestadores de serviços de segurança geridos, prestadores de serviços de mercados em linha, de motores de pesquisa em linha e de plataformas de serviços de redes sociais e prestadores de serviços de confiança. Ao contrário da Diretiva, este aplica-se diretamente em todos os Estados-Membros sem transposição. Para essas entidades, detalha o que medidas de cibersegurança adequadas significam na prática. Pense nele como o manual técnico que preenche os detalhes que a Diretiva deixou em aberto.",
-          "legalRef": "Regulamento de Execução (UE) 2024/2690 da Comissão"
-        },
-        "bsiRegistration": {
-          "term": "Registo no BSI",
-          "definition": "O registo obrigatório das entidades no âmbito junto do BSI através do seu portal online. Exigido pelo §33 BSIG com a sua própria disposição sancionatória. Fornece os dados da sua empresa, a classificação setorial, uma pessoa de contacto de cibersegurança e os intervalos de endereços IP. Esta é uma obrigação legal autónoma: cumpri-la não satisfaz os seus outros requisitos NIS2, mas não a cumprir é uma infração por si só.",
-          "german": "BSI-Registrierung",
-          "legalRef": "§33 BSIG"
-        },
-        "significantIncident": {
-          "term": "Incidente significativo",
-          "definition": "Um evento de cibersegurança que perturba de facto o seu serviço, causa danos financeiros, ou pode propagar-se a outros. Não é qualquer e-mail de phishing: só os eventos que atravessam limiares de gravidade específicos desencadeiam a cascata obrigatória de notificação ao BSI. O CIR 2024/2690 define limiares concretos: perda financeira superior a 500 000 EUR ou 5 % do volume de negócios, exfiltração de dados de segredos comerciais, ou impacto na saúde.",
-          "german": "Erheblicher Sicherheitsvorfall",
-          "legalRef": "§32 BSIG, CIR 2024/2690 Art. 3"
-        },
-        "riskManagement": {
-          "term": "Medidas de gestão de risco",
-          "definition": "As dez categorias de medidas de cibersegurança que todas as entidades NIS2 têm de implementar ao abrigo do §30 BSIG. Vão da avaliação de risco e do tratamento de incidentes à segurança da cadeia de abastecimento e à criptografia. Têm de ser 'adequadas, proporcionadas e eficazes'; a proporcionalidade pondera, entre outros fatores, a sua dimensão e a sua exposição ao risco: não se espera que uma empresa de resíduos com 50 pessoas implemente os mesmos controlos que a Deutsche Telekom.",
-          "german": "Risikomanagementmaßnahmen",
-          "legalRef": "§30(2) BSIG"
-        },
-        "supplyChainSecurity": {
-          "term": "Segurança da cadeia de abastecimento",
-          "definition": "A exigência de avaliar e gerir os riscos de cibersegurança na sua cadeia de abastecimento, em especial prestadores de serviços de TI, prestadores de nuvem e qualquer fornecedor com acesso aos seus sistemas ou dados. Tem de incluir requisitos de segurança nos contratos, avaliar as práticas dos fornecedores e monitorizá-los ao longo do tempo. Isto é novo em comparação com o antigo regime KRITIS.",
-          "german": "Sicherheit der Lieferkette",
-          "legalRef": "§30(2)(4) BSIG"
-        },
-        "managementLiability": {
-          "term": "Responsabilidade da gestão",
-          "definition": "A responsabilidade pessoal da direção da empresa (Geschäftsführung) pela conformidade NIS2 ao abrigo do §38 BSIG. A direção tem de aprovar as medidas de cibersegurança, assegurar a sua implementação, frequentar formação em cibersegurança, e pode ser pessoalmente responsabilizada pelos danos daí resultantes. Esta responsabilidade não pode ser afastada, nem mesmo por deliberação dos sócios. É esta a disposição que muda a cibersegurança do departamento de TI para a sala de administração.",
-          "german": "Leitungsverantwortung",
-          "legalRef": "§38 BSIG"
-        },
-        "itGrundschutz": {
-          "term": "IT-Grundschutz",
-          "definition": "A metodologia de cibersegurança do próprio BSI: um quadro abrangente de módulos de segurança (Bausteine) com orientações de implementação passo a passo. O §44(2) BSIG reconhece explicitamente a implementação do Grundschutz como prova de conformidade NIS2. Uma vez que o BSI publica o Grundschutz e fiscaliza a NIS2, usar a metodologia dele significa que é auditado contra uma norma que o auditor conhece a fundo.",
-          "german": "IT-Grundschutz",
-          "legalRef": "§44(2) BSIG, BSI-Standards 200-1 a 200-4"
-        },
-        "auditTrail": {
-          "term": "Trilho de auditoria",
-          "definition": "Um registo cronológico de quem fez o quê, quando e porquê no seu processo de conformidade. A NIS2 exige evidência de que as medidas não estão apenas documentadas, mas de facto implementadas e mantidas. Um trilho de auditoria mostra ao auditor do BSI que as suas políticas são documentos vivos, não letra morta: quem aprovou uma medida, quando foi revista pela última vez, o que mudou."
-        },
-        "mfa": {
-          "term": "Autenticação multifator (MFA)",
-          "definition": "Autenticação que exige dois ou mais fatores de verificação: normalmente algo que sabe (palavra-passe) e algo que tem (telemóvel, chave de hardware). O §30(2)(10) BSIG exige MFA para acesso remoto, acesso administrativo e acesso a sistemas críticos. Se ainda não usa MFA na sua VPN, nas contas de administração e no e-mail, este é um dos requisitos técnicos mais concretos a implementar.",
-          "legalRef": "§30(2)(10) BSIG"
-        },
-        "section30": {
-          "term": "§30 BSIG - Medidas de cibersegurança",
-          "definition": "A disposição central da NIS2 na lei alemã. Enumera dez categorias de medidas de gestão de risco de cibersegurança que todas as entidades no âmbito têm de implementar. Abrange avaliação de risco, tratamento de incidentes, continuidade de negócio, segurança da cadeia de abastecimento, desenvolvimento seguro, avaliação de eficácia, formação, criptografia, controlo de acessos e autenticação multifator. As medidas têm de ser 'adequadas, proporcionadas e eficazes': nem douradas em excesso, mas genuínas.",
-          "legalRef": "§30 BSIG"
-        },
-        "section32": {
-          "term": "§32 BSIG - Notificação de incidentes",
-          "definition": "A cascata obrigatória de notificação de incidentes em três fases. Quando ocorre um incidente significativo: alerta precoce ao BSI em 24 horas, notificação detalhada do incidente em 72 horas, relatório final em um mês. Cada fase tem requisitos de conteúdo específicos. Relatórios atrasados ou em falta são infrações separadas com as suas próprias disposições sancionatórias.",
-          "german": "Meldepflichten",
-          "legalRef": "§32 BSIG"
-        },
-        "section33": {
-          "term": "§33 BSIG - Obrigação de registo",
-          "definition": "A obrigação legal de todas as entidades no âmbito se registarem junto do BSI. Fornece informação da entidade, classificação setorial, dados de contacto de cibersegurança e intervalos de endereços IP. A falta de registo é uma infração autónoma punível com coimas até 500 000 EUR, separada de quaisquer sanções por não implementar medidas de segurança efetivas.",
-          "german": "Registrierungspflicht",
-          "legalRef": "§33 BSIG"
-        },
-        "section38": {
-          "term": "§38 BSIG - Responsabilidade da gestão",
-          "definition": "A disposição que torna a direção da empresa pessoalmente responsável pela conformidade NIS2. A Geschäftsführung tem de aprovar as medidas de gestão de risco, supervisionar a sua implementação e concluir formação em cibersegurança. O incumprimento cria responsabilidade pessoal por danos, e esta responsabilidade não pode ser afastada pelos sócios. É este o parágrafo que capta a atenção dos gerentes.",
-          "german": "Billigung von Risikomanagementmaßnahmen",
-          "legalRef": "§38 BSIG"
-        },
-        "annex1": {
-          "term": "Anexo I da NIS2 - Setores de alta criticidade",
-          "definition": "A lista de setores cujas entidades são classificadas como 'essenciais' (entidades essenciais) quando cumprem o limiar de dimensão. Inclui: energia (eletricidade, petróleo, gás, hidrogénio, aquecimento urbano), transportes (aéreo, ferroviário, aquático, rodoviário), banca, infraestruturas do mercado financeiro, saúde, água potável, águas residuais, infraestrutura digital, gestão de serviços TIC, administração pública e espaço.",
-          "legalRef": "Diretiva NIS2 Anexo I, §28(1) BSIG"
-        },
-        "annex2": {
-          "term": "Anexo II da NIS2 - Outros setores críticos",
-          "definition": "A lista de setores cujas entidades são classificadas como 'importantes' (wichtige Einrichtungen) quando cumprem o limiar de dimensão. Inclui: serviços postais e de correio, gestão de resíduos, fabrico e distribuição de produtos químicos, produção e distribuição de alimentos, fabrico (dispositivos médicos, eletrónica, maquinaria, veículos), prestadores digitais (mercados em linha, motores de pesquisa, redes sociais) e organizações de investigação.",
-          "legalRef": "Diretiva NIS2 Anexo II, §28(2) BSIG"
-        },
-        "csirt": {
-          "term": "CSIRT (Equipa de Resposta a Incidentes de Segurança Informática)",
-          "definition": "A equipa nacional responsável por receber e responder a notificações de incidentes de cibersegurança. Na Alemanha, o BSI funciona como o CSIRT nacional. Quando notifica um incidente significativo ao abrigo do §32 BSIG, o BSI-CSIRT recebe e processa a sua notificação. Também pode prestar assistência técnica durante a resposta a incidentes: não é apenas uma caixa de correio, mas um recurso operacional.",
-          "german": "Computer-Notfallteam",
-          "legalRef": "Diretiva NIS2 Art. 10, §32 BSIG"
-        },
-        "kritis": {
-          "term": "KRITIS (Infraestrutura crítica)",
-          "definition": "Operadores de instalações críticas que ultrapassam os limiares definidos no regulamento BSI-KritisV (tipicamente 500 000 pessoas servidas). Os operadores KRITIS são automaticamente classificados como entidades essenciais e enfrentam obrigações adicionais para além da NIS2 padrão: auditorias de evidência trienais, sistemas obrigatórios de deteção de ataques e prazos de notificação de incidentes mais rigorosos.",
-          "german": "Kritische Infrastrukturen",
-          "legalRef": "BSI-KritisV, §28 BSIG"
-        },
-        "nis2umsucg": {
-          "term": "NIS2UmsuCG",
-          "definition": "A Lei de Implementação da NIS-2 e de Reforço da Cibersegurança: a transposição nacional alemã da Diretiva NIS2. Adotada em 13 de novembro de 2025 e em vigor desde 6 de dezembro de 2025. Altera substancialmente o BSIG e traz todas as obrigações NIS2 para a lei alemã. Quando a lei alemã se refere a 'conformidade NIS2', refere-se à conformidade com o BSIG na redação dada pelo NIS2UmsuCG.",
-          "german": "NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz",
-          "legalRef": "NIS2UmsuCG (BGBl. 2025)"
-        },
-        "naceCode": {
-          "term": "Código NACE",
-          "definition": "A Classificação Estatística das Atividades Económicas na Comunidade Europeia (Nomenclature statistique des Activités économiques dans la Communauté Européenne). A NIS2 e o BSIG usam códigos NACE para definir que setores e atividades económicas caem no âmbito. O código NACE da sua empresa é a primeira coisa que o BSI verifica ao avaliar a aplicabilidade.",
-          "german": "NACE-Code",
-          "legalRef": "Regulamento (CE) 1893/2006"
-        },
-        "muk": {
-          "term": "MUK (Mein Unternehmenskonto)",
-          "definition": "A conta empresarial central da Alemanha para serviços da administração federal, autenticada através de certificados ELSTER. É um pré-requisito para o registo no BSI: as empresas têm primeiro de criar uma conta MUK e depois aceder ao portal de registo do BSI através dela. Se ainda não tem uma conta MUK, não se pode registar junto do BSI: este é o primeiro passo prático antes de qualquer trabalho de conformidade começar.",
-          "german": "Mein Unternehmenskonto",
-          "legalRef": "OZG, ELSTER"
-        }
-      },
+      "subtitle": "{count} termos da NIS2, do BSIG e do CRA, em palavras simples. Onde um curso utiliza o termo, vê a lição e a frase.",
+      "intro": "As definições provêm dos dicionários dos nossos cursos. Os mesmos textos aparecem quando passa o cursor sobre um termo em qualquer parte da wiki. Um termo com nome alemão também está listado sob esse nome e remete para a entrada em inglês, porque os textos da UE e os nossos cursos utilizam o termo inglês. Quando sabemos em que disposição assenta uma definição, esta é indicada por baixo do texto.",
+      "lettersLabel": "Ir para a letra",
+      "alsoCalled": "Também designado por:",
+      "see": "ver",
+      "lesson": "Lição {id}",
+      "alsoIn": "Também em: {items}",
       "sources": {
         "heading": "Fontes",
         "items": [
-          "BSIG - Lei do Serviço Federal de Segurança da Informação (na redação dada pelo NIS2UmsuCG)",
-          "Diretiva NIS2 (UE) 2022/2555 - Jornal Oficial da União Europeia",
-          "Regulamento de Execução (UE) 2024/2690 da Comissão - Jornal Oficial da União Europeia",
-          "BSI - Normas IT-Grundschutz BSI-200-1 a BSI-200-4",
-          "BSI - IT-Grundschutz Kompendium (edição em vigor)"
+          "BSIG, Lei sobre o Gabinete Federal para a Segurança da Informação e sobre a Segurança das Tecnologias da Informação das Entidades (versão de 2 de dezembro de 2025): https://www.gesetze-im-internet.de/bsig_2025/",
+          "Diretiva NIS2 (UE) 2022/2555, Jornal Oficial da União Europeia: https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Regulamento de Execução (UE) 2024/2690 da Comissão, Jornal Oficial da União Europeia: https://eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Regulamento (UE) 2024/2847 (Cyber Resilience Act), Jornal Oficial da União Europeia: https://eur-lex.europa.eu/eli/reg/2024/2847/oj",
+          "Regulamento (UE) 2016/679 (GDPR), Jornal Oficial da União Europeia: https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+          "BSI, normas IT-Grundschutz BSI-200-1 a BSI-200-4",
+          "BSI, IT-Grundschutz Kompendium (edição atual)"
         ]
       },
       "ctaCard": {

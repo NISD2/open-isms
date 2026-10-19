@@ -4593,157 +4593,26 @@
     "glossary": {
       "meta": {
         "title": "NIS2-Glossar - Wichtige Begriffe einfach erklärt",
-        "description": "Die wichtigsten NIS2- und BSIG-Fachbegriffe verständlich erklärt. Von wesentlicher Einrichtung bis IT-Grundschutz - für Geschäftsführer."
+        "description": "Begriffe aus NIS2, BSIG und CRA in einfachen Worten, mit der Lektion, die sie erklärt. Von der wesentlichen Einrichtung bis zur SBOM."
       },
       "title": "NIS2-Glossar",
-      "subtitle": "Die 20 wichtigsten Begriffe rund um NIS2, BSIG und Cybersicherheits-Compliance - verständlich erklärt, mit Gesetzesverweisen.",
-      "intro": "NIS2-Compliance bringt ein eigenes Vokabular mit - eine Mischung aus EU-Rechtssprache, deutschem Verwaltungsrecht und Cybersicherheits-Fachbegriffen. Dieses Glossar erklärt jeden Begriff so, wie Sie ihn verstehen müssen: Was er in der Praxis bedeutet, nicht nur wofür die Abkürzung steht. Wo ein Begriff eine gängige deutsche Entsprechung aus dem BSIG hat, führen wir diese mit auf.",
-      "terms": {
-        "wesentlicheEinrichtung": {
-          "term": "Wesentliche Einrichtung",
-          "definition": "Unternehmen in Sektoren hoher Kritikalität (Anhang I der NIS2-Richtlinie) oberhalb der Größenschwelle. In Deutschland unterliegen diese den strengsten Anforderungen und höchsten Bußgeldern nach §28 BSIG - Energie, Transport, Bankwesen, Gesundheit, Wasser, digitale Infrastruktur. Wesentliche Einrichtungen unterliegen proaktiver BSI-Aufsicht - das BSI kann ohne konkreten Anlass prüfen.",
-          "german": "Wesentliche Einrichtung",
-          "legalRef": "§28 Abs. 1 BSIG, NIS2-Richtlinie Art. 3 Abs. 1"
-        },
-        "wichtigeEinrichtung": {
-          "term": "Wichtige Einrichtung",
-          "definition": "Unternehmen in sonstigen kritischen Sektoren (Anhang II der NIS2-Richtlinie) oberhalb der Größenschwelle. Gleiche Kernpflichten wie wesentliche Einrichtungen, aber niedrigere Höchstbußgelder und reaktive statt proaktive Aufsicht - das BSI wird erst bei konkreten Hinweisen tätig. Typische Sektoren: Abfallwirtschaft, Lebensmittel, verarbeitendes Gewerbe, Post, Chemie, Forschung.",
-          "german": "Wichtige Einrichtung",
-          "legalRef": "§28 Abs. 2 BSIG, NIS2-Richtlinie Art. 3 Abs. 2"
-        },
-        "bsig": {
-          "term": "BSIG (BSI-Gesetz)",
-          "definition": "Das Gesetz über das Bundesamt für Sicherheit in der Informationstechnik - die deutsche Umsetzung der NIS2-Richtlinie. Das NIS2UmsuCG hat das BSIG grundlegend novelliert und setzt NIS2 in Deutschland im Wesentlichen über dieses Gesetz um. Wer in Deutschland von NIS2-Compliance spricht, meint die Einhaltung des novellierten BSIG - nicht der EU-Richtlinie selbst.",
-          "german": "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik",
-          "legalRef": "BSIG in der Fassung des NIS2UmsuCG"
-        },
-        "nis2Directive": {
-          "term": "NIS2-Richtlinie",
-          "definition": "Die EU-Richtlinie (EU) 2022/2555 zur Netzwerk- und Informationssicherheit, die alle Mitgliedstaaten zur Umsetzung von Cybersicherheitsregulierung für wesentliche und wichtige Einrichtungen verpflichtet. Sie setzt Mindestanforderungen - jedes Land hat sie in nationales Recht umgesetzt. In Deutschland wurde daraus das novellierte BSIG. Sie müssen nicht die Richtlinie direkt einhalten, sondern das BSIG.",
-          "legalRef": "Richtlinie (EU) 2022/2555"
-        },
-        "cir2024": {
-          "term": "CIR 2024/2690",
-          "definition": "Die Durchführungsverordnung (EU) 2024/2690 der Europäischen Kommission. Sie legt die technischen und methodischen Anforderungen an die Maßnahmen nach Artikel 21 Absatz 2 NIS2 fest, aber nur für bestimmte Einrichtungsarten: DNS-Diensteanbieter, Top Level Domain Name Registries, Cloud-Computing-Dienstleister, Anbieter von Rechenzentrumsdiensten, Betreiber von Content Delivery Networks, Managed Service Provider, Managed Security Service Provider, Anbieter von Online-Marktplätzen, Online-Suchmaschinen und Plattformen für Dienste sozialer Netzwerke sowie Vertrauensdiensteanbieter. Anders als die Richtlinie gilt sie unmittelbar in allen EU-Mitgliedstaaten ohne nationale Umsetzung. Für diese Einrichtungen definiert sie, was angemessene Cybersicherheitsmaßnahmen in der Praxis bedeuten - das technische Regelwerk, das die offenen Details der Richtlinie ausfüllt.",
-          "legalRef": "Durchführungsverordnung (EU) 2024/2690"
-        },
-        "bsiRegistration": {
-          "term": "BSI-Registrierung",
-          "definition": "Die Pflicht aller betroffenen Einrichtungen, sich beim BSI über dessen Online-Portal zu registrieren. Vorgeschrieben durch §33 BSIG mit eigenem Bußgeldtatbestand. Sie übermitteln Unternehmensdaten, Sektorklassifizierung, eine Cybersicherheits-Kontaktstelle und IP-Adressbereiche. Die Registrierung ist eine eigenständige Rechtspflicht - ihre Erfüllung ersetzt nicht die übrigen NIS2-Anforderungen, aber ihre Nichterfüllung ist ein eigener Verstoß.",
-          "german": "BSI-Registrierung",
-          "legalRef": "§33 BSIG"
-        },
-        "significantIncident": {
-          "term": "Erheblicher Sicherheitsvorfall",
-          "definition": "Ein Cybersicherheitsereignis, das tatsächlich Dienste beeinträchtigt, finanziellen Schaden verursacht oder sich auf Dritte ausbreiten kann. Nicht jede Phishing-Mail - nur Ereignisse, die bestimmte Schwellenwerte überschreiten, lösen die BSI-Meldekaskade aus. Die CIR 2024/2690 definiert konkrete Schwellenwerte: finanzieller Schaden über 500.000 EUR oder 5% des Jahresumsatzes, Exfiltration von Geschäftsgeheimnissen oder Gefährdung von Leib und Leben.",
-          "german": "Erheblicher Sicherheitsvorfall",
-          "legalRef": "§32 BSIG, CIR 2024/2690 Art. 3"
-        },
-        "riskManagement": {
-          "term": "Risikomanagementmaßnahmen",
-          "definition": "Die zehn Kategorien von Cybersicherheitsmaßnahmen, die alle NIS2-Einrichtungen nach §30 BSIG umsetzen müssen. Sie reichen von Risikoanalyse und Vorfallbehandlung bis zu Lieferkettensicherheit und Kryptografie. Die Maßnahmen müssen ‚geeignet, verhältnismäßig und wirksam' sein; für die Verhältnismäßigkeit zählen unter anderem Größe und Risikoexposition - von einem 50-Personen-Entsorgungsbetrieb werden nicht die gleichen Kontrollen erwartet wie von der Deutschen Telekom.",
-          "german": "Risikomanagementmaßnahmen",
-          "legalRef": "§30 Abs. 2 BSIG"
-        },
-        "supplyChainSecurity": {
-          "term": "Sicherheit der Lieferkette",
-          "definition": "Die Pflicht, Cybersicherheitsrisiken in der Lieferkette zu bewerten und zu steuern - insbesondere bei IT-Dienstleistern, Cloud-Anbietern und allen Lieferanten mit Zugang zu Ihren Systemen oder Daten. Sie müssen Sicherheitsanforderungen vertraglich verankern, die Sicherheitspraktiken der Lieferanten bewerten und diese laufend überwachen. Dies ist neu gegenüber dem alten KRITIS-Regime.",
-          "german": "Sicherheit der Lieferkette",
-          "legalRef": "§30 Abs. 2 Nr. 4 BSIG"
-        },
-        "managementLiability": {
-          "term": "Leitungsverantwortung",
-          "definition": "Die persönliche Haftung der Geschäftsleitung für NIS2-Compliance nach §38 BSIG. Die Geschäftsführung muss die Risikomanagementmaßnahmen nach §30 umsetzen, deren Umsetzung überwachen und an Schulungen zur Sicherheit in der Informationstechnik teilnehmen (§38 Abs. 1 und 3) - und kann persönlich für daraus entstehende Schäden haften. Die Billigung der Maßnahmen selbst steht in Art. 20 Abs. 1 NIS 2. Diese Haftung kann nicht abbedungen werden - auch nicht durch Gesellschafterbeschluss. Diese Vorschrift hebt Cybersicherheit aus der IT-Abteilung in die Geschäftsleitung.",
-          "german": "Leitungsverantwortung / Geschäftsführerhaftung",
-          "legalRef": "§38 BSIG"
-        },
-        "itGrundschutz": {
-          "term": "IT-Grundschutz",
-          "definition": "Das IT-Sicherheitsframework des BSI - ein umfassendes System aus Sicherheitsbausteinen mit schrittweiser Umsetzungsanleitung. §44 Abs. 2 BSIG erkennt die Implementierung von Grundschutz ausdrücklich als Nachweis der NIS2-Compliance an. Da das BSI Grundschutz sowohl veröffentlicht als auch NIS2 durchsetzt, bedeutet die Nutzung ihres Frameworks, dass Sie gegen einen Standard geprüft werden, den der Prüfer in- und auswendig kennt.",
-          "german": "IT-Grundschutz",
-          "legalRef": "§44 Abs. 2 BSIG, BSI-Standards 200-1 bis 200-4"
-        },
-        "auditTrail": {
-          "term": "Audit-Trail (Prüfpfad)",
-          "definition": "Die lückenlose, chronologische Dokumentation aller sicherheitsrelevanten Aktionen und Entscheidungen im Compliance-Prozess. NIS2 verlangt den Nachweis, dass Maßnahmen nicht nur dokumentiert, sondern tatsächlich umgesetzt und gepflegt werden. Der Audit-Trail zeigt dem BSI-Prüfer, dass Ihre Richtlinien gelebte Dokumente sind - wer eine Maßnahme genehmigt hat, wann sie zuletzt geprüft wurde, was sich geändert hat."
-        },
-        "mfa": {
-          "term": "Mehrstufige Authentifizierung (MFA)",
-          "definition": "Authentifizierung, die zwei oder mehr Verifikationsfaktoren erfordert - typischerweise etwas, das Sie wissen (Passwort) und etwas, das Sie besitzen (Smartphone, Hardware-Schlüssel). §30 Abs. 2 Nr. 10 BSIG verlangt MFA für Fernzugriffe, administrative Zugänge und Zugriff auf kritische Systeme. Wenn Sie MFA noch nicht für VPN, Administratorkonten und E-Mail einsetzen, ist dies eine der konkretesten technischen Anforderungen zur Umsetzung.",
-          "legalRef": "§30 Abs. 2 Nr. 10 BSIG"
-        },
-        "section30": {
-          "term": "§30 BSIG - Risikomanagementmaßnahmen",
-          "definition": "Die zentrale Vorschrift der NIS2-Umsetzung im deutschen Recht. Listet zehn Kategorien von Cybersicherheits-Risikomanagementmaßnahmen, die alle betroffenen Einrichtungen umsetzen müssen: Risikoanalyse, Vorfallbehandlung, Business Continuity, Lieferkettensicherheit, sichere Entwicklung, Wirksamkeitsbewertung, Schulung, Kryptografie, Zugangskontrolle und Mehrstufige Authentifizierung. Die Maßnahmen müssen ‚geeignet, verhältnismäßig und wirksam' sein - nicht vergoldet, aber ernsthaft.",
-          "legalRef": "§30 BSIG"
-        },
-        "section32": {
-          "term": "§32 BSIG - Meldepflichten",
-          "definition": "Die dreistufige Pflicht-Meldekaskade bei erheblichen Sicherheitsvorfällen. Bei einem erheblichen Vorfall: Frühwarnung an das BSI innerhalb von 24 Stunden, detaillierte Vorfallmeldung innerhalb von 72 Stunden, Abschlussbericht innerhalb eines Monats. Jede Stufe hat spezifische Inhaltsanforderungen. Verspätete oder fehlende Meldungen sind eigenständige Verstöße mit eigenen Bußgeldtatbeständen.",
-          "german": "Meldepflichten",
-          "legalRef": "§32 BSIG"
-        },
-        "section33": {
-          "term": "§33 BSIG - Registrierungspflicht",
-          "definition": "Die Rechtspflicht aller betroffenen Einrichtungen, sich beim BSI zu registrieren. Anzugeben sind Unternehmensdaten, Sektorklassifizierung, Cybersicherheits-Kontaktdaten und IP-Adressbereiche. Die Nichtregistrierung ist ein eigenständiger Verstoß mit Bußgeldern bis 500.000 EUR - unabhängig von Bußgeldern für fehlende tatsächliche Sicherheitsmaßnahmen.",
-          "german": "Registrierungspflicht",
-          "legalRef": "§33 BSIG"
-        },
-        "section38": {
-          "term": "§38 BSIG - Umsetzungs-, Überwachungs- und Schulungspflicht",
-          "definition": "Die Vorschrift, die die Geschäftsleitung persönlich für NIS2-Compliance haftbar macht. Die Geschäftsleitung muss die Risikomanagementmaßnahmen nach §30 umsetzen, ihre Umsetzung überwachen und an Schulungen zur Sicherheit in der Informationstechnik teilnehmen (§38 Abs. 3). Die Billigung dieser Maßnahmen selbst ist keine §38-Pflicht, sie steht in Art. 20 Abs. 1 NIS 2. Pflichtverletzung begründet persönliche Schadensersatzhaftung - und diese Haftung kann nicht durch Gesellschafterbeschluss abbedungen werden. Dies ist der Paragraph, der CEOs aufhorchen lässt.",
-          "german": "Umsetzungs-, Überwachungs- und Schulungspflicht",
-          "legalRef": "§38 BSIG"
-        },
-        "annex1": {
-          "term": "Anhang I der NIS2-Richtlinie - Sektoren hoher Kritikalität",
-          "definition": "Die Liste der Sektoren, deren Einrichtungen als ‚wesentlich' (wesentliche Einrichtungen) eingestuft werden, wenn sie die Größenschwelle erreichen. Umfasst: Energie (Strom, Öl, Gas, Wasserstoff, Fernwärme), Transport (Luft, Schiene, Wasser, Straße), Bankwesen, Finanzmarktinfrastruktur, Gesundheit, Trinkwasser, Abwasser, digitale Infrastruktur, IKT-Dienstleistungsmanagement, öffentliche Verwaltung und Weltraum.",
-          "legalRef": "Anhang I NIS2-Richtlinie, §28 Abs. 1 BSIG"
-        },
-        "annex2": {
-          "term": "Anhang II der NIS2-Richtlinie - Sonstige kritische Sektoren",
-          "definition": "Die Liste der Sektoren, deren Einrichtungen als ‚wichtig' (wichtige Einrichtungen) eingestuft werden, wenn sie die Größenschwelle erreichen. Umfasst: Post- und Kurierdienste, Abfallwirtschaft, Chemische Herstellung und Vertrieb, Lebensmittelproduktion und -vertrieb, verarbeitendes Gewerbe (Medizinprodukte, Elektronik, Maschinen, Fahrzeuge), digitale Anbieter (Online-Marktplätze, Suchmaschinen, soziale Netzwerke) und Forschungseinrichtungen.",
-          "legalRef": "Anhang II NIS2-Richtlinie, §28 Abs. 2 BSIG"
-        },
-        "csirt": {
-          "term": "CSIRT (Computer Security Incident Response Team)",
-          "definition": "Das nationale Team für die Entgegennahme und Bearbeitung von Cybersicherheitsvorfällen. In Deutschland fungiert das BSI als nationales CSIRT. Wenn Sie einen erheblichen Vorfall nach §32 BSIG melden, nimmt das BSI-CSIRT Ihre Meldung entgegen und bearbeitet sie. Es kann auch technische Unterstützung bei der Vorfallbewältigung leisten - es ist nicht nur ein Briefkasten, sondern eine operative Ressource.",
-          "german": "Computer-Notfallteam",
-          "legalRef": "NIS2-Richtlinie Art. 10, §32 BSIG"
-        },
-        "kritis": {
-          "term": "KRITIS (Kritische Infrastrukturen)",
-          "definition": "Betreiber kritischer Anlagen, die den Schwellenwert der BSI-KritisV erreichen (in der Regel 500.000 versorgte Personen). KRITIS-Betreiber sind automatisch wesentliche Einrichtungen und unterliegen zusätzlichen Pflichten: Nachweisprüfung alle 3 Jahre, Angriffserkennung, verschärfte Meldepflichten.",
-          "german": "Betreiber Kritischer Infrastrukturen",
-          "legalRef": "BSI-KritisV, §28 BSIG"
-        },
-        "nis2umsucg": {
-          "term": "NIS2UmsuCG",
-          "definition": "Das NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz - das deutsche Umsetzungsgesetz für die NIS2-Richtlinie. Verabschiedet am 13. November 2025, in Kraft seit 6. Dezember 2025. Novelliert das BSIG grundlegend und überführt alle NIS2-Pflichten in deutsches Recht.",
-          "german": "NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz",
-          "legalRef": "NIS2UmsuCG (BGBl. 2025)"
-        },
-        "naceCode": {
-          "term": "NACE-Code",
-          "definition": "Die Statistische Systematik der Wirtschaftszweige in der Europäischen Gemeinschaft (Nomenclature statistique des Activités économiques dans la Communauté Européenne). NIS2 und das BSIG verwenden NACE-Codes zur Definition der betroffenen Sektoren und Wirtschaftszweige.",
-          "german": "Statistische Systematik der Wirtschaftszweige",
-          "legalRef": "Verordnung (EG) 1893/2006"
-        },
-        "muk": {
-          "term": "MUK (Mein Unternehmenskonto)",
-          "definition": "Das zentrale Unternehmenskonto der Bundesverwaltung, authentifiziert über ELSTER-Zertifikate. Voraussetzung für die BSI-Registrierung: Zuerst MUK-Konto anlegen, dann über das MUK-Konto auf das BSI-Registrierungsportal zugreifen.",
-          "german": "Mein Unternehmenskonto",
-          "legalRef": "OZG, ELSTER"
-        }
-      },
+      "subtitle": "{count} Begriffe aus NIS2, BSIG und CRA in einfachen Worten. Wo ein Kurs den Begriff benutzt, sehen Sie die Lektion und den Satz.",
+      "intro": "Die Definitionen stammen aus den Wörterbüchern unserer Kurse. Dieselben Texte erscheinen, wenn Sie im Wiki mit der Maus über einen Begriff fahren. Ein Begriff mit deutschem Namen steht auch unter diesem Namen und verweist auf den englischen Eintrag, weil die Texte der EU und unsere Kurse den englischen Begriff führen. Wo wir die Fundstelle kennen, auf die sich eine Definition stützt, steht sie unter dem Text.",
+      "lettersLabel": "Zu einem Buchstaben springen",
+      "alsoCalled": "Auch:",
+      "see": "siehe",
+      "lesson": "Lektion {id}",
+      "alsoIn": "Auch in: {items}",
       "sources": {
         "heading": "Quellen",
         "items": [
-          "BSIG - Gesetz über das Bundesamt für Sicherheit in der Informationstechnik (Fassung NIS2UmsuCG)",
-          "NIS2-Richtlinie (EU) 2022/2555 - Amtsblatt der Europäischen Union",
-          "Durchführungsverordnung (EU) 2024/2690 - Amtsblatt der Europäischen Union",
-          "BSI - IT-Grundschutz-Standards BSI-200-1 bis BSI-200-4",
-          "BSI - IT-Grundschutz-Kompendium (aktuelle Edition)"
+          "BSIG, Gesetz über das Bundesamt für Sicherheit in der Informationstechnik und über die Sicherheit in der Informationstechnik von Einrichtungen (Fassung vom 2. Dezember 2025): https://www.gesetze-im-internet.de/bsig_2025/",
+          "NIS2-Richtlinie (EU) 2022/2555, Amtsblatt der Europäischen Union: https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690, Amtsblatt der Europäischen Union: https://eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Verordnung (EU) 2024/2847 (Cyber Resilience Act), Amtsblatt der Europäischen Union: https://eur-lex.europa.eu/eli/reg/2024/2847/oj",
+          "Verordnung (EU) 2016/679 (DSGVO), Amtsblatt der Europäischen Union: https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+          "BSI, IT-Grundschutz-Standards BSI-200-1 bis BSI-200-4",
+          "BSI, IT-Grundschutz-Kompendium (aktuelle Edition)"
         ]
       },
       "ctaCard": {

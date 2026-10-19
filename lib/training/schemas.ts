@@ -25,6 +25,19 @@ export const dictionaryTermSchema = z.object({
       nl: z.array(z.string().min(1)).optional(),
     })
     .optional(),
+  /**
+   * The provision the definition rests on, per locale (English is the
+   * fallback). Shown on the public glossary only. A citation is language
+   * specific: "§ 30 Abs. 2 Nr. 10 BSIG" in German, a Czech decree in Czech.
+   */
+  legalRef: z.record(z.string(), z.string()).optional(),
+  /**
+   * Overrides the default for the public glossary, which lists the `defined`
+   * terms. `type` is a teaching tag (key term or reading aid in a lesson's
+   * sidebar), so a real term the lessons tag as vocabulary (CSIRT, CVE) is
+   * promoted here instead of retagged, which would move it in the sidebar.
+   */
+  inGlossary: z.boolean().optional(),
 });
 
 export type DictionaryTerm = z.infer<typeof dictionaryTermSchema>;

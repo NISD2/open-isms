@@ -10,7 +10,7 @@
  * explicitly marked [[term]] patterns. The dictionary Map lookup is O(1).
  */
 
-import type { Root, Text, Element } from "hast";
+import type { Element, Root, Text } from "hast";
 
 interface DictionaryPluginOptions {
   /** Map of lowercase term → definition string (already locale-resolved) */
@@ -18,7 +18,15 @@ interface DictionaryPluginOptions {
 }
 
 /** Regex to split text on [[...]] markers */
-const WIKI_LINK_RE = /\[\[([^\]]+)\]\]/g;
+export const WIKI_LINK_RE = /\[\[([^\]]+)\]\]/g;
+
+/** `[[term|display]]` carries the dictionary key and the words the lesson shows. */
+export function splitMarker(raw: string): { lookup: string; display: string } {
+  const pipeIndex = raw.indexOf("|");
+  return pipeIndex === -1
+    ? { lookup: raw, display: raw }
+    : { lookup: raw.slice(0, pipeIndex), display: raw.slice(pipeIndex + 1) };
+}
 
 function slugify(term: string): string {
   return term.toLowerCase().replace(/\s+/g, "-");
@@ -41,9 +49,7 @@ export function rehypeDictionary(options: DictionaryPluginOptions) {
         const matchIndex = match.index ?? 0;
 
         // Support [[term|display]] pipe syntax
-        const pipeIndex = rawCapture.indexOf("|");
-        const lookupTerm = pipeIndex !== -1 ? rawCapture.slice(0, pipeIndex) : rawCapture;
-        const displayText = pipeIndex !== -1 ? rawCapture.slice(pipeIndex + 1) : rawCapture;
+        const { lookup: lookupTerm, display: displayText } = splitMarker(rawCapture);
 
         // Text before the match
         if (matchIndex > lastIndex) {

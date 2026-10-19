@@ -4364,157 +4364,26 @@
     "glossary": {
       "meta": {
         "title": "Slovník NIS2 - vysvětlení klíčových pojmů",
-        "description": "Každý pojem NIS 2 a českého zákona o kybernetické bezpečnosti vysvětlený jednoduše. Od základního subjektu po Národní CERT. Co pojmy pro vaši společnost skutečně znamenají."
+        "description": "Pojmy z NIS2, BSIG a CRA srozumitelným jazykem, s lekcí, která každý z nich vysvětluje. Od základního subjektu po SBOM."
       },
       "title": "Terminologický slovník NIS2",
-      "subtitle": "Každý pojem, na který během compliance NIS2 narazíte, vysvětlený jednoduše. Žádný žargon, žádná právnická hatmatilka. Jen to, co každý pojem znamená a proč je pro vaši společnost důležitý.",
-      "intro": "Compliance NIS 2 přichází s vlastní slovní zásobou. Směs právní terminologie EU, českého zákona o kybernetické bezpečnosti a kyberbezpečnostního žargonu. Tento slovník vysvětluje každý pojem tak, jak mu potřebujete rozumět: co znamená v praxi, ne jen za co ta písmena stojí. Pod názvem pojmu uvádíme související český zákonný pojem, pokud existuje. Několik německých pojmů, na které narazíte v německých materiálech a nástrojích, vysvětlujeme i s jejich českou obdobou.",
-      "terms": {
-        "wesentlicheEinrichtung": {
-          "term": "Základní subjekt",
-          "definition": "Pojem směrnice NIS 2 pro subjekty v odvětvích s vysokou kritičností (příloha I) nad velikostním prahem a několik dalších. Český zákon ho jako vlastní kategorii nepoužívá (zmiňuje ho jen v § 18 odst. 4, kde poskytovatelům digitálních služeb v režimu vyšších povinností ukládá řídit se pravidly prováděcího nařízení (EU) 2024/2690 pro základní subjekty). Rozlišuje poskytovatele regulované služby v režimu vyšších a nižších povinností (§ 8 zákona č. 264/2025 Sb.); do kterého režimu služba patří, stanoví příloha vyhlášky č. 408/2025 Sb. podle druhu služby a velikosti. Ve vyšším režimu jsou hlavně velké podniky v energetice, dopravě, finančním trhu, zdravotnictví, vodním hospodářství a digitální infrastruktuře. Platí pro ně podrobnější opatření (vyhláška č. 409/2025 Sb.), audit kybernetické bezpečnosti alespoň jednou za 2 roky a pokuty až 250 mil. Kč nebo 2 % celosvětového ročního obratu, podle toho, co je vyšší.",
-          "german": "poskytovatel regulované služby v režimu vyšších povinností",
-          "legalRef": "čl. 3 odst. 1 směrnice NIS 2; § 8 zákona č. 264/2025 Sb.; vyhláška č. 408/2025 Sb."
-        },
-        "wichtigeEinrichtung": {
-          "term": "Důležitý subjekt",
-          "definition": "Pojem směrnice NIS 2 pro ostatní subjekty v odvětvích z příloh I a II nad velikostním prahem. Směrnice u nich počítá se stejnými základními povinnostmi, nižšími maximálními pokutami a dohledem až při náznacích porušení (čl. 33). Českou obdobou je zpravidla poskytovatel regulované služby v režimu nižších povinností: většina středních podniků a podniky v odvětvích jako výroba, potravinářství, odpadové hospodářství nebo poštovní služby. Opatření stanoví vyhláška č. 410/2025 Sb., pokuty jsou až 175 mil. Kč nebo 1,4 % obratu, podle toho, co je vyšší (§ 59 odst. 4 písm. b)). Kontrolu NÚKIB český zákon podle režimu nerozlišuje (§ 55).",
-          "german": "poskytovatel regulované služby v režimu nižších povinností",
-          "legalRef": "čl. 3 odst. 2 směrnice NIS 2; § 8 zákona č. 264/2025 Sb.; vyhláška č. 408/2025 Sb."
-        },
-        "bsig": {
-          "term": "Zákon č. 264/2025 Sb., o kybernetické bezpečnosti",
-          "definition": "Český zákon, který převádí směrnici NIS 2 do českého práva. Je účinný od 1. listopadu 2025 a nahradil zákon č. 181/2014 Sb. Upravuje registraci regulovaných služeb, bezpečnostní opatření, hlášení incidentů, kontrolu a pokuty. Podrobnosti stanoví vyhlášky NÚKIB: č. 408/2025 Sb. (regulované služby a režimy), č. 409/2025 Sb. a č. 410/2025 Sb. (bezpečnostní opatření pro vyšší a nižší režim) a č. 334/2025 Sb. (Portál NÚKIB a hlášení). Toto je předpis, který se na vás vztahuje, ne samotná směrnice. V Německu plní stejnou roli tamní zákon o BSI.",
-          "german": "česká obdoba německého zákona o BSI",
-          "legalRef": "Zákon č. 264/2025 Sb., o kybernetické bezpečnosti (§ 1, § 72 a § 73)"
-        },
-        "nis2Directive": {
-          "term": "Směrnice NIS2",
-          "definition": "Předpis na úrovni EU (směrnice 2022/2555), který členským státům uložil zavést regulaci kybernetické bezpečnosti pro základní a důležité subjekty. Stanoví minimální požadavky; každá země ji pak provedla do vnitrostátního práva. V Česku ji provádí zákon č. 264/2025 Sb., o kybernetické bezpečnosti. Se směrnicí nejste v souladu přímo; plníte tento zákon a jeho vyhlášky.",
-          "legalRef": "Směrnice (EU) 2022/2555"
-        },
-        "cir2024": {
-          "term": "CIR 2024/2690",
-          "definition": "Prováděcí nařízení EU, které stanoví technické a metodické požadavky na opatření podle čl. 21 odst. 2 NIS 2, ale jen pro určité typy subjektů: provozovatele DNS, registry domén nejvyšší úrovně, poskytovatele služeb cloud computingu, poskytovatele služeb datových center, poskytovatele sítí pro doručování obsahu, poskytovatele řízených služeb, poskytovatele řízených bezpečnostních služeb, poskytovatele on-line tržišť, internetových vyhledávačů a služeb platforem sociálních sítí a poskytovatele služeb vytvářejících důvěru. Na rozdíl od směrnice se uplatňuje přímo ve všech členských státech bez provedení. Pro tyto subjekty upřesňuje, co vhodná kyberbezpečnostní opatření v praxi skutečně znamenají. V Česku na něj odkazuje § 18 zákona č. 264/2025 Sb.: tito poskytovatelé zavádějí opatření v míře a způsobem podle nařízení.",
-          "legalRef": "Prováděcí nařízení Komise (EU) 2024/2690; § 18 zákona č. 264/2025 Sb."
-        },
-        "bsiRegistration": {
-          "term": "Ohlášení a registrace služby u NÚKIB",
-          "definition": "Poskytovatel služby, která splňuje podmínky, ji ohlásí NÚKIB přes Portál NÚKIB nejpozději do 60 dnů ode dne, kdy podmínky splnil (§ 6 odst. 1 zákona č. 264/2025 Sb.). Ohlášení obsahuje registrační údaje: identifikační údaje a seznam poskytovaných regulovaných služeb a splněných podmínek významnosti (vyhláška č. 334/2025 Sb., § 3 odst. 2 a § 5 odst. 1). NÚKIB pak rozhodne o registraci. Do 30 dnů od doručení rozhodnutí hlásíte kontaktní a doplňující údaje, například doménová jména a rozsahy IP adres (§ 11 odst. 1; vyhláška č. 334/2025 Sb., § 3 odst. 4). Jde o samostatnou povinnost: její splnění nenahrazuje ostatní povinnosti, ale neohlášení služby je samo přestupkem (§ 60 odst. 1 písm. a)).",
-          "german": "ohlášení regulované služby, rozhodnutí o registraci",
-          "legalRef": "§ 6 odst. 1 a § 11 zákona č. 264/2025 Sb.; vyhláška č. 334/2025 Sb., § 3"
-        },
-        "significantIncident": {
-          "term": "Významný incident",
-          "definition": "Ne každý phishingový e-mail se hlásí. Co hlásit, záleží na režimu. V režimu vyšších povinností hlásíte NÚKIB každý kybernetický bezpečnostní incident ve stanoveném rozsahu, který má původ v kybernetickém prostoru a u něhož nelze do 24 hodin vyloučit úmyslné zavinění (§ 15 odst. 1 zákona č. 264/2025 Sb.). V režimu nižších povinností hlásíte Národnímu CERT jen incident, který má navíc významný dopad na poskytování služby, například závažné provozní narušení nebo finanční ztrátu (§ 15 odst. 2 a 3). Kdy je dopad významný, posoudíte podle únosné míry újmy, kterou si sami stanovíte (vyhláška č. 410/2025 Sb., § 14). Konkrétní prahy CIR 2024/2690 (například přímá finanční ztráta přes 500 000 EUR nebo 5 % ročního obratu, podle toho, co je nižší) platí jen pro poskytovatele digitálních služeb podle § 18 zákona.",
-          "german": "kybernetický bezpečnostní incident s významným dopadem",
-          "legalRef": "§ 15 a 16 zákona č. 264/2025 Sb.; vyhláška č. 410/2025 Sb., § 14; CIR 2024/2690 čl. 3"
-        },
-        "riskManagement": {
-          "term": "Opatření k řízení rizik",
-          "definition": "Opatření, která musí zavést každý poskytovatel regulované služby. Směrnice je řadí do deseti oblastí (čl. 21 odst. 2 NIS 2), od analýzy rizik a zvládání incidentů po bezpečnost dodavatelského řetězce a kryptografii. Český zákon je vyjmenovává v § 14: pro režim vyšších povinností 25 opatření, pro režim nižších povinností 13, s podrobnostmi ve vyhláškách č. 409/2025 Sb. a č. 410/2025 Sb. Zavádíte je „v míře nezbytné pro zajištění kybernetické bezpečnosti regulované služby“ (§ 13 odst. 2): od odpadové firmy s 50 lidmi se neočekává totéž co od velkého telekomunikačního operátora.",
-          "german": "bezpečnostní opatření (§ 13 a 14 zákona)",
-          "legalRef": "§ 13 a 14 zákona č. 264/2025 Sb.; čl. 21 odst. 2 směrnice NIS 2"
-        },
-        "supplyChainSecurity": {
-          "term": "Bezpečnost dodavatelského řetězce",
-          "definition": "Požadavek posuzovat a řídit kyberbezpečnostní rizika ve vašem dodavatelském řetězci, zejména u poskytovatelů IT služeb a cloudu a u každého dodavatele s přístupem k vašim systémům nebo datům. Zavádíte-li bezpečnostní opatření prostřednictvím dodavatele, vybíráte ho podle požadavků tohoto opatření a zahrnete je do smlouvy (§ 13 odst. 5 zákona č. 264/2025 Sb.). Co má smlouva obsahovat, uvádí příloha č. 2 vyhlášky č. 410/2025 Sb.; ve vyšším režimu příloha č. 5 vyhlášky č. 409/2025 Sb. pro významné dodavatele, které navíc evidujete a písemně o tom informujete (§ 9).",
-          "german": "řízení dodavatelů",
-          "legalRef": "§ 13 odst. 5 zákona č. 264/2025 Sb.; čl. 21 odst. 2 písm. d) a odst. 3 směrnice NIS 2"
-        },
-        "managementLiability": {
-          "term": "Odpovědnost vedení",
-          "definition": "Směrnice ukládá, aby řídicí orgány opatření schvalovaly, dohlížely na jejich zavádění a mohly nést odpovědnost za porušení (čl. 20 NIS 2). České vyhlášky ukládají vrcholnému vedení, tedy statutárnímu orgánu, prokazatelně absolvovat školení, zajistit zdroje a prokazatelně se seznamovat se stavem opatření (vyhláška č. 410/2025 Sb., § 4; č. 409/2025 Sb., § 4). Zvláštní ustanovení o osobní odpovědnosti zákon nemá. Platí obecná pravidla: člen statutárního orgánu jedná s péčí řádného hospodáře (§ 159 občanského zákoníku), ve sporu sám prokazuje, že tak jednal, a k ujednáním společnosti, která jeho odpovědnost omezují, se nepřihlíží (§ 52 a 53 zákona o obchodních korporacích). Ve vyšším režimu může NÚKIB členovi statutárního orgánu dočasně zakázat výkon funkce, pokud kvůli jeho opakovanému nebo závažnému porušení povinností společnost nesplní nápravné opatření (§ 58 zákona č. 264/2025 Sb.). Kyberbezpečnost se tím přesouvá z IT oddělení do vedení.",
-          "german": "odpovědnost člena statutárního orgánu",
-          "legalRef": "čl. 20 směrnice NIS 2; vyhláška č. 410/2025 Sb., § 4; vyhláška č. 409/2025 Sb., § 4; § 58 zákona č. 264/2025 Sb.; § 159 občanského zákoníku; § 51 až 53 zákona o obchodních korporacích"
-        },
-        "itGrundschutz": {
-          "term": "IT-Grundschutz",
-          "definition": "Metodika kybernetické bezpečnosti německého úřadu BSI: rozsáhlý soubor bezpečnostních modulů (Bausteine) s postupem zavedení krok za krokem. V Česku nemá žádné zákonné postavení: její zavedení se nepovažuje za splnění povinností, ty stanoví vyhlášky č. 409/2025 Sb. a č. 410/2025 Sb. Jako metodické vodítko ji použít můžete. Ve vyšším režimu vyhláška připouští i jiný způsob hodnocení rizik, pokud zajistí stejnou nebo vyšší úroveň (vyhláška č. 409/2025 Sb., § 8 odst. 3).",
-          "german": "IT-Grundschutz",
-          "legalRef": "BSI-Standard 200-1 až 200-4 (německá metodika); v českém právu bez obdoby, srov. vyhláška č. 409/2025 Sb., § 8 odst. 3"
-        },
-        "auditTrail": {
-          "term": "Auditní stopa",
-          "definition": "Chronologický záznam o tom, kdo co, kdy a proč ve vašem procesu compliance udělal. Nestačí opatření zdokumentovat, musíte je skutečně zavádět a provádět (§ 13 odst. 2 zákona č. 264/2025 Sb.). Auditní stopa to při kontrole NÚKIB nebo u auditora ukáže: kdo opatření schválil, kdy bylo naposledy přezkoumáno, co se změnilo. V režimu nižších povinností navíc uchováváte každou verzi přehledu bezpečnostních opatření alespoň 4 roky (vyhláška č. 410/2025 Sb., § 3 odst. 2 písm. c))."
-        },
-        "mfa": {
-          "term": "Vícefaktorová autentizace (MFA)",
-          "definition": "Autentizace, která vyžaduje alespoň dva různé typy faktorů, typicky něco, co znáte (heslo), a něco, co máte (telefon, hardwarový klíč). Obě české vyhlášky ji žádají pro ověření identity administrátorů, uživatelů i technických aktiv; místo ní lze použít kontinuální autentizaci založenou na modelu nulové důvěry. Dokud ji nemáte, používáte kryptografické klíče nebo certifikáty, a dokud nemáte ani ty, hesla o délce alespoň 12 znaků pro uživatele, 17 pro administrátory a 22 pro technická aktiva (vyhláška č. 410/2025 Sb., § 8 odst. 2 až 4; č. 409/2025 Sb., § 19 odst. 2 až 4). Pokud MFA na VPN, administrátorských účtech a e-mailu ještě nepoužíváte, je to jeden z nejkonkrétnějších technických požadavků k zavedení.",
-          "legalRef": "vyhláška č. 410/2025 Sb., § 8; vyhláška č. 409/2025 Sb., § 19; čl. 21 odst. 2 písm. j) směrnice NIS 2"
-        },
-        "section30": {
-          "term": "§ 13 a 14 zákona o kybernetické bezpečnosti: bezpečnostní opatření",
-          "definition": "Ústřední ustanovení českého zákona o kybernetické bezpečnosti. § 13 ukládá zavádět a provádět bezpečnostní opatření ve stanoveném rozsahu „v míře nezbytné“, začít nejpozději do 1 roku od doručení rozhodnutí o registraci a zahrnout požadavky opatření do smluv s dodavateli. § 14 opatření vyjmenovává: 25 pro režim vyšších povinností, 13 pro režim nižších povinností, od řízení aktiv a rizik přes řízení kontinuity činností po řízení přístupu a kryptografické algoritmy. Obsah opatření stanoví vyhlášky č. 409/2025 Sb. a č. 410/2025 Sb. Ne pozlacená, ale skutečná.",
-          "legalRef": "§ 13 a 14 zákona č. 264/2025 Sb."
-        },
-        "section32": {
-          "term": "§ 15 a 16 zákona o kybernetické bezpečnosti: hlášení incidentů",
-          "definition": "Povinná kaskáda hlášení kybernetických bezpečnostních incidentů přes Portál NÚKIB. Prvotní hlášení nejpozději do 24 hodin po zjištění (§ 16 odst. 1). Má-li incident významný dopad (v režimu nižších povinností na poskytování služby, v režimu vyšších povinností na kybernetický prostor státu, což vám NÚKIB sdělí do 24 hodin od prvotního hlášení), následuje oznámení do 72 hodin po zjištění a závěrečná zpráva nejpozději do 30 dnů od oznámení (§ 16 odst. 2 a 3). V režimu vyšších povinností hlásíte NÚKIB, v režimu nižších povinností Národnímu CERT (§ 15). Obsah hlášení stanoví vyhláška č. 334/2025 Sb. Nepředložení prvotního hlášení nebo nedoplnění údajů je přestupek (§ 59 odst. 1 a 2, písm. h)).",
-          "german": "hlášení kybernetických bezpečnostních incidentů",
-          "legalRef": "§ 15 a 16 zákona č. 264/2025 Sb.; vyhláška č. 334/2025 Sb."
-        },
-        "section33": {
-          "term": "§ 6, 9 a 11 zákona o kybernetické bezpečnosti: ohlášení a hlášení údajů",
-          "definition": "Zákonné povinnosti vůči NÚKIB mimo samotná opatření. Službu ohlásíte do 60 dnů ode dne, kdy splňuje podmínky (§ 6 odst. 1). Do 30 dnů od doručení rozhodnutí o registraci hlásíte kontaktní a doplňující údaje, například doménová jména a rozsahy IP adres (§ 11 odst. 1; vyhláška č. 334/2025 Sb., § 3). Změny těchto údajů hlásíte do 14 dnů, pokud nejde o údaje vedené v základních registrech (§ 11 odst. 2), a změny služby, které mohou změnit váš režim, do 60 dnů (§ 9 odst. 1). Neohlášení služby je samostatný přestupek s pokutou až 250 mil. Kč nebo 2 % obratu (§ 60 odst. 1 písm. a), odst. 7 písm. a)), oddělený od sankcí za nezavedení opatření.",
-          "german": "ohlášení regulované služby, hlášení údajů",
-          "legalRef": "§ 6, 9 a 11 zákona č. 264/2025 Sb.; vyhláška č. 334/2025 Sb."
-        },
-        "section38": {
-          "term": "§ 4 vyhlášek č. 409/2025 a 410/2025 Sb.: povinnosti vrcholného vedení",
-          "definition": "Ustanovení, která ukládají povinnosti vrcholnému vedení, tedy statutárnímu orgánu (u s.r.o. jednatelům). V režimu nižších povinností vedení určí osobu pověřenou kybernetickou bezpečností, prokazatelně absolvuje školení, zajistí zdroje, prokazatelně se seznamuje se stavem plnění opatření v přehledu bezpečnostních opatření a stanoví prioritu obnovy primárních aktiv (vyhláška č. 410/2025 Sb., § 4). Ve vyšším režimu navíc zřizuje výbor pro řízení kybernetické bezpečnosti a určuje čtyři bezpečnostní role (vyhláška č. 409/2025 Sb., § 4). Schválení opatření řídicím orgánem žádá směrnice (čl. 20 odst. 1 NIS 2); vyhlášky mluví o prokazatelném seznámení. Zvláštní doložku o osobní odpovědnosti český zákon nemá; platí obecná odpovědnost člena statutárního orgánu. To je ustanovení, které upoutá pozornost jednatelů.",
-          "german": "požadavky na vrcholné vedení",
-          "legalRef": "vyhláška č. 410/2025 Sb., § 4; vyhláška č. 409/2025 Sb., § 4; čl. 20 směrnice NIS 2"
-        },
-        "annex1": {
-          "term": "NIS2 příloha I - vysoce kritické sektory",
-          "definition": "Seznam odvětví, jejichž subjekty jsou podle směrnice „základní“, když splní velikostní práh: energetika (elektřina, ropa, plyn, vodík, dálkové vytápění), doprava (letecká, železniční, vodní, silniční), bankovnictví, infrastruktura finančního trhu, zdravotnictví, pitná voda, odpadní voda, digitální infrastruktura, řízení služeb IKT, veřejná správa a vesmír. Český zákon odvětví z obou příloh spojuje do jednoho seznamu (§ 4 odst. 1 písm. a)); jednotlivé služby a jejich režim určuje vyhláška č. 408/2025 Sb.",
-          "legalRef": "příloha I směrnice NIS 2; § 4 odst. 1 zákona č. 264/2025 Sb.; vyhláška č. 408/2025 Sb."
-        },
-        "annex2": {
-          "term": "NIS2 příloha II - další kritické sektory",
-          "definition": "Seznam odvětví, jejichž subjekty jsou podle směrnice „důležité“, když splní velikostní práh: poštovní a kurýrní služby, nakládání s odpady, výroba a distribuce chemických látek, výroba a distribuce potravin, výroba (zdravotnické prostředky, elektronika, stroje, vozidla), poskytovatelé digitálních služeb (on-line tržiště, vyhledávače, sociální sítě) a výzkumné organizace. V Česku tyto služby vyhláška č. 408/2025 Sb. řadí zpravidla do režimu nižších povinností.",
-          "legalRef": "příloha II směrnice NIS 2; § 4 odst. 1 zákona č. 264/2025 Sb.; vyhláška č. 408/2025 Sb."
-        },
-        "csirt": {
-          "term": "CSIRT (tým pro reakci na počítačové bezpečnostní incidenty)",
-          "definition": "Národní tým odpovědný za příjem hlášení kybernetických bezpečnostních incidentů a reakci na ně. V Česku hlásí poskytovatelé v režimu nižších povinností Národnímu CERT, poskytovatelé v režimu vyšších povinností NÚKIB, oba přes Portál NÚKIB (§ 15 a 16 zákona č. 264/2025 Sb.). Do 24 hodin od prvotního hlášení vám NÚKIB nebo Národní CERT pošle své vyjádření a na žádost poskytne metodickou a případně další technickou podporu (§ 17 odst. 1 a 2). Není to jen schránka, ale provozní zdroj.",
-          "german": "Národní CERT a NÚKIB v roli týmu CSIRT",
-          "legalRef": "čl. 10 směrnice NIS 2; § 15 až 17, § 42 odst. 5 písm. j) a § 43 odst. 1 zákona č. 264/2025 Sb."
-        },
-        "kritis": {
-          "term": "KRITIS (kritická infrastruktura v Německu)",
-          "definition": "Německý pojem pro provozovatele kritických zařízení nad prahy německého prováděcího předpisu. V Česku je obdobou subjekt kritické infrastruktury podle předpisů o krizovém řízení a kritické infrastruktuře. Službu odpovídající jeho prvku kritické infrastruktury registruje NÚKIB z moci úřední a její poskytovatel je vždy v režimu vyšších povinností (§ 5 písm. d), § 6 odst. 3 a § 8 odst. 3 zákona č. 264/2025 Sb.). Platí pro něj opatření podle vyhlášky č. 409/2025 Sb., včetně auditu kybernetické bezpečnosti alespoň jednou za 2 roky (§ 16 odst. 4).",
-          "german": "česká obdoba: subjekt kritické infrastruktury",
-          "legalRef": "§ 5 písm. d), § 6 odst. 3 a § 8 odst. 3 zákona č. 264/2025 Sb."
-        },
-        "nis2umsucg": {
-          "term": "NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz (německá transpozice NIS 2)",
-          "definition": "Německý zákon, kterým Německo provedlo směrnici NIS 2. Podstatně novelizoval německý zákon o BSI a platí od 6. prosince 2025. Pro českou firmu je důležitý jen tehdy, když působí v Německu. V Česku směrnici provádí zákon č. 264/2025 Sb., o kybernetické bezpečnosti, účinný od 1. listopadu 2025; když se v Česku mluví o souladu s NIS 2, myslí se tím plnění tohoto zákona a jeho vyhlášek.",
-          "german": "česká obdoba: zákon č. 264/2025 Sb.",
-          "legalRef": "čl. 41 směrnice NIS 2; zákon č. 264/2025 Sb."
-        },
-        "naceCode": {
-          "term": "Kód NACE",
-          "definition": "Statistická klasifikace ekonomických činností v Evropském společenství (Nomenclature statistique des Activités économiques dans la Communauté Européenne); česká verze se jmenuje CZ-NACE. Vyhláška č. 408/2025 Sb. jejími oddíly vymezuje některé regulované služby, například výrobu strojů (oddíl 28 CZ-NACE). Kód CZ-NACE vaší společnosti je proto dobrým prvním vodítkem, zda vaše služba patří do přílohy vyhlášky.",
-          "german": "CZ-NACE",
-          "legalRef": "Nařízení (ES) 1893/2006; příloha vyhlášky č. 408/2025 Sb."
-        },
-        "muk": {
-          "term": "Mein Unternehmenskonto (německý firemní účet)",
-          "definition": "Německý centrální firemní účet pro služby spolkové správy. V Německu se přes něj firmy přihlašují k registraci u německého úřadu BSI. Česká firma ho nepotřebuje. V Česku se ohlášení služby, hlášení údajů i hlášení incidentů podávají elektronicky přes Portál NÚKIB (§ 45 odst. 2 a § 16 odst. 4 zákona č. 264/2025 Sb.). Přihlašuje se statutární orgán nebo jím pověřený zástupce, a to identitou občana přes Národní identitní autoritu (NIA). Prvním praktickým krokem je tedy ověřit, že ten, kdo bude za firmu jednat, má funkční identitu občana.",
-          "german": "česká obdoba: přihlášení do Portálu NÚKIB identitou občana (NIA)",
-          "legalRef": "§ 45 zákona č. 264/2025 Sb.; vyhláška č. 334/2025 Sb., § 2"
-        }
-      },
+      "subtitle": "Pojmy z NIS2, BSIG a CRA jednoduše vysvětlené, celkem {count}. Kde kurz pojem používá, vidíte lekci i větu.",
+      "intro": "Definice pocházejí ze slovníků našich kurzů. Stejné texty se zobrazí, když kdekoli ve wiki najedete kurzorem na pojem. Pojem s německým názvem je uveden také pod tímto názvem a odkazuje na anglické heslo, protože texty EU i naše kurzy používají anglický pojem. Kde známe ustanovení, na kterém definice stojí, je uvedeno pod textem.",
+      "lettersLabel": "Přejít na písmeno",
+      "alsoCalled": "Také se říká:",
+      "see": "viz",
+      "lesson": "Lekce {id}",
+      "alsoIn": "Také v: {items}",
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Zákon č. 264/2025 Sb., o kybernetické bezpečnosti: https://e-sbirka.gov.cz/sb/2025/264/2025-11-01",
-          "Směrnice NIS2 (EU) 2022/2555 - Úřední věstník Evropské unie",
-          "Prováděcí nařízení Komise (EU) 2024/2690 - Úřední věstník Evropské unie",
-          "BSI-Standard 200-1 až 200-4: metodika IT-Grundschutz německého úřadu BSI (v Česku bez zákonného postavení)",
-          "Vyhlášky č. 334/2025, 408/2025, 409/2025 a 410/2025 Sb.: https://e-sbirka.gov.cz/sb/2025/409/2025-11-01 a https://e-sbirka.gov.cz/sb/2025/410/2025-11-01; občanský zákoník (č. 89/2012 Sb.) a zákon o obchodních korporacích (č. 90/2012 Sb.)"
+          "BSIG, zákon o Spolkovém úřadu pro bezpečnost informačních technologií a o bezpečnosti informačních technologií subjektů (znění ze dne 2. prosince 2025): https://www.gesetze-im-internet.de/bsig_2025/",
+          "Směrnice NIS2 (EU) 2022/2555, Úřední věstník Evropské unie: https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Prováděcí nařízení Komise (EU) 2024/2690, Úřední věstník Evropské unie: https://eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Nařízení (EU) 2024/2847 (Cyber Resilience Act), Úřední věstník Evropské unie: https://eur-lex.europa.eu/eli/reg/2024/2847/oj",
+          "Nařízení (EU) 2016/679 (GDPR), Úřední věstník Evropské unie: https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+          "BSI, standardy IT-Grundschutz BSI-200-1 až BSI-200-4",
+          "BSI, IT-Grundschutz Kompendium (aktuální vydání)"
         ]
       },
       "ctaCard": {
