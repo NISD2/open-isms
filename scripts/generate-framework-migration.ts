@@ -83,8 +83,8 @@ const onlyIndex = process.argv.indexOf("--only");
 const onlyArg = onlyIndex === -1 ? null : process.argv[onlyIndex + 1];
 const only = onlyArg ? new Set(onlyArg.split(",").map((c) => c.trim())) : null;
 
-// Every framework in the package's FRAMEWORK_DATA is generated: adding one there is all it takes
-// for its data to be carried into existing databases.
+// Every framework in the package's FRAMEWORK_DATA is generated. Its data lands in a database that
+// already has its compliance_framework row (FRAMEWORK_ROWS below, drizzle/seed.ts).
 const selected: readonly FrameworkData[] = only
   ? FRAMEWORK_DATA.filter((f) => only.has(f.code))
   : FRAMEWORK_DATA;
