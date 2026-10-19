@@ -6,8 +6,7 @@
  * the SAME underlying artefact (same record, same methodology, same incident
  * row) satisfies both requirements; the propagation engine treats those as
  * transitively composable. Pairs marked `"overlapping"` describe partial
- * conceptual overlap; propagation credits the direct neighbour but does not
- * compose transitively.
+ * conceptual overlap: a hint for the other framework, never credit.
  *
  * CIR Annex sub-point numbers in rationales are verified against the OJ text
  * of CIR (EU) 2024/2690 (point 5 = 5.1/5.2 only, point 7 = 7.1-7.3,
