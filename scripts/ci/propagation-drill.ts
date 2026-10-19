@@ -132,13 +132,11 @@ async function tenant(
     ).id;
   };
   const [nis2, iso27001] = [await assessmentFor("nis2"), await assessmentFor("iso27001")];
-  await db
-    .insert(companyRequirementStatus)
-    .values({
-      assessmentId: nis2,
-      requirementId: idOf(ids, SOURCE),
-      status: "in_progress",
-    });
+  await db.insert(companyRequirementStatus).values({
+    assessmentId: nis2,
+    requirementId: idOf(ids, SOURCE),
+    status: "in_progress",
+  });
   const statusOf = Object.fromEntries(
     await Promise.all(
       [SAME_RECORD, OVERLAP].map(async (code) => {
