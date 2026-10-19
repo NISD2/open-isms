@@ -1,8 +1,9 @@
 import { randomUUID } from "node:crypto";
 import { TRPCError } from "@trpc/server";
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, gte, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
+import { hasReviewAccess } from "@/lib/auth";
 import {
   companyUploadPrefixes,
   createPresignedGet,
@@ -16,6 +17,7 @@ import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { companyAssessment, companyRequirementStatus, evidence } from "@/schema";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
 import { recalculateProgress } from "../helpers/assessment-helpers";
+import { REOPEN_APPROVED_FIRST } from "../helpers/manual-status";
 import { companyProcedure, router } from "../init";
 
 export const evidenceRouter = router({
@@ -215,10 +217,11 @@ export const evidenceRouter = router({
     }),
 
   /**
-   * Delete evidence from S3 and DB. A signed requirement loses what its
-   * signature rested on, so it goes back to needs_review: the old signature
-   * stays on the row as the record, and the requirement waits for a new one,
-   * as it does when a module's data changes (lib/compliance/module-recheck.ts).
+   * Delete evidence from S3 and DB. A requirement signed after the evidence
+   * was uploaded loses what its signature rested on, so it goes back to
+   * needs_review: the old signature stays on the row as the record, and the
+   * requirement waits for a new one, as it does when a module's data changes
+   * (lib/compliance/module-recheck.ts).
    */
   deleteEvidence: companyProcedure
     .input(z.object({ evidenceId: z.string().uuid() }))
@@ -249,21 +252,36 @@ export const evidenceRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      await deleteObject(row.storageKey);
-      await ctx.db.delete(evidence).where(eq(evidence.id, input.evidenceId));
+      // A reviewer's approval is withdrawn only by someone with review access
+      // (reopenRequirement); deleting what it rested on would do it by a side
+      // door.
+      if (statusRow.status === "approved" && !hasReviewAccess(ctx.session.role)) {
+        throw new TRPCError({ code: "FORBIDDEN", message: REOPEN_APPROVED_FIRST });
+      }
 
-      // The status condition sits in the UPDATE, so a requirement reopened
-      // since the read is left as it stands.
-      const [reverted] = await ctx.db
-        .update(companyRequirementStatus)
-        .set({ status: "needs_review", updatedAt: new Date() })
-        .where(
-          and(
-            eq(companyRequirementStatus.id, statusRow.id),
-            inArray(companyRequirementStatus.status, ["completed", "approved"]),
-          ),
-        )
-        .returning({ id: companyRequirementStatus.id });
+      // The row and the status change land together. The stored file goes
+      // after the commit: a file left behind by a failed delete is storage,
+      // while a row pointing at a deleted file would be a broken record.
+      const reverted = await ctx.db.transaction(async (tx) => {
+        await tx.delete(evidence).where(eq(evidence.id, input.evidenceId));
+        // Only a signature given after this evidence was uploaded rested on
+        // it. The status condition sits in the UPDATE, so a requirement
+        // reopened since the read is left as it stands.
+        const [updated] = await tx
+          .update(companyRequirementStatus)
+          .set({ status: "needs_review", updatedAt: new Date() })
+          .where(
+            and(
+              eq(companyRequirementStatus.id, statusRow.id),
+              inArray(companyRequirementStatus.status, ["completed", "approved"]),
+              gte(companyRequirementStatus.signedOffAt, row.uploadedAt),
+            ),
+          )
+          .returning({ id: companyRequirementStatus.id });
+        return updated ?? null;
+      });
+      await deleteObject(row.storageKey);
+
       if (reverted) {
         await recalculateProgress(ctx.db, statusRow.assessmentId);
         logAudit({
