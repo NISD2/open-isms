@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { CopyProtected } from "@/components/CopyProtected";
+import { GetStarted } from "@/components/GetStarted";
 import { pageAlternates } from "@/lib/seo";
 import { ogImages } from "@/lib/og-card";
 
@@ -140,6 +141,10 @@ export default async function OpenSourcePage() {
           </CardContent>
         </Card>
       </section>
+
+      {/* GitHub is the way on for a developer; this is the way on for whoever came to see whether
+          the open code is something their company can use, and would rather not run it. */}
+      <GetStarted variant="funnel" className="mt-16" />
     </article></CopyProtected>
   );
 }

@@ -5,6 +5,7 @@ import { Art, SETUP_ART } from "@/components/durchgang/Art";
 import { MotionProvider } from "@/components/landing/motion";
 import { WalkHomeShot } from "@/components/landing/WalkHomeShot";
 import { TalkFirst } from "@/components/pricing/PaidPricingCards";
+import { ManagementCourseLink } from "@/components/training/ManagementCourseLink";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -27,7 +28,8 @@ type Href = ComponentProps<typeof Link>["href"];
  * `funnel` is for a page a reader enters from search and never saw the landing page: it repeats
  * the landing page's hero, headline, subline and the walk's home moving, so the ask shows what
  * the button opens and the button can go straight to the registration. A call is offered beside
- * it for a reader who wants to talk before signing up.
+ * it for a reader who wants to talk before signing up, and the free management course, as in the
+ * hero, for a reader the walkthrough does not fit yet.
  */
 export async function GetStarted({
   variant,
@@ -100,6 +102,7 @@ async function FunnelAsk({ className, href }: { className?: string; href?: Href 
           <div className="mt-8 flex flex-col items-start gap-3">
             <StartButton href={href} />
             <TalkFirst size="button" />
+            <ManagementCourseLink className={QUIET_LINK} />
             <PricingLink />
           </div>
         </div>
