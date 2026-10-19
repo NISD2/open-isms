@@ -18,6 +18,7 @@ import { computeChainedChecksum, getLastSignOffEntry } from "@nisd2/isms-trpc/au
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { evidence, signOffHistory } from "@/schema";
+import { signedWording } from "./signed-wording";
 
 /**
  * Inputs for appending a sign-off chain entry. The snapshot's `data` field
@@ -49,15 +50,24 @@ export interface RecordSignOffParams {
  * Status` update so a partial commit cannot leave the chain and the
  * status row in disagreement.
  *
+ * The entry carries the requirement's wording as the signer read it (signedWording), so the
+ * chain proves what was signed, not only that something was.
  */
 export async function recordSignOffChainEntry(
   db: DbOrTx,
   params: RecordSignOffParams,
 ): Promise<void> {
-  const evidenceRows = await db.query.evidence.findMany({
-    where: eq(evidence.requirementStatusId, params.statusId),
-    columns: { id: true, fileName: true, contentHash: true, version: true },
-  });
+  const [evidenceRows, requirement] = await Promise.all([
+    db.query.evidence.findMany({
+      where: eq(evidence.requirementStatusId, params.statusId),
+      columns: { id: true, fileName: true, contentHash: true, version: true },
+    }),
+    signedWording(db, {
+      requirementId: params.requirementId,
+      signerId: params.signedOffBy,
+      companyId: params.companyId,
+    }),
+  ]);
 
   const snapshot: SignOffSnapshotData = {
     source: params.source,
@@ -70,6 +80,7 @@ export async function recordSignOffChainEntry(
       contentHash: e.contentHash,
       version: e.version,
     })),
+    requirement,
   };
 
   const last = await getLastSignOffEntry(db, params.statusId);

@@ -6,7 +6,8 @@
  */
 
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import { asc, eq, type InferSelectModel, inArray } from "drizzle-orm";
+import type { SignedWording } from "@nisd2/isms-schema/tables/sign-off-history";
+import { asc, desc, eq, type InferSelectModel, inArray } from "drizzle-orm";
 import { legalRefFor } from "@/lib/compliance/czech-law";
 import { isDoneState, isDoneStatus } from "@/lib/compliance/journey-position";
 import { db } from "@/lib/db";
@@ -25,6 +26,7 @@ import {
   companyRequirementStatus,
   requirement,
   requirementCategory,
+  signOffHistory,
   user,
 } from "@/schema";
 import { journeyStatesOf } from "@/server/trpc/helpers/durchgang";
@@ -95,6 +97,33 @@ export interface ReportData {
   answerNames: AnswerNames;
 }
 
+/**
+ * The wording each signed status was last signed against, from its newest sign_off_history
+ * entry, where that entry recorded it in the report's language. Older entries hold no wording.
+ */
+async function signedWordingOf(
+  statusIds: readonly string[],
+  locale: string,
+): Promise<ReadonlyMap<string, SignedWording>> {
+  if (statusIds.length === 0) return new Map();
+  const entries = await db
+    .select({ statusId: signOffHistory.statusId, snapshot: signOffHistory.snapshot })
+    .from(signOffHistory)
+    .where(inArray(signOffHistory.statusId, [...statusIds]))
+    .orderBy(desc(signOffHistory.version));
+  // Newest first, so the first entry per status is its latest signature.
+  const newest = entries.reduce(
+    (latest, e) =>
+      latest.has(e.statusId) ? latest : latest.set(e.statusId, e.snapshot.requirement),
+    new Map<string, SignedWording | undefined>(),
+  );
+  return new Map(
+    [...newest].flatMap(([id, wording]) =>
+      wording?.locale === locale ? [[id, wording] as const] : [],
+    ),
+  );
+}
+
 export async function loadReportData(
   assessmentId: string,
   locale = "en",
@@ -144,6 +173,10 @@ export async function loadReportData(
   ]);
   const statusMap = new Map(statuses.map((s) => [s.requirementId, s]));
   const intakeMap = new Map(intakes.map((i) => [i.categoryId, i]));
+  const signedWording = await signedWordingOf(
+    statuses.filter((s) => s.signedOffAt !== null).map((s) => s.id),
+    locale,
+  );
 
   // Only the people this assessment's own rows point at, so the lookup cannot
   // reach past the tenant the assessment belongs to.
@@ -172,11 +205,16 @@ export async function loadReportData(
       const status = statusMap.get(req.id);
       const currentStatus = status?.status ?? "not_started";
       const entry = states.get(req.code);
+      // A signed requirement prints the wording it was signed against, not today's.
+      const signed = status ? signedWording.get(status.id) : undefined;
 
       return {
         code: req.code,
-        title: getRequirementTitle(requirementMessages, req.code),
-        description: getRequirementDescription(requirementMessages, req.code) ?? "",
+        title: signed?.title ?? getRequirementTitle(requirementMessages, req.code),
+        description:
+          signed?.description ??
+          getRequirementDescription(requirementMessages, req.code) ??
+          "",
         priority: req.priority,
         legalRef: legalRefFor(req, locale),
         evidenceType: req.evidenceType,

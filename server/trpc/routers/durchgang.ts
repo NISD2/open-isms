@@ -141,6 +141,7 @@ import {
   specifyAssetsInput,
   writePolicyInput,
 } from "../helpers/durchgang-inputs";
+import { approvePolicies, WITHDRAWN_APPROVAL } from "../helpers/policy-approval";
 import { rosteredOf } from "../helpers/roster";
 import { signOffRows } from "../helpers/sign-off-rows";
 import {
@@ -1722,33 +1723,19 @@ export const durchgangRouter = router({
           owner: await walkItemRef(ctx.db, ctx.companyId, p.code),
         })),
       );
-      const approved = await ctx.db.transaction(async (tx) => {
-        const titles: string[] = [];
-        for (const { type, owner } of targets) {
-          const rows = await tx
-            .update(policy)
-            .set({
-              status: "approved",
-              version: approvedOn,
-              effectiveFrom: approvedOn,
-              approvedBy: ctx.userId,
-              approvedAt: now,
-              approverRole: MANAGEMENT_ROLE,
-              updatedAt: now,
-            })
-            .where(
-              and(
-                eq(policy.companyId, ctx.companyId),
-                eq(policy.requirementId, owner.requirementId),
-                eq(policy.type, type),
-                eq(policy.status, "draft"),
-              ),
-            )
-            .returning({ title: policy.title });
-          titles.push(...rows.map((r) => r.title));
-        }
-        return titles;
-      });
+      const approved = await ctx.db.transaction((tx) =>
+        approvePolicies(tx, {
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          approverRole: MANAGEMENT_ROLE,
+          approvedOn,
+          now,
+          targets: targets.map(({ type, owner }) => ({
+            type,
+            requirementId: owner.requirementId,
+          })),
+        }),
+      );
       if (approved.length > 0) {
         const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
         await appendNote(
@@ -1973,16 +1960,7 @@ export const durchgangRouter = router({
         if (stored.content === content) return false;
         await tx
           .update(policy)
-          .set({
-            title,
-            content,
-            status: "draft",
-            effectiveFrom: null,
-            approvedBy: null,
-            approvedAt: null,
-            approverRole: null,
-            updatedAt: new Date(),
-          })
+          .set({ title, content, ...WITHDRAWN_APPROVAL, updatedAt: new Date() })
           .where(and(eq(policy.id, stored.id), eq(policy.companyId, ctx.companyId)));
         return true;
       });

@@ -6,9 +6,10 @@ import {
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
 import { companyUploadPrefixes } from "@/lib/storage/object-key";
-import { policy, policyAcknowledgment } from "@/schema";
+import { policy, policyAcknowledgment, policyVersion } from "@/schema";
 import { policyInsertSchema, policyUpdateSchema } from "@/schema/validators";
 import { assertOwnObjectKey } from "../guards";
+import { approvalLapses, WITHDRAWN_APPROVAL } from "../helpers/policy-approval";
 import { companyProcedure, router } from "../init";
 
 /**
@@ -17,6 +18,12 @@ import { companyProcedure, router } from "../init";
  * download built on the column cannot be pointed at another company's object.
  */
 const policyFilePrefix = companyUploadPrefixes.policyFiles;
+
+/**
+ * Status, version and start of validity come from management's approval (approvePolicies), never
+ * from a form: a status typed as "approved" would claim an approval nobody gave.
+ */
+const SET_BY_APPROVAL = { status: true, version: true, effectiveFrom: true } as const;
 
 export const policyRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -37,6 +44,7 @@ export const policyRouter = router({
         approvedBy: true,
         approvedAt: true,
         approverRole: true,
+        ...SET_BY_APPROVAL,
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -52,13 +60,22 @@ export const policyRouter = router({
     }),
 
   update: companyProcedure
-    .input(policyUpdateSchema.extend({ id: z.string().uuid() }))
+    .input(policyUpdateSchema.omit(SET_BY_APPROVAL).extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
       assertOwnObjectKey(policyFilePrefix(ctx.companyId), data.fileKey);
+      const stored = await ctx.db.query.policy.findFirst({
+        where: and(eq(policy.id, id), eq(policy.companyId, ctx.companyId)),
+        columns: { title: true, content: true, fileKey: true, status: true },
+      });
+      if (!stored) throw new TRPCError({ code: "NOT_FOUND" });
       const [row] = await ctx.db
         .update(policy)
-        .set({ ...data, updatedAt: new Date() })
+        .set({
+          ...data,
+          ...(approvalLapses(stored, data) ? WITHDRAWN_APPROVAL : {}),
+          updatedAt: new Date(),
+        })
         .where(and(eq(policy.id, id), eq(policy.companyId, ctx.companyId)))
         .returning();
       invalidateModuleSignOffs(ctx.db, ctx.companyId, "policy", ctx.userId).catch((err) =>
@@ -78,6 +95,29 @@ export const policyRouter = router({
       );
       return { deleted: true };
     }),
+
+  /** What management approved for this policy, newest first: the record an edit cannot change. */
+  versions: companyProcedure
+    .input(z.object({ policyId: z.string().uuid() }))
+    .query(({ ctx, input }) =>
+      ctx.db
+        .select({
+          id: policyVersion.id,
+          title: policyVersion.title,
+          content: policyVersion.content,
+          contentSha256: policyVersion.contentSha256,
+          approverRole: policyVersion.approverRole,
+          approvedOn: policyVersion.approvedOn,
+        })
+        .from(policyVersion)
+        .where(
+          and(
+            eq(policyVersion.policyId, input.policyId),
+            eq(policyVersion.companyId, ctx.companyId),
+          ),
+        )
+        .orderBy(desc(policyVersion.approvedAt)),
+    ),
 
   acknowledge: companyProcedure
     .input(z.object({ policyId: z.string().uuid() }))

@@ -8,6 +8,13 @@
     "empty": "Zatím žádné směrnice. Vytvořte svůj první dokument směrnice.",
     "deleteConfirm": "Opravdu chcete tuto směrnici smazat?",
     "actions": "Akce",
+    "versions": {
+      "open": "Schválená znění",
+      "title": "Schválená znění",
+      "description": "Každý text, který vedení schválilo, v podobě, v jaké byl schválen. Po úpravě je politika opět návrhem; schválený text zůstává zde.",
+      "approved": "Schváleno dne {date}, schválil(a) {role}",
+      "none": "Vedení tuto politiku zatím neschválilo."
+    },
     "status": {
       "draft": "Koncept",
       "approved": "Schváleno",

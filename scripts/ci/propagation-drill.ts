@@ -212,6 +212,11 @@ async function creditsTheSameRecordOnly(): Promise<string | null> {
   if (history.length !== 1 || history[0]?.snapshot.source !== "module") {
     return `${SAME_RECORD} has ${history.length} history entries; expected one, from the module`;
   }
+  // The entry keeps the wording signed, so a later change to the text cannot rewrite the record.
+  const wording = history[0]?.snapshot.requirement;
+  if (wording?.code !== SAME_RECORD || !wording.title || wording.title === SAME_RECORD) {
+    return `${SAME_RECORD}'s history entry holds no signed wording: ${JSON.stringify(wording)}`;
+  }
   return overlap.status === "not_started"
     ? null
     : `${OVERLAP}, an overlap, became ${overlap.status}; an overlap credits nothing`;

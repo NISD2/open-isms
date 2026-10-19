@@ -7,19 +7,20 @@
  *
  * References: company, companyRequirementStatus, requirement, user
  */
+
+import { requirement } from "@nisd2/grc-data-model/schema";
 import {
+  index,
+  integer,
+  jsonb,
   pgTable,
+  timestamp,
+  uniqueIndex,
   uuid,
   varchar,
-  integer,
-  timestamp,
-  jsonb,
-  index,
-  uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { company, user } from "./organization";
 import { companyRequirementStatus } from "./assessments";
-import { requirement } from "@nisd2/grc-data-model/schema";
+import { company, user } from "./organization";
 
 /** Shape of the rich snapshot captured at each sign-off */
 export interface SignOffSnapshotData {
@@ -33,6 +34,22 @@ export interface SignOffSnapshotData {
     contentHash: string | null;
     version: number;
   }>;
+  /**
+   * The requirement as the signer read it, in their language: what was signed, kept with the
+   * signature because the requirement's text and citations change later. Absent on entries
+   * written before it was recorded.
+   */
+  requirement?: SignedWording;
+}
+
+export interface SignedWording {
+  code: string;
+  locale: string;
+  title: string;
+  description: string | null;
+  legalRef: string | null;
+  frameworkRef: string | null;
+  cirReference: string | null;
 }
 
 export const signOffHistory = pgTable(
@@ -71,9 +88,6 @@ export const signOffHistory = pgTable(
     // without acquiring the status-row lock first would silently
     // produce two rows with the same (statusId, version) — the
     // unique constraint makes that fail loudly instead.
-    uniqueIndex("uq_sign_off_history_status_version").on(
-      table.statusId,
-      table.version,
-    ),
-  ]
+    uniqueIndex("uq_sign_off_history_status_version").on(table.statusId, table.version),
+  ],
 );

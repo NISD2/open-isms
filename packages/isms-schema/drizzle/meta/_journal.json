@@ -239,6 +239,20 @@
       "when": 1792105402894,
       "tag": "0033_mcp_connection",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1792415746588,
+      "tag": "0034_policy_version",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1792415757122,
+      "tag": "0035_policy_version_backfill",
+      "breakpoints": true
     }
   ]
 }

@@ -8,6 +8,13 @@
     "empty": "Noch keine Richtlinien vorhanden. Erstellen Sie Ihr erstes Richtliniendokument.",
     "deleteConfirm": "Sind Sie sicher, dass Sie diese Richtlinie löschen möchten?",
     "actions": "Aktionen",
+    "versions": {
+      "open": "Freigegebene Fassungen",
+      "title": "Freigegebene Fassungen",
+      "description": "Jeder Text, den die Geschäftsleitung freigegeben hat, so wie er freigegeben wurde. Nach einer Änderung ist die Richtlinie wieder ein Entwurf; der freigegebene Text bleibt hier.",
+      "approved": "Freigegeben am {date} durch {role}",
+      "none": "Die Geschäftsleitung hat diese Richtlinie noch nicht freigegeben."
+    },
     "status": {
       "draft": "Entwurf",
       "approved": "Genehmigt",

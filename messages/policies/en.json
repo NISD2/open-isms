@@ -8,6 +8,13 @@
     "empty": "No policies yet. Create your first policy document.",
     "deleteConfirm": "Are you sure you want to delete this policy?",
     "actions": "Actions",
+    "versions": {
+      "open": "Approved versions",
+      "title": "Approved versions",
+      "description": "Each text management approved, as approved. An edit makes the policy a draft again; the approved text stays here.",
+      "approved": "Approved on {date} by {role}",
+      "none": "Management has not approved this policy yet."
+    },
     "status": {
       "draft": "Draft",
       "approved": "Approved",

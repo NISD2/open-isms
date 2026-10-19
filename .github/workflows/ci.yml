@@ -211,6 +211,11 @@ jobs:
           psql "$DATABASE_URL" -q -v ON_ERROR_STOP=1 -f db/framework-seed.sql
           bun scripts/ci/propagation-drill.ts
 
+      # Same seeded database. What management approved stays readable after an edit, with the
+      # sha256 an auditor's copy can be matched against.
+      - name: an approved policy's text survives an edit
+        run: bun scripts/ci/policy-approval-drill.ts
+
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and
   # profile, so a typo in a service name or an unbalanced ${...} fails here
