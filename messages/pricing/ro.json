@@ -54,7 +54,7 @@
         }
       },
       "paid": {
-        "name": "Parcursul ghidat NIS 2",
+        "name": "Parcursul ghidat NIS2",
         "description": "Implementare ghidată pe nisd2.eu.",
         "priceSub": "net pe an, plus TVA",
         "perMonth": "net pe lună",

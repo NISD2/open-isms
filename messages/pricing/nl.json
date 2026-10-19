@@ -54,7 +54,7 @@
         }
       },
       "paid": {
-        "name": "NIS 2 begeleide doorloop",
+        "name": "NIS2 begeleide doorloop",
         "description": "Begeleide implementatie op nisd2.eu.",
         "priceSub": "netto per jaar, excl. btw",
         "perMonth": "netto per maand",

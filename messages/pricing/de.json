@@ -54,7 +54,7 @@
         }
       },
       "paid": {
-        "name": "NIS 2 Durchgang",
+        "name": "NIS2 Durchgang",
         "description": "Die geführte Umsetzung auf nisd2.eu.",
         "priceSub": "netto im Jahr, zzgl. USt.",
         "perMonth": "netto im Monat",

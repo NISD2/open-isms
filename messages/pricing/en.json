@@ -54,7 +54,7 @@
         }
       },
       "paid": {
-        "name": "NIS 2 walkthrough",
+        "name": "NIS2 walkthrough",
         "description": "Guided implementation at nisd2.eu.",
         "priceSub": "net a year, plus VAT",
         "perMonth": "net a month",

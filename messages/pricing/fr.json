@@ -54,7 +54,7 @@
         }
       },
       "paid": {
-        "name": "Parcours guidé NIS 2",
+        "name": "Parcours guidé NIS2",
         "description": "Mise en œuvre guidée sur nisd2.eu.",
         "priceSub": "HT par an, TVA en sus",
         "perMonth": "HT par mois",

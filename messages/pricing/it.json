@@ -54,7 +54,7 @@
         }
       },
       "paid": {
-        "name": "Percorso guidato NIS 2",
+        "name": "Percorso guidato NIS2",
         "description": "Implementazione guidata su nisd2.eu.",
         "priceSub": "netti all'anno, più IVA",
         "perMonth": "netti al mese",

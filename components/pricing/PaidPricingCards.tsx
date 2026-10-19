@@ -7,6 +7,7 @@ import {
   Receipt,
   Scale,
   Send,
+  Shield,
   ShieldCheck,
 } from "lucide-react";
 import Image from "next/image";
@@ -516,17 +517,26 @@ export function PaidPricingCards({
           }))}
         />
 
-        {/* order-first: on a phone the paid tier is the first card, not the second. Built like
-            the learning card beside it, same type sizes and order (name, price, action, what is
-            included), so the two read as one table; the border alone marks the offer. No
-            "recommended" badge (one offer). Under the order button only the call (Simon,
-            19.10.2026); the approval page is linked from the FAQ instead. */}
+        {/* order-first: the offer is the first card, on the left and on top of a phone (Simon,
+            19.10.2026). Built like the learning card beside it, same type sizes and order (name,
+            price, action, what is included), so the two read as one table; the border and the
+            site's mark before the name set the offer apart. No "recommended" badge (one offer).
+            Under the order button only the call; the approval page is linked from the FAQ. */}
         <Card
           id={PAID_CARD_ID}
-          className="order-first h-full scroll-mt-24 border-2 border-primary shadow-sm lg:order-none"
+          className="order-first h-full scroll-mt-24 border-2 border-primary shadow-sm"
         >
           <CardHeader>
-            <CardTitle className="text-lg">{t("paid.name")}</CardTitle>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              {/* The nav's mark, smaller. */}
+              <span
+                aria-hidden
+                className="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary"
+              >
+                <Shield className="size-3.5 text-primary-foreground" />
+              </span>
+              {t("paid.name")}
+            </CardTitle>
             <CardDescription>{t("paid.description")}</CardDescription>
             <div className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
               {grandfathered ? (

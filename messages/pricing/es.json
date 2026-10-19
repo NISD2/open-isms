@@ -54,7 +54,7 @@
         }
       },
       "paid": {
-        "name": "Recorrido guiado de NIS 2",
+        "name": "Recorrido guiado de NIS2",
         "description": "Implantación guiada en nisd2.eu.",
         "priceSub": "sin IVA al año, más IVA",
         "perMonth": "sin IVA al mes",
