@@ -32,6 +32,15 @@ interface NudgeCopy {
   /** Locked only; the open version takes its home's own button labels. */
   see: string;
   /**
+   * One question about the reader's own last time, so a reply tells us what happened rather than
+   * what they think of us. Replies reach a person (the dispatcher sets the reply address).
+   */
+  askStarted: string;
+  /** The same for someone who has not begun the walkthrough: what brought them here. */
+  askNew: string;
+  /** The From line names Simon, so the letter ends with his name. */
+  signOff: string;
+  /**
    * The link flips user.emailFollowupsDisabled, which stops ALL soft-touch
    * follow-up email (digests, course follow-ups, lifecycle nudges) — so the
    * label stays category-wide, never "these" emails only.
@@ -55,6 +64,11 @@ export const NUDGE_COPY: Record<WalkLocale, NudgeCopy> = {
     unlock:
       "Unter dem Link sehen Sie jeden Punkt vorab und wie Sie den Durchgang freischalten.",
     see: "Durchgang ansehen",
+    askStarted:
+      "Eine Frage noch: Als Sie zuletzt im Durchgang waren, was hat Sie unterbrochen? Eine Zeile als Antwort reicht.",
+    askNew:
+      "Eine Frage noch: Was war der Anlass für Ihre Anmeldung bei nisd2.eu? Eine Zeile als Antwort reicht.",
+    signOff: "Viele Grüße\nSimon",
     unsubscribe: "Erinnerungen per E-Mail abbestellen",
   },
   en: {
@@ -72,6 +86,11 @@ export const NUDGE_COPY: Record<WalkLocale, NudgeCopy> = {
     unlock:
       "On the page you can see every item in advance and how to unlock the walkthrough.",
     see: "See the walkthrough",
+    askStarted:
+      "One question: the last time you were in the walkthrough, what interrupted you? A one-line reply is plenty.",
+    askNew:
+      "One question: what prompted you to sign up at nisd2.eu? A one-line reply is plenty.",
+    signOff: "Best regards\nSimon",
     unsubscribe: "Unsubscribe from reminder emails",
   },
   // Bare greeting: Czech addresses a person in the vocative, which a stored name does not give us.
@@ -90,6 +109,11 @@ export const NUDGE_COPY: Record<WalkLocale, NudgeCopy> = {
       "Vždy vidíte jen jeden bod, a co zatím nejde, odložíte. Na konci vedení vše projde a podepíše.",
     unlock: "Na stránce uvidíte každý bod předem a také to, jak průvodce odemknout.",
     see: "Zobrazit průvodce",
+    askStarted:
+      "Ještě jedna otázka: když jste byli v průvodci naposledy, co vás přerušilo? Stačí odpovědět jedním řádkem.",
+    askNew:
+      "Ještě jedna otázka: co vás přimělo zaregistrovat se na nisd2.eu? Stačí odpovědět jedním řádkem.",
+    signOff: "S pozdravem\nSimon",
     unsubscribe: "Odhlásit připomínky e-mailem",
   },
 };

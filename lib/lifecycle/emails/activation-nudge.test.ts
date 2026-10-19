@@ -88,6 +88,28 @@ describe("renderActivationNudge, walkthrough locked", () => {
   });
 });
 
+describe("renderActivationNudge, the question and the sign-off", () => {
+  test("someone who started is asked about their last time in the walkthrough", async () => {
+    const email = await renderActivationNudge(input());
+    expect(email.text).toContain(
+      "Als Sie zuletzt im Durchgang waren, was hat Sie unterbrochen?",
+    );
+    expect(email.text).toContain("Viele Grüße\nSimon");
+    expect(email.html).toContain("was hat Sie unterbrochen?");
+  });
+
+  test("someone who has not started is asked what brought them here", async () => {
+    for (const walk of [
+      { kind: "open", done: 0, total: 20 },
+      { kind: "locked", total: 21 },
+    ] as const) {
+      const email = await renderActivationNudge(input({ walk }));
+      expect(email.text).toContain("Was war der Anlass für Ihre Anmeldung bei nisd2.eu?");
+      expect(email.text).not.toContain("unterbrochen");
+    }
+  });
+});
+
 describe("renderActivationNudge, every version", () => {
   test("html and text both link the walkthrough and the unsubscribe", async () => {
     const email = await renderActivationNudge(input());
@@ -109,8 +131,8 @@ describe("renderActivationNudge, every version", () => {
 
     const cs = await renderActivationNudge(input({ locale: "cs" }));
     expect(cs.subject).toStartWith("Váš další krok:");
-    expect(cs.text).toContain("Dobrý den,");
-    expect(cs.text).not.toContain("Simon");
+    // Bare greeting: the recipient's name ("Simon Orzel" here) never follows "Dobrý den".
+    expect(cs.text.split("\n")[0]).toBe("Dobrý den,");
     expect(cs.text).toContain("zpracováno 3 z 20 bodů");
     expect(cs.text).toContain("Pokračovat v zavádění NIS 2:");
     expect(cs.html).toContain("Odhlásit připomínky e-mailem");

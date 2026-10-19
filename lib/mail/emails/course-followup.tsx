@@ -31,8 +31,10 @@ export const COURSE_FOLLOWUP_COPY: Record<
         : "Following up on your NISD2 courses",
     intro: (single) =>
       `Simon here, from NISD2. I noticed you started ${single ? "a course with us" : "some courses with us"} and haven't been back in a while:`,
-    question: () =>
-      "Quick question: what got in the way of finishing? Was something unclear, did the format not fit, or did NIS 2 turn out to be less relevant than you expected? Even a one-line reply helps me make the next version better.",
+    // About their last time with the course, not their opinion of it: what happened is what a
+    // reply can tell us.
+    question: (single) =>
+      `Quick question: the last time you had ${single ? "the course" : "one of the courses"} open, what made you stop? Even a one-line reply helps me make the next version better.`,
     resume: (single) =>
       `If you want to pick up where you left off, the link${single ? "" : "s"} above ${single ? "takes" : "take"} you straight back.`,
     thanks: "Thanks,",
@@ -50,7 +52,7 @@ export const COURSE_FOLLOWUP_COPY: Record<
         ? "tady Simon z NISD2. Všiml jsem si, že jste u nás začali kurz a delší dobu jste se k němu nevrátili:"
         : "tady Simon z NISD2. Všiml jsem si, že jste u nás začali několik kurzů a delší dobu jste se k nim nevrátili:",
     question: (single) =>
-      `Krátká otázka: co vám bránilo ${single ? "kurz" : "kurzy"} dokončit? Bylo něco nejasné, nesedl vám formát, nebo se ukázalo, že se vás NIS 2 týká méně, než jste čekali? I odpověď na jeden řádek mi pomůže udělat příští verzi lepší.`,
+      `Krátká otázka: když jste měli ${single ? "kurz" : "některý z kurzů"} naposledy otevřený, co vás přimělo přestat? I odpověď na jeden řádek mi pomůže udělat příští verzi lepší.`,
     resume: (single) =>
       single
         ? "Pokud chcete pokračovat tam, kde jste skončili, odkaz výše vás vrátí přímo zpět."
@@ -62,7 +64,8 @@ export const COURSE_FOLLOWUP_COPY: Record<
 
 /**
  * Sent by the daily course-reminder cron to people who started a course and have not been back in
- * seven days: every stalled course in one email, and one question about what got in the way.
+ * seven days: every stalled course in one email, and one question about the last time they had it
+ * open.
  */
 export default function CourseFollowupEmail({
   locale,

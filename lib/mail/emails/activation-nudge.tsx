@@ -13,6 +13,10 @@ export interface ActivationNudgeEmailProps {
   /** How the walkthrough works, and for a locked one what the page shows. */
   readonly notes: readonly string[];
   readonly cta: string;
+  /** One question about the reader's last time; a reply reaches a person. */
+  readonly question: string;
+  /** Lines of the sign-off, split on "\n". */
+  readonly signOff: string;
   readonly unsubscribeLabel: string;
   readonly unsubscribeUrl: string;
 }
@@ -50,11 +54,20 @@ export default function ActivationNudgeEmail(props: ActivationNudgeEmailProps) {
           {note}
         </Para>
       ))}
-      <p style={{ margin: "0 0 8px" }}>
+      <p style={{ margin: "0 0 24px" }}>
         <CtaButton href={props.walkUrl} style={{ padding: "10px 20px", fontWeight: 600 }}>
           {props.cta}
         </CtaButton>
       </p>
+      <Para style={spaced}>{props.question}</Para>
+      <Para style={{ margin: "0 0 8px" }}>
+        {props.signOff.split("\n").map((line, i) => (
+          <span key={line}>
+            {i > 0 && <br />}
+            {line}
+          </span>
+        ))}
+      </Para>
       <SmallPrint>
         <MutedLink href={props.unsubscribeUrl}>{props.unsubscribeLabel}</MutedLink>
       </SmallPrint>
@@ -72,6 +85,9 @@ ActivationNudgeEmail.PreviewProps = {
     "Sie sehen immer nur einen Punkt, und was noch nicht geht, legen Sie zur Seite. Am Ende sieht die Geschäftsführung alles durch und unterschreibt.",
   ],
   cta: "NIS 2 Umsetzung fortsetzen",
+  question:
+    "Eine Frage noch: Als Sie zuletzt im Durchgang waren, was hat Sie unterbrochen? Eine Zeile als Antwort reicht.",
+  signOff: "Viele Grüße\nSimon",
   unsubscribeLabel: "Erinnerungen per E-Mail abbestellen",
   unsubscribeUrl: "https://nisd2.eu/u",
 } satisfies ActivationNudgeEmailProps;

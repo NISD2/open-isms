@@ -958,7 +958,7 @@ export async function supplierAddedYouEmail(opts: {
 // Course follow-up: sent by the daily course-reminder cron to users who
 // started a course, haven't been back in 7+ days, and haven't been pinged
 // in the last 30 days. Bundles all stalled courses for the user into one
-// email. Personal voice from Simon, Mom-Test question on what got in the way.
+// email. Personal voice from Simon, Mom-Test question on why they stopped.
 // ---------------------------------------------------------------------------
 
 export async function courseFollowupEmail(opts: {

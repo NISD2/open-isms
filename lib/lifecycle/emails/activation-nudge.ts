@@ -120,6 +120,7 @@ export async function renderActivationNudge(
   const subject = safeHeader(
     `${started ? copy.subjectNext : copy.subjectFirst}: ${input.nextStepTitle}`,
   );
+  const question = started ? copy.askStarted : copy.askNew;
 
   const html = await renderEmail(ActivationNudgeEmail, {
     locale: input.locale,
@@ -129,6 +130,8 @@ export async function renderActivationNudge(
     walkUrl: input.walkUrl,
     notes,
     cta,
+    question,
+    signOff: copy.signOff,
     unsubscribeLabel: copy.unsubscribe,
     unsubscribeUrl: input.unsubscribeUrl,
   });
@@ -142,6 +145,10 @@ export async function renderActivationNudge(
     "",
     ...notes.flatMap((note) => [note, ""]),
     `${cta}: ${input.walkUrl}`,
+    "",
+    question,
+    "",
+    copy.signOff,
     "",
     `${copy.unsubscribe}: ${input.unsubscribeUrl}`,
   ].join("\n");
