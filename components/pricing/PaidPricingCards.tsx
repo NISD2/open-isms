@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { SignInLink } from "@/components/auth/SignInLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,10 +38,13 @@ import { callHostNames, FOUNDERS } from "./founders";
 
 // Every line is checked against the code or the AGB. "Deadlines and reminders" means the in-app
 // reminders the nightly cron schedules; deadline digests by email go out only when an operator
-// presses send (lib/mail/digest-outbox.ts), so the list does not promise email.
+// presses send (lib/mail/digest-outbox.ts), so the list does not promise email. "MCP server" is
+// paid only: the consent page, Settings and every MCP request check mayWalkDurchgang, and the
+// assistant cannot finish or approve an item (lib/mcp).
 const freeFeatures = ["courses", "wiki", "tools"] as const;
 const paidFeatures = [
   "guided",
+  "mcp",
   "unlimited",
   "history",
   "deadlines",
@@ -51,6 +54,11 @@ const paidFeatures = [
 ] as const;
 
 const PAID_CARD_ID = "durchgang";
+
+// Wiki pages join the routing table at runtime (wikiPathnames), so their paths are missing from
+// the typed list of static routes; the routing still translates this one per locale.
+type Href = ComponentProps<typeof Link>["href"];
+const MCP_WIKI_PAGE = "/wiki/ki-assistenten/was-der-assistent-ausfuellt" as Href;
 
 // From the LICENSE files and package.json licence fields (the README's table is older than
 // they are). `spdx` is shown as is; the other two rows carry translated wording.
@@ -403,6 +411,14 @@ export function PaidFeatureList() {
                 />
               </InfoPanel>
             </Tooltip>
+          ) : key === "mcp" ? (
+            t.rich("paid.features.mcp", {
+              mcp: (chunks) => (
+                <Link href={MCP_WIKI_PAGE} className={externalLink}>
+                  {chunks}
+                </Link>
+              ),
+            })
           ) : (
             t(`paid.features.${key}`)
           )}

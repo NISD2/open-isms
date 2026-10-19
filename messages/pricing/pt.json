@@ -82,6 +82,7 @@
         "termsLink": "Condições",
         "features": {
           "guided": "Implementação guiada da NIS 2, passo a passo",
+          "mcp": "<mcp>Servidor MCP</mcp>: o seu assistente de IA ajuda a preencher o percurso, a aprovação fica consigo",
           "unlimited": "Organizações e utilizadores ilimitados",
           "history": "Um histórico de alterações e aprovações para mostrar à sua autoridade de supervisão",
           "deadlines": "Prazos e lembretes para cada requisito",

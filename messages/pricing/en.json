@@ -82,6 +82,7 @@
         "termsLink": "Terms",
         "features": {
           "guided": "Guided NIS 2 implementation, step by step",
+          "mcp": "<mcp>MCP server</mcp>: your AI assistant helps fill in the walkthrough, approving stays with you",
           "unlimited": "Unlimited organizations and users",
           "history": "A history of changes and sign-offs to show your regulator",
           "deadlines": "Deadlines and reminders for each requirement",

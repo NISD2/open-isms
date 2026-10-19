@@ -82,6 +82,7 @@
         "termsLink": "Regulamin",
         "features": {
           "guided": "Wdrożenie NIS 2 z przewodnikiem, krok po kroku",
+          "mcp": "<mcp>Serwer MCP</mcp>: Twój asystent AI pomaga wypełnić przewodnik, zatwierdzenie należy do Ciebie",
           "unlimited": "Nieograniczona liczba organizacji i użytkowników",
           "history": "Historia zmian i zatwierdzeń do pokazania organowi nadzoru",
           "deadlines": "Terminy i przypomnienia dla każdego wymagania",

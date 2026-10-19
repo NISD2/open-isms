@@ -82,6 +82,7 @@
         "termsLink": "Termeni",
         "features": {
           "guided": "Implementare NIS 2 ghidată, pas cu pas",
+          "mcp": "<mcp>Server MCP</mcp>: asistentul dumneavoastră AI ajută la completarea parcursului, aprobarea rămâne la dumneavoastră",
           "unlimited": "Organizații și utilizatori nelimitați",
           "history": "Un istoric al modificărilor și aprobărilor, pe care să îl puteți arăta autorității de supraveghere",
           "deadlines": "Termene și mementouri pentru fiecare cerință",

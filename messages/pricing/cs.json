@@ -82,6 +82,7 @@
         "termsLink": "Podmínky",
         "features": {
           "guided": "Řízené zavedení NIS 2 krok za krokem",
+          "mcp": "<mcp>MCP server</mcp>: váš AI asistent pomáhá vyplnit průvodce, schválení zůstává na vás",
           "unlimited": "Neomezený počet organizací a uživatelů",
           "history": "Historie změn a schválení, kterou můžete ukázat úřadu",
           "deadlines": "Termíny a upozornění ke každému požadavku",

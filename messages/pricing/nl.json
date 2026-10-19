@@ -82,6 +82,7 @@
         "termsLink": "Voorwaarden",
         "features": {
           "guided": "Begeleide NIS 2 implementatie, stap voor stap",
+          "mcp": "<mcp>MCP server</mcp>: uw AI assistent helpt de doorloop in te vullen, goedkeuren blijft bij u",
           "unlimited": "Onbeperkt organisaties en gebruikers",
           "history": "Een geschiedenis van wijzigingen en goedkeuringen, om aan uw toezichthouder te tonen",
           "deadlines": "Deadlines en herinneringen per vereiste",

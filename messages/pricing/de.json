@@ -82,6 +82,7 @@
         "termsLink": "AGB",
         "features": {
           "guided": "Geführte NIS 2 Umsetzung, Schritt für Schritt",
+          "mcp": "<mcp>MCP Server</mcp>: Ihr KI Assistent füllt den Durchgang mit aus, freigeben bleibt bei Ihnen",
           "unlimited": "Unbegrenzt Organisationen und Nutzer",
           "history": "Verlauf der Änderungen und Freigaben, vorzeigbar beim BSI",
           "deadlines": "Fristen und Erinnerungen je Anforderung",
