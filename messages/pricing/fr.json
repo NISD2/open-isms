@@ -105,6 +105,7 @@
         "price": "0 €",
         "priceSub": "pour toujours",
         "cta": "Voir le code source",
+        "line": "Vous préférez l'héberger vous-même ? Le même code source tourne sur vos propres serveurs, gratuitement et sans contrat avec nous. L'exploitation, les mises à jour et les sauvegardes sont alors entre vos mains.",
         "features": {
           "everything": "Tout ce qui est dans le <paid>parcours guidé</paid>",
           "infrastructure": "Exploitation, mises à jour et sauvegardes entre vos mains",

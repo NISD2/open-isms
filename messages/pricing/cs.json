@@ -105,6 +105,7 @@
         "price": "0 €",
         "priceSub": "navždy",
         "cta": "Zobrazit zdrojový kód",
+        "line": "Chcete ho raději provozovat sami? Stejný zdrojový kód běží na vašich vlastních serverech, zdarma a bez smlouvy s námi. Provoz, aktualizace a zálohy máte pak ve svých rukou.",
         "features": {
           "everything": "Vše z <paid>průvodce</paid>",
           "infrastructure": "Provoz, aktualizace a zálohy ve vašich rukou",

@@ -105,6 +105,7 @@
         "price": "€ 0",
         "priceSub": "voor altijd",
         "cta": "Naar de broncode",
+        "line": "Liever zelf draaien? Dezelfde broncode draait op uw eigen servers, gratis en zonder contract met ons. Beheer, updates en back-ups heeft u dan in eigen hand.",
         "features": {
           "everything": "Alles uit de <paid>begeleide doorloop</paid>",
           "infrastructure": "Beheer, updates en back-ups in eigen hand",

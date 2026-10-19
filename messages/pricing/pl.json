@@ -105,6 +105,7 @@
         "price": "0 €",
         "priceSub": "na zawsze",
         "cta": "Zobacz kod źródłowy",
+        "line": "Wolisz uruchomić to samodzielnie? Ten sam kod źródłowy działa na Twoich własnych serwerach, bezpłatnie i bez umowy z nami. Uruchamianie, aktualizacje i kopie zapasowe są wtedy po Twojej stronie.",
         "features": {
           "everything": "Wszystko, co w <paid>przewodniku</paid>",
           "infrastructure": "Uruchamianie, aktualizacje i kopie zapasowe po Twojej stronie",

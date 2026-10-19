@@ -50,7 +50,6 @@ const paidFeatures = [
   "updates",
   "call",
 ] as const;
-const selfHostFeatures = ["everything", "infrastructure", "licence", "contract"] as const;
 
 const SOURCE_URL = "https://github.com/NISD2/open-isms";
 const PAID_CARD_ID = "durchgang";
@@ -458,8 +457,8 @@ function SideTier({
 }
 
 /**
- * The /pricing tiers: learning on the left, the paid Durchgang in the middle as the obvious choice,
- * self-hosting on the right. The billing page shows them too, until the first invoice.
+ * The /pricing tiers: learning on the left, the paid Durchgang beside it as the obvious choice,
+ * self-hosting as one line under both. The billing page shows them too, until the first invoice.
  */
 export function PaidPricingCards({
   orderOpen,
@@ -488,9 +487,7 @@ export function PaidPricingCards({
 
   const tiers = (
     <div className="mx-auto max-w-6xl space-y-10">
-      {/* group/tiers: hovering or focusing the self-host link to the paid tier lights the
-          paid card up, without client state. */}
-      <div className="group/tiers grid gap-6 lg:grid-cols-[1fr_1.6fr_1fr] lg:items-start">
+      <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1fr_1.6fr] lg:items-start">
         <SideTier
           name={t("free.name")}
           description={t("free.description")}
@@ -526,7 +523,7 @@ export function PaidPricingCards({
         {/* order-first: on a phone the paid tier is the first card, not the third. */}
         <Card
           id={PAID_CARD_ID}
-          className="relative order-first scroll-mt-24 border-2 border-primary shadow-xl shadow-primary/10 transition duration-200 group-has-[[data-paid-link]:focus-visible]/tiers:scale-[1.02] group-has-[[data-paid-link]:focus-visible]/tiers:ring-8 group-has-[[data-paid-link]:focus-visible]/tiers:ring-primary/15 group-has-[[data-paid-link]:hover]/tiers:scale-[1.02] group-has-[[data-paid-link]:hover]/tiers:ring-8 group-has-[[data-paid-link]:hover]/tiers:ring-primary/15 lg:order-none lg:-mt-4"
+          className="relative order-first scroll-mt-24 border-2 border-primary shadow-xl shadow-primary/10 lg:order-none lg:-mt-4"
         >
           <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1">
             {t("recommended")}
@@ -576,71 +573,50 @@ export function PaidPricingCards({
             <PaidFeatureList />
           </CardContent>
         </Card>
-
-        <SideTier
-          name={t("selfHost.name")}
-          description={t("selfHost.description")}
-          price={t("selfHost.price")}
-          priceSub={t("selfHost.priceSub")}
-          cta={
-            <Button variant="outline" className="w-full" size="lg" asChild>
-              <Link href="/open-source">{t("selfHost.cta")}</Link>
-            </Button>
-          }
-          features={selfHostFeatures.map((key) => {
-            const text = t.rich(`selfHost.features.${key}`, {
-              paid: (chunks) => (
-                <a href={`#${PAID_CARD_ID}`} data-paid-link className={externalLink}>
-                  {chunks}
-                </a>
-              ),
-            });
-            return {
-              key,
-              content:
-                key === "licence" ? (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type="button"
-                        className="cursor-help text-left underline decoration-muted-foreground/40 decoration-dotted underline-offset-4 hover:text-foreground"
-                      >
-                        {text}
-                      </button>
-                    </TooltipTrigger>
-                    <InfoPanel
-                      title={t("selfHost.licences.title")}
-                      icon={<Scale className="size-4 text-primary" />}
-                    >
-                      <dl className="divide-y">
-                        {LICENCES.map((licence) => (
-                          <div
-                            key={licence.key}
-                            className="space-y-1 py-2.5 first:pt-0 last:pb-0"
-                          >
-                            <dt className="font-medium">
-                              {licence.spdx ?? t(`selfHost.licences.${licence.key}`)}
-                            </dt>
-                            {licence.packages.map((name) => (
-                              <dd
-                                key={name}
-                                className="break-all font-mono text-xs text-muted-foreground"
-                              >
-                                {name}
-                              </dd>
-                            ))}
-                          </div>
-                        ))}
-                      </dl>
-                    </InfoPanel>
-                  </Tooltip>
-                ) : (
-                  text
-                ),
-            };
-          })}
-        />
       </div>
+
+      {/* Self-hosting stays free and says so, as one line rather than a third card: a 0 € card
+          beside the paid one, listing everything in the walkthrough, read as the same product
+          for nothing, and /open-source was the page visitors most often went to from here. */}
+      <p className="mx-auto max-w-3xl text-center text-sm leading-relaxed text-muted-foreground">
+        {t("selfHost.line")}{" "}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              className="cursor-help underline decoration-muted-foreground/40 decoration-dotted underline-offset-4 hover:text-foreground"
+            >
+              {t("selfHost.features.licence")}
+            </button>
+          </TooltipTrigger>
+          <InfoPanel
+            title={t("selfHost.licences.title")}
+            icon={<Scale className="size-4 text-primary" />}
+          >
+            <dl className="divide-y">
+              {LICENCES.map((licence) => (
+                <div key={licence.key} className="space-y-1 py-2.5 first:pt-0 last:pb-0">
+                  <dt className="font-medium">
+                    {licence.spdx ?? t(`selfHost.licences.${licence.key}`)}
+                  </dt>
+                  {licence.packages.map((name) => (
+                    <dd
+                      key={name}
+                      className="break-all font-mono text-xs text-muted-foreground"
+                    >
+                      {name}
+                    </dd>
+                  ))}
+                </div>
+              ))}
+            </dl>
+          </InfoPanel>
+        </Tooltip>
+        {" · "}
+        <Link href="/open-source" className={externalLink}>
+          {t("selfHost.cta")}
+        </Link>
+      </p>
 
       <ul className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground sm:flex-row sm:flex-wrap">
         <li className="flex items-center gap-2">

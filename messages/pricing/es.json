@@ -105,6 +105,7 @@
         "price": "0 €",
         "priceSub": "para siempre",
         "cta": "Ver el código fuente",
+        "line": "¿Prefiere alojarlo usted mismo? El mismo código fuente funciona en sus propios servidores, gratis y sin contrato con nosotros. La operación, las actualizaciones y las copias de seguridad quedan entonces en sus manos.",
         "features": {
           "everything": "Todo lo del <paid>recorrido guiado</paid>",
           "infrastructure": "Operación, actualizaciones y copias de seguridad en sus manos",

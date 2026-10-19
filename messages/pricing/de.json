@@ -105,6 +105,7 @@
         "price": "0 €",
         "priceSub": "dauerhaft",
         "cta": "Zum Quellcode",
+        "line": "Lieber selbst betreiben? Derselbe Quellcode läuft auf Ihren eigenen Servern, kostenlos und ohne Vertrag mit uns. Betrieb, Updates und Backups liegen dann in Ihrer Hand.",
         "features": {
           "everything": "Alles aus dem <paid>Durchgang</paid>",
           "infrastructure": "Betrieb, Updates und Backups in Ihrer Hand",

@@ -105,6 +105,7 @@
         "price": "0 €",
         "priceSub": "para sempre",
         "cta": "Ver o código-fonte",
+        "line": "Prefere alojar por conta própria? O mesmo código-fonte funciona nos seus próprios servidores, gratuitamente e sem contrato connosco. A operação, as atualizações e as cópias de segurança ficam então nas suas mãos.",
         "features": {
           "everything": "Tudo o que está no <paid>percurso guiado</paid>",
           "infrastructure": "Operação, atualizações e cópias de segurança nas suas mãos",

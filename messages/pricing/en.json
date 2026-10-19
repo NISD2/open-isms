@@ -105,6 +105,7 @@
         "price": "€0",
         "priceSub": "forever",
         "cta": "View the source",
+        "line": "Rather run it yourself? The same source code runs on your own servers, free and with no contract with us. Running, updates and backups are then in your hands.",
         "features": {
           "everything": "Everything in the <paid>walkthrough</paid>",
           "infrastructure": "Running, updates and backups in your hands",

@@ -105,6 +105,7 @@
         "price": "€0",
         "priceSub": "per sempre",
         "cta": "Vedi il codice sorgente",
+        "line": "Preferisci gestirlo da solo? Lo stesso codice sorgente gira sui tuoi server, gratis e senza contratto con noi. Gestione, aggiornamenti e backup sono allora nelle tue mani.",
         "features": {
           "everything": "Tutto ciò che c'è nel <paid>percorso guidato</paid>",
           "infrastructure": "Gestione, aggiornamenti e backup nelle tue mani",

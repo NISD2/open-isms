@@ -105,6 +105,7 @@
         "price": "€0",
         "priceSub": "pentru totdeauna",
         "cta": "Vedeți codul sursă",
+        "line": "Preferați să îl rulați singuri? Același cod sursă rulează pe serverele dumneavoastră, gratuit și fără contract cu noi. Rularea, actualizările și copiile de rezervă sunt atunci în mâinile dumneavoastră.",
         "features": {
           "everything": "Tot ce conține <paid>parcursul ghidat</paid>",
           "infrastructure": "Rularea, actualizările și copiile de rezervă sunt în mâinile dumneavoastră",
