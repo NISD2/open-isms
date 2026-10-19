@@ -78,6 +78,8 @@ describe("isTokenRoute", () => {
       "/supplier-access/5f0c",
       "/supplier-invite/5f0c",
       "/nl/gap-assessment/share/5f0c",
+      "/partner-agreement/5f0c",
+      "/de/partner-agreement/5f0c",
       "/invite//5f0c",
     ]) {
       expect(isTokenRoute(path)).toBe(true);

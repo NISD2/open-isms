@@ -13,6 +13,8 @@ export const TOKEN_ROUTE_PREFIXES = [
   "/supplier-access",
   "/supplier-invite",
   "/gap-assessment/share",
+  // The token in the link is the only credential for accepting a partner agreement.
+  "/partner-agreement",
 ] as const;
 
 const PREFIX_SEGMENTS = TOKEN_ROUTE_PREFIXES.map((prefix) =>
