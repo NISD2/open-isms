@@ -375,10 +375,10 @@ export function OrderButton({
 }
 
 /** What the paid offer includes. Every line is checked against the code or the AGB (above). */
-export function PaidFeatureList() {
+export function PaidFeatureList({ className }: { className?: string }) {
   const t = useTranslations("pricing.tiers");
   return (
-    <ul className="space-y-3">
+    <ul className={cn("space-y-3", className)}>
       {paidFeatures.map((key) => (
         <FeatureItem key={key} highlighted>
           {key === "unlimited" ? (
@@ -487,7 +487,7 @@ export function PaidPricingCards({
 
   const tiers = (
     <div className="mx-auto max-w-6xl space-y-10">
-      <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1fr_1.6fr] lg:items-start">
+      <div className="grid gap-6 lg:grid-cols-[1fr_2fr] lg:items-start">
         <SideTier
           name={t("free.name")}
           description={t("free.description")}
@@ -523,54 +523,64 @@ export function PaidPricingCards({
         {/* order-first: on a phone the paid tier is the first card, not the third. */}
         <Card
           id={PAID_CARD_ID}
-          className="relative order-first scroll-mt-24 border-2 border-primary shadow-xl shadow-primary/10 lg:order-none lg:-mt-4"
+          className="@container/paid relative order-first scroll-mt-24 border-2 border-primary shadow-xl shadow-primary/10 lg:order-none lg:-mt-4"
         >
           <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1">
             {t("recommended")}
           </Badge>
-          <CardHeader className="pt-2">
-            <CardTitle className="text-xl">{t("paid.name")}</CardTitle>
-            <CardDescription>{t("paid.description")}</CardDescription>
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              {grandfathered ? (
-                <span className="text-xl text-muted-foreground line-through decoration-2">
-                  {listPrice}
+          {/* When the card is wide, the price and the ways to order stand side by side, and what
+              is included runs in two columns under both, so the whole offer fits the first screen
+              of a laptop without tightening the spacing inside the card. Measured on the card,
+              not the window: beside the portal sidebar on /billing it stays one column. */}
+          <div className="space-y-6 @2xl/paid:grid @2xl/paid:grid-cols-2 @2xl/paid:space-y-0">
+            <CardHeader className="pt-2 @2xl/paid:self-start">
+              <CardTitle className="text-xl">{t("paid.name")}</CardTitle>
+              <CardDescription>{t("paid.description")}</CardDescription>
+              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                {grandfathered ? (
+                  <span className="text-xl text-muted-foreground line-through decoration-2">
+                    {listPrice}
+                  </span>
+                ) : null}
+                <span className="text-5xl font-bold tracking-tight">{price}</span>
+                <span className="text-sm text-muted-foreground">
+                  {t("paid.priceSub")}
                 </span>
-              ) : null}
-              <span className="text-5xl font-bold tracking-tight">{price}</span>
-              <span className="text-sm text-muted-foreground">{t("paid.priceSub")}</span>
-            </div>
-            {/* Half the list price is no longer "the price of a gap analysis". */}
-            {grandfathered ? null : <PriceAnchor />}
-            <div className="mt-3 flex flex-wrap gap-2">
-              {/* On touch the terms line under the button says the same in short. */}
-              <MoneyBackBadge />
-              {grandfathered ? (
-                <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">
-                  {t("paid.grandfatheredBadge")}
-                </Badge>
-              ) : null}
-            </div>
-          </CardHeader>
+              </div>
+              {/* Half the list price is no longer "the price of a gap analysis". */}
+              {grandfathered ? null : <PriceAnchor />}
+              <div className="mt-3 flex flex-wrap gap-2">
+                {/* On touch the terms line under the button says the same in short. */}
+                <MoneyBackBadge />
+                {grandfathered ? (
+                  <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">
+                    {t("paid.grandfatheredBadge")}
+                  </Badge>
+                ) : null}
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6 @2xl/paid:pt-2">
+              <div className="space-y-3">
+                <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  {t("paid.terms")}{" "}
+                  <Link
+                    href="/terms"
+                    className="underline underline-offset-2 hover:text-foreground"
+                  >
+                    {t("paid.termsLink")}
+                  </Link>
+                </p>
+              </div>
+              <div className="space-y-3">
+                <TalkFirst />
+                <ApprovalLink />
+              </div>
+            </CardContent>
+          </div>
           <CardContent className="space-y-6">
-            <div className="space-y-3">
-              <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
-              <p className="text-xs leading-relaxed text-muted-foreground">
-                {t("paid.terms")}{" "}
-                <Link
-                  href="/terms"
-                  className="underline underline-offset-2 hover:text-foreground"
-                >
-                  {t("paid.termsLink")}
-                </Link>
-              </p>
-            </div>
-            <div className="space-y-3">
-              <TalkFirst />
-              <ApprovalLink />
-            </div>
             <Separator />
-            <PaidFeatureList />
+            <PaidFeatureList className="@2xl/paid:grid @2xl/paid:grid-cols-2 @2xl/paid:gap-x-8 @2xl/paid:gap-y-3 @2xl/paid:space-y-0" />
           </CardContent>
         </Card>
       </div>
