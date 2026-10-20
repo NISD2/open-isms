@@ -19,7 +19,8 @@
  *  4. Mail last, when Resend is configured (./mail-poll): the emails Resend sent
  *     that Close does not have yet are logged as emails on the recipients' contacts. It runs
  *     only after a clean people step, and never decides whether the run failed
- *     except when Resend or Close cannot be reached.
+ *     except when Resend or Close cannot be reached. An erasure deletes the logged mail
+ *     of the erased person from Close along with their contact.
  *
  * New people first, newest signup first, then updates, then people Close refused
  * before; at most MAX_PER_RUN per run. A refusal about the person (their name or
@@ -47,6 +48,7 @@ import {
 } from "./fields";
 import { fingerprint } from "./fingerprint";
 import { type MailPoll, type MailStore, pollMail } from "./mail-poll";
+import { addressOf } from "./mail-rules";
 
 export const MAX_PER_RUN = 50;
 export const MAX_REFUSALS = 5;
@@ -187,13 +189,43 @@ const stopFor = (failure: CloseFailure): { readonly stopped: string } | null => 
 /** A kept lead's title was the erased person's name; this replaces it. */
 export const ERASED_LEAD_NAME = "Platform signup (contact erased)";
 
+/**
+ * The platform mail logged for this contact (./mail-poll) goes before the contact does:
+ * Close keeps a deleted contact's emails on the lead, with the person's address and the
+ * mail text, and the lead stays when sales put others on it. Only mail sent from our own
+ * addresses is deleted; what sales wrote to the person themselves is not touched here.
+ */
+async function eraseLoggedMail(
+  close: CloseClient,
+  row: ErasedCloseRow,
+  platformSenders: ReadonlySet<string>,
+): Promise<CloseResult<null>> {
+  if (!row.contactId || platformSenders.size === 0) return { ok: true, value: null };
+  const where = await close.getContact(row.contactId);
+  if (!where.ok) return where;
+  const link =
+    where.value ?? (row.leadId ? { leadId: row.leadId, contactId: row.contactId } : null);
+  if (!link) return { ok: true, value: null };
+  const emails = await close.contactEmails(link);
+  if (!emails.ok) return emails;
+  for (const email of emails.value) {
+    if (!platformSenders.has(addressOf(email.sender))) continue;
+    const deleted = await close.deleteEmail(email.id);
+    if (!deleted.ok) return deleted;
+  }
+  return { ok: true, value: null };
+}
+
 async function eraseRow(
   close: CloseClient,
   store: CloseSyncStore,
   row: ErasedCloseRow,
+  platformSenders: ReadonlySet<string>,
 ): Promise<Step> {
   const fail = (failure: CloseFailure): Step => stopFor(failure) ?? "erasureRefused";
 
+  const mail = await eraseLoggedMail(close, row, platformSenders);
+  if (!mail.ok) return fail(mail);
   if (row.contactId) {
     // The contact carries the person's fields; deleting it by id finds it on any lead.
     const contact = await close.deleteContact(row.contactId);
@@ -331,8 +363,14 @@ export async function runCloseSync(
   if (!settings) return { skipped: "CLOSE_API_KEY is not set" };
   const close = closeClient(settings, fetchImpl);
 
+  // The addresses the logged mail was sent from; without Resend none was ever logged.
+  const platformSenders = new Set(
+    [mail?.sources.newsletterFrom, mail?.sources.transactionalFrom].flatMap((from) =>
+      from ? [addressOf(from)] : [],
+    ),
+  );
   const erasures = await stepThrough(await store.erased(), (row) =>
-    eraseRow(close, store, row),
+    eraseRow(close, store, row, platformSenders),
   );
   const suppressed =
     erasures.some(isStop) || !settings.suppressedStatusId

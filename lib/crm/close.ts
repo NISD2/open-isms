@@ -127,6 +127,17 @@ const createdLeadBody = z.object({
   id: z.string(),
   contacts: z.array(z.object({ id: z.string() })),
 });
+const emailListBody = z.object({
+  data: z.array(
+    z.object({
+      id: z.string(),
+      contact_id: z.string().nullable().optional(),
+      sender: z.string().nullable().optional(),
+    }),
+  ),
+  has_more: z.boolean(),
+});
+const EMAIL_PAGE = 100;
 const contactBody = z.object({ id: z.string(), lead_id: z.string() });
 const leadContactsBody = z.object({ id: z.string(), contact_ids: z.array(z.string()) });
 const idBody = z.object({ id: z.string() });
@@ -343,6 +354,50 @@ export const closeClient = (settings: CloseSettings, fetchImpl: FetchLike = fetc
         date_created: email.sentAt.toISOString(),
       });
       return logged.ok ? ok(null) : logged;
+    },
+
+    /**
+     * The emails filed under this contact on its lead, with their senders. Deleting a
+     * contact leaves them on the lead (checked against the live API, 21.10.2026), with the
+     * person's address and the mail text, so an erasure lists them to delete the ones we
+     * logged. A lead that is gone has none.
+     */
+    contactEmails: async (
+      link: CloseLink,
+    ): Promise<CloseResult<{ readonly id: string; readonly sender: string }[]>> => {
+      const found: { readonly id: string; readonly sender: string }[] = [];
+      for (let page = 0; page < MAX_SEARCH_PAGES; page++) {
+        const query = new URLSearchParams({
+          lead_id: link.leadId,
+          _limit: String(EMAIL_PAGE),
+          _skip: String(page * EMAIL_PAGE),
+          _fields: "id,contact_id,sender",
+        });
+        const listed = orNull(
+          await request("GET", `/activity/email/?${query}`, emailListBody),
+        );
+        if (!listed.ok) return listed;
+        if (!listed.value) return ok([]);
+        found.push(
+          ...listed.value.data.flatMap((e) =>
+            e.contact_id === link.contactId ? [{ id: e.id, sender: e.sender ?? "" }] : [],
+          ),
+        );
+        if (!listed.value.has_more) return ok(found);
+      }
+      return unavailable(`GET /activity/email/: more than ${MAX_SEARCH_PAGES} pages`);
+    },
+
+    /** Already gone counts as done. */
+    deleteEmail: async (emailId: string): Promise<CloseResult<null>> => {
+      const deleted = orNull(
+        await request(
+          "DELETE",
+          `/activity/email/${encodeURIComponent(emailId)}/`,
+          z.unknown(),
+        ),
+      );
+      return deleted.ok ? ok(null) : deleted;
     },
 
     /** Already gone counts as done. */
