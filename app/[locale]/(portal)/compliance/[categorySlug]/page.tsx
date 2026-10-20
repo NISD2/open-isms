@@ -16,7 +16,9 @@ import { legalRefFor } from "@/lib/compliance/czech-law";
 import { getNextCategory, getPrevCategory } from "@/lib/compliance/helpers";
 import { isDoneStatus } from "@/lib/compliance/journey-position";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
+import { db } from "@/lib/db";
 import { api } from "@/lib/trpc/server";
+import { ensureAssessment } from "@/server/trpc/helpers/framework-assessment";
 
 export default async function CategoryStepPage({
   params,
@@ -36,7 +38,6 @@ export default async function CategoryStepPage({
     { category, requirements },
     session,
     allFrameworks,
-    assessment,
     operationalCounts,
     assignableUsers,
   ] = await Promise.all([
@@ -44,7 +45,6 @@ export default async function CategoryStepPage({
     api.requirement.listByCategorySlug({ slug: categorySlug }),
     getSession(),
     getAllActiveCategories(),
-    api.assessment.getActiveAssessment(),
     api.dashboard.operationalCounts(),
     api.assignment.listAssignableUsers(),
   ]);
@@ -58,6 +58,11 @@ export default async function CategoryStepPage({
   }
 
   const frameworkCode = category.framework.code;
+  // The assessment of the category's own framework, which its answers and sign-offs belong to,
+  // made ready as the walk does.
+  const assessment = session?.companyId
+    ? { id: await ensureAssessment(db, session.companyId, frameworkCode) }
+    : null;
 
   // When assessment exists, check access; otherwise show everything
   const access = assessment

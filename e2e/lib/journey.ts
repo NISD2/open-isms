@@ -4,6 +4,7 @@
  */
 
 import {
+  FRAMEWORK_DATA,
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
@@ -25,14 +26,19 @@ export async function setJourneyMode(mode: "solo" | "team" | null): Promise<void
   );
 }
 
-export const slugByCode = new Map<string, string>();
-export const journeyCodes: string[] = [];
-for (const cat of [...nis2Categories].sort((a, b) => a.sortOrder - b.sortOrder)) {
-  for (const r of getNis2RequirementsForCategory(cat.slug)) {
-    slugByCode.set(r.code, cat.slug);
-    journeyCodes.push(r.code);
-  }
-}
+/** Every requirement page of every framework the product shows, by code (codes are unique). */
+export const slugByCode = new Map<string, string>(
+  FRAMEWORK_DATA.filter((framework) => framework.isActive).flatMap((framework) =>
+    framework.categories.flatMap((cat) =>
+      framework.getRequirements(cat.slug).map((r) => [r.code, cat.slug] as const),
+    ),
+  ),
+);
+
+/** The NIS 2 journey's requirements in its order, which the sign-off drives walk. */
+export const journeyCodes: string[] = [...nis2Categories]
+  .sort((a, b) => a.sortOrder - b.sortOrder)
+  .flatMap((cat) => getNis2RequirementsForCategory(cat.slug).map((r) => r.code));
 
 /** Canonical URL of a requirement page. Throws on an unknown code so
  *  framework-data drift fails loudly instead of skipping silently. */
