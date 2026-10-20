@@ -1,8 +1,8 @@
 /**
  * L2 the GDPR walkthrough's paywall, the same as the NIS 2 walk's (walk-front.spec.ts): an account
  * that has not paid opens the walk's home and its free steps (through G-ROP.1, the record of
- * processing activities); every later step is locked and leads to the order, its page sends the
- * account back to the home, and the record page shows example rows. A paid account walks it all.
+ * processing activities); every later step is locked and leads to the order, as its page and the
+ * approval do, and the record page shows example rows. A paid account walks it all.
  *
  * The tenant's level is set per test and put back afterwards.
  */
@@ -76,13 +76,14 @@ test.describe("the GDPR walkthrough's paywall", () => {
       /\/durchgang\/dsgvo\/G-ROP\.1$/,
     );
 
-    // A free step opens; a locked one, and the approval, send the account back to the home.
+    // A free step opens; a locked one, and the approval, lead to the offer, as in NIS 2 (the
+    // portal sends every page past the free ones there).
     await page.goto("/de/durchgang/dsgvo/G-ROP.1");
     await expect(page).toHaveURL(/\/durchgang\/dsgvo\/G-ROP\.1$/);
     await page.goto("/de/durchgang/dsgvo/G-DPA.1");
-    await expect(page).toHaveURL(/\/durchgang\/dsgvo$/);
+    await expect(page).toHaveURL(/\/billing\/offer$/);
     await page.goto("/de/durchgang/dsgvo/freigabe");
-    await expect(page).toHaveURL(/\/durchgang\/dsgvo$/);
+    await expect(page).toHaveURL(/\/billing\/offer$/);
 
     // The record opens with example rows, never the company's own.
     await page.goto("/de/processing-activities");
