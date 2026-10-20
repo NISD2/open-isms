@@ -253,6 +253,13 @@
       "when": 1792532841341,
       "tag": "0035_slow_siren",
       "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1792534335211,
+      "tag": "0036_mean_loa",
+      "breakpoints": true
     }
   ]
 }

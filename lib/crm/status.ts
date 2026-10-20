@@ -4,12 +4,24 @@
  * runs as they were logged. Settings are reported as set or not, never their values.
  */
 import "@/lib/server-guard";
-import { and, count, desc, eq, inArray, isNotNull, isNull, max, sql } from "drizzle-orm";
+import {
+  and,
+  count,
+  desc,
+  eq,
+  inArray,
+  isNotNull,
+  isNull,
+  max,
+  min,
+  sql,
+} from "drizzle-orm";
 import { isDeployedServer } from "@/lib/cron/in-app";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
-import { auditLog, closeCrmSync, user } from "@/schema";
+import { auditLog, closeCrmSync, closeResendLog, user } from "@/schema";
 import { CLOSE_CONFIGURABLE_KEYS } from "./config-schema";
+import { MAX_NOTES_PER_RUN } from "./mail-poll";
 import {
   CLOSE_SYNC_ACTION,
   CLOSE_SYNC_INTERVAL_MS,
@@ -31,6 +43,8 @@ const STATE_OF_ACTION = new Map<string, CloseSyncState>(
 
 const setup = () => ({
   apiKey: Boolean(env.CLOSE_API_KEY),
+  resendKey: Boolean(env.RESEND_API_KEY),
+  newsletterFrom: Boolean(env.RESEND_FROM_EMAIL_NEWS),
   deployedServer: isDeployedServer(),
   signupStatus: Boolean(env.CLOSE_SIGNUP_STATUS_ID),
   suppressedStatus: Boolean(env.CLOSE_SUPPRESSED_STATUS_ID),
@@ -71,6 +85,39 @@ const people = async (db: DbOrTx) => {
   };
 };
 
+const outcomes = (outcome: string) =>
+  sql<number>`count(*) filter (where ${closeResendLog.outcome} = ${outcome})`.mapWith(
+    Number,
+  );
+
+/** How far the mail poll has got through what Resend still holds. */
+const mail = async (db: DbOrTx) => {
+  const [row] = await db
+    .select({
+      handled: count(),
+      noted: outcomes("noted"),
+      notes: sql<number>`coalesce(sum(${closeResendLog.notes}), 0)`.mapWith(Number),
+      notListed: outcomes("skipped_not_listed"),
+      notDelivered: outcomes("skipped_not_delivered"),
+      noContact: outcomes("skipped_no_contact"),
+      oldest: min(closeResendLog.sentAt),
+      newest: max(closeResendLog.sentAt),
+      lastAt: max(closeResendLog.loggedAt),
+    })
+    .from(closeResendLog);
+  return {
+    handled: row?.handled ?? 0,
+    noted: row?.noted ?? 0,
+    notes: row?.notes ?? 0,
+    notListed: row?.notListed ?? 0,
+    notDelivered: row?.notDelivered ?? 0,
+    noContact: row?.noContact ?? 0,
+    oldest: row?.oldest ?? null,
+    newest: row?.newest ?? null,
+    lastAt: row?.lastAt ?? null,
+  };
+};
+
 /** The people Close refused most recently, with the reason it gave (field names, never values). */
 const refusals = (db: DbOrTx) =>
   db
@@ -105,15 +152,24 @@ const runs = async (db: DbOrTx) => {
 };
 
 export async function closeSyncStatus(db: DbOrTx) {
-  const [counts, refused, recent] = await Promise.all([
+  const [counts, refused, recent, mailCounts] = await Promise.all([
     people(db),
     refusals(db),
     runs(db),
+    mail(db),
   ]);
   const schedule = {
     everyMinutes: CLOSE_SYNC_INTERVAL_MS / 60_000,
     firstRunMinutes: FIRST_RUN_DELAY_MS / 60_000,
     perRun: MAX_PER_RUN,
+    mailPerRun: MAX_NOTES_PER_RUN,
   };
-  return { setup: setup(), schedule, people: counts, refused, runs: recent };
+  return {
+    setup: setup(),
+    schedule,
+    people: counts,
+    mail: mailCounts,
+    refused,
+    runs: recent,
+  };
 }

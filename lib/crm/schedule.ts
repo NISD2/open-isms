@@ -17,7 +17,10 @@ import { logAudit } from "@/lib/audit";
 import { isDeployedServer, withAdvisoryLock } from "@/lib/cron/in-app";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
+import { FROM_EMAIL } from "@/lib/mail/resend";
 import { closeSettings } from "./close";
+import type { MailPoll } from "./mail-poll";
+import { resendClient } from "./resend-history";
 import { closeSyncStore } from "./store";
 import { type CloseSyncRunResult, runCloseSync } from "./sync";
 
@@ -34,6 +37,18 @@ export const CLOSE_SYNC_ACTION = {
   skipped: "cron.close_sync.skipped",
 } as const;
 
+/** Resend's mail goes to Close only where Resend is the transport and its key is set. */
+const mailPollSettings = (): MailPoll | null =>
+  env.RESEND_API_KEY
+    ? {
+        resend: resendClient(env.RESEND_API_KEY),
+        sources: {
+          newsletterFrom: env.RESEND_FROM_EMAIL_NEWS,
+          transactionalFrom: FROM_EMAIL,
+        },
+      }
+    : null;
+
 const runLocked = async (): Promise<CloseSyncRunResult> => {
   const settings = closeSettings(env);
   if (!settings) return { skipped: "CLOSE_API_KEY is not set" };
@@ -41,7 +56,7 @@ const runLocked = async (): Promise<CloseSyncRunResult> => {
     return { skipped: "not a deployed production server (NODE_ENV or a local app URL)" };
   }
   const locked = await withAdvisoryLock(CLOSE_SYNC_LOCK, "close", () =>
-    runCloseSync(closeSyncStore(db), settings),
+    runCloseSync(closeSyncStore(db), settings, fetch, mailPollSettings()),
   );
   return locked.locked
     ? locked.value

@@ -58,12 +58,9 @@ export const closeCrmSync = pgTable(
 );
 
 /**
- * Platform mail that sales wants on a person's timeline in Close (the allowlist is
- * lib/crm/mail-notes.ts). sendMail adds a row when a send went out; the close-sync
- * writes one note per row and sets logged_at. A row holds the user, the message type
- * and the time, never an address, subject or body. Deleting the user deletes the rows.
- * The note in Close is one fixed sentence per type with no name or address, so a lead
- * the erasure keeps (sales put others on it) holds nothing about the erased person.
+ * Replaced by close_resend_log below and no longer read or written. It stays defined
+ * because the release still serving during a deploy inserts into it; dropping it is
+ * the next release's migration.
  */
 export const closeMailLog = pgTable(
   "close_mail_log",
@@ -80,5 +77,38 @@ export const closeMailLog = pgTable(
   },
   (t) => [
     index("close_mail_log_unlogged_idx").on(t.sentAt).where(sql`${t.loggedAt} IS NULL`),
+  ],
+);
+
+/**
+ * Every Resend email the mail poll (lib/crm/mail-poll.ts) has dealt with, one row per
+ * email, so the poll knows where it stopped last time: it walks Resend's list from the
+ * newest mail and stops at the second mail that has a row here. A row holds Resend's
+ * email id, when it was sent, what became of it and how many notes it produced, never
+ * an address, subject or body.
+ *
+ * - noted: at least one recipient has the note on their contact in Close.
+ * - skipped_not_listed: not mail sales should see (lib/crm/mail-rules.ts).
+ * - skipped_not_delivered: bounced, suppressed or failed, so the person never got it.
+ * - skipped_no_contact: listed, but no recipient is a contact in Close.
+ */
+export const closeResendLog = pgTable(
+  "close_resend_log",
+  {
+    resendId: varchar("resend_id", { length: 64 }).primaryKey(),
+    sentAt: timestamp("sent_at").notNull(),
+    outcome: varchar("outcome", { length: 24 }).notNull(),
+    notes: smallint("notes").default(0).notNull(),
+    loggedAt: timestamp("logged_at").defaultNow().notNull(),
+  },
+  (t) => [
+    check(
+      "close_resend_log_outcome_check",
+      sql`${t.outcome} IN ('noted', 'skipped_not_listed', 'skipped_not_delivered', 'skipped_no_contact')`,
+    ),
+    check(
+      "close_resend_log_noted_has_notes",
+      sql`(${t.outcome} = 'noted') = (${t.notes} > 0)`,
+    ),
   ],
 );

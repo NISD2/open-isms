@@ -74,9 +74,9 @@ function memoryStore(people: CloseSyncPerson[], erased: ErasedCloseRow[] = []) {
   const optedOut = new Set<string>();
   const store: CloseSyncStore = {
     erased: async () => [...erasedRows],
-    // The mail step has its own tests (./mail-sync.test.ts); here nothing is recorded.
-    unloggedMail: async () => [],
-    mailLogged: async () => {},
+    // The mail step has its own tests (./mail-poll.test.ts); here it is never reached.
+    knownMail: async () => new Set(),
+    recordMail: async () => {},
     people: async () =>
       people.map((p) => ({
         ...p,

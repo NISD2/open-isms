@@ -4,7 +4,7 @@
  * at a few thousand people is cheaper than being clever.
  */
 import "@/lib/server-guard";
-import { and, asc, eq, inArray, isNotNull, isNull, sql } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, isNull, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { SCOPE_ALL } from "@/lib/mail/consent-rules";
@@ -12,7 +12,7 @@ import { type COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
 import {
   billingAccount,
   closeCrmSync,
-  closeMailLog,
+  closeResendLog,
   company,
   companyMembership,
   emailPreference,
@@ -187,37 +187,26 @@ export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
     await db.delete(closeCrmSync).where(eq(closeCrmSync.id, rowId));
   },
 
-  unloggedMail: async (limit) => {
+  knownMail: async (ids) => {
+    if (ids.length === 0) return new Set();
     const rows = await db
-      .select({
-        id: closeMailLog.id,
-        emailType: closeMailLog.emailType,
-        sentAt: closeMailLog.sentAt,
-        leadId: closeCrmSync.leadId,
-        contactId: closeCrmSync.contactId,
-      })
-      .from(closeMailLog)
-      .innerJoin(closeCrmSync, eq(closeCrmSync.userId, closeMailLog.userId))
-      .where(
-        and(
-          isNull(closeMailLog.loggedAt),
-          isNotNull(closeCrmSync.leadId),
-          isNotNull(closeCrmSync.contactId),
-        ),
-      )
-      .orderBy(asc(closeMailLog.sentAt))
-      .limit(limit);
-    return rows.flatMap(({ leadId, contactId, ...mail }) =>
-      leadId && contactId ? [{ ...mail, link: { leadId, contactId } }] : [],
-    );
+      .select({ id: closeResendLog.resendId })
+      .from(closeResendLog)
+      .where(inArray(closeResendLog.resendId, [...ids]));
+    return new Set(rows.map((row) => row.id));
   },
 
-  mailLogged: async (ids) => {
-    if (ids.length === 0) return;
+  recordMail: async (row) => {
+    // A second server or an overlapping run may have logged it first.
     await db
-      .update(closeMailLog)
-      .set({ loggedAt: new Date() })
-      .where(inArray(closeMailLog.id, [...ids]));
+      .insert(closeResendLog)
+      .values({
+        resendId: row.resendId,
+        sentAt: row.sentAt,
+        outcome: row.outcome,
+        notes: row.notes,
+      })
+      .onConflictDoNothing();
   },
 
   optOut: async (emails) => {
