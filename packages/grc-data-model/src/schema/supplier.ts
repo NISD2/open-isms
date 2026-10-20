@@ -131,6 +131,8 @@ export const supplier = pgTable(
     internationalTransfer: boolean("international_transfer").default(false),
     /** GDPR — adequacy / SCCs / BCRs / derogation. Only meaningful when internationalTransfer is true. */
     transferMechanism: transferMechanismEnum("transfer_mechanism"),
+    /** GDPR Art. 30(1)(e): the third countries the data goes to, where internationalTransfer is true. */
+    transferCountries: text("transfer_countries"),
     /**
      * When the GDPR walk last recorded this row's transfer answer. internationalTransfer defaults
      * to false, so without it an untouched row reads as "no transfer" (Art. 30(1)(e) GDPR).

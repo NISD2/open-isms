@@ -4,6 +4,7 @@
       "G-BRC_1": {
         "headline": "Festlegen, was bei einer Datenpanne passiert",
         "teaser": "Wer entscheidet, wie das Risiko bewertet wird und wer binnen 72 Stunden meldet.",
+        "fromNis2": "Ihr Notfallplan und Ihre Meldungen aus NIS 2 betreffen die Behörde für Cybersicherheit. Eine Datenpanne geht außerdem an die Datenschutzaufsicht, mit eigener Frist: unverzüglich und möglichst binnen 72 Stunden, es sei denn, sie führt voraussichtlich nicht zu einem Risiko für Menschen (Art. 33 Abs. 1).",
         "missed": [
           "Ein Vorfall kann drei getrennte Pflichten auslösen: die Meldung eines erheblichen Sicherheitsvorfalls an das BSI, wenn Ihr Unternehmen unter NIS 2 fällt, die Meldung an die Datenschutzaufsicht und die Benachrichtigung der Betroffenen. Jede hat ihre eigenen Voraussetzungen und Fristen; keine ersetzt die andere.",
           "Auch eine Datenpanne, die Sie nicht melden müssen, dokumentieren Sie: was geschah, welche Folgen sie hatte und was Sie dagegen getan haben. Die Dokumentation muss der Aufsichtsbehörde erlauben, Ihre Entscheidung zu überprüfen (Art. 33 Abs. 5). Halten Sie darum fest, warum Sie kein Risiko gesehen haben.",
@@ -23,7 +24,7 @@
             "title": "Melden oder nicht",
             "caption": "Wie Sie das Risiko für die betroffenen Menschen einschätzen",
             "good": {
-              "value": "Ein Laptop mit Kundendaten ist gestohlen. Die Festplatte ist nach dem Stand der Technik verschlüsselt, das Passwort war nicht dabei. Ein Risiko ist unwahrscheinlich: nicht gemeldet, aber mit Begründung dokumentiert.",
+              "value": "Ein Laptop mit Kundendaten ist gestohlen. Die Festplatte ist nach dem Stand der Technik verschlüsselt, das Passwort war nicht dabei, und die Daten liegen in einer aktuellen Sicherung, es geht also nichts verloren. Ein Risiko ist unwahrscheinlich: nicht gemeldet, aber mit Begründung dokumentiert.",
               "note": "Die Entscheidung gegen die Meldung ist begründet und festgehalten, so dass die Aufsichtsbehörde sie überprüfen kann (Art. 33 Abs. 5)."
             },
             "bad": {
@@ -43,9 +44,14 @@
               }
             ]
           },
+          "lead": {
+            "title": "Wer führt, wenn personenbezogene Daten betroffen sind",
+            "lead": "Diese Person erfährt als Erste von jeder Datenpanne, entscheidet, ob gemeldet wird, zusammen mit Ihren Datenschutzbeauftragten, wo Sie welche haben, und erstattet die Meldung. Wählen Sie jemanden, der meist erreichbar ist, und sagen Sie Ihren Beschäftigten, wer vertritt, wenn diese Person nicht da ist.",
+            "document": "Datenpannen"
+          },
           "procedure": {
             "title": "Ihr Verfahren bei Datenpannen",
-            "lead": "Wer entscheidet, wie das Risiko bewertet wird, wer meldet und wie alles festgehalten wird. Die Person, die im Ernstfall führt, und Ihre Datenschutzbeauftragten stehen schon darin. Lesen Sie es, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
+            "lead": "Wer entscheidet, wie das Risiko bewertet wird, wer meldet und wie alles festgehalten wird. Die Person, die Sie eben benannt haben, und Ihre Datenschutzbeauftragten stehen schon darin. Lesen Sie es, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
             "document": {
               "title": "Verfahren bei Verletzungen des Schutzes personenbezogener Daten der {company}",
               "sections": [
@@ -115,6 +121,12 @@
           "done": {
             "title": "Ihr Verfahren bei Datenpannen ist geschrieben",
             "note": "Sagen Sie allen Beschäftigten, wem sie eine Datenpanne melden."
+          }
+        },
+        "fields": {
+          "breachLead": {
+            "label": "Wer führt",
+            "hint": "Jemand aus Ihrem Team, der meist erreichbar ist, oder eine Person von außen, etwa Ihr IT-Dienstleister. Die Entscheidung über die Meldung bleibt bei Ihrem Unternehmen."
           }
         }
       }

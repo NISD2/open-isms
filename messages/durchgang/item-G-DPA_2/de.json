@@ -4,6 +4,7 @@
       "G-DPA_2": {
         "headline": "Festhalten, wie Ihre Auftragsverarbeiter Unterauftragnehmer einsetzen dürfen",
         "teaser": "Für jeden Auftragsverarbeiter: einzeln oder allgemein genehmigt.",
+        "fromNis2": "Ihre Vertragsklauseln aus NIS 2 zu Unteraufträgen sind ein Anfang. Die DSGVO fragt außerdem, wie Sie jeden Unterauftragnehmer genehmigen: einzeln, oder allgemein mit Mitteilung jeder Änderung und der Möglichkeit, Einspruch zu erheben (Art. 28 Abs. 2).",
         "missed": [
           "Bei einer allgemeinen Genehmigung informiert Sie der Auftragsverarbeiter über jede beabsichtigte Hinzuziehung oder Ersetzung eines Unterauftragnehmers, damit Sie Einspruch erheben können (Art. 28 Abs. 2). Sorgen Sie dafür, dass diese Mitteilungen bei jemandem ankommen, der sie liest.",
           "Der Auftragsverarbeiter muss jedem Unterauftragnehmer dieselben Datenschutzpflichten auferlegen, die er Ihnen gegenüber hat (Art. 28 Abs. 4)."
@@ -17,13 +18,25 @@
             ],
             "duty": "Die DSGVO verlangt, dass ein Auftragsverarbeiter weitere Auftragsverarbeiter nur mit vorheriger gesonderter oder allgemeiner schriftlicher Genehmigung Ihres Unternehmens einsetzt."
           },
+          "examples": {
+            "title": "So sieht eine tragfähige Klausel aus",
+            "caption": "Zwei Verträge, gelesen gegen Art. 28 Abs. 2",
+            "good": {
+              "value": "Unser Cloudanbieter darf Unterauftragnehmer mit allgemeiner Genehmigung einsetzen. Er listet sie online, kündigt jeden neuen einen Monat vorher an, und wir können Einspruch erheben.",
+              "note": "Eine allgemeine schriftliche Genehmigung mit Mitteilung jeder beabsichtigten Änderung und der Möglichkeit zum Einspruch, wie Art. 28 Abs. 2 es verlangt. Bewahren Sie die Ankündigungen auf."
+            },
+            "bad": {
+              "value": "Unser Anbieter für die Lohnabrechnung darf jeden Subunternehmer einsetzen, den er will. Wer das ist, erfahren wir nicht.",
+              "note": "Ohne vorherige Genehmigung, und bei einer allgemeinen ohne Mitteilung der Änderungen, genügt die Klausel Art. 28 Abs. 2 nicht. Fordern Sie beim Anbieter seine Liste der Unterauftragnehmer und die Klausel an."
+            }
+          },
           "authorisation": {
             "title": "Wie Sie genehmigt haben",
             "lead": "Für jeden Auftragsverarbeiter: Was sagt der Vertrag zu Unterauftragnehmern? Sehen Sie dort nach, meist unter „Unterauftragsverhältnisse“ oder „weitere Auftragsverarbeiter“."
           },
           "done": {
             "title": "Ihre Genehmigungen sind festgehalten",
-            "note": "Bei allgemeiner Genehmigung lesen Sie die Änderungsmitteilungen Ihrer Anbieter und erheben Einspruch, wenn ein neuer Unterauftragnehmer nicht passt."
+            "note": "Bei allgemeiner Genehmigung lesen Sie die Änderungsmitteilungen Ihrer Anbieter und erheben Einspruch, wenn ein neuer Unterauftragnehmer nicht passt. Wo ein Vertrag nichts dazu sagt, fordern Sie beim Anbieter seine Liste der Unterauftragnehmer und die Klausel dazu an; die Liste der Auftragsverarbeiter zeigt die Lücke, bis Sie die Antwort festhalten."
           }
         }
       }

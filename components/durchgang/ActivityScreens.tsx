@@ -18,6 +18,7 @@ import { ACTIVITY_BY_ID, ACTIVITY_CATALOG } from "@/lib/processing-activities/ca
 import { type ActivityCopy, activityCopyOf } from "@/lib/processing-activities/copy";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
+import { ActivitySuppliers } from "./ActivitySuppliers";
 import type { Described, Draft } from "./draft";
 import { Aside, Heading, Lead } from "./ExplainScreens";
 import { Toggle } from "./RowParts";
@@ -179,7 +180,7 @@ export function Activities({
 }
 
 /** A fact's value as the screen shows it: what was entered on this visit, else what is stored. */
-const shownValue = <K extends keyof Described>(
+const shownValue = <K extends keyof Described & keyof Activity>(
   activity: Activity,
   draft: Draft,
   key: K,
@@ -267,6 +268,14 @@ export function Describe({
               <li key={activity.id} className="rounded-2xl border bg-card p-5 shadow-sm">
                 <p className="text-lg font-semibold">{activity.name}</p>
                 <div className="mt-4 space-y-5">
+                  {entry.screen.suppliers && (
+                    <ActivitySuppliers
+                      id={`${activity.id}-suppliers`}
+                      activity={activity}
+                      chosen={draft.described[activity.id]?.supplierIds}
+                      onChange={(supplierIds) => set(activity, { supplierIds })}
+                    />
+                  )}
                   {entry.screen.facts.map((fact) => (
                     <FactInput
                       key={fact}

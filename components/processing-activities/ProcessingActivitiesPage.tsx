@@ -14,9 +14,12 @@ import {
 } from "@/components/ui/table";
 import { useRouter } from "@/i18n/navigation";
 import { LEGAL_BASES, legalBasesIn } from "@/lib/durchgang";
-import { trpc } from "@/lib/trpc/client";
+import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { processingActivityCreateSchema } from "@/schema/processing-activity-validators";
 import { type Controller, RecordHeader } from "./RecordHeader";
+import { useThroughLine } from "./useThroughLine";
+
+type Activity = RouterOutputs["processingActivity"]["list"][number];
 
 const shown = (text: unknown) => (typeof text === "string" && text.trim() ? text : "—");
 
@@ -30,11 +33,16 @@ export function ProcessingActivitiesPage({
   admin,
   controller,
 }: {
-  items: Record<string, unknown>[];
+  items: Activity[];
   admin: boolean;
   controller: Controller;
 }) {
   const t = useTranslations("processingActivities");
+  const lineOf = useThroughLine();
+  // The form's list holds rows as plain records; the suppliers are read from the typed ones.
+  const suppliers = new Map(items.map((a) => [a.id, a.suppliers]));
+  const suppliersOf = (id: unknown) =>
+    (suppliers.get(String(id)) ?? []).map((s) => lineOf(s.name, s.through));
   const router = useRouter();
   const refresh = () => router.refresh();
   const create = trpc.processingActivity.create.useMutation({ onSuccess: refresh });
@@ -64,7 +72,7 @@ export function ProcessingActivitiesPage({
     >
       {({ items, onEdit, onDelete }) => (
         <>
-          <RecordHeader controller={controller} items={items} />
+          <RecordHeader controller={controller} items={items} suppliersOf={suppliersOf} />
           <Table>
             <TableHeader>
               <TableRow>
@@ -73,6 +81,7 @@ export function ProcessingActivitiesPage({
                 <TableHead>{t("fields.legalBases")}</TableHead>
                 <TableHead>{t("fields.dataSubjects")}</TableHead>
                 <TableHead>{t("fields.recipients")}</TableHead>
+                <TableHead>{t("fields.suppliers")}</TableHead>
                 <TableHead>{t("fields.retention")}</TableHead>
                 <TableHead className="text-right">{t("actions")}</TableHead>
               </TableRow>
@@ -92,6 +101,17 @@ export function ProcessingActivitiesPage({
                   </TableCell>
                   <TableCell className="max-w-48 whitespace-normal">
                     {shown(item.recipients)}
+                  </TableCell>
+                  <TableCell className="max-w-64 whitespace-normal">
+                    {suppliersOf(item.id).length === 0 ? (
+                      "—"
+                    ) : (
+                      <ul className="space-y-1">
+                        {suppliersOf(item.id).map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                    )}
                   </TableCell>
                   <TableCell className="max-w-48 whitespace-normal">
                     {shown(item.retention)}

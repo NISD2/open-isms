@@ -88,6 +88,8 @@ export const processorAnswerSchema = z.discriminatedUnion("fact", [
     fact: z.literal("transfer"),
     outside: z.boolean(),
     mechanism: z.enum(TRANSFER_MECHANISMS).nullable(),
+    // Art. 30(1)(e) names the third country; null where the data stays in the EEA.
+    countries: z.string().trim().max(500).nullable(),
   }),
   z.object({
     fact: z.literal("subprocessing"),
@@ -106,6 +108,7 @@ export type StoredProcessor = Readonly<
     | "dpaConcluded"
     | "internationalTransfer"
     | "transferMechanism"
+    | "transferCountries"
     | "subprocessorAuthorisation"
   > & {
     // Dates arrive as strings where a server component passed the row through JSON.
@@ -123,10 +126,30 @@ export const roleOf = (row: StoredProcessor): ProcessorRole | null => {
     : null;
 };
 
+type TransferAnswer = Extract<ProcessorAnswer, { fact: "transfer" }>;
+type TransferRow = Pick<
+  StoredProcessor,
+  | "internationalTransfer"
+  | "transferMechanism"
+  | "transferCountries"
+  | "transferCheckedAt"
+>;
+
 /**
- * What the company has recorded for a stored row on a processors screen of `fact`, or null. The
- * transfer column defaults to "no transfer", so a "no" counts only once the walk recorded it.
+ * The transfer answer a stored row holds, or null. The column defaults to "no transfer", so a
+ * "no" counts only once the walk recorded it.
  */
+const storedTransfer = (row: TransferRow): TransferAnswer | null =>
+  row.internationalTransfer === true || row.transferCheckedAt !== null
+    ? {
+        fact: "transfer",
+        outside: row.internationalTransfer === true,
+        mechanism: row.transferMechanism,
+        countries: row.transferCountries,
+      }
+    : null;
+
+/** What the company has recorded for a stored row on a processors screen of `fact`, or null. */
 export const storedAnswer = (
   fact: ProcessorFact,
   row: StoredProcessor,
@@ -139,13 +162,7 @@ export const storedAnswer = (
     case "contract":
       return row.dpaConcluded === null ? null : { fact, concluded: row.dpaConcluded };
     case "transfer":
-      return row.internationalTransfer === true || row.transferCheckedAt !== null
-        ? {
-            fact,
-            outside: row.internationalTransfer === true,
-            mechanism: row.transferMechanism,
-          }
-        : null;
+      return storedTransfer(row);
     case "subprocessing":
       return row.subprocessorAuthorisation === null
         ? null
@@ -158,3 +175,29 @@ export const storedAnswer = (
 /** Whether a supplier processes data on the company's behalf: what the later screens ask about. */
 export const isProcessor = (row: StoredProcessor): boolean =>
   row.relationshipType === "processor";
+
+/** Whether a transfer answer is complete: data leaving the EEA names its basis and countries. */
+export const transferComplete = (answer: TransferAnswer): boolean =>
+  !answer.outside || (answer.mechanism !== null && !!answer.countries?.trim());
+
+/**
+ * What an activity's record says of its transfers through one linked supplier (Art. 30(1)(e)),
+ * from the supplier's own row: outside the EEA with where to and on which basis, inside it, or
+ * open while G-DPA.1 has not recorded it.
+ */
+export type ThroughSupplier =
+  | {
+      readonly kind: "outside";
+      readonly countries: string | null;
+      readonly mechanism: TransferMechanism | null;
+    }
+  | { readonly kind: "inside" }
+  | { readonly kind: "open" };
+
+export const throughSupplier = (row: TransferRow): ThroughSupplier => {
+  const answer = storedTransfer(row);
+  if (!answer) return { kind: "open" };
+  return answer.outside
+    ? { kind: "outside", countries: answer.countries, mechanism: answer.mechanism }
+    : { kind: "inside" };
+};

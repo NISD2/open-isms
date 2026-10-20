@@ -13,7 +13,7 @@
         "label": "Personalverwaltung",
         "purpose": "Arbeitsverhältnisse begründen, durchführen und beenden",
         "dataSubjects": "Beschäftigte, ehemalige Beschäftigte",
-        "dataCategories": "Kontaktdaten, Arbeitsvertrag, Qualifikationen, Urlaub, Abwesenheiten, Beurteilungen",
+        "dataCategories": "Kontaktdaten, Arbeitsvertrag, Qualifikationen, Urlaub, Abwesenheiten (Krankmeldungen sind Gesundheitsdaten, eine besondere Kategorie), Beurteilungen",
         "recipients": "Geschäftsführung, Vorgesetzte, Steuerberater, Behörden, soweit ein Gesetz es verlangt",
         "retention": "Bis zum Ende des Arbeitsverhältnisses, danach nur, was ein Gesetz aufzubewahren verlangt oder für mögliche Ansprüche nötig ist; genaue Frist legt das Unternehmen fest"
       },
@@ -23,7 +23,16 @@
         "dataSubjects": "Bewerberinnen und Bewerber",
         "dataCategories": "Kontaktdaten, Lebenslauf, Zeugnisse, Notizen aus Gesprächen",
         "recipients": "Geschäftsführung, Fachabteilung, gegebenenfalls Personaldienstleister",
-        "retention": "Nach einer Absage nur so lange, wie Ansprüche wegen Benachteiligung möglich sind (geltend zu machen binnen zwei Monaten nach Zugang der Absage, § 15 Abs. 4 AGG); genaue Frist legt das Unternehmen fest"
+        "retention": "Nach einer Absage nur so lange, wie Ansprüche wegen Benachteiligung möglich sind (geltend zu machen binnen zwei Monaten nach Zugang der Absage, § 15 Abs. 4 AGG); genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Uns gegen Rechtsansprüche abgelehnter Bewerber verteidigen, nur so lange, wie solche Ansprüche möglich sind"
+      },
+      "whistleblowing": {
+        "label": "Hinweisgebersystem",
+        "purpose": "Meldungen über Verstöße über die interne Meldestelle entgegennehmen und ihnen nachgehen",
+        "dataSubjects": "Hinweisgebende, in einer Meldung genannte Personen, Zeugen",
+        "dataCategories": "Name und Kontaktdaten, soweit angegeben, Inhalt der Meldung, der auch Daten über Straftaten enthalten kann",
+        "recipients": "Die interne Meldestelle, eine Person im Unternehmen oder eine externe Ombudsperson",
+        "retention": "Die Dokumentation wird drei Jahre nach Abschluss des Verfahrens gelöscht (§ 11 Abs. 5 HinSchG)"
       },
       "working_time": {
         "label": "Arbeitszeiterfassung",
@@ -39,7 +48,8 @@
         "dataSubjects": "Kunden, Ansprechpartner bei Firmenkunden, Interessenten",
         "dataCategories": "Name, Kontaktdaten, Firma, Aufträge, Schriftverkehr",
         "recipients": "Vertrieb, Buchhaltung, Versanddienstleister, Anbieter des Kundenverwaltungsprogramms",
-        "retention": "Bis zum Ende der Geschäftsbeziehung; Geschäftsbriefe sechs Jahre, Rechnungen als Buchungsbelege acht Jahre (§ 257 Abs. 4 HGB, § 147 Abs. 3 AO)"
+        "retention": "Bis zum Ende der Geschäftsbeziehung; Geschäftsbriefe sechs Jahre, Rechnungen als Buchungsbelege acht Jahre (§ 257 Abs. 4 HGB, § 147 Abs. 3 AO)",
+        "legitimateInterests": "Mit den Ansprechpartnern bei Firmenkunden zusammenarbeiten, die selbst nicht Vertragspartei sind"
       },
       "accounting": {
         "label": "Buchhaltung",
@@ -55,7 +65,8 @@
         "dataSubjects": "Ansprechpartner bei Lieferanten, Einzelunternehmer",
         "dataCategories": "Name, Kontaktdaten, Firma, Bestellungen, Bankverbindung",
         "recipients": "Einkauf, Buchhaltung, Steuerberater",
-        "retention": "Bis zum Ende der Geschäftsbeziehung; Geschäftsbriefe sechs Jahre, Buchungsbelege acht Jahre (§ 257 Abs. 4 HGB, § 147 Abs. 3 AO)"
+        "retention": "Bis zum Ende der Geschäftsbeziehung; Geschäftsbriefe sechs Jahre, Buchungsbelege acht Jahre (§ 257 Abs. 4 HGB, § 147 Abs. 3 AO)",
+        "legitimateInterests": "Mit den Ansprechpartnern bei Lieferanten zusammenarbeiten, die selbst nicht Vertragspartei sind"
       },
       "enquiries": {
         "label": "Anfragen und Kundendienst",
@@ -63,7 +74,8 @@
         "dataSubjects": "Interessenten, Kunden",
         "dataCategories": "Name, Kontaktdaten, Inhalt der Anfrage",
         "recipients": "Kundendienst, Fachabteilung, Anbieter des Ticketsystems",
-        "retention": "Bis die Anfrage erledigt ist, dann gelöscht; wird daraus ein Auftrag, gelten die Fristen der Kundenverwaltung"
+        "retention": "Bis die Anfrage erledigt ist, dann gelöscht; wird daraus ein Auftrag, gelten die Fristen der Kundenverwaltung",
+        "legitimateInterests": "Menschen antworten, die sich an uns wenden, auch wenn sie keine Kunden sind"
       },
       "website": {
         "label": "Website",
@@ -71,7 +83,16 @@
         "dataSubjects": "Besucher der Website",
         "dataCategories": "IP-Adresse, Zeitpunkt, aufgerufene Seiten, Browser",
         "recipients": "Hoster der Website",
-        "retention": "Protokolle nur so lange, wie für Betrieb und Sicherheit nötig; genaue Frist legt das Unternehmen fest"
+        "retention": "Protokolle nur so lange, wie für Betrieb und Sicherheit nötig; genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Die Website bereitstellen und vor Angriffen schützen (Erwägungsgrund 49)"
+      },
+      "website_analytics": {
+        "label": "Webanalyse und Cookies",
+        "purpose": "Messen, wie die Website genutzt wird, oder Inhalte anderer Anbieter zeigen, mit Werkzeugen, die Informationen auf dem Gerät des Besuchers speichern oder auslesen",
+        "dataSubjects": "Besucher der Website, die einwilligen",
+        "dataCategories": "Kennungen aus Cookies oder vom Gerät, IP-Adresse, aufgerufene Seiten, Angaben zum Gerät",
+        "recipients": "Anbieter des Werkzeugs für Analyse oder Marketing",
+        "retention": "Wie im Cookiebanner angegeben; gelöscht, wenn der Besucher seine Einwilligung widerruft"
       },
       "newsletter": {
         "label": "Newsletter",
@@ -86,8 +107,9 @@
         "purpose": "Das Unternehmen in sozialen Netzwerken zeigen, Nachrichten und Kommentare beantworten",
         "dataSubjects": "Follower, Personen, die schreiben oder kommentieren",
         "dataCategories": "Profilname, Nachrichten, Kommentare",
-        "recipients": "Betreiber der Plattform",
-        "retention": "Nachrichten löschen, wenn sie erledigt sind; genaue Frist legt das Unternehmen fest"
+        "recipients": "Betreiber der Plattform; für die Statistiken zu Ihrer Seite kann er mit Ihnen gemeinsam verantwortlich sein (Art. 26)",
+        "retention": "Nachrichten löschen, wenn sie erledigt sind; genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Das Unternehmen zeigen und den Menschen antworten, die sich dort an es wenden"
       },
       "video_meetings": {
         "label": "Videokonferenzen",
@@ -95,7 +117,8 @@
         "dataSubjects": "Beschäftigte, Teilnehmende von außen",
         "dataCategories": "Name, E-Mail-Adresse, Bild und Ton, Zeitpunkt der Teilnahme",
         "recipients": "Anbieter der Videokonferenzsoftware",
-        "retention": "Aufzeichnungen nur, wenn nötig, und gelöscht, wenn der Zweck erfüllt ist; genaue Frist legt das Unternehmen fest"
+        "retention": "Aufzeichnungen nur, wenn nötig, und gelöscht, wenn der Zweck erfüllt ist; genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Besprechungen mit Teilnehmenden von außen abhalten, ohne zu reisen"
       },
       "email": {
         "label": "E-Mail",
@@ -103,7 +126,8 @@
         "dataSubjects": "Beschäftigte, Kunden, Lieferanten und alle, die dem Unternehmen schreiben",
         "dataCategories": "Name, E-Mail-Adresse, Inhalt der Nachrichten, Anhänge",
         "recipients": "Anbieter des E-Mail-Dienstes",
-        "retention": "Geschäftsbriefe sechs Jahre, Buchungsbelege acht Jahre (§ 257 Abs. 4 HGB, § 147 Abs. 3 AO); alles andere gelöscht, wenn der Zweck erfüllt ist"
+        "retention": "Geschäftsbriefe sechs Jahre, Buchungsbelege acht Jahre (§ 257 Abs. 4 HGB, § 147 Abs. 3 AO); alles andere gelöscht, wenn der Zweck erfüllt ist",
+        "legitimateInterests": "Mit Geschäftskontakten schreiben, die selbst nicht Partei eines Vertrags mit uns sind"
       },
       "it_logging": {
         "label": "Protokolle der IT",
@@ -111,7 +135,17 @@
         "dataSubjects": "Beschäftigte und andere Nutzer der Systeme",
         "dataCategories": "Benutzername, IP-Adresse, Zeitpunkt, Anmeldungen, Aktionen im System",
         "recipients": "IT-Abteilung, IT-Dienstleister",
-        "retention": "Nur so lange, wie für Sicherheit und Fehlersuche nötig; genaue Frist legt das Unternehmen fest"
+        "retention": "Nur so lange, wie für Sicherheit und Fehlersuche nötig; genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Unsere Systeme und Daten vor Angriffen und Ausfällen schützen (Erwägungsgrund 49). Die Protokolle dienen nicht dazu, die Arbeit einzelner Beschäftigter zu kontrollieren."
+      },
+      "phishing_tests": {
+        "label": "Phishingtests",
+        "purpose": "Prüfen, ob Beschäftigte Phishingmails erkennen, und sie schulen",
+        "dataSubjects": "Beschäftigte",
+        "dataCategories": "Name, E-Mail-Adresse, ob eine Testmail geöffnet, angeklickt oder gemeldet wurde",
+        "recipients": "IT-Abteilung, Anbieter der Testplattform",
+        "retention": "Ergebnisse je Person nur so lange, wie die Schulung sie braucht; genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Unsere Systeme vor Phishing schützen, was nur gelingt, wenn Beschäftigte es erkennen. Die Ergebnisse dienen der Schulung, nicht der Beurteilung Einzelner."
       },
       "access_control": {
         "label": "Zutrittskontrolle",
@@ -119,15 +153,17 @@
         "dataSubjects": "Beschäftigte, Besucher, Dienstleister",
         "dataCategories": "Name, Ausweisnummer, Zutrittsrechte, Zeitpunkt des Zutritts",
         "recipients": "Haustechnik, Anbieter des Zutrittssystems",
-        "retention": "Zutrittsrechte bis zum Ende der Berechtigung, Protokolle nur kurz; genaue Frist legt das Unternehmen fest"
+        "retention": "Zutrittsrechte bis zum Ende der Berechtigung, Protokolle nur kurz; genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Gebäude, Geräte und Daten vor dem Zutritt von Personen schützen, die dort nichts zu suchen haben"
       },
       "video_surveillance": {
         "label": "Videoüberwachung",
         "purpose": "Gebäude und Gelände schützen, Vorfälle aufklären",
         "dataSubjects": "Beschäftigte, Besucher, Passanten im erfassten Bereich",
         "dataCategories": "Videobilder, Zeitpunkt",
-        "recipients": "Geschäftsführung, im Einzelfall die Polizei",
-        "retention": "So kurz wie möglich, nur bis feststeht, ob ein Vorfall vorliegt; genaue Frist legt das Unternehmen fest"
+        "recipients": "Geschäftsführung, der Kameraanbieter, wo Aufnahmen in seiner Cloud gespeichert werden, im Einzelfall die Polizei",
+        "retention": "So kurz wie möglich, nur bis feststeht, ob ein Vorfall vorliegt; genaue Frist legt das Unternehmen fest",
+        "legitimateInterests": "Eigentum und Menschen schützen und Vorfälle aufklären, wo mildere Mittel nicht genügen"
       }
     }
   }

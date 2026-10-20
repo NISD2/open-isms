@@ -2,6 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import {
   isProcessor,
@@ -10,9 +12,11 @@ import {
   type ProcessorFact,
   SUBPROCESSOR_AUTHORISATIONS,
   TRANSFER_MECHANISMS,
+  transferComplete,
 } from "@/lib/durchgang";
 import { answerFor, type SupplierStatement } from "@/lib/supplier-portal/statements";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
+import { cn } from "@/lib/utils";
 import type { Draft } from "./draft";
 import { Aside, Heading, Lead } from "./ExplainScreens";
 import { Toggle } from "./RowParts";
@@ -50,10 +54,9 @@ export function useProcessorRows(
     : undefined;
 }
 
-/** Whether a row's answer is complete: a transfer outside the EEA names its basis. */
+/** Whether a row's answer is complete: a transfer outside the EEA names its basis and countries. */
 export const answered = (answer: ProcessorAnswer | null | undefined): boolean =>
-  !!answer &&
-  (answer.fact !== "transfer" || !answer.outside || answer.mechanism !== null);
+  !!answer && (answer.fact !== "transfer" || transferComplete(answer));
 
 /**
  * Whether a row is settled: the company's own answer, chosen now or recorded before, and complete.
@@ -180,6 +183,7 @@ export function Processors({
         ));
       case "transfer": {
         const current = answer?.fact === "transfer" ? answer : null;
+        const countries = current?.countries ?? null;
         return (
           <>
             {([false, true] as const).map((outside) => (
@@ -191,6 +195,7 @@ export function Processors({
                     fact,
                     outside,
                     mechanism: outside ? (current?.mechanism ?? null) : null,
+                    countries: outside ? countries : null,
                   })
                 }
               >
@@ -205,12 +210,35 @@ export function Processors({
                     <Toggle
                       key={mechanism}
                       {...mark(current.mechanism === mechanism)}
-                      onClick={() => set(row, { fact, outside: true, mechanism })}
+                      onClick={() =>
+                        set(row, { fact, outside: true, mechanism, countries })
+                      }
                     >
                       {t(`transfer.mechanisms.${mechanism}`)}
                     </Toggle>
                   ))}
                 </div>
+                <Label htmlFor={`countries-${row.id}`} className="pt-1 font-normal">
+                  {t("transfer.countries")}
+                </Label>
+                <Input
+                  id={`countries-${row.id}`}
+                  value={countries ?? ""}
+                  placeholder={t("transfer.countriesHint")}
+                  maxLength={500}
+                  onChange={(e) =>
+                    set(row, {
+                      fact,
+                      outside: true,
+                      mechanism: current.mechanism,
+                      countries: e.target.value,
+                    })
+                  }
+                  className={cn(
+                    "h-11 max-w-md text-base sm:h-10 sm:text-sm",
+                    suggested && "border-dashed",
+                  )}
+                />
               </div>
             )}
           </>

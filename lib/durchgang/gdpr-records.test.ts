@@ -9,6 +9,8 @@ import {
   roleOf,
   type StoredProcessor,
   storedAnswer,
+  throughSupplier,
+  transferComplete,
 } from "./gdpr-records";
 import { WALK_FRAMEWORKS } from "./types";
 
@@ -19,6 +21,7 @@ const stored = (row: Partial<StoredProcessor>): StoredProcessor => ({
   dpaConcluded: null,
   internationalTransfer: false,
   transferMechanism: null,
+  transferCountries: null,
   transferCheckedAt: null,
   subprocessorAuthorisation: null,
   ...row,
@@ -74,12 +77,53 @@ describe("what a stored supplier row answers", () => {
       fact: "transfer",
       outside: false,
       mechanism: null,
+      countries: null,
     });
     expect(
       storedAnswer(
         "transfer",
         stored({ internationalTransfer: true, transferMechanism: "sccs" }),
       ),
-    ).toEqual({ fact: "transfer", outside: true, mechanism: "sccs" });
+    ).toEqual({ fact: "transfer", outside: true, mechanism: "sccs", countries: null });
+  });
+});
+
+describe("an activity's transfers through a linked supplier", () => {
+  test("read from the supplier's row: open, inside, or outside with where and on what", () => {
+    expect(throughSupplier(stored({}))).toEqual({ kind: "open" });
+    expect(throughSupplier(stored({ transferCheckedAt: new Date() }))).toEqual({
+      kind: "inside",
+    });
+    expect(
+      throughSupplier(
+        stored({
+          internationalTransfer: true,
+          transferMechanism: "adequacy",
+          transferCountries: "USA",
+          transferCheckedAt: new Date(),
+        }),
+      ),
+    ).toEqual({ kind: "outside", countries: "USA", mechanism: "adequacy" });
+  });
+
+  test("a transfer outside the EEA is complete only with its basis and countries", () => {
+    const outside = { fact: "transfer", outside: true } as const;
+    expect(transferComplete({ ...outside, mechanism: "sccs", countries: "USA" })).toBe(
+      true,
+    );
+    expect(transferComplete({ ...outside, mechanism: "sccs", countries: " " })).toBe(
+      false,
+    );
+    expect(transferComplete({ ...outside, mechanism: null, countries: "USA" })).toBe(
+      false,
+    );
+    expect(
+      transferComplete({
+        fact: "transfer",
+        outside: false,
+        mechanism: null,
+        countries: null,
+      }),
+    ).toBe(true);
   });
 });

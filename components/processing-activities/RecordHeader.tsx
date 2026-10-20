@@ -25,9 +25,12 @@ const textOf = (value: unknown): string | null =>
 export function RecordHeader({
   controller,
   items,
+  suppliersOf,
 }: {
   controller: Controller;
   items: readonly Record<string, unknown>[];
+  /** The suppliers receiving an activity's data, each with its transfers, as the record words it. */
+  suppliersOf: (id: unknown) => readonly string[];
 }) {
   const t = useTranslations("processingActivities");
   const format = useFormatter();
@@ -76,8 +79,11 @@ export function RecordHeader({
       [t("record.measures"), measuresLine],
       [t("record.asOf"), day(new Date())],
       [],
-      COLUMNS.map((c) => t(`fields.${c}`)),
-      ...items.map((item) => COLUMNS.map((c) => cell(c, item[c]))),
+      [...COLUMNS.map((c) => t(`fields.${c}`)), t("fields.suppliers")],
+      ...items.map((item) => [
+        ...COLUMNS.map((c) => cell(c, item[c])),
+        suppliersOf(item.id).join("; ") || null,
+      ]),
     ]);
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     const link = document.createElement("a");

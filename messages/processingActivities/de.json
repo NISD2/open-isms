@@ -11,24 +11,61 @@
     "fields": {
       "name": "Tätigkeit",
       "purpose": "Zweck",
+      "legalBases": "Rechtsgrundlage",
+      "legitimateInterests": "Berechtigtes Interesse",
       "dataSubjects": "Betroffene Personen",
       "dataCategories": "Datenkategorien",
       "specialCategories": "Besondere Kategorien (Art. 9, 10)",
       "recipients": "Empfänger",
-      "transfersOutsideEea": "Übermittlung außerhalb des EWR",
+      "transfersOutsideEea": "Andere Übermittlung außerhalb des EWR",
       "transferDetails": "Drittland und Grundlage",
-      "retention": "Löschfrist"
+      "retention": "Löschfrist",
+      "suppliers": "Lieferanten, die die Daten bekommen"
     },
     "fieldDescriptions": {
       "name": "Ein kurzer Name für die Tätigkeit, zum Beispiel Lohnabrechnung oder Newsletter.",
       "purpose": "Wofür Sie die Daten verarbeiten, in einem Satz (Art. 30 Abs. 1 Buchst. b).",
+      "legalBases": "Jede Grundlage aus Art. 6 Abs. 1, auf der die Tätigkeit beruht.",
+      "legitimateInterests": "Wo die Tätigkeit auf berechtigten Interessen beruht: welches Interesse, und warum die Interessen der Betroffenen nicht überwiegen (Art. 6 Abs. 1 Buchst. f).",
       "dataSubjects": "Wessen Daten, als Gruppen, etwa Beschäftigte, Kunden oder Bewerber (Art. 30 Abs. 1 Buchst. c).",
       "dataCategories": "Welche Daten, als Gruppen, etwa Kontaktdaten, Bankverbindung oder Vertragsdaten (Art. 30 Abs. 1 Buchst. c).",
       "specialCategories": "Ob die Tätigkeit besondere Kategorien von Daten nach Art. 9 Abs. 1 umfasst, etwa Gesundheitsdaten, oder Daten über strafrechtliche Verurteilungen und Straftaten nach Art. 10.",
       "recipients": "Wer die Daten bekommt, im Unternehmen und außerhalb, auch Dienstleister und Empfänger in Drittländern (Art. 30 Abs. 1 Buchst. d).",
-      "transfersOutsideEea": "Ob Daten in ein Land außerhalb des EWR oder an eine internationale Organisation gehen (Art. 30 Abs. 1 Buchst. e).",
+      "transfersOutsideEea": "Ob Daten in ein Land außerhalb des EWR oder an eine internationale Organisation gehen, außer über die Lieferanten, die sie bekommen. Deren Übermittlungen stehen einmal bei jedem Lieferanten (Art. 30 Abs. 1 Buchst. e).",
       "transferDetails": "Das Drittland und die Grundlage der Übermittlung, etwa ein Angemessenheitsbeschluss oder Standardvertragsklauseln (Art. 30 Abs. 1 Buchst. e).",
       "retention": "Wann die Daten gelöscht werden, wenn möglich mit der Frist und ihrer Grundlage (Art. 30 Abs. 1 Buchst. f)."
+    },
+    "record": {
+      "title": "Verzeichnis von Verarbeitungstätigkeiten (Art. 30 Abs. 1 DSGVO)",
+      "controller": "Verantwortlicher",
+      "controllerOpen": "Tragen Sie den Firmennamen und die Anschrift Ihres Unternehmens unter Organisation ein.",
+      "dpo": "Datenschutzbeauftragte",
+      "dpoNone": "Niemand benannt",
+      "dpoOpen": "Noch nicht festgehalten; der DSGVO Durchgang fragt es im ersten Schritt.",
+      "dpoUnnamed": "Zu benennen; Name und Kontakt noch nicht festgehalten.",
+      "measures": "Sicherheitsmaßnahmen (Art. 30 Abs. 1 Buchst. g)",
+      "measuresApproved": "{title}, freigegeben am {date}",
+      "measuresDraft": "{title}, noch nicht freigegeben",
+      "measuresNone": "Noch nicht geschrieben; der DSGVO Durchgang schreibt es.",
+      "asOf": "Stand",
+      "export": "Verzeichnis herunterladen (CSV)",
+      "yes": "Ja",
+      "no": "Nein"
+    },
+    "through": {
+      "outside": "{name}: außerhalb des EWR ({countries}), Grundlage: {basis}",
+      "inside": "{name}: die Daten bleiben im EWR",
+      "open": "{name}: noch nicht festgehalten; der DSGVO Durchgang fragt es bei Ihren Auftragsverarbeitern",
+      "noCountries": "Länder noch nicht genannt",
+      "noBasis": "keine bekannt"
+    },
+    "bases": {
+      "consent": "Einwilligung (a)",
+      "contract": "Vertrag (b)",
+      "legal_obligation": "Rechtliche Verpflichtung (c)",
+      "vital_interests": "Lebenswichtige Interessen (d)",
+      "public_task": "Öffentliche Aufgabe (e)",
+      "legitimate_interests": "Berechtigte Interessen (f)"
     }
   }
 }

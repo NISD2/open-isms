@@ -4,6 +4,7 @@
       "G-DPA_1": {
         "headline": "Ihre Auftragsverarbeiter und ihre Verträge festhalten",
         "teaser": "Wer Daten in Ihrem Auftrag verarbeitet, und ob der Vertrag dazu vorliegt.",
+        "fromNis2": "Ihre Lieferantenliste aus NIS 2 ist die Liste, mit der Sie beginnen, und ihre Sicherheitsklauseln decken einen Teil dessen ab, was Art. 28 Abs. 3 verlangt. NIS 2 fragt nicht, welche Lieferanten personenbezogene Daten in Ihrem Auftrag verarbeiten, und auch nicht, ob ein Vertrag mit dem Inhalt von Art. 28 Abs. 3 vorliegt, dokumentierte Weisungen und Vertraulichkeit eingeschlossen.",
         "missed": [
           "Der Vertrag muss nicht unterschrieben sein. Er ist schriftlich abzufassen, was auch in einem elektronischen Format erfolgen kann (Art. 28 Abs. 9). Große Anbieter stellen ihn oft online bereit, als Teil ihrer Bedingungen; suchen Sie dort nach „Auftragsverarbeitung“ oder „Data Processing Addendum“.",
           "Bevor Sie einen Dienstleister beauftragen, prüfen Sie, ob er hinreichende Garantien für geeignete technische und organisatorische Maßnahmen bietet (Art. 28 Abs. 1), etwa anhand der Maßnahmen, die er beschreibt.",
@@ -54,7 +55,7 @@
           },
           "where": {
             "title": "Wohin die Daten gehen",
-            "lead": "Bleiben die Daten im EWR, also in der EU, in Island, Liechtenstein und Norwegen? Gehen sie in ein anderes Land, wählen Sie die Grundlage. Sie steht oft im Vertrag zur Auftragsverarbeitung, etwa als Standardvertragsklauseln."
+            "lead": "Bewahrt der Anbieter die Daten im EWR auf, also in der EU, in Island, Liechtenstein und Norwegen? Sehen Sie in seinem Vertrag zur Auftragsverarbeitung nach oder auf seiner Website unter „Datenstandort“ oder „Unterauftragsverarbeiter“. Gehen die Daten anderswohin, nennt der Vertrag, warum das erlaubt ist. Meist sind es die Standardvertragsklauseln, ein fester Vertragstext der Europäischen Kommission. Ein Angemessenheitsbeschluss deckt ein Land ab, das die Kommission als sicher eingestuft hat; für die USA deckt er nur Empfänger ab, die unter dem EU-US Data Privacy Framework zertifiziert sind. Eine Ausnahme nach Art. 49 gilt für gelegentliche Übermittlungen, nicht als Grundlage für die regelmäßigen eines Anbieters (Leitlinien 2/2018 des EDSA). Nennen Sie auch die Länder: Ihr Verzeichnis von Verarbeitungstätigkeiten führt sie bei jeder Tätigkeit auf, für die der Anbieter arbeitet (Art. 30 Abs. 1 Buchst. e)."
           },
           "done": {
             "title": "Ihre Auftragsverarbeiter sind festgehalten",

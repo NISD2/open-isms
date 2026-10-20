@@ -71,6 +71,9 @@
       "policy": {
         "question": "Was davon gibt es in Ihrem Unternehmen?",
         "questionHint": "Jeder Punkt, den Sie wählen, kommt als Abschnitt in das Dokument oben und leuchtet kurz auf. Ein zweites Antippen nimmt ihn wieder heraus.",
+        "ticked": {
+          "restore_tested": "{clause} ist schon gewählt: {name} wurde am {on} aus der Sicherung wiederhergestellt, so steht es in Ihrem NIS 2 Durchgang (4.4). Nehmen Sie den Punkt heraus, wenn Sie das Wiederherstellen nicht mehr testen."
+        },
         "read": "Ich habe das Dokument gelesen, und es passt zu unserem Unternehmen",
         "ownLabel": "Was sonst noch bei Ihnen gilt (freiwillig)",
         "ownHint": "Zum Beispiel eine Nummer, eine eigene Regel oder einen Ansprechpartner. Es kommt als letzter Abschnitt ins Dokument, so wie Sie es schreiben.",
@@ -86,7 +89,12 @@
         "other": "Jemand anderes",
         "otherName": "Name der Person",
         "invite": "Noch nicht im Team? Per E-Mail einladen",
-        "placeholder": "name@ihre-firma.de"
+        "placeholder": "name@ihre-firma.de",
+        "carried": "Übernommen aus {code} {headline}. Ändern Sie es, wenn jemand anderes das übernimmt.",
+        "apart": {
+          "same": "{name} ist auch in {code} {headline} genannt. Das kann passen. Prüfen Sie, dass {name} nicht entscheidet, wofür und wie personenbezogene Daten verarbeitet werden, denn genau das überwacht ein Datenschutzbeauftragter (Art. 38 Abs. 6 DSGVO).",
+          "management": "{name} gehört zur Geschäftsführung. Die Geschäftsführung entscheidet, wofür und wie personenbezogene Daten verarbeitet werden, und das überwacht ein Datenschutzbeauftragter. Die beiden Rollen geraten deshalb meist in Konflikt (Art. 38 Abs. 6 DSGVO). Prüfen Sie das, oder wählen Sie jemand anderen."
+        }
       },
       "suggestions": "Häufige Antworten:",
       "suggestionsOwn": "Aus Ihren Angaben:",
@@ -143,6 +151,13 @@
         "failed": "Das wurde nicht gespeichert. Bitte versuchen Sie es noch einmal."
       },
       "approve": {
+        "scope": {
+          "title": "Was diese Freigabe umfasst",
+          "own": "Die unten aufgeführten {law} Dokumente und Schritte, sonst nichts. Bei jedem, das Sie freigeben, werden Ihr Name und das Datum festgehalten.",
+          "other": "Für {law} gibt sie nichts frei, auch wo beide Gesetze Ähnliches verlangen.",
+          "also": "Für {law} zählt sie auch dort, wo der Eintrag derselbe ist: {codes}.",
+          "openOther": "{law} hat eine eigene Seite für die Freigabe."
+        },
         "approve": "Freigeben",
         "approvedOn": "Freigegeben am {date}",
         "approvedBy": "Freigegeben am {date} von {name}",

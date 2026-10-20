@@ -4,6 +4,7 @@
       "G-ROP_1": {
         "headline": "Ihr Verzeichnis von Verarbeitungstätigkeiten anlegen",
         "teaser": "Was Sie mit personenbezogenen Daten tun, eine Zeile je Tätigkeit.",
+        "fromNis2": "Ihre Liste aus NIS 2, womit Ihr Unternehmen arbeitet, schlägt die Tätigkeiten hier vor. NIS 2 hält Ihre Systeme fest und wie wichtig sie für das Geschäft sind; dieses Verzeichnis sagt, was Sie mit personenbezogenen Daten tun: den Zweck, wessen Daten, welche Daten, wer sie bekommt und wann sie gelöscht werden (Art. 30 Abs. 1).",
         "missed": [
           "Die Ausnahme für Unternehmen mit weniger als 250 Beschäftigten (Art. 30 Abs. 5) greift fast nie. Sie entfällt schon, wenn eine von drei Bedingungen vorliegt: Die Verarbeitung birgt ein Risiko für die Betroffenen, sie erfolgt nicht nur gelegentlich, oder sie umfasst besondere Kategorien von Daten oder Daten über Straftaten. Eine monatliche Lohnabrechnung erfolgt nicht nur gelegentlich.",
           "Die Aufsichtsbehörde kann das Verzeichnis anfordern (Art. 30 Abs. 4). Ändern Sie es, sobald eine Tätigkeit dazukommt oder wegfällt.",
@@ -14,7 +15,7 @@
             "title": "Was Sie mit Daten tun",
             "body": [
               "Das Verzeichnis listet jede Verarbeitungstätigkeit Ihres Unternehmens, etwa Lohnabrechnung, Kundenverwaltung, Website oder Videoüberwachung. Zu jeder steht, wofür Sie die Daten verarbeiten, wessen Daten und welche, wer sie bekommt, ob sie in ein Land außerhalb des EWR gehen und wann sie gelöscht werden (Art. 30 Abs. 1). Dazu kommen Name und Kontaktdaten Ihres Unternehmens und Ihrer Datenschutzbeauftragten.",
-              "Schriftlich heißt hier: auch elektronisch (Art. 30 Abs. 3). Eine Unterschrift verlangt die DSGVO nicht.",
+              "Schriftlich heißt hier: auch elektronisch (Art. 30 Abs. 3).",
               "In den nächsten Schritten wählen Sie Ihre Tätigkeiten aus einer Liste und beschreiben jede. Für jede Angabe gibt es einen Vorschlag, den Sie übernehmen oder ändern. Führen Ihre Datenschutzbeauftragten schon ein Verzeichnis, legen Sie es daneben und gleichen Sie ab."
             ],
             "duty": "Die DSGVO verlangt, dass Ihr Unternehmen ein Verzeichnis aller Verarbeitungstätigkeiten führt, für die es zuständig ist."
@@ -70,11 +71,15 @@
           },
           "what": {
             "title": "Wofür, wessen Daten, welche",
-            "lead": "Für jede Tätigkeit steht ein Vorschlag da. Übernehmen Sie ihn, oder schreiben Sie, wie es bei Ihnen ist. Gruppen genügen, Namen gehören nicht hinein."
+            "lead": "Für jede Tätigkeit steht ein Vorschlag da. Übernehmen Sie ihn, oder schreiben Sie, wie es bei Ihnen ist. Schreiben Sie Gruppen, etwa Beschäftigte oder Kunden, keine Namen einzelner Personen."
+          },
+          "basis": {
+            "title": "Auf welcher Rechtsgrundlage",
+            "lead": "Warum dürfen Sie diese Daten nutzen? Das Gesetz erlaubt es nur aus einem von sechs Gründen (Art. 6 Abs. 1). Die meisten Tätigkeiten beruhen auf einem von zwei: Sie brauchen die Daten für einen Vertrag mit der Person, etwa einen Arbeitsvertrag oder einen Auftrag, oder ein Gesetz verpflichtet Sie, sie aufzubewahren, etwa das Steuerrecht. Der übliche Grund jeder Tätigkeit ist markiert; übernehmen Sie ihn, wenn Ihr Fall nicht anders liegt. Eine Einwilligung passt nur, wo die Person wirklich die Wahl hat und sie jederzeit widerrufen kann (Erwägungsgrund 42, Art. 7 Abs. 3). Werkzeuge auf der Website, die Informationen auf dem Gerät eines Besuchers speichern oder auslesen, brauchen eine Einwilligung, wenn sie nicht unbedingt erforderlich sind (§ 25 TDDDG). Wenn Sie sich auf berechtigte Interessen stützen, schreiben Sie in einem Satz, was Ihr Unternehmen braucht und warum die Interessen der Betroffenen nicht überwiegen."
           },
           "who": {
             "title": "Wer die Daten bekommt",
-            "lead": "Empfänger ist jeder, dem Sie die Daten offenlegen, auch Ihre Dienstleister (Art. 4 Nr. 9). Sagen Sie auch, ob Daten in ein Land außerhalb des EWR gehen, etwa zu einem Clouddienst in den USA."
+            "lead": "Empfänger ist jeder, dem Sie die Daten offenlegen, auch Ihre Dienstleister (Art. 4 Nr. 9). Kreuzen Sie die Lieferanten an, die die Daten bekommen, und nennen Sie dann die übrigen Empfänger. Ob Daten über einen Lieferanten den EWR verlassen, steht einmal bei diesem Lieferanten; hier sagen Sie nur, ob sie auf anderem Weg hinausgehen."
           },
           "keep": {
             "title": "Wann gelöscht wird",

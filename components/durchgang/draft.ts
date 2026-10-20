@@ -85,9 +85,12 @@ export interface Draft {
 
 /**
  * A processing activity's facts as a describe screen edits them, the shape the save takes
- * (`activityFactsSchema`): only the facts the person touched or the screen proposed are present.
+ * (`activityFactsSchema`), with the suppliers that receive its data: only what the person touched
+ * or the screen proposed is present.
  */
-export type Described = z.infer<typeof activityFactsSchema>;
+export type Described = z.infer<typeof activityFactsSchema> & {
+  readonly supplierIds?: readonly string[];
+};
 
 /** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
 export interface Agreed {

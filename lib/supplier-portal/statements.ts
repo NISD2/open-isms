@@ -103,23 +103,30 @@ export const statedAnswer = (
     case "contract":
       // Offering a DPA is not having concluded one.
       return null;
-    case "transfer":
+    case "transfer": {
+      const named = countriesOutsideEea(statement.dataProcessingLocations);
+      // The countries it named outside the EEA, as the record names them (Art. 30(1)(e)).
+      const countries = named && named.length > 0 ? named.join(", ") : null;
       switch (statement.personalDataTransfers) {
         case "inEea":
-          return { fact, outside: false, mechanism: null };
+          return { fact, outside: false, mechanism: null, countries: null };
         case "adequacy":
         case "sccs":
         case "bcr":
-          return { fact, outside: true, mechanism: statement.personalDataTransfers };
+          return {
+            fact,
+            outside: true,
+            mechanism: statement.personalDataTransfers,
+            countries,
+          };
         case "other":
-          return { fact, outside: true, mechanism: null };
-        default: {
-          const outside = countriesOutsideEea(statement.dataProcessingLocations);
-          return outside === null
+          return { fact, outside: true, mechanism: null, countries };
+        default:
+          return named === null
             ? null
-            : { fact, outside: outside.length > 0, mechanism: null };
-        }
+            : { fact, outside: named.length > 0, mechanism: null, countries };
       }
+    }
     case "subprocessing":
       return statement.subprocessorEngagement === "general" ||
         statement.subprocessorEngagement === "specific"

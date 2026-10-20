@@ -33,6 +33,7 @@ const row = (
   dpaConcluded: null,
   internationalTransfer: false,
   transferMechanism: null,
+  transferCountries: null,
   transferCheckedAt: null,
   subprocessorAuthorisation: null,
   ...stored,
@@ -84,16 +85,19 @@ describe("what a supplier's answers say", () => {
       fact: "transfer",
       outside: true,
       mechanism: "sccs",
+      countries: null,
     });
     expect(statedAnswer("transfer", said({ personalDataTransfers: "other" }))).toEqual({
       fact: "transfer",
       outside: true,
       mechanism: null,
+      countries: null,
     });
     expect(statedAnswer("transfer", said({ personalDataTransfers: "inEea" }))).toEqual({
       fact: "transfer",
       outside: false,
       mechanism: null,
+      countries: null,
     });
   });
 
@@ -103,6 +107,7 @@ describe("what a supplier's answers say", () => {
         fact: "transfer",
         outside: true,
         mechanism: null,
+        countries: "US",
       },
     );
     expect(statedAnswer("transfer", said({ dataProcessingLocations: "DE, FR" }))).toEqual(
@@ -110,8 +115,23 @@ describe("what a supplier's answers say", () => {
         fact: "transfer",
         outside: false,
         mechanism: null,
+        countries: null,
       },
     );
+  });
+
+  test("the countries it named outside the EEA come with its stated basis", () => {
+    expect(
+      statedAnswer(
+        "transfer",
+        said({ personalDataTransfers: "sccs", dataProcessingLocations: "IE, US, IN" }),
+      ),
+    ).toEqual({
+      fact: "transfer",
+      outside: true,
+      mechanism: "sccs",
+      countries: "US, IN",
+    });
   });
 
   test("no sub-processors is no authorisation to record", () => {
@@ -159,11 +179,20 @@ describe("which answer a row shows", () => {
     const abroad = row({}, said({ dataProcessingLocations: "US" }));
     expect(answerFor("transfer", abroad, undefined)?.source).toBe("stated");
     const recordedAbroad = row(
-      { internationalTransfer: true, transferMechanism: "adequacy" },
+      {
+        internationalTransfer: true,
+        transferMechanism: "adequacy",
+        transferCountries: "Japan",
+      },
       said({ personalDataTransfers: "sccs" }),
     );
     expect(answerFor("transfer", recordedAbroad, undefined)).toEqual({
-      answer: { fact: "transfer", outside: true, mechanism: "adequacy" },
+      answer: {
+        fact: "transfer",
+        outside: true,
+        mechanism: "adequacy",
+        countries: "Japan",
+      },
       source: "recorded",
     });
     expect(
@@ -173,7 +202,7 @@ describe("which answer a row shows", () => {
         undefined,
       ),
     ).toEqual({
-      answer: { fact: "transfer", outside: false, mechanism: null },
+      answer: { fact: "transfer", outside: false, mechanism: null, countries: null },
       source: "recorded",
     });
   });

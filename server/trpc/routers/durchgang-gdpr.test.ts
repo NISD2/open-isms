@@ -7,7 +7,12 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
-import { companyRequirementStatus, processingActivity, supplier } from "@/schema";
+import {
+  companyRequirementStatus,
+  processingActivity,
+  processingActivitySupplier,
+  supplier,
+} from "@/schema";
 
 // Only modules the other router tests mock the same way: `mock.module` is process-wide in Bun, so
 // mocking a shared helper here would change what every later test file imports.
@@ -39,11 +44,17 @@ const FOREIGN = "f0f0f0f0-0000-4000-8000-000000000009";
 const dialect = new PgDialect();
 const paramsOf = (where: SQL) => dialect.sqlToQuery(where).params;
 
-type Write = { op: "insert" | "update"; table: unknown; values: unknown; where?: SQL };
+type Write = {
+  op: "insert" | "update" | "delete";
+  table: unknown;
+  values: unknown;
+  where?: SQL;
+};
 
 interface World {
   readonly activities: ReadonlyArray<Record<string, unknown> & { id: string }>;
   readonly suppliers: ReadonlyArray<{ id: string; name: string }>;
+  readonly links?: ReadonlyArray<{ activityId: string; supplierId: string }>;
 }
 
 /** A database that answers from `world`; reads filter by the ids the query names, as Postgres would. */
@@ -56,6 +67,8 @@ function setup(world: World) {
       ids.length === 0 ? rows : rows.filter((r) => ids.includes(r.id));
     if (table === processingActivity) return named(world.activities);
     if (table === supplier) return named(world.suppliers);
+    if (table === processingActivitySupplier)
+      return (world.links ?? []).filter((l) => ids.includes(l.activityId));
     return [];
   };
   const select = () => ({
@@ -67,12 +80,18 @@ function setup(world: World) {
         ),
       );
       const chain = Object.assign(rows, {
+        innerJoin: () => chain,
         where: (where: SQL) => {
           state.where = where;
           return chain;
         },
       });
       return chain;
+    },
+  });
+  const remove = (table: unknown) => ({
+    where: async (where: SQL) => {
+      writes.push({ op: "delete", table, values: paramsOf(where), where });
     },
   });
   const insert = (table: unknown) => ({
@@ -94,6 +113,8 @@ function setup(world: World) {
     select,
     insert,
     update,
+    delete: remove,
+    transaction: async (work: (tx: unknown) => Promise<void>) => work(db),
     query: {
       company: {
         findFirst: async () => ({
@@ -209,6 +230,58 @@ describe("describing processing activities (G-ROP.1)", () => {
   });
 });
 
+describe("the suppliers that receive an activity's data (G-ROP.1)", () => {
+  const activities = [{ id: P1, name: "Lohnabrechnung" }];
+  const suppliers = [
+    { id: S1, name: "Lohnbüro Muster" },
+    { id: S2, name: "Cloud Muster" },
+  ];
+
+  test("replaces the activity's list as one, and sends back only GDPR sign-offs", async () => {
+    const { caller, writesTo } = setup({
+      activities,
+      suppliers,
+      links: [{ activityId: P1, supplierId: S1 }],
+    });
+    const result = await caller.describeActivities({
+      code: "G-ROP.1",
+      rows: [{ id: P1, supplierIds: [S2, S2] }],
+    });
+    expect(result.changed).toBe(1);
+    expect(writesTo(processingActivitySupplier).map((w) => [w.op, w.values])).toEqual([
+      ["delete", [P1]],
+      ["insert", [{ activityId: P1, supplierId: S2 }]],
+    ]);
+    expect(rechecked).toEqual([{ module: "processing_activity", frameworks: ["gdpr"] }]);
+  });
+
+  test("an unchanged list writes nothing", async () => {
+    const { caller, writesTo } = setup({
+      activities,
+      suppliers,
+      links: [{ activityId: P1, supplierId: S1 }],
+    });
+    const result = await caller.describeActivities({
+      code: "G-ROP.1",
+      rows: [{ id: P1, supplierIds: [S1] }],
+    });
+    expect(result.changed).toBe(0);
+    expect(writesTo(processingActivitySupplier)).toEqual([]);
+    expect(rechecked).toEqual([]);
+  });
+
+  test("links no other company's supplier", async () => {
+    const { caller, writesTo } = setup({ activities, suppliers });
+    await expect(
+      caller.describeActivities({
+        code: "G-ROP.1",
+        rows: [{ id: P1, supplierIds: [S1, FOREIGN] }],
+      }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(writesTo(processingActivitySupplier)).toEqual([]);
+  });
+});
+
 describe("recording suppliers' GDPR facts (G-DPA.1, G-DPA.2)", () => {
   const suppliers = [
     { id: S1, name: "Lohnbüro Muster" },
@@ -239,13 +312,49 @@ describe("recording suppliers' GDPR facts (G-DPA.1, G-DPA.2)", () => {
       rows: [
         {
           supplierId: S1,
-          answer: { fact: "transfer", outside: false, mechanism: "sccs" },
+          answer: {
+            fact: "transfer",
+            outside: false,
+            mechanism: "sccs",
+            countries: "US",
+          },
         },
       ],
     });
     // Recorded as answered, so the column's default "no" is never mistaken for an answer.
     expect(writesTo(supplier).map((w) => setOf(w.values))).toEqual([
-      { internationalTransfer: false, transferMechanism: null, checked: true },
+      {
+        internationalTransfer: false,
+        transferMechanism: null,
+        transferCountries: null,
+        checked: true,
+      },
+    ]);
+  });
+
+  test("a transfer outside the EEA keeps its basis and countries", async () => {
+    const { caller, writesTo } = setup({ activities: [], suppliers });
+    await caller.recordProcessors({
+      code: "G-DPA.1",
+      rows: [
+        {
+          supplierId: S1,
+          answer: {
+            fact: "transfer",
+            outside: true,
+            mechanism: "sccs",
+            countries: "USA",
+          },
+        },
+      ],
+    });
+    expect(writesTo(supplier).map((w) => setOf(w.values))).toEqual([
+      {
+        internationalTransfer: true,
+        transferMechanism: "sccs",
+        transferCountries: "USA",
+        checked: true,
+      },
     ]);
   });
 

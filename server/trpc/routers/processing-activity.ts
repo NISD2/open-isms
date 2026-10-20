@@ -4,8 +4,13 @@ import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
-import { dpoOf, GDPR_WALK } from "@/lib/durchgang";
-import { company, processingActivity } from "@/schema";
+import { dpoOf, GDPR_WALK, throughSupplier } from "@/lib/durchgang";
+import {
+  company,
+  processingActivity,
+  processingActivitySupplier,
+  supplier,
+} from "@/schema";
 import {
   processingActivityCreateSchema,
   processingActivityUpdateSchema,
@@ -60,12 +65,47 @@ export const processingActivityRouter = router({
     };
   }),
 
-  list: companyProcedure.query(({ ctx }) =>
-    ctx.db.query.processingActivity.findMany({
-      where: eq(processingActivity.companyId, ctx.companyId),
-      orderBy: [asc(processingActivity.createdAt), asc(processingActivity.name)],
-    }),
-  ),
+  /**
+   * The activities, each with the suppliers that receive its data and what each one's row says of
+   * transfers outside the EEA (Art. 30(1)(d), (e)), so the record states them without asking twice.
+   */
+  list: companyProcedure.query(async ({ ctx }) => {
+    const [activities, links] = await Promise.all([
+      ctx.db.query.processingActivity.findMany({
+        where: eq(processingActivity.companyId, ctx.companyId),
+        orderBy: [asc(processingActivity.createdAt), asc(processingActivity.name)],
+      }),
+      ctx.db
+        .select({
+          activityId: processingActivitySupplier.activityId,
+          id: supplier.id,
+          name: supplier.name,
+          internationalTransfer: supplier.internationalTransfer,
+          transferMechanism: supplier.transferMechanism,
+          transferCountries: supplier.transferCountries,
+          transferCheckedAt: supplier.transferCheckedAt,
+        })
+        .from(processingActivitySupplier)
+        .innerJoin(
+          processingActivity,
+          eq(processingActivity.id, processingActivitySupplier.activityId),
+        )
+        .innerJoin(supplier, eq(supplier.id, processingActivitySupplier.supplierId))
+        .where(
+          and(
+            eq(processingActivity.companyId, ctx.companyId),
+            eq(supplier.customerCompanyId, ctx.companyId),
+          ),
+        )
+        .orderBy(asc(supplier.name)),
+    ]);
+    return activities.map((activity) => ({
+      ...activity,
+      suppliers: links
+        .filter((l) => l.activityId === activity.id)
+        .map((l) => ({ id: l.id, name: l.name, through: throughSupplier(l) })),
+    }));
+  }),
 
   create: activatedCompanyProcedure
     .input(processingActivityCreateSchema)

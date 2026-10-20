@@ -23,6 +23,7 @@ export type {
   ProcessorRole,
   StoredProcessor,
   SubprocessorAuthorisation,
+  ThroughSupplier,
   TransferMechanism,
 } from "./gdpr-records";
 export {
@@ -38,6 +39,8 @@ export {
   SUBPROCESSOR_AUTHORISATIONS,
   storedAnswer,
   TRANSFER_MECHANISMS,
+  throughSupplier,
+  transferComplete,
   YES_NO_FACTS,
 } from "./gdpr-records";
 export { dutyHref } from "./law";

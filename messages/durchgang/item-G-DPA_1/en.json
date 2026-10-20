@@ -55,7 +55,7 @@
           },
           "where": {
             "title": "Where the data goes",
-            "lead": "Does the provider keep the data in the EEA, that is the EU, Iceland, Liechtenstein and Norway? Look in its data processing agreement or on its website under \"data location\" or \"sub-processors\". If the data goes elsewhere, the agreement names why that is allowed. Most often it is the standard contractual clauses, a fixed contract text of the European Commission. An adequacy decision covers a country the Commission has found safe; for the USA it covers only recipients certified under the EU-US Data Privacy Framework. A derogation under Art. 49 is an exception for occasional transfers, not a basis for a provider's regular ones (EDPB Guidelines 2/2018)."
+            "lead": "Does the provider keep the data in the EEA, that is the EU, Iceland, Liechtenstein and Norway? Look in its data processing agreement or on its website under \"data location\" or \"sub-processors\". If the data goes elsewhere, the agreement names why that is allowed. Most often it is the standard contractual clauses, a fixed contract text of the European Commission. An adequacy decision covers a country the Commission has found safe; for the USA it covers only recipients certified under the EU-US Data Privacy Framework. A derogation under Art. 49 is an exception for occasional transfers, not a basis for a provider's regular ones (EDPB Guidelines 2/2018). Name the countries too: your record of processing activities lists them for every activity the provider serves (Art. 30(1)(e))."
           },
           "done": {
             "title": "Your processors are recorded",

@@ -68,7 +68,14 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
         facts: ["purpose", "dataSubjects", "dataCategories", "specialCategories"],
       },
       { kind: "describe", id: "basis", facts: ["legalBases"] },
-      { kind: "describe", id: "who", facts: ["recipients", "transfersOutsideEea"] },
+      // The suppliers first: their transfers are recorded once each in G-DPA.1, so the transfer
+      // question asks only about the data's other ways out of the EEA.
+      {
+        kind: "describe",
+        id: "who",
+        facts: ["recipients", "transfersOutsideEea"],
+        suppliers: true,
+      },
       { kind: "describe", id: "keep", facts: ["retention"] },
       { kind: "done", id: "done" },
     ],

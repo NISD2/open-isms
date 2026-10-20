@@ -79,7 +79,7 @@
           },
           "who": {
             "title": "Who receives the data",
-            "lead": "A recipient is anyone you disclose the data to, your service providers included (Art. 4(9)). Also say whether data goes to a country outside the EEA, for example to a cloud service in the USA."
+            "lead": "A recipient is anyone you disclose the data to, your service providers included (Art. 4(9)). Tick the suppliers that receive the data, then name the other recipients. Whether data leaves the EEA through a supplier is recorded once for that supplier; here you only say whether it leaves another way."
           },
           "keep": {
             "title": "When data is erased",

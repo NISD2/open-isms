@@ -356,6 +356,8 @@ export type Screen<C extends CategoryCode> =
       readonly kind: "describe";
       readonly id: string;
       readonly facts: readonly ActivityFact[];
+      /** Also which suppliers receive the data (`processing_activity_supplier`). */
+      readonly suppliers?: true;
     }
   /** Each supplier on the list, with one GDPR fact about it (`ProcessorAnswer`). */
   | { readonly kind: "processors"; readonly id: string; readonly fact: ProcessorFact }

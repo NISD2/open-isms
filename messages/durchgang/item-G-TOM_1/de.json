@@ -4,6 +4,7 @@
       "G-TOM_1": {
         "headline": "Die Sicherheit Ihrer personenbezogenen Daten beschreiben",
         "teaser": "Welche Maßnahmen die Daten schützen, nach Art. 32 geordnet.",
+        "fromNis2": "Ihre Sicherheitsdokumente aus NIS 2 werden Teil dieser Beschreibung. Was die DSGVO hinzufügt: Die Maßnahmen werden am Risiko für die Menschen gemessen, deren Daten Sie verarbeiten, nicht allein am Risiko für Ihr Unternehmen (Art. 32 Abs. 1).",
         "missed": [
           "Maßgeblich ist das Risiko für die Menschen, deren Daten Sie verarbeiten, nicht allein das für Ihr Unternehmen (Art. 32 Abs. 1). Gelangt eine Personalakte in falsche Hände, trifft der Schaden vor allem die Beschäftigten.",
           "Wer Zugang zu personenbezogenen Daten hat, darf sie nur auf Ihre Anweisung verarbeiten; Sie unternehmen Schritte, um das sicherzustellen (Art. 32 Abs. 4). Viele Unternehmen unterweisen dafür ihre Beschäftigten und verpflichten sie schriftlich zur Vertraulichkeit.",
@@ -21,7 +22,7 @@
           },
           "measures": {
             "title": "Ihre Maßnahmen zur Sicherheit der Verarbeitung",
-            "lead": "Geordnet nach Art. 32 Abs. 1 Buchst. a bis d. Ihr Firmenname und die Sicherheitsdokumente aus dem NIS 2 Durchgang stehen schon darin. Lesen Sie es, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
+            "lead": "Geordnet nach Art. 32 Abs. 1 Buchst. a bis d. Ihr Firmenname und die Sicherheitsdokumente aus dem NIS 2 Durchgang stehen schon darin. Manches davon ist Arbeit der IT, etwa Datensicherung und Verschlüsselung: Schicken Sie es an den, der Ihre IT betreut, und fragen Sie, ob jeder Teil bei Ihnen stimmt. Wählen Sie dann darunter, was zusätzlich gilt, und ergänzen Sie, was fehlt.",
             "document": {
               "title": "Technische und organisatorische Maßnahmen der {company} nach Art. 32 DSGVO",
               "sections": [

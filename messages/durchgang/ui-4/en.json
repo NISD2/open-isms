@@ -27,6 +27,11 @@
         "empty": "Your record has no activity yet. Choose your activities on the steps before.",
         "suggestion": "Suggestion",
         "useSuggestion": "Use it",
+        "suppliers": {
+          "label": "Suppliers that receive the data",
+          "hint": "Tick the suppliers from your supplier list that receive or store this data, for example the payroll service or the cloud for your files. Whether a supplier sends data outside the EEA is asked once for each supplier, in the next step.",
+          "none": "Your supplier list has no supplier that receives personal data. If one does, add it on the supplier page, then tick it here."
+        },
         "facts": {
           "purpose": {
             "label": "Purpose",
@@ -65,11 +70,11 @@
           },
           "recipients": {
             "label": "Recipients",
-            "hint": "Who receives the data, inside the company and outside: for example the tax adviser, a payroll service, the tax office."
+            "hint": "Who receives the data, inside the company and outside, as groups: for example the tax adviser, the tax office, the bank."
           },
           "transfersOutsideEea": {
-            "label": "Outside the EEA",
-            "hint": "Does the data go to a country outside the EU, Iceland, Liechtenstein and Norway?",
+            "label": "Other ways outside the EEA",
+            "hint": "Apart from the suppliers above, does the data go to a country outside the EU, Iceland, Liechtenstein and Norway? For example to a group company or a business partner abroad.",
             "yes": "Yes",
             "no": "No",
             "details": "Where to, and on which basis",
@@ -107,6 +112,8 @@
           "no": "The data stays in the EEA",
           "yes": "The data also goes to a country outside the EEA",
           "mechanism": "Basis",
+          "countries": "Which countries",
+          "countriesHint": "For example: USA, India",
           "mechanisms": {
             "adequacy": "Adequacy decision of the European Commission",
             "sccs": "Standard contractual clauses",

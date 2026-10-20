@@ -3,6 +3,7 @@ import {
   boolean,
   index,
   pgTable,
+  primaryKey,
   text,
   timestamp,
   uniqueIndex,
@@ -10,6 +11,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { legalBasisEnum } from "../enums";
+import { supplier } from "./supplier";
 
 /**
  * The record of processing activities (Art. 30(1) GDPR): one row per activity the company carries
@@ -51,9 +53,15 @@ export const processingActivity = pgTable(
      * (Art. 10): what keeps the Art. 30(5) exemption from applying and has its own conditions.
      */
     specialCategories: boolean("special_categories"),
-    /** 30(1)(d): who the data is disclosed to, inside and outside the company. */
+    /**
+     * 30(1)(d): who else the data is disclosed to, inside and outside the company. The suppliers
+     * that receive it are linked instead (`processingActivitySupplier`).
+     */
     recipients: text("recipients"),
-    /** 30(1)(e): whether the data goes to a country outside the EEA or an international organisation. */
+    /**
+     * 30(1)(e): whether the data goes to a country outside the EEA or an international organisation
+     * other than through the linked suppliers, whose transfers their own row records once.
+     */
     transfersOutsideEea: boolean("transfers_outside_eea"),
     /** 30(1)(e): where to and on which safeguard, where it does. */
     transferDetails: text("transfer_details"),
@@ -69,5 +77,28 @@ export const processingActivity = pgTable(
     uniqueIndex("uq_processing_activity_catalog")
       .on(table.companyId, table.catalogId)
       .where(sql`${table.catalogId} IS NOT NULL`),
+  ],
+);
+
+/**
+ * The suppliers that receive an activity's data (Art. 30(1)(d); a processor is a recipient,
+ * Art. 4(9)). The activity's transfers through them (30(1)(e)) are read from each supplier's row,
+ * so a transfer is recorded once per supplier, not once per activity. Owned through the activity:
+ * every query reaches it by the company's activities, and it goes with either side.
+ */
+export const processingActivitySupplier = pgTable(
+  "processing_activity_supplier",
+  {
+    activityId: uuid("activity_id")
+      .notNull()
+      .references(() => processingActivity.id, { onDelete: "cascade" }),
+    supplierId: uuid("supplier_id")
+      .notNull()
+      .references(() => supplier.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.activityId, table.supplierId] }),
+    index("idx_processing_activity_supplier_supplier").on(table.supplierId),
   ],
 );

@@ -8,8 +8,7 @@
  *   - the Organisation page lists every role with its law and changes the same answer;
  *   - an approval page says it approves nothing for the other law.
  *
- * Everything the file writes is put back (`e2e/lib/durchgang.ts`). New copy is English first, so
- * a German page shows it in English until it is translated.
+ * Everything the file writes is put back (`e2e/lib/durchgang.ts`).
  */
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
@@ -79,7 +78,7 @@ test.describe("GDPR walkthrough: who holds which role", () => {
     }
     // learn, notify, lead
     await page.goto("/de/durchgang/dsgvo/G-BRC.1?s=2");
-    await expect(page.getByText(/^Taken from 3\.1/)).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByText(/^Übernommen aus 3\.1/)).toBeVisible({ timeout: 30_000 });
     await expect(page.locator("#dg-breachLead")).toHaveValue(INCIDENT_LEAD);
 
     await enabledNext(page).click();
@@ -93,7 +92,7 @@ test.describe("GDPR walkthrough: who holds which role", () => {
     await page.goto("/de/durchgang/dsgvo/G-DPO.1?s=3");
     await page.getByText("Keine Pflicht, wir benennen niemanden").click();
     await enabledNext(page).click();
-    const nobody = page.getByText(/^You designate no data protection officer/);
+    const nobody = page.getByText(/^Sie benennen keine Datenschutzbeauftragten/);
     await expect(nobody).toBeVisible({ timeout: 30_000 });
     await expect(page.getByRole("radio")).toHaveCount(0);
 
@@ -106,24 +105,24 @@ test.describe("GDPR walkthrough: who holds which role", () => {
     await expect(picker).toBeVisible({ timeout: 30_000 });
     // Naming nobody is an answer here, so nobody is picked for the person walking.
     await expect(picker.getByRole("radio", { checked: true })).toHaveCount(0);
-    await expect(picker.getByText("An outside provider")).toBeVisible();
+    await expect(picker.getByText("Ein externer Dienstleister")).toBeVisible();
   });
 
   test("the Organisation page lists each role with its law and changes the same answer", async ({
     page,
   }) => {
     await page.goto("/de/organization");
-    const roles = page.locator("section").filter({ hasText: "Who holds which role" });
+    const roles = page.locator("section").filter({ hasText: "Wer welche Rolle hat" });
     await expect(roles).toBeVisible({ timeout: 30_000 });
     const incident = roles.getByRole("listitem").filter({ hasText: INCIDENT_LEAD });
     await expect(incident.getByText("NIS2", { exact: true })).toBeVisible();
     const breach = roles.getByRole("listitem").filter({ hasText: "G-BRC.1" });
     await expect(breach.getByText("DSGVO", { exact: true })).toBeVisible();
 
-    await breach.getByRole("button", { name: "Change" }).click();
+    await breach.getByRole("button", { name: "Ändern" }).click();
     await breach.getByText("Jemand anderes").click();
     await breach.getByPlaceholder("Name der Person").fill(BREACH_LEAD);
-    await breach.getByRole("button", { name: "Save" }).click();
+    await breach.getByRole("button", { name: "Speichern" }).click();
     await expect.poll(() => answerOf(tenant, "BRC", "breachLead")).toBe(BREACH_LEAD);
   });
 
@@ -140,10 +139,12 @@ test.describe("GDPR walkthrough: who holds which role", () => {
     await page.goto("/de/durchgang/dsgvo/freigabe");
     const scope = page
       .locator("section")
-      .filter({ hasText: "What this approval covers" });
+      .filter({ hasText: "Was diese Freigabe umfasst" });
     await expect(scope).toBeVisible({ timeout: 30_000 });
-    await expect(scope.getByText(/^It approves nothing for NIS2/)).toBeVisible();
-    const other = scope.getByRole("link", { name: "NIS2 has its own approval page." });
+    await expect(scope.getByText(/^Für NIS2 gibt sie nichts frei/)).toBeVisible();
+    const other = scope.getByRole("link", {
+      name: "NIS2 hat eine eigene Seite für die Freigabe.",
+    });
     // German is the default locale, so its links carry no prefix.
     await expect(other).toHaveAttribute("href", "/durchgang/nis2/freigabe");
   });

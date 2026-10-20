@@ -33,6 +33,19 @@ function setup(role: string) {
       },
       company: { findFirst: async () => ({ activatedAt: new Date() }) },
     },
+    // The suppliers linked to the activities: a join, read through the same filter.
+    select: () => {
+      const chain = {
+        from: () => chain,
+        innerJoin: () => chain,
+        where: (where: SQL) => {
+          wheres.push(where);
+          return chain;
+        },
+        orderBy: async () => [],
+      };
+      return chain;
+    },
     delete: () => ({
       where: async (where: SQL) => {
         deleted.push(where);
@@ -55,10 +68,13 @@ function setup(role: string) {
 }
 
 describe("the record of processing activities", () => {
-  test("lists only the session's company's activities", async () => {
+  test("lists only the session's company's activities and suppliers", async () => {
     const { caller, wheres } = setup("member");
     await caller.list();
-    expect(dialect.sqlToQuery(wheres[0] as SQL).params).toEqual([COMPANY]);
+    expect(wheres.map((w) => dialect.sqlToQuery(w).params)).toEqual([
+      [COMPANY],
+      [COMPANY, COMPANY],
+    ]);
   });
 
   test("an admin takes an activity off, scoped to the company", async () => {

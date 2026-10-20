@@ -20,8 +20,8 @@
             "duty": "Die DSGVO verlangt, dass Ihr Unternehmen den betroffenen Personen die Ausübung ihrer Rechte erleichtert und ihre Anfragen fristgerecht beantwortet."
           },
           "rights": {
-            "title": "Welche Rechte es gibt",
-            "lead": "Diese Rechte kann jede betroffene Person geltend machen. Ihr Verfahren sagt zu jedem, was zu tun ist.",
+            "title": "Was Menschen von Ihnen verlangen können",
+            "lead": "Jeder, dessen Daten Sie verarbeiten, kann das verlangen. Sie müssen es nicht auswendig kennen: Ihr Verfahren sagt zu jedem Punkt, was zu tun ist.",
             "items": [
               {
                 "name": "Auskunft (Art. 15)",
@@ -50,6 +50,10 @@
               {
                 "name": "Automatisierte Entscheidungen (Art. 22)",
                 "detail": "keine Entscheidung mit rechtlicher oder ähnlich erheblicher Wirkung, die ausschließlich automatisiert getroffen wird, außer in den Fällen des Art. 22 Abs. 2"
+              },
+              {
+                "name": "Widerruf der Einwilligung (Art. 7 Abs. 3)",
+                "detail": "wo eine Verarbeitung auf Einwilligung beruht, sie jederzeit widerrufen, so einfach, wie sie erteilt wurde"
               }
             ],
             "source": "Art. 15 bis 22 DSGVO. In Deutschland schränken §§ 34 und 35 BDSG die Auskunft und die Löschung in engen Fällen ein."

@@ -12,7 +12,12 @@ import {
 import { ACTIVITY_CATALOG } from "@/lib/processing-activities/catalog";
 import { activityCopyOf } from "@/lib/processing-activities/copy";
 import { answeringCompanyId } from "@/lib/supplier-portal/platform-supplier";
-import { company, processingActivity, supplier } from "@/schema";
+import {
+  company,
+  processingActivity,
+  processingActivitySupplier,
+  supplier,
+} from "@/schema";
 import { activityFactsSchema } from "@/schema/processing-activity-validators";
 import { appendNote, durchgangItem } from "../helpers/durchgang";
 import { itemCode as code } from "../helpers/durchgang-inputs";
@@ -91,6 +96,7 @@ const columnsOf = (answer: ProcessorAnswer, now: Date) => {
       return {
         internationalTransfer: answer.outside,
         transferMechanism: answer.outside ? answer.mechanism : null,
+        transferCountries: answer.outside ? answer.countries || null : null,
         transferCheckedAt: now,
       };
     case "subprocessing":
@@ -98,6 +104,52 @@ const columnsOf = (answer: ProcessorAnswer, now: Date) => {
     default:
       return answer satisfies never;
   }
+};
+
+/**
+ * The activities whose suppliers a describe screen changed, each with its new list, after checking
+ * every supplier is the company's own. The activities were checked by the caller.
+ */
+const changedLinks = async (
+  ctx: { db: TRPCContext["db"]; companyId: string },
+  linking: ReadonlyArray<{ id: string; supplierIds: readonly string[] }>,
+) => {
+  if (linking.length === 0) return [];
+  const wanted = [...new Set(linking.flatMap((l) => l.supplierIds))];
+  if (wanted.length > 0) {
+    const owned = await ctx.db
+      .select({ id: supplier.id })
+      .from(supplier)
+      .where(
+        and(eq(supplier.customerCompanyId, ctx.companyId), inArray(supplier.id, wanted)),
+      );
+    if (owned.length !== wanted.length) throw new TRPCError({ code: "NOT_FOUND" });
+  }
+  const stored = await ctx.db
+    .select({
+      activityId: processingActivitySupplier.activityId,
+      supplierId: processingActivitySupplier.supplierId,
+    })
+    .from(processingActivitySupplier)
+    .innerJoin(
+      processingActivity,
+      eq(processingActivity.id, processingActivitySupplier.activityId),
+    )
+    .where(
+      and(
+        eq(processingActivity.companyId, ctx.companyId),
+        inArray(
+          processingActivitySupplier.activityId,
+          linking.map((l) => l.id),
+        ),
+      ),
+    );
+  return linking.filter(({ id, supplierIds }) => {
+    const before = new Set(
+      stored.filter((s) => s.activityId === id).map((s) => s.supplierId),
+    );
+    return before.size !== supplierIds.length || supplierIds.some((s) => !before.has(s));
+  });
 };
 
 /** The supplier columns a processors screen reads: who it is, and the customer's GDPR facts. */
@@ -113,6 +165,7 @@ const PROCESSOR_COLUMNS = {
   dpaConcluded: true,
   internationalTransfer: true,
   transferMechanism: true,
+  transferCountries: true,
   transferCheckedAt: true,
   subprocessorAuthorisation: true,
 } as const;
@@ -227,14 +280,22 @@ export const durchgangGdprRouter = router({
     }),
 
   /**
-   * G-ROP.1: what Art. 30(1) records of each activity. Only the company's own rows, only the facts
-   * sent, and only where one changed; an omitted fact keeps what is stored.
+   * G-ROP.1: what Art. 30(1) records of each activity, and the suppliers that receive its data.
+   * Only the company's own rows and suppliers, only what was sent, and only where it changed; an
+   * omitted fact or supplier list keeps what is stored.
    */
   describeActivities: durchgangWrite
     .input(
       z.object({
         code,
-        rows: z.array(activityFactsSchema.extend({ id: z.string().uuid() })).max(200),
+        rows: z
+          .array(
+            activityFactsSchema.extend({
+              id: z.string().uuid(),
+              supplierIds: z.array(supplierId).max(ROWS_MAX).optional(),
+            }),
+          )
+          .max(200),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -242,6 +303,18 @@ export const durchgangGdprRouter = router({
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const rows = [...new Map(input.rows.map((r) => [r.id, r])).values()];
       if (rows.length === 0) return { changed: 0 };
+      const linking = rows.flatMap((r) =>
+        r.supplierIds ? [{ id: r.id, supplierIds: [...new Set(r.supplierIds)] }] : [],
+      );
+      if (
+        linking.length > 0 &&
+        !walkItem(input.code).screens.some((s) => s.kind === "describe" && s.suppliers)
+      ) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} records no suppliers of an activity.`,
+        });
+      }
       const owned = await ctx.db
         .select()
         .from(processingActivity)
@@ -267,6 +340,7 @@ export const durchgangGdprRouter = router({
         );
         return Object.keys(changed).length > 0 ? [{ id: row.id, changed }] : [];
       });
+      const relinked = await changedLinks(ctx, linking);
       for (const { id, changed } of changes) {
         await ctx.db
           .update(processingActivity)
@@ -278,6 +352,20 @@ export const durchgangGdprRouter = router({
             ),
           );
       }
+      // Each activity's suppliers are replaced as one, so no reader sees half a list.
+      for (const { id, supplierIds } of relinked) {
+        await ctx.db.transaction(async (tx) => {
+          await tx
+            .delete(processingActivitySupplier)
+            .where(eq(processingActivitySupplier.activityId, id));
+          if (supplierIds.length > 0) {
+            await tx
+              .insert(processingActivitySupplier)
+              .values(supplierIds.map((s) => ({ activityId: id, supplierId: s })));
+          }
+        });
+      }
+      const changed = new Set([...changes, ...relinked].map((c) => c.id)).size;
       await logWalk({
         companyId: ctx.companyId,
         userId: ctx.userId,
@@ -285,10 +373,10 @@ export const durchgangGdprRouter = router({
         entityType: "requirement",
         entityId: ref.requirementId,
         description: `${ref.code} processing activities described`,
-        newValue: { described: rows.length, changed: changes.length },
+        newValue: { described: rows.length, changed },
       });
-      if (changes.length > 0) recheck(ctx, "processing_activity", input.code);
-      return { changed: changes.length };
+      if (changed > 0) recheck(ctx, "processing_activity", input.code);
+      return { changed };
     }),
 
   /**

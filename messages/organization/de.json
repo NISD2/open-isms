@@ -4,6 +4,20 @@
     "description": "Registrieren Sie Ihre Organisation, um die Konformitätsbewertung zu starten.",
     "editTitle": "Organisationseinstellungen",
     "editDescription": "Aktualisieren Sie Ihre Organisationsdaten.",
+    "people": {
+      "title": "Wer welche Rolle hat",
+      "lead": "Die Personen, die Ihre Dokumente nennen. Ändern Sie hier jemanden, ändert sich dieselbe Antwort wie im Schritt des Durchgangs.",
+      "notNamed": "Noch niemand benannt",
+      "noDpo": "Niemand benannt",
+      "change": "Ändern",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "saved": "Gespeichert",
+      "failed": "Das wurde nicht gespeichert. Versuchen Sie es noch einmal.",
+      "openStep": "Schritt öffnen",
+      "sentBack": "Hat die Geschäftsführung diesen Schritt freigegeben, geht er mit einem neuen Namen zurück zu ihr, denn die Dokumente nennen, wer die Rolle hat.",
+      "adminOnly": "Nur ein Administrator Ihrer Organisation ändert, wer eine Rolle hat."
+    },
     "organizationId": {
       "label": "Organisations-ID",
       "hint": "Nennen Sie sie, wenn Sie uns schreiben oder die Plattform selbst betreiben.",
