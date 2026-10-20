@@ -63,9 +63,12 @@ export function ImagePreview({
   image,
   children,
   footer,
+  link = false,
 }: {
   image: PreviewImage;
   children: React.ReactElement;
+  /** The trigger is a link: a click follows it, where it would otherwise only keep the preview. */
+  link?: boolean;
   /**
    * The one thing to do next, under the image. It shows once the preview is pinned: a click with
    * a mouse, a tap, or the keyboard keeps it open and lets the pointer reach it. Hover alone
@@ -119,7 +122,7 @@ export function ImagePreview({
         onClick={(e) => {
           if (e.detail === 0) {
             pointer.current = "keyboard";
-          } else if (pointer.current === "mouse") {
+          } else if (pointer.current === "mouse" && !link) {
             e.preventDefault();
             if (footer !== undefined) setPinned(true);
           }

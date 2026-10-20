@@ -1,29 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
+import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
+import { Check, ChevronDown, FileText, Loader2, ScrollText, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { trpc } from "@/lib/trpc/client";
-import { userFacingError } from "@/lib/trpc/error-message";
+import { useState } from "react";
 import { toast } from "sonner";
-import { formatFileSize } from "@/lib/utils";
-import {
-  Check,
-  ChevronDown,
-  FileText,
-  Loader2,
-  ScrollText,
-  X,
-} from "lucide-react";
+import { useBillingAct } from "@/components/billing/BillingActGate";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
+import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "@/i18n/navigation";
+import { trpc } from "@/lib/trpc/client";
+import { userFacingError } from "@/lib/trpc/error-message";
+import { formatFileSize } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -38,6 +32,7 @@ interface EvidenceItem {
 }
 
 interface AuditEntry {
+  id: string;
   action: string;
   description: string;
   createdAt: Date;
@@ -144,6 +139,8 @@ function ReviewItem({ row }: { row: ReviewRow }) {
   });
 
   const isMutating = approve.isPending || reject.isPending;
+  // An approval signs off: asked first inside the money back or without an order (AGB B7).
+  const act = useBillingAct("sign_off");
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
@@ -178,9 +175,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
                 {row.completedAt && (
                   <>
                     <span>·</span>
-                    <span>
-                      {new Date(row.completedAt).toLocaleDateString()}
-                    </span>
+                    <span>{new Date(row.completedAt).toLocaleDateString()}</span>
                   </>
                 )}
               </div>
@@ -200,7 +195,11 @@ function ReviewItem({ row }: { row: ReviewRow }) {
           <div className="border-t px-4 py-4 space-y-5">
             {/* Sign-off Data */}
             {row.signOffSnapshot && (
-              <SignOffDisplay snapshot={row.signOffSnapshot} role={row.signedOffRole} signedAt={row.signedOffAt} />
+              <SignOffDisplay
+                snapshot={row.signOffSnapshot}
+                role={row.signedOffRole}
+                signedAt={row.signedOffAt}
+              />
             )}
 
             {/* Evidence Files */}
@@ -216,9 +215,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
                       key={e.id}
                       className="flex items-center gap-3 text-sm rounded-md bg-muted/50 px-3 py-2"
                     >
-                      <span className="truncate font-medium">
-                        {e.fileName}
-                      </span>
+                      <span className="truncate font-medium">{e.fileName}</span>
                       {e.fileSize && (
                         <span className="text-xs text-muted-foreground shrink-0">
                           {formatFileSize(e.fileSize)}
@@ -238,9 +235,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
             {/* Review Feedback (for already-reviewed items) */}
             {row.reviewFeedback && !isPending && (
               <div>
-                <h4 className="text-sm font-medium mb-1">
-                  {t("feedbackFromReviewer")}
-                </h4>
+                <h4 className="text-sm font-medium mb-1">{t("feedbackFromReviewer")}</h4>
                 <p className="text-sm text-muted-foreground bg-muted/50 rounded-md px-3 py-2">
                   {row.reviewFeedback}
                 </p>
@@ -255,9 +250,9 @@ function ReviewItem({ row }: { row: ReviewRow }) {
                   {t("reviewHistory")}
                 </h4>
                 <div className="space-y-1">
-                  {row.auditLog.map((entry, i) => (
+                  {row.auditLog.map((entry) => (
                     <div
-                      key={i}
+                      key={entry.id}
                       className="flex items-baseline gap-3 text-xs text-muted-foreground"
                     >
                       <span className="shrink-0 tabular-nums">
@@ -291,9 +286,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
                         variant="destructive"
                         size="sm"
                         disabled={!feedback.trim() || isMutating}
-                        onClick={() =>
-                          reject.mutate({ statusId: row.id, feedback })
-                        }
+                        onClick={() => reject.mutate({ statusId: row.id, feedback })}
                       >
                         {reject.isPending ? (
                           <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
@@ -319,7 +312,9 @@ function ReviewItem({ row }: { row: ReviewRow }) {
                   <div className="flex gap-2">
                     <Button
                       size="sm"
-                      onClick={() => approve.mutate({ statusId: row.id })}
+                      onClick={() =>
+                        act.guard(() => approve.mutate({ statusId: row.id }))
+                      }
                       disabled={isMutating}
                     >
                       {approve.isPending ? (
@@ -345,6 +340,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
           </div>
         </CollapsibleContent>
       </div>
+      {act.dialog}
     </Collapsible>
   );
 }
@@ -427,4 +423,3 @@ function StatusBadge({ status }: { status: string }) {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-

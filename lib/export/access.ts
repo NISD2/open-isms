@@ -1,6 +1,8 @@
 import "@/lib/server-guard";
 
 import { getSession, hasReviewAccess } from "@/lib/auth";
+import { billingVerdict, refusalResponse } from "@/lib/billing/act-gate";
+import { db } from "@/lib/db";
 import { MANAGEMENT_ROLE } from "@/lib/durchgang";
 import { rateLimit } from "@/lib/rate-limit";
 
@@ -18,8 +20,10 @@ export const mayExport = (session: {
 }): boolean => hasReviewAccess(session.role) || session.jobTitle === MANAGEMENT_ROLE;
 
 /**
- * Who may download an export (`mayExport`), a few times a minute per person and kind. Not behind
- * the paywall: a company's own records always leave with it.
+ * Who may download an export (`mayExport`), a few times a minute per person and kind, and only
+ * where the account's billing state allows it (`billingVerdict`, AGB B7 and B10): ordered, or
+ * grandfathered, or a former customer that paid. Inside the money back the page asks first and
+ * records the yes, so a download that arrives unconfirmed is refused.
  */
 export async function exportAccess(
   kind: string,
@@ -32,6 +36,8 @@ export async function exportAccess(
   if (!mayExport(session)) {
     return { ok: false, response: new Response("Forbidden", { status: 403 }) };
   }
+  const verdict = await billingVerdict(db, session, "export");
+  if (verdict.kind !== "allow") return { ok: false, response: refusalResponse(verdict) };
   if (!(await rateLimit(`export:${kind}:${session.user.id}`, perMinute, 60_000))) {
     return { ok: false, response: new Response("Too many requests", { status: 429 }) };
   }

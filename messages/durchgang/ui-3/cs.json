@@ -64,9 +64,9 @@
         "label": "V průvodci NIS 2"
       },
       "home": {
-        "unlock": "Objednat",
+        "unlock": "Vyzkoušet, 30 dní vrácení peněz",
         "toJourney": "Pokračovat ve své cestě jako dosud",
-        "price": "{price} ročně bez DPH. Do 30 dnů vrácení peněz.",
+        "price": "{price} ročně bez DPH. Do 30 dnů vrácení peněz, do prvního exportu nebo prvního schválení.",
         "setupSection": "Začínáme",
         "setupHeadline": "Nastavte svou společnost",
         "setupLead": "Název a odvětví jsou stejné jako v registraci u NÚKIB. Vše ostatní zadáte tam, kde to bude potřeba.",
@@ -113,28 +113,48 @@
         }
       },
       "intro": {
-        "eyebrow": "NIS 2 pro střední firmy",
-        "title": "Jste na správném místě.",
-        "lead": "Máte se postarat o NIS 2 a nevíte, kde začít? Tak to má skoro každý. Projdeme to s vámi bod po bodu.",
+        "eyebrow": "NIS 2 průvodce",
+        "title": "NIS 2 krok za krokem.",
+        "lead": "Provedeme vás tím.",
         "points": [
           {
-            "title": "Jedno po druhém",
-            "text": "Vždy vidíte jen jeden bod. Než cokoli zadáte, vysvětlíme ho."
+            "title": "Jedno po druhém.",
+            "text": "Vidíte jeden bod, vysvětlený dřív, než cokoli zadáte."
           },
           {
-            "title": "Metody, které doporučujeme",
-            "text": "Kde existuje osvědčená metoda, ukážeme vám ji. Vy rozhodnete, zda ji převezmete."
+            "title": "Standardní metody převezmete vy.",
+            "text": "Kde existuje osvědčená metoda, ukážeme ji. Rozhodnete vy."
           },
           {
-            "title": "Nechat něco otevřené je v pořádku",
-            "text": "Co zatím nejde, odložíte a pokračujete dalším bodem."
+            "title": "Něco vázne? Nechte to otevřené.",
+            "text": "Odložte bod a pokračujte dalším."
           },
           {
-            "title": "Na konci podpis",
-            "text": "Vedení vše projde a podepíše."
+            "title": "Na konci podepíše vedení.",
+            "text": "Vše projde na jednom místě."
           }
         ],
         "start": "Začněme"
+      },
+      "offer": {
+        "title": "Vyzkoušejte zbytek 30 dní.",
+        "lead": "To byl příklad s údaji vaší firmy. Pokud vám zbytek nebude vyhovovat, do 30 dnů vám vrátíme peníze, pokud jste ještě nic neexportovali ani neschválili.",
+        "steps": {
+          "title": "{count, plural, one {Ještě # krok.} few {Ještě # kroky.} other {Ještě # kroků.}}",
+          "text": "Jeden po druhém, jako dosud."
+        },
+        "documents": {
+          "title": "{count, plural, one {# dokument z vašich odpovědí.} few {# dokumenty z vašich odpovědí.} other {# dokumentů z vašich odpovědí.}}",
+          "text": "Bezpečnostní politika, plán pro incidenty a další, napsané z toho, co zadáte."
+        },
+        "kept": {
+          "title": "Vaše údaje zůstávají.",
+          "text": "Vše, co jste dosud zadali, pokračuje dál."
+        },
+        "signs": {
+          "title": "Na konci podepíše vedení.",
+          "text": "V aplikaci, na jednom místě."
+        }
       }
     }
   }

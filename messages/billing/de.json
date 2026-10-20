@@ -63,7 +63,7 @@
       },
       "b2b": "Nur für Unternehmen. Verkäuferin ist die Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Amtsgericht Köln HRB 126993, USt-IdNr. DE462889433.",
       "term": "Die Lizenz gilt ein Jahr ab heute und verlängert sich danach jeweils um ein Jahr. 14 Tage bevor wir die Rechnung für das neue Jahr stellen, erinnern wir Sie per E-Mail. Kündigen können Sie bis zum Tag der Verlängerung.",
-      "moneyBack": "Ist dies die erste Bestellung Ihres Kontos, können Sie innerhalb von 30 Tagen ab heute ohne Angabe von Gründen kündigen. Ist die Rechnung noch offen, stornieren wir sie mit einer Gutschrift. Haben Sie schon gezahlt, überweisen wir den Betrag innerhalb von 30 Tagen nach der Kündigung zurück. Für Verlängerungen und spätere Bestellungen gilt das nicht.",
+      "moneyBack": "Ist dies die erste Bestellung Ihres Kontos, können Sie innerhalb von 30 Tagen ab heute ohne Angabe von Gründen kündigen. Ist die Rechnung noch offen, stornieren wir sie mit einer Gutschrift. Haben Sie schon gezahlt, überweisen wir den Betrag innerhalb von 30 Tagen nach der Kündigung zurück. Mit dem ersten Export oder der ersten Freigabe endet dieses Recht vorher; die Plattform fragt Sie davor (AGB B7). Für Verlängerungen und spätere Bestellungen gilt das nicht.",
       "payment": "Zahlung per Überweisung innerhalb von 30 Tagen ab Rechnungsdatum. Ist die Rechnung bis dahin nicht bezahlt, sperren wir den Zugang zur Lizenz, bis die Zahlung eingeht.",
       "contract": "Sie prüfen Ihre Angaben und den Preis, bestätigen die AGB und klicken auf „Kostenpflichtig bestellen“. Wir nehmen die Bestellung an, indem wir den Zugang sofort freischalten und die Rechnung per E-Mail senden. Eingabefehler korrigieren Sie vor dem Klick direkt in den Feldern. Welche Fassung der AGB Sie angenommen haben, steht danach unter Abrechnung. AGB und AVV können Sie jetzt speichern oder drucken. Vertragssprache ist Deutsch oder Englisch, je nachdem, in welcher Sprache Sie bestellen."
     },
@@ -101,7 +101,7 @@
     },
     "trust": {
       "invoice": "Jetzt wird nichts abgebucht. Sie zahlen die Rechnung innerhalb von 30 Tagen.",
-      "moneyBack": "Erste Bestellung: innerhalb von 30 Tagen kündigen und das Geld zurückbekommen.",
+      "moneyBack": "Erste Bestellung: innerhalb von 30 Tagen kündigen und das Geld zurückbekommen, bis zum ersten Export oder zur ersten Freigabe.",
       "access": "Der Zugang ist sofort mit der Bestellung freigeschaltet."
     },
     "treatment": {
@@ -138,6 +138,23 @@
       "termsChanged": "Unsere AGB haben sich geändert, seit Sie diese Seite geöffnet haben. Bitte laden Sie die Seite neu, lesen Sie die aktuelle Fassung und bestellen Sie dann noch einmal.",
       "unknown": "Wir konnten nicht sicher feststellen, ob die Rechnung erstellt wurde. Bitte bestellen Sie nicht noch einmal. Wir prüfen es und melden uns bei Ihnen."
     },
+    "acts": {
+      "export": {
+        "confirmTitle": "Mit diesem Export enden die 30 Tage Geld zurück",
+        "confirmBody": "Bis zum {lastDay} könnten Sie noch kündigen und bekämen Ihr Geld zurück. Mit dem ersten Export entfällt das (AGB B7). Die Rechnung ist dann zu bezahlen, auch wenn Sie später kündigen.",
+        "confirm": "Ja, exportieren"
+      },
+      "signOff": {
+        "confirmTitle": "Mit dieser Freigabe enden die 30 Tage Geld zurück",
+        "confirmBody": "Bis zum {lastDay} könnten Sie noch kündigen und bekämen Ihr Geld zurück. Mit der ersten Freigabe entfällt das (AGB B7). Die Rechnung ist dann zu bezahlen, auch wenn Sie später kündigen.",
+        "confirm": "Ja, freigeben"
+      },
+      "orderTitle": "Exporte und Freigaben gehören zur Lizenz",
+      "orderBody": "Mit der Jahreslizenz exportieren Sie Ihre Unterlagen, und die Geschäftsführung gibt sie frei. 30 Tage Geld zurück, bis zum ersten Export oder zur ersten Freigabe.",
+      "orderAction": "30 Tage testen, Geld zurück",
+      "cancel": "Abbrechen",
+      "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
+    },
     "cancel": {
       "menuItem": "Lizenz kündigen",
       "button": "Kündigen",
@@ -145,6 +162,7 @@
       "moneyBackBody": "Sie sind noch in den 30 Tagen Geld zurück, bis {lastDay}. Wir stornieren die Rechnung mit einer Gutschrift, und die Jahreslizenz endet sofort. Haben Sie schon bezahlt, überweisen wir Ihnen den Betrag innerhalb von 30 Tagen nach der Kündigung zurück.",
       "renewalTitle": "Verlängerung kündigen?",
       "renewalBody": "Die 30 Tage Geld zurück sind vorbei. Ihre Lizenz läuft bis {periodEnd} weiter und wird danach nicht verlängert. Die Rechnung bleibt gültig.",
+      "renewalWaivedBody": "Die 30 Tage Geld zurück endeten mit Ihrem ersten Export oder Ihrer ersten Freigabe, wie damals bestätigt. Ihre Lizenz läuft bis {periodEnd} weiter und wird danach nicht verlängert. Die Rechnung bleibt gültig.",
       "renewalLaterInvoiceBody": "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos. Ihre Lizenz läuft bis {periodEnd} weiter und wird danach nicht verlängert. Die Rechnung bleibt gültig.",
       "kept": "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
       "confirm": "Ja, kündigen",

@@ -4,6 +4,7 @@ import { Check, ChevronDown, Copy, Send, UserCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useBillingAct } from "@/components/billing/BillingActGate";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getPathname, Link, useRouter } from "@/i18n/navigation";
@@ -77,6 +78,8 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
     },
     onError: (err) => toast.error(userFacingError(err, t("failed"))),
   });
+  // Management's approval signs off: asked first inside the money back or without an order.
+  const act = useBillingAct("sign_off");
 
   if (rows === undefined || items === undefined) return null;
   if (rows.length === 0 && items.length === 0) {
@@ -150,11 +153,13 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
                 (chosen.length === 0 && signing.length === 0) || approve.isPending
               }
               onClick={() =>
-                APPROVAL_SCREEN &&
-                approve.mutate({
-                  code: APPROVAL_SCREEN.code,
-                  types: chosen.map((row) => row.type),
-                  sign: signing.map((item) => item.code),
+                act.guard(() => {
+                  if (!APPROVAL_SCREEN) return;
+                  approve.mutate({
+                    code: APPROVAL_SCREEN.code,
+                    types: chosen.map((row) => row.type),
+                    sign: signing.map((item) => item.code),
+                  });
                 })
               }
             >
@@ -167,6 +172,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
         ) : (
           <SendToManagement viewer={viewer} locale={locale} />
         ))}
+      {act.dialog}
     </>
   );
 }

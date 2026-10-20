@@ -14,7 +14,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations("info");
+  // The terms are a namespace of their own (messages/agb), apart from the info pages.
+  const t = await getTranslations();
   return {
     title: t("agb.meta.title"),
     description: t("agb.meta.description"),
@@ -58,7 +59,7 @@ export default async function TermsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("info");
+  const t = await getTranslations();
 
   return (
     // Not copy-protected: contract terms must be storable by the customer (§ 312i Abs. 1 Nr. 4 BGB).

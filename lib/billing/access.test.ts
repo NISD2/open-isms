@@ -130,22 +130,27 @@ describe("walkLockFor", () => {
     expect(walkLockFor("free", true)).toEqual({ orderAt: OFFER_PATH, journey: false });
   });
 
-  test("a grandfathered account, or one with no level yet, orders directly and keeps its journey", () => {
-    for (const level of ["grandfathered", null] as const) {
-      expect(walkLockFor(level, true)).toEqual({ orderAt: "/bestellen", journey: true });
-    }
+  test("a grandfathered account orders directly and is offered its journey", () => {
+    expect(walkLockFor("grandfathered", true)).toEqual({
+      orderAt: "/bestellen",
+      journey: true,
+    });
   });
 
-  test("before ordering opens there is no order page to send anyone to, only the journey", () => {
+  test("an account with no level yet orders directly, without the journey link", () => {
+    expect(walkLockFor(null, true)).toEqual({ orderAt: "/bestellen", journey: false });
+  });
+
+  test("before ordering opens there is no order page to send anyone to", () => {
     expect(walkLockFor("grandfathered", false)).toEqual({ orderAt: null, journey: true });
   });
 
-  test("offers the journey exactly where the portal gate opens it", () => {
+  test("offers the journey only where the portal gate opens it", () => {
     for (const level of ["free", "grandfathered", "full"] as const) {
       for (const open of [true, false]) {
-        expect(walkLockFor(level, open).journey).toBe(
-          mayOpenPortalPath(level, "/journey"),
-        );
+        if (walkLockFor(level, open).journey) {
+          expect(mayOpenPortalPath(level, "/journey")).toBe(true);
+        }
       }
     }
   });

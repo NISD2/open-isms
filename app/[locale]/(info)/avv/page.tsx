@@ -61,12 +61,12 @@ export default async function AvvPage({
 
       <Separator className="my-8" />
 
-      <LegalSections base="avvContract.sections" keys={FRAME} />
+      <LegalSections base="info.avvContract.sections" keys={FRAME} />
 
       <h2 className="mt-12 mb-6 font-semibold text-2xl">
         {t("avvContract.annexesTitle")}
       </h2>
-      <LegalSections base="avvContract.sections" keys={ANNEXES} />
+      <LegalSections base="info.avvContract.sections" keys={ANNEXES} />
     </article>
   );
 }

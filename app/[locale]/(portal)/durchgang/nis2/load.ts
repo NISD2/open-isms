@@ -38,18 +38,10 @@ async function callerWalk() {
 
 /**
  * Every item of the company's walk with its state, for the home screen and the "Als Nächstes"
- * card. Locked (an account that has not paid), every item is open: such a company has walked
- * nothing, and the walk's own data is for paid accounts only.
+ * card. An account that has not ordered has walked the free steps only, so the rest read as open.
  */
-export async function loadWalk({
-  locked,
-}: {
-  locked: boolean;
-}): Promise<readonly WalkEntry[]> {
-  const [{ walk }, states] = await Promise.all([
-    callerWalk(),
-    locked ? [] : api.durchgang.walk(),
-  ]);
+export async function loadWalk(): Promise<readonly WalkEntry[]> {
+  const [{ walk }, states] = await Promise.all([callerWalk(), api.durchgang.walk()]);
   const stateOf = new Map(states.map((s) => [s.code, s.state]));
   return Promise.all(
     walk.map(async (item) => ({

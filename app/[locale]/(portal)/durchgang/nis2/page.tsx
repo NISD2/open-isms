@@ -18,9 +18,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * The Durchgang's front door, and the portal's. An account that has not paid sees it locked: the
- * same page, with the way to order and its price in place of the way in. A company not set up yet
- * sees setting it up as a step, right after the registration.
+ * The Durchgang's front door, and the portal's. An account that has not paid walks the first steps
+ * (`isFreeStep`) and sees the rest locked: the same page, with the way to order and its price
+ * once those are filled in. Setting the company up is a step, right after the registration.
  */
 export default async function DurchgangHomePage() {
   const [{ mayWalk }, session, locale] = await Promise.all([
@@ -33,7 +33,7 @@ export default async function DurchgangHomePage() {
       ? null
       : walkLockFor(session.accessLevel, billingFor(session.user.email).open);
   const [walk, status] = await Promise.all([
-    loadWalk({ locked: lock !== null }),
+    loadWalk(),
     lock?.orderAt ? api.billing.status() : null,
   ]);
   // Handing the order to management invites someone into the company, and only management the

@@ -75,11 +75,11 @@
             "refund": "An open invoice is cancelled; a paid one is refunded within 30 days",
             "data": "Your data stays stored"
           },
-          "note": "Does not apply to renewals. The details are in the terms, section B7."
+          "note": "Does not apply to renewals, and ends with the first export or sign-off. The details are in the terms, section B7."
         },
         "grandfatheredBadge": "Your existing-user price",
         "cta": "Try 30 days, money back",
-        "terms": "By invoice, due in 30 days. Cancel within the first 30 days: invoice cancelled or money back.",
+        "terms": "By invoice, due in 30 days. Cancel within the first 30 days, before the first export or sign-off: invoice cancelled or money back.",
         "termsLink": "Terms",
         "features": {
           "guided": "Guided NIS 2 implementation, step by step",

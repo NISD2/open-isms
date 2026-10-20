@@ -172,6 +172,24 @@ export const opensBeforeSetup = (code: string): boolean => {
   return at !== -1 && at <= WALK.findIndex((item) => item.code === SETUP_AFTER);
 };
 
+/**
+ * The last step an account that has not ordered walks: listing what the company has, so the
+ * account sees its own data collected before it orders (Simon, 20.10.2026: "make the paywall up
+ * until 'Write down what your company has'"). Everything after it needs the order.
+ */
+export const LAST_FREE_STEP = "2.2";
+
+/**
+ * Whether an account that has not ordered may walk this step: the registration, setting up the
+ * company, management's training, the choice of risk method and the list of what the company
+ * has, in that order of the walk.
+ */
+export const isFreeStep = (code: string): boolean => {
+  if (code === SETUP_STEP) return true;
+  const at = WALK.findIndex((item) => item.code === code);
+  return at !== -1 && at <= WALK.findIndex((item) => item.code === LAST_FREE_STEP);
+};
+
 /** The walk with setting up the company in its place, right after the registration. */
 export const withSetup = <T extends { readonly code: string }>(
   walk: readonly T[],

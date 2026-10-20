@@ -5,7 +5,18 @@
  * Change it in the same commit that changes the text of either page: every order stores the version
  * it was placed under (invoice.terms_version), and the pages print it as "Fassung vom".
  */
-export const TERMS_VERSION = "2026-10-05";
+export const TERMS_VERSION = "2026-10-20";
+
+/**
+ * The first version under which the first export or sign-off ends the thirty days money back (B7),
+ * and a licence that ended keeps its exports only if it was paid (B10). An order placed under an
+ * earlier version, or before versions were recorded, keeps what that version promised.
+ */
+export const PAY_ON_USE_SINCE = "2026-10-20";
+
+/** Whether an order accepted under this version (null: not recorded) carries the B7 and B10 above. */
+export const paysOnUse = (version: string | null): boolean =>
+  version !== null && version >= PAY_ON_USE_SINCE;
 
 /** How each language writes the date; any other reads it the British way, as the terms do. */
 const VERSION_DATE: Partial<

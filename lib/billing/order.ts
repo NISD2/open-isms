@@ -249,8 +249,8 @@ const PAYMENT_REFERENCE = {
 const moneyBack = (locale: "de" | "en", firstOrder: boolean): string =>
   firstOrder
     ? {
-        de: "30 Tage Geld zurück ab Bestelldatum.",
-        en: "Thirty days money back from the order date.",
+        de: "30 Tage Geld zurück ab Bestelldatum, bis zum ersten Export oder zur ersten Freigabe.",
+        en: "Thirty days money back from the order date, until the first export or sign-off.",
       }[locale]
     : "";
 

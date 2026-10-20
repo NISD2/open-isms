@@ -5,7 +5,7 @@ import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
-import { opensBeforeSetup, walkLocaleOf } from "@/lib/durchgang";
+import { isFreeStep, opensBeforeSetup, walkLocaleOf } from "@/lib/durchgang";
 
 /**
  * The walk's own gates, for its home, its setup step, its items and management's approval page:
@@ -36,19 +36,22 @@ export async function walkAccess(): Promise<{ mayWalk: boolean }> {
 }
 
 /**
- * For the pages past the home, the items and the approval: only an account that may walk. Any
- * other goes back to the home, which shows it the way to order. A company not set up yet may walk
- * the registration (`opensBeforeSetup`, whose screens write into no register); for anything after
- * it, it goes to the setup step: its registers cannot be written before that. `code` is the item
- * asked for; the approval page passes none.
+ * For the pages past the home, the items and the approval: an account that may walk, or, for an
+ * account that has not ordered, one of the free steps (`isFreeStep`). Any other goes back to the
+ * home, which shows it the way to order. A company not set up yet may walk the registration
+ * (`opensBeforeSetup`, whose screens write into no register); for anything after it, it goes to
+ * the setup step: its registers cannot be written before that. `code` is the item asked for; the
+ * approval page passes none. Returns whether the account may walk every step.
  */
-export async function requireWalk(code?: string): Promise<void> {
+export async function requireWalk(code?: string): Promise<boolean> {
   const [{ mayWalk }, session, locale] = await Promise.all([
     walkAccess(),
     getSession(),
     getLocale(),
   ]);
-  if (!mayWalk) redirect(getPathname({ href: "/durchgang/nis2", locale }));
+  if (!mayWalk && !(code !== undefined && isFreeStep(code)))
+    redirect(getPathname({ href: "/durchgang/nis2", locale }));
   if (!session?.companyActivated && !(code !== undefined && opensBeforeSetup(code)))
     redirect(getPathname({ href: "/durchgang/nis2/unternehmen", locale }));
+  return mayWalk;
 }

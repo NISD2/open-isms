@@ -5,59 +5,9 @@
 
 import type { EmailLocale } from "@/lib/mail/locale";
 import type { DocumentEmail } from "@/lib/mail/templates";
-import {
-  amountFact,
-  formatInvoiceDay,
-  invoiceToday,
-  licenceTitle,
-  shiftDay,
-} from "./order";
+import type { CancelWindow } from "./money-back-window";
+import { amountFact, formatInvoiceDay, licenceTitle, shiftDay } from "./order";
 import type { InvoiceLine } from "./qonto";
-
-/** Money back for thirty days from the order, the same thirty days the invoice gives to pay. */
-export const MONEY_BACK_DAYS = 30;
-
-export type CancelWindow =
-  | {
-      /** Inside the thirty days of the account's first invoice: a full credit note cancels it. */
-      readonly kind: "money_back";
-      /** Days since the issue date: 0 on the order day, 30 on the last day. */
-      readonly day: number;
-      readonly lastDay: string;
-    }
-  | {
-      /** Otherwise: nothing is credited, the paid year runs out and does not renew. */
-      readonly kind: "renewal";
-      readonly day: number;
-      /**
-       * Why there is no money back: the thirty days have passed, or the invoice is not the
-       * account's first (a renewal, or a new order after a cancel), which never has them (AGB B7).
-       */
-      readonly reason: "window_passed" | "not_first_invoice";
-    };
-
-const daysBetween = (from: string, to: string): number =>
-  Math.round(
-    (Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86_400_000,
-  );
-
-/**
- * Which cancel applies to an invoice today. Money back belongs to the account's first invoice
- * only. The order day does not count and the thirtieth day after it does (§ 187 Abs. 1, § 188
- * Abs. 1 BGB), so an order on the 1st can be canceled for its money until the end of the 31st, in
- * Berlin, where invoices are dated.
- */
-export const cancelWindow = (
-  inv: { readonly issueDate: string; readonly firstInvoice: boolean },
-  now: Date,
-): CancelWindow => {
-  const lastDay = shiftDay(inv.issueDate, { days: MONEY_BACK_DAYS });
-  const day = daysBetween(inv.issueDate, invoiceToday(now));
-  if (!inv.firstInvoice) return { kind: "renewal", day, reason: "not_first_invoice" };
-  return invoiceToday(now) <= lastDay
-    ? { kind: "money_back", day, lastDay }
-    : { kind: "renewal", day, reason: "window_passed" };
-};
 
 /** The facts of the invoice a credit note cancels, as our row keeps them. */
 export interface CreditedInvoice {

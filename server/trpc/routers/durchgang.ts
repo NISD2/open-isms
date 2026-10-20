@@ -17,8 +17,6 @@ import {
 import { CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
 import { logAudit } from "@/lib/audit";
 import { isFreeMailAddress } from "@/lib/auth/free-mail";
-import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayWalkDurchgang } from "@/lib/billing/access";
 import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
 import type { CategoryField } from "@/lib/compliance/category-schemas";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
@@ -111,6 +109,7 @@ import {
   propagateSatisfaction,
   recalculateProgress,
 } from "../helpers/assessment-helpers";
+import { requireBillingAct } from "../helpers/billing-act";
 import {
   appendNote,
   type DurchgangActor,
@@ -142,45 +141,20 @@ import {
 import { approvePolicies, WITHDRAWN_APPROVAL } from "../helpers/policy-approval";
 import { rosteredOf } from "../helpers/roster";
 import { signOffRows } from "../helpers/sign-off-rows";
+import { companyProcedure, router, type TRPCContext } from "../init";
 import {
-  activatedCompanyProcedure,
-  companyProcedure,
-  router,
-  type TRPCContext,
-} from "../init";
+  durchgangProcedure,
+  durchgangWrite,
+  gateStep,
+  stepWrite,
+} from "./durchgang-access";
 
 /**
  * The Durchgang's own writes: what the existing procedures cannot record. Field answers, uploads
  * and register entries go through intake, evidence and the module routers, as on the requirement
  * page. This router adds the item's trail (a line in `internal_notes`) and its state (an audit row
- * logged like `announceWithdrawal`, which `walk` reads back).
- *
- * The layout gate is not enough on its own: an API call skips it. So every procedure checks the
- * same rule, paid or platform admin, and resolves the item from the session's company and a fixed
- * list of codes.
+ * logged like `announceWithdrawal`, which `walk` reads back). Who may call what: `durchgang-access`.
  */
-const gate = (session: TRPCContext["session"]) => {
-  if (
-    !session ||
-    !mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email))
-  ) {
-    throw new TRPCError({
-      code: "FORBIDDEN",
-      message: "The Durchgang is not part of this plan.",
-    });
-  }
-};
-
-const durchgangProcedure = companyProcedure.use(({ ctx, next }) => {
-  gate(ctx.session);
-  return next({ ctx });
-});
-
-/** Writes into the company's registers, which need a set-up company like the module routers do. */
-const durchgangWrite = activatedCompanyProcedure.use(({ ctx, next }) => {
-  gate(ctx.session);
-  return next({ ctx });
-});
 
 /**
  * A register changed: sign-offs that relied on it are rechecked, in the background, as the module
@@ -596,13 +570,13 @@ const signWaiting = async (
 
 export const durchgangRouter = router({
   /** Where each item of the company's walk stands. Read on the server by every Durchgang page. */
-  walk: durchgangProcedure.query(({ ctx }) => walkStates(ctx.db, ctx.companyId)),
+  walk: companyProcedure.query(({ ctx }) => walkStates(ctx.db, ctx.companyId)),
 
   /**
    * When the company last took over the BSI method here, or null. A method row alone says nothing:
    * `risk.getMethodology` writes the default on its first read, before anyone chose it.
    */
-  adoption: durchgangProcedure.query(async ({ ctx }) => {
+  adoption: companyProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.auditLog.findFirst({
       where: and(
         eq(auditLog.companyId, ctx.companyId),
@@ -618,7 +592,7 @@ export const durchgangRouter = router({
    * Where a company registers: every member state's authority and portal, with the company's own
    * country, which the screen puts first. The list is the one the wiki's portal page shows.
    */
-  portals: durchgangProcedure.query(async ({ ctx }) => {
+  portals: companyProcedure.query(async ({ ctx }) => {
     const [org, data] = await Promise.all([
       ctx.db.query.company.findFirst({
         where: eq(company.id, ctx.companyId),
@@ -646,7 +620,7 @@ export const durchgangRouter = router({
    * the caller's own when the company has none: setting the company up no longer asks for one. A
    * free-mail address names no company domain, so it suggests nothing.
    */
-  contactSuggestions: durchgangProcedure.query(async ({ ctx }) => {
+  contactSuggestions: companyProcedure.query(async ({ ctx }) => {
     const org = await ctx.db.query.company.findFirst({
       where: eq(company.id, ctx.companyId),
       columns: { contactEmail: true },
@@ -657,7 +631,7 @@ export const durchgangRouter = router({
   }),
 
   /** "Geht noch nicht": the reason goes into the audit row, the free text only into the notes. */
-  wait: durchgangProcedure
+  wait: companyProcedure
     .input(
       z.object({
         code,
@@ -666,6 +640,7 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       refuseSettled(ref);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
@@ -686,29 +661,29 @@ export const durchgangRouter = router({
       });
     }),
 
-  resume: durchgangProcedure
-    .input(z.object({ code }))
-    .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      // Picked up again: an earlier decision not to do it no longer stands either.
-      await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
-      await logWalk({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        // An assistant picks an item up as it fills it (lib/mcp/tools.ts): the entry names it.
-        userAgent: ctx.userAgent,
-        action: "durchgang.resumed",
-        entityType: "requirement",
-        entityId: ref.requirementId,
-        description: `${ref.code} resumed`,
-      });
-    }),
+  resume: companyProcedure.input(z.object({ code })).mutation(async ({ ctx, input }) => {
+    gateStep(ctx.session, input.code);
+    const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+    // Picked up again: an earlier decision not to do it no longer stands either.
+    await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
+    await logWalk({
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      // An assistant picks an item up as it fills it (lib/mcp/tools.ts): the entry names it.
+      userAgent: ctx.userAgent,
+      action: "durchgang.resumed",
+      entityType: "requirement",
+      entityId: ref.requirementId,
+      description: `${ref.code} resumed`,
+    });
+  }),
 
   /**
    * "Übernehmen" on 2.1: the BSI 200-3 scales, in the person's language, as an explicit write. A
    * company that set its own scales on the requirement page gets them replaced only by this click.
    */
-  adoptMethod: durchgangProcedure.mutation(async ({ ctx }) => {
+  adoptMethod: companyProcedure.mutation(async ({ ctx }) => {
+    gateStep(ctx.session, "2.1");
     const ref = await durchgangItem(ctx.db, actorOf(ctx), "2.1");
     const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
     const method = getDefaultMethodology(locale);
@@ -746,7 +721,7 @@ export const durchgangRouter = router({
    * (`notApplicableReason`); the status stays until management signs. The audit row carries no
    * free text.
    */
-  decline: durchgangProcedure
+  decline: companyProcedure
     .input(
       z.object({
         code,
@@ -754,6 +729,7 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
       if (itemOf(input.code).mustDo) {
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -780,21 +756,20 @@ export const durchgangRouter = router({
     }),
 
   /** The end of an item: filled in, waiting for the signature. The status column stays. */
-  finish: durchgangProcedure
-    .input(z.object({ code }))
-    .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      // Filled in after all: an earlier decision not to do it no longer stands.
-      await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
-      await logWalk({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        action: "durchgang.item_done",
-        entityType: "requirement",
-        entityId: ref.requirementId,
-        description: `${ref.code} filled in`,
-      });
-    }),
+  finish: companyProcedure.input(z.object({ code })).mutation(async ({ ctx, input }) => {
+    gateStep(ctx.session, input.code);
+    const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+    // Filled in after all: an earlier decision not to do it no longer stands.
+    await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
+    await logWalk({
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      action: "durchgang.item_done",
+      entityType: "requirement",
+      entityId: ref.requirementId,
+      description: `${ref.code} filled in`,
+    });
+  }),
 
   /**
    * 2.2: the ticked catalogue items and the person's own entries become asset rows, named in the
@@ -802,7 +777,7 @@ export const durchgangRouter = router({
    * is. An item already listed, under any name, is skipped, so a second pass adds only what is
    * new, and nothing is ever deleted here.
    */
-  addAssets: durchgangWrite
+  addAssets: stepWrite("2.2")
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(addAssetsInput)
     .mutation(async ({ ctx, input }) => {
@@ -854,7 +829,7 @@ export const durchgangRouter = router({
    * Who provides each of the company's assets (`asset_provider`), any number per asset. The
    * tenant filter runs through the asset, so a link is only ever read for the company's own.
    */
-  providers: durchgangProcedure.query(({ ctx }) =>
+  providers: companyProcedure.query(({ ctx }) =>
     ctx.db
       .select({ assetId: assetProvider.assetId, supplierId: assetProvider.supplierId })
       .from(assetProvider)
@@ -870,7 +845,7 @@ export const durchgangRouter = router({
    * changes keeps the catalogue item it was listed as in `catalog_id`, so a rename does not lose
    * what kind of thing it is. An omitted description keeps the stored one.
    */
-  specifyAssets: durchgangWrite
+  specifyAssets: stepWrite("2.2")
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(specifyAssetsInput)
     .mutation(async ({ ctx, input }) => {
@@ -998,7 +973,7 @@ export const durchgangRouter = router({
    * catalogue item and a numbered name the person then replaces; what it is for is its own, so the
    * first one's description is not copied.
    */
-  addAnotherAsset: durchgangWrite
+  addAnotherAsset: stepWrite("2.2")
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const source = await ctx.db.query.asset.findFirst({
@@ -1694,6 +1669,8 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // Management's approval signs off (AGB B7).
+      await requireBillingAct(ctx, "sign_off");
       const screens: readonly AnyScreen[] = itemOf(input.code).screens;
       if (!screens.some((s) => s.kind === "approve")) {
         throw new TRPCError({

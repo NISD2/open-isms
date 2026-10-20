@@ -10,21 +10,21 @@ export const hrefOf = (code: string) =>
     : ({ pathname: "/durchgang/nis2/[code]", params: { code } } as const);
 
 /**
- * The steps of the walk. A company not set up yet (the draft every account gets at sign-up) walks
- * one step more, setting itself up, right after the registration (`withSetup`).
+ * The steps of the walk. Setting the company up is one of them, right after the registration
+ * (`withSetup`): open until the company is set up, then filled in, and it stays on the path
+ * (Simon, 20.10.2026: it must not vanish once the company is entered).
  */
 export function useSteps(
   walk: readonly WalkEntry[],
   setup: boolean,
 ): readonly WalkEntry[] {
   const t = useTranslations("durchgang.ui.home");
-  if (!setup) return walk;
   return withSetup(walk, {
     code: SETUP_STEP,
     section: t("setupSection"),
     headline: t("setupHeadline"),
     teaser: "",
     image: SETUP_ART,
-    state: { kind: "open" },
+    state: setup ? { kind: "open" } : { kind: "filled", since: new Date() },
   });
 }

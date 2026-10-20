@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { DurchgangItem } from "@/components/durchgang/DurchgangItem";
 import { getSession } from "@/lib/auth";
+import { isFreeStep } from "@/lib/durchgang";
 import { requireWalk } from "../../gate";
 import { loadItem, loadWalk } from "../load";
 
@@ -23,10 +24,10 @@ export default async function DurchgangItemPage({
   searchParams: Promise<{ s?: string }>;
 }) {
   const [{ code }, { s }] = await Promise.all([params, searchParams]);
-  await requireWalk(code);
+  const mayWalk = await requireWalk(code);
   const [item, walk, session] = await Promise.all([
     loadItem(code),
-    loadWalk({ locked: false }),
+    loadWalk(),
     getSession(),
   ]);
   if (!item) notFound();
@@ -34,7 +35,7 @@ export default async function DurchgangItemPage({
     <DurchgangItem
       key={code}
       item={item}
-      walk={walk}
+      walk={mayWalk ? walk : walk.filter((w) => isFreeStep(w.code))}
       setup={!session?.companyActivated}
       initialScreen={Number(s ?? 0)}
     />

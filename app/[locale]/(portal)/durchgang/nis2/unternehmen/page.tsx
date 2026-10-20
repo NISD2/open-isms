@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { CompanySetup } from "@/components/organization/CompanySetup";
+import { SetupStep } from "@/components/durchgang/SetupStep";
 import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
-import { resumeAt, SETUP_STEP } from "@/lib/durchgang";
+import { isFreeStep, resumeAt } from "@/lib/durchgang";
 import { walkAccess } from "../../gate";
 import { loadWalk } from "../load";
 
@@ -21,37 +21,26 @@ export async function generateMetadata(): Promise<Metadata> {
  * an account that may walk; a company already set up has nothing to do here.
  */
 export default async function WalkCompanyStep() {
-  const [{ mayWalk }, session, locale, t] = await Promise.all([
+  const [{ mayWalk }, session, locale] = await Promise.all([
     walkAccess(),
     getSession(),
     getLocale(),
-    getTranslations("durchgang.ui.home"),
   ]);
-  if (!mayWalk || session?.companyActivated) {
+  if (session?.companyActivated) {
     redirect(getPathname({ href: "/durchgang/nis2", locale }));
   }
-  const next = resumeAt(await loadWalk({ locked: false }), (w) => w.state);
+  const walk = await loadWalk();
+  const next = resumeAt(
+    mayWalk ? walk : walk.filter((w) => isFreeStep(w.code)),
+    (w) => w.state,
+  );
   return (
-    <div data-dg-item={SETUP_STEP}>
-      <CompanySetup
-        eyebrow={t("setupSection")}
-        lead={t("setupLead")}
-        hints={{
-          name: t("setupNameHint"),
-          sector: t("setupSectorHint"),
-          entityType: t("setupEntityTypeHint"),
-          entityTypes: {
-            essential: t("setupEntityTypes.essential"),
-            important: t("setupEntityTypes.important"),
-            kritis: t("setupEntityTypes.kritis"),
-          },
-        }}
-        next={
-          next
-            ? { pathname: "/durchgang/nis2/[code]", params: { code: next.code } }
-            : "/durchgang/nis2"
-        }
-      />
-    </div>
+    <SetupStep
+      next={
+        next
+          ? { pathname: "/durchgang/nis2/[code]", params: { code: next.code } }
+          : "/durchgang/nis2"
+      }
+    />
   );
 }
