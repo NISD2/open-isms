@@ -4,7 +4,6 @@ import { z } from "zod";
 import { nameKey } from "@/lib/asset-inventory/catalog-labels";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
-  type AnyScreen,
   GDPR_WALK,
   noteLine,
   type ProcessorAnswer,
@@ -24,7 +23,12 @@ import {
   logWalk,
   recheck,
 } from "../helpers/durchgang-procedures";
-import { NAMESPACES, recordLocaleOf, walkItem } from "../helpers/durchgang-words";
+import {
+  askedOnScreen,
+  NAMESPACES,
+  recordLocaleOf,
+  walkItem,
+} from "../helpers/durchgang-words";
 import { router, type TRPCContext } from "../init";
 
 /**
@@ -33,19 +37,6 @@ import { router, type TRPCContext } from "../init";
  * that the item's own screens ask it, takes what writing the item takes, touches only the
  * company's own rows, and leaves a line in the item's trail.
  */
-
-/** The item's screens, refused when none of them is of `kind`. */
-const screensOf = (
-  c: string,
-  kind: AnyScreen["kind"],
-  what: string,
-): readonly AnyScreen[] => {
-  const screens: readonly AnyScreen[] = walkItem(c).screens;
-  if (!screens.some((s) => s.kind === kind)) {
-    throw new TRPCError({ code: "BAD_REQUEST", message: `${c} records no ${what}.` });
-  }
-  return screens;
-};
 
 /** The language the company's records are written in, for the GDPR walk (German or English). */
 const recordLocale = async (ctx: {
@@ -179,7 +170,7 @@ export const durchgangGdprRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      screensOf(input.code, "activities", "processing activities");
+      askedOnScreen(input.code, "activities", "records no processing activities");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await recordLocale(ctx);
       const { copy } = activityCopyOf(NAMESPACES[locale]);
@@ -247,7 +238,7 @@ export const durchgangGdprRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      screensOf(input.code, "describe", "activity facts");
+      askedOnScreen(input.code, "describe", "records no activity facts");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const rows = [...new Map(input.rows.map((r) => [r.id, r])).values()];
       if (rows.length === 0) return { changed: 0 };

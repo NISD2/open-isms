@@ -2,8 +2,10 @@ import { TRPCError } from "@trpc/server";
 import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import {
   type AnyItem,
+  type AnyScreen,
   itemOf,
   resolveItem,
+  type ScreenKind,
   type Walk,
   type WalkLocale,
   walkLocaleOf,
@@ -26,6 +28,17 @@ export const walkItem = (code: string): AnyItem => {
     });
   }
   return item;
+};
+
+/**
+ * Refuses a write the item's screens do not ask for: a screen of `kind` is what lets the item
+ * record it. `refusal` completes the message, as in "records no agreements".
+ */
+export const askedOnScreen = (code: string, kind: ScreenKind, refusal: string): void => {
+  const screens: readonly AnyScreen[] = walkItem(code).screens;
+  if (!screens.some((s) => s.kind === kind)) {
+    throw new TRPCError({ code: "BAD_REQUEST", message: `${code} ${refusal}.` });
+  }
 };
 
 /**

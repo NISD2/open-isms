@@ -26,15 +26,13 @@ export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
   const reviews = trpc.managementReview.list.useQuery(undefined, {
     enabled: modules.has("management_review"),
   });
+  // One supplier list serves the register's names and the processors among them.
   const suppliers = trpc.supplier.list.useQuery(undefined, {
-    enabled: modules.has("supplier"),
+    enabled: modules.has("supplier") || kinds.has("processors"),
   });
   const assets = trpc.asset.list.useQuery(undefined, { enabled: kinds.has("assets") });
   const record = trpc.processingActivity.list.useQuery(undefined, {
     enabled: kinds.has("activities"),
-  });
-  const processors = trpc.supplier.list.useQuery(undefined, {
-    enabled: kinds.has("processors"),
   });
 
   const listed = (label: string, names: readonly (string | null)[]): string[] => {
@@ -103,7 +101,7 @@ export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
     ),
     ...listed(
       t("processors.recorded"),
-      (processors.data ?? []).filter(isProcessor).map((row) => row.name),
+      (suppliers.data ?? []).filter(isProcessor).map((row) => row.name),
     ),
     ...(assets.data ? [t("onList", { count: assets.data.length })] : []),
     ...(draft.uploaded ? [draft.uploaded] : []),

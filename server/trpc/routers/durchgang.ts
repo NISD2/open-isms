@@ -22,7 +22,6 @@ import { seedLocale } from "@/lib/compliance/seed-locale";
 import { MAX_DECLINE_REASON, MIN_DECLINE_REASON } from "@/lib/compliance/sign-off-state";
 import {
   ALL_ITEMS,
-  type AnyScreen,
   agreementsNote,
   approvalOf,
   approvedNote,
@@ -123,6 +122,7 @@ import {
   recheck,
 } from "../helpers/durchgang-procedures";
 import {
+  askedOnScreen,
   headlineOf,
   NAMESPACES,
   recordLocaleOf,
@@ -791,13 +791,7 @@ export const durchgangRouter = router({
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(recordAgreementsInput)
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = walkItem(input.code).screens;
-      if (!screens.some((s) => s.kind === "agreements")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} records no agreements.`,
-        });
-      }
+      askedOnScreen(input.code, "agreements", "records no agreements");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const rows = [...new Map(input.rows.map((r) => [r.supplierId, r])).values()];
       const ids = rows.map((r) => r.supplierId);
@@ -884,13 +878,7 @@ export const durchgangRouter = router({
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(recordLoginsInput)
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = walkItem(input.code).screens;
-      if (!screens.some((s) => s.kind === "logins")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} records no sign-ins.`,
-        });
-      }
+      askedOnScreen(input.code, "logins", "records no sign-ins");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       // A factor is only recorded where signing in takes one.
       const rows = [
@@ -1061,13 +1049,7 @@ export const durchgangRouter = router({
   adoptCrypto: durchgangWrite
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = walkItem(input.code).screens;
-      if (!screens.some((s) => s.kind === "crypto")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} keeps no crypto list.`,
-        });
-      }
+      askedOnScreen(input.code, "crypto", "keeps no crypto list");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       const [row] = await ctx.db
@@ -1344,13 +1326,7 @@ export const durchgangRouter = router({
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(recordCriticalInput)
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = walkItem(input.code).screens;
-      if (!screens.some((s) => s.kind === "critical")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} marks no processes.`,
-        });
-      }
+      askedOnScreen(input.code, "critical", "marks no processes");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const type = policyTypeOf(input.code);
       const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];

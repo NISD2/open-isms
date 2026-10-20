@@ -26,9 +26,6 @@ const ACTIVITY_COPY = z.object({
 
 export type ActivityCopy = z.infer<typeof ACTIVITY_COPY>;
 
-/** The suggested answers, by the record's column. */
-export type ActivitySuggestion = Omit<ActivityCopy, "label">;
-
 const NAMESPACE = z.object({ activities: z.record(z.string(), z.unknown()) });
 
 /**
