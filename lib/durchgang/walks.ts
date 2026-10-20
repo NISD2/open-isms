@@ -75,6 +75,25 @@ export const policiesOf = (
     ),
   );
 
+/**
+ * Every role a walk names a person for: the item, the field and the index of its screen. The
+ * Organisation page lists them, so a person is changed in one place whichever way it is reached.
+ */
+export const personFieldsOf = (
+  walk: Walk,
+): ReadonlyArray<{
+  readonly code: string;
+  readonly field: string;
+  readonly at: number;
+}> =>
+  walk.items.flatMap((item) =>
+    screensOf(item).flatMap((screen, at) =>
+      screen.kind === "fields" && screen.person
+        ? [{ code: item.code, field: screen.person, at }]
+        : [],
+    ),
+  );
+
 /** Whether a company not set up yet may open this item: the walk up to its `setupAfter`. */
 export const opensBeforeSetup = (code: string): boolean => {
   const walk = walkOfCode(code);

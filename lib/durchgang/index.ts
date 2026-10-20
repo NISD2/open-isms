@@ -173,6 +173,7 @@ export {
   itemsFor,
   opensBeforeSetup,
   operatesCriticalFacility,
+  personFieldsOf,
   policiesOf,
   WALKS,
   walkOfCode,

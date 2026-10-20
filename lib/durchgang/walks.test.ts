@@ -11,6 +11,7 @@ import {
   answerRefsOf,
   approvalOf,
   askedFields,
+  personFieldsOf,
   resolveItem,
   WAIT_REASONS,
   WALKS,
@@ -159,6 +160,17 @@ for (const walk of Object.values(WALKS)) {
           if (screen.apart) expect(screen.person).toBeDefined();
           if (screen.carry) expect(screen.fields).toContain(screen.carry.field);
         }
+      }
+    });
+
+    test("lists every person field of the walk for the Organisation page, at its screen", () => {
+      for (const { code, field, at } of personFieldsOf(walk)) {
+        const screen = walk.items.find((i) => i.code === code)?.screens[at];
+        expect({ code, field, kind: screen?.kind }).toEqual({
+          code,
+          field,
+          kind: "fields",
+        });
       }
     });
 

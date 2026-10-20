@@ -4,15 +4,19 @@ import { getTranslations } from "next-intl/server";
 import { CompanyEssentials } from "@/components/organization/CompanyEssentials";
 import { CompanySetup } from "@/components/organization/CompanySetup";
 import { OrganizationId } from "@/components/organization/OrganizationId";
+import { WalkPeople } from "@/components/organization/WalkPeople";
 import { getSession } from "@/lib/auth";
+import { MANAGEMENT_ROLE } from "@/lib/durchgang";
 import { ENTITY_TYPES } from "@/lib/organization/constants";
 import { api } from "@/lib/trpc/server";
+import { loadWalkPeople } from "../durchgang/_walk/people";
 
 /**
  * The company's own data: the three essentials the walk sets the company up with
  * (`CompanyEssentials`, Simon 04.10.2026: "only the things we need from the organization, nothing
  * more"). A company not set up yet sets itself up here (`CompanySetup`). Only an admin changes them.
- * Below them its id, to copy (`OrganizationId`).
+ * Then who holds each role the walks name (`WalkPeople`, Simon 20.10.2026: listed "in the
+ * organization itself so you can change it from there as well"), and its id (`OrganizationId`).
  */
 export default async function OrganizationPage() {
   const session = await getSession();
@@ -23,6 +27,7 @@ export default async function OrganizationPage() {
     api.assessment.getCompany(),
   ]);
   if (!companyData?.activatedAt) return <CompanySetup />;
+  const people = await loadWalkPeople();
 
   const entityType =
     ENTITY_TYPES.find((type) => type === companyData.entityType) ?? "important";
@@ -62,6 +67,14 @@ export default async function OrganizationPage() {
           ))}
         </dl>
       )}
+      <WalkPeople
+        people={people}
+        viewer={{
+          id: session.user.id,
+          admin: isAdmin,
+          management: session.jobTitle === MANAGEMENT_ROLE,
+        }}
+      />
       <OrganizationId id={companyData.id} />
     </div>
   );
