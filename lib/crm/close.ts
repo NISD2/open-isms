@@ -315,22 +315,34 @@ export const closeClient = (settings: CloseSettings, fetchImpl: FetchLike = fetc
     },
 
     /**
-     * A note on the contact's timeline, dated when the thing happened. A refusal here
-     * means the contact or lead is gone or the text is not accepted: it is about this
-     * note, never about a setting.
+     * An email that was sent elsewhere (status "sent" only records it, Close sends
+     * nothing), on the contact's timeline with its real sender, recipient, subject and
+     * send time. Checked against the live API on 20.10.2026: the date is honoured, and
+     * the lead's status and Smart Views are untouched. A refusal here means the contact
+     * or lead is gone or the content is not accepted: it is about this email, never
+     * about a setting.
      */
-    addNote: async (
+    logSentEmail: async (
       link: CloseLink,
-      note: string,
-      at: Date,
+      email: {
+        readonly sender: string;
+        readonly to: string;
+        readonly subject: string;
+        readonly bodyText: string | null;
+        readonly sentAt: Date;
+      },
     ): Promise<CloseResult<null>> => {
-      const added = await request("POST", "/activity/note/", idBody, {
+      const logged = await request("POST", "/activity/email/", idBody, {
         lead_id: link.leadId,
         contact_id: link.contactId,
-        note,
-        date_created: at.toISOString(),
+        status: "sent",
+        sender: email.sender,
+        to: [email.to],
+        subject: email.subject,
+        body_text: email.bodyText,
+        date_created: email.sentAt.toISOString(),
       });
-      return added.ok ? ok(null) : added;
+      return logged.ok ? ok(null) : logged;
     },
 
     /** Already gone counts as done. */

@@ -30,22 +30,16 @@ describe("addressOf", () => {
 });
 
 describe("classifyMail", () => {
-  test("a newsletter issue gets a note with its subject", () => {
-    expect(classifyMail(mail(), sources, NOW)).toEqual({
-      kind: "note",
-      text: 'Newsletter sent: "You were early, so this price is yours"',
-    });
+  test("a newsletter issue is logged", () => {
+    expect(classifyMail(mail(), sources, NOW)).toEqual({ kind: "log" });
   });
 
-  test("a listed transactional subject gets a note", () => {
+  test("a listed transactional subject is logged", () => {
     const welcome = mail({
       from: "nisd2.eu <noreply@nisd2.eu>",
       subject: "Welcome to NISD2",
     });
-    expect(classifyMail(welcome, sources, NOW)).toEqual({
-      kind: "note",
-      text: 'Platform email sent: "Welcome to NISD2"',
-    });
+    expect(classifyMail(welcome, sources, NOW)).toEqual({ kind: "log" });
   });
 
   test.each([
@@ -100,7 +94,7 @@ describe("classifyMail", () => {
 
   test("opened, clicked and complained mail was delivered", () => {
     for (const lastEvent of ["opened", "clicked", "complained"]) {
-      expect(classifyMail(mail({ lastEvent }), sources, NOW).kind).toBe("note");
+      expect(classifyMail(mail({ lastEvent }), sources, NOW).kind).toBe("log");
     }
   });
 });

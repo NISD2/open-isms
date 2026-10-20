@@ -17,7 +17,7 @@
  *     by email; when it is gone for good the person is left alone, never recreated.
  *
  *  4. Mail last, when Resend is configured (./mail-poll): the emails Resend sent
- *     that Close does not have yet become notes on the recipients' contacts. It runs
+ *     that Close does not have yet are logged as emails on the recipients' contacts. It runs
  *     only after a clean people step, and never decides whether the run failed
  *     except when Resend or Close cannot be reached.
  *
@@ -94,9 +94,9 @@ export type CloseSyncRunResult =
       readonly linked: number;
       readonly updated: number;
       readonly refused: number;
-      /** Notes written to Close for Resend mail this run. */
+      /** Emails logged in Close for Resend mail this run. */
       readonly mailNoted: number;
-      /** Resend mails dealt with without a note: not listed, not delivered, nobody in Close. */
+      /** Resend mails dealt with without an email: not listed, not delivered, nobody in Close. */
       readonly mailSkipped: number;
       /** Resend mails seen and left for the next run. */
       readonly mailPending: number;

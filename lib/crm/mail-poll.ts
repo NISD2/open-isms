@@ -1,7 +1,8 @@
 /**
  * The mail poll: puts the emails Resend has sent onto the recipients' contacts in
- * Close, as notes dated when each mail was sent. It runs as the last step of the
- * close-sync (./sync), after the people are in Close.
+ * Close, each as a logged email with its sender, recipient, subject, plain-text body
+ * and the time it was sent. It runs as the last step of the close-sync (./sync), after
+ * the people are in Close.
  *
  * Where it stops. It reads Resend's list from the newest mail down and stops at the
  * second mail it already dealt with (a row in close_resend_log), the way you stop
@@ -15,21 +16,33 @@
  * before it reaches anything it already did. Written newest first, an interrupted run
  * would leave a hole in the middle that the stop rule can never see again.
  *
- * A mail is logged only once it is settled, after its notes are written; a failure to
+ * A mail is logged only once it is settled, after its emails are written; a failure to
  * reach Close or Resend ends the poll and leaves that mail for the next run.
+ *
+ * The body is one more Resend request per mail (the list carries none), so a run stops
+ * on a time budget as well as a count, and the history arrives over more runs.
  */
 import type { CloseClient, CloseLink, CloseResult } from "./close";
 import { classifyMail, type MailSources } from "./mail-rules";
 import type { ResendClient, ResendMail } from "./resend-history";
 
+/**
+ * Which way of writing mail to Close this code stands for; see close_resend_log.format.
+ * 1 was a one-line note per mail, 2 is a logged email. Raise it to redo all history.
+ */
+export const MAIL_LOG_FORMAT = 2;
 /** Mails already dealt with that end the walk. */
 export const KNOWN_TO_STOP = 2;
 /** Resend keeps about 30 days; this is a ceiling, not a target (60 pages = 6,000 mails). */
 export const MAX_PAGES = 60;
-/** Notes written per run; the rest waits for the next run. */
-export const MAX_NOTES_PER_RUN = 300;
+/** Emails written to Close per run; the rest waits for the next run. */
+export const MAX_ENTRIES_PER_RUN = 300;
+/** A run stops starting new mails after this long, so "Run now" answers in reasonable time. */
+export const RUN_BUDGET_MS = 120_000;
 /** Resend allows two requests a second. */
 const RESEND_PAUSE_MS = 600;
+/** Close takes long bodies, but a newsletter past this is not worth a CRM record. */
+const MAX_BODY_CHARS = 30_000;
 
 export type MailOutcome =
   | "noted"
@@ -41,7 +54,10 @@ export type MailLogRow = {
   readonly resendId: string;
   readonly sentAt: Date;
   readonly outcome: MailOutcome;
-  /** Notes written for this mail, one per recipient found in Close. */
+  /**
+   * Emails written to Close for this mail, one per recipient found there. The column
+   * is still called notes, from before the entries became emails.
+   */
   readonly notes: number;
 };
 
@@ -54,14 +70,16 @@ export interface MailStore {
 export type MailPoll = {
   readonly resend: ResendClient;
   readonly sources: MailSources;
-  /** Wait between Resend pages; tests pass 0. */
+  /** Wait between Resend requests; tests pass 0. */
   readonly pauseMs?: number;
+  /** How long a run keeps starting new mails; tests shorten it. */
+  readonly budgetMs?: number;
 };
 
 export type MailPollResult = {
-  /** Notes written to Close this run. */
+  /** Emails written to Close this run. */
   readonly noted: number;
-  /** Mails logged without a note: not listed, not delivered, or nobody in Close. */
+  /** Mails logged without an email: not listed, not delivered, or nobody in Close. */
   readonly skipped: number;
   /** Mails seen and left for the next run (budget, still on its way, or an early end). */
   readonly pending: number;
@@ -113,25 +131,52 @@ async function contactOf(
   return found.ok || found.kind === "unavailable" ? found : { ok: true, value: null };
 }
 
-/** One note per recipient who is a contact in Close; the count, or why it must stop. */
-async function noteRecipients(
+/**
+ * The mail's plain text, fetched once and only when someone in Close needs it. A mail
+ * Resend no longer holds has no body, and is logged without one; an outage is not that.
+ */
+async function bodyOf(
+  poll: MailPoll,
+  mail: ResendMail,
+): Promise<CloseResult<string | null>> {
+  await sleep(poll.pauseMs ?? RESEND_PAUSE_MS);
+  const body = await poll.resend.bodyText(mail.id);
+  if (body.ok) return { ok: true, value: body.value?.slice(0, MAX_BODY_CHARS) ?? null };
+  return body.kind === "rejected" ? { ok: true, value: null } : body;
+}
+
+/** One logged email per recipient who is a contact in Close; the count, or why it must stop. */
+async function logRecipients(
   close: CloseClient,
+  poll: MailPoll,
   contacts: Contacts,
   mail: ResendMail,
-  text: string,
-): Promise<{ readonly notes: number } | { readonly stopped: string }> {
+): Promise<{ readonly logged: number } | { readonly stopped: string }> {
   const addresses = [...new Set(mail.to.map((a) => a.trim().toLowerCase()))];
-  let notes = 0;
+  const links = [];
   for (const address of addresses) {
     const contact = await contactOf(close, contacts, address);
     if (!contact.ok) return { stopped: contact.detail };
-    if (!contact.value) continue;
-    const written = await close.addNote(contact.value, text, mail.sentAt);
-    if (written.ok) notes += 1;
-    // Refused for this note (the lead was deleted since): nothing to write, nothing to retry.
+    if (contact.value) links.push({ address, link: contact.value });
+  }
+  if (links.length === 0) return { logged: 0 };
+
+  const body = await bodyOf(poll, mail);
+  if (!body.ok) return { stopped: body.detail };
+  let logged = 0;
+  for (const { address, link } of links) {
+    const written = await close.logSentEmail(link, {
+      sender: mail.from,
+      to: address,
+      subject: mail.subject,
+      bodyText: body.value,
+      sentAt: mail.sentAt,
+    });
+    if (written.ok) logged += 1;
+    // Refused for this email (the lead was deleted since): nothing to write, nothing to retry.
     else if (written.kind === "unavailable") return { stopped: written.detail };
   }
-  return { notes };
+  return { logged };
 }
 
 export async function pollMail(
@@ -145,6 +190,8 @@ export async function pollMail(
 
   const queue = [...unseen.value].reverse();
   const contacts: Contacts = new Map();
+  const started = Date.now();
+  const budgetMs = poll.budgetMs ?? RUN_BUDGET_MS;
   let noted = 0;
   let skipped = 0;
   const end = (index: number, stopped: string | null): MailPollResult => ({
@@ -155,7 +202,9 @@ export async function pollMail(
   });
 
   for (const [index, mail] of queue.entries()) {
-    if (noted >= MAX_NOTES_PER_RUN) return end(index, null);
+    // At least one mail per run, so a budget of zero still makes progress.
+    const outOfTime = index > 0 && Date.now() - started >= budgetMs;
+    if (noted >= MAX_ENTRIES_PER_RUN || outOfTime) return end(index, null);
     const verdict = classifyMail(mail, poll.sources, now);
     if (verdict.kind === "wait") return end(index, null);
 
@@ -167,11 +216,11 @@ export async function pollMail(
       skipped += 1;
       continue;
     }
-    const written = await noteRecipients(close, contacts, mail, verdict.text);
+    const written = await logRecipients(close, poll, contacts, mail);
     if ("stopped" in written) return end(index, written.stopped);
-    noted += written.notes;
-    if (written.notes > 0) {
-      await log("noted", written.notes);
+    noted += written.logged;
+    if (written.logged > 0) {
+      await log("noted", written.logged);
     } else {
       await log("skipped_no_contact", 0);
       skipped += 1;

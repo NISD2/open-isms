@@ -21,6 +21,7 @@ import {
 } from "@/schema";
 import { journeyStatesByCompany } from "@/server/trpc/helpers/durchgang";
 import { closeFactsFor } from "./facts";
+import { MAIL_LOG_FORMAT } from "./mail-poll";
 import { type CloseSyncStore, MAX_REFUSALS } from "./sync";
 
 const CEO_COURSE_ID = "nis2-ceo" satisfies (typeof COURSE_IDS)[number];
@@ -192,21 +193,29 @@ export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
     const rows = await db
       .select({ id: closeResendLog.resendId })
       .from(closeResendLog)
-      .where(inArray(closeResendLog.resendId, [...ids]));
+      .where(
+        and(
+          inArray(closeResendLog.resendId, [...ids]),
+          eq(closeResendLog.format, MAIL_LOG_FORMAT),
+        ),
+      );
     return new Set(rows.map((row) => row.id));
   },
 
   recordMail: async (row) => {
-    // A second server or an overlapping run may have logged it first.
+    // A row of an older format for the same mail is replaced, which is how history is
+    // redone; a second server or an overlapping run writing the same row is harmless.
+    const state = {
+      sentAt: row.sentAt,
+      outcome: row.outcome,
+      notes: row.notes,
+      format: MAIL_LOG_FORMAT,
+      loggedAt: new Date(),
+    };
     await db
       .insert(closeResendLog)
-      .values({
-        resendId: row.resendId,
-        sentAt: row.sentAt,
-        outcome: row.outcome,
-        notes: row.notes,
-      })
-      .onConflictDoNothing();
+      .values({ resendId: row.resendId, ...state })
+      .onConflictDoUpdate({ target: closeResendLog.resendId, set: state });
   },
 
   optOut: async (emails) => {

@@ -2,14 +2,17 @@
  * The mail step of the sync, run through runCloseSync with nobody to sync:
  * - it reads Resend newest first and stops at the second mail it already dealt with;
  * - it writes oldest first, so an interrupted run never leaves a hole the stop rule
- *   cannot see: a burst bigger than a page, the note budget and an outage all resume;
+ *   cannot see: a burst bigger than a page, the count and time budgets and an outage
+ *   all resume;
+ * - each mail becomes an email on the recipient's contact with sender, recipient,
+ *   subject, text and send time; the text is fetched only when someone in Close needs it;
  * - a mail still on its way waits; a mail that is not listed, not delivered or for
- *   nobody in Close is logged without a note;
+ *   nobody in Close is logged without an email;
  * - Resend or Close failing ends the step and logs nothing it did not finish.
  */
 import { describe, expect, test } from "bun:test";
 import type { CloseSettings } from "./close";
-import { MAX_NOTES_PER_RUN, type MailLogRow, type MailPoll } from "./mail-poll";
+import { MAX_ENTRIES_PER_RUN, type MailLogRow, type MailPoll } from "./mail-poll";
 import type { ResendClient, ResendMail } from "./resend-history";
 import { type CloseSyncStore, runCloseSync } from "./sync";
 
@@ -37,36 +40,48 @@ const mail = (n: number, over: Partial<ResendMail> = {}): ResendMail => ({
 const history = (count: number, over: (n: number) => Partial<ResendMail> = () => ({})) =>
   Array.from({ length: count }, (_, i) => mail(count - i, over(count - i)));
 
-/** Resend pages of 100 over `mails`; `down` refuses every call. */
-function fakeResend(mails: readonly ResendMail[], down = false) {
-  let calls = 0;
+const failure = (kind: "unavailable" | "rejected", detail: string, status: number) =>
+  ({ ok: false, kind, detail, status, fields: [] }) as const;
+
+/**
+ * Resend pages of 100 over `mails`. `down` refuses the list; `bodyStatus` answers every
+ * body request with that failure; the body of mail n is "Body of re_n".
+ */
+function fakeResend(
+  mails: readonly ResendMail[],
+  opts: { down?: boolean; bodyStatus?: 404 | 429 } = {},
+) {
+  let listCalls = 0;
+  let bodyCalls = 0;
   const client: ResendClient = {
     list: async (after) => {
-      calls += 1;
-      if (down) {
-        return {
-          ok: false,
-          kind: "unavailable",
-          detail: "GET /emails: HTTP 401",
-          status: 401,
-          fields: [],
-        };
-      }
+      listCalls += 1;
+      if (opts.down) return failure("unavailable", "GET /emails: HTTP 401", 401);
       const start = after ? mails.findIndex((m) => m.id === after) + 1 : 0;
       const page = mails.slice(start, start + 100);
       return { ok: true, value: { mails: page, hasMore: start + 100 < mails.length } };
     },
+    bodyText: async (id) => {
+      bodyCalls += 1;
+      if (opts.bodyStatus === 404)
+        return failure("rejected", "GET /emails: HTTP 404", 404);
+      if (opts.bodyStatus === 429) {
+        return failure("unavailable", "GET /emails: HTTP 429", 429);
+      }
+      return { ok: true, value: `Body of ${id}` };
+    },
   };
-  return { client, calls: () => calls };
+  return { client, listCalls: () => listCalls, bodyCalls: () => bodyCalls };
 }
 
-const poll = (resend: ResendClient): MailPoll => ({
+const poll = (resend: ResendClient, budgetMs?: number): MailPoll => ({
   resend,
   sources: {
     newsletterFrom: "newsletter@nisd2.eu",
     transactionalFrom: "noreply@nisd2.eu",
   },
   pauseMs: 0,
+  budgetMs,
 });
 
 function memoryStore(known: string[] = []) {
@@ -94,11 +109,20 @@ const json = (body: unknown, status = 200) =>
     headers: { "Content-Type": "application/json" },
   });
 
-type Note = { contact_id: string; note: string; date_created: string };
+type LoggedEmail = {
+  lead_id: string;
+  contact_id: string;
+  status: string;
+  sender: string;
+  to: string[];
+  subject: string;
+  body_text: string | null;
+  date_created: string;
+};
 
 /** Close with a contact for every address except `absent`; `down` fails the n-th lookup on. */
 function fakeClose(opts: { absent?: string[]; downFromLookup?: number } = {}) {
-  const notes: Note[] = [];
+  const emails: LoggedEmail[] = [];
   let lookups = 0;
   const impl = async (url: string, init: RequestInit) => {
     const body = init.body ? JSON.parse(String(init.body)) : undefined;
@@ -114,27 +138,55 @@ function fakeClose(opts: { absent?: string[]; downFromLookup?: number } = {}) {
           : [{ id: `cont_${email}`, lead_id: `lead_${email}`, emails: [{ email }] }],
       });
     }
-    if (url.endsWith("/activity/note/")) {
-      notes.push(body);
-      return json({ id: `acti_${notes.length}` });
+    if (url.endsWith("/activity/email/")) {
+      emails.push(body);
+      return json({ id: `acti_${emails.length}` });
     }
     return json({ error: "unexpected" }, 500);
   };
-  return { impl, notes };
+  return { impl, emails };
 }
 
 const run = (
   store: CloseSyncStore,
   close: ReturnType<typeof fakeClose>,
   resend: ReturnType<typeof fakeResend> | null,
-) => runCloseSync(store, settings, close.impl, resend ? poll(resend.client) : null);
+  budgetMs?: number,
+) =>
+  runCloseSync(
+    store,
+    settings,
+    close.impl,
+    resend ? poll(resend.client, budgetMs) : null,
+  );
 
 describe("runCloseSync, mail step", () => {
   test("without Resend the step is left out", async () => {
     const { store } = memoryStore();
     const close = fakeClose();
     expect(await run(store, close, null)).toMatchObject({ mailNoted: 0, stopped: null });
-    expect(close.notes).toHaveLength(0);
+    expect(close.emails).toHaveLength(0);
+  });
+
+  test("logs a sent email with sender, recipient, subject, text and the original date", async () => {
+    const { store, rows } = memoryStore();
+    const close = fakeClose();
+    await run(store, close, fakeResend([mail(1)]));
+    expect(close.emails).toEqual([
+      {
+        lead_id: "lead_p1@example.test",
+        contact_id: "cont_p1@example.test",
+        status: "sent",
+        sender: "NISD2 <newsletter@nisd2.eu>",
+        to: ["p1@example.test"],
+        subject: "Issue 1",
+        body_text: "Body of re_1",
+        date_created: new Date(BASE + 60_000).toISOString(),
+      },
+    ]);
+    expect(rows).toEqual([
+      expect.objectContaining({ resendId: "re_1", outcome: "noted", notes: 1 }),
+    ]);
   });
 
   test("walks down to the second known mail and writes the rest oldest first", async () => {
@@ -146,28 +198,22 @@ describe("runCloseSync, mail step", () => {
       mailPending: 0,
       stopped: null,
     });
-    expect(close.notes.map((n) => n.note)).toEqual([
-      'Newsletter sent: "Issue 3"',
-      'Newsletter sent: "Issue 4"',
-      'Newsletter sent: "Issue 5"',
-    ]);
-    expect(close.notes[0]).toMatchObject({
-      contact_id: "cont_p3@example.test",
-      date_created: new Date(BASE + 3 * 60_000).toISOString(),
-    });
+    expect(close.emails.map((e) => e.subject)).toEqual(["Issue 3", "Issue 4", "Issue 5"]);
     expect(rows.map((r) => r.outcome)).toEqual(["noted", "noted", "noted"]);
   });
 
-  test("a second run with nothing new makes no Close call", async () => {
+  test("a second run with nothing new makes no Close or body call", async () => {
     const { store } = memoryStore();
     const resend = fakeResend(history(4));
     await run(store, fakeClose(), resend);
+    const bodiesBefore = resend.bodyCalls();
     const close = fakeClose();
     expect(await run(store, close, resend)).toMatchObject({
       mailNoted: 0,
       mailPending: 0,
     });
-    expect(close.notes).toHaveLength(0);
+    expect(close.emails).toHaveLength(0);
+    expect(resend.bodyCalls()).toBe(bodiesBefore);
   });
 
   test("a burst bigger than a page is all written, with nothing left behind", async () => {
@@ -175,34 +221,55 @@ describe("runCloseSync, mail step", () => {
     const close = fakeClose();
     const result = await run(store, close, fakeResend(history(230)));
     expect(result).toMatchObject({ mailNoted: 228, mailPending: 0, stopped: null });
-    expect(new Set(close.notes.map((n) => n.note)).size).toBe(228);
+    expect(new Set(close.emails.map((e) => e.subject)).size).toBe(228);
   });
 
-  test("the note budget leaves the newest mail for the next run, with no gap and no repeat", async () => {
-    const total = MAX_NOTES_PER_RUN + 50;
+  test("the count budget leaves the newest mail for the next run, with no gap and no repeat", async () => {
+    const total = MAX_ENTRIES_PER_RUN + 50;
     const { store } = memoryStore();
     const resend = fakeResend(history(total));
     const close = fakeClose();
     const first = await run(store, close, resend);
-    expect(first).toMatchObject({ mailNoted: MAX_NOTES_PER_RUN, mailPending: 50 });
+    expect(first).toMatchObject({ mailNoted: MAX_ENTRIES_PER_RUN, mailPending: 50 });
     // The oldest were written first, so what is left is the newest.
-    expect(close.notes.at(-1)?.note).toBe(
-      `Newsletter sent: "Issue ${MAX_NOTES_PER_RUN}"`,
-    );
+    expect(close.emails.at(-1)?.subject).toBe(`Issue ${MAX_ENTRIES_PER_RUN}`);
 
     expect(await run(store, close, resend)).toMatchObject({
       mailNoted: 50,
       mailPending: 0,
     });
-    expect(close.notes).toHaveLength(total);
-    expect(new Set(close.notes.map((n) => n.note)).size).toBe(total);
+    expect(close.emails).toHaveLength(total);
+    expect(new Set(close.emails.map((e) => e.subject)).size).toBe(total);
+  });
+
+  test("the time budget stops a run after at least one mail and resumes after it", async () => {
+    const { store } = memoryStore();
+    const resend = fakeResend(history(5));
+    const close = fakeClose();
+    expect(await run(store, close, resend, 0)).toMatchObject({
+      mailNoted: 1,
+      mailPending: 4,
+      stopped: null,
+    });
+    expect(close.emails.map((e) => e.subject)).toEqual(["Issue 1"]);
+    expect(await run(store, close, resend)).toMatchObject({
+      mailNoted: 4,
+      mailPending: 0,
+    });
+    expect(close.emails.map((e) => e.subject)).toEqual([
+      "Issue 1",
+      "Issue 2",
+      "Issue 3",
+      "Issue 4",
+      "Issue 5",
+    ]);
   });
 
   test("an empty log reads all of the history Resend still holds", async () => {
     const { store } = memoryStore();
     const resend = fakeResend(history(250));
     await run(store, fakeClose(), resend);
-    expect(resend.calls()).toBe(3);
+    expect(resend.listCalls()).toBe(3);
   });
 
   test("a mail still on its way waits, and so does everything newer", async () => {
@@ -218,10 +285,10 @@ describe("runCloseSync, mail step", () => {
       mailPending: 2,
     });
     expect(rows.map((r) => r.resendId)).toEqual(["re_1"]);
-    expect(close.notes).toHaveLength(1);
+    expect(close.emails).toHaveLength(1);
   });
 
-  test("not listed, not delivered and nobody in Close are logged without a note", async () => {
+  test("not listed, not delivered and nobody in Close are logged without an email", async () => {
     const { store, rows } = memoryStore();
     const resend = fakeResend([
       mail(4, { to: ["gone@example.test"] }),
@@ -241,20 +308,41 @@ describe("runCloseSync, mail step", () => {
       "skipped_no_contact",
     ]);
     expect(rows.map((r) => r.notes)).toEqual([1, 0, 0, 0]);
+    // The text is fetched for the one mail somebody in Close needed, not for the rest.
+    expect(resend.bodyCalls()).toBe(1);
   });
 
-  test("a mail to several recipients notes each one found in Close", async () => {
+  test("a mail to several recipients logs one email for each found in Close, one body fetch", async () => {
     const { store, rows } = memoryStore();
     const resend = fakeResend([
       mail(1, { to: ["a@example.test", "A@example.test", "b@example.test"] }),
     ]);
     const close = fakeClose();
     await run(store, close, resend);
-    expect(close.notes.map((n) => n.contact_id)).toEqual([
-      "cont_a@example.test",
-      "cont_b@example.test",
+    expect(close.emails.map((e) => e.to)).toEqual([
+      ["a@example.test"],
+      ["b@example.test"],
     ]);
     expect(rows[0]).toMatchObject({ outcome: "noted", notes: 2 });
+    expect(resend.bodyCalls()).toBe(1);
+  });
+
+  test("a mail whose text Resend no longer holds is logged without a text", async () => {
+    const { store } = memoryStore();
+    const close = fakeClose();
+    const result = await run(store, close, fakeResend([mail(1)], { bodyStatus: 404 }));
+    expect(result).toMatchObject({ mailNoted: 1, stopped: null });
+    expect(close.emails[0]).toMatchObject({ subject: "Issue 1", body_text: null });
+  });
+
+  test("a rate limit on the text ends the step and leaves the mail for the next run", async () => {
+    const { store, rows } = memoryStore();
+    const close = fakeClose();
+    expect(
+      await run(store, close, fakeResend(history(2), { bodyStatus: 429 })),
+    ).toMatchObject({ mailNoted: 0, mailPending: 2, stopped: "GET /emails: HTTP 429" });
+    expect(rows).toHaveLength(0);
+    expect(close.emails).toHaveLength(0);
   });
 
   test("Close going down ends the step and logs only what was finished", async () => {
@@ -271,11 +359,13 @@ describe("runCloseSync, mail step", () => {
   test("a key Resend refuses ends the run and touches nothing", async () => {
     const { store, rows } = memoryStore();
     const close = fakeClose();
-    expect(await run(store, close, fakeResend(history(3), true))).toMatchObject({
-      mailNoted: 0,
-      stopped: "GET /emails: HTTP 401",
-    });
+    expect(await run(store, close, fakeResend(history(3), { down: true }))).toMatchObject(
+      {
+        mailNoted: 0,
+        stopped: "GET /emails: HTTP 401",
+      },
+    );
     expect(rows).toHaveLength(0);
-    expect(close.notes).toHaveLength(0);
+    expect(close.emails).toHaveLength(0);
   });
 });

@@ -97,7 +97,7 @@ function outcomeText(outcome: Outcome): string {
   if (!outcome.ok) return `The run threw: ${outcome.error}`;
   const r = outcome.result;
   if ("skipped" in r) return `Skipped: ${r.skipped}`;
-  const counts = `created ${r.created}, linked ${r.linked}, updated ${r.updated}, refused ${r.refused}, ${r.mailNoted} mail notes, ${r.pending} still to do`;
+  const counts = `created ${r.created}, linked ${r.linked}, updated ${r.updated}, refused ${r.refused}, ${r.mailNoted} mails logged, ${r.pending} still to do`;
   return r.stopped ? `Stopped: ${r.stopped} (${counts})` : `Done: ${counts}`;
 }
 
@@ -173,7 +173,7 @@ function SyncCard({ s }: { s: Status }) {
   const runNow = () => {
     if (
       !window.confirm(
-        `Run one Close sync now? It writes up to ${perRun} people and up to ${s.schedule.mailPerRun} mail notes to Close.`,
+        `Run one Close sync now? It writes up to ${perRun} people and up to ${s.schedule.mailPerRun} mails as emails on contacts in Close (it stops after two minutes).`,
       )
     ) {
       return;
@@ -327,8 +327,8 @@ function MailCard({ s }: { s: Status }) {
   const m = s.mail;
   const figures = [
     { label: "Mails dealt with", value: m.handled },
-    { label: "Notes in Close", value: m.notes },
-    { label: "Mails with a note", value: m.noted },
+    { label: "Entries in Close", value: m.notes },
+    { label: "Mails in Close", value: m.noted },
     { label: "Nobody in Close", value: m.noContact },
     { label: "Not on the list", value: m.notListed },
     { label: "Not delivered", value: m.notDelivered },
@@ -342,9 +342,11 @@ function MailCard({ s }: { s: Status }) {
         <CardDescription>
           Reads Resend's sent mail from the newest down and stops at the second mail it
           already dealt with. Newsletter issues and the welcome, signup follow-up and
-          nudge mails get a note on the recipient's contact; sign-in codes, invitations
-          and alerts never do. Up to {s.schedule.mailPerRun} notes a run, so the first 30
-          days of history arrive over several runs.{" "}
+          nudge mails are logged as emails on the recipient's contact, with sender,
+          recipient, subject, text and send time; sign-in codes, invitations and alerts
+          never are. Up to {s.schedule.mailPerRun} a run and two minutes, so the first 30
+          days of history arrive over several runs. Mail that an earlier release logged as
+          a one-line note is logged again as an email; those old notes stay in Close.{" "}
           {m.handled > 0 && m.oldest && m.newest
             ? `Covered so far: ${when(m.oldest)} to ${when(m.newest)}, last write ${m.lastAt ? when(m.lastAt) : "never"}.`
             : "Nothing dealt with yet."}

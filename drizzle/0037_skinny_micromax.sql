@@ -1,0 +1,1 @@
+ALTER TABLE "close_resend_log" ADD COLUMN "format" smallint DEFAULT 1 NOT NULL;

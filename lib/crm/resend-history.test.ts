@@ -85,3 +85,30 @@ describe("resendClient.list", () => {
     expect(page.ok && page.value.mails.map((m) => m.id)).toEqual(["re_1"]);
   });
 });
+
+describe("resendClient.bodyText", () => {
+  test("returns the plain text of one mail", async () => {
+    const urls: string[] = [];
+    const client = resendClient("key", async (url) => {
+      urls.push(url);
+      return json({ id: "re_1", text: "Hello", html: "<p>Hello</p>" });
+    });
+    expect(await client.bodyText("re_1")).toEqual({ ok: true, value: "Hello" });
+    expect(urls[0]).toBe("https://api.resend.com/emails/re_1");
+  });
+
+  test("a mail without text has no body, which is not a failure", async () => {
+    const client = resendClient("key", async () => json({ id: "re_1", text: null }));
+    expect(await client.bodyText("re_1")).toEqual({ ok: true, value: null });
+  });
+
+  test("a mail Resend no longer holds is rejected, a rate limit is an outage", async () => {
+    const gone = resendClient("key", async () => json({}, 404));
+    expect(await gone.bodyText("re_1")).toMatchObject({ ok: false, kind: "rejected" });
+    const limited = resendClient("key", async () => json({}, 429));
+    expect(await limited.bodyText("re_1")).toMatchObject({
+      ok: false,
+      kind: "unavailable",
+    });
+  });
+});

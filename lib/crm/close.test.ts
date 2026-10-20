@@ -271,3 +271,51 @@ describe("updates and deletes", () => {
     expect(calls[0]?.url).toBe("https://api.close.com/api/v1/lead/lead%2F..%2Fx/");
   });
 });
+
+describe("logSentEmail", () => {
+  const email = {
+    sender: "NISD2 <newsletter@nisd2.eu>",
+    to: "anna@example.test",
+    subject: "A subject",
+    bodyText: "The text",
+    sentAt: new Date("2026-10-14T08:00:00Z"),
+  };
+  const link = { leadId: "lead_1", contactId: "cont_1" };
+
+  test("records a sent email on the contact with its original time, sending nothing", async () => {
+    const { impl, calls } = fakeFetch([json({ id: "acti_1" })]);
+    expect(await closeClient(settings, impl).logSentEmail(link, email)).toEqual({
+      ok: true,
+      value: null,
+    });
+    expect(`${calls[0]?.init.method} ${calls[0]?.url}`).toBe(
+      "POST https://api.close.com/api/v1/activity/email/",
+    );
+    expect(bodyOf(calls[0])).toEqual({
+      lead_id: "lead_1",
+      contact_id: "cont_1",
+      status: "sent",
+      sender: "NISD2 <newsletter@nisd2.eu>",
+      to: ["anna@example.test"],
+      subject: "A subject",
+      body_text: "The text",
+      date_created: "2026-10-14T08:00:00.000Z",
+    });
+  });
+
+  test("a refused email is rejected, an outage is unavailable, neither throws", async () => {
+    const { impl } = fakeFetch([
+      json({ "field-errors": { lead_id: "not found" } }, 400),
+      json({}, 503),
+    ]);
+    const close = closeClient(settings, impl);
+    expect(await close.logSentEmail(link, email)).toMatchObject({
+      ok: false,
+      kind: "rejected",
+    });
+    expect(await close.logSentEmail(link, email)).toMatchObject({
+      ok: false,
+      kind: "unavailable",
+    });
+  });
+});

@@ -84,10 +84,17 @@ export const closeMailLog = pgTable(
  * Every Resend email the mail poll (lib/crm/mail-poll.ts) has dealt with, one row per
  * email, so the poll knows where it stopped last time: it walks Resend's list from the
  * newest mail and stops at the second mail that has a row here. A row holds Resend's
- * email id, when it was sent, what became of it and how many notes it produced, never
- * an address, subject or body.
+ * email id, when it was sent, what became of it and how many entries it produced in
+ * Close (the column keeps its first name, notes), never an address, subject or body.
  *
- * - noted: at least one recipient has the note on their contact in Close.
+ * - format: which way of writing to Close the row stands for. 1 is the first release,
+ *   a one-line note per mail; 2 is a logged email with sender, recipient, subject and
+ *   text. The poll only counts format 2 as done (MAIL_LOG_FORMAT in lib/crm/mail-poll.ts),
+ *   so changing the way mail is written means raising the number: the whole history is
+ *   walked again, and mail the old release logs while a deploy rolls out is redone too.
+ *   Nothing is deleted.
+ *
+ * - noted: at least one recipient has the mail on their contact in Close.
  * - skipped_not_listed: not mail sales should see (lib/crm/mail-rules.ts).
  * - skipped_not_delivered: bounced, suppressed or failed, so the person never got it.
  * - skipped_no_contact: listed, but no recipient is a contact in Close.
@@ -99,6 +106,9 @@ export const closeResendLog = pgTable(
     sentAt: timestamp("sent_at").notNull(),
     outcome: varchar("outcome", { length: 24 }).notNull(),
     notes: smallint("notes").default(0).notNull(),
+    // Defaults to 1 on purpose: the release that does not know this column inserts rows
+    // without it, and those are format 1.
+    format: smallint("format").default(1).notNull(),
     loggedAt: timestamp("logged_at").defaultNow().notNull(),
   },
   (t) => [

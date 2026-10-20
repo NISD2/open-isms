@@ -1,5 +1,5 @@
 /**
- * Which Resend emails reach a person's timeline in Close, and the words of the note.
+ * Which Resend emails reach a person's timeline in Close.
  *
  * Resend's list says who sent a mail, to whom and under what subject, not which of our
  * message types it was. So the rule is a closed one on the sender and the subject, and
@@ -41,8 +41,6 @@ const TRANSACTIONAL_SUBJECTS: ReadonlySet<string> = new Set([
   "Váš další krok",
 ]);
 
-const MAX_SUBJECT = 200;
-
 /** The bare, lowercased address in "Name <address>". */
 export const addressOf = (from: string): string => {
   const open = from.lastIndexOf("<");
@@ -52,21 +50,17 @@ export const addressOf = (from: string): string => {
     .toLowerCase();
 };
 
-const noteText = (mail: ResendMail, sources: MailSources): string | null => {
+const isListed = (mail: ResendMail, sources: MailSources): boolean => {
   // Test sends of an issue go to the operator, not to the list.
-  if (mail.subject.startsWith("[Test]")) return null;
+  if (mail.subject.startsWith("[Test]")) return false;
   const sender = addressOf(mail.from);
-  const subject = mail.subject.slice(0, MAX_SUBJECT);
   if (sources.newsletterFrom && sender === addressOf(sources.newsletterFrom)) {
-    return `Newsletter sent: "${subject}"`;
+    return true;
   }
-  if (
+  return (
     sender === addressOf(sources.transactionalFrom) &&
     TRANSACTIONAL_SUBJECTS.has(mail.subject)
-  ) {
-    return `Platform email sent: "${subject}"`;
-  }
-  return null;
+  );
 };
 
 /** A complaint is the person marking a mail they received as spam. */
@@ -80,7 +74,7 @@ const REACHED: ReadonlySet<string> = new Set([
 const IN_FLIGHT_MS = 60 * 60_000;
 
 export type MailVerdict =
-  | { readonly kind: "note"; readonly text: string }
+  | { readonly kind: "log" }
   | {
       readonly kind: "skip";
       readonly outcome: "skipped_not_listed" | "skipped_not_delivered";
@@ -93,9 +87,8 @@ export const classifyMail = (
   sources: MailSources,
   now: Date = new Date(),
 ): MailVerdict => {
-  const text = noteText(mail, sources);
-  if (!text) return { kind: "skip", outcome: "skipped_not_listed" };
-  if (mail.lastEvent && REACHED.has(mail.lastEvent)) return { kind: "note", text };
+  if (!isListed(mail, sources)) return { kind: "skip", outcome: "skipped_not_listed" };
+  if (mail.lastEvent && REACHED.has(mail.lastEvent)) return { kind: "log" };
   const onItsWay =
     !mail.lastEvent || ["sent", "scheduled", "delivery_delayed"].includes(mail.lastEvent);
   return onItsWay && now.getTime() - mail.sentAt.getTime() < IN_FLIGHT_MS

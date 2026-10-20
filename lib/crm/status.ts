@@ -21,7 +21,7 @@ import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
 import { auditLog, closeCrmSync, closeResendLog, user } from "@/schema";
 import { CLOSE_CONFIGURABLE_KEYS } from "./config-schema";
-import { MAX_NOTES_PER_RUN } from "./mail-poll";
+import { MAIL_LOG_FORMAT, MAX_ENTRIES_PER_RUN } from "./mail-poll";
 import {
   CLOSE_SYNC_ACTION,
   CLOSE_SYNC_INTERVAL_MS,
@@ -104,7 +104,9 @@ const mail = async (db: DbOrTx) => {
       newest: max(closeResendLog.sentAt),
       lastAt: max(closeResendLog.loggedAt),
     })
-    .from(closeResendLog);
+    .from(closeResendLog)
+    // Rows of the first release stand for one-line notes; the card counts the emails.
+    .where(eq(closeResendLog.format, MAIL_LOG_FORMAT));
   return {
     handled: row?.handled ?? 0,
     noted: row?.noted ?? 0,
@@ -162,7 +164,7 @@ export async function closeSyncStatus(db: DbOrTx) {
     everyMinutes: CLOSE_SYNC_INTERVAL_MS / 60_000,
     firstRunMinutes: FIRST_RUN_DELAY_MS / 60_000,
     perRun: MAX_PER_RUN,
-    mailPerRun: MAX_NOTES_PER_RUN,
+    mailPerRun: MAX_ENTRIES_PER_RUN,
   };
   return {
     setup: setup(),

@@ -260,6 +260,13 @@
       "when": 1792534335211,
       "tag": "0036_mean_loa",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1792535782113,
+      "tag": "0037_skinny_micromax",
+      "breakpoints": true
     }
   ]
 }
