@@ -126,30 +126,36 @@ const czechMails = async () => [
 ];
 
 describe("Czech mail", () => {
-  whenLocalised("every workflow mail renders in Czech, with no German law and no English greeting", async () => {
-    for (const mail of await czechMails()) {
-      for (const part of [mail.subject, mail.text, mail.html]) {
-        expect(part).not.toContain("BSIG");
-        expect(part).not.toContain("Hi ");
-        expect(part).not.toContain("Hello");
-        expect(part).not.toContain("—");
-        // A Czech company name ends in "s.r.o.": no sentence may end on it.
-        expect(part).not.toContain("s.r.o..");
+  whenLocalised(
+    "every workflow mail renders in Czech, with no German law and no English greeting",
+    async () => {
+      for (const mail of await czechMails()) {
+        for (const part of [mail.subject, mail.text, mail.html]) {
+          expect(part).not.toContain("BSIG");
+          expect(part).not.toContain("Hi ");
+          expect(part).not.toContain("Hello");
+          expect(part).not.toContain("—");
+          // A Czech company name ends in "s.r.o.": no sentence may end on it.
+          expect(part).not.toContain("s.r.o..");
+        }
+        expect(mail.html).toContain('lang="cs"');
       }
-      expect(mail.html).toContain('lang="cs"');
-    }
-  });
+    },
+  );
 
-  whenLocalised("the welcome names the Czech duty and NÚKIB's own proof, never ours as the proof", async () => {
-    const { text } = await t.welcomeEmail({ name: "Jana", locale: "cs" });
-    expect(text).toContain("vyhláška č. 410/2025 Sb., § 4 písm. b)");
-    expect(text).toContain("vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a)");
-    expect(text).toContain("uznává NÚKIB certifikát svého kurzu");
-    expect(text).toContain("https://nisd2.eu/cs/training/nis2-ceo");
-    expect(text.startsWith("Dobrý den,")).toBe(true);
-  });
+  whenLocalised(
+    "the welcome names the Czech duty and NÚKIB's own proof, never ours as the proof",
+    async () => {
+      const { text } = await t.welcomeEmail({ name: "Jana", locale: "cs" });
+      expect(text).toContain("vyhláška č. 410/2025 Sb., § 4 písm. b)");
+      expect(text).toContain("vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a)");
+      expect(text).toContain("uznává NÚKIB certifikát svého kurzu");
+      expect(text).toContain("https://nisd2.eu/cs/training/nis2-ceo");
+      expect(text.startsWith("Dobrý den,")).toBe(true);
+    },
+  );
 
-  whenLocalised("the weekly report records management's acquaintance under the Czech decrees", async () => {
+  whenLocalised("the weekly report records management's acquaintance", async () => {
     const mails = await czechMails();
     const weekly = mails[8];
     expect(weekly.text).toContain("vyhláška č. 410/2025 Sb., § 4 písm. d)");

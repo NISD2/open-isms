@@ -78,10 +78,13 @@ describe("resolveEmailLocale", () => {
 });
 
 describe("workflowMailLocaleOf", () => {
-  whenLocalised("Czech readers get Czech, everyone else the English these mails always had", () => {
-    expect(workflowMailLocaleOf("cs")).toBe("cs");
-    expect(workflowMailLocaleOf("en")).toBe("en");
-    expect(workflowMailLocaleOf("de")).toBe("en");
-    expect(workflowMailLocaleOf("nl")).toBe("en");
-  });
+  whenLocalised(
+    "Czech readers get Czech, everyone else the English these mails always had",
+    () => {
+      expect(workflowMailLocaleOf("cs")).toBe("cs");
+      expect(workflowMailLocaleOf("en")).toBe("en");
+      expect(workflowMailLocaleOf("de")).toBe("en");
+      expect(workflowMailLocaleOf("nl")).toBe("en");
+    },
+  );
 });
