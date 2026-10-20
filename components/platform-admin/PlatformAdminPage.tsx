@@ -33,6 +33,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Link, useRouter } from "@/i18n/navigation";
 import { ActiveUsersPanel } from "./ActiveUsersPanel";
 import { planBadge, timeAgo } from "./admin-format";
+import type { Tab } from "./admin-tabs";
 import { CloseSyncPanel } from "./CloseSyncPanel";
 import { DevPanel } from "./DevPanel";
 import { emailTypeLabel } from "./email-type-label";
@@ -45,6 +46,7 @@ import { PricingPanel } from "./PricingPanel";
 import { SubscriptionsPanel } from "./SubscriptionsPanel";
 import { UserName } from "./UserDialog";
 import { type UserRow, UsersTable } from "./UsersTable";
+import { useAdminTab } from "./useAdminTab";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -188,28 +190,13 @@ interface Props {
   trainingActivity: TrainingRow[];
   supplierActivity: SupplierRow[];
   emailActivity: EmailActivity;
+  /** The tab the address names (/platform-admin/<slug>). */
+  initialTab: Tab;
 }
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-type Tab =
-  | "graphs"
-  | "users"
-  | "active"
-  | "companies"
-  | "compliance"
-  | "training"
-  | "suppliers"
-  | "emails"
-  | "erasures"
-  | "pricing"
-  | "subscriptions"
-  | "partners"
-  | "close"
-  | "flags"
-  | "dev";
 
 // ---------------------------------------------------------------------------
 // Component
@@ -223,8 +210,9 @@ export function PlatformAdminPage({
   trainingActivity,
   supplierActivity,
   emailActivity,
+  initialTab,
 }: Props) {
-  const [tab, setTab] = useState<Tab>("users");
+  const [tab, setTab] = useAdminTab(initialTab);
 
   return (
     <div className="space-y-6">

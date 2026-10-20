@@ -334,5 +334,6 @@ export const routing = defineRouting({
 
     // Admin
     "/platform-admin": "/platform-admin",
+    "/platform-admin/[tab]": "/platform-admin/[tab]",
   }),
 });
