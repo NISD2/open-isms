@@ -31,6 +31,7 @@ const act = (over: Partial<Parameters<typeof nonPaymentAction>[0]>) =>
     status: "unpaid",
     dueDate: DUE,
     today: "2026-11-01",
+    reopenable: true,
     ...over,
   });
 
@@ -61,6 +62,10 @@ describe("what B9 asks for one account", () => {
     expect(act({ level: "grandfathered", status: "paid" })).toBe("reopen");
     expect(act({ level: "free", status: "paid", today: "2027-09-30" })).toBe("reopen");
     expect(act({ level: "free", status: "paid", today: "2027-10-01" })).toBe("none");
+  });
+
+  test("a payment reopens only what B9 suspended: a revoke by a person stays", () => {
+    expect(act({ level: "free", status: "paid", reopenable: false })).toBe("none");
   });
 
   test("still unpaid, or canceled in Qonto: a suspended account stays as it is", () => {
@@ -151,6 +156,7 @@ describe("the sweep", () => {
     accountId,
     level: "full",
     invoice: { ...INVOICE, qontoInvoiceId: `q-${accountId}`, number: `R-${accountId}` },
+    reopenable: false,
     ...over,
   });
 
@@ -169,12 +175,12 @@ describe("the sweep", () => {
         asked.push(id);
         return { status: answers[id] ?? null, dueDate: DUE };
       },
-      suspend: async (id) => {
-        moved.push(`suspend ${id}`);
+      suspend: async (change) => {
+        moved.push(`suspend ${change.accountId}`);
         return "free";
       },
-      reopen: async (id) => {
-        moved.push(`reopen ${id}`);
+      reopen: async (change) => {
+        moved.push(`reopen ${change.accountId}`);
         return true;
       },
     }).then((result) => ({ result, asked, moved, seenPaid }));
@@ -185,17 +191,25 @@ describe("the sweep", () => {
       [
         candidate("late"),
         candidate("paying"),
-        candidate("back", { level: "free" }),
+        candidate("back", { level: "free", reopenable: true }),
         candidate("down"),
       ],
       { "q-late": "unpaid", "q-paying": "paid", "q-back": "paid", "q-down": null },
     );
     expect(moved).toEqual(["suspend late", "reopen back"]);
-    expect(result.applied.map((a) => [a.accountId, a.action, a.level])).toEqual([
-      ["late", "suspend", "free"],
-      ["back", "reopen", "full"],
+    expect(result.applied.map((a) => [a.accountId, a.action, a.from, a.level])).toEqual([
+      ["late", "suspend", "full", "free"],
+      ["back", "reopen", "free", "full"],
     ]);
     expect(result.unreadable).toEqual(["R-down"]);
+  });
+
+  test("an account revoked by a person is neither asked about nor reopened", async () => {
+    const { asked, moved } = await run([candidate("revoked", { level: "free" })], {
+      "q-revoked": "paid",
+    });
+    expect(asked).toEqual([]);
+    expect(moved).toEqual([]);
   });
 
   test("an invoice seen paid is not asked about again", async () => {

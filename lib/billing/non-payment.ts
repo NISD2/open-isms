@@ -7,9 +7,9 @@
  *
  * Suspending is what the Subscriptions tab's revoke does by hand: a full account falls back to the
  * level it has without a licence (`unpaidAccessLevel`, B7 and B10), where Billing, Settings,
- * Organisation, Notifications and Export stay reachable. Nothing is stored about the suspension:
- * an account below full whose latest invoice is uncredited, paid and still in its licence year is
- * owed its licence, whoever took it away, so that is what reopens it.
+ * Organisation, Notifications and Export stay reachable. The payment reopens only what B9 itself
+ * suspended: an account whose latest access change is a B9 suspension (`reopenable`), with its
+ * latest invoice uncredited, paid and still in its licence year. A revoke by a person stays.
  *
  * Pure, so every case is a test (non-payment.test.ts); the sweep that applies it is
  * ./non-payment-schedule.
@@ -62,15 +62,19 @@ export const nonPaymentAction = (facts: {
   readonly status: QontoStatus | null;
   readonly dueDate: string | null;
   readonly today: string;
+  /** B9 itself suspended the account: its latest access change is a B9 suspension. */
+  readonly reopenable: boolean;
 }): NonPaymentAction => {
-  const { level, invoice, status, dueDate, today } = facts;
+  const { level, invoice, status, dueDate, today, reopenable } = facts;
   if (invoice.credited || status === null) return "none";
   if (level === "full") {
     return status === "unpaid" && dueDate !== null && today > dueDate
       ? "suspend"
       : "none";
   }
-  return status === "paid" && today <= invoice.periodEnd ? "reopen" : "none";
+  return reopenable && status === "paid" && today <= invoice.periodEnd
+    ? "reopen"
+    : "none";
 };
 
 /** How many days before the due date the account is told what B9 will do. */
@@ -130,14 +134,22 @@ export interface Candidate {
     readonly qontoInvoiceId: string;
     readonly number: string;
   };
+  /** Its latest access change is a B9 suspension, so a payment may reopen it. */
+  readonly reopenable: boolean;
+}
+
+/** A change the sweep is about to make: what its audit row and the operators are told. */
+export interface Change {
+  readonly accountId: string;
+  readonly invoiceNumber: string;
+  readonly dueDate: string | null;
+  /** The level the account had before. */
+  readonly from: AccessLevel;
 }
 
 /** One change the sweep made, for the audit log and the operators. */
-export interface Applied {
-  readonly accountId: string;
+export interface Applied extends Change {
   readonly action: Exclude<NonPaymentAction, "none">;
-  readonly invoiceNumber: string;
-  readonly dueDate: string | null;
   /** The level the account has now. */
   readonly level: AccessLevel;
 }
@@ -151,7 +163,8 @@ export interface SweepResult {
 /**
  * Apply B9 to every candidate, one at a time. Each change is a conditional update (`suspend` only
  * moves a full account, `reopen` only one below full), so a revoke or an order by a person in the
- * meantime wins; a change that found nothing to change is not reported.
+ * meantime wins; a change that found nothing to change is not reported. An account below full that
+ * B9 did not suspend is not asked about: nothing would reopen it.
  */
 export const sweepNonPayment = async (deps: {
   readonly candidates: readonly Candidate[];
@@ -161,13 +174,16 @@ export const sweepNonPayment = async (deps: {
   readonly read: (
     qontoInvoiceId: string,
   ) => Promise<{ readonly status: QontoStatus | null; readonly dueDate: string | null }>;
-  readonly suspend: (accountId: string) => Promise<AccessLevel | null>;
-  readonly reopen: (accountId: string) => Promise<boolean>;
+  /** Suspend and record it in one step; the new level, or null when there was nothing to do. */
+  readonly suspend: (change: Change) => Promise<AccessLevel | null>;
+  /** Reopen and record it in one step; whether it changed anything. */
+  readonly reopen: (change: Change) => Promise<boolean>;
 }): Promise<SweepResult> => {
   const applied: Applied[] = [];
   const unreadable: string[] = [];
   for (const c of deps.candidates) {
     const seen = deps.seenPaid.has(c.invoice.qontoInvoiceId);
+    if (c.level !== "full" && !c.reopenable) continue;
     if (!needsQonto(c.level, c.invoice, deps.today, seen)) continue;
     const live = await deps.read(c.invoice.qontoInvoiceId);
     if (live.status === null) {
@@ -176,16 +192,17 @@ export const sweepNonPayment = async (deps: {
     }
     if (live.status === "paid") deps.seenPaid.add(c.invoice.qontoInvoiceId);
     const action = nonPaymentAction({ ...c, ...live, today: deps.today });
-    const base = {
+    const change: Change = {
       accountId: c.accountId,
       invoiceNumber: c.invoice.number,
       dueDate: live.dueDate,
+      from: c.level,
     };
     if (action === "suspend") {
-      const level = await deps.suspend(c.accountId);
-      if (level) applied.push({ ...base, action, level });
-    } else if (action === "reopen" && (await deps.reopen(c.accountId))) {
-      applied.push({ ...base, action, level: "full" });
+      const level = await deps.suspend(change);
+      if (level) applied.push({ ...change, action, level });
+    } else if (action === "reopen" && (await deps.reopen(change))) {
+      applied.push({ ...change, action, level: "full" });
     }
   }
   return { applied, unreadable };

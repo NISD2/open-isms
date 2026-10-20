@@ -8,17 +8,18 @@
  * customer: B9 promises no notice, and the money is theirs to chase.
  */
 import "@/lib/server-guard";
-import { and, desc, eq, ne } from "drizzle-orm";
-import { logAudit } from "@/lib/audit";
+import { and, desc, eq, inArray, ne } from "drizzle-orm";
 import { isDeployedServer, withAdvisoryLock } from "@/lib/cron/in-app";
 import { type DbOrTx, db } from "@/lib/db";
 import { env } from "@/lib/env";
-import { billingAccount, creditNote, invoice, user } from "@/schema";
+import { auditLog, billingAccount, creditNote, invoice, user } from "@/schema";
+import type { AccessLevel } from "./accounts";
 import { alertOperators } from "./alert";
 import { readLiveInvoice } from "./invoice-status";
 import {
   type Applied,
   type Candidate,
+  type Change,
   type NonPaymentNotice,
   nonPaymentNotice,
   noticeNeedsQonto,
@@ -38,6 +39,30 @@ const NON_PAYMENT_LOCK = 7_346_201_906;
 
 /** Invoices this server has seen paid; paid stays paid until a credit note, which ends the look. */
 const seenPaid = new Set<string>();
+
+/**
+ * How long a page's notice reuses Qonto's answer. Every view of the billing or offer page asked
+ * Qonto live, so a member reloading could use up the shared key's rate limit and leave the hourly
+ * run unread, which delays a reopening. The run itself always asks live.
+ */
+const NOTICE_ANSWER_MS = 5 * 60_000;
+const noticeAnswers = new Map<
+  string,
+  { readonly at: number; readonly live: Awaited<ReturnType<typeof readLiveInvoice>> }
+>();
+
+/** Qonto's answer for the notice: a readable one up to five minutes old, else a fresh one. */
+const liveForNotice = async (
+  mode: Parameters<typeof readLiveInvoice>[0],
+  qontoInvoiceId: string,
+) => {
+  const kept = noticeAnswers.get(qontoInvoiceId);
+  if (kept && Date.now() - kept.at < NOTICE_ANSWER_MS) return kept.live;
+  const live = await readLiveInvoice(mode, qontoInvoiceId);
+  // An unreadable answer is not kept: the next view asks again.
+  if (live.status !== null) noticeAnswers.set(qontoInvoiceId, { at: Date.now(), live });
+  return live;
+};
 
 /**
  * Every account with an invoice, or the one asked for, with its latest invoice: the newest issue
@@ -65,23 +90,60 @@ export const nonPaymentCandidates = async (
     // An empty id must still filter: dropping the filter would read every account.
     .where(accountId !== undefined ? eq(billingAccount.id, accountId) : undefined)
     .orderBy(billingAccount.id, desc(invoice.issueDate), desc(invoice.createdAt));
-  return rows.flatMap((r, i) =>
-    i > 0 && rows[i - 1]?.accountId === r.accountId
-      ? []
-      : [
-          {
-            accountId: r.accountId,
-            level: r.level,
-            holderEmail: r.holderEmail,
-            invoice: {
-              qontoInvoiceId: r.qontoInvoiceId,
-              number: r.number,
-              issueDate: r.issueDate,
-              periodEnd: r.periodEnd,
-              credited: r.creditNoteId !== null,
-            },
-          },
-        ],
+  const latest = rows.filter((r, i) => i === 0 || rows[i - 1]?.accountId !== r.accountId);
+  const reopenable = await suspendedByB9(
+    tx,
+    latest.filter((r) => r.level !== "full").map((r) => r.accountId),
+  );
+  return latest.map((r) => ({
+    accountId: r.accountId,
+    level: r.level,
+    holderEmail: r.holderEmail,
+    invoice: {
+      qontoInvoiceId: r.qontoInvoiceId,
+      number: r.number,
+      issueDate: r.issueDate,
+      periodEnd: r.periodEnd,
+      credited: r.creditNoteId !== null,
+    },
+    reopenable: reopenable.has(r.accountId),
+  }));
+};
+
+/** The audit actions that change an account's access: B9's two and the operator's revoke. */
+const ACCESS_CHANGES = [
+  "billing.access_suspended",
+  "billing.access_reopened",
+  "billing.access_revoked",
+];
+
+/**
+ * The accounts whose latest access change is a B9 suspension, so a payment may reopen them. A
+ * revoke by a person after it, or a reopening, ends that.
+ */
+const suspendedByB9 = async (
+  tx: DbOrTx,
+  accountIds: readonly string[],
+): Promise<ReadonlySet<string>> => {
+  if (accountIds.length === 0) return new Set();
+  const rows = await tx
+    .select({ accountId: auditLog.entityId, action: auditLog.action })
+    .from(auditLog)
+    .where(
+      and(
+        eq(auditLog.entityType, "billing_account"),
+        inArray(auditLog.action, ACCESS_CHANGES),
+        inArray(auditLog.entityId, [...accountIds]),
+      ),
+    )
+    .orderBy(desc(auditLog.createdAt));
+  const newest = rows.filter(
+    (r, i) => rows.findIndex((other) => other.accountId === r.accountId) === i,
+  );
+  return new Set(
+    newest.flatMap((r) =>
+      r.action === "billing.access_suspended" && r.accountId ? [r.accountId] : [],
+    ),
   );
 };
 
@@ -100,7 +162,7 @@ export const nonPaymentNoticeOf = async (
   const today = invoiceToday(now);
   if (mode.kind === "off" || !latest) return null;
   if (!noticeNeedsQonto(latest.level, latest.invoice, today)) return null;
-  const live = await readLiveInvoice(mode, latest.invoice.qontoInvoiceId);
+  const live = await liveForNotice(mode, latest.invoice.qontoInvoiceId);
   const notice = nonPaymentNotice({ ...latest, ...live, today });
   return notice ? { ...notice, invoiceNumber: latest.invoice.number } : null;
 };
@@ -131,17 +193,40 @@ const WORDS = {
   },
 } as const;
 
+const lineOf = (change: Applied) =>
+  `${change.action} billing account ${change.accountId}: invoice ${change.invoiceNumber}, due ${change.dueDate ?? "unknown"}, ${change.from} to ${change.level}`;
+
+/**
+ * Change the account and write its audit row in one transaction, so a suspension or a reopening
+ * never stands without its record. The row is inserted directly rather than through `logAudit`,
+ * which swallows a failed insert: here a failed row must undo the change and surface.
+ */
+const applyAndRecord = async <T>(
+  change: Change,
+  action: Applied["action"],
+  apply: (
+    tx: DbOrTx,
+  ) => Promise<{ readonly level: AccessLevel; readonly result: T } | null>,
+): Promise<T | null> =>
+  db.transaction(async (tx) => {
+    const done = await apply(tx);
+    if (!done) return null;
+    await tx.insert(auditLog).values({
+      companyId: null,
+      userId: null,
+      action: WORDS[action].audit,
+      entityType: "billing_account",
+      entityId: change.accountId,
+      description: `AGB B9 ${lineOf({ ...change, action, level: done.level })}`,
+      previousValue: { accessLevel: change.from },
+      newValue: { accessLevel: done.level },
+    });
+    return done.result;
+  });
+
 const report = async (change: Applied, holderEmail: string | null) => {
   const words = WORDS[change.action];
-  const line = `${change.action} billing account ${change.accountId}: invoice ${change.invoiceNumber}, due ${change.dueDate ?? "unknown"}, now ${change.level}`;
-  await logAudit({
-    companyId: null,
-    userId: null,
-    action: words.audit,
-    entityType: "billing_account",
-    entityId: change.accountId,
-    description: `AGB B9 ${line}`,
-  });
+  const line = lineOf(change);
   await alertOperators(words.subject, [
     line,
     `Account holder: ${holderEmail ?? "none"}`,
@@ -163,8 +248,17 @@ export async function nonPaymentOnce(now = new Date()): Promise<SweepResult | nu
         today: invoiceToday(now),
         seenPaid,
         read: (id) => readLiveInvoice(mode, id),
-        suspend: (id) => revokeAccess(db, id, now),
-        reopen: (id) => reopenAccess(db, id),
+        suspend: (change) =>
+          applyAndRecord(change, "suspend", async (tx) => {
+            const level = await revokeAccess(tx, change.accountId, now);
+            return level ? { level, result: level } : null;
+          }),
+        reopen: async (change) =>
+          (await applyAndRecord(change, "reopen", async (tx) =>
+            (await reopenAccess(tx, change.accountId))
+              ? { level: "full", result: true }
+              : null,
+          )) ?? false,
       });
       for (const change of result.applied) {
         const holder = candidates.find((c) => c.accountId === change.accountId);
