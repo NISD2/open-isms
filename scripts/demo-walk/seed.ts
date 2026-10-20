@@ -77,7 +77,6 @@ export async function seedDemoCompany(password: string): Promise<{ companyId: st
         journeyTourTeamDismissedAt: now,
         journeyTourGuidedDismissedAt: now,
         requirementTourDismissedAt: now,
-        helpOfferDismissedAt: now,
       })),
     )
     .returning({ id: user.id });

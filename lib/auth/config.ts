@@ -510,7 +510,6 @@ export const getSession = cache(async (): Promise<Session | null> => {
       journeyTourGuidedDismissedAt: true,
       journeyTourTeamDismissedAt: true,
       requirementTourDismissedAt: true,
-      helpOfferDismissedAt: true,
       journeyNoticeDismissedAt: true,
     },
   });

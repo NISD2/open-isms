@@ -7,7 +7,6 @@ import { hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
-import { env } from "@/lib/env";
 import { mayExport } from "@/lib/export/access";
 
 /**
@@ -43,13 +42,7 @@ export function PortalShell({
         journeyNotice={mayWalkDurchgang(session.accessLevel, platformAdmin)}
       />
       <SidebarInset>
-        <PortalHeader
-          home="walkthrough"
-          guide={{
-            hints: session.hints,
-            calLink: env.CAL_LINK,
-          }}
-        />
+        <PortalHeader home="walkthrough" guide={{ hints: session.hints }} />
         <div className="flex-1 px-6 py-6">{children}</div>
       </SidebarInset>
       <AdminTestPanel />

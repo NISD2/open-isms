@@ -22,7 +22,6 @@ export const HINTS = [
   "journeyTourGuided",
   "journeyTourTeam",
   "requirementTour",
-  "helpOffer",
   "journeyNotice",
 ] as const;
 export type Hint = (typeof HINTS)[number];
@@ -34,7 +33,6 @@ export type HintState = Pick<
   | "journeyTourGuidedDismissedAt"
   | "journeyTourTeamDismissedAt"
   | "requirementTourDismissedAt"
-  | "helpOfferDismissedAt"
   | "journeyNoticeDismissedAt"
 >;
 
@@ -49,7 +47,6 @@ export const HINT_COLUMN = {
   journeyTourGuided: "journeyTourGuidedDismissedAt",
   journeyTourTeam: "journeyTourTeamDismissedAt",
   requirementTour: "requirementTourDismissedAt",
-  helpOffer: "helpOfferDismissedAt",
   journeyNotice: "journeyNoticeDismissedAt",
 } as const satisfies Record<Hint, keyof HintState>;
 
@@ -58,7 +55,6 @@ export const NO_HINTS: Readonly<Record<Hint, boolean>> = {
   journeyTourGuided: false,
   journeyTourTeam: false,
   requirementTour: false,
-  helpOffer: false,
   journeyNotice: false,
 };
 
@@ -66,7 +62,7 @@ export const NO_HINTS: Readonly<Record<Hint, boolean>> = {
  * Which one-time surfaces this user still has coming.
  *
  * Each is one-shot: dismissing one stamps its own column and it does not come
- * back. All of them stay replayable on demand from the help trigger in the
+ * back. The tours stay replayable on demand from the question mark in the
  * portal header, which is what lets every dismissal path be permanent without
  * trapping anyone.
  *
@@ -75,11 +71,6 @@ export const NO_HINTS: Readonly<Record<Hint, boolean>> = {
  * second one whenever they switch, which is usually long after login one; a
  * first-login gate would mean the layout they switched into is the one nobody
  * ever explains. Being unseen is the gate, and the column records it.
- *
- * That leaves the stacking problem the first-login gate used to solve on its
- * own — a pending walkthrough colliding with the second-login offer of help.
- * PortalGuide holds a tour back while the help dialog is open, which is the
- * component that owns both surfaces and can actually see the collision.
  */
 export function resolveHints(state: HintState): Record<Hint, boolean> {
   const firstLogin = state.loginCount <= 1;
@@ -87,7 +78,6 @@ export function resolveHints(state: HintState): Record<Hint, boolean> {
     journeyTourGuided: state.journeyTourGuidedDismissedAt === null,
     journeyTourTeam: state.journeyTourTeamDismissedAt === null,
     requirementTour: firstLogin && state.requirementTourDismissedAt === null,
-    helpOffer: state.loginCount >= 2 && state.helpOfferDismissedAt === null,
     // Asked once, the first time someone opens the journey while the walkthrough is the front.
     journeyNotice: state.journeyNoticeDismissedAt === null,
   };

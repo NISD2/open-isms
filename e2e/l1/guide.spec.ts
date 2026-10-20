@@ -2,7 +2,7 @@
  * The one-time onboarding surfaces, driven against the real app.
  *
  * Each is gated server-side on its own dismissal column, and the requirement
- * walkthrough and the offer of help additionally on `user.login_count`, so
+ * walkthrough additionally on `user.login_count`, so
  * this spec owns those columns for the duration of the file: it arms each
  * surface by hand, checks the behaviour, then hands the user back retired.
  *
@@ -15,9 +15,6 @@ import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { E2E_USER_EMAIL } from "../lib/env";
 import { setJourneyMode } from "../lib/journey";
-
-/** Mirrors SUPPORT_EMAIL in e2e/app-env.sh, which is where the app gets it. */
-const SUPPORT_EMAIL = "support@e2e.local";
 
 async function setGuideState(sql: string): Promise<void> {
   await e2eQuery(`UPDATE "user" SET ${sql} WHERE email = $1`, [E2E_USER_EMAIL]);
@@ -42,7 +39,7 @@ const GUIDED_ONLY =
 
 const retire = () =>
   setGuideState(
-    "tour_dismissed_at = NOW(), journey_tour_guided_dismissed_at = NOW(), requirement_tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()",
+    "tour_dismissed_at = NOW(), journey_tour_guided_dismissed_at = NOW(), requirement_tour_dismissed_at = NOW()",
   );
 
 test.afterAll(async () => {
@@ -230,29 +227,6 @@ test("the requirement walkthrough survives arriving from the journey", async ({
   await dismissalLanded("requirement_tour_dismissed_at");
 });
 
-test("a second login offers help, and does not offer it twice", async ({ page }) => {
-  await setGuideState("login_count = 2, help_offer_dismissed_at = NULL");
-
-  await page.goto("/journey");
-  const dialog = page.getByTestId("help-dialog");
-  await expect(dialog).toBeVisible();
-
-  // One way to reach us: the booking calendar. The address, the self-hosting
-  // line and the training pointer are gone from this dialog.
-  await expect(dialog.getByTestId("help-book-call")).toBeVisible();
-  await expect(dialog).not.toContainText(SUPPORT_EMAIL);
-
-  // Exactly one close control: the explicit button, with the built-in corner
-  // cross suppressed, so "close" and "never again" cannot disagree.
-  await expect(dialog.locator('[data-slot="dialog-close"]')).toHaveCount(0);
-  await dialog.getByTestId("help-close").click();
-  await expect(dialog).toBeHidden();
-  await dismissalLanded("help_offer_dismissed_at");
-
-  await page.reload();
-  await expect(page.getByTestId("help-dialog")).toBeHidden();
-});
-
 /**
  * Only the requirement walkthrough is tied to the first login. The journey ones
  * stay armed until dismissed at any login count (resolveHints), so this used to
@@ -262,23 +236,17 @@ test("a second login offers help, and does not offer it twice", async ({ page })
 test("the requirement walkthrough does not arm itself on a later login", async ({
   page,
 }) => {
-  await setGuideState(
-    "login_count = 5, requirement_tour_dismissed_at = NULL, help_offer_dismissed_at = NULL",
-  );
+  await setGuideState("login_count = 5, requirement_tour_dismissed_at = NULL");
 
   await page.goto("/compliance/risk-management/2.1");
   await expect(page.locator('[data-tour="requirement-status"]')).toBeVisible();
 
-  // A later login does get the offer of help. It renders in a client portal, so
-  // seeing it proves PortalGuide has hydrated and resolved this page's
-  // walkthrough: a toBeHidden before that point passes whatever the gate says.
-  const dialog = page.getByTestId("help-dialog");
-  await expect(dialog).toBeVisible();
-  await dialog.getByTestId("help-close").click();
-  await expect(dialog).toBeHidden();
-
-  // Closing it lifts the hold PortalGuide puts on walkthroughs, so an armed one
-  // would open now, with its opening target already on the page.
+  // The trigger is marked once PortalGuide has hydrated and checked this page's
+  // walkthroughs: a toBeHidden before that point passes whatever the gate says.
+  // The opening target is already on the page, so an armed tour would be open now.
+  await expect(
+    page.locator('[data-testid="tour-replay"][data-guide-resolved]'),
+  ).toBeVisible();
   await expect(page.getByTestId("tour-card")).toBeHidden();
 });
 
