@@ -48,10 +48,22 @@ const COUNTRY_LOCALE: Readonly<Record<string, EmailLocale>> = {
   CZ: "cs",
 };
 
+/**
+ * Production stop-gap (20.10.2026): a Czech invitation went out where English was expected, so
+ * every email is English until the per-language copy has been reviewed. Set to false to restore
+ * the resolution below.
+ */
+export const ALL_MAIL_IN_ENGLISH = true;
+
+/** The copy language of a code mail: the request's locale, "de" when unknown. */
+export const codeMailLocale = (locale: LocaleCode | undefined): LocaleCode =>
+  ALL_MAIL_IN_ENGLISH ? "en" : (locale ?? "de");
+
 export function resolveEmailLocale(
   userLocale: string | null,
   companyCountry: string | null,
 ): EmailLocale {
+  if (ALL_MAIL_IN_ENGLISH) return "en";
   if (userLocale && isEmailLocale(userLocale)) return userLocale;
   if (userLocale) return "en";
 
@@ -70,4 +82,4 @@ export function resolveEmailLocale(
 export type WorkflowMailLocale = "en" | "cs";
 
 export const workflowMailLocaleOf = (locale: EmailLocale): WorkflowMailLocale =>
-  locale === "cs" ? "cs" : "en";
+  ALL_MAIL_IN_ENGLISH || locale !== "cs" ? "en" : "cs";

@@ -4,6 +4,10 @@
  * name made unlinkable like every other name someone else typed.
  */
 import { describe, expect, mock, test } from "bun:test";
+import { ALL_MAIL_IN_ENGLISH } from "./locale";
+
+// While every mail is English, the Czech copy is switched off, not deleted.
+const whenLocalised = ALL_MAIL_IN_ENGLISH ? test.skip : test;
 
 mock.module("../env", () => ({
   env: {
@@ -46,7 +50,7 @@ describe("the notice when an assistant is connected", () => {
     expect(mail.text).not.toContain("https://evil.example");
   });
 
-  test("a Czech reader gets it in Czech", async () => {
+  whenLocalised("a Czech reader gets it in Czech", async () => {
     const mail = await assistantConnectedEmail({
       companyName: "Teplárna Brno",
       how: { kind: "key" },

@@ -4,6 +4,10 @@
  * workflow mail they had before Czech was added, so those paths are pinned too.
  */
 import { describe, expect, mock, test } from "bun:test";
+import { ALL_MAIL_IN_ENGLISH } from "./locale";
+
+// While every mail is English, the Czech workflow copy is switched off, not deleted.
+const whenLocalised = ALL_MAIL_IN_ENGLISH ? test.skip : test;
 
 mock.module("../env", () => ({
   env: {
@@ -122,7 +126,7 @@ const czechMails = async () => [
 ];
 
 describe("Czech mail", () => {
-  test("every workflow mail renders in Czech, with no German law and no English greeting", async () => {
+  whenLocalised("every workflow mail renders in Czech, with no German law and no English greeting", async () => {
     for (const mail of await czechMails()) {
       for (const part of [mail.subject, mail.text, mail.html]) {
         expect(part).not.toContain("BSIG");
@@ -136,7 +140,7 @@ describe("Czech mail", () => {
     }
   });
 
-  test("the welcome names the Czech duty and NÚKIB's own proof, never ours as the proof", async () => {
+  whenLocalised("the welcome names the Czech duty and NÚKIB's own proof, never ours as the proof", async () => {
     const { text } = await t.welcomeEmail({ name: "Jana", locale: "cs" });
     expect(text).toContain("vyhláška č. 410/2025 Sb., § 4 písm. b)");
     expect(text).toContain("vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a)");
@@ -145,7 +149,7 @@ describe("Czech mail", () => {
     expect(text.startsWith("Dobrý den,")).toBe(true);
   });
 
-  test("the weekly report records management's acquaintance under the Czech decrees", async () => {
+  whenLocalised("the weekly report records management's acquaintance under the Czech decrees", async () => {
     const mails = await czechMails();
     const weekly = mails[8];
     expect(weekly.text).toContain("vyhláška č. 410/2025 Sb., § 4 písm. d)");
@@ -154,7 +158,7 @@ describe("Czech mail", () => {
     expect(weekly.subject).toContain("42,0 %");
   });
 
-  test("the payoff line and the invitation role are Czech", async () => {
+  whenLocalised("the payoff line and the invitation role are Czech", async () => {
     const mails = await czechMails();
     expect(mails[7].text).toContain("Máte hotovo 3 z celkem 49 kroků");
     expect(mails[1].text).toContain("v roli Generální ředitel / Jednatel");
