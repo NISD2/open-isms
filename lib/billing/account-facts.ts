@@ -5,19 +5,16 @@
 import "@/lib/server-guard";
 import { and, eq, isNull } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { billingAccount, company, creditNote, invoice } from "@/schema";
+import { billingAccount, company, invoice } from "@/schema";
 import { type BillingFacts, type BillingState, billingStateOf } from "./account-state";
 import type { AccessLevel } from "./accounts";
 import { cancelWindowFor, originalInvoice } from "./money-back";
-import { billingFor } from "./ordering-access";
 import { findActiveInvoice } from "./place-order";
-import { getInvoice } from "./qonto";
 import { paysOnUse } from "./terms";
 
 export interface BillingSession {
   readonly companyId: string | null;
   readonly accessLevel: AccessLevel | null;
-  readonly user: { readonly email?: string | null };
 }
 
 /** The company's billing account; a lookup by the company's primary key, so one row at most. */
@@ -51,57 +48,18 @@ const endableMoneyBack = async (db: DbOrTx, accountId: string, now: Date) => {
     : null;
 };
 
-/**
- * Whether an account without a licence paid for one at some point. An order under earlier terms
- * counts whatever happened to it, because those terms keep a former customer's exports open (B10
- * before PAY_ON_USE_SINCE). Under the current terms an invoice counts once Qonto says it is paid
- * and it was not credited: money back that was refunded is not a payment. Qonto is only asked when
- * there is such an invoice, and an answer it cannot give counts as not paid.
- */
-const everPaid = async (
-  db: DbOrTx,
-  accountId: string,
-  email: string | null | undefined,
-): Promise<boolean> => {
-  const rows = await db
-    .select({
-      qontoInvoiceId: invoice.qontoInvoiceId,
-      termsVersion: invoice.termsVersion,
-      credited: creditNote.id,
-    })
-    .from(invoice)
-    .leftJoin(creditNote, eq(creditNote.invoiceId, invoice.id))
-    .where(eq(invoice.billingAccountId, accountId));
-  if (rows.some((r) => !paysOnUse(r.termsVersion))) return true;
-  const open = rows.filter((r) => r.credited === null);
-  const { mode } = billingFor(email);
-  if (open.length === 0 || mode.kind === "off") return false;
-  const statuses = await Promise.all(
-    open.map(async (r) => {
-      const res = await getInvoice(mode.qonto, r.qontoInvoiceId);
-      return res.ok ? (res.data.client_invoice?.status ?? null) : null;
-    }),
-  );
-  return statuses.includes("paid");
-};
-
+/** Only a full account has an order whose money back an export or sign-off could end. */
 export async function billingFactsOf(
   db: DbOrTx,
   session: BillingSession,
   now = new Date(),
 ): Promise<BillingFacts> {
-  const none = { level: session.accessLevel, moneyBack: null, everPaid: false } as const;
+  const none = { level: session.accessLevel, moneyBack: null } as const;
   if (!session.companyId) return { ...none, level: null };
+  if (session.accessLevel !== "full") return none;
   const accountId = await accountIdOf(db, session.companyId);
   if (!accountId) return none;
-  switch (session.accessLevel) {
-    case "full":
-      return { ...none, moneyBack: await endableMoneyBack(db, accountId, now) };
-    case "grandfathered":
-      return none;
-    default:
-      return { ...none, everPaid: await everPaid(db, accountId, session.user.email) };
-  }
+  return { ...none, moneyBack: await endableMoneyBack(db, accountId, now) };
 }
 
 export const billingStateFor = async (

@@ -149,9 +149,6 @@
         "confirmBody": "Do {lastDay} byste ještě mohli vypovědět a dostat peníze zpět. Prvním schválením to končí (VOP B7). Fakturu je pak třeba zaplatit, i když později vypovíte.",
         "confirm": "Ano, schválit"
       },
-      "orderTitle": "Exporty a schválení patří k licenci",
-      "orderBody": "S roční licencí exportujete své dokumenty a vedení je schválí. 30 dní na vrácení peněz, do prvního exportu nebo prvního schválení.",
-      "orderAction": "Vyzkoušet, 30 dní vrácení peněz",
       "cancel": "Zrušit",
       "failed": "To se nepovedlo. Zkuste to prosím znovu."
     },

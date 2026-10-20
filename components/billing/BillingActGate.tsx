@@ -1,11 +1,11 @@
 "use client";
 
 /**
- * The page's side of AGB B7 and B10: before an export or a sign-off it asks the billing state
- * (`billing.acts`, lib/billing/account-state.ts). Allowed, the act runs. Inside the money back it
- * first asks "are you sure", because the first export or sign-off ends the money back, records the
- * yes (`billing.waiveMoneyBack`) and then runs. Without an order it says so and leads to the
- * order. The server decides the same way again, so this is the warning, not the lock.
+ * The page's side of AGB B7: before an export or a sign-off it asks the billing state
+ * (`billing.acts`, lib/billing/account-state.ts). Allowed, the act runs. Inside an order's money
+ * back it first asks "are you sure", because the first export or sign-off ends the money back and
+ * makes the invoice payable, records the yes (`billing.waiveMoneyBack`) and then runs. The server
+ * decides the same way again, so this is the warning, not the lock.
  */
 import { useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
@@ -21,13 +21,11 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { OFFER_PATH } from "@/lib/billing/access";
 import type { BillingAct } from "@/lib/billing/account-state";
 import { trpc } from "@/lib/trpc/client";
 
 export function useBillingAct(act: BillingAct): {
-  /** Whether the act may need the dialog first: a confirm, an order, or a state not loaded yet. */
+  /** Whether the act may need the dialog first: a confirm, or a state not loaded yet. */
   readonly blocks: boolean;
   /** Runs `proceed` once allowed: now, or after the dialog's yes. Loads the state first if needed. */
   readonly guard: (proceed: () => void) => void;
@@ -72,33 +70,23 @@ export function useBillingAct(act: BillingAct): {
   };
 
   const kind = act === "export" ? "export" : "signOff";
-  const dialog = verdict && verdict.kind !== "allow" && (
+  const dialog = verdict?.kind === "confirm" && (
     <AlertDialog
       open={pending !== null}
       onOpenChange={(open) => !open && setPending(null)}
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            {verdict.kind === "confirm" ? t(`${kind}.confirmTitle`) : t("orderTitle")}
-          </AlertDialogTitle>
+          <AlertDialogTitle>{t(`${kind}.confirmTitle`)}</AlertDialogTitle>
           <AlertDialogDescription>
-            {verdict.kind === "confirm"
-              ? t(`${kind}.confirmBody`, { lastDay: day(verdict.lastDay) })
-              : t("orderBody")}
+            {t(`${kind}.confirmBody`, { lastDay: day(verdict.lastDay) })}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={waive.isPending}>{t("cancel")}</AlertDialogCancel>
-          {verdict.kind === "confirm" ? (
-            <Button onClick={confirm} disabled={waive.isPending}>
-              {t(`${kind}.confirm`)}
-            </Button>
-          ) : (
-            <Button asChild>
-              <Link href={OFFER_PATH}>{t("orderAction")}</Link>
-            </Button>
-          )}
+          <Button onClick={confirm} disabled={waive.isPending}>
+            {t(`${kind}.confirm`)}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

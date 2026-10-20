@@ -149,9 +149,6 @@
         "confirmBody": "Until {lastDay} you could still cancel and get your money back. Your first sign-off ends that (terms B7). The invoice is then to be paid, even if you cancel later.",
         "confirm": "Yes, sign off"
       },
-      "orderTitle": "Exports and sign-offs come with the licence",
-      "orderBody": "With the yearly licence you export your documents and management signs them off. 30 days money back, until the first export or sign-off.",
-      "orderAction": "Try it, 30 days money back",
       "cancel": "Cancel",
       "failed": "That did not work. Please try again."
     },

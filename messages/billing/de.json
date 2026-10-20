@@ -149,9 +149,6 @@
         "confirmBody": "Bis zum {lastDay} könnten Sie noch kündigen und bekämen Ihr Geld zurück. Mit der ersten Freigabe entfällt das (AGB B7). Die Rechnung ist dann zu bezahlen, auch wenn Sie später kündigen.",
         "confirm": "Ja, freigeben"
       },
-      "orderTitle": "Exporte und Freigaben gehören zur Lizenz",
-      "orderBody": "Mit der Jahreslizenz exportieren Sie Ihre Unterlagen, und die Geschäftsführung gibt sie frei. 30 Tage Geld zurück, bis zum ersten Export oder zur ersten Freigabe.",
-      "orderAction": "30 Tage testen, Geld zurück",
       "cancel": "Abbrechen",
       "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
     },

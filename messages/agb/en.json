@@ -177,7 +177,7 @@
         "heading": "B10. End of the annual licence and the data",
         "paragraphs": [
           "When the annual licence ends, by cancellation, by expiry without renewal, or by suspension under B9, the account remains and falls back to use without a licence. The Provider does not delete any data when this happens.",
-          "Without a licence, the account reaches only Billing, Settings, Organisation, Notifications and Export. It can export there if an invoice for the account was paid and not credited, and if it is an existing user. The other content is reachable again only with a new order. Existing users keep the free use of the current walkthrough. Returning the data on instruction under paragraph 3 is not affected.",
+          "Without a licence, the account reaches only Billing, Settings, Organisation, Notifications and Export, so the exports of its own data stay reachable at all times. The other content is reachable again only with a new order. Existing users keep the free use of the current walkthrough.",
           "On the customer's instruction, the Provider returns or deletes the data as the data processing agreement provides. An email to contact@nisd2.eu is enough."
         ]
       },

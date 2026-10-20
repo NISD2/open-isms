@@ -12,7 +12,7 @@ interface ExportPolicyButtonProps {
 }
 
 /**
- * A policy as PDF: an export, so it asks first where the billing state says so (AGB B7, B10). The
+ * A policy as PDF: an export, so it asks first where the billing state says so (AGB B7). The
  * file comes as a download, so the page stays; a new window would be blocked after the dialog.
  */
 export function ExportPolicyButton({

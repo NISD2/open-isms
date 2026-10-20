@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     return new Response("Too many requests", { status: 429 });
   }
 
-  // A policy as PDF is an export of the company's records (AGB B7, B10).
+  // A policy as PDF is an export of the company's records (AGB B7).
   const verdict = await billingVerdict(db, session, "export");
   if (verdict.kind !== "allow") return refusalResponse(verdict);
 

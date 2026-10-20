@@ -4,7 +4,6 @@ import { type BillingFacts, billingStateOf, verdictFor } from "./account-state";
 const facts = (over: Partial<BillingFacts>): BillingFacts => ({
   level: "free",
   moneyBack: null,
-  everPaid: false,
   ...over,
 });
 
@@ -16,44 +15,21 @@ describe("billingStateOf", () => {
     expect(billingStateOf(facts({ level: "full" }))).toEqual({ kind: "licensed" });
   });
 
-  test("grandfathered stays grandfathered, paid or not", () => {
+  test("grandfathered stays grandfathered; no licence and no company are free", () => {
     expect(billingStateOf(facts({ level: "grandfathered" })).kind).toBe("grandfathered");
-    expect(billingStateOf(facts({ level: "grandfathered", everPaid: true })).kind).toBe(
-      "grandfathered",
-    );
-  });
-
-  test("without a licence, having paid once keeps the account lapsed rather than free", () => {
     expect(billingStateOf(facts({ level: "free" })).kind).toBe("free");
-    expect(billingStateOf(facts({ level: "free", everPaid: true })).kind).toBe("lapsed");
     expect(billingStateOf(facts({ level: null })).kind).toBe("free");
   });
 });
 
 describe("verdictFor", () => {
-  const cases = [
-    ["free", "order", "order"],
-    ["grandfathered", "allow", "allow"],
-    ["trial", "confirm", "confirm"],
-    ["licensed", "allow", "allow"],
-    ["lapsed", "allow", "order"],
-  ] as const;
-
-  for (const [kind, onExport, onSignOff] of cases) {
-    test(`${kind}: export ${onExport}, sign-off ${onSignOff}`, () => {
-      const state =
-        kind === "trial"
-          ? ({ kind, lastDay: "2026-11-19" } as const)
-          : ({ kind } as const);
-      expect(verdictFor(state, "export").kind).toBe(onExport);
-      expect(verdictFor(state, "sign_off").kind).toBe(onSignOff);
-    });
-  }
-
-  test("a confirm names the day the money back would have ended", () => {
-    expect(verdictFor({ kind: "trial", lastDay: "2026-11-19" }, "export")).toEqual({
-      kind: "confirm",
-      lastDay: "2026-11-19",
-    });
+  test("only the money back of an order asks first, for export and sign-off alike", () => {
+    const trial = { kind: "trial", lastDay: "2026-11-19" } as const;
+    for (const act of ["export", "sign_off"] as const) {
+      expect(verdictFor(trial, act)).toEqual({ kind: "confirm", lastDay: "2026-11-19" });
+      for (const kind of ["free", "grandfathered", "licensed"] as const) {
+        expect(verdictFor({ kind }, act)).toEqual({ kind: "allow" });
+      }
+    }
   });
 });

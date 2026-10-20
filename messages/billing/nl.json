@@ -149,9 +149,6 @@
         "confirmBody": "Tot {lastDay} kunt u nog opzeggen en krijgt u uw geld terug. Uw eerste goedkeuring beëindigt dat (voorwaarden B7). De factuur moet dan worden betaald, ook als u later opzegt.",
         "confirm": "Ja, goedkeuren"
       },
-      "orderTitle": "Exports en goedkeuringen horen bij de licentie",
-      "orderBody": "Met de jaarlicentie exporteert u uw documenten en keurt het management ze goed. 30 dagen geld terug, tot de eerste export of goedkeuring.",
-      "orderAction": "Probeer het, 30 dagen geld terug",
       "cancel": "Annuleren",
       "failed": "Dat is niet gelukt. Probeer het opnieuw."
     },

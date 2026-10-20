@@ -5,8 +5,7 @@ import { useBillingAct } from "@/components/billing/BillingActGate";
 
 /**
  * A download from the export page, or the page to print everything, that asks first where the
- * billing state says so (AGB B7, B10): inside the money back, or without an order. Otherwise an
- * ordinary link.
+ * billing state says so (AGB B7): inside an order's money back. Otherwise an ordinary link.
  */
 export function ExportLink({
   href,

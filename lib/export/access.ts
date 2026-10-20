@@ -20,10 +20,10 @@ export const mayExport = (session: {
 }): boolean => hasReviewAccess(session.role) || session.jobTitle === MANAGEMENT_ROLE;
 
 /**
- * Who may download an export (`mayExport`), a few times a minute per person and kind, and only
- * where the account's billing state allows it (`billingVerdict`, AGB B7 and B10): ordered, or
- * grandfathered, or a former customer that paid. Inside the money back the page asks first and
- * records the yes, so a download that arrives unconfirmed is refused.
+ * Who may download an export (`mayExport`), a few times a minute per person and kind. Not behind
+ * the paywall: a company's own records always leave with it (AGB B10). Inside an order's money back
+ * the first export ends it (`billingVerdict`, AGB B7), so the page asks first and records the yes,
+ * and a download that arrives unconfirmed is held back.
  */
 export async function exportAccess(
   kind: string,
