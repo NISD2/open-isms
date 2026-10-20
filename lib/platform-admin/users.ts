@@ -9,6 +9,7 @@ import {
   isNull,
   like,
   lt,
+  ne,
   not,
   or,
   sql,
@@ -25,27 +26,56 @@ import { auditLog, company, companyMembership, user } from "@/schema";
  */
 
 /**
- * Everyone who signed in since `since`, the latest first. `lastLoginAt` moves once per completed
- * sign-in and never on the silent token refreshes (lib/auth/config.ts), so this counts sign-ins,
- * not open tabs. The company is the one the person last worked in.
+ * Everyone who signed in since `since` or did anything since then, the latest of the two first.
+ * `lastLoginAt` moves once per completed sign-in and never on the silent token refreshes
+ * (lib/auth/config.ts), so a session that stays open for days shows no sign-in while its owner
+ * works; the audit log shows that work. Either one makes a person active. Operators reading the
+ * platform (entity type `platformAdmin`, which holds every `test.read`) are not product use and
+ * are left out of the actions. The company is the one the person last worked in.
  */
 export function activeUsers(db: DbOrTx, since: Date, limit = 1000) {
-  return db
-    .select({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      createdAt: user.createdAt,
-      lastLoginAt: user.lastLoginAt,
-      loginCount: user.loginCount,
-      companyId: company.id,
-      companyName: company.name,
-    })
-    .from(user)
-    .leftJoin(company, eq(user.companyId, company.id))
-    .where(gte(user.lastLoginAt, since))
-    .orderBy(desc(user.lastLoginAt))
-    .limit(limit);
+  // Bare UTC timestamps, compared as an ISO string cast, never as a local Date (lib/test-mcp/common).
+  const sinceUtc = sql`${since.toISOString()}::timestamp`;
+  const actors = db.$with("actors").as(
+    db
+      .select({
+        userId: auditLog.userId,
+        lastActionAt: sql<Date>`max(${auditLog.createdAt})`.as("last_action_at"),
+      })
+      .from(auditLog)
+      .where(
+        and(
+          isNotNull(auditLog.userId),
+          gte(auditLog.createdAt, sinceUtc),
+          ne(auditLog.entityType, "platformAdmin"),
+        ),
+      )
+      .groupBy(auditLog.userId),
+  );
+  return (
+    db
+      .with(actors)
+      .select({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+        lastLoginAt: user.lastLoginAt,
+        lastActionAt: sql<
+          string | null
+        >`to_char(${actors.lastActionAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"')`,
+        loginCount: user.loginCount,
+        companyId: company.id,
+        companyName: company.name,
+      })
+      .from(user)
+      .leftJoin(actors, eq(actors.userId, user.id))
+      .leftJoin(company, eq(user.companyId, company.id))
+      .where(or(gte(user.lastLoginAt, since), isNotNull(actors.lastActionAt)))
+      // GREATEST ignores a null side, so a person with only one of the two still sorts by it.
+      .orderBy(desc(sql`greatest(${user.lastLoginAt}, ${actors.lastActionAt})`))
+      .limit(limit)
+  );
 }
 
 /** One person's account and every company they belong to; null for an id that names nobody. */
