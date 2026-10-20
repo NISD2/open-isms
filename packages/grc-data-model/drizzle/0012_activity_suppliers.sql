@@ -1,3 +1,5 @@
+-- migration-safety:allow: both foreign keys are on processing_activity_supplier, created empty in
+-- this same migration, so validating them scans no rows.
 CREATE TABLE "processing_activity_supplier" (
 	"activity_id" uuid NOT NULL,
 	"supplier_id" uuid NOT NULL,
