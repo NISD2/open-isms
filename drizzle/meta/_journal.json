@@ -246,6 +246,13 @@
       "when": 1792453916792,
       "tag": "0034_framework_data_sync",
       "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1792532841341,
+      "tag": "0035_slow_siren",
+      "breakpoints": true
     }
   ]
 }

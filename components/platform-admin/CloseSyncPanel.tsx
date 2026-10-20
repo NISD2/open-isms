@@ -97,7 +97,7 @@ function outcomeText(outcome: Outcome): string {
   if (!outcome.ok) return `The run threw: ${outcome.error}`;
   const r = outcome.result;
   if ("skipped" in r) return `Skipped: ${r.skipped}`;
-  const counts = `created ${r.created}, linked ${r.linked}, updated ${r.updated}, refused ${r.refused}, ${r.pending} still to do`;
+  const counts = `created ${r.created}, linked ${r.linked}, updated ${r.updated}, refused ${r.refused}, ${r.mailLogged} mails noted, ${r.pending} still to do`;
   return r.stopped ? `Stopped: ${r.stopped} (${counts})` : `Done: ${counts}`;
 }
 

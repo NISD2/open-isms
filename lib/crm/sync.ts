@@ -16,6 +16,10 @@
  *     no longer answers (a merge in Close), the contact is followed by its id, then
  *     by email; when it is gone for good the person is left alone, never recreated.
  *
+ *  4. Mail last. Each platform mail recorded by sendMail for a linked person (the
+ *     list in ./mail-notes) becomes a note on their contact, dated when it was sent;
+ *     at most MAX_MAIL_PER_RUN per run. A note Close refuses is dropped, not retried.
+ *
  * New people first, newest signup first, then updates, then people Close refused
  * before; at most MAX_PER_RUN per run. A refusal about the person (their name or
  * address) is recorded and the run carries on; after MAX_REFUSALS the person is
@@ -41,8 +45,10 @@ import {
   closeFieldValues,
 } from "./fields";
 import { fingerprint } from "./fingerprint";
+import { closeMailNote } from "./mail-notes";
 
 export const MAX_PER_RUN = 50;
+export const MAX_MAIL_PER_RUN = 100;
 export const MAX_REFUSALS = 5;
 
 type SyncRow = InferSelectModel<typeof closeCrmSync>;
@@ -60,8 +66,20 @@ export interface CloseSyncPerson {
   readonly sync: CloseSyncLinkRow | null;
 }
 
+/** A recorded platform mail whose person is linked to Close. */
+export interface MailToLog {
+  readonly id: string;
+  readonly emailType: string;
+  readonly sentAt: Date;
+  readonly link: CloseLink;
+}
+
 export interface CloseSyncStore {
   erased(): Promise<ErasedCloseRow[]>;
+  /** Recorded mail not yet in Close, oldest first, for people who are linked. */
+  unloggedMail(limit: number): Promise<MailToLog[]>;
+  /** Marks these as done: written, or dropped for good. */
+  mailLogged(ids: readonly string[]): Promise<void>;
   people(): Promise<CloseSyncPerson[]>;
   linked(
     userId: string,
@@ -88,6 +106,10 @@ export type CloseSyncRunResult =
       readonly linked: number;
       readonly updated: number;
       readonly refused: number;
+      /** Platform mails written to Close as notes this run. */
+      readonly mailLogged: number;
+      /** Notes Close turned down; dropped, not retried. */
+      readonly mailRefused: number;
       /** Erasures Close turned down; retried every run, and the run counts as failed. */
       readonly erasureRefused: number;
       /** Skipped for good: refused MAX_REFUSALS times, or gone from Close. */
@@ -142,7 +164,10 @@ type Done =
   | "updated"
   | "refused"
   | "gone"
-  | "erasureRefused";
+  | "erasureRefused"
+  | "mailLogged"
+  | "mailRefused"
+  | "mailDropped";
 type Step = Done | { readonly stopped: string };
 
 const isStop = (step: Step): step is { readonly stopped: string } =>
@@ -291,6 +316,29 @@ async function readSuppressions(
   return emails.value.length > 0 ? store.optOut(emails.value) : 0;
 }
 
+async function logOneMail(close: CloseClient, mail: MailToLog): Promise<Step> {
+  const note = closeMailNote(mail.emailType);
+  if (!note) return "mailDropped";
+  const written = await close.addNote(mail.link, note, mail.sentAt);
+  if (written.ok) return "mailLogged";
+  // Unlike a field setting, a refused note is only about this note (the contact is
+  // gone, say), so it never ends the run; an outage does.
+  return written.kind === "unavailable" ? { stopped: written.detail } : "mailRefused";
+}
+
+/** Writes the recorded mail to Close and marks every one that is settled, stopped or not. */
+async function logMail(close: CloseClient, store: CloseSyncStore): Promise<Step[]> {
+  const mail = await store.unloggedMail(MAX_MAIL_PER_RUN);
+  const steps = await stepThrough(mail, (item) => logOneMail(close, item));
+  await store.mailLogged(
+    steps.flatMap((step, i) => {
+      const item = mail[i];
+      return item && !isStop(step) ? [item.id] : [];
+    }),
+  );
+  return steps;
+}
+
 /** One step per item, in order, until an item answers "stopped". */
 async function stepThrough<T>(
   items: readonly T[],
@@ -335,7 +383,12 @@ export async function runCloseSync(
     syncPerson(close, store, work),
   );
 
-  const steps: Step[] = [...erasures, ...suppressionStop, ...syncs];
+  // Mail waits for a clean run: a stop above means Close or a setting is wrong right now.
+  const mail = [...erasures, ...suppressionStop, ...syncs].some(isStop)
+    ? []
+    : await logMail(close, store);
+
+  const steps: Step[] = [...erasures, ...suppressionStop, ...syncs, ...mail];
   const count = (done: Done) => steps.filter((s) => s === done).length;
   const finished = count("created") + count("linked") + count("updated") + count("gone");
   const stop = steps.find(isStop);
@@ -346,6 +399,8 @@ export async function runCloseSync(
     linked: count("linked"),
     updated: count("updated"),
     refused: count("refused"),
+    mailLogged: count("mailLogged"),
+    mailRefused: count("mailRefused"),
     erasureRefused: count("erasureRefused"),
     gaveUp: plan.gaveUp + count("gone"),
     pending: plan.work.length - finished,

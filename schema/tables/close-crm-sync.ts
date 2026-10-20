@@ -21,6 +21,7 @@ import { sql } from "drizzle-orm";
 import {
   boolean,
   check,
+  index,
   pgTable,
   smallint,
   timestamp,
@@ -53,5 +54,31 @@ export const closeCrmSync = pgTable(
       sql`${t.syncedAt} IS NULL OR (${t.leadId} IS NOT NULL AND ${t.contactId} IS NOT NULL AND ${t.fieldsHash} IS NOT NULL)`,
     ),
     check("close_crm_sync_rejected_count_check", sql`${t.rejectedCount} >= 0`),
+  ],
+);
+
+/**
+ * Platform mail that sales wants on a person's timeline in Close (the allowlist is
+ * lib/crm/mail-notes.ts). sendMail adds a row when a send went out; the close-sync
+ * writes one note per row and sets logged_at. A row holds the user, the message type
+ * and the time, never an address, subject or body. Deleting the user deletes the rows.
+ * The note in Close is one fixed sentence per type with no name or address, so a lead
+ * the erasure keeps (sales put others on it) holds nothing about the erased person.
+ */
+export const closeMailLog = pgTable(
+  "close_mail_log",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    /** An id from lib/mail/email-types.ts. */
+    emailType: varchar("email_type", { length: 64 }).notNull(),
+    sentAt: timestamp("sent_at").defaultNow().notNull(),
+    /** Null until the note is in Close (or Close refused it for good). */
+    loggedAt: timestamp("logged_at"),
+  },
+  (t) => [
+    index("close_mail_log_unlogged_idx").on(t.sentAt).where(sql`${t.loggedAt} IS NULL`),
   ],
 );

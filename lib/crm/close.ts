@@ -314,6 +314,25 @@ export const closeClient = (settings: CloseSettings, fetchImpl: FetchLike = fetc
       return updated.ok ? ok(null) : updated;
     },
 
+    /**
+     * A note on the contact's timeline, dated when the thing happened. A refusal here
+     * means the contact or lead is gone or the text is not accepted: it is about this
+     * note, never about a setting.
+     */
+    addNote: async (
+      link: CloseLink,
+      note: string,
+      at: Date,
+    ): Promise<CloseResult<null>> => {
+      const added = await request("POST", "/activity/note/", idBody, {
+        lead_id: link.leadId,
+        contact_id: link.contactId,
+        note,
+        date_created: at.toISOString(),
+      });
+      return added.ok ? ok(null) : added;
+    },
+
     /** Already gone counts as done. */
     deleteLead: async (leadId: string): Promise<CloseResult<null>> => {
       const deleted = orNull(await request("DELETE", leadPath(leadId), deletedBody));

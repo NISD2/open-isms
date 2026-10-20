@@ -1,5 +1,6 @@
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
+import { recordSentMail } from "@/lib/crm/mail-log";
 import type { DbOrTx } from "@/lib/db";
 import { db } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
@@ -210,6 +211,8 @@ export async function sendMail(opts: SendMailOptions) {
         return failed(opts, result.error);
       }
 
+      // Never throws, so it cannot turn a delivered mail into a retry.
+      await recordSentMail(opts);
       return { success: true, id: result.id } as const;
     } catch (err) {
       console.error(
