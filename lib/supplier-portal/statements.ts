@@ -130,13 +130,16 @@ export const statedAnswer = (
   }
 };
 
-/** Where a row's answer comes from, which decides whether leaving the screen saves it. */
-export type AnswerSource = "chosen" | "recorded" | "stated" | "default";
+/**
+ * Where a row's answer comes from. Only a chosen answer is saved: a supplier's statement is its
+ * own claim, which the company takes over by choosing it (Art. 5(2) GDPR).
+ */
+export type AnswerSource = "chosen" | "recorded" | "stated";
 
 /**
  * The answer a processors screen shows for one supplier: chosen on this visit, else recorded by
- * the company, else stated by the supplier, else the transfer columns' default ("no transfer").
- * The company's own record outranks the supplier's statement; the statement fills a gap.
+ * the company, else stated by the supplier as a suggestion. The company's own record outranks the
+ * supplier's statement; the statement fills a gap.
  */
 export const answerFor = (
   fact: ProcessorFact,
@@ -144,12 +147,8 @@ export const answerFor = (
   chosen: ProcessorAnswer | undefined,
 ): { readonly answer: ProcessorAnswer; readonly source: AnswerSource } | null => {
   if (chosen?.fact === fact) return { answer: chosen, source: "chosen" };
-  const stored = storedAnswer(fact, row);
-  // The transfer columns default to "no transfer", so only a recorded transfer is a record.
-  const recorded =
-    fact === "transfer" && stored?.fact === "transfer" && !stored.outside ? null : stored;
+  const recorded = storedAnswer(fact, row);
   if (recorded) return { answer: recorded, source: "recorded" };
   const stated = statedAnswer(fact, row.stated);
-  if (stated) return { answer: stated, source: "stated" };
-  return stored ? { answer: stored, source: "default" } : null;
+  return stated ? { answer: stated, source: "stated" } : null;
 };

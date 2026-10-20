@@ -1,8 +1,9 @@
 /**
  * L2 GDPR walkthrough, through the real UI against real Postgres:
  *
- *   - a supplier that answered the questionnaire: its answers preselect its role and its
- *     transfers on G-DPA.1, and moving on records them on the customer's supplier row;
+ *   - a supplier that answered the questionnaire: its answers are offered for its role and its
+ *     transfers on G-DPA.1, and only once the company takes them over are they recorded on its
+ *     supplier row;
  *   - a processing activity gets its lawful basis on G-ROP.1, and legitimate interests are
  *     accepted only with the interest named;
  *   - an item NIS 2 work gives a head start says so on its first screen, and G-DPO.1 shows its
@@ -32,7 +33,7 @@ const SUPPLIER = "E2E Lohnbüro GmbH";
 const ACTIVITY = "E2E Lohnabrechnung";
 
 const GDPR_COLUMNS = `relationship_type, processes_personal_data, processor_checked_at, dpa_concluded,
-  international_transfer, transfer_mechanism, subprocessor_authorisation`;
+  international_transfer, transfer_mechanism, transfer_checked_at, subprocessor_authorisation`;
 
 interface SupplierGdpr {
   readonly id: string;
@@ -42,6 +43,7 @@ interface SupplierGdpr {
   readonly processor_checked_at: Date | null;
   readonly international_transfer: boolean | null;
   readonly transfer_mechanism: string | null;
+  readonly transfer_checked_at: Date | null;
 }
 
 const suppliersOf = (tenant: Tenant) =>
@@ -90,7 +92,7 @@ async function answeringSupplier(tenant: Tenant): Promise<Undo> {
       await e2eQuery(
         `UPDATE supplier SET relationship_type = $2, processes_personal_data = $3,
                 processor_checked_at = $4, dpa_concluded = $5, international_transfer = $6,
-                transfer_mechanism = $7, subprocessor_authorisation = $8
+                transfer_mechanism = $7, subprocessor_authorisation = $8, transfer_checked_at = $9
           WHERE id = $1`,
         [
           row.id,
@@ -101,6 +103,7 @@ async function answeringSupplier(tenant: Tenant): Promise<Undo> {
           row.international_transfer,
           row.transfer_mechanism,
           row.subprocessor_authorisation,
+          row.transfer_checked_at,
         ],
       );
     }
@@ -127,10 +130,10 @@ async function oneActivity(tenant: Tenant): Promise<Undo> {
   };
 }
 
-const pressed = (row: Locator, name: string) =>
+const pressed = (row: Locator, name: string, on = true) =>
   expect(row.getByRole("button", { name, exact: true })).toHaveAttribute(
     "aria-pressed",
-    "true",
+    String(on),
   );
 
 test.describe("GDPR walkthrough", () => {
@@ -149,7 +152,7 @@ test.describe("GDPR walkthrough", () => {
 
   test.afterAll(() => undoAll(undos));
 
-  test("a supplier's own answers preselect its role, and moving on records it", async ({
+  test("a supplier's own answer is offered for its role, and recorded once taken over", async ({
     page,
   }) => {
     await page.goto(`/de/durchgang/dsgvo/G-DPA.1?s=${ROLE_SCREEN}`);
@@ -159,6 +162,9 @@ test.describe("GDPR walkthrough", () => {
     await expect(
       ours.getByText("Offers a standard data processing agreement"),
     ).toBeVisible();
+    // The supplier's own claim is a suggestion until the company takes it over.
+    await pressed(ours, "Verarbeitet Daten in unserem Auftrag", false);
+    await page.getByRole("button", { name: /^Take their answers/ }).click();
     await pressed(ours, "Verarbeitet Daten in unserem Auftrag");
 
     // Every other supplier still needs an answer before the screen is complete.
@@ -189,7 +195,7 @@ test.describe("GDPR walkthrough", () => {
       .toEqual(["processor", true, true]);
   });
 
-  test("the transfer basis the supplier stated is preselected and recorded", async ({
+  test("the transfer basis the supplier stated is offered, and recorded once taken over", async ({
     page,
   }) => {
     await page.goto(`/de/durchgang/dsgvo/G-DPA.1?s=${WHERE_SCREEN}`);
@@ -198,14 +204,23 @@ test.describe("GDPR walkthrough", () => {
     await expect(
       ours.getByText("Transfers outside the EEA on standard contractual clauses"),
     ).toBeVisible();
+    // Nothing is recorded while the answer is only the supplier's.
+    await expect(enabledNext(page)).toHaveCount(0);
+    await page.getByRole("button", { name: /^Take their answers/ }).click();
 
     await enabledNext(page).click();
     await expect
       .poll(async () => {
         const row = (await suppliersOf(tenant)).find((s) => s.name === SUPPLIER);
-        return row && [row.international_transfer, row.transfer_mechanism];
+        return (
+          row && [
+            row.international_transfer,
+            row.transfer_mechanism,
+            !!row.transfer_checked_at,
+          ]
+        );
       })
-      .toEqual([true, "sccs"]);
+      .toEqual([true, "sccs", true]);
   });
 
   test("an activity takes its lawful basis; legitimate interests need the interest named", async ({

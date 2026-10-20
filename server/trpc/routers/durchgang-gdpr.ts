@@ -7,9 +7,8 @@ import {
   type AnyScreen,
   GDPR_WALK,
   noteLine,
-  PROCESSOR_ROLES,
-  SUBPROCESSOR_AUTHORISATIONS,
-  TRANSFER_MECHANISMS,
+  type ProcessorAnswer,
+  processorAnswerSchema,
 } from "@/lib/durchgang";
 import { ACTIVITY_CATALOG } from "@/lib/processing-activities/catalog";
 import { activityCopyOf } from "@/lib/processing-activities/copy";
@@ -70,75 +69,43 @@ const sameFact = (sent: unknown, stored: unknown): boolean =>
 const supplierId = z.string().uuid();
 const ROWS_MAX = 500;
 
-/** One fact per supplier, by the fact the screen asks; the answers are the walk's own lists. */
-const processorsInput = z.discriminatedUnion("fact", [
-  z.object({
-    code,
-    fact: z.literal("role"),
-    rows: z.array(z.object({ supplierId, role: z.enum(PROCESSOR_ROLES) })).max(ROWS_MAX),
-  }),
-  z.object({
-    code,
-    fact: z.literal("contract"),
-    rows: z.array(z.object({ supplierId, concluded: z.boolean() })).max(ROWS_MAX),
-  }),
-  z.object({
-    code,
-    fact: z.literal("transfer"),
-    rows: z
-      .array(
-        z.object({
-          supplierId,
-          outside: z.boolean(),
-          mechanism: z.enum(TRANSFER_MECHANISMS).nullable(),
-        }),
-      )
-      .max(ROWS_MAX),
-  }),
-  z.object({
-    code,
-    fact: z.literal("subprocessing"),
-    rows: z
-      .array(z.object({ supplierId, authorisation: z.enum(SUBPROCESSOR_AUTHORISATIONS) }))
-      .max(ROWS_MAX),
-  }),
-]);
+/** One answer per supplier, all of the one fact the screen asks. */
+const processorsInput = z.object({
+  code,
+  rows: z
+    .array(z.object({ supplierId, answer: processorAnswerSchema }))
+    .min(1)
+    .max(ROWS_MAX)
+    .refine(
+      (rows) => rows.every((r) => r.answer.fact === rows[0]?.answer.fact),
+      "One fact per screen.",
+    ),
+});
 
 /**
- * The supplier columns each answer writes: only the customer's own GDPR columns, never a
- * supplier's clause answers (`supplierOwnedClauseColumns`).
+ * The supplier columns an answer writes: only the customer's own GDPR columns, never a supplier's
+ * clause answers (`supplierOwnedClauseColumns`).
  */
-const updatesOf = (input: z.infer<typeof processorsInput>, now: Date) => {
-  switch (input.fact) {
+const columnsOf = (answer: ProcessorAnswer, now: Date) => {
+  switch (answer.fact) {
     case "role":
-      return input.rows.map((r) => ({
-        id: r.supplierId,
-        set: {
-          processesPersonalData: r.role !== "none",
-          relationshipType: r.role === "none" ? null : r.role,
-          processorCheckedAt: now,
-        },
-      }));
+      return {
+        processesPersonalData: answer.role !== "none",
+        relationshipType: answer.role === "none" ? null : answer.role,
+        processorCheckedAt: now,
+      };
     case "contract":
-      return input.rows.map((r) => ({
-        id: r.supplierId,
-        set: { dpaConcluded: r.concluded },
-      }));
+      return { dpaConcluded: answer.concluded };
     case "transfer":
-      return input.rows.map((r) => ({
-        id: r.supplierId,
-        set: {
-          internationalTransfer: r.outside,
-          transferMechanism: r.outside ? r.mechanism : null,
-        },
-      }));
+      return {
+        internationalTransfer: answer.outside,
+        transferMechanism: answer.outside ? answer.mechanism : null,
+        transferCheckedAt: now,
+      };
     case "subprocessing":
-      return input.rows.map((r) => ({
-        id: r.supplierId,
-        set: { subprocessorAuthorisation: r.authorisation },
-      }));
+      return { subprocessorAuthorisation: answer.authorisation };
     default:
-      return input satisfies never;
+      return answer satisfies never;
   }
 };
 
@@ -155,6 +122,7 @@ const PROCESSOR_COLUMNS = {
   dpaConcluded: true,
   internationalTransfer: true,
   transferMechanism: true,
+  transferCheckedAt: true,
   subprocessorAuthorisation: true,
 } as const;
 
@@ -340,18 +308,29 @@ export const durchgangGdprRouter = router({
   recordProcessors: durchgangWrite
     .input(processorsInput)
     .mutation(async ({ ctx, input }) => {
-      const screens = screensOf(input.code, "processors", "supplier facts");
-      if (!screens.some((s) => s.kind === "processors" && s.fact === input.fact)) {
+      const fact = input.rows[0]?.answer.fact;
+      if (
+        !fact ||
+        !walkItem(input.code).screens.some(
+          (s) => s.kind === "processors" && s.fact === fact,
+        )
+      ) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `${input.code} does not ask ${input.fact}.`,
+          message: `${input.code} does not ask ${fact}.`,
         });
       }
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const now = new Date();
       // The last answer sent for a supplier wins.
-      const updates = [...new Map(updatesOf(input, now).map((u) => [u.id, u])).values()];
-      if (updates.length === 0) return { changed: 0 };
+      const updates = [
+        ...new Map(
+          input.rows.map((r) => [
+            r.supplierId,
+            { id: r.supplierId, set: columnsOf(r.answer, now) },
+          ]),
+        ).values(),
+      ];
       const ids = updates.map((u) => u.id);
       const owned = await ctx.db
         .select({ id: supplier.id, name: supplier.name })
@@ -372,7 +351,7 @@ export const durchgangGdprRouter = router({
         ref.statusId,
         noteLine(
           now,
-          `${NAMESPACES[locale].ui.processors.noted[input.fact]}: ${owned.map((s) => s.name).join(", ")}.`,
+          `${NAMESPACES[locale].ui.processors.noted[fact]}: ${owned.map((s) => s.name).join(", ")}.`,
         ),
       );
       await logWalk({
@@ -381,8 +360,8 @@ export const durchgangGdprRouter = router({
         action: "durchgang.processors",
         entityType: "requirement",
         entityId: ref.requirementId,
-        description: `${ref.code} supplier ${input.fact} recorded`,
-        newValue: { fact: input.fact, suppliers: updates.length },
+        description: `${ref.code} supplier ${fact} recorded`,
+        newValue: { fact, suppliers: updates.length },
       });
       recheck(ctx, "supplier", input.code);
       return { changed: updates.length };

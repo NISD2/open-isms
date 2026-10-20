@@ -122,7 +122,8 @@
         },
         "stated": {
           "label": "From their questionnaire",
-          "preselected": "Preselected from their answers. Change it if your contract says otherwise.",
+          "preselected": "A dashed answer is what the supplier said in its questionnaire. Check it against your contract, then tap it, or take all of them at once.",
+          "takeAll": "Take their answers ({count})",
           "dataProcessingAgreement": {
             "available": "Offers a standard data processing agreement",
             "independentController": "Says it is a controller in its own right",

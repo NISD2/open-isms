@@ -10,10 +10,13 @@ import { LevelChip } from "./RatingScreens";
 /** One answer of a row: a pill that shows a tick while it is chosen. */
 export function Toggle({
   on,
+  suggested = false,
   onClick,
   children,
 }: {
   on: boolean;
+  /** Someone else's answer, shown dashed until the person takes it over by choosing it. */
+  suggested?: boolean;
   onClick: () => void;
   children: string;
 }) {
@@ -26,7 +29,9 @@ export function Toggle({
         "inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 text-left text-sm transition-colors",
         on
           ? "border-primary bg-primary/[0.06] text-foreground"
-          : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
+          : suggested
+            ? "border-dashed border-primary/60 text-foreground hover:bg-primary/[0.04]"
+            : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
       )}
     >
       {on && <Check className="size-3.5 shrink-0" />}

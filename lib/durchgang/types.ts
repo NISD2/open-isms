@@ -315,7 +315,7 @@ export type Screen<C extends CategoryCode> =
       readonly id: string;
       readonly facts: readonly ActivityFact[];
     }
-  /** Each supplier on the list, with one GDPR fact about it (`PROCESSOR_FACTS`). */
+  /** Each supplier on the list, with one GDPR fact about it (`ProcessorAnswer`). */
   | { readonly kind: "processors"; readonly id: string; readonly fact: ProcessorFact }
   /**
    * What the company does itself from now on, after management signed: the duties that arise

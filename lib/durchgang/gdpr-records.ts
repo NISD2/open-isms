@@ -1,15 +1,16 @@
 /**
  * What the GDPR walk's own screens record: the facts of a processing activity and the facts of a
- * supplier, with the answers each takes. Lists, not the database enums, so client code does not
- * load the enums' runtime; gdpr-records.test.ts pins each list to its enum.
+ * supplier, with the answers each takes, read from the database enums.
  */
 
-import type {
+import {
   legalBasisEnum,
   subprocessorAuthorisationEnum,
-  supplierRelationshipTypeEnum,
+  type supplierRelationshipTypeEnum,
   transferMechanismEnum,
 } from "@nisd2/grc-data-model/enums";
+import { z } from "zod";
+import type { Supplier } from "@/schema/types";
 
 /**
  * The slices the processing-activity catalogue is offered in (lib/processing-activities), so no
@@ -35,15 +36,8 @@ export const ACTIVITY_FACTS = [
 ] as const;
 export type ActivityFact = (typeof ACTIVITY_FACTS)[number];
 
-/** The six lawful bases of Art. 6(1), as `processing_activity.legal_bases` stores them. */
-export const LEGAL_BASES = [
-  "consent",
-  "contract",
-  "legal_obligation",
-  "vital_interests",
-  "public_task",
-  "legitimate_interests",
-] as const satisfies readonly (typeof legalBasisEnum.enumValues)[number][];
+/** The six lawful bases of Art. 6(1), in its order, as `processing_activity.legal_bases` stores them. */
+export const LEGAL_BASES = legalBasisEnum.enumValues;
 export type LegalBasis = (typeof LEGAL_BASES)[number];
 
 /** The facts answered yes or no; `legalBases` is a choice of several; every other fact is text. */
@@ -51,14 +45,6 @@ export const YES_NO_FACTS = [
   "specialCategories",
   "transfersOutsideEea",
 ] as const satisfies readonly ActivityFact[];
-
-/**
- * What the GDPR walk records about each supplier: its role for personal data, whether the
- * processing contract is in place, whether data leaves the EEA, and how sub-processors are
- * authorised (Art. 26, 28, 44 to 46 GDPR).
- */
-export const PROCESSOR_FACTS = ["role", "contract", "transfer", "subprocessing"] as const;
-export type ProcessorFact = (typeof PROCESSOR_FACTS)[number];
 
 type Relationship = (typeof supplierRelationshipTypeEnum.enumValues)[number];
 
@@ -77,44 +63,49 @@ export const PROCESSOR_ROLES = [
 export type ProcessorRole = (typeof PROCESSOR_ROLES)[number];
 
 /** The bases of a transfer outside the EEA, as `supplier.transfer_mechanism` stores them. */
-export const TRANSFER_MECHANISMS = [
-  "adequacy",
-  "sccs",
-  "bcr",
-  "derogation",
-  "none",
-] as const satisfies readonly (typeof transferMechanismEnum.enumValues)[number][];
+export const TRANSFER_MECHANISMS = transferMechanismEnum.enumValues;
 export type TransferMechanism = (typeof TRANSFER_MECHANISMS)[number];
 
 /** How sub-processors are authorised, as `supplier.subprocessor_authorisation` stores it. */
-export const SUBPROCESSOR_AUTHORISATIONS = [
-  "general",
-  "specific",
-  "not_stated",
-] as const satisfies readonly (typeof subprocessorAuthorisationEnum.enumValues)[number][];
+export const SUBPROCESSOR_AUTHORISATIONS = subprocessorAuthorisationEnum.enumValues;
 export type SubprocessorAuthorisation = (typeof SUBPROCESSOR_AUTHORISATIONS)[number];
 
-/** One supplier's answer on a processors screen, by the fact the screen asks. */
-export type ProcessorAnswer =
-  | { readonly fact: "role"; readonly role: ProcessorRole }
-  | { readonly fact: "contract"; readonly concluded: boolean }
-  | {
-      readonly fact: "transfer";
-      readonly outside: boolean;
-      readonly mechanism: TransferMechanism | null;
-    }
-  | { readonly fact: "subprocessing"; readonly authorisation: SubprocessorAuthorisation };
+/**
+ * One supplier's answer on a processors screen, by the fact the screen asks: the one shape the
+ * screen, its draft and `durchgang.gdpr.recordProcessors` all take.
+ */
+export const processorAnswerSchema = z.discriminatedUnion("fact", [
+  z.object({ fact: z.literal("role"), role: z.enum(PROCESSOR_ROLES) }),
+  z.object({ fact: z.literal("contract"), concluded: z.boolean() }),
+  z.object({
+    fact: z.literal("transfer"),
+    outside: z.boolean(),
+    mechanism: z.enum(TRANSFER_MECHANISMS).nullable(),
+  }),
+  z.object({
+    fact: z.literal("subprocessing"),
+    authorisation: z.enum(SUBPROCESSOR_AUTHORISATIONS),
+  }),
+]);
+export type ProcessorAnswer = Readonly<z.infer<typeof processorAnswerSchema>>;
+export type ProcessorFact = ProcessorAnswer["fact"];
 
 /** A supplier row's stored GDPR answers, as the supplier list returns them. */
-export interface StoredProcessor {
-  readonly processesPersonalData: boolean | null;
-  readonly relationshipType: Relationship | null;
-  readonly processorCheckedAt: Date | string | null;
-  readonly dpaConcluded: boolean | null;
-  readonly internationalTransfer: boolean | null;
-  readonly transferMechanism: TransferMechanism | null;
-  readonly subprocessorAuthorisation: SubprocessorAuthorisation | null;
-}
+export type StoredProcessor = Readonly<
+  Pick<
+    Supplier,
+    | "processesPersonalData"
+    | "relationshipType"
+    | "dpaConcluded"
+    | "internationalTransfer"
+    | "transferMechanism"
+    | "subprocessorAuthorisation"
+  > & {
+    // Dates arrive as strings where a server component passed the row through JSON.
+    readonly processorCheckedAt: Date | string | null;
+    readonly transferCheckedAt: Date | string | null;
+  }
+>;
 
 /** The stored role, or null while the role screen has not recorded the row. */
 export const roleOf = (row: StoredProcessor): ProcessorRole | null => {
@@ -126,9 +117,8 @@ export const roleOf = (row: StoredProcessor): ProcessorRole | null => {
 };
 
 /**
- * What a processors screen of `fact` shows as answered for a stored row, or null. The transfer
- * columns default to "no transfer", so that screen starts every row answered, as the sign-in
- * screen of 11.1 does, and records every row it shows when the person moves on.
+ * What the company has recorded for a stored row on a processors screen of `fact`, or null. The
+ * transfer column defaults to "no transfer", so a "no" counts only once the walk recorded it.
  */
 export const storedAnswer = (
   fact: ProcessorFact,
@@ -142,11 +132,13 @@ export const storedAnswer = (
     case "contract":
       return row.dpaConcluded === null ? null : { fact, concluded: row.dpaConcluded };
     case "transfer":
-      return {
-        fact,
-        outside: row.internationalTransfer === true,
-        mechanism: row.transferMechanism,
-      };
+      return row.internationalTransfer === true || row.transferCheckedAt !== null
+        ? {
+            fact,
+            outside: row.internationalTransfer === true,
+            mechanism: row.transferMechanism,
+          }
+        : null;
     case "subprocessing":
       return row.subprocessorAuthorisation === null
         ? null

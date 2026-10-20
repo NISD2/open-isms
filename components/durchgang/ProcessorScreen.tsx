@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import {
   isProcessor,
@@ -49,30 +50,23 @@ export function useProcessorRows(
     : undefined;
 }
 
-/**
- * The answer a row shows and where it comes from: chosen on this visit, recorded by the company,
- * stated by the supplier in its questionnaire, or the transfer columns' default (`answerFor`).
- */
-export const resolvedAnswer = (fact: ProcessorFact, row: Supplier, draft: Draft) =>
-  answerFor(fact, row, draft.processors[row.id]);
-
-/** The answer a row shows, whatever its source. */
-export const processorAnswerOf = (
-  fact: ProcessorFact,
-  row: Supplier,
-  draft: Draft,
-): ProcessorAnswer | null => resolvedAnswer(fact, row, draft)?.answer ?? null;
-
 /** Whether a row's answer is complete: a transfer outside the EEA names its basis. */
-export const answered = (answer: ProcessorAnswer | null): boolean =>
-  answer !== null &&
+export const answered = (answer: ProcessorAnswer | null | undefined): boolean =>
+  !!answer &&
   (answer.fact !== "transfer" || !answer.outside || answer.mechanism !== null);
 
 /**
+ * Whether a row is settled: the company's own answer, chosen now or recorded before, and complete.
+ * A supplier's statement alone is a suggestion, so it leaves the row open.
+ */
+export const settled = (fact: ProcessorFact, row: Supplier, draft: Draft): boolean => {
+  const shown = answerFor(fact, row, draft.processors[row.id]);
+  return shown !== null && shown.source !== "stated" && answered(shown.answer);
+};
+
+/**
  * What leaving a processors screen saves, as `durchgang.gdpr.recordProcessors` takes it, or null
- * when nothing is to be saved: the complete answers chosen on this visit or taken from the
- * supplier's statement (moving on confirms what the screen showed), and on the transfer screen
- * every row it shows, since that screen starts each row answered (as 11.1 does).
+ * when nothing is to be saved: the complete answers chosen on this visit, and nothing else.
  */
 export const processorSave = (
   code: string,
@@ -81,58 +75,12 @@ export const processorSave = (
   draft: Draft,
 ) => {
   const picked = rows.flatMap((row) => {
-    const resolved = resolvedAnswer(fact, row, draft);
-    const saved =
-      resolved !== null &&
-      (fact === "transfer" ||
-        resolved.source === "chosen" ||
-        resolved.source === "stated");
-    const answer = resolved?.answer;
-    return saved && answer?.fact === fact && answered(answer)
+    const answer = draft.processors[row.id];
+    return answer?.fact === fact && answered(answer)
       ? [{ supplierId: row.id, answer }]
       : [];
   });
-  if (picked.length === 0) return null;
-  switch (fact) {
-    case "role":
-      return {
-        code,
-        fact,
-        rows: picked.flatMap(({ supplierId, answer }) =>
-          answer.fact === "role" ? [{ supplierId, role: answer.role }] : [],
-        ),
-      };
-    case "contract":
-      return {
-        code,
-        fact,
-        rows: picked.flatMap(({ supplierId, answer }) =>
-          answer.fact === "contract" ? [{ supplierId, concluded: answer.concluded }] : [],
-        ),
-      };
-    case "transfer":
-      return {
-        code,
-        fact,
-        rows: picked.flatMap(({ supplierId, answer }) =>
-          answer.fact === "transfer"
-            ? [{ supplierId, outside: answer.outside, mechanism: answer.mechanism }]
-            : [],
-        ),
-      };
-    case "subprocessing":
-      return {
-        code,
-        fact,
-        rows: picked.flatMap(({ supplierId, answer }) =>
-          answer.fact === "subprocessing"
-            ? [{ supplierId, authorisation: answer.authorisation }]
-            : [],
-        ),
-      };
-    default:
-      return fact satisfies never;
-  }
+  return picked.length === 0 ? null : { code, rows: picked };
 };
 
 /** G-DPA.1 and G-DPA.2: per supplier, one GDPR fact: its role, its contract, transfers, sub-processors. */
@@ -188,18 +136,33 @@ export function Processors({
         return fact satisfies never;
     }
   };
-  const anyStated = rows?.some(
-    (row) => resolvedAnswer(fact, row, draft)?.source === "stated",
-  );
+  const shownOf = (row: Supplier) => answerFor(fact, row, draft.processors[row.id]);
+  // The suppliers' own answers, which the person takes over in one go after checking them.
+  const suggestions = (rows ?? []).flatMap((row) => {
+    const shown = shownOf(row);
+    return shown?.source === "stated" ? [[row.id, shown.answer] as const] : [];
+  });
+  const takeSuggestions = () =>
+    onDraft({
+      ...draft,
+      processors: { ...draft.processors, ...Object.fromEntries(suggestions) },
+    });
 
   const answers = (row: Supplier) => {
-    const answer = processorAnswerOf(fact, row, draft);
+    const shown = shownOf(row);
+    const answer = shown?.answer;
+    const suggested = shown?.source === "stated";
+    /** A toggle's state: chosen for the company's own answer, dashed for the supplier's. */
+    const mark = (match: boolean) => ({
+      on: match && !suggested,
+      suggested: match && suggested,
+    });
     switch (fact) {
       case "role":
         return PROCESSOR_ROLES.map((role) => (
           <Toggle
             key={role}
-            on={answer?.fact === "role" && answer.role === role}
+            {...mark(answer?.fact === "role" && answer.role === role)}
             onClick={() => set(row, { fact, role })}
           >
             {t(`role.${role}`)}
@@ -209,7 +172,7 @@ export function Processors({
         return ([true, false] as const).map((concluded) => (
           <Toggle
             key={String(concluded)}
-            on={answer?.fact === "contract" && answer.concluded === concluded}
+            {...mark(answer?.fact === "contract" && answer.concluded === concluded)}
             onClick={() => set(row, { fact, concluded })}
           >
             {t(concluded ? "contract.yes" : "contract.no")}
@@ -222,7 +185,7 @@ export function Processors({
             {([false, true] as const).map((outside) => (
               <Toggle
                 key={String(outside)}
-                on={current?.outside === outside}
+                {...mark(current?.outside === outside)}
                 onClick={() =>
                   set(row, {
                     fact,
@@ -241,7 +204,7 @@ export function Processors({
                   {TRANSFER_MECHANISMS.map((mechanism) => (
                     <Toggle
                       key={mechanism}
-                      on={current.mechanism === mechanism}
+                      {...mark(current.mechanism === mechanism)}
                       onClick={() => set(row, { fact, outside: true, mechanism })}
                     >
                       {t(`transfer.mechanisms.${mechanism}`)}
@@ -257,9 +220,9 @@ export function Processors({
         return SUBPROCESSOR_AUTHORISATIONS.map((authorisation) => (
           <Toggle
             key={authorisation}
-            on={
-              answer?.fact === "subprocessing" && answer.authorisation === authorisation
-            }
+            {...mark(
+              answer?.fact === "subprocessing" && answer.authorisation === authorisation,
+            )}
             onClick={() => set(row, { fact, authorisation })}
           >
             {t(`subprocessing.${authorisation}`)}
@@ -291,10 +254,15 @@ export function Processors({
           {fact !== "role" && (
             <p className="mt-4 text-sm text-muted-foreground">{t("onlyProcessors")}</p>
           )}
-          {anyStated && (
-            <p className="mt-2 text-sm text-muted-foreground">
-              {t("stated.preselected")}
-            </p>
+          {suggestions.length > 0 && (
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <p className="max-w-[60ch] text-sm text-muted-foreground">
+                {t("stated.preselected")}
+              </p>
+              <Button variant="outline" size="sm" onClick={takeSuggestions}>
+                {t("stated.takeAll", { count: suggestions.length })}
+              </Button>
+            </div>
           )}
           <ul className="mt-6 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
             {rows.map((row) => {

@@ -33,6 +33,7 @@ const row = (
   dpaConcluded: null,
   internationalTransfer: false,
   transferMechanism: null,
+  transferCheckedAt: null,
   subprocessorAuthorisation: null,
   ...stored,
   stated,
@@ -153,7 +154,8 @@ describe("which answer a row shows", () => {
     });
   });
 
-  test("the default 'no transfer' gives way to a supplier that names a country outside", () => {
+  test("the column's default 'no transfer' is no answer; a recorded one is", () => {
+    expect(answerFor("transfer", row({}, null), undefined)).toBeNull();
     const abroad = row({}, said({ dataProcessingLocations: "US" }));
     expect(answerFor("transfer", abroad, undefined)?.source).toBe("stated");
     const recordedAbroad = row(
@@ -164,6 +166,15 @@ describe("which answer a row shows", () => {
       answer: { fact: "transfer", outside: true, mechanism: "adequacy" },
       source: "recorded",
     });
-    expect(answerFor("transfer", row({}, null), undefined)?.source).toBe("default");
+    expect(
+      answerFor(
+        "transfer",
+        row({ transferCheckedAt: new Date() }, abroad.stated),
+        undefined,
+      ),
+    ).toEqual({
+      answer: { fact: "transfer", outside: false, mechanism: null },
+      source: "recorded",
+    });
   });
 });

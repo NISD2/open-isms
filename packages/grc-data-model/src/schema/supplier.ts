@@ -132,6 +132,11 @@ export const supplier = pgTable(
     /** GDPR — adequacy / SCCs / BCRs / derogation. Only meaningful when internationalTransfer is true. */
     transferMechanism: transferMechanismEnum("transfer_mechanism"),
     /**
+     * When the GDPR walk last recorded this row's transfer answer. internationalTransfer defaults
+     * to false, so without it an untouched row reads as "no transfer" (Art. 30(1)(e) GDPR).
+     */
+    transferCheckedAt: timestamp("transfer_checked_at"),
+    /**
      * GDPR Art. 28(3), (9): the customer's own answer that its contract with this processor is
      * concluded, in writing, which electronic form is. Not a signature: the article asks for none.
      * Null until answered; meaningful only while relationshipType is processor.

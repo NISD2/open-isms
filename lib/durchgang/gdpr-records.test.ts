@@ -1,10 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import {
-  frameworkEnum,
-  subprocessorAuthorisationEnum,
-  supplierRelationshipTypeEnum,
-  transferMechanismEnum,
-} from "@nisd2/grc-data-model/enums";
+import { frameworkEnum, supplierRelationshipTypeEnum } from "@nisd2/grc-data-model/enums";
 import { processingActivity } from "@nisd2/grc-data-model/schema";
 import { getTableColumns } from "drizzle-orm";
 import {
@@ -13,9 +8,7 @@ import {
   PROCESSOR_ROLES,
   roleOf,
   type StoredProcessor,
-  SUBPROCESSOR_AUTHORISATIONS,
   storedAnswer,
-  TRANSFER_MECHANISMS,
 } from "./gdpr-records";
 import { WALK_FRAMEWORKS } from "./types";
 
@@ -26,6 +19,7 @@ const stored = (row: Partial<StoredProcessor>): StoredProcessor => ({
   dpaConcluded: null,
   internationalTransfer: false,
   transferMechanism: null,
+  transferCheckedAt: null,
   subprocessorAuthorisation: null,
   ...row,
 });
@@ -40,15 +34,6 @@ describe("the GDPR walk's lists mirror the database", () => {
   test("the roles are the supplier relationships, less a group company, plus no personal data", () => {
     expect(PROCESSOR_ROLES.filter((r) => r !== "none").sort()).toEqual(
       supplierRelationshipTypeEnum.enumValues.filter((r) => r !== "internal").sort(),
-    );
-  });
-
-  test("the transfer bases and the authorisations are exactly their enums", () => {
-    expect([...TRANSFER_MECHANISMS].sort()).toEqual(
-      [...transferMechanismEnum.enumValues].sort(),
-    );
-    expect([...SUBPROCESSOR_AUTHORISATIONS].sort()).toEqual(
-      [...subprocessorAuthorisationEnum.enumValues].sort(),
     );
   });
 
@@ -83,11 +68,18 @@ describe("what a stored supplier row answers", () => {
     expect(storedAnswer("subprocessing", stored({}))).toBeNull();
   });
 
-  test("the transfer screen starts every row answered from its columns", () => {
-    expect(storedAnswer("transfer", stored({}))).toEqual({
+  test("the column's default 'no transfer' is open until the walk records it", () => {
+    expect(storedAnswer("transfer", stored({}))).toBeNull();
+    expect(storedAnswer("transfer", stored({ transferCheckedAt: new Date() }))).toEqual({
       fact: "transfer",
       outside: false,
       mechanism: null,
     });
+    expect(
+      storedAnswer(
+        "transfer",
+        stored({ internationalTransfer: true, transferMechanism: "sccs" }),
+      ),
+    ).toEqual({ fact: "transfer", outside: true, mechanism: "sccs" });
   });
 });

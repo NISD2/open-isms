@@ -138,8 +138,14 @@ function setup(world: World) {
 
 /** What an update set, without the time it was made. */
 const setOf = (values: unknown) => {
-  const { updatedAt: _, processorCheckedAt, ...rest } = values as Record<string, unknown>;
-  return processorCheckedAt === undefined ? rest : { ...rest, checked: true };
+  const {
+    updatedAt: _,
+    processorCheckedAt,
+    transferCheckedAt,
+    ...rest
+  } = values as Record<string, unknown>;
+  const checked = processorCheckedAt ?? transferCheckedAt;
+  return checked === undefined ? rest : { ...rest, checked: true };
 };
 
 describe("adding processing activities (G-ROP.1)", () => {
@@ -213,10 +219,9 @@ describe("recording suppliers' GDPR facts (G-DPA.1, G-DPA.2)", () => {
     const { caller, writesTo, notes } = setup({ activities: [], suppliers });
     await caller.recordProcessors({
       code: "G-DPA.1",
-      fact: "role",
       rows: [
-        { supplierId: S1, role: "processor" },
-        { supplierId: S2, role: "none" },
+        { supplierId: S1, answer: { fact: "role", role: "processor" } },
+        { supplierId: S2, answer: { fact: "role", role: "none" } },
       ],
     });
     expect(writesTo(supplier).map((w) => setOf(w.values))).toEqual([
@@ -231,12 +236,31 @@ describe("recording suppliers' GDPR facts (G-DPA.1, G-DPA.2)", () => {
     const { caller, writesTo } = setup({ activities: [], suppliers });
     await caller.recordProcessors({
       code: "G-DPA.1",
-      fact: "transfer",
-      rows: [{ supplierId: S1, outside: false, mechanism: "sccs" }],
+      rows: [
+        {
+          supplierId: S1,
+          answer: { fact: "transfer", outside: false, mechanism: "sccs" },
+        },
+      ],
     });
+    // Recorded as answered, so the column's default "no" is never mistaken for an answer.
     expect(writesTo(supplier).map((w) => setOf(w.values))).toEqual([
-      { internationalTransfer: false, transferMechanism: null },
+      { internationalTransfer: false, transferMechanism: null, checked: true },
     ]);
+  });
+
+  test("is refused when one screen sends answers to two facts", async () => {
+    const { caller, writesTo } = setup({ activities: [], suppliers });
+    await expect(
+      caller.recordProcessors({
+        code: "G-DPA.1",
+        rows: [
+          { supplierId: S1, answer: { fact: "role", role: "processor" } },
+          { supplierId: S2, answer: { fact: "contract", concluded: true } },
+        ],
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writesTo(supplier)).toEqual([]);
   });
 
   test("is refused for a fact the item does not ask", async () => {
@@ -244,8 +268,7 @@ describe("recording suppliers' GDPR facts (G-DPA.1, G-DPA.2)", () => {
     await expect(
       caller.recordProcessors({
         code: "G-DPA.2",
-        fact: "role",
-        rows: [{ supplierId: S1, role: "processor" }],
+        rows: [{ supplierId: S1, answer: { fact: "role", role: "processor" } }],
       }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
     expect(writesTo(supplier)).toEqual([]);
@@ -256,8 +279,12 @@ describe("recording suppliers' GDPR facts (G-DPA.1, G-DPA.2)", () => {
     await expect(
       caller.recordProcessors({
         code: "G-DPA.2",
-        fact: "subprocessing",
-        rows: [{ supplierId: FOREIGN, authorisation: "general" }],
+        rows: [
+          {
+            supplierId: FOREIGN,
+            answer: { fact: "subprocessing", authorisation: "general" },
+          },
+        ],
       }),
     ).rejects.toMatchObject({ code: "NOT_FOUND" });
     expect(writesTo(supplier)).toEqual([]);

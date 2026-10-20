@@ -10,7 +10,7 @@ import { answerOf, useAgreementRows } from "./AgreementScreen";
 import { approvalReady } from "./ApproveScreen";
 import { type Draft, isAnswered } from "./draft";
 import { useLoginRows } from "./LoginScreen";
-import { answered, processorAnswerOf, useProcessorRows } from "./ProcessorScreen";
+import { settled, useProcessorRows } from "./ProcessorScreen";
 import { rowSettled, useRatingRows } from "./RatingScreens";
 import type { ItemView } from "./view";
 
@@ -133,9 +133,7 @@ export function useScreenComplete(
     }
     case "processors": {
       const { fact } = screen;
-      return gate(
-        processors?.every((row) => answered(processorAnswerOf(fact, row, draft))),
-      );
+      return gate(processors?.every((row) => settled(fact, row, draft)));
     }
     default:
       return "complete";
