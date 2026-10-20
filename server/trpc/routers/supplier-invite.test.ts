@@ -12,10 +12,10 @@ mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 mock.module("@/lib/rate-limit", () => ({ rateLimit: async () => true }));
 const sent: string[] = [];
 const mail = await import("@/lib/mail");
+// The real templates: a dummy one here reached supplier-mail-budget.test.ts, which reads the
+// invite's wording. Only sending is replaced, with the full result shape other files read.
 mock.module("@/lib/mail", () => ({
   ...mail,
-  entityInvitesSupplierEmail: async () => ({ subject: "s", html: "h", text: "t" }),
-  // The full result shape: other files in the run read `.success` from it.
   sendMail: async ({ to }: { to: string }) => {
     sent.push(to);
     return { success: true, id: "sent-1" };
