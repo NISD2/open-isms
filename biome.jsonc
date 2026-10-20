@@ -55,7 +55,7 @@
       // page's whole entry reads and diffs as one line. The formatter would
       // spread it over three times the lines and bury every content fix in the
       // churn. Lint rules still apply.
-      "includes": ["lib/content/wiki-toc.ts"],
+      "includes": ["lib/content/wiki-toc.ts", "lib/content/wiki-toc-troubleshooting.ts"],
       "formatter": { "enabled": false }
     },
     {

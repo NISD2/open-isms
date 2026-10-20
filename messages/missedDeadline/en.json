@@ -1,0 +1,101 @@
+{
+  "missedDeadline": {
+    "meta": {
+      "title": "Missed the NIS2 deadline? What to do now",
+      "description": "Missed the NIS2 deadline? The registration deadline in every EU country, with its authority and portal, and the five steps that come next."
+    },
+    "badge": "Art. 3(4) NIS 2",
+    "title": "Missed the NIS2 deadline? What to do now",
+    "subtitle": "Register now with your country's authority and start on the measures. Your country's law sets the deadline. The table below shows it for all 27 EU countries, with the authority and the portal.",
+    "countries": {
+      "heading": "The deadline in your country",
+      "lead": "As of our list of registration bodies: {date}. The page on your country explains who the deadline applies to.",
+      "later": "If your company only comes into scope later, for example because it grows, the period in Germany and Poland starts on that day: three months under § 33(1) BSIG, six months under Art. 7c(1) of the Polish National Cybersecurity System Act (KSC).",
+      "columns": {
+        "country": "Country",
+        "authority": "Authority and portal",
+        "deadline": "Deadline"
+      },
+      "state": {
+        "passed": "Passed on {date}",
+        "ahead": "By {date}",
+        "none": "None recorded"
+      },
+      "portal": "Portal",
+      "noPortal": "No portal yet",
+      "portalNotRecorded": "No portal recorded, the country page explains the way",
+      "more": "Every country with its law and the state of transposition"
+    },
+    "steps": {
+      "heading": "What to do now, in five steps",
+      "description": "The steps are the same in every country. Only the authority, the portal and the deadline differ.",
+      "items": {
+        "find": {
+          "title": "Find your authority",
+          "description": "The member state where your company is established is in charge (Art. 26(1) NIS 2). Exceptions apply, among others, to providers of public electronic communications networks or services and to certain digital providers, such as cloud computing or data centre services. The table above names the authority and the portal."
+        },
+        "register": {
+          "title": "Register now",
+          "description": "If the deadline has passed, register now through your authority's portal. Under NIS 2 you give at least your name, address and up-to-date contact details including email addresses, IP ranges and phone numbers, your sector and the EU countries where you provide these services (Art. 3(4))."
+        },
+        "record": {
+          "title": "Write down when you acted",
+          "description": "Note when you learned of the duty, when you registered and with which access to the portal. Then you can show later when you acted."
+        },
+        "measures": {
+          "title": "Start on the measures",
+          "description": "The measures under Art. 21 NIS 2 apply to your company because it is an essential or important entity (Art. 3), not because it registered. Your country sets by when they must be in place. Poland, for example, gives companies that were in scope when its law took effect twelve months."
+        },
+        "management": {
+          "title": "Involve management",
+          "description": "Your company's management approves the measures, oversees their implementation and takes part in training (Art. 20 NIS 2)."
+        }
+      },
+      "germany": "In Germany: registering with the BSI, step by step"
+    },
+    "walk": {
+      "heading": "How the walkthrough does it",
+      "lead": "Registration is the first step of the walkthrough on nisd2.eu. The step knows the authorities of every EU country.",
+      "points": [
+        "The step explains in plain words what registration is for.",
+        "It shows where you register: your country at the top, with its authority and the way to its portal.",
+        "You record two details: the ID of your access to the portal and the day you registered.",
+        "If it is not possible yet, for example because a letter with your access has not arrived, choose \"Not possible yet\" and carry on with the next step.",
+        "After that the walkthrough takes you through the measures, one item at a time. At the end your management approves them in the app."
+      ],
+      "seeItAlt": "The registration step in the walkthrough: the country and its authority",
+      "next": "Start with registration in the walkthrough"
+    },
+    "faq": {
+      "heading": "Frequently asked questions",
+      "q1": {
+        "q": "Can I still register after the deadline?",
+        "a": "In Germany, yes, through the same BSI portal. Registrations kept coming in there after the deadline: the BSI counted 17,729 by 30 June 2026 and 20,141 by 30 September 2026. For other countries, ask the authority in the table."
+      },
+      "q2": {
+        "q": "Do the other duties only apply after registration?",
+        "a": "No. NIS 2 ties the measures (Art. 21) and management's duties (Art. 20) to your company being an essential or important entity (Art. 3), not to registration. Your country sets by when they must be in place."
+      },
+      "q3": {
+        "q": "We provide cloud or data centre services, or manage other companies' IT. Where do we register?",
+        "a": "In the member state of your main establishment in the EU (Art. 26(1)(b) NIS 2). For these providers ENISA also keeps a registry, fed by the information the member states pass on (Art. 27(1)). NIS 2 required the member states to ask for this information by 17 January 2025 (Art. 27(2))."
+      },
+      "q4": {
+        "q": "Our country has no deadline in the table. What does that mean?",
+        "a": "Our list has no deadline recorded for that country. That can mean its law does not apply yet, that it names no fixed day, or that no portal is ready yet. The page on your country explains where things stand. You can start on the measures either way."
+      }
+    },
+    "sources": {
+      "heading": "Sources",
+      "items": [
+        "Directive (EU) 2022/2555 (NIS 2), Art. 3, 20, 21, 26 and 27 (https://eur-lex.europa.eu/eli/dir/2022/2555/oj)",
+        "German BSI Act (BSIG), § 33, in force since 6 December 2025 (https://www.gesetze-im-internet.de/bsig_2025/__33.html)",
+        "Poland: Act of 23 January 2026 amending the Act on the National Cybersecurity System (KSC), Dz.U. 2026 item 252, Art. 1 with Art. 7c KSC, and Art. 33 (https://api.sejm.gov.pl/eli/acts/DU/2026/252/text.pdf)",
+        "BSI, NIS-2 in Zahlen, figures as at 30.06.2026 and 30.09.2026 (https://www.bsi.bund.de/DE/Themen/Regulierte-Wirtschaft/NIS-2-regulierte-Unternehmen/NIS-2-in-Zahlen/nis-2-in-zahlen.html)",
+        "Authorities, portals and deadlines by country: our list of registration bodies, which names its sources for each country"
+      ],
+      "list": "Our list of registration bodies"
+    },
+    "fromRegistration": "Deadlines and authorities in every EU country"
+  }
+}

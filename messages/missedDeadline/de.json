@@ -1,0 +1,101 @@
+{
+  "missedDeadline": {
+    "meta": {
+      "title": "NIS2 Frist verpasst? Was Sie jetzt tun",
+      "description": "NIS2 Frist verpasst? Die Frist zur Registrierung in jedem Land der EU, mit Behörde und Portal, und die fünf Schritte, die jetzt kommen."
+    },
+    "badge": "Art. 3 Abs. 4 NIS 2",
+    "title": "NIS2 Frist verpasst? Was Sie jetzt tun",
+    "subtitle": "Registrieren Sie sich jetzt bei der Behörde Ihres Landes und fangen Sie mit den Maßnahmen an. Die Frist setzt das Gesetz Ihres Landes. Die Tabelle unten zeigt sie für alle 27 Länder der EU, mit Behörde und Portal.",
+    "countries": {
+      "heading": "Die Frist in Ihrem Land",
+      "lead": "Stand unserer Übersicht der Registrierungsstellen: {date}. Die Seite zu Ihrem Land erklärt, für wen die Frist gilt.",
+      "later": "Wird Ihr Unternehmen erst später betroffen, etwa weil es wächst, beginnt die Frist in Deutschland und Polen an diesem Tag: drei Monate nach § 33 Abs. 1 BSIG, sechs Monate nach Art. 7c Abs. 1 des polnischen Gesetzes über das nationale Cybersicherheitssystem (KSC).",
+      "columns": {
+        "country": "Land",
+        "authority": "Behörde und Portal",
+        "deadline": "Frist"
+      },
+      "state": {
+        "passed": "Abgelaufen am {date}",
+        "ahead": "Bis {date}",
+        "none": "Keine Frist erfasst"
+      },
+      "portal": "Portal",
+      "noPortal": "Noch kein Portal",
+      "portalNotRecorded": "Kein Portal erfasst, die Seite zum Land erklärt den Weg",
+      "more": "Alle Länder mit Gesetz und Stand der Umsetzung"
+    },
+    "steps": {
+      "heading": "Was Sie jetzt tun, in fünf Schritten",
+      "description": "Die Schritte sind in jedem Land dieselben. Nur Behörde, Portal und Frist unterscheiden sich.",
+      "items": {
+        "find": {
+          "title": "Ihre Behörde finden",
+          "description": "Zuständig ist der Staat, in dem Ihr Unternehmen niedergelassen ist (Art. 26 Abs. 1 NIS 2). Ausnahmen gelten unter anderem für Anbieter öffentlicher Kommunikationsnetze oder Kommunikationsdienste und für bestimmte digitale Anbieter, etwa von Cloud Computing oder Rechenzentrumsdiensten. Behörde und Portal stehen in der Tabelle oben."
+        },
+        "register": {
+          "title": "Jetzt registrieren",
+          "description": "Ist die Frist vorbei, registrieren Sie sich jetzt über das Portal Ihrer Behörde. Gefragt sind nach NIS 2 mindestens Name, Anschrift und aktuelle Kontaktdaten mit E-Mail, IP-Adressbereichen und Telefonnummern, Ihr Sektor und die Staaten der EU, in denen Sie diese Dienste erbringen (Art. 3 Abs. 4)."
+        },
+        "record": {
+          "title": "Festhalten, wann Sie gehandelt haben",
+          "description": "Notieren Sie, wann Sie von der Pflicht erfahren haben, wann Sie sich registriert haben und mit welchem Zugang zum Portal. Dann können Sie später zeigen, wann Sie gehandelt haben."
+        },
+        "measures": {
+          "title": "Mit den Maßnahmen anfangen",
+          "description": "Die Maßnahmen nach Art. 21 NIS 2 gelten für Ihr Unternehmen, weil es eine wesentliche oder wichtige Einrichtung ist (Art. 3), nicht wegen der Registrierung. In Deutschland heißen die wesentlichen Einrichtungen besonders wichtige. Bis wann die Maßnahmen umgesetzt sein müssen, regelt Ihr Land. Polen etwa gibt Unternehmen, die beim Inkrafttreten seines Gesetzes schon betroffen waren, zwölf Monate."
+        },
+        "management": {
+          "title": "Die Geschäftsleitung einbinden",
+          "description": "Die Leitung Ihres Unternehmens billigt die Maßnahmen, überwacht ihre Umsetzung und nimmt an Schulungen teil (Art. 20 NIS 2)."
+        }
+      },
+      "germany": "In Deutschland: Schritt für Schritt zur Registrierung beim BSI"
+    },
+    "walk": {
+      "heading": "So geht das im Durchgang",
+      "lead": "Die Registrierung ist der erste Schritt im Durchgang auf nisd2.eu. Der Schritt kennt die Behörden aller Länder der EU.",
+      "points": [
+        "Der Schritt erklärt in einfachen Worten, wozu die Registrierung dient.",
+        "Er zeigt, wo Sie sich registrieren: Ihr Land steht oben, mit seiner Behörde und dem Weg zum Portal.",
+        "Sie halten zwei Angaben fest: die Kennung Ihres Zugangs zum Portal und den Tag der Registrierung.",
+        "Geht es noch nicht, etwa weil ein Brief mit Ihrem Zugang fehlt, wählen Sie „Geht noch nicht“ und machen mit dem nächsten Schritt weiter.",
+        "Danach führt der Durchgang durch die Maßnahmen, einen Punkt nach dem anderen. Am Ende billigt Ihre Geschäftsleitung sie in der App."
+      ],
+      "seeItAlt": "Der Schritt Registrierung im Durchgang: das Land und seine Behörde",
+      "next": "Mit der Registrierung im Durchgang beginnen"
+    },
+    "faq": {
+      "heading": "Häufige Fragen",
+      "q1": {
+        "q": "Kann ich mich nach Ablauf der Frist noch registrieren?",
+        "a": "In Deutschland ja, über dasselbe Portal des BSI. Dort sind auch nach dem Stichtag weiter Registrierungen eingegangen: Das BSI zählte zum 30. Juni 2026 insgesamt 17.729, zum 30. September 2026 insgesamt 20.141. Für andere Länder fragen Sie die Behörde aus der Tabelle."
+      },
+      "q2": {
+        "q": "Gelten die anderen Pflichten erst nach der Registrierung?",
+        "a": "Nein. NIS 2 knüpft die Maßnahmen (Art. 21) und die Pflichten der Leitung (Art. 20) daran, dass Ihr Unternehmen eine wesentliche oder wichtige Einrichtung ist (Art. 3), nicht an die Registrierung. Bis wann sie umgesetzt sein müssen, regelt Ihr Land."
+      },
+      "q3": {
+        "q": "Wir bieten Cloud oder Rechenzentren an oder betreuen die IT anderer Unternehmen. Wo registrieren wir uns?",
+        "a": "In dem Staat, in dem Ihre Hauptniederlassung in der EU liegt (Art. 26 Abs. 1 Buchst. b NIS 2). Für diese Anbieter führt ENISA zusätzlich ein Register, gespeist aus den Angaben, die die Staaten weitergeben (Art. 27 Abs. 1). NIS 2 verpflichtete die Staaten, diese Angaben bis zum 17. Januar 2025 einzufordern (Art. 27 Abs. 2)."
+      },
+      "q4": {
+        "q": "Unser Land steht ohne Frist in der Tabelle. Was heißt das?",
+        "a": "Unsere Übersicht hat für dieses Land keine Frist erfasst. Das kann heißen, dass sein Gesetz noch nicht gilt, dass es keinen festen Tag nennt oder dass noch kein Portal bereitsteht. Die Seite zu Ihrem Land erklärt den Stand. Mit den Maßnahmen können Sie trotzdem anfangen."
+      }
+    },
+    "sources": {
+      "heading": "Quellen",
+      "items": [
+        "Richtlinie (EU) 2022/2555 (NIS 2), Art. 3, 20, 21, 26 und 27 (https://eur-lex.europa.eu/eli/dir/2022/2555/oj)",
+        "BSI-Gesetz (BSIG), § 33, in Kraft seit 6. Dezember 2025 (https://www.gesetze-im-internet.de/bsig_2025/__33.html)",
+        "Polen: Gesetz vom 23. Januar 2026 zur Änderung des Gesetzes über das nationale Cybersicherheitssystem (KSC), Dz.U. 2026 poz. 252, Art. 1 mit Art. 7c KSC und Art. 33 (https://api.sejm.gov.pl/eli/acts/DU/2026/252/text.pdf)",
+        "BSI, NIS-2 in Zahlen, Auswertungen zum 30.06.2026 und zum 30.09.2026 (https://www.bsi.bund.de/DE/Themen/Regulierte-Wirtschaft/NIS-2-regulierte-Unternehmen/NIS-2-in-Zahlen/nis-2-in-zahlen.html)",
+        "Behörden, Portale und Fristen der Länder: unsere Übersicht der Registrierungsstellen, die je Land ihre Quellen nennt"
+      ],
+      "list": "Unsere Übersicht der Registrierungsstellen"
+    },
+    "fromRegistration": "Fristen und Behörden in allen Ländern der EU"
+  }
+}

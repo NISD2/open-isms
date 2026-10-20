@@ -43,6 +43,26 @@ export function getTranspositionStatus(
   return "bill-pending";
 }
 
+/** A calendar day in Berlin as YYYY-MM-DD, the form `registrationDeadline` is written in. */
+export const berlinDay = (at: Date): string =>
+  new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(at);
+
+/**
+ * Where a country's registration deadline stands on a calendar day. The deadline day itself still
+ * counts as ahead: registering on it is on time. A country with no portal yet, or none recorded,
+ * has no deadline to miss.
+ */
+export type DeadlineState =
+  | { readonly kind: "passed"; readonly deadline: string }
+  | { readonly kind: "ahead"; readonly deadline: string }
+  | { readonly kind: "none" };
+
+export const deadlineState = (portal: RegistrationPortal, day: string): DeadlineState => {
+  const deadline = portal.registrationDeadline;
+  if (deadline === null || portal.status === "not-yet-available") return { kind: "none" };
+  return deadline < day ? { kind: "passed", deadline } : { kind: "ahead", deadline };
+};
+
 export type {
   PortalStatus,
   RegistrationPortal,

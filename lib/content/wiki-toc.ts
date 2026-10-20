@@ -28,6 +28,7 @@ import {
   EXTRA_ENTRY_SLUGS,
   EXTRA_SLUG_LOCALES,
 } from "./wiki-slugs-extra";
+import { TROUBLESHOOTING_ENTRIES } from "./wiki-toc-troubleshooting";
 
 export const WIKI_TOP_LEVEL = [
   "anwendungsbereich",
@@ -194,6 +195,9 @@ export interface WikiTocEntry {
    * sitemap, and each localized URL 308s to the same-language target.
    */
   movedTo?: { path: `/wiki/${string}`; anchor?: string };
+
+  /** The languages this page is written in, where fewer than its category's (see the category's). */
+  textLocales?: readonly LocaleCode[];
 }
 
 export interface WikiCategoryMeta {
@@ -1171,23 +1175,7 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
     titleEn: "Troubleshooting",
     questionDe: "Was tun, wenn etwas schiefläuft?",
     questionEn: "What to do when something goes wrong?",
-    entries: [
-      {
-        slug: "nis2-registrierung-verpasst",
-        slugs: { de: "nis2-registrierung-verpasst", en: "nis2-registration-missed", nl: "nis2-registratie-gemist" },
-        titleDe: "NIS2 Registrierung: so melden Sie Ihr Unternehmen beim BSI an",
-        titleEn: "NIS2 registration: how to register your company with the BSI",
-        summaryDe: "Die Schritte über ELSTER und das Portal des BSI, die Frist, was nach der Registrierung kommt und was bei verpasster Frist gilt.",
-        summaryEn: "The steps through ELSTER and the BSI's portal, the deadline, what comes after registration and what to do if you missed the deadline.",
-      },
-      { slug: "ransomware-was-tun-nis2", slugs: { de: "ransomware-was-tun-nis2", en: "ransomware-what-to-do-nis2", nl: "ransomware-wat-te-doen-nis2" }, titleDe: "Ransomware-Angriff — was unter NIS 2 sofort zu tun ist", titleEn: "Ransomware attack — what to do immediately under NIS 2", summaryDe: "Erste 24 Stunden: Eindämmung, Frühwarnung an das BSI (Artikel 23), Krisenkommunikation, Zahlungsentscheidung, Nachweise sichern. Was rechtlich pflicht ist, was nicht.", summaryEn: "First 24 hours: containment, early warning to BSI (Article 23), crisis communication, payment decision, evidence preservation. What is legally required, what is not.", authorSlug: "simon-orzel", tags: ["regulation:nis2", "regulation:bsig", "topic:incident-response", "topic:ransomware", "topic:crisis", "audience:ceo", "audience:ciso", "level:beginner"], subCategory: "Vorfälle", audience: ["ceo", "ciso"], relatedSlugs: ["wie-bsi-vorfall-melden-24h", "nis2-vorfallbehandlung"] },
-      { slug: "phishing-vorfall-nis2", slugs: { de: "phishing-vorfall-nis2", en: "phishing-incident-nis2", nl: "phishing-incident-nis2" }, titleDe: "Phishing-Vorfall — ist das ein erheblicher Sicherheitsvorfall?", titleEn: "Phishing incident — is this a significant incident under NIS 2?", summaryDe: "Wann eine Phishing-Welle die Schwelle nach Art. 23(3) NIS 2 oder Art. 3 CIR reißt und wie die Frühwarnung an das BSI aussieht.", summaryEn: "When a phishing wave crosses the Article 23(3) NIS 2 or Article 3 CIR threshold and how the early warning to the BSI looks.", authorSlug: "simon-orzel", tags: ["regulation:nis2", "regulation:bsig", "topic:incident-response", "topic:phishing", "audience:ciso", "audience:soc", "level:beginner"], subCategory: "Vorfälle", audience: ["ciso", "soc"], relatedSlugs: ["wie-bsi-vorfall-melden-24h", "nis2-vorfallbehandlung"] },
-      { slug: "ddos-angriff-nis2", slugs: { de: "ddos-angriff-nis2", en: "ddos-attack-nis2", nl: "ddos-aanval-nis2" }, titleDe: "DDoS-Angriff — Eindämmung und Meldung unter NIS 2", titleEn: "DDoS attack — mitigation and reporting under NIS 2", summaryDe: "Erkennung, Eindämmung am ISP, §32 BSIG-Meldung und Auswertung nach dem Angriff.", summaryEn: "Detection, mitigation at the ISP, §32 BSIG notification, and post-incident review.", authorSlug: "simon-orzel", tags: ["regulation:nis2", "regulation:bsig", "topic:incident-response", "topic:ddos", "audience:ciso", "audience:soc", "level:beginner"], subCategory: "Vorfälle", audience: ["ciso", "soc"], relatedSlugs: ["wie-bsi-vorfall-melden-24h", "nis2-netzsicherheit"] },
-      { slug: "lieferant-gehackt-nis2", slugs: { de: "lieferant-gehackt-nis2", en: "supplier-breach-nis2", nl: "leverancier-gehackt-nis2" }, titleDe: "Lieferant gehackt — eigene Pflichten unter NIS 2", titleEn: "Supplier breached — your own NIS 2 duties", summaryDe: "Wann ein Vorfall beim Lieferanten zur eigenen Frühwarnung führt, was Artikel 21(2)(d) verlangt.", summaryEn: "When a supplier breach forces your own early warning, what Article 21(2)(d) requires.", authorSlug: "simon-orzel", tags: ["regulation:nis2", "regulation:bsig", "topic:supply-chain", "topic:incident-response", "audience:ciso", "audience:procurement", "level:intermediate"], subCategory: "Vorfälle", audience: ["ciso", "ceo"], relatedSlugs: ["nis2-lieferkette", "nis2-lieferantenvertraege-klauseln"] },
-      { slug: "cloud-anbieter-ausgefallen-nis2", slugs: { de: "cloud-anbieter-ausgefallen-nis2", en: "cloud-provider-outage-nis2", nl: "cloud-aanbieder-uitval-nis2" }, titleDe: "Cloud-Anbieter ausgefallen — meldepflichtig unter NIS 2?", titleEn: "Cloud provider outage — reportable under NIS 2?", summaryDe: "Wann eine Cloud-Störung als erheblicher Vorfall gilt und welche Schritte das Risikomanagement nach Artikel 21(2)(c) verlangt.", summaryEn: "When a cloud outage counts as a significant incident and which Article 21(2)(c) steps risk management requires.", authorSlug: "simon-orzel", tags: ["regulation:nis2", "regulation:bsig", "topic:incident-response", "topic:cloud", "audience:ciso", "audience:ceo", "level:intermediate"], subCategory: "Vorfälle", audience: ["ciso", "ceo"], relatedSlugs: ["bin-ich-cloud-anbieter-nis2", "nis2-business-continuity"] },
-      { slug: "bsi-anfrage-erhalten", slugs: { de: "bsi-anfrage-erhalten", en: "received-bsi-request", nl: "bsi-verzoek-ontvangen" }, titleDe: "BSI-Anfrage erhalten: was das BSI verlangen darf und wie Sie antworten", titleEn: "Received a BSI request: what the BSI may ask for and how to reply", summaryDe: "Worauf eine Anfrage beruhen kann (§§ 33, 61, 62 BSIG), wie Sie vorgehen und wie weit die Pflicht reicht.", summaryEn: "What a request can be based on (§§ 33, 61, 62 BSIG), how to proceed and how far the duty goes.", authorSlug: "simon-orzel", tags: ["regulation:nis2", "regulation:bsig", "topic:enforcement", "topic:legal-procedure", "audience:ceo", "audience:lawyer", "level:intermediate"], subCategory: "Aufsicht", audience: ["ceo", "lawyer"], relatedSlugs: ["wie-bsi-audit-vorbereiten", "nis2-bsi-bescheid-widerspruch"] },
-      { slug: "datenleck-nis2-dsgvo-parallel", slugs: { de: "datenleck-nis2-dsgvo-parallel", en: "data-breach-nis2-gdpr-parallel", nl: "datalek-nis2-avg-parallel" }, titleDe: "Datenleck — NIS 2 und DSGVO gleichzeitig", titleEn: "Data breach — NIS 2 and GDPR in parallel", summaryDe: "Zwei Aufsichten, zwei Uhren, eine Untersuchung: wie Artikel 23 NIS 2 und Artikel 33 DSGVO parallel laufen.", summaryEn: "Two supervisors, two clocks, one investigation: how Article 23 NIS 2 and Article 33 GDPR run in parallel.", authorSlug: "simon-orzel", tags: ["regulation:nis2", "regulation:gdpr", "topic:incident-response", "topic:data-breach", "audience:dpo", "audience:ciso", "level:intermediate"], subCategory: "Vorfälle", audience: ["dpo", "ciso"], relatedSlugs: ["nis2-und-dsgvo-schnittmenge", "wie-bsi-vorfall-melden-24h"] },
-    ],
+    entries: TROUBLESHOOTING_ENTRIES,
   },
 };
 
@@ -1307,7 +1295,7 @@ export function wikiSitemapPaths(): Array<{
         path: `/wiki/${cat}/${entry.slug}`,
         priority: 0.6,
         lastModified,
-        locales: WIKI_TOC[cat].textLocales,
+        locales: entry.textLocales ?? WIKI_TOC[cat].textLocales,
       });
     }
   }

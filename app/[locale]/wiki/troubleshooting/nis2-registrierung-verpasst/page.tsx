@@ -55,9 +55,10 @@ export default async function MissedRegistrationPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = wikiLocale(rawLocale);
-  const [t, w] = await Promise.all([
+  const [t, w, missed] = await Promise.all([
     getTranslations("info.missedRegistration"),
     getTranslations("info.wikiWalk"),
+    getTranslations("missedDeadline"),
   ]);
   const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
   if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
@@ -210,6 +211,9 @@ export default async function MissedRegistrationPage({
               </li>
             ))}
           </ol>
+          <WikiMoreLink href="/wiki/troubleshooting/nis2-frist-verpasst">
+            {missed("fromRegistration")}
+          </WikiMoreLink>
         </section>
 
         <section className="space-y-4">
