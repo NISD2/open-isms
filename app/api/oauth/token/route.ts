@@ -1,12 +1,16 @@
 import { logAudit } from "@/lib/audit";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { epochSeconds } from "@/lib/auth/session-age";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { env } from "@/lib/env";
 import { connectionOpen, openConnection } from "@/lib/mcp/connections";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { bumpMcpKeyVersion, mcpKeyVersionOf } from "@/lib/mcp/key-version";
 import { exchange, spendOn, type TokenDeps } from "@/lib/mcp/oauth";
 import { countHit, rateLimitPublicRoute } from "@/lib/rate-limit";
+import { personOf, testInstanceKey } from "@/lib/test-mcp/context";
+import { testGrants } from "@/lib/test-mcp/oauth";
 
 const deps: TokenDeps = {
   versionOf: (userId) => mcpKeyVersionOf(db, userId),
@@ -45,7 +49,26 @@ export async function POST(request: Request): Promise<Response> {
     return json(429, { error: "slow_down", error_description: "Too many requests." });
   }
   const form = new URLSearchParams(await request.text());
-  const outcome = await exchange(instanceKey(), form, deps, epochSeconds(new Date()));
+  // The test endpoint's own sign-ins, only while it is switched on.
+  const other =
+    env.TEST_MCP_PATH === undefined
+      ? undefined
+      : testGrants(
+          { instance: instanceKey(), test: testInstanceKey() },
+          {
+            person: personOf,
+            isOperator: isPlatformAdmin,
+            spend: deps.spend,
+            revoke: deps.revoke,
+          },
+        );
+  const outcome = await exchange(
+    instanceKey(),
+    form,
+    deps,
+    epochSeconds(new Date()),
+    other,
+  );
   return outcome.ok
     ? json(200, outcome.body)
     : json(outcome.status, {

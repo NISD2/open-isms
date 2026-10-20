@@ -34,7 +34,13 @@ const PERSON = "22222222-2222-4222-8222-222222222222";
  * A caller signed in as `email` (at `authTime`, epoch seconds), over a database that records every
  * query's filter and answers `row` to a single-row read.
  */
-function setup(email: string, row: unknown = null, authTime: number | null = null) {
+function setup(
+  email: string,
+  row: unknown = null,
+  authTime: number | null = null,
+  viaKey = false,
+  options: { readonly failInsert?: boolean } = {},
+) {
   const wheres: SQL[] = [];
   const chain = {
     from: () => chain,
@@ -46,8 +52,15 @@ function setup(email: string, row: unknown = null, authTime: number | null = nul
     },
     orderBy: () => Object.assign(Promise.resolve([]), { limit: async () => [] }),
   };
+  const inserted: unknown[] = [];
   const db = {
     select: () => chain,
+    insert: () => ({
+      values: async (row: unknown) => {
+        if (options.failInsert) throw new Error("audit table unavailable");
+        inserted.push(row);
+      },
+    }),
     query: {
       user: {
         findFirst: async ({ where }: { where: SQL }) => {
@@ -69,9 +82,9 @@ function setup(email: string, row: unknown = null, authTime: number | null = nul
     companyId: "44444444-4444-4444-8444-444444444444",
     ip: "test",
     userAgent: null,
-    viaKey: false,
+    viaKey,
   } as TRPCContext);
-  return { caller, wheres };
+  return { caller, wheres, inserted };
 }
 
 describe("active users (platform admin)", () => {
@@ -221,6 +234,182 @@ describe("the test endpoint's key (platform admin)", () => {
     await withPath("p".repeat(48), async () => {
       const { caller } = setup(ADMIN, null, nowS());
       await expect(caller.createTestKey()).rejects.toMatchObject({ code: "NOT_FOUND" });
+    });
+  });
+});
+
+describe("the test endpoint's browser sign-in (platform admin)", () => {
+  const nowS = () => Math.floor(Date.now() / 1000);
+  const versions = { mcpKeyVersion: 3, sessionVersion: 7 };
+  const PATH = "p".repeat(48);
+  const REDIRECT = "http://localhost:4123/callback";
+
+  async function withPath(path: string | undefined, body: () => Promise<void>) {
+    const before = env.TEST_MCP_PATH;
+    env.TEST_MCP_PATH = path;
+    try {
+      await body();
+    } finally {
+      env.TEST_MCP_PATH = before;
+    }
+  }
+
+  /** What the consent page receives from a client that asked for `resource`. */
+  async function requestFor(resource: string): Promise<string> {
+    const { instanceKey } = await import("@/lib/mcp/instance-key");
+    const { authorize, registerClient } = await import("@/lib/mcp/oauth");
+    const { testResource } = await import("@/lib/test-mcp/address");
+    const registered = registerClient(
+      instanceKey(),
+      { redirect_uris: [REDIRECT], client_name: "Claude Code" },
+      nowS(),
+    );
+    if (!registered.ok) throw new Error(registered.description);
+    const outcome = authorize(
+      instanceKey(),
+      new URLSearchParams({
+        response_type: "code",
+        client_id: String(registered.client.client_id),
+        redirect_uri: REDIRECT,
+        code_challenge: "c".repeat(43),
+        code_challenge_method: "S256",
+        state: "xyz",
+        resource,
+      }),
+      "https://example.test/api/mcp",
+      nowS(),
+      testResource(PATH),
+    );
+    if (outcome.kind !== "consent") throw new Error(outcome.message);
+    return outcome.request;
+  }
+
+  const forTest = async () => {
+    const { testResource } = await import("@/lib/test-mcp/address");
+    return requestFor(testResource(PATH));
+  };
+
+  test("only a platform admin can allow it or ask for the address", async () => {
+    await withPath(PATH, async () => {
+      const request = await forTest();
+      const { caller, wheres } = setup("someone@example.com", versions, nowS());
+      await expect(caller.allowTestClient({ request })).rejects.toMatchObject({
+        code: "FORBIDDEN",
+      });
+      await expect(caller.testAddress()).rejects.toMatchObject({ code: "FORBIDDEN" });
+      expect(wheres).toEqual([]);
+    });
+  });
+
+  test("an assistant's key cannot allow it either, not even the operator's own", async () => {
+    await withPath(PATH, async () => {
+      const request = await forTest();
+      const { caller, wheres } = setup(ADMIN, versions, nowS(), true);
+      await expect(caller.allowTestClient({ request })).rejects.toMatchObject({
+        code: "FORBIDDEN",
+      });
+      expect(wheres).toEqual([]);
+    });
+  });
+
+  test("allows nothing while no address is set on the instance", async () => {
+    await withPath(undefined, async () => {
+      const { caller, wheres } = setup(ADMIN, versions, nowS());
+      await expect(caller.allowTestClient({ request: "x" })).rejects.toMatchObject({
+        code: "PRECONDITION_FAILED",
+      });
+      await expect(caller.testAddress()).rejects.toMatchObject({
+        code: "PRECONDITION_FAILED",
+      });
+      expect(wheres).toEqual([]);
+    });
+  });
+
+  test("asks for a fresh sign-in, with none at all or one that is too old", async () => {
+    await withPath(PATH, async () => {
+      const request = await forTest();
+      for (const authTime of [null, nowS() - 20 * 60]) {
+        const { caller, wheres } = setup(ADMIN, versions, authTime);
+        await expect(caller.allowTestClient({ request })).rejects.toMatchObject({
+          code: "FORBIDDEN",
+          message: "reauth",
+        });
+        expect(wheres).toEqual([]);
+      }
+    });
+  });
+
+  test("refuses a request that expired or never was one, and one made for the customer's endpoint", async () => {
+    await withPath(PATH, async () => {
+      const { caller, wheres } = setup(ADMIN, versions, nowS() - 60);
+      await expect(caller.allowTestClient({ request: "nonsense" })).rejects.toMatchObject(
+        {
+          code: "BAD_REQUEST",
+        },
+      );
+      const customer = await requestFor("https://example.test/api/mcp");
+      await expect(caller.allowTestClient({ request: customer })).rejects.toMatchObject({
+        code: "BAD_REQUEST",
+      });
+      expect(wheres).toEqual([]);
+    });
+  });
+
+  test("records who allowed which application and where it went back to, before it hands a code out", async () => {
+    await withPath(PATH, async () => {
+      const request = await forTest();
+      const { caller, inserted } = setup(ADMIN, versions, nowS() - 60);
+      const { url } = await caller.allowTestClient({ request });
+      expect(inserted).toHaveLength(1);
+      expect(inserted[0]).toMatchObject({
+        companyId: null,
+        userId: OPERATOR,
+        action: "test.connect",
+        entityType: "platformAdmin",
+        description: "test: Claude Code, back to localhost:4123",
+        newValue: { client: "Claude Code", returnHost: "localhost:4123" },
+      });
+      // Neither the code nor any key is in the row.
+      const code = new URL(url).searchParams.get("code") ?? "no code";
+      expect(JSON.stringify(inserted[0])).not.toContain(code);
+    });
+  });
+
+  test("hands out no code when the record cannot be written", async () => {
+    await withPath(PATH, async () => {
+      const request = await forTest();
+      const { caller } = setup(ADMIN, versions, nowS() - 60, false, { failInsert: true });
+      await expect(caller.allowTestClient({ request })).rejects.toThrow(
+        "audit table unavailable",
+      );
+    });
+  });
+
+  test("sends the browser back with a code that holds the person's versions of now, and the state", async () => {
+    await withPath(PATH, async () => {
+      const request = await forTest();
+      const { caller } = setup(ADMIN, versions, nowS() - 60);
+      const { url } = await caller.allowTestClient({ request });
+      const back = new URL(url);
+      expect(`${back.origin}${back.pathname}`).toBe("http://localhost:4123/callback");
+      expect(back.searchParams.get("state")).toBe("xyz");
+      const [, payload] = (back.searchParams.get("code") ?? "").split(".");
+      expect(
+        JSON.parse(Buffer.from(payload ?? "", "base64url").toString()),
+      ).toMatchObject({
+        aud: "mcp_test_code",
+        sub: OPERATOR,
+        ver: 3,
+        sv: 7,
+      });
+    });
+  });
+
+  test("shows the address to the operator", async () => {
+    await withPath(PATH, async () => {
+      const { caller } = setup(ADMIN, versions, nowS());
+      const { url } = await caller.testAddress();
+      expect(url.endsWith(`/api/t/${PATH}`)).toBe(true);
     });
   });
 });

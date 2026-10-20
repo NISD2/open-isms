@@ -195,7 +195,8 @@ export const userRouter = router({
       await companyAllowsAssistants(ctx);
       const now = epochSeconds(new Date());
       const request = readRequest(instanceKey(), input.request, now);
-      if (!request) {
+      // A request for the test endpoint is allowed only by its operator, on its own card.
+      if (request?.res !== "mcp") {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "This request has expired. Connect again from the assistant.",

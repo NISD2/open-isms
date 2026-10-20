@@ -1,11 +1,13 @@
 /**
- * The test endpoint's door: it answers 404 to everything but a request with the secret address and
- * a valid key, and says nothing else, so a caller without both cannot tell it exists.
+ * The test endpoint's door: it answers 404 to everything but a request with the secret address,
+ * and says nothing else, so a caller without it cannot tell the endpoint exists. A caller with the
+ * address but no valid key is told to sign in, and where.
  */
 import { describe, expect, test } from "bun:test";
 import { handleTestRequest, isSecretPath, notFound } from "./endpoint";
 
 const SECRET = "s".repeat(40);
+const META = `https://example.test/.well-known/oauth-protected-resource/api/t/${SECRET}`;
 const SUB = "11111111-1111-4111-8111-111111111111";
 
 /** A door over fakes that count what happens behind it. */
@@ -23,6 +25,7 @@ function door(
   };
   const deps = {
     secretPath: "secretPath" in options ? options.secretPath : SECRET,
+    resourceMetadataUrl: META,
     holderOf: async (token: string) => {
       calls.holderOf += 1;
       return token === (options.valid ?? "good") ? { userId: SUB } : null;
@@ -57,15 +60,15 @@ describe("the door", () => {
     expect(await res.text()).toBe("ok");
   });
 
-  test("answers one byte-identical 404 to every way of being refused, and serves nothing", async () => {
+  test("answers one byte-identical 404 to a wrong or unset address and to a browser, and serves nothing", async () => {
     const { deps, calls } = door();
     const { deps: off } = door({ secretPath: undefined });
     const before = calls.served;
     const refusals = await Promise.all([
       handleTestRequest(request(good), "wrong", deps),
+      handleTestRequest(request(), "wrong", deps),
       handleTestRequest(request(good), SECRET, off),
-      handleTestRequest(request(), SECRET, deps),
-      handleTestRequest(request({ authorization: "Bearer bad" }), SECRET, deps),
+      handleTestRequest(request(), SECRET, off),
       handleTestRequest(
         request({ ...good, origin: "https://evil.example" }),
         SECRET,
@@ -77,6 +80,27 @@ describe("the door", () => {
     expect(expected.status).toBe(404);
     expect(expected.headers.map(([name]) => name)).not.toContain("www-authenticate");
     expect(calls.served).toBe(before);
+  });
+
+  test("tells a caller with the address and no valid key to sign in, and where", async () => {
+    const { deps, calls } = door();
+    const none = await handleTestRequest(request(), SECRET, deps);
+    const bad = await handleTestRequest(
+      request({ authorization: "Bearer bad" }),
+      SECRET,
+      deps,
+    );
+    expect(none.status).toBe(401);
+    expect(none.headers.get("www-authenticate")).toBe(
+      `Bearer resource_metadata="${META}"`,
+    );
+    expect(bad.status).toBe(401);
+    expect(bad.headers.get("www-authenticate")).toBe(
+      `Bearer error="invalid_token", resource_metadata="${META}"`,
+    );
+    expect(await none.json()).toEqual({ error: "unauthorized" });
+    expect(none.headers.get("cache-control")).toBe("no-store");
+    expect(calls.served).toBe(0);
   });
 
   test("refuses a batch of calls and an oversized body, and hands a single call on whole", async () => {

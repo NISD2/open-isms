@@ -2,8 +2,9 @@
  * The key for the test MCP endpoint: a JWT signed with its own key derived from AUTH_SECRET, so it
  * never verifies where an assistant key of the customer endpoint does, nor the other way round. It
  * names the person, their key version (`user.mcp_key_version`) and their sign-in version
- * (`user.session_version`): "disconnect all assistants" ends it, and so does signing out. No
- * refresh: it ends after a few hours and a new one is made.
+ * (`user.session_version`): "disconnect all assistants" ends it, and so does signing out. A made
+ * key has no refresh: it ends after a few hours and a new one is made. The browser sign-in
+ * (./oauth) hands out the same key for an hour at a time.
  *
  * No env and no database: the caller passes the signing key and the time.
  */
@@ -30,16 +31,18 @@ const CLAIMS = z.object({
 });
 export type TestKeyClaims = z.infer<typeof CLAIMS>;
 
+/** A key for `lifetimeS` seconds: the four hours of a made key, or the hour of a browser sign-in's. */
 export const mintTestKey = (
   key: Buffer,
   subject: Pick<TestKeyClaims, "sub" | "ver" | "sv">,
   nowS: number,
+  lifetimeS: number = TEST_KEY_SECONDS,
 ): string =>
   sign(key, {
     ...subject,
     aud: AUDIENCE,
     iat: nowS,
-    exp: nowS + TEST_KEY_SECONDS,
+    exp: nowS + lifetimeS,
     jti: randomBytes(12).toString("base64url"),
   });
 

@@ -4,15 +4,20 @@ import { z } from "zod";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
 import { env } from "@/lib/env";
 import { issuer } from "@/lib/mcp/config";
+import { instanceKey } from "@/lib/mcp/instance-key";
+import { readRequest } from "@/lib/mcp/oauth";
 import { DEFAULT_ACTIVE_DAYS, MAX_ACTIVE_DAYS } from "@/lib/platform-admin/active-window";
 import {
   activeUsers,
   auditLogFor,
   personWithCompanies,
 } from "@/lib/platform-admin/users";
+import { testResource } from "@/lib/test-mcp/address";
+import { recordConnect } from "@/lib/test-mcp/audit";
 import { testInstanceKey } from "@/lib/test-mcp/context";
 import { DAYS_IN_ORDER, daysInOrder } from "@/lib/test-mcp/inputs";
 import { mintTestKey, TEST_KEY_SECONDS } from "@/lib/test-mcp/key";
+import { allowTest } from "@/lib/test-mcp/oauth";
 import { user } from "@/schema";
 import { platformAdminProcedure, router } from "../init";
 
@@ -99,4 +104,72 @@ export const platformAdminUsersRouter = router({
       hours: TEST_KEY_SECONDS / 3600,
     };
   }),
+
+  /**
+   * The address of the test endpoint, for an assistant that signs in through the browser instead
+   * of holding a made key (`allowTestClient`). The address alone opens nothing: it takes a
+   * sign-in the operator allows. Never reachable with an assistant's key (the tier refuses it).
+   */
+  testAddress: platformAdminProcedure.mutation(() => {
+    const path = env.TEST_MCP_PATH;
+    if (!path) {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message: "TEST_MCP_PATH is not set on this instance.",
+      });
+    }
+    return { url: testResource(path) };
+  }),
+
+  /**
+   * The operator allowed an assistant's browser sign-in for the test endpoint (lib/test-mcp/oauth):
+   * back to its address with a code for this person at their key and sign-in versions of now, so
+   * signing out or ending their assistants in Settings ends what it buys. Needs a sign-in from the
+   * last few minutes, as a made key does, because the grant outlives this browser session. A
+   * `test.connect` audit row, written first, records who allowed which application and where it
+   * went back to. Only a request made for the test endpoint is allowed here, and only the
+   * customer one on the company consent page.
+   */
+  allowTestClient: platformAdminProcedure
+    .input(z.object({ request: z.string().max(8192) }))
+    .mutation(async ({ ctx, input }) => {
+      if (!env.TEST_MCP_PATH) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "TEST_MCP_PATH is not set on this instance.",
+        });
+      }
+      const nowS = epochSeconds(new Date());
+      if (!isRecentSignIn(ctx.session?.authTime ?? null, nowS)) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "reauth" });
+      }
+      const request = readRequest(instanceKey(), input.request, nowS);
+      if (request?.res !== "test") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "This request has expired. Connect again from the assistant.",
+        });
+      }
+      const versions = await ctx.db.query.user.findFirst({
+        where: eq(user.id, ctx.userId),
+        columns: { mcpKeyVersion: true, sessionVersion: true },
+      });
+      if (!versions) throw new TRPCError({ code: "NOT_FOUND" });
+      // Written before the code exists: a sign-in that cannot be recorded is not allowed.
+      await recordConnect(
+        ctx.db,
+        ctx.userId,
+        { client: request.client ?? null, returnHost: new URL(request.redirectUri).host },
+        { ip: ctx.ip === "unknown" ? null : ctx.ip, userAgent: ctx.userAgent },
+      );
+      return {
+        url: allowTest(
+          instanceKey(),
+          request,
+          { sub: ctx.userId, ver: versions.mcpKeyVersion, sv: versions.sessionVersion },
+          issuer(),
+          nowS,
+        ),
+      };
+    }),
 });

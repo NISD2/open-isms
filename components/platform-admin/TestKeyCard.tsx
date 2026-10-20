@@ -9,6 +9,7 @@ import { trpc } from "@/lib/trpc/client";
 /**
  * A key and address for the test endpoint (`platformAdminUsers.createTestKey`), shown once. A sign-in
  * older than a few minutes is sent to sign in again, as the key outlives this browser session.
+ * Or just the address (`testAddress`), for an assistant that signs in through the browser.
  */
 export function TestKeyCard() {
   const [made, setMade] = useState<{ key: string; url: string; hours: number } | null>(
@@ -17,7 +18,16 @@ export function TestKeyCard() {
   const create = trpc.platformAdminUsers.createTestKey.useMutation({
     onSuccess: setMade,
   });
-  const revoke = trpc.user.disconnectMcp.useMutation({ onSuccess: () => setMade(null) });
+  const [address, setAddress] = useState<string | null>(null);
+  const showAddress = trpc.platformAdminUsers.testAddress.useMutation({
+    onSuccess: ({ url }) => setAddress(url),
+  });
+  const revoke = trpc.user.disconnectMcp.useMutation({
+    onSuccess: () => {
+      setMade(null);
+      setAddress(null);
+    },
+  });
   const command = made
     ? `claude mcp add --transport http test ${made.url} --header "Authorization: Bearer ${made.key}"`
     : "";
@@ -62,12 +72,35 @@ export function TestKeyCard() {
               <Button
                 type="button"
                 variant="outline"
+                onClick={() => showAddress.mutate()}
+                disabled={showAddress.isPending}
+              >
+                Sign in with the browser
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
                 onClick={() => revoke.mutate()}
                 disabled={revoke.isPending}
               >
                 End all my keys
               </Button>
             </div>
+            {address && (
+              <>
+                <p className="text-muted-foreground">
+                  Add it once, then run /mcp in Claude Code and choose Authenticate. The
+                  browser asks you to allow it; the sign-in renews itself for up to 14
+                  days, and ends when you sign out here or press End all my keys.
+                </p>
+                <pre className="overflow-x-auto rounded-md bg-muted p-3 font-mono text-xs">
+                  {`claude mcp add --transport http test ${address}`}
+                </pre>
+              </>
+            )}
+            {showAddress.error && (
+              <p className="text-destructive">{showAddress.error.message}</p>
+            )}
             {revoke.isSuccess && (
               <p className="text-muted-foreground">
                 Every key you made, and every assistant you connected, has ended.

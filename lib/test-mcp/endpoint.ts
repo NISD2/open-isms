@@ -7,13 +7,16 @@ import { publicRouteBudget } from "@/lib/rate-limit-rules";
  * The test MCP endpoint as a plain Request to Response function, its dependencies passed in so the
  * checks run without a database. Nothing it says names what it is for. The address is a secret set
  * on the instance: a wrong one, or none set, answers 404 like any address that does not exist. A
- * request from a browser page, a flood, or a request without a valid key is refused the same way,
- * so only a caller who holds both the address and a key ever gets an answer that is not 404.
+ * request from a browser page or a flood is refused the same way. A caller who holds the address
+ * but no valid key is told to sign in (401, pointing at the sign-in metadata), which is what lets
+ * an assistant open the browser; anyone without the address learns nothing.
  */
 
 export interface TestEndpointDeps<H extends { readonly userId: string }> {
   /** TEST_MCP_PATH; undefined switches the endpoint off. */
   readonly secretPath: string | undefined;
+  /** Where a client learns how to sign in; named in the 401. It holds the secret address. */
+  readonly resourceMetadataUrl: string;
   /** The holder a key belongs to while they still may hold one; null for any other key. */
   readonly holderOf: (token: string, request: Request) => Promise<H | null>;
   /** The MCP handler. It trusts the holder it is given, so only this file may call it. */
@@ -50,6 +53,22 @@ export const notFound = (): Response =>
       "x-robots-tag": "noindex",
     },
   });
+
+/**
+ * For a caller who named the address but holds no valid key: where to sign in (RFC 9728). It does
+ * not say whether a key was sent or why it failed beyond the standard `invalid_token`.
+ */
+const unauthorized = (metadataUrl: string, sentKey: boolean): Response =>
+  Response.json(
+    { error: "unauthorized" },
+    {
+      status: 401,
+      headers: {
+        "cache-control": "no-store",
+        "www-authenticate": `Bearer ${sentKey ? 'error="invalid_token", ' : ""}resource_metadata="${metadataUrl}"`,
+      },
+    },
+  );
 
 const refusal = (status: 400 | 413, error: string): Response =>
   Response.json({ error }, { status, headers: { "cache-control": "no-store" } });
@@ -104,9 +123,8 @@ export async function handleTestRequest<H extends { readonly userId: string }>(
 
   const token = bearerToken(request.headers.get("authorization"));
   const holder = token ? await deps.holderOf(token, request) : null;
-  // The same 404 as a wrong address: a caller without a valid key learns nothing, not even that
-  // a key would be asked for.
-  if (!holder) return notFound();
+  // Only a caller who already holds the address is told a key is asked for, and where to get one.
+  if (!holder) return unauthorized(deps.resourceMetadataUrl, token !== null);
 
   if (!(await within(`test-mcp-door:${holder.userId}`, REQUESTS_PER_PERSON_PER_MINUTE))) {
     return tooMany();

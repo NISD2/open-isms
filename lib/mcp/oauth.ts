@@ -8,7 +8,7 @@
  *
  * Pure: the signing key, the time and the two lookups that need a database come in as arguments.
  */
-import { createHash, randomBytes } from "node:crypto";
+import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { z } from "zod";
 import { MAX_NAME, UNPRINTABLE } from "./agent";
 import {
@@ -23,7 +23,7 @@ import {
 
 const CLIENT_SECONDS = 5 * 365 * 24 * 60 * 60;
 const REQUEST_SECONDS = 10 * 60;
-const CODE_SECONDS = 60;
+export const CODE_SECONDS = 60;
 export const ACCESS_SECONDS = 60 * 60;
 const REFRESH_SECONDS = 30 * 24 * 60 * 60;
 /**
@@ -175,6 +175,11 @@ const REQUEST = z.object({
   redirectUri: z.string(),
   challenge: z.string(),
   state: z.string().optional(),
+  /**
+   * Which endpoint the sign-in is for: this instance's MCP endpoint, or the one at a secret
+   * address (lib/test-mcp). Requests signed before this existed are for the first.
+   */
+  res: z.enum(["mcp", "test"]).default("mcp"),
 });
 export type ConsentRequest = z.infer<typeof REQUEST>;
 
@@ -188,15 +193,23 @@ export type Authorization =
   | { readonly kind: "consent"; readonly request: string }
   | { readonly kind: "refuse"; readonly message: string };
 
+const digest = (text: string): Buffer => createHash("sha256").update(text).digest();
+
+/** Compared as digests, so the time taken says nothing about how much of a secret matched. */
+const sameText = (a: string, b: string): boolean => timingSafeEqual(digest(a), digest(b));
+
 /**
  * The authorization request (`/authorize`), checked before anyone is asked to consent.
- * `resource` is this server's MCP endpoint, the only one it issues tokens for.
+ * `resource` is this server's MCP endpoint; `testResource`, when the instance has one, is the
+ * address of the other (lib/test-mcp). Those are the only ones it issues tokens for, and a refusal
+ * names the first only: the second is a secret.
  */
 export function authorize(
   key: Buffer,
   params: URLSearchParams,
   resource: string,
   nowS: number,
+  testResource?: string,
 ): Authorization {
   const refuse = (message: string): Authorization => ({ kind: "refuse", message });
   const clientId = params.get("client_id") ?? "";
@@ -226,7 +239,9 @@ export function authorize(
     return refuse("PKCE with S256 is required.");
   }
   const asked = params.get("resource");
-  if (asked !== null && asked !== resource) {
+  const forTest =
+    asked !== null && testResource !== undefined && sameText(asked, testResource);
+  if (asked !== null && asked !== resource && !forTest) {
     return refuse(`This server issues tokens for ${resource} only.`);
   }
   if (state !== undefined && state.length > 512) {
@@ -240,6 +255,7 @@ export function authorize(
     redirectUri,
     challenge,
     state,
+    res: forTest ? "test" : "mcp",
   };
   return { kind: "consent", request: sign(key, request) };
 }
@@ -355,7 +371,7 @@ export const spendOn =
  * the token was copied, and every assistant of the person is disconnected (RFC 9700, refresh
  * token protection).
  */
-const REFRESH_GRACE_S = 60;
+export const REFRESH_GRACE_S = 60;
 
 export type TokenOutcome =
   | { readonly ok: true; readonly body: Record<string, unknown> }
@@ -366,7 +382,7 @@ export type TokenOutcome =
       readonly description: string;
     };
 
-const invalidGrant = (description: string): TokenOutcome => ({
+export const invalidGrant = (description: string): TokenOutcome => ({
   ok: false,
   status: 400,
   error: "invalid_grant",
@@ -482,12 +498,23 @@ async function refresh(
   );
 }
 
+/**
+ * A grant of another endpoint's (lib/test-mcp/oauth.ts): the outcome for a code or refresh token
+ * that is its own, null for any other, which then goes the way of the instance's own.
+ */
+export type OtherGrants = (
+  form: URLSearchParams,
+  azp: string,
+  nowS: number,
+) => Promise<TokenOutcome | null>;
+
 /** The token request (`/token`): a code or a refresh token for an access key. */
 export async function exchange(
   key: Buffer,
   form: URLSearchParams,
   deps: TokenDeps,
   nowS: number,
+  other?: OtherGrants,
 ): Promise<TokenOutcome> {
   const clientId = form.get("client_id") ?? "";
   if (!readClient(key, clientId, nowS)) {
@@ -499,6 +526,8 @@ export async function exchange(
     };
   }
   const azp = sha256(clientId);
+  const taken = await other?.(form, azp, nowS);
+  if (taken) return taken;
   switch (form.get("grant_type")) {
     case "authorization_code":
       return redeem(key, form, azp, deps, nowS);

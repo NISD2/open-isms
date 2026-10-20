@@ -127,6 +127,53 @@ describe("connecting an assistant", () => {
     }
   });
 
+  test("a sign-in request made for the test endpoint is not allowed on the company's card", async () => {
+    const { instanceKey } = await import("@/lib/mcp/instance-key");
+    const { authorize, registerClient } = await import("@/lib/mcp/oauth");
+    const registered = registerClient(
+      instanceKey(),
+      { redirect_uris: ["http://localhost:4123/callback"] },
+      NOW_S,
+    );
+    if (!registered.ok) throw new Error(registered.description);
+    const challenge = "c".repeat(43);
+    const resources = {
+      mcp: "https://example.test/api/mcp",
+      test: "https://example.test/api/t/secret",
+    };
+    const requestFor = (resource: string) => {
+      const outcome = authorize(
+        instanceKey(),
+        new URLSearchParams({
+          response_type: "code",
+          client_id: String(registered.client.client_id),
+          code_challenge: challenge,
+          code_challenge_method: "S256",
+          resource,
+        }),
+        resources.mcp,
+        NOW_S,
+        resources.test,
+      );
+      if (outcome.kind !== "consent") throw new Error(outcome.message);
+      return outcome.request;
+    };
+    const onDb = {
+      query: { company: { findFirst: async () => ({ assistantsAllowed: true }) } },
+    };
+    const ctx = { ...contextWith({}), db: onDb as unknown as TRPCContext["db"] };
+    const request = requestFor(resources.test);
+    // A request that reads fine, so the refusal below is about whom it is for, not a bad request.
+    const { readRequest } = await import("@/lib/mcp/oauth");
+    expect(readRequest(instanceKey(), request, NOW_S)?.res).toBe("test");
+    await expect(
+      createCallerFactory(userRouter)(ctx).allowMcpClient({
+        request,
+        companyId: COMPANY,
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+  });
+
   test("a key reaches only the procedures on the MCP list, refused before anything runs", async () => {
     const viaKey = createCallerFactory(userRouter)(contextWith({}, true));
     await expect(viaKey.disconnectMcp()).rejects.toMatchObject({

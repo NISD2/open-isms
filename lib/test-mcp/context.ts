@@ -25,6 +25,19 @@ export interface TestHolder {
  */
 export const testInstanceKey = (): Buffer => testSigningKey(env.AUTH_SECRET);
 
+/** The row `holderRefusal` judges a key against; undefined when the account is gone. */
+export const personOf = (userId: string) =>
+  db.query.user.findFirst({
+    where: eq(user.id, userId),
+    columns: {
+      id: true,
+      email: true,
+      emailVerifiedAt: true,
+      mcpKeyVersion: true,
+      sessionVersion: true,
+    },
+  });
+
 /**
  * The person behind a key, or null: a key this instance did not sign, an ended one, one made
  * before the person signed out or disconnected their assistants, an address that is not verified,
@@ -38,16 +51,7 @@ export async function holderOf(
 ): Promise<TestHolder | null> {
   const claims = readTestKey(testInstanceKey(), token, epochSeconds(new Date()));
   if (!claims) return null;
-  const row = await db.query.user.findFirst({
-    where: eq(user.id, claims.sub),
-    columns: {
-      id: true,
-      email: true,
-      emailVerifiedAt: true,
-      mcpKeyVersion: true,
-      sessionVersion: true,
-    },
-  });
+  const row = await personOf(claims.sub);
   if (!row?.email || holderRefusal(claims, row, isPlatformAdmin) !== null) return null;
   const ip = getClientIp(request.headers);
   return {
