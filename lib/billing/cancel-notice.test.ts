@@ -27,6 +27,7 @@ mock.module("@/lib/mail/send", () => ({
   },
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }),
   mailSuppressionReason: () => null,
+  accountEmailLocale: async () => "en" as const,
 }));
 
 // Mocked modules are shared with the other test files, so only putObject is replaced.
