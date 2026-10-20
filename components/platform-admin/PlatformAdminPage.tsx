@@ -13,6 +13,7 @@ import {
   Loader2,
   Mail,
   Rocket,
+  Send,
   Shield,
   ToggleRight,
   Trash2,
@@ -41,8 +42,10 @@ import { FeatureFlagsPanel } from "./FeatureFlagsPanel";
 import { ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
 import { median } from "./graphs/derive";
+import { InvitesPanel } from "./InvitesPanel";
 import { PartnerContractsPanel } from "./PartnerContractsPanel";
 import { PricingPanel } from "./PricingPanel";
+import { StatCard } from "./StatCard";
 import { SubscriptionsPanel } from "./SubscriptionsPanel";
 import { UserName } from "./UserDialog";
 import { type UserRow, UsersTable } from "./UsersTable";
@@ -282,6 +285,12 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           {
+            key: "invites" as const,
+            label: "Invited users",
+            icon: Send,
+            count: undefined as number | undefined,
+          },
+          {
             key: "companies" as const,
             label: "Companies",
             icon: Building2,
@@ -377,6 +386,7 @@ export function PlatformAdminPage({
       {tab === "graphs" && <GraphsPanel />}
       {tab === "users" && <UsersTable users={users} />}
       {tab === "active" && <ActiveUsersPanel />}
+      {tab === "invites" && <InvitesPanel />}
       {tab === "companies" && <CompaniesTable companies={companies} />}
       {tab === "compliance" && <ComplianceTable rows={complianceActivity} />}
       {tab === "training" && <TrainingTable rows={trainingActivity} />}
@@ -901,27 +911,6 @@ function scopeLabel(scope: string): string {
   if (kind === "category") return value.charAt(0).toUpperCase() + value.slice(1);
   if (kind === "type") return value.split(".").pop()?.replace(/_/g, " ") ?? value;
   return scope;
-}
-
-function StatCard({
-  label,
-  value,
-  sub,
-}: {
-  label: string;
-  /** A string when the figure is a rate or a dash, not a count. */
-  value: number | string;
-  sub?: string;
-}) {
-  return (
-    <Card>
-      <CardContent className="p-4">
-        <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="text-2xl font-bold">{value}</p>
-        {sub && <p className="text-xs text-muted-foreground">{sub}</p>}
-      </CardContent>
-    </Card>
-  );
 }
 
 // ---------------------------------------------------------------------------

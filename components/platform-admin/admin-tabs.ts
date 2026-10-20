@@ -6,6 +6,7 @@ export const ADMIN_TAB_SLUGS = {
   users: "users",
   graphs: "graphs",
   active: "active-users",
+  invites: "invited-users",
   companies: "companies",
   compliance: "compliance",
   training: "training",
