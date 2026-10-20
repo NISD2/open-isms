@@ -85,18 +85,22 @@ export async function PortalOffer() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-start">
         <section
           aria-labelledby="offer-paid"
-          className="space-y-6 rounded-xl border-2 border-primary bg-card p-6 shadow-sm"
+          // The pricing page's offer card: a thin border in the brand colour, a quiet price.
+          className="space-y-5 rounded-xl border border-primary/60 bg-card p-6 shadow-sm"
         >
           <div className="space-y-1.5">
-            <h2 id="offer-paid" className="flex items-center gap-2 font-semibold text-xl">
-              <Shield className="size-5 text-primary" />
+            <h2
+              id="offer-paid"
+              className="flex items-center gap-2 font-semibold text-base"
+            >
+              <Shield className="size-4 text-primary" />
               {t("paidName")}
             </h2>
-            <p className="text-muted-foreground">{tiers("paid.description")}</p>
+            <p className="text-muted-foreground text-sm">{tiers("paid.description")}</p>
           </div>
           <div className="space-y-3">
-            <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="font-bold text-5xl tracking-tight">
+            <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span className="font-semibold text-3xl tracking-tight">
                 {formatWholeEuro(status.netCents, locale)}
               </span>
               <span className="text-muted-foreground text-sm">
@@ -113,11 +117,11 @@ export async function PortalOffer() {
             {/* Closed without live keys: on nisd2.eu while they are broken, or in a sandbox run
                 for anyone but a platform admin. */}
             {status.open ? (
-              <Button className="h-12 w-full text-base" size="lg" asChild>
+              <Button className="h-11 w-full text-[0.9375rem]" size="lg" asChild>
                 <Link href="/bestellen">{tiers("paid.cta")}</Link>
               </Button>
             ) : (
-              <Button className="h-12 w-full text-base" size="lg" disabled>
+              <Button className="h-11 w-full text-[0.9375rem]" size="lg" disabled>
                 {tiers("paid.cta")}
               </Button>
             )}
