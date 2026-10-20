@@ -229,7 +229,7 @@ function setup(opts: {
 describe("durchgang router", () => {
   test("is closed to accounts that have not bought the Durchgang", async () => {
     const { caller, writes } = setup({ accessLevel: "grandfathered" });
-    await expect(caller.walk()).resolves.toBeDefined();
+    await expect(caller.walk({ framework: "nis2" })).resolves.toBeDefined();
     await expect(caller.wait({ code: "5.1", reason: "letter" })).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
@@ -481,7 +481,7 @@ describe("the walk's policy", () => {
     expect(content).toContain("IT-Notfallnummer _______________ an.");
     expect(content).toContain("mit unserer Nummer _______________.");
     expect(content).not.toContain("{");
-    // The answers are read from this company's assessment and the item's category, nowhere else.
+    // Read from this company's assessment and the item's category only.
     const intake = wheres.find((w) => w.table === "companyCategoryIntake");
     expect(intake && paramsOf(intake.where)).toEqual([ASSESSMENT, CATEGORY]);
   });

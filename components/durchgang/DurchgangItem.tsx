@@ -49,9 +49,11 @@ import {
   resumeAt,
   type ScreenKind,
   sliceOf,
+  WALK_ROUTES,
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
+import { Activities, Describe } from "./ActivityScreens";
 import { Agreements } from "./AgreementScreen";
 import { Approve } from "./ApproveScreen";
 import { BackupsScreen } from "./BackupsScreen";
@@ -69,6 +71,7 @@ import {
 import { GlossProvider } from "./Glossed";
 import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
+import { Processors } from "./ProcessorScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
 import { RiskMapScreen } from "./RiskMapScreen";
@@ -111,6 +114,9 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   critical: LifeBuoy,
   backups: DatabaseBackup,
   crypto: LockKeyhole,
+  activities: ListChecks,
+  describe: PenLine,
+  processors: Handshake,
   ongoing: CalendarClock,
   done: CircleCheckBig,
 };
@@ -143,7 +149,8 @@ export function DurchgangItem({
   const [waitOpen, setWaitOpen] = useState(false);
   const [railOpen, setRailOpen] = useState(false);
 
-  const steps = useSteps(walk, setup);
+  const steps = useSteps(item.framework, walk, setup);
+  const home = WALK_ROUTES[item.framework].home;
   const self = steps.find((w) => w.code === item.code);
   const signed = self?.state.kind === "signed" || self?.state.kind === "not_applicable";
   const filled: ItemState = { kind: "filled", since: new Date() };
@@ -202,11 +209,11 @@ export function DurchgangItem({
         // The next section slides in like the next screen of this one.
         transitionTo(
           "forward",
-          () => router.push(hrefOf(next.code)),
+          () => router.push(hrefOf(item.framework, next.code)),
           () => document.querySelector(`[data-dg-item="${next.code}"]`) !== null,
         );
       } else {
-        router.push("/durchgang/nis2");
+        router.push(home);
       }
       return;
     }
@@ -234,7 +241,7 @@ export function DurchgangItem({
   const settleAndGoHome = (stored: Promise<void>) => {
     setWaitOpen(false);
     stored.then(
-      () => router.push("/durchgang/nis2"),
+      () => router.push(home),
       () => {
         toast.error(t("saveFailed"));
       },
@@ -268,7 +275,7 @@ export function DurchgangItem({
       case "compare":
         return <Compare entry={entry} />;
       case "sample":
-        return <Sample entry={entry} />;
+        return <Sample item={item} entry={entry} />;
       case "reading":
         return <Reading item={item} entry={entry} />;
       case "provision":
@@ -303,6 +310,12 @@ export function DurchgangItem({
         return <CryptoScreen {...work} entry={entry} />;
       case "riskmap":
         return <RiskMapScreen {...work} entry={entry} />;
+      case "activities":
+        return <Activities {...work} entry={entry} />;
+      case "describe":
+        return <Describe {...work} entry={entry} />;
+      case "processors":
+        return <Processors {...work} entry={entry} />;
       case "ongoing":
         return <Ongoing entry={entry} />;
       case "done":

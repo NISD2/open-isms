@@ -468,11 +468,8 @@ export const REG_SCHEMA = z.object({
     ),
 });
 
-// ============================================================================
-// Schema Registry — lookup by category code
-// ============================================================================
-
-const SCHEMA_BY_CATEGORY = {
+/** The NIS 2 categories' schemas, by category code (the registry is ./index). */
+export const NIS2_SCHEMAS = {
   GOV: GOV_SCHEMA,
   RSK: RSK_SCHEMA,
   INC: INC_SCHEMA,
@@ -487,21 +484,6 @@ const SCHEMA_BY_CATEGORY = {
   REG: REG_SCHEMA,
 } as const;
 
-export type CategoryCode = keyof typeof SCHEMA_BY_CATEGORY;
-
-/**
- * An intake field of one category, so a misspelt key fails `tsc` rather than a test. Distributes
- * over a union, so `CategoryField<CategoryCode>` is every field rather than none.
- */
-export type CategoryField<C extends CategoryCode> = C extends CategoryCode
-  ? keyof (typeof SCHEMA_BY_CATEGORY)[C]["shape"] & string
-  : never;
-
-export const CATEGORY_SCHEMAS: Record<
-  string,
-  z.ZodObject<z.ZodRawShape>
-> = SCHEMA_BY_CATEGORY as unknown as Record<string, z.ZodObject<z.ZodRawShape>>;
-
 // ============================================================================
 // Field → Requirement Mapping
 //
@@ -509,7 +491,7 @@ export const CATEGORY_SCHEMAS: Record<
 // Used to auto-derive companyRequirementStatus when intake is submitted.
 // ============================================================================
 
-export const CATEGORY_FIELD_MAPPING: Record<string, Record<string, string[]>> = {
+export const NIS2_FIELD_MAPPING: Record<string, Record<string, string[]>> = {
   GOV: {
     managementTrainingProvider: ["1.1"],
     lastManagementTraining: ["1.1"],

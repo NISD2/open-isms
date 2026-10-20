@@ -30,7 +30,8 @@
       "internal_audit": "Audituri interne",
       "improvement_item": "Îmbunătățiri",
       "bsi_registration": "Înregistrare BSI",
-      "bsi_incident_report": "Rapoarte de incidente BSI"
+      "bsi_incident_report": "Rapoarte de incidente BSI",
+      "processing_activity": "Evidența activităților de prelucrare"
     },
     "moduleRef": {
       "confirmCompliance": "Confirmă conformitatea",

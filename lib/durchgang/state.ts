@@ -40,6 +40,9 @@ const RECORD_ACTIONS = [
   "durchgang.policies_approved",
   "durchgang.requirements_signed",
   "durchgang.critical",
+  "durchgang.activities",
+  "durchgang.described",
+  "durchgang.processors",
 ] as const;
 
 /** Every audit action the walk writes, so a misspelt one fails the build, not the walk's state. */

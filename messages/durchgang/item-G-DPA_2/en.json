@@ -1,0 +1,45 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DPA_2": {
+        "headline": "Record how your processors may engage sub-processors",
+        "teaser": "For each processor: authorised one by one, or in general.",
+        "fromNis2": "Your NIS 2 contract clauses on subcontracting are a start. The GDPR also asks how you authorise each sub-processor: one by one, or in general with notice of every change and a chance to object (Art. 28(2)).",
+        "missed": [
+          "Under a general authorisation the processor informs you of any intended addition or replacement of a sub-processor, so that you can object (Art. 28(2)). Make sure these notices reach someone who reads them.",
+          "The processor must impose on every sub-processor the same data protection obligations it has towards you (Art. 28(4))."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Who works for your provider",
+            "body": [
+              "Many processors engage further processors themselves, known as sub-processors, for example a software provider its data centre. It may do so only with your prior written authorisation (Art. 28(2)).",
+              "The authorisation comes in two forms: specific, for each sub-processor one by one, or general. Under a general one the processor informs you of every intended change, and you can object. The authorisation is often in the data processing agreement, with a list of sub-processors."
+            ],
+            "duty": "The GDPR requires a processor to engage further processors only with your company's prior specific or general written authorisation."
+          },
+          "examples": {
+            "title": "What a sound clause looks like",
+            "caption": "Two agreements, read against Art. 28(2)",
+            "good": {
+              "value": "Our cloud provider may engage sub-processors under a general authorisation. It lists them online, announces every new one a month ahead, and we may object.",
+              "note": "A general written authorisation with notice of every intended change and a chance to object, as Art. 28(2) asks. Keep the announcements."
+            },
+            "bad": {
+              "value": "Our payroll provider may use any subcontractor it likes. We are not told who.",
+              "note": "Without a prior authorisation, and without notice of changes under a general one, the clause falls short of Art. 28(2). Ask the provider for its sub-processor list and the clause."
+            }
+          },
+          "authorisation": {
+            "title": "How you authorised",
+            "lead": "For each processor: what does the agreement say about sub-processors? Look it up there, usually under \"sub-processors\" or \"subprocessing\"."
+          },
+          "done": {
+            "title": "Your authorisations are recorded",
+            "note": "Under a general authorisation, read your providers' change notices and object when a new sub-processor does not suit you. Where an agreement says nothing, ask the provider for its list of sub-processors and the clause on them; the processor list keeps the gap visible until you record the answer."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,16 +1,13 @@
-import { czechRefColumns, NIS2_PREREQUISITES } from "@nisd2/grc-data-model/frameworks";
+import { FRAMEWORK_DATA, NIS2_PREREQUISITES } from "@nisd2/grc-data-model/frameworks";
+import { seedFramework } from "@nisd2/grc-data-model/seed";
 import { assertLocalDatabase } from "../scripts/lib/assert-local-database";
 
 /**
- * Seed script — Populates the database with NIS2 framework data.
+ * Seed script — Populates the database with every framework the data model carries
+ * (FRAMEWORK_DATA: NIS 2 and the GDPR active, the rest seeded inactive), the NIS 2
+ * prerequisites, the satisfaction pairs and the demo companies.
  *
  * Usage: bun run drizzle/seed.ts
- *
- * Inserts:
- *   1 framework  (NIS2/BSIG 2026)
- *   12 categories
- *   49 requirements
- *   8 prerequisites
  *
  * Idempotent: clears existing data before inserting.
  */
@@ -40,20 +37,13 @@ import { fileURLToPath } from "node:url";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { eq, and, inArray, sql } from "drizzle-orm";
 import * as schema from "@/schema";
-import {
-  nis2Categories,
-  getNis2RequirementsForCategory,
-  iso27001Categories,
-  getIso27001RequirementsForCategory,
-  type FrameworkCategory,
-  type FrameworkRequirement,
-} from "@nisd2/grc-data-model/frameworks";
 import { SEED_COMPANY_DATA } from "./seed-company-data";
 import { SEED_INTAKE_ANSWERS } from "./seed-intake-data";
 import { backfillInitialDeadlines } from "@/lib/compliance/schedule-notifications";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { getDefaultPolicyConfig, POLICY_TYPES } from "@/lib/compliance/policy-config-defaults";
 import { joinCompany } from "@/lib/organization/membership";
+import { ensureAssessment } from "@/server/trpc/helpers/framework-assessment";
 
 const dbUrl = process.env.DATABASE_URL;
 if (!dbUrl) throw new Error("DATABASE_URL is required");
@@ -156,72 +146,6 @@ async function cleanFramework(code: (typeof schema.complianceFramework.$inferSel
   // Assessments from real companies are preserved across re-seeds
 }
 
-// ------------------------------------------------------------------
-// Reusable: seed categories + requirements for a framework
-// ------------------------------------------------------------------
-async function seedFrameworkData(
-  frameworkId: string,
-  categories: FrameworkCategory[],
-  getRequirements: (slug: string) => FrameworkRequirement[]
-): Promise<{ categoryMap: Map<string, string>; reqCount: number }> {
-  const categoryMap = new Map<string, string>();
-  let reqCount = 0;
-
-  for (const cat of categories) {
-    const [row] = await db
-      .insert(schema.requirementCategory)
-      .values({
-        frameworkId,
-        code: cat.code,
-        slug: cat.slug,
-        referenceUrl: cat.referenceUrl,
-        nationalUrl: cat.nationalUrl,
-        sortOrder: cat.sortOrder,
-        estimatedMinutes: cat.estimatedMinutes,
-        relevantRoles: cat.relevantRoles ?? null,
-        grundschutzModule: cat.grundschutzModule ?? null,
-      })
-      .returning();
-
-    categoryMap.set(cat.slug, row.id);
-    console.log(`    ${cat.code} → ${cat.slug} (${row.id})`);
-  }
-
-  for (const cat of categories) {
-    const categoryId = categoryMap.get(cat.slug)!;
-    const requirements = getRequirements(cat.slug);
-
-    console.log(`  ${cat.code}: ${requirements.length} requirements...`);
-
-    for (let i = 0; i < requirements.length; i++) {
-      const req = requirements[i];
-
-      await db
-        .insert(schema.requirement)
-        .values({
-          categoryId,
-          code: req.code,
-          evidenceType: req.evidenceType as "document" | "proof" | "sign-off" | "technical" | "training",
-          frequency: req.frequency as "one-time" | "monthly" | "quarterly" | "semi-annual" | "annual" | "every-3-years" | "on-change" | "ongoing",
-          priority: req.priority,
-          importance: req.importance,
-          legalRef: req.legalRef || null,
-          ...czechRefColumns(req.czechRef),
-          frameworkRef: req.frameworkRef || null,
-          cirReference: req.cirReference || null,
-          moduleRef: req.moduleRef || null,
-          requiredSignOffRole: req.requiredSignOffRole || null,
-          sortOrder: i,
-        })
-        .returning();
-
-      reqCount++;
-    }
-  }
-
-  return { categoryMap, reqCount };
-}
-
 // ==================================================================
 // Main seed function
 // ==================================================================
@@ -229,63 +153,40 @@ async function seed() {
   console.log("Seeding compliance data...\n");
 
   // ------------------------------------------------------------------
-  // 0. Clean existing framework data
+  // 1. Every framework the package carries, its row included (FRAMEWORK_DATA): cleaned, then
+  //    seeded by the package's own seeder, so this script, the seed file and the framework
+  //    migrations write the same rows.
   // ------------------------------------------------------------------
-  console.log("  Clearing existing data...");
-  await cleanFramework("nis2");
-  for (const staleCode of ["gdpr", "iso27001"] as const) {
-    await cleanFramework(staleCode);
+  const seeded = new Map<string, string>();
+  for (const framework of FRAMEWORK_DATA) {
+    await cleanFramework(framework.code);
+    const result = await seedFramework(db, framework);
+    seeded.set(framework.code, result.frameworkId);
+    console.log(
+      `  ${framework.code}: ${result.categoryCount} categories, ${result.requirementCount} requirements` +
+        (framework.isActive ? "" : " (inactive)"),
+    );
   }
-  console.log("  Done.\n");
+  const nis2Seeded = seeded.get("nis2");
+  if (!nis2Seeded) throw new Error("NIS 2 was not seeded.");
+  // A const of its own, so the company seeds below keep it narrowed to a string.
+  const nis2FrameworkId: string = nis2Seeded;
 
   // ------------------------------------------------------------------
-  // 1. Seed NIS2 framework
+  // Load NIS 2's framework data (the prerequisites and every company seed below read it)
   // ------------------------------------------------------------------
-  console.log("  Upserting NIS2 framework...");
-  const [nis2Fw] = await db
-    .insert(schema.complianceFramework)
-    .values({
-      code: "nis2",
-      version: "2026",
-      effectiveDate: "2026-03-17",
-      isActive: true,
-      codePrefix: "NIS2-",
-      sidebarLabel: "nis2",
-    })
-    .onConflictDoUpdate({
-      target: schema.complianceFramework.code,
-      set: {
-        version: "2026",
-        effectiveDate: "2026-03-17",
-        isActive: true,
-      },
-    })
-    .returning();
-
-  console.log(`  Framework: ${nis2Fw.code} (${nis2Fw.id})\n`);
-
-  const nis2Result = await seedFrameworkData(
-    nis2Fw.id,
-    nis2Categories,
-    getNis2RequirementsForCategory
-  );
-
-  console.log();
-  console.log(`  Seeded successfully:`);
-  console.log(`     1 framework (NIS2)`);
-  console.log(`     ${nis2Result.categoryMap.size} categories`);
-  console.log(`     ${nis2Result.reqCount} requirements`);
+  const allNis2Categories = await db.query.requirementCategory.findMany({
+    where: eq(schema.requirementCategory.frameworkId, nis2FrameworkId),
+  });
+  const nis2CategoryIds = allNis2Categories.map((c) => c.id);
+  const allNis2Requirements = await db.query.requirement.findMany({
+    where: inArray(schema.requirement.categoryId, nis2CategoryIds),
+  });
 
   // ------------------------------------------------------------------
   // 1b. Seed requirement prerequisites (hard legal gates)
   // ------------------------------------------------------------------
-  const allReqs = await db.query.requirement.findMany({
-    where: sql`${schema.requirement.categoryId} IN (${sql.join(
-      [...nis2Result.categoryMap.values()].map((id) => sql`${id}`),
-      sql`, `
-    )})`,
-  });
-  const reqByCode = new Map(allReqs.map((r) => [r.code, r.id]));
+  const reqByCode = new Map(allNis2Requirements.map((r) => [r.code, r.id]));
 
   // The pairs live in grc-data-model now, next to the requirements they order, so the journey can
   // read them too. Same values as before, so existing databases need no reseed.
@@ -301,48 +202,6 @@ async function seed() {
     }
   }
   console.log(`     ${NIS2_PREREQUISITES.length} prerequisites`);
-
-  // ------------------------------------------------------------------
-  // 1c. Seed ISO 27001 framework
-  // ------------------------------------------------------------------
-  console.log("\n  Upserting ISO 27001 framework...");
-  const [iso27001Fw] = await db
-    .insert(schema.complianceFramework)
-    .values({
-      code: "iso27001",
-      version: "2022",
-      effectiveDate: "2022-10-25",
-      // NIS 2 is the only framework the product surfaces. ISO 27001 reference
-      // data is still seeded so the NIS2 <-> ISO satisfaction pairs resolve,
-      // but inactive keeps it out of the sidebar, out of /compliance, and out
-      // of what createAssessmentsForFrameworks provisions for a new signup.
-      isActive: false,
-      codePrefix: "ISO27001-",
-      sidebarLabel: "iso27001",
-    })
-    .onConflictDoUpdate({
-      target: schema.complianceFramework.code,
-      set: {
-        version: "2022",
-        effectiveDate: "2022-10-25",
-        isActive: false,
-      },
-    })
-    .returning();
-
-  console.log(`  Framework: ${iso27001Fw.code} (${iso27001Fw.id})\n`);
-
-  const iso27001Result = await seedFrameworkData(
-    iso27001Fw.id,
-    iso27001Categories,
-    getIso27001RequirementsForCategory
-  );
-
-  console.log();
-  console.log(`  Seeded successfully:`);
-  console.log(`     1 framework (ISO 27001:2022)`);
-  console.log(`     ${iso27001Result.categoryMap.size} categories`);
-  console.log(`     ${iso27001Result.reqCount} requirements`);
 
   // ------------------------------------------------------------------
   // Cross-framework satisfaction pairs
@@ -362,21 +221,6 @@ async function seed() {
     .select({ pairs: sql<number>`count(*)::int` })
     .from(schema.requirementSatisfaction);
   console.log(`     ${pairs} satisfaction pairs`);
-
-  // ------------------------------------------------------------------
-  // Load framework data (shared across all company seeds)
-  // ------------------------------------------------------------------
-  const allNis2Categories = await db.query.requirementCategory.findMany({
-    where: eq(schema.requirementCategory.frameworkId, nis2Fw.id),
-  });
-  const nis2CategoryIds = allNis2Categories.map((c) => c.id);
-
-  const allNis2Requirements = await db.query.requirement.findMany({
-    where: sql`${schema.requirement.categoryId} IN (${sql.join(
-      nis2CategoryIds.map((id) => sql`${id}`),
-      sql`, `
-    )})`,
-  });
 
   // ------------------------------------------------------------------
   // Reusable: provision a company with full seed data
@@ -573,8 +417,8 @@ async function seed() {
       .insert(schema.companyAssessment)
       .values({
         companyId: co.id,
-        frameworkId: nis2Fw.id,
-        totalRequirements: nis2Result.reqCount,
+        frameworkId: nis2FrameworkId,
+        totalRequirements: allNis2Requirements.length,
       })
       .returning();
 
@@ -851,48 +695,15 @@ async function seed() {
   // Audit P-3 (2026-06-10). The public seed stops at Dev GmbH.
 
   // ------------------------------------------------------------------
-  // 3. Backfill assessments + status rows for non-seeded companies
+  // 3. Every company holds an assessment of each active framework, with a status row per
+  //    requirement: the same helper the walk runs when a company opens a walk.
   // ------------------------------------------------------------------
-  // Find companies that have users but no NIS2 assessment (e.g. real users who went through /setup)
-  const allCompanies = await db.query.company.findMany({ columns: { id: true, name: true } });
-  for (const co of allCompanies) {
-    const existing = await db.query.companyAssessment.findFirst({
-      where: and(eq(schema.companyAssessment.companyId, co.id), eq(schema.companyAssessment.frameworkId, nis2Fw.id)),
-    });
-    if (!existing) {
-      const [newA] = await db.insert(schema.companyAssessment).values({
-        companyId: co.id,
-        frameworkId: nis2Fw.id,
-        totalRequirements: allNis2Requirements.length,
-      }).returning();
-      console.log(`\n  Created NIS2 assessment for ${co.name} (${newA.id})`);
+  const allCompanies = await db.query.company.findMany({ columns: { id: true } });
+  for (const framework of FRAMEWORK_DATA.filter((f) => f.isActive)) {
+    for (const co of allCompanies) {
+      await ensureAssessment(db, co.id, framework.code);
     }
-  }
-
-  const allAssessments = await db.query.companyAssessment.findMany({
-    where: eq(schema.companyAssessment.frameworkId, nis2Fw.id),
-  });
-
-  for (const a of allAssessments) {
-    const existingStatuses = await db.query.companyRequirementStatus.findMany({
-      where: eq(schema.companyRequirementStatus.assessmentId, a.id),
-      columns: { requirementId: true },
-    });
-    const existingReqIds = new Set(existingStatuses.map((s) => s.requirementId));
-    const missing = allNis2Requirements.filter((r) => !existingReqIds.has(r.id));
-
-    if (missing.length > 0) {
-      await db.insert(schema.companyRequirementStatus).values(
-        missing.map((r) => ({ assessmentId: a.id, requirementId: r.id }))
-      );
-      console.log(`\n  Backfilled ${missing.length} status rows for assessment ${a.id}`);
-    }
-
-    // Update total requirements count
-    await db
-      .update(schema.companyAssessment)
-      .set({ totalRequirements: allNis2Requirements.length })
-      .where(eq(schema.companyAssessment.id, a.id));
+    console.log(`\n  ${framework.code}: assessments ready for ${allCompanies.length} companies`);
   }
 
   // The supplier portal questionnaire schema lives in code (drizzle-zod

@@ -30,7 +30,8 @@
       "internal_audit": "Interne audits",
       "improvement_item": "Verbeterpunten",
       "bsi_registration": "BSI-registratie",
-      "bsi_incident_report": "BSI-incidentrapporten"
+      "bsi_incident_report": "BSI-incidentrapporten",
+      "processing_activity": "Register van verwerkingsactiviteiten"
     },
     "moduleRef": {
       "confirmCompliance": "Naleving bevestigen",

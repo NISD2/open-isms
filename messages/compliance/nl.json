@@ -339,6 +339,13 @@
         "legalBasis": "Art. 37-39 AVG, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Verantwoordingsplicht",
+        "description": "Aantonen dat de verwerking in overeenstemming is met de AVG: de maatregelen van art. 24 en, waar dat in verhouding staat, een passend gegevensbeschermingsbeleid",
+        "legalBasis": "Art. 5 lid 2, art. 24 AVG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -388,18 +395,6 @@
     "save": "Opslaan",
     "saving": "Opslaan...",
     "failedToSave": "Opslaan mislukt"
-  },
-  "evidence": {
-    "dropzone": "Bestand hierheen slepen of klikken om te selecteren",
-    "formats": "PDF, DOCX, XLSX, Afbeeldingen",
-    "description": "Beschrijving (optioneel)",
-    "descriptionPlaceholder": "Wat bewijst dit document?",
-    "uploading": "Uploaden...",
-    "upload": "Bewijs uploaden",
-    "uploaded": "Bewijs geüpload",
-    "fileSaved": "{name} is opgeslagen.",
-    "loading": "Bestanden laden...",
-    "uploadFailed": "Upload mislukt"
   },
   "signoff": {
     "title": "Goedkeuring management vereist",

@@ -33,9 +33,8 @@
  *
  *   bun run scripts/generate-framework-migration.ts --seed-file
  *
- * Writes db/framework-seed.sql instead of a migration: the same upserts, plus
- * the two `compliance_framework` rows drizzle/seed.ts creates, joined with
- * plain semicolons so `psql -f` can run it. That file is what a self-hoster
+ * Writes db/framework-seed.sql instead of a migration: the same upserts,
+ * framework rows included, joined with plain semicolons so `psql -f` can run it. That file is what a self-hoster
  * applies to fill a fresh database, with no checkout, no bun and no demo
  * tenant. `bun run check:framework-seed` fails CI when it is out of date.
  *
@@ -83,8 +82,7 @@ const onlyIndex = process.argv.indexOf("--only");
 const onlyArg = onlyIndex === -1 ? null : process.argv[onlyIndex + 1];
 const only = onlyArg ? new Set(onlyArg.split(",").map((c) => c.trim())) : null;
 
-// Every framework in the package's FRAMEWORK_DATA is generated. Its data lands in a database that
-// already has its compliance_framework row (FRAMEWORK_ROWS below, drizzle/seed.ts).
+// Every framework in the package's FRAMEWORK_DATA is generated, its compliance_framework row first.
 const selected: readonly FrameworkData[] = only
   ? FRAMEWORK_DATA.filter((f) => only.has(f.code))
   : FRAMEWORK_DATA;
@@ -204,54 +202,34 @@ const pairStatements = pairs.map(
     `"rationale" = EXCLUDED."rationale", "equivalence_kind" = EXCLUDED."equivalence_kind"`,
 );
 
-/**
- * The framework rows themselves. A migration never needs these — every
- * database that has ever run drizzle/seed.ts already has them, and the
- * category and requirement upserts below are scoped to an existing framework
- * row, so on a database without one they match nothing and do nothing.
- *
- * The seed file does need them, because its whole job is a database where
- * nothing has been seeded. Values match drizzle/seed.ts exactly, ISO 27001
- * inactive included: it is seeded only so the NIS 2 satisfaction pairs
- * resolve, and being inactive keeps it out of the sidebar, out of /compliance
- * and out of what a new signup is provisioned with.
- */
 const dryRun = process.argv.includes("--dry-run");
 
-const FRAMEWORK_ROWS = [
-  {
-    code: "nis2",
-    version: "2026",
-    effectiveDate: "2026-03-17",
-    isActive: true,
-    codePrefix: "NIS2-",
-    sidebarLabel: "nis2",
-  },
-  {
-    code: "iso27001",
-    version: "2022",
-    effectiveDate: "2022-10-25",
-    isActive: false,
-    codePrefix: "ISO27001-",
-    sidebarLabel: "iso27001",
-  },
-] as const;
-
-const frameworkStatements = FRAMEWORK_ROWS.filter((row) =>
-  selected.some((f) => f.code === row.code),
-).map(
-  (row) =>
+/**
+ * The framework rows themselves, from the same FRAMEWORK_DATA as everything else, first: the
+ * category and requirement upserts below attach to the framework row, so a database that lacks
+ * one gets it here, and a framework switched on or off in the data is switched in every database
+ * the next sync reaches (the GDPR went into the offer this way, 20.10.2026).
+ */
+const frameworkStatements = selected.map(
+  (f) =>
     `INSERT INTO "compliance_framework" (` +
     `"code", "version", "effective_date", "is_active", "code_prefix", "sidebar_label") ` +
-    `VALUES (${sqlLiteral(row.code)}, ${sqlLiteral(row.version)}, ${sqlLiteral(row.effectiveDate)}, ` +
-    `${row.isActive}, ${sqlLiteral(row.codePrefix)}, ${sqlLiteral(row.sidebarLabel)}) ` +
+    `VALUES (${sqlLiteral(f.code)}, ${sqlLiteral(f.version)}, ${sqlLiteral(f.effectiveDate)}, ` +
+    `${f.isActive}, ${sqlLiteral(f.codePrefix)}, ${sqlLiteral(f.sidebarLabel)}) ` +
     `ON CONFLICT ("code") DO UPDATE SET ` +
     `"version" = EXCLUDED."version", ` +
     `"effective_date" = EXCLUDED."effective_date", ` +
-    `"is_active" = EXCLUDED."is_active"`,
+    `"is_active" = EXCLUDED."is_active", ` +
+    `"code_prefix" = EXCLUDED."code_prefix", ` +
+    `"sidebar_label" = EXCLUDED."sidebar_label"`,
 );
 
-const statements = [...categoryStatements, ...requirementStatements, ...pairStatements];
+const statements = [
+  ...frameworkStatements,
+  ...categoryStatements,
+  ...requirementStatements,
+  ...pairStatements,
+];
 
 const sql =
   [
@@ -294,7 +272,7 @@ if (seedFileMode) {
       "-- Do not hand-edit; `bun run check:framework-seed` compares it to the data.",
       "",
     ].join("\n") +
-    [...frameworkStatements, ...statements].join(";\n\n") +
+    statements.join(";\n\n") +
     ";\n";
 
   const seedPath = join(ROOT, "db", "framework-seed.sql");
@@ -310,7 +288,7 @@ if (seedFileMode) {
     console.log(
       `wrote db/framework-seed.sql (${selected.map((f) => f.code).join("+")}, ` +
         `${categoryCountAll} categories, ${requirements.length} requirements, ` +
-        `${pairs.length} pairs, ${frameworkStatements.length + statements.length} statements)`,
+        `${pairs.length} pairs, ${statements.length} statements)`,
     );
   }
 }

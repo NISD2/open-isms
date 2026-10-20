@@ -3,7 +3,7 @@ import { CompanySetup } from "@/components/organization/CompanySetup";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
-import { WALK } from "@/lib/durchgang";
+import { NIS2_WALK } from "@/lib/durchgang";
 
 /**
  * Setting a company up, for links that lead here: the journey's "Einrichten", and links already
@@ -21,7 +21,7 @@ export default async function OnboardingPage() {
     session.accessLevel,
     isPlatformAdmin(session.user.email),
   );
-  const first = WALK[0]?.code;
+  const first = NIS2_WALK.items[0]?.code;
   return (
     <main className="px-6 py-12">
       <CompanySetup

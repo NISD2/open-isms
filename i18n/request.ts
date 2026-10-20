@@ -47,6 +47,7 @@ const namespaces = [
   "policyGuides",
   "policy-config",
   "pricing",
+  "processingActivities",
   "portal",
   "requirements",
   "review",

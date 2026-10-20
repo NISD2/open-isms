@@ -2,7 +2,6 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { createTranslator } from "next-intl";
 import { z } from "zod";
-import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import {
   CATALOG_LABELS,
@@ -15,73 +14,50 @@ import {
   ownDescription,
 } from "@/lib/asset-inventory/catalog-labels";
 import { CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
-import { logAudit } from "@/lib/audit";
 import { isFreeMailAddress } from "@/lib/auth/free-mail";
 import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
-import type { CategoryField } from "@/lib/compliance/category-schemas";
-import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import type { CountableModule } from "@/lib/compliance/module-tables";
 import { getDefaultPolicyConfig } from "@/lib/compliance/policy-config-defaults";
-import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
-import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import { seedLocale } from "@/lib/compliance/seed-locale";
 import { MAX_DECLINE_REASON, MIN_DECLINE_REASON } from "@/lib/compliance/sign-off-state";
-import { signerRoleOf } from "@/lib/compliance/signer-role";
-import type { DbOrTx } from "@/lib/db";
 import {
-  type AnyScreen,
-  APPROVAL_SCREEN,
-  acceptedCryptoText,
+  ALL_ITEMS,
   agreementsNote,
+  approvalOf,
   approvedNote,
   askedFields,
-  awaitingSignature,
   backupsNote,
-  type CryptoLabels,
   contactSuggestions,
   criticalNote,
-  criticalProcessesText,
   cryptoNote,
   type DurchgangAction,
   declinedNote,
   gapLines,
-  gapsOf,
-  type ItemState,
   levelOf,
   loginsNote,
   MANAGEMENT_ROLE,
-  marker,
   methodNote,
   noteLine,
-  POLICY_LISTS,
   POLICY_TEMPLATES,
-  type PolicyList,
-  type PolicyTemplate,
   type ProviderLink,
-  personText,
+  policiesOf,
   policyNames,
   policyText,
   policyTitle,
   ratingKey,
   ratingText,
   recordDay,
-  recoveryOrder,
-  recoveryOrderText,
-  reportingChannelText,
   resolveItem,
-  reviewedWithinYear,
   SUPPLIER_LEVEL,
-  signLast,
   standingOf,
   toScale,
   treatmentFor,
   WAIT_REASONS,
-  WALK,
+  WALK_FRAMEWORKS,
   WALK_LOCALES,
-  WALK_POLICIES,
-  type WalkLocale,
+  WALKS,
   waitingNote,
+  walkOfCode,
 } from "@/lib/durchgang";
 import { renderDocumentMarkdown } from "@/lib/mail/markdown";
 import { getRegistrationPortals } from "@/lib/registration-portals";
@@ -95,7 +71,6 @@ import {
   companyRequirementStatus,
   companyRiskMethodology,
   improvementItem,
-  managementReview,
   policy,
   requirement,
   risk,
@@ -105,28 +80,23 @@ import {
 } from "@/schema";
 import { improvementItemInsertSchema } from "@/schema/validators";
 import { verifyMemberReferences } from "../guards";
-import {
-  propagateSatisfaction,
-  recalculateProgress,
-} from "../helpers/assessment-helpers";
 import { requireBillingAct } from "../helpers/billing-act";
 import {
   appendNote,
-  type DurchgangActor,
   declineReason,
-  declineReasonsOf,
   durchgangItem,
-  gapFactsOf,
-  MEASURE_SOURCE,
-  openMeasureOf,
   refuseSettled,
-  signDeclined,
   walkItemRef,
-  walkMeasuresOf,
   walkPolicyRows,
   walkRows,
   walkStates,
 } from "../helpers/durchgang";
+import {
+  shownGapsOf,
+  signWaiting,
+  waitingForManagement,
+} from "../helpers/durchgang-approval";
+import { MEASURE_SOURCE, openMeasureOf, walkMeasuresOf } from "../helpers/durchgang-gaps";
 import {
   addAssetsInput,
   itemCode as code,
@@ -138,439 +108,51 @@ import {
   specifyAssetsInput,
   writePolicyInput,
 } from "../helpers/durchgang-inputs";
+import {
+  CRYPTO_LIST,
+  cryptoListOf,
+  policyDraftOf,
+  policyTypeOf,
+  storedConfigOf,
+} from "../helpers/durchgang-policy";
+import { actorOf, logWalk, recheck } from "../helpers/durchgang-procedures";
+import {
+  askedOnScreen,
+  headlineOf,
+  NAMESPACES,
+  recordLocaleOf,
+  walkItem,
+} from "../helpers/durchgang-words";
 import { approvePolicies, WITHDRAWN_APPROVAL } from "../helpers/policy-approval";
-import { rosteredOf } from "../helpers/roster";
-import { signOffRows } from "../helpers/sign-off-rows";
-import { companyProcedure, router, type TRPCContext } from "../init";
+import { companyProcedure, router } from "../init";
 import {
   durchgangProcedure,
   durchgangWrite,
   gateStep,
   stepWrite,
 } from "./durchgang-access";
+import { durchgangGdprRouter } from "./durchgang-gdpr";
 
 /**
  * The Durchgang's own writes: what the existing procedures cannot record. Field answers, uploads
  * and register entries go through intake, evidence and the module routers, as on the requirement
  * page. This router adds the item's trail (a line in `internal_notes`) and its state (an audit row
- * logged like `announceWithdrawal`, which `walk` reads back). Who may call what: `durchgang-access`.
+ * logged like `announceWithdrawal`, which `walk` reads back). The GDPR walk's own screens are
+ * `gdpr` (./durchgang-gdpr). Who may call what: `durchgang-access`.
  */
-
-/**
- * A register changed: sign-offs that relied on it are rechecked, in the background, as the module
- * routers do.
- */
-const recheck = (
-  ctx: { db: TRPCContext["db"]; companyId: string; userId: string },
-  module: CountableModule,
-) =>
-  invalidateModuleSignOffs(ctx.db, ctx.companyId, module, ctx.userId).catch((err) =>
-    console.error(`[background] ${module} recheck:`, err),
-  );
-
-/** The walk's audit entry: its action is one the walk's state and overview know. */
-const logWalk = (entry: Parameters<typeof logAudit>[0] & { action: DurchgangAction }) =>
-  logAudit(entry);
 
 /** How many steps a stored scale has; the column is JSON, so its shape is checked, not assumed. */
 const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);
 
-const NAMESPACES = {
-  de: DURCHGANG_MESSAGES.de.durchgang,
-  en: DURCHGANG_MESSAGES.en.durchgang,
-  cs: DURCHGANG_MESSAGES.cs.durchgang,
-} as const;
-
-const actorOf = (ctx: {
-  companyId: string;
-  userId: string;
-  session: { role: string };
-}): DurchgangActor => ({
-  companyId: ctx.companyId,
-  userId: ctx.userId,
-  role: ctx.session.role,
-});
-
-const itemOf = (c: string) => {
-  const item = WALK.find((i) => i.code === c);
-  if (!item)
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: `${c} is not in the Durchgang.`,
-    });
-  return item;
-};
-
-/** The policy an item writes, from its script; an item without a policy screen writes none. */
-const policyTypeOf = (c: string) => {
-  const screens: readonly AnyScreen[] = itemOf(c).screens;
-  const screen = screens.find((s) => s.kind === "policy");
-  if (screen?.kind !== "policy") {
-    throw new TRPCError({ code: "BAD_REQUEST", message: `${c} writes no policy.` });
-  }
-  return screen.policy;
-};
-
-/** The item's policy screen with its words in `locale`; an item without one writes no policy. */
-const policyScreenOf = (c: string, locale: WalkLocale) => {
-  const words = resolveItem(NAMESPACES[locale], itemOf(c));
-  const screen = words.ok
-    ? words.value.screens.find((s) => s.kind === "policy")
-    : undefined;
-  if (screen?.kind !== "policy") {
-    throw new TRPCError({ code: "BAD_REQUEST", message: `${c} writes no policy.` });
-  }
-  return screen;
-};
-
-/**
- * What the company's own answers still leave open (`gapsOf`), as the approval and the export show
- * it: a step set aside comes with its headline in `locale`.
- */
-const shownGapsOf = async (db: DbOrTx, companyId: string, locale: WalkLocale) => {
-  const headline = (c: string) => {
-    const words = resolveItem(NAMESPACES[locale], itemOf(c));
-    return words.ok ? words.value.headline : c;
-  };
-  return gapsOf(await gapFactsOf(db, companyId, new Date())).map((gap) =>
-    gap.kind === "set_aside" ? { ...gap, headlines: gap.codes.map(headline) } : gap,
-  );
-};
-
-/** The crypto list screen's names for kinds and statuses in `locale`, which the policy prints. */
-const cryptoLabelsOf = (locale: WalkLocale): CryptoLabels => {
-  const item = WALK.find((i) => i.screens.some((s) => s.kind === "crypto"));
-  const words = item ? resolveItem(NAMESPACES[locale], item) : undefined;
-  const screen = words?.ok
-    ? words.value.screens.find((s) => s.kind === "crypto")
-    : undefined;
-  if (screen?.kind !== "crypto") throw new Error("The walk has no crypto list screen.");
-  return screen.copy;
-};
-
-/**
- * A walk-written policy's stored choices: the clauses, the company's own words, and for the
- * continuity plan one line per process on how it goes on without IT, by asset id. The config
- * column is JSON, so its shape is checked, not assumed; a part that does not parse reads as empty
- * and leaves the rest.
- */
-const STORED_CONFIG = z
-  .object({
-    clauses: z.array(z.string()).catch([]),
-    own: z.string().catch(""),
-    fallbacks: z.record(z.string(), z.string()).catch({}),
-  })
-  .catch({ clauses: [], own: "", fallbacks: {} });
-
-const storedConfigOf = async (db: DbOrTx, companyId: string, type: PolicyTemplate) => {
-  const [row] = await db
-    .select({ config: companyPolicyConfig.config })
-    .from(companyPolicyConfig)
-    .where(
-      and(
-        eq(companyPolicyConfig.companyId, companyId),
-        eq(companyPolicyConfig.policyType, type),
-      ),
-    );
-  return STORED_CONFIG.parse(row?.config ?? {});
-};
-
-/** The editor's policy type the crypto list is kept under (the requirement page edits it too). */
-const CRYPTO_LIST = "crypto";
-
-/** The company's crypto list as the editor stored it, or null while it has none or a broken one. */
-const cryptoListOf = async (db: DbOrTx, companyId: string) => {
-  const [row] = await db
-    .select({ config: companyPolicyConfig.config })
-    .from(companyPolicyConfig)
-    .where(
-      and(
-        eq(companyPolicyConfig.companyId, companyId),
-        eq(companyPolicyConfig.policyType, CRYPTO_LIST),
-      ),
-    );
-  const parsed = POLICY_CONFIG_SCHEMAS[CRYPTO_LIST].safeParse(row?.config);
-  return parsed.success ? parsed.data : null;
-};
-
-/** Where the walk asks who leads in an emergency, which the continuity plan names too. */
-const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const satisfies {
-  code: string;
-  field: CategoryField<"INC">;
-};
-
-/** Who leads in an emergency, as 3.1 saved it, or nothing when 3.1 has no answer yet. */
-const emergencyLeadOf = async (db: TRPCContext["db"], companyId: string) => {
-  // Only "3.1 has no row yet" means no lead; any other failure must not print a blank plan.
-  const ref = await walkItemRef(db, companyId, EMERGENCY_LEAD.code).catch((error) => {
-    if (error instanceof TRPCError && error.code === "NOT_FOUND") return null;
-    throw error;
-  });
-  if (!ref) return null;
-  const row = await db.query.companyCategoryIntake.findFirst({
-    where: and(
-      eq(companyCategoryIntake.assessmentId, ref.assessmentId),
-      eq(companyCategoryIntake.categoryId, ref.categoryId),
-    ),
-    columns: { answers: true },
-  });
-  return row?.answers?.[EMERGENCY_LEAD.field] ?? null;
-};
-
-/**
- * What a plan's list names stand for, read off the company's own records: the processes marked
- * `is_critical` with their line, the systems in the order their 2.3 ratings give, where incidents
- * are reported from the company's country, who leads in an emergency from 3.1, and the methods
- * the company's crypto list accepts.
- */
-const policyListsOf = async (
-  db: TRPCContext["db"],
-  companyId: string,
-  used: readonly PolicyList[],
-  fallbacks: Readonly<Record<string, string>>,
-  locale: WalkLocale,
-): Promise<Partial<Record<PolicyList, string>>> => {
-  const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
-  const [assets, links, org, lead, crypto] = await Promise.all([
-    needs("criticalProcesses", "recoveryOrder")
-      ? db
-          .select({
-            id: asset.id,
-            name: asset.name,
-            type: asset.type,
-            isCritical: asset.isCritical,
-          })
-          .from(asset)
-          .where(eq(asset.companyId, companyId))
-          .orderBy(asset.name)
-      : [],
-    needs("recoveryOrder")
-      ? db
-          .select({
-            id: risk.id,
-            likelihood: risk.likelihood,
-            impact: risk.impact,
-            assetId: riskAsset.assetId,
-          })
-          .from(riskAsset)
-          .innerJoin(risk, eq(risk.id, riskAsset.riskId))
-          .where(eq(risk.companyId, companyId))
-      : [],
-    needs("reportingChannel")
-      ? db.query.company.findFirst({
-          where: eq(company.id, companyId),
-          columns: { country: true },
-        })
-      : undefined,
-    needs("emergencyLead") ? emergencyLeadOf(db, companyId) : null,
-    needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
-  ]);
-  const portal =
-    getRegistrationPortals().portals.find((p) => p.countryCode === org?.country) ?? null;
-  const text: Record<PolicyList, () => string> = {
-    reportingChannel: () => reportingChannelText(locale, portal),
-    emergencyLead: () => personText(lead),
-    criticalProcesses: () =>
-      criticalProcessesText(
-        assets
-          .filter((a) => a.type === "process" && a.isCritical)
-          .map((a) => ({ name: a.name, how: fallbacks[a.id] ?? "" })),
-      ),
-    recoveryOrder: () =>
-      recoveryOrderText(
-        recoveryOrder(
-          assets,
-          links.map((l) => ({ ...l, linked: [l.assetId] })),
-        ),
-      ),
-    acceptedCrypto: () => acceptedCryptoText(locale, cryptoLabelsOf(locale), crypto),
-  };
-  return Object.fromEntries(used.map((name) => [name, text[name]()]));
-};
-
-/**
- * A policy as the walk writes it for this company: the template in the record language, the
- * company's name, the clauses chosen so far and, where the template names them, the lists read
- * off the company's rows. The screen shows exactly this, so the text that is printed and signed
- * is the text that is stored.
- */
-const policyDraftOf = async (
-  ctx: { db: TRPCContext["db"]; companyId: string; userId: string },
-  c: string,
-) => {
-  const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-  const screen = policyScreenOf(c, locale);
-  const type = screen.screen.policy;
-  const document = screen.copy.document;
-  const [org, stored] = await Promise.all([
-    ctx.db.query.company.findFirst({
-      where: eq(company.id, ctx.companyId),
-      columns: { name: true },
-    }),
-    storedConfigOf(ctx.db, ctx.companyId, type),
-  ]);
-  if (!org) throw new TRPCError({ code: "NOT_FOUND" });
-  const text = JSON.stringify(document);
-  const used = POLICY_LISTS.filter((name) => text.includes(marker(name)));
-  return {
-    type,
-    document,
-    language: locale,
-    company: org.name,
-    clauses: stored.clauses,
-    own: stored.own,
-    fallbacks: stored.fallbacks,
-    lists:
-      used.length > 0
-        ? await policyListsOf(ctx.db, ctx.companyId, used, stored.fallbacks, locale)
-        : {},
-  };
-};
-
-/**
- * The company's walk items waiting for management's signature (see `awaitingSignature`), each
- * with its status row: what the approval screen lists and what the approval may sign, from one
- * computation. Items whose assigned signers still owe a signature are left to them.
- *
- * A decision not to do an item carries no document to approve, even where the walk drafted one
- * before the decision; and it waits only with its written reason, which the signature records.
- */
-const waitingForManagement = async (db: TRPCContext["db"], companyId: string) => {
-  const [walk, policies, reviews] = await Promise.all([
-    walkRows(db, companyId),
-    walkPolicyRows(db, companyId),
-    db
-      .select({ day: managementReview.reviewDate })
-      .from(managementReview)
-      .where(eq(managementReview.companyId, companyId)),
-  ]);
-  const order = {
-    codes: walk.codes,
-    stateOf: (code: string): ItemState => walk.items.get(code)?.state ?? { kind: "open" },
-    approvalCode: APPROVAL_SCREEN?.code ?? null,
-  };
-  const waiting = awaitingSignature({
-    ...order,
-    drafts: policies.filter(
-      (p) => p.status === "draft" && order.stateOf(p.code).kind !== "declined",
-    ),
-    reviewed: reviewedWithinYear(
-      reviews.map((r) => r.day),
-      recordDay(new Date()),
-    ),
-  });
-  const located = waiting.flatMap((item) => {
-    const row = walk.items.get(item.code)?.row;
-    return row ? [{ ...item, row }] : [];
-  });
-  const reasons = await declineReasonsOf(
-    db,
-    companyId,
-    located.filter((item) => item.declined).map((item) => item.row.statusId),
-  );
-  const rows = located.flatMap((item) => {
-    const reason = item.declined ? (reasons.get(item.row.statusId) ?? null) : null;
-    return item.declined && !reason ? [] : [{ ...item, reason }];
-  });
-  const rostered = await rosteredOf(
-    db,
-    rows.map((item) => item.row.statusId),
-  );
-  return {
-    assessmentId: walk.assessmentId,
-    items: signLast(
-      rows.filter((item) => !rostered.has(item.row.statusId)),
-      order,
-    ),
-    order,
-  };
-};
-
-/**
- * Management signs off the waiting items it was shown whose documents are now all approved, as
- * the category bulk sign-off signs (snapshot and chain entry per row), then sets each one's
- * review date and credits linked frameworks as a single sign-off does. One row after another:
- * two rows can credit the same linked requirement, and that write checks its target outside a
- * transaction.
- *
- * Management signs every walk item, whatever role a single sign-off names: the walk ends in one
- * signature. § 38 Abs. 1 BSIG grounds that for the § 30 measures; for 1.1, 3.3 and 12.2 to 12.4
- * it is ours.
- *
- * An item the company decided not to do is signed as that decision: recorded not applicable,
- * with its written reason and management as the one who decided (`signDeclined`).
- */
-const signWaiting = async (
-  ctx: {
-    db: TRPCContext["db"];
-    companyId: string;
-    userId: string;
-    session: Parameters<typeof signerRoleOf>[0];
-  },
-  shown: readonly string[],
-  now: Date,
-) => {
-  if (shown.length === 0) return { signed: [], declined: [] };
-  const { assessmentId, items, order } = await waitingForManagement(
-    ctx.db,
-    ctx.companyId,
-  );
-  // Checked again on what this click signs: an item whose document stayed a draft stays open,
-  // and then the management review waits too.
-  const chosen = signLast(
-    items.filter((item) => item.drafts.length === 0 && shown.includes(item.code)),
-    order,
-  );
-  const signedOffRole = signerRoleOf(ctx.session);
-  // One transaction: decisions and signatures land together, so a failed signature never
-  // leaves decisions recorded that no progress count or trail entry followed.
-  const { decided, signed } = await ctx.db.transaction(async (tx) => ({
-    decided: await signDeclined(tx, {
-      companyId: ctx.companyId,
-      userId: ctx.userId,
-      statusIds: chosen.filter((item) => item.declined).map((item) => item.row.statusId),
-      now,
-    }),
-    signed: await signOffRows(tx, {
-      companyId: ctx.companyId,
-      userId: ctx.userId,
-      signedOffRole,
-      rows: chosen.filter((item) => !item.declined).map((item) => item.row),
-      source: "editor",
-      chainData: (row) => ({
-        code: row.code,
-        bulkOf: "walk",
-        walkApproval: APPROVAL_SCREEN?.code ?? null,
-      }),
-    }),
-  }));
-  const declined = chosen
-    .filter((item) => decided.includes(item.row.statusId))
-    .map((item) => item.row);
-  if (!assessmentId || signed.length + declined.length === 0) return { signed, declined };
-
-  await recalculateProgress(ctx.db, assessmentId);
-  for (const row of signed) {
-    await propagateSatisfaction(ctx.db, {
-      sourceRequirementId: row.requirementId,
-      companyId: ctx.companyId,
-      userId: ctx.userId,
-      signedOffRole,
-      snapshot: row.snapshot,
-    }).catch((err) => console.error("[durchgang] propagate:", err));
-    await scheduleDeadlineReminders(ctx.db, {
-      statusId: row.statusId,
-      anchorDate: now,
-      companyId: ctx.companyId,
-      userId: ctx.userId,
-    }).catch((err) => console.error("[durchgang] deadlines:", err));
-  }
-  return { signed, declined };
-};
+/** A walk-level procedure names its walk; an item-level one names an item, which names its walk. */
+const framework = z.object({ framework: z.enum(WALK_FRAMEWORKS) });
 
 export const durchgangRouter = router({
+  gdpr: durchgangGdprRouter,
   /** Where each item of the company's walk stands. Read on the server by every Durchgang page. */
-  walk: companyProcedure.query(({ ctx }) => walkStates(ctx.db, ctx.companyId)),
+  walk: companyProcedure
+    .input(framework)
+    .query(({ ctx, input }) => walkStates(ctx.db, ctx.companyId, WALKS[input.framework])),
 
   /**
    * When the company last took over the BSI method here, or null. A method row alone says nothing:
@@ -730,7 +312,7 @@ export const durchgangRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       gateStep(ctx.session, input.code);
-      if (itemOf(input.code).mustDo) {
+      if (walkItem(input.code).mustDo) {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: `${input.code} is a duty the law leaves no choice on.`,
@@ -1211,13 +793,7 @@ export const durchgangRouter = router({
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(recordAgreementsInput)
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
-      if (!screens.some((s) => s.kind === "agreements")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} records no agreements.`,
-        });
-      }
+      askedOnScreen(input.code, "agreements", "records no agreements");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const rows = [...new Map(input.rows.map((r) => [r.supplierId, r])).values()];
       const ids = rows.map((r) => r.supplierId);
@@ -1290,7 +866,7 @@ export const durchgangRouter = router({
         description: `${ref.code} supplier agreements checked`,
         newValue: { checked: rows.length, changed: changed.length },
       });
-      if (changed.length > 0) recheck(ctx, "supplier");
+      if (changed.length > 0) recheck(ctx, "supplier", input.code);
       return { changed: changed.length };
     }),
 
@@ -1304,13 +880,7 @@ export const durchgangRouter = router({
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(recordLoginsInput)
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
-      if (!screens.some((s) => s.kind === "logins")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} records no sign-ins.`,
-        });
-      }
+      askedOnScreen(input.code, "logins", "records no sign-ins");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       // A factor is only recorded where signing in takes one.
       const rows = [
@@ -1367,7 +937,7 @@ export const durchgangRouter = router({
         description: `${ref.code} sign-ins checked`,
         newValue: { checked: rows.length, changed: changed.length },
       });
-      if (changed.length > 0) recheck(ctx, "asset");
+      if (changed.length > 0) recheck(ctx, "asset", input.code);
       return { changed: changed.length };
     }),
 
@@ -1384,7 +954,7 @@ export const durchgangRouter = router({
     .mutation(async ({ ctx, input }) => {
       const words = resolveItem(
         NAMESPACES[await seedLocale(ctx.db, ctx.userId, ctx.companyId)],
-        itemOf(input.code),
+        walkItem(input.code),
       );
       const screen = words.ok
         ? words.value.screens.find((s) => s.kind === "backups")
@@ -1459,7 +1029,7 @@ export const durchgangRouter = router({
         description: `${ref.code} backups recorded`,
         newValue: { systems: rows.length, changed: changed.length },
       });
-      if (changed.length > 0) recheck(ctx, "asset");
+      if (changed.length > 0) recheck(ctx, "asset", input.code);
       return { changed: changed.length };
     }),
 
@@ -1481,13 +1051,7 @@ export const durchgangRouter = router({
   adoptCrypto: durchgangWrite
     .input(z.object({ code }))
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
-      if (!screens.some((s) => s.kind === "crypto")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} keeps no crypto list.`,
-        });
-      }
+      askedOnScreen(input.code, "crypto", "keeps no crypto list");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       const [row] = await ctx.db
@@ -1520,13 +1084,14 @@ export const durchgangRouter = router({
    * category each document belongs to. It is rendered as a document: no raw HTML, safe links,
    * nothing loaded from outside, and every link's address in view.
    */
-  walkPolicies: durchgangProcedure.query(async ({ ctx }) => {
-    const [rows, walk] = await Promise.all([
-      walkPolicyRows(ctx.db, ctx.companyId),
-      walkRows(ctx.db, ctx.companyId),
+  walkPolicies: durchgangProcedure.input(framework).query(async ({ ctx, input }) => {
+    const walk = WALKS[input.framework];
+    const [rows, states] = await Promise.all([
+      walkPolicyRows(ctx.db, ctx.companyId, walk),
+      walkRows(ctx.db, ctx.companyId, walk),
     ]);
     // A draft of an item decided against is not management's to approve (`waitingForManagement`).
-    const declined = (code: string) => walk.items.get(code)?.state.kind === "declined";
+    const declined = (code: string) => states.items.get(code)?.state.kind === "declined";
     return Promise.all(
       rows
         .filter((row) => row.status !== "draft" || !declined(row.code))
@@ -1542,19 +1107,17 @@ export const durchgangRouter = router({
    * its headline in the viewer's language, resolved as the walk resolves it.
    */
   awaitingSignature: durchgangProcedure
-    .input(z.object({ locale: z.enum(WALK_LOCALES) }))
+    .input(framework.extend({ locale: z.enum(WALK_LOCALES) }))
     .query(async ({ ctx, input }) => {
-      const { items } = await waitingForManagement(ctx.db, ctx.companyId);
-      return items.map(({ code, drafts, reason }) => {
-        const words = resolveItem(NAMESPACES[input.locale], itemOf(code));
-        return {
-          code,
-          drafts,
-          headline: words.ok ? words.value.headline : code,
-          /** The written reason when the company decided not to do it; null when filled in. */
-          declined: reason,
-        };
-      });
+      const walk = WALKS[input.framework];
+      const { items } = await waitingForManagement(ctx.db, ctx.companyId, walk);
+      return items.map(({ code, drafts, reason }) => ({
+        code,
+        drafts,
+        headline: headlineOf(code, recordLocaleOf(walk, input.locale)),
+        /** The written reason when the company decided not to do it; null when filled in. */
+        declined: reason,
+      }));
     }),
 
   /**
@@ -1562,8 +1125,11 @@ export const durchgangRouter = router({
    * approval before it signs; a step set aside comes with its headline in the viewer's language.
    */
   gaps: durchgangProcedure
-    .input(z.object({ locale: z.enum(WALK_LOCALES) }))
-    .query(async ({ ctx, input }) => shownGapsOf(ctx.db, ctx.companyId, input.locale)),
+    .input(framework.extend({ locale: z.enum(WALK_LOCALES) }))
+    .query(async ({ ctx, input }) =>
+      // The open-point rules read NIS 2 records (`gapsOf`); another walk lists none yet.
+      input.framework === "nis2" ? shownGapsOf(ctx.db, ctx.companyId, input.locale) : [],
+    ),
 
   /** Who takes care of each open point and by when, by step, for the approval and the export. */
   measures: durchgangProcedure.query(({ ctx }) => walkMeasuresOf(ctx.db, ctx.companyId)),
@@ -1619,8 +1185,7 @@ export const durchgangRouter = router({
           return true;
         }
         if (plan.assignedTo === null && plan.targetDate === null) return false;
-        const words = resolveItem(NAMESPACES[locale], itemOf(input.code));
-        const headline = words.ok ? words.value.headline : input.code;
+        const headline = headlineOf(input.code, locale);
         const t = createTranslator({
           locale,
           messages: NAMESPACES[locale],
@@ -1665,14 +1230,14 @@ export const durchgangRouter = router({
       z.object({
         code,
         types: z.array(z.enum(POLICY_TEMPLATES)).max(POLICY_TEMPLATES.length),
-        sign: z.array(code).max(WALK.length),
+        sign: z.array(code).max(ALL_ITEMS.length),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       // Management's approval signs off (AGB B7).
       await requireBillingAct(ctx, "sign_off");
-      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
-      if (!screens.some((s) => s.kind === "approve")) {
+      const walk = walkOfCode(input.code);
+      if (!walk || approvalOf(walk)?.code !== input.code) {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: `${input.code} approves no policies.`,
@@ -1686,7 +1251,7 @@ export const durchgangRouter = router({
       }
       const now = new Date();
       const approvedOn = recordDay(now);
-      const chosen = WALK_POLICIES.filter((p) => input.types.includes(p.policy));
+      const chosen = policiesOf(walk).filter((p) => input.types.includes(p.policy));
       if (chosen.length !== new Set(input.types).size) {
         throw new TRPCError({ code: "BAD_REQUEST", message: "Not a walk policy." });
       }
@@ -1733,7 +1298,7 @@ export const durchgangRouter = router({
         // (writePolicy) still rechecks.
       }
 
-      const { signed, declined } = await signWaiting(ctx, input.sign, now);
+      const { signed, declined } = await signWaiting(ctx, walk, input.sign, now);
       if (signed.length + declined.length > 0) {
         const codes = signed.map((r) => r.code);
         const decided = declined.map((r) => r.code);
@@ -1753,18 +1318,7 @@ export const durchgangRouter = router({
   /** The policy an item writes, as its screen shows it and the server stores it. */
   policyDraft: durchgangProcedure
     .input(z.object({ code }))
-    .query(async ({ ctx, input }) => {
-      const draft = await policyDraftOf(ctx, input.code);
-      return {
-        document: draft.document,
-        language: draft.language,
-        company: draft.company,
-        clauses: draft.clauses,
-        own: draft.own,
-        fallbacks: draft.fallbacks,
-        lists: draft.lists,
-      };
-    }),
+    .query(({ ctx, input }) => policyDraftOf(ctx, input.code)),
 
   /**
    * 4.2: which of the company's business processes must keep running without IT. The mark is
@@ -1776,13 +1330,7 @@ export const durchgangRouter = router({
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(recordCriticalInput)
     .mutation(async ({ ctx, input }) => {
-      const screens: readonly AnyScreen[] = itemOf(input.code).screens;
-      if (!screens.some((s) => s.kind === "critical")) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} marks no processes.`,
-        });
-      }
+      askedOnScreen(input.code, "critical", "marks no processes");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const type = policyTypeOf(input.code);
       const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
@@ -1853,7 +1401,7 @@ export const durchgangRouter = router({
         description: `${ref.code} processes that must keep running checked`,
         newValue: { checked: rows.length, changed: result.changed },
       });
-      if (result.changed > 0) recheck(ctx, "asset");
+      if (result.changed > 0) recheck(ctx, "asset", input.code);
       return { changed: result.changed };
     }),
 
@@ -1885,7 +1433,7 @@ export const durchgangRouter = router({
       const names = {
         ...policyNames(
           draft.company,
-          askedFields(itemOf(input.code)),
+          askedFields(walkItem(input.code)),
           intake?.answers ?? {},
         ),
         ...draft.lists,
@@ -1939,7 +1487,7 @@ export const durchgangRouter = router({
           .where(and(eq(policy.id, stored.id), eq(policy.companyId, ctx.companyId)));
         return true;
       });
-      if (changed) recheck(ctx, "policy");
+      if (changed) recheck(ctx, "policy", input.code);
       return { changed };
     }),
 });

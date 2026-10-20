@@ -4,6 +4,7 @@ export * from "./asset-supplier-offering";
 export * from "./control";
 export * from "./framework";
 export * from "./incident";
+export * from "./processing-activity";
 export * from "./requirement";
 export * from "./requirement-control";
 export * from "./requirement-satisfaction";

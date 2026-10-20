@@ -154,7 +154,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 ## GDPR
 
-6 categories, 9 requirements. Cites Regulation (EU) 2016/679, with the German BDSG where it modifies a duty.
+7 categories, 10 requirements. Cites Regulation (EU) 2016/679, with the German BDSG where it modifies a duty.
 
 ### DPA: gdpr-processor-agreements
 
@@ -194,6 +194,12 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
 |---|---|---|---|---|---|---|
 | `G-DPO.1` | document | P0 | on-change | Art. 37-39 | GDPR Art. 37-39, §38 BDSG | none |
+
+### ACT: gdpr-accountability
+
+| Code | Evidence | Priority | Frequency | Article | Legal ref | Linked to |
+|---|---|---|---|---|---|---|
+| `G-ACT.1` | document | P1 | on-change | Art. 24 | GDPR Art. 5(2), 24(1), (2) | none |
 
 ## ISO/IEC 27001:2022
 
@@ -768,7 +774,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | | Categories | Requirements |
 |---|---|---|
 | NIS2 | 12 | 49 |
-| GDPR | 6 | 9 |
+| GDPR | 7 | 10 |
 | ISO/IEC 27001:2022 | 5 | 116 |
 | EU AI Act | 10 | 24 |
 | EU Cyber Resilience Act | 10 | 21 |

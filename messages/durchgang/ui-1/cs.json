@@ -1,6 +1,5 @@
 {
   "durchgang": {
-    "title": "Průvodce NIS 2",
     "terms": {
       "authority": "NÚKIB"
     },
@@ -163,13 +162,10 @@
         "placeholder": "jmeno@firma.cz",
         "send": "Odeslat",
         "invited": "Pozvánka odeslána na {email}. Po přihlášení se otevře stránka s dokumenty.",
-        "notEmailed": "Pozvánka pro {email} byla vytvořena, ale e-mail se nepodařilo odeslat. Odkaz zkopírujte na stránce Tým.",
         "askAdmin": "Požádejte správce vaší společnosti, aby pozval někoho z vedení.",
         "itsMe": "Patřím do vedení",
         "pageTitle": "Schválení vedením",
         "pageHeading": "Schválit dokumenty",
-        "pageLead": "Tyto dokumenty vznikly v průvodci NIS 2 vaší společnosti. Každý si přečtěte a schvalte. Vaše schválení se zaznamená s vaším jménem a dnešním datem.",
-        "pageLeadOthers": "Tyto dokumenty vznikly v průvodci NIS 2 vaší společnosti. Vedení je zde schvaluje, přihlášené vlastním účtem.",
         "close": "Zavřít",
         "signTitle": "Spolu s dokumenty schvalujete i tyto body",
         "signLead": "Tyto body průvodce jsou vyplněné. Vaším schválením se v celé aplikaci počítají jako hotové, s vaším jménem a dnešním datem. U bodu, který se společnost rozhodla nezavádět, schvalujete toto rozhodnutí i s jeho odůvodněním. Bod, jehož dokument neschválíte, zůstává otevřený.",

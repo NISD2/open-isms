@@ -3,17 +3,14 @@ import {
   BACKUP_FREQUENCIES,
   type BackupFrequency,
   recordDay,
+  refKey,
   type WaitReason,
 } from "@/lib/durchgang";
+import { ACTIVITY_BY_ID } from "@/lib/processing-activities/catalog";
 import { trpc } from "@/lib/trpc/client";
-import {
-  changedAnswers,
-  type Draft,
-  fullRating,
-  initialDraft,
-  startOnToday,
-} from "./draft";
+import { changedAnswers, type Draft, fullRating, initialDraft, startWith } from "./draft";
 import { methodOf, mfaOf, useLoginRows } from "./LoginScreen";
+import { processorRowsOf, processorSave } from "./ProcessorScreen";
 import type { ItemView } from "./view";
 
 const isBackupFrequency = (value: string | null): value is BackupFrequency =>
@@ -28,17 +25,24 @@ const isBackupFrequency = (value: string | null): value is BackupFrequency =>
  * later overwriting the earlier, and "done" must not land before the last answers do.
  */
 export function useWalkItem(item: ItemView, waiting: boolean) {
-  const [stored] = useState(() => initialDraft(item.answers, item.fields));
-  const [draft, setDraft] = useState<Draft>(() =>
-    startOnToday(
-      stored,
-      item.screens.flatMap(({ screen }) =>
-        screen.kind === "fields" ? (screen.today ?? []) : [],
-      ),
-      item.fields,
-      recordDay(new Date()),
-    ),
-  );
+  const [stored] = useState(() => ({
+    ...initialDraft(item.answers, item.fields),
+    activities: item.suggestedActivities,
+  }));
+  const [draft, setDraft] = useState<Draft>(() => {
+    const today = recordDay(new Date());
+    const starts = item.screens.flatMap(({ screen }) => {
+      if (screen.kind !== "fields") return [];
+      const carried = screen.carry && item.elsewhere[refKey(screen.carry.from)];
+      return [
+        ...(screen.today ?? []).map((key) => [key, today] as const),
+        ...(screen.carry && carried
+          ? [[screen.carry.field, carried.value] as const]
+          : []),
+      ];
+    });
+    return startWith(stored, Object.fromEntries(starts), item.fields);
+  });
   const [adoptedAt, setAdoptedAt] = useState(item.adoptedAt);
   /** What the server holds, so an unchanged screen sends nothing and a date started on today is sent. */
   const saved = useRef(stored.values);
@@ -62,6 +66,12 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const recordCritical = trpc.durchgang.recordCritical.useMutation();
   const recordBackups = trpc.durchgang.recordBackups.useMutation();
   const adoptCrypto = trpc.durchgang.adoptCrypto.useMutation();
+  const addActivities = trpc.durchgang.gdpr.addActivities.useMutation();
+  const describeActivities = trpc.durchgang.gdpr.describeActivities.useMutation();
+  const recordProcessors = trpc.durchgang.gdpr.recordProcessors.useMutation();
+  const suppliers = trpc.durchgang.gdpr.processorRows.useQuery(undefined, {
+    enabled: item.screens.some((s) => s.screen.kind === "processors"),
+  });
   // Every sign-in shown starts with an answer, so 11.1 records them all, not only the touched ones.
   const loginRows = useLoginRows(item.screens.some((s) => s.screen.kind === "logins"));
   const finish = trpc.durchgang.finish.useMutation();
@@ -219,6 +229,55 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         if (rows.length > 0) {
           await recordBackups.mutateAsync({ code: item.code, rows });
           await utils.asset.list.invalidate();
+        }
+        return;
+      }
+      case "activities": {
+        // This slice's ticks, and the company's own activities, which any slice may add.
+        const catalogIds = snapshot.activities.filter((id) => {
+          const group = ACTIVITY_BY_ID.get(id)?.group;
+          return group !== undefined && screen.groups.includes(group);
+        });
+        if (catalogIds.length > 0 || snapshot.ownActivities.length > 0) {
+          await addActivities.mutateAsync({
+            code: item.code,
+            catalogIds,
+            custom: [...snapshot.ownActivities],
+          });
+          await utils.processingActivity.list.invalidate();
+        }
+        return;
+      }
+      case "describe": {
+        // An emptied text is stored as cleared, not as an empty answer.
+        const rows = Object.entries(snapshot.described).map(([id, facts]) => ({
+          id,
+          ...Object.fromEntries(
+            Object.entries(facts).map(([key, value]) => [
+              key,
+              typeof value === "string" && value.trim() === "" ? null : value,
+            ]),
+          ),
+        }));
+        if (rows.length > 0) {
+          await describeActivities.mutateAsync({ code: item.code, rows });
+          await utils.processingActivity.list.invalidate();
+        }
+        return;
+      }
+      case "processors": {
+        const input = processorSave(
+          item.code,
+          screen.fact,
+          processorRowsOf(screen.fact, suppliers.data ?? [], snapshot),
+          snapshot,
+        );
+        if (input) {
+          await recordProcessors.mutateAsync(input);
+          await Promise.all([
+            utils.durchgang.gdpr.processorRows.invalidate(),
+            utils.supplier.list.invalidate(),
+          ]);
         }
         return;
       }

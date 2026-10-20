@@ -1,6 +1,14 @@
+import type { z } from "zod";
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { Hosting, MfaMethod, RatedKind, Rating } from "@/lib/durchgang";
+import type {
+  Hosting,
+  MfaMethod,
+  ProcessorAnswer,
+  RatedKind,
+  Rating,
+} from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
+import type { activityFactsSchema } from "@/schema/processing-activity-validators";
 
 /**
  * An asset as the "which one exactly" screen edits it: its name, what it is for in the company's
@@ -66,7 +74,23 @@ export interface Draft {
   readonly critical: Readonly<Record<string, Critical>>;
   /** The backup systems' answers, by asset id, changed on this visit. */
   readonly backups: Readonly<Record<string, Backup>>;
+  /** Ticked processing-activity catalogue items, and the company's own activities by name. */
+  readonly activities: readonly string[];
+  readonly ownActivities: readonly string[];
+  /** The facts of each processing activity edited on this visit, by activity id. */
+  readonly described: Readonly<Record<string, Described>>;
+  /** Each supplier's answer on the processors screen, by supplier id, chosen on this visit. */
+  readonly processors: Readonly<Record<string, ProcessorAnswer>>;
 }
+
+/**
+ * A processing activity's facts as a describe screen edits them, the shape the save takes
+ * (`activityFactsSchema`), with the suppliers that receive its data: only what the person touched
+ * or the screen proposed is present.
+ */
+export type Described = z.infer<typeof activityFactsSchema> & {
+  readonly supplierIds?: readonly string[];
+};
 
 /** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
 export interface Agreed {
@@ -138,22 +162,28 @@ export const initialDraft = (
   methods: {},
   critical: {},
   backups: {},
+  activities: [],
+  ownActivities: [],
+  described: {},
+  processors: {},
 });
 
-/** The draft with each of `keys` set to `today` where no answer is stored yet. */
-export const startOnToday = (
+/**
+ * The draft with each field of `starts` set to its value where no answer is stored yet: today's
+ * date, or another item's answer carried over. Saved like an answer once the person moves on.
+ */
+export const startWith = (
   draft: Draft,
-  keys: readonly string[],
+  starts: Readonly<Record<string, string>>,
   fields: Fields,
-  today: string,
 ): Draft => ({
   ...draft,
   values: {
     ...draft.values,
     ...Object.fromEntries(
-      keys
-        .filter((key) => !isAnswered(fields[key], draft.values[key]))
-        .map((key) => [key, today]),
+      Object.entries(starts).filter(
+        ([key]) => !isAnswered(fields[key], draft.values[key]),
+      ),
     ),
   },
 });

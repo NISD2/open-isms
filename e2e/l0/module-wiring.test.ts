@@ -27,21 +27,23 @@
  * These loops derive their cases from the framework data, so a moduleRef added
  * to a requirement fails here until it is wired, rather than shipping silent.
  */
-import { describe, test, expect } from "bun:test";
-import {
-  nis2Categories,
-  getNis2RequirementsForCategory,
-} from "@nisd2/grc-data-model/frameworks";
-import { MODULE_HREF } from "@/lib/compliance/operational-links";
+import { describe, expect, test } from "bun:test";
+import { FRAMEWORK_DATA } from "@nisd2/grc-data-model/frameworks";
 import { COUNTABLE_MODULES } from "@/lib/compliance/module-tables";
+import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import commonDe from "@/messages/common/de.json";
 import commonEn from "@/messages/common/en.json";
 
-/** Every distinct moduleRef the NIS 2 framework actually assigns. */
+/**
+ * Every distinct moduleRef an active framework assigns: the frameworks the product shows. It read
+ * NIS 2 alone, so a GDPR requirement on an unwired register would have shipped silently.
+ */
 const moduleRefs = [
   ...new Set(
-    nis2Categories
-      .flatMap((cat) => getNis2RequirementsForCategory(cat.slug))
+    FRAMEWORK_DATA.filter((framework) => framework.isActive)
+      .flatMap((framework) =>
+        framework.categories.flatMap((cat) => framework.getRequirements(cat.slug)),
+      )
       .map((req) => req.moduleRef)
       .filter((ref): ref is string => !!ref),
   ),

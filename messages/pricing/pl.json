@@ -237,7 +237,12 @@
           "cryptography": "Polityka kryptograficzna",
           "personnel_access": "Polityka dotycząca personelu, dostępu i zasobów",
           "it_rules": "Zasady zakupu, utrzymania i obsługi podatności IT",
-          "business_continuity": "Plan ciągłości działania"
+          "business_continuity": "Plan ciągłości działania",
+          "gdpr_security_measures": "Opis środków technicznych i organizacyjnych (art. 32 RODO)",
+          "gdpr_breach_procedure": "Procedura w razie naruszenia ochrony danych osobowych (art. 33 RODO)",
+          "gdpr_breach_notice": "Wzór zawiadomienia osób, których dane dotyczą (art. 34 RODO)",
+          "gdpr_request_procedure": "Procedura obsługi żądań osób, których dane dotyczą (art. 12-22 RODO)",
+          "gdpr_data_protection_policy": "Polityka ochrony danych (art. 24 RODO)"
         },
         "records": {
           "training_management": "Potwierdzenia szkoleń zarządu",
@@ -251,7 +256,9 @@
           "backups": "Kopie zapasowe i ostatnie udane odtworzenie",
           "training_staff": "Szkolenia i instruktaże pracowników",
           "management_review": "Przegląd zarządczy",
-          "approvals": "Zatwierdzenie każdego dokumentu, z nazwiskiem i datą"
+          "approvals": "Zatwierdzenie każdego dokumentu, z nazwiskiem i datą",
+          "processing_activities": "Rejestr czynności przetwarzania (art. 30 RODO)",
+          "processors": "Którzy dostawcy przetwarzają dane w Państwa imieniu, z umową i przekazywaniem"
         }
       },
       "people": {

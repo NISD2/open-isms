@@ -14,7 +14,7 @@
  */
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { type AnyItem, walkOf } from "@/lib/durchgang";
+import { type AnyItem, itemsFor, NIS2_WALK } from "@/lib/durchgang";
 import { company } from "@/schema";
 import { E2E_USER_PASSWORD } from "../../e2e/lib/env";
 import { COMPANY, IT_LEAD, MANAGEMENT } from "./persona";
@@ -63,7 +63,7 @@ async function run(): Promise<void> {
 
   // The registers are kept up before management approves, as a register edit would send the
   // approved requirements back to waiting (./registers.ts).
-  const items = walkOf(facts);
+  const items = itemsFor(NIS2_WALK, facts);
   const approves = (item: AnyItem) => item.screens.some((s) => s.kind === "approve");
   console.log(`Walking it on ${BASE_URL} ...`);
   const session = await startWalk({

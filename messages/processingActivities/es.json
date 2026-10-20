@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Registro de actividades de tratamiento",
+    "description": "Lo que su empresa hace con datos personales, una línea por actividad, con la información que exige el art. 30, apartado 1, del GDPR.",
+    "helpText": "El registro recoge cada actividad de tratamiento de su empresa con la información del art. 30, apartado 1, del GDPR. Debe constar por escrito, también en formato electrónico (art. 30, apartado 3), y ponerse a disposición de la autoridad de control cuando lo solicite (art. 30, apartado 4). Actualícelo en cuanto se añada o desaparezca una actividad.",
+    "add": "Añadir actividad",
+    "edit": "Editar actividad",
+    "empty": "Su registro aún no contiene ninguna actividad. El recorrido del GDPR le propone las habituales.",
+    "deleteConfirm": "¿Seguro que desea eliminar esta actividad del registro?",
+    "actions": "Acciones",
+    "fields": {
+      "name": "Actividad",
+      "purpose": "Finalidad",
+      "dataSubjects": "Interesados",
+      "dataCategories": "Categorías de datos",
+      "specialCategories": "Categorías especiales (arts. 9 y 10)",
+      "recipients": "Destinatarios",
+      "transfersOutsideEea": "Transferencia fuera del EEE",
+      "transferDetails": "Tercer país y base",
+      "retention": "Plazo de supresión"
+    },
+    "fieldDescriptions": {
+      "name": "Un nombre breve para la actividad, por ejemplo nóminas o boletín de noticias.",
+      "purpose": "Para qué trata los datos, en una frase (art. 30, apartado 1, letra b)).",
+      "dataSubjects": "De quién son los datos, por grupos, por ejemplo empleados, clientes o candidatos (art. 30, apartado 1, letra c)).",
+      "dataCategories": "Qué datos, por grupos, por ejemplo datos de contacto, datos bancarios o datos del contrato (art. 30, apartado 1, letra c)).",
+      "specialCategories": "Si la actividad incluye categorías especiales de datos del art. 9, apartado 1, como datos relativos a la salud, o datos relativos a condenas e infracciones penales del art. 10.",
+      "recipients": "Quién recibe los datos, dentro y fuera de la empresa, incluidos proveedores de servicios y destinatarios en terceros países (art. 30, apartado 1, letra d)).",
+      "transfersOutsideEea": "Si los datos van a un país fuera del EEE o a una organización internacional (art. 30, apartado 1, letra e)).",
+      "transferDetails": "El tercer país y la base de la transferencia, por ejemplo una decisión de adecuación o cláusulas contractuales tipo (art. 30, apartado 1, letra e)).",
+      "retention": "Cuándo se suprimen los datos, si es posible con el plazo y su fundamento (art. 30, apartado 1, letra f))."
+    }
+  }
+}

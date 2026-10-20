@@ -44,7 +44,9 @@
     "inline": {
       "sent": "Einladung gesendet an {email}",
       "notEmailed": "Einladung für {email} erstellt. Diese Instanz versendet keine E-Mails. Schicken Sie den Link selbst.",
-      "linkCopied": "Link kopiert"
+      "linkCopied": "Link kopiert",
+      "send": "Einladung senden",
+      "copyLink": "Einladungslink kopieren"
     },
     "invalidTitle": "Ungültige Einladung",
     "invalidDescription": "Dieser Einladungslink ist ungültig oder wurde bereits verwendet.",

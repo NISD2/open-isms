@@ -5,10 +5,12 @@ import {
   reviewedWithinYear,
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
+import { describedAll } from "./ActivityScreens";
 import { answerOf, useAgreementRows } from "./AgreementScreen";
 import { approvalReady } from "./ApproveScreen";
 import { type Draft, isAnswered } from "./draft";
 import { useLoginRows } from "./LoginScreen";
+import { settled, useProcessorRows } from "./ProcessorScreen";
 import { rowSettled, useRatingRows } from "./RatingScreens";
 import type { ItemView } from "./view";
 
@@ -54,15 +56,23 @@ export function useScreenComplete(
   const reviews = trpc.managementReview.list.useQuery(undefined, {
     enabled: screen?.kind === "register" && screen.module === "management_review",
   });
-  const policies = trpc.durchgang.walkPolicies.useQuery(undefined, {
-    enabled: screen?.kind === "approve",
-  });
+  const policies = trpc.durchgang.walkPolicies.useQuery(
+    { framework: item.framework },
+    { enabled: screen?.kind === "approve" },
+  );
   const ratings = useRatingRows(screen?.kind === "rate" ? screen.targets : null);
   const agreements = useAgreementRows(screen?.kind === "agreements");
   const logins = useLoginRows(screen?.kind === "logins");
   const crypto = trpc.durchgang.cryptoList.useQuery(undefined, {
     enabled: screen?.kind === "crypto",
   });
+  const record = trpc.processingActivity.list.useQuery(undefined, {
+    enabled: screen?.kind === "describe",
+  });
+  const processors = useProcessorRows(
+    screen?.kind === "processors" ? screen.fact : null,
+    draft,
+  );
   switch (screen?.kind) {
     case "fields":
       return gate(
@@ -117,6 +127,14 @@ export function useScreenComplete(
       return logins === undefined ? "loading" : "complete";
     case "crypto":
       return draft.adopt ? "complete" : gate(crypto.data?.stored);
+    case "describe": {
+      const { facts } = screen;
+      return gate(record.data?.every((row) => describedAll(row, draft, facts)));
+    }
+    case "processors": {
+      const { fact } = screen;
+      return gate(processors?.every((row) => settled(fact, row, draft)));
+    }
     default:
       return "complete";
   }

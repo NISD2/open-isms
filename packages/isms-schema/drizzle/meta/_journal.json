@@ -260,6 +260,13 @@
       "when": 1792505775786,
       "tag": "0036_easy_mole_man",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1792513072598,
+      "tag": "0037_gdpr_supplier_answers",
+      "breakpoints": true
     }
   ]
 }

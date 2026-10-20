@@ -4,14 +4,14 @@ import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
-import { WALK } from "@/lib/durchgang";
+import { itemHref, WALKS } from "@/lib/durchgang";
 import { placesOf, type WalkRegister } from "@/lib/durchgang/places";
 import { headlinesOf } from "./load";
 
 /**
- * Above a register the walk writes into: the steps of the walk where it is filled, each a link to
- * that very screen (Simon, 03.10.2026). Only for a person who may walk it; anyone else would land on
- * the locked home.
+ * Above a register the walks write into: the steps of every walk where it is filled, each a link
+ * to that very screen (Simon, 03.10.2026). Only for a person who may walk; anyone else would land
+ * on the locked home.
  */
 export async function WalkPlaces({ register }: { register: WalkRegister }) {
   const session = await getSession();
@@ -21,7 +21,12 @@ export async function WalkPlaces({ register }: { register: WalkRegister }) {
     isPlatformAdmin(session.user.email),
   );
   if (!mayWalk) return null;
-  const places = placesOf(WALK, register);
+  const places = Object.values(WALKS).flatMap((walk) =>
+    placesOf(walk.items, register).map((place) => ({
+      ...place,
+      framework: walk.framework,
+    })),
+  );
   if (places.length === 0) return null;
 
   const [t, headlineOf] = await Promise.all([
@@ -38,17 +43,15 @@ export async function WalkPlaces({ register }: { register: WalkRegister }) {
         <Footprints className="size-4" />
         {t("label")}
       </span>
-      {places.map(({ code, at }) => (
+      {places.map(({ code, at, framework }) => (
         <Link
           key={code}
-          href={{
-            pathname: "/durchgang/nis2/[code]",
-            params: { code },
-            query: { s: String(at) },
-          }}
+          href={itemHref(framework, code, at)}
           className="inline-flex items-center gap-1.5 rounded-full border bg-background px-3 py-1 transition-colors hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
         >
-          <span className="text-muted-foreground tabular-nums">{code}</span>
+          <span className="whitespace-nowrap text-muted-foreground tabular-nums">
+            {code}
+          </span>
           {headlineOf.get(code) ?? code}
         </Link>
       ))}

@@ -1,22 +1,9 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
-import { DurchgangItem } from "@/components/durchgang/DurchgangItem";
-import { getSession } from "@/lib/auth";
-import { isFreeStep } from "@/lib/durchgang";
-import { requireWalk } from "../../gate";
-import { loadItem, loadWalk } from "../load";
+import { NIS2_WALK } from "@/lib/durchgang";
+import { WalkItem, walkMetadata } from "../../_walk/pages";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("durchgang");
-  return { title: t("title"), robots: { index: false, follow: false } };
-}
+export const generateMetadata = () => walkMetadata(NIS2_WALK);
 
-/**
- * One item of the Durchgang, one screen at a time. The screen index is `?s=`, written by the
- * client as the person moves, so a reload or the back button keeps the place.
- */
-export default async function DurchgangItemPage({
+export default async function Nis2WalkItem({
   params,
   searchParams,
 }: {
@@ -24,20 +11,5 @@ export default async function DurchgangItemPage({
   searchParams: Promise<{ s?: string }>;
 }) {
   const [{ code }, { s }] = await Promise.all([params, searchParams]);
-  const mayWalk = await requireWalk(code);
-  const [item, walk, session] = await Promise.all([
-    loadItem(code),
-    loadWalk(),
-    getSession(),
-  ]);
-  if (!item) notFound();
-  return (
-    <DurchgangItem
-      key={code}
-      item={item}
-      walk={mayWalk ? walk : walk.filter((w) => isFreeStep(w.code))}
-      setup={!session?.companyActivated}
-      initialScreen={Number(s ?? 0)}
-    />
-  );
+  return <WalkItem walk={NIS2_WALK} code={code} screen={s} />;
 }

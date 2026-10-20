@@ -2,6 +2,7 @@ import type {
   ItemState,
   RegisterModule,
   ResolvedScreen,
+  WalkFramework,
   WalkLocale,
 } from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
@@ -19,6 +20,13 @@ export type Registers = Readonly<{ [M in RegisterModule]: RegisterRows[M] }>;
 
 /** The company's members, for a field that names a person. */
 export type Team = RouterOutputs["team"]["listMembers"];
+
+/** Another item's answer as an item reads it: the value and the item it was given in. */
+export interface Elsewhere {
+  readonly code: string;
+  readonly headline: string;
+  readonly value: string;
+}
 
 /** Where a company registers, for the registration screen. */
 export type Registration = RouterOutputs["durchgang"]["portals"];
@@ -56,13 +64,30 @@ export type Gloss =
   | { readonly text: string }
   | { readonly term: string; readonly definition: string };
 
+/**
+ * A GDPR item's head start from the NIS 2 walk: the overlapping NIS 2 items where the company
+ * stands, and what the GDPR still asks beyond them. A hint, never a sign-off.
+ */
+export interface HeadStart {
+  readonly gap: string;
+  readonly items: ReadonlyArray<{
+    readonly code: string;
+    readonly title: string;
+    readonly state: ItemState;
+  }>;
+}
+
 /** Everything one item's screens need, resolved on the server. */
 export interface ItemView {
   readonly code: string;
+  /** The walk the item belongs to, which decides where its links lead. */
+  readonly framework: WalkFramework;
   readonly section: string;
   readonly title: string;
   readonly image: string | null;
   readonly missed: readonly string[];
+  /** Null for an item NIS 2 work gives no head start, and for every NIS 2 item. */
+  readonly fromNis2: HeadStart | null;
   readonly terms: readonly Term[];
   readonly citations: readonly Citation[];
   /** The requirement's own legal reference, as the duty card prints it. */
@@ -93,6 +118,11 @@ export interface ItemView {
   /** Loaded only for an item with a field that names a person. */
   readonly team: Team;
   /**
+   * The answers of other items this item's screens read (`answerRefsOf`), by `refKey`, each with
+   * the item it comes from: carried into an empty field, or kept apart from a person field.
+   */
+  readonly elsewhere: Readonly<Record<string, Elsewhere>>;
+  /**
    * The company's asset register as it stood when the item opened, for an item with asset
    * screens, else null: the catalogue items already on it, which the checklists show ticked, and
    * the entries that are no catalogue item. A returning company gets the same short checklists
@@ -104,6 +134,11 @@ export interface ItemView {
     /** The catalogue sectors of the company's profile, whose own entries the checklists add. */
     readonly sectors: readonly string[];
   } | null;
+  /**
+   * For an item with activity screens: the catalogue activities its asset list from the NIS 2 walk
+   * suggests and its record does not hold yet, which start ticked. Empty for every other item.
+   */
+  readonly suggestedActivities: readonly string[];
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
   readonly adoptedAt: Date | null;
   /** Loaded only for an item with a registration portals or reporting channels screen. */

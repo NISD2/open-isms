@@ -6,9 +6,9 @@ import type { WalkStep } from "@/components/durchgang/view";
 import {
   type AnyItem,
   itemKey,
+  itemOf,
   type ResolvedItem,
   resolveItem,
-  WALK,
   walkLocaleOf,
 } from "@/lib/durchgang";
 
@@ -69,7 +69,7 @@ export async function stepsOf(codes: readonly string[]): Promise<readonly WalkSt
   const walkLocale = walkLanguage(await getLocale());
   return Promise.all(
     codes.map((code) => {
-      const item = WALK.find((i) => i.code === code);
+      const item = itemOf(code);
       if (!item) throw new Error(`${code} is not a step of the walk`);
       return stepOf(item, walkLocale);
     }),

@@ -1,0 +1,1 @@
+ALTER TABLE "supplier" ADD COLUMN "transfer_checked_at" timestamp;

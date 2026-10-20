@@ -37,6 +37,7 @@ export const COMPANY_SCOPED_MODULE_TABLES = [
   "internal_audit",
   "improvement_item",
   "bsi_registration",
+  "processing_activity",
 ] as const;
 
 /**

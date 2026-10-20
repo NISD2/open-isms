@@ -339,6 +339,13 @@
         "legalBasis": "GDPR Art. 37-39, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Responsabilité",
+        "description": "Démontrer que le traitement est conforme au GDPR : les mesures de l'art. 24 et, lorsque cela est proportionné, des politiques en matière de protection des données",
+        "legalBasis": "GDPR Art. 5(2), 24",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -388,18 +395,6 @@
     "save": "Enregistrer",
     "saving": "Enregistrement...",
     "failedToSave": "Échec de l'enregistrement"
-  },
-  "evidence": {
-    "dropzone": "Glissez le fichier ici ou cliquez pour le sélectionner",
-    "formats": "PDF, DOCX, XLSX, images",
-    "description": "Description (facultatif)",
-    "descriptionPlaceholder": "Que prouve ce document ?",
-    "uploading": "Téléversement...",
-    "upload": "Téléverser une preuve",
-    "uploaded": "Preuve téléversée",
-    "fileSaved": "{name} a été enregistré.",
-    "loading": "Chargement des fichiers...",
-    "uploadFailed": "Échec du téléversement"
   },
   "signoff": {
     "title": "Approbation de la direction requise",

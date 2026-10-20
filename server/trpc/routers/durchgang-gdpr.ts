@@ -1,0 +1,454 @@
+import { TRPCError } from "@trpc/server";
+import { and, eq, inArray } from "drizzle-orm";
+import { z } from "zod";
+import { nameKey } from "@/lib/asset-inventory/catalog-labels";
+import { seedLocale } from "@/lib/compliance/seed-locale";
+import {
+  GDPR_WALK,
+  noteLine,
+  type ProcessorAnswer,
+  processorAnswerSchema,
+} from "@/lib/durchgang";
+import { ACTIVITY_CATALOG } from "@/lib/processing-activities/catalog";
+import { activityCopyOf } from "@/lib/processing-activities/copy";
+import { answeringCompanyId } from "@/lib/supplier-portal/platform-supplier";
+import {
+  company,
+  processingActivity,
+  processingActivitySupplier,
+  supplier,
+} from "@/schema";
+import { activityFactsSchema } from "@/schema/processing-activity-validators";
+import { appendNote, durchgangItem } from "../helpers/durchgang";
+import { itemCode as code } from "../helpers/durchgang-inputs";
+import { actorOf, logWalk, recheck } from "../helpers/durchgang-procedures";
+import {
+  askedOnScreen,
+  NAMESPACES,
+  recordLocaleOf,
+  walkItem,
+} from "../helpers/durchgang-words";
+import {
+  activatedCompanyProcedure,
+  companyProcedure,
+  router,
+  type TRPCContext,
+} from "../init";
+import { gateStep } from "./durchgang-access";
+
+/**
+ * The GDPR walk's own writes: the record of processing activities (G-ROP.1) and what each supplier
+ * is for the company's personal data (G-DPA.1, G-DPA.2). Like the NIS 2 walk's, each write checks
+ * that the account may walk the item (`gateStep`: G-ROP.1 is free, the rest needs the order),
+ * that the item's own screens ask it, takes what writing the item takes, touches only the
+ * company's own rows, and leaves a line in the item's trail.
+ */
+
+/** The language the company's records are written in, for the GDPR walk (German or English). */
+const recordLocale = async (ctx: {
+  db: TRPCContext["db"];
+  userId: string;
+  companyId: string;
+}) => recordLocaleOf(GDPR_WALK, await seedLocale(ctx.db, ctx.userId, ctx.companyId));
+
+/** The facts a describe screen may write, as the schema's keys (one pick decides them). */
+type ActivityFacts = z.infer<typeof activityFactsSchema>;
+const FACT_KEYS = Object.keys(activityFactsSchema.shape) as ReadonlyArray<
+  keyof ActivityFacts
+>;
+
+/** Whether a sent fact equals the stored one; a list of bases compares by its members in order. */
+const sameFact = (sent: unknown, stored: unknown): boolean =>
+  Array.isArray(sent) && Array.isArray(stored)
+    ? sent.length === stored.length && sent.every((v, i) => v === stored[i])
+    : sent === stored;
+
+const supplierId = z.string().uuid();
+const ROWS_MAX = 500;
+
+/** One answer per supplier, all of the one fact the screen asks. */
+const processorsInput = z.object({
+  code,
+  rows: z
+    .array(z.object({ supplierId, answer: processorAnswerSchema }))
+    .min(1)
+    .max(ROWS_MAX)
+    .refine(
+      (rows) => rows.every((r) => r.answer.fact === rows[0]?.answer.fact),
+      "One fact per screen.",
+    ),
+});
+
+/**
+ * The supplier columns an answer writes: only the customer's own GDPR columns, never a supplier's
+ * clause answers (`supplierOwnedClauseColumns`).
+ */
+const columnsOf = (answer: ProcessorAnswer, now: Date) => {
+  switch (answer.fact) {
+    case "role":
+      return {
+        processesPersonalData: answer.role !== "none",
+        relationshipType: answer.role === "none" ? null : answer.role,
+        processorCheckedAt: now,
+      };
+    case "contract":
+      return { dpaConcluded: answer.concluded };
+    case "transfer":
+      return {
+        internationalTransfer: answer.outside,
+        transferMechanism: answer.outside ? answer.mechanism : null,
+        transferCountries: answer.outside ? answer.countries || null : null,
+        transferCheckedAt: now,
+      };
+    case "subprocessing":
+      return { subprocessorAuthorisation: answer.authorisation };
+    default:
+      return answer satisfies never;
+  }
+};
+
+/**
+ * The activities whose suppliers a describe screen changed, each with its new list, after checking
+ * every supplier is the company's own. The activities were checked by the caller.
+ */
+const changedLinks = async (
+  ctx: { db: TRPCContext["db"]; companyId: string },
+  linking: ReadonlyArray<{ id: string; supplierIds: readonly string[] }>,
+) => {
+  if (linking.length === 0) return [];
+  const wanted = [...new Set(linking.flatMap((l) => l.supplierIds))];
+  if (wanted.length > 0) {
+    const owned = await ctx.db
+      .select({ id: supplier.id })
+      .from(supplier)
+      .where(
+        and(eq(supplier.customerCompanyId, ctx.companyId), inArray(supplier.id, wanted)),
+      );
+    if (owned.length !== wanted.length) throw new TRPCError({ code: "NOT_FOUND" });
+  }
+  const stored = await ctx.db
+    .select({
+      activityId: processingActivitySupplier.activityId,
+      supplierId: processingActivitySupplier.supplierId,
+    })
+    .from(processingActivitySupplier)
+    .innerJoin(
+      processingActivity,
+      eq(processingActivity.id, processingActivitySupplier.activityId),
+    )
+    .where(
+      and(
+        eq(processingActivity.companyId, ctx.companyId),
+        inArray(
+          processingActivitySupplier.activityId,
+          linking.map((l) => l.id),
+        ),
+      ),
+    );
+  return linking.filter(({ id, supplierIds }) => {
+    const before = new Set(
+      stored.filter((s) => s.activityId === id).map((s) => s.supplierId),
+    );
+    return before.size !== supplierIds.length || supplierIds.some((s) => !before.has(s));
+  });
+};
+
+/** The supplier columns a processors screen reads: who it is, and the customer's GDPR facts. */
+const PROCESSOR_COLUMNS = {
+  id: true,
+  name: true,
+  status: true,
+  source: true,
+  supplierCompanyId: true,
+  processesPersonalData: true,
+  relationshipType: true,
+  processorCheckedAt: true,
+  dpaConcluded: true,
+  internationalTransfer: true,
+  transferMechanism: true,
+  transferCountries: true,
+  transferCheckedAt: true,
+  subprocessorAuthorisation: true,
+} as const;
+
+/** What a supplier stated about personal data in its own questionnaire (`SupplierStatement`). */
+const STATEMENT_COLUMNS = {
+  dataProcessingAgreement: true,
+  dataProcessingLocations: true,
+  personalDataTransfers: true,
+  subprocessorEngagement: true,
+  subprocessorList: true,
+  breachNoticeToController: true,
+} as const;
+
+export const durchgangGdprRouter = router({
+  /**
+   * G-DPA.1 and G-DPA.2: the company's suppliers, each with what it stated about personal data in
+   * its own questionnaire, so a screen can start from the supplier's answer where the company has
+   * recorded nothing. Only the company's own rows; a supplier that stopped acting as one, or never
+   * answered, states nothing. G-ROP.1 reads them too, to tick an activity's suppliers, so the list
+   * is open wherever G-ROP.1 is.
+   */
+  processorRows: companyProcedure.query(async ({ ctx }) => {
+    gateStep(ctx.session, "G-ROP.1");
+    const rows = await ctx.db.query.supplier.findMany({
+      where: eq(supplier.customerCompanyId, ctx.companyId),
+      columns: PROCESSOR_COLUMNS,
+      orderBy: (s, { asc }) => [asc(s.name)],
+    });
+    const answering = [...new Set(rows.flatMap((row) => answeringCompanyId(row) ?? []))];
+    const statements =
+      answering.length === 0
+        ? []
+        : await ctx.db.query.company.findMany({
+            where: and(inArray(company.id, answering), eq(company.actsAsSupplier, true)),
+            columns: { id: true, ...STATEMENT_COLUMNS },
+          });
+    const byCompany = new Map(statements.map(({ id, ...stated }) => [id, stated]));
+    return rows.map((row) => {
+      const answeredBy = answeringCompanyId(row);
+      return { ...row, stated: (answeredBy && byCompany.get(answeredBy)) || null };
+    });
+  }),
+
+  /**
+   * G-ROP.1: the ticked catalogue activities and the company's own become rows of its record of
+   * processing activities, named in the record language. An activity already on the record, by
+   * catalogue item or by name, is skipped, so a second pass adds only what is new; nothing is
+   * deleted here, the register page takes an activity off.
+   */
+  addActivities: activatedCompanyProcedure
+    .input(
+      z.object({
+        code,
+        catalogIds: z.array(z.string().max(80)).max(ACTIVITY_CATALOG.length),
+        custom: z.array(z.string().trim().min(1).max(255)).max(50).default([]),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
+      askedOnScreen(input.code, "activities", "records no processing activities");
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const locale = await recordLocale(ctx);
+      const { copy } = activityCopyOf(NAMESPACES[locale]);
+      const wanted = [
+        ...input.catalogIds.flatMap((id) => {
+          const label = copy.get(id)?.label;
+          return label ? [{ name: label, catalogId: id }] : [];
+        }),
+        ...input.custom.map((name) => ({ name, catalogId: null })),
+      ];
+      const existing = await ctx.db
+        .select({
+          name: processingActivity.name,
+          catalogId: processingActivity.catalogId,
+        })
+        .from(processingActivity)
+        .where(eq(processingActivity.companyId, ctx.companyId));
+      const takenIds = new Set(
+        existing.flatMap((a) => (a.catalogId ? [a.catalogId] : [])),
+      );
+      const takenNames = new Set(existing.map((a) => nameKey(a.name)));
+      const keyOf = (a: (typeof wanted)[number]) => a.catalogId ?? nameKey(a.name);
+      // The first spelling of an activity wins, and one already on the record is left alone.
+      const fresh = wanted.filter(
+        (a, i) =>
+          !(a.catalogId !== null && takenIds.has(a.catalogId)) &&
+          !takenNames.has(nameKey(a.name)) &&
+          wanted.findIndex((b) => keyOf(b) === keyOf(a)) === i,
+      );
+      if (fresh.length === 0) return { added: 0 };
+      await ctx.db
+        .insert(processingActivity)
+        .values(fresh.map((a) => ({ ...a, companyId: ctx.companyId })))
+        .onConflictDoNothing();
+      await appendNote(
+        ctx.db,
+        ref.statusId,
+        noteLine(
+          new Date(),
+          `${NAMESPACES[locale].ui.activities.noted}: ${fresh.map((a) => a.name).join(", ")}.`,
+        ),
+      );
+      await logWalk({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.activities",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} processing activities added`,
+        newValue: { added: fresh.length },
+      });
+      recheck(ctx, "processing_activity");
+      return { added: fresh.length };
+    }),
+
+  /**
+   * G-ROP.1: what Art. 30(1) records of each activity, and the suppliers that receive its data.
+   * Only the company's own rows and suppliers, only what was sent, and only where it changed; an
+   * omitted fact or supplier list keeps what is stored.
+   */
+  describeActivities: activatedCompanyProcedure
+    .input(
+      z.object({
+        code,
+        rows: z
+          .array(
+            activityFactsSchema.extend({
+              id: z.string().uuid(),
+              supplierIds: z.array(supplierId).max(ROWS_MAX).optional(),
+            }),
+          )
+          .max(200),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
+      askedOnScreen(input.code, "describe", "records no activity facts");
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const rows = [...new Map(input.rows.map((r) => [r.id, r])).values()];
+      if (rows.length === 0) return { changed: 0 };
+      const linking = rows.flatMap((r) =>
+        r.supplierIds ? [{ id: r.id, supplierIds: [...new Set(r.supplierIds)] }] : [],
+      );
+      if (
+        linking.length > 0 &&
+        !walkItem(input.code).screens.some((s) => s.kind === "describe" && s.suppliers)
+      ) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} records no suppliers of an activity.`,
+        });
+      }
+      const owned = await ctx.db
+        .select()
+        .from(processingActivity)
+        .where(
+          and(
+            eq(processingActivity.companyId, ctx.companyId),
+            inArray(
+              processingActivity.id,
+              rows.map((r) => r.id),
+            ),
+          ),
+        );
+      if (owned.length !== rows.length) throw new TRPCError({ code: "NOT_FOUND" });
+      const before = new Map(owned.map((a) => [a.id, a]));
+      const changes = rows.flatMap((row) => {
+        const was = before.get(row.id);
+        const changed = Object.fromEntries(
+          FACT_KEYS.flatMap((key) =>
+            row[key] !== undefined && !sameFact(row[key], was?.[key])
+              ? [[key, row[key]]]
+              : [],
+          ),
+        );
+        return Object.keys(changed).length > 0 ? [{ id: row.id, changed }] : [];
+      });
+      const relinked = await changedLinks(ctx, linking);
+      for (const { id, changed } of changes) {
+        await ctx.db
+          .update(processingActivity)
+          .set({ ...changed, updatedAt: new Date() })
+          .where(
+            and(
+              eq(processingActivity.id, id),
+              eq(processingActivity.companyId, ctx.companyId),
+            ),
+          );
+      }
+      // Each activity's suppliers are replaced as one, so no reader sees half a list.
+      for (const { id, supplierIds } of relinked) {
+        await ctx.db.transaction(async (tx) => {
+          await tx
+            .delete(processingActivitySupplier)
+            .where(eq(processingActivitySupplier.activityId, id));
+          if (supplierIds.length > 0) {
+            await tx
+              .insert(processingActivitySupplier)
+              .values(supplierIds.map((s) => ({ activityId: id, supplierId: s })));
+          }
+        });
+      }
+      const changed = new Set([...changes, ...relinked].map((c) => c.id)).size;
+      await logWalk({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.described",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} processing activities described`,
+        newValue: { described: rows.length, changed },
+      });
+      if (changed > 0) recheck(ctx, "processing_activity", input.code);
+      return { changed };
+    }),
+
+  /**
+   * G-DPA.1 and G-DPA.2: one GDPR fact per supplier. Only the customer's own columns of the
+   * company's own rows are written, and only the GDPR items resting on the list are sent back to
+   * management.
+   */
+  recordProcessors: activatedCompanyProcedure
+    .input(processorsInput)
+    .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
+      const fact = input.rows[0]?.answer.fact;
+      if (
+        !fact ||
+        !walkItem(input.code).screens.some(
+          (s) => s.kind === "processors" && s.fact === fact,
+        )
+      ) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.code} does not ask ${fact}.`,
+        });
+      }
+      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const now = new Date();
+      // The last answer sent for a supplier wins.
+      const updates = [
+        ...new Map(
+          input.rows.map((r) => [
+            r.supplierId,
+            { id: r.supplierId, set: columnsOf(r.answer, now) },
+          ]),
+        ).values(),
+      ];
+      const ids = updates.map((u) => u.id);
+      const owned = await ctx.db
+        .select({ id: supplier.id, name: supplier.name })
+        .from(supplier)
+        .where(
+          and(eq(supplier.customerCompanyId, ctx.companyId), inArray(supplier.id, ids)),
+        );
+      if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
+      for (const { id, set } of updates) {
+        await ctx.db
+          .update(supplier)
+          .set({ ...set, updatedAt: now })
+          .where(and(eq(supplier.id, id), eq(supplier.customerCompanyId, ctx.companyId)));
+      }
+      const locale = await recordLocale(ctx);
+      await appendNote(
+        ctx.db,
+        ref.statusId,
+        noteLine(
+          now,
+          `${NAMESPACES[locale].ui.processors.noted[fact]}: ${owned.map((s) => s.name).join(", ")}.`,
+        ),
+      );
+      await logWalk({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "durchgang.processors",
+        entityType: "requirement",
+        entityId: ref.requirementId,
+        description: `${ref.code} supplier ${fact} recorded`,
+        newValue: { fact, suppliers: updates.length },
+      });
+      recheck(ctx, "supplier", input.code);
+      return { changed: updates.length };
+    }),
+});

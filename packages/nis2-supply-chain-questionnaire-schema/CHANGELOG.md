@@ -5,6 +5,7 @@ All notable changes to this repository are documented here. Format follows [Keep
 ## [Unreleased]
 
 ### Added
+- Three GDPR questions for a supplier that processes personal data on its customers' behalf (`dataProcessingAgreement` is `available` or `no`): `personalDataTransfers` (in the EEA, or outside on an adequacy decision, the Commission's standard contractual clauses, binding corporate rules or another basis; GDPR Art. 44 to 47), `subprocessorEngagement` (general authorisation with notice and the right to object, specific authorisation, none; Art. 28(2)), `breachNoticeToController` (Art. 33(2)). A customer's records of its processors read them.
 - Czech for every field: label, description, answer options, and the legal-basis line. A test fails if a field lacks any of them.
 - `legalBasisLocalised` (optional): the `legalBasis` citations in another language's citation style, the same instruments and points ("prováděcí nařízení (EU) 2024/2690, příloha, bod 5.1.4 písm. d)"). Czech only for now. `legalBasisFor(field, locale)` returns it, or `legalBasis` where the language is missing.
 

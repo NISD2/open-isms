@@ -11,8 +11,9 @@
 import { and, eq, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
+import { WALK_FRAMEWORKS, type WalkFramework } from "@/lib/durchgang/types";
 import { companyRequirementStatus, requirement } from "@/schema";
-import { getNis2AssessmentIds } from "@/server/trpc/helpers/nis2-scope";
+import { assessmentIdsOf } from "@/server/trpc/helpers/framework-assessment";
 import { COMPANY_SCOPED_MODULE_TABLES, type CUSTOM_COUNT_MODULES } from "./module-tables";
 
 type CountFn = (db: DbOrTx, companyId: string) => Promise<number>;
@@ -69,6 +70,7 @@ interface RevertContext {
   reason: "module_data_changed" | "module_data_deleted";
   /** When the data changed: only a signature older than that was given on the old data. */
   changedAt: Date;
+  frameworks: readonly WalkFramework[];
 }
 
 /**
@@ -84,18 +86,21 @@ const signedBefore = (changedAt: Date) =>
   );
 
 /**
- * The company's signed-off NIS 2 requirements that reference this module: the ones a change to its
- * data reverts. An AI assistant reads them before adding a row (lib/mcp), so it never reverts one.
+ * The company's signed-off requirements that reference this module, in the frameworks it walks:
+ * the ones a change to its data reverts. A register two frameworks read reverts both; a write of
+ * facts only one framework reads names that one (the walk's GDPR processor marks do not touch
+ * NIS 2). An AI assistant reads them before adding a row (lib/mcp), so it never reverts one.
  */
 export async function signedOffByModule(
   db: DbOrTx,
   companyId: string,
   moduleRef: string,
+  frameworks: readonly WalkFramework[] = WALK_FRAMEWORKS,
 ) {
-  // NIS 2 only. Unscoped, an operational-module edit reverted hidden GDPR /
-  // AI Act / CRA sign-offs too and wrote their codes into the audit-log entry
-  // the user reads on /audit ("reverted 7 requirement(s): NIS2-2.1, DSGVO-30, ...").
-  const assessmentIds = await getNis2AssessmentIds(db, companyId);
+  // Only frameworks with a walk. Unscoped, an operational-module edit reverted hidden AI Act and
+  // CRA sign-offs of tenants from before 25.08.2026 and wrote their codes into the audit-log entry
+  // the user reads on /audit.
+  const assessmentIds = await assessmentIdsOf(db, companyId, frameworks);
   if (assessmentIds.length === 0) return [];
 
   return db
@@ -120,7 +125,7 @@ async function revertSignOffs(
   moduleRef: string,
   ctx: RevertContext,
 ): Promise<void> {
-  const toRevert = await signedOffByModule(db, ctx.companyId, moduleRef);
+  const toRevert = await signedOffByModule(db, ctx.companyId, moduleRef, ctx.frameworks);
   if (toRevert.length === 0) return;
 
   // Read and revert in one statement's conditions: a row signed again between the two keeps the
@@ -178,12 +183,14 @@ async function revertSignOffs(
 /**
  * Revert completed/approved requirements that reference this module.
  * Called on create/update — new or changed data invalidates the existing sign-off.
+ * `frameworks` narrows it to the frameworks whose facts the write changed (`signedOffByModule`).
  */
 export async function invalidateModuleSignOffs(
   db: DbOrTx,
   companyId: string,
   moduleRef: string,
   userId?: string | null,
+  frameworks: readonly WalkFramework[] = WALK_FRAMEWORKS,
 ): Promise<void> {
   // Read before anything waits: callers fire this right after their write has landed.
   const changedAt = new Date();
@@ -193,6 +200,7 @@ export async function invalidateModuleSignOffs(
     userId: userId ?? null,
     reason: "module_data_changed",
     changedAt,
+    frameworks,
   });
 }
 
@@ -220,5 +228,6 @@ export async function recheckModuleRequirements(
     userId: userId ?? null,
     reason: "module_data_deleted",
     changedAt,
+    frameworks: WALK_FRAMEWORKS,
   });
 }

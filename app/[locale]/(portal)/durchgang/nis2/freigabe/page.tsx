@@ -1,31 +1,8 @@
-import type { Metadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
-import { ApprovalPage } from "@/components/durchgang/ApprovalPage";
-import { getSession } from "@/lib/auth";
-import { MANAGEMENT_ROLE, walkLocaleOf } from "@/lib/durchgang";
-import { requireWalk } from "../../gate";
+import { NIS2_WALK } from "@/lib/durchgang";
+import { approvalMetadata, WalkApproval } from "../../_walk/pages";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("durchgang.ui.approve");
-  return { title: t("pageTitle"), robots: { index: false, follow: false } };
-}
+export const generateMetadata = approvalMetadata;
 
-/**
- * Where management approves the documents the walk wrote, the page its invite and its link lead
- * to. It needs no category of the walk: approving is management's act, which the server checks
- * by role. The layout checks sign-in, `requireWalk` the plan and that the company is set up.
- */
-export default async function ApprovalRoute() {
-  await requireWalk();
-  const [session, locale] = await Promise.all([getSession(), getLocale()]);
-  return (
-    <ApprovalPage
-      locale={walkLocaleOf(locale)}
-      viewer={{
-        id: session?.user.id ?? "",
-        management: session?.jobTitle === MANAGEMENT_ROLE,
-        admin: session?.role === "admin",
-      }}
-    />
-  );
+export default function Nis2WalkApproval() {
+  return <WalkApproval walk={NIS2_WALK} />;
 }

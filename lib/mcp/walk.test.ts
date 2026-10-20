@@ -4,7 +4,6 @@
  * an assistant's dates arrive as text and still reach the schema as dates.
  */
 import { describe, expect, test } from "bun:test";
-import { WALK } from "@/lib/durchgang";
 import { trainingCreateSchema } from "@/schema/validators";
 import { isFillableKind } from "./screens";
 import {
@@ -16,12 +15,15 @@ import {
   fieldsSchemaOf,
   filledBy,
   jsonSchemaOf,
+  MCP_WALK,
   markSupplierText,
   registerOfItem,
   rowsProblem,
   screensFilledBy,
   textDates,
 } from "./walk";
+
+const { items: WALK } = MCP_WALK;
 
 type JsonSchema = {
   readonly properties?: Record<string, unknown>;

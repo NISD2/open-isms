@@ -61,7 +61,7 @@
         "confirm": "Put on the waiting list"
       },
       "places": {
-        "label": "In the NIS 2 walkthrough"
+        "label": "In the walkthrough"
       },
       "home": {
         "unlock": "Try it, 30 days money back",
@@ -82,7 +82,6 @@
         "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",
         "waiting": "Still waiting",
-        "continue": "Continue your NIS 2 implementation",
         "allFilled": "Every item is filled in.",
         "allFilledNote": "When something in your company changes, open the item and change it there. A changed document goes to management for approval again.",
         "yourWay": "Your path",
@@ -92,6 +91,7 @@
         "notApplicable": "Does not apply",
         "preview": "What “{step}” looks like",
         "previewAlt": "The step “{step}” shown with a made-up company",
+        "lockedStep": "“{step}” comes with the order",
         "continueHere": "Continue now",
         "forward": {
           "action": "Forward to management",
@@ -112,30 +112,6 @@
           }
         }
       },
-      "intro": {
-        "eyebrow": "NIS 2 walkthrough",
-        "title": "Do NIS 2 step by step.",
-        "lead": "We lead you through it.",
-        "points": [
-          {
-            "title": "One thing at a time.",
-            "text": "You see one item, explained before you enter anything."
-          },
-          {
-            "title": "You adopt the standard methods.",
-            "text": "Where a proven method exists, we show it. You decide."
-          },
-          {
-            "title": "Blocked? Leave it open.",
-            "text": "Set the item aside and carry on with the next."
-          },
-          {
-            "title": "Management signs at the end.",
-            "text": "They review everything in one place."
-          }
-        ],
-        "start": "Let's start"
-      },
       "offer": {
         "title": "Try the rest for 30 days.",
         "lead": "That was the example, with your own company's details. If the rest is not right for you, you get your money back within 30 days, as long as you have not exported or signed off anything yet.",
@@ -144,8 +120,7 @@
           "text": "One at a time, as before."
         },
         "documents": {
-          "title": "{count, plural, one {# document from your answers.} other {# documents from your answers.}}",
-          "text": "Your security policy, your incident plan and the others, written from what you enter."
+          "title": "{count, plural, one {# document from your answers.} other {# documents from your answers.}}"
         },
         "kept": {
           "title": "What you entered stays.",

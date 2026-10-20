@@ -1,25 +1,32 @@
 "use client";
 
-import { Check, ChevronDown, Copy, Send, UserCheck } from "lucide-react";
+import { Check, ChevronDown, Copy, UserCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useBillingAct } from "@/components/billing/BillingActGate";
+import { InlineInvite } from "@/components/team/InlineInvite";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getPathname, Link, useRouter } from "@/i18n/navigation";
 import {
-  APPROVAL_SCREEN,
+  alsoCountsFor,
+  approvalOf,
   enteredDay,
   gapLines,
+  itemHref,
   MANAGEMENT_ROLE,
   type PolicyTemplate,
+  WALK_ROUTES,
+  WALKS,
+  type WalkFramework,
   type WalkLocale,
   withPlanSlot,
 } from "@/lib/durchgang";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
+import { ApprovalScope } from "./ApprovalScope";
 import { Heading, Lead } from "./ExplainScreens";
+import { CountsFor } from "./FrameworkBadge";
 import { OpenPointPlan } from "./OpenPointPlan";
 import { Toggle } from "./RowParts";
 import type { ItemView } from "./view";
@@ -29,36 +36,45 @@ type Viewer = ItemView["viewer"];
 /** An item waiting for management's signature, as the approval screen lists it. */
 type Waiting = RouterOutputs["durchgang"]["awaitingSignature"][number];
 
-/** Where management approves, for the link and the invite. */
-export const APPROVAL_PATH = "/durchgang/nis2/freigabe";
-
 /** Whether the approval screen holds what it needs: nothing is left waiting for management. */
 export const approvalReady = (
   rows: ReadonlyArray<{ readonly status: string }> | undefined,
 ): boolean => rows?.every((row) => row.status !== "draft") ?? false;
 
-/** 7.3: every document the walk wrote, and who approves them. */
+/** 7.3 and every walk's approval step: every document the walk wrote, and who approves them. */
 export function Approve({ item, entry }: { item: ItemView; entry: Of<"approve"> }) {
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
       <Lead>{entry.copy.lead}</Lead>
-      <Approval viewer={item.viewer} locale={item.locale} />
+      <Approval framework={item.framework} viewer={item.viewer} locale={item.locale} />
     </>
   );
 }
 
 /**
- * The documents the walk wrote, each readable in place, and the approval. Management approves
+ * The documents a walk wrote, each readable in place, and the approval. Management approves
  * here, signed in with its own account, which records who approved and when; anyone else sends
  * management the page. The same list is the whole of the page management is invited to.
  */
-export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocale }) {
+export function Approval({
+  framework,
+  viewer,
+  locale,
+}: {
+  framework: WalkFramework;
+  viewer: Viewer;
+  locale: WalkLocale;
+}) {
   const t = useTranslations("durchgang.ui.approve");
   const utils = trpc.useUtils();
-  const { data: rows } = trpc.durchgang.walkPolicies.useQuery();
-  const { data: items } = trpc.durchgang.awaitingSignature.useQuery({ locale });
-  const { data: gaps } = trpc.durchgang.gaps.useQuery({ locale });
+  const { data: rows } = trpc.durchgang.walkPolicies.useQuery({ framework });
+  const { data: items } = trpc.durchgang.awaitingSignature.useQuery({
+    framework,
+    locale,
+  });
+  const { data: gaps } = trpc.durchgang.gaps.useQuery({ framework, locale });
+  const approval = approvalOf(WALKS[framework]);
   /** The drafts left out of this approval; every other draft is approved. */
   const [left, setLeft] = useState<readonly PolicyTemplate[]>([]);
   const approve = trpc.durchgang.approvePolicies.useMutation({
@@ -96,12 +112,19 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
 
   return (
     <>
+      <ApprovalScope
+        framework={framework}
+        codes={[...rows.map((row) => row.code), ...items.map((item) => item.code)]}
+      />
       {rows.length > 0 && (
-        <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
+        <ul className="mt-6 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
           {rows.map((row) => (
             <li key={`${row.code}:${row.type}`} className="px-5 py-4">
               <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-6">
-                <p className="font-medium break-words">{row.title}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="font-medium break-words">{row.title}</p>
+                  <CountsFor framework={framework} also={alsoCountsFor(row.code)} />
+                </div>
                 {row.status !== "draft" ? (
                   <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <Check className="size-4 text-primary" />
@@ -137,10 +160,15 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
         </ul>
       )}
       {items.length > 0 && (
-        <SignedWith items={items} staysOpen={staysOpen} management={viewer.management} />
+        <SignedWith
+          framework={framework}
+          items={items}
+          staysOpen={staysOpen}
+          management={viewer.management}
+        />
       )}
       {gaps !== undefined && gaps.length > 0 && (
-        <OpenPoints gaps={gaps} canChange={viewer.admin} />
+        <OpenPoints framework={framework} gaps={gaps} canChange={viewer.admin} />
       )}
       {(drafts.length > 0 || items.length > 0) &&
         (viewer.management ? (
@@ -154,9 +182,9 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
               }
               onClick={() =>
                 act.guard(() => {
-                  if (!APPROVAL_SCREEN) return;
+                  if (!approval) return;
                   approve.mutate({
-                    code: APPROVAL_SCREEN.code,
+                    code: approval.code,
                     types: chosen.map((row) => row.type),
                     sign: signing.map((item) => item.code),
                   });
@@ -170,7 +198,7 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
             </Button>
           </section>
         ) : (
-          <SendToManagement viewer={viewer} locale={locale} />
+          <SendToManagement framework={framework} viewer={viewer} locale={locale} />
         ))}
       {act.dialog}
     </>
@@ -182,10 +210,12 @@ export function Approval({ viewer, locale }: { viewer: Viewer; locale: WalkLocal
  * besides the documents. An item whose document is left out stays open and says why.
  */
 function SignedWith({
+  framework,
   items,
   staysOpen,
   management,
 }: {
+  framework: WalkFramework;
   items: readonly Waiting[];
   staysOpen: (item: Waiting) => boolean;
   management: boolean;
@@ -200,11 +230,12 @@ function SignedWith({
       <ul className="mt-4 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
         {items.map((item) => (
           <li key={item.code} className="flex items-baseline gap-3 px-5 py-3">
-            <span className="w-10 shrink-0 text-sm tabular-nums text-muted-foreground">
+            <span className="min-w-10 shrink-0 whitespace-nowrap text-sm tabular-nums text-muted-foreground">
               {item.code}
             </span>
             <span className="min-w-0 flex-1">
-              <span className="font-medium break-words">{item.headline}</span>
+              <span className="font-medium break-words">{item.headline}</span>{" "}
+              <CountsFor framework={framework} also={alsoCountsFor(item.code)} />
               {item.declined !== null && (
                 <span className="block text-sm text-muted-foreground">
                   {t("declined", { reason: item.declined })}
@@ -232,9 +263,11 @@ type OpenGap = RouterOutputs["durchgang"]["gaps"][number];
  * "look here", never "failed" (ui-design principle 10), and no count heads it (principle 7).
  */
 function OpenPoints({
+  framework,
   gaps,
   canChange,
 }: {
+  framework: WalkFramework;
   gaps: readonly OpenGap[];
   /**
    * Whether the viewer may open every step: an admin. A member sees only their role's categories,
@@ -258,10 +291,7 @@ function OpenPoints({
               <span className="min-w-0 flex-1">{line.text}</span>
               {canChange && (
                 <Link
-                  href={{
-                    pathname: "/durchgang/nis2/[code]",
-                    params: { code: line.code },
-                  }}
+                  href={itemHref(framework, line.code)}
                   className="shrink-0 font-medium text-primary underline-offset-4 hover:underline"
                 >
                   {t("change")}
@@ -283,24 +313,23 @@ function OpenPoints({
  * them, an invite for someone not in the team yet, and for an admin who is management
  * themselves, one click to say so.
  */
-function SendToManagement({ viewer, locale }: { viewer: Viewer; locale: WalkLocale }) {
+function SendToManagement({
+  framework,
+  viewer,
+  locale,
+}: {
+  framework: WalkFramework;
+  viewer: Viewer;
+  locale: WalkLocale;
+}) {
   const t = useTranslations("durchgang.ui.approve");
   const router = useRouter();
-  const [email, setEmail] = useState("");
   const [copied, setCopied] = useState(false);
   const members = trpc.team.listMembers.useQuery();
   const managers = (members.data ?? []).filter(
     (m) => m.jobTitle === MANAGEMENT_ROLE && m.id !== viewer.id,
   );
-  const path = getPathname({ href: APPROVAL_PATH, locale });
-  const invite = trpc.team.invite.useMutation({
-    onSuccess: (data, input) => {
-      setEmail("");
-      if (data.emailed) toast.success(t("invited", { email: input.email }));
-      else toast.warning(t("notEmailed", { email: input.email }));
-    },
-    onError: (err) => toast.error(userFacingError(err, t("failed"))),
-  });
+  const path = getPathname({ href: WALK_ROUTES[framework].approval, locale });
   const claim = trpc.team.assignRole.useMutation({
     onSuccess: () => router.refresh(),
     onError: (err) => toast.error(userFacingError(err, t("failed"))),
@@ -333,37 +362,14 @@ function SendToManagement({ viewer, locale }: { viewer: Viewer; locale: WalkLoca
         </div>
       )}
       {viewer.admin && (
-        <form
-          className="space-y-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (email.trim()) {
-              invite.mutate({
-                email: email.trim(),
-                complianceRole: MANAGEMENT_ROLE,
-                redirectPath: path,
-              });
-            }
-          }}
-        >
-          <label htmlFor="dg-management-email" className="text-sm font-medium">
-            {t("inviteLabel")}
-          </label>
-          <div className="flex max-w-md gap-2">
-            <Input
-              id="dg-management-email"
-              type="email"
-              required
-              placeholder={t("placeholder")}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button type="submit" disabled={invite.isPending}>
-              <Send />
-              {t("send")}
-            </Button>
-          </div>
-        </form>
+        <InlineInvite
+          label={t("inviteLabel")}
+          sendLabel={t("send")}
+          sentText={(email) => t("invited", { email })}
+          placeholder={t("placeholder")}
+          redirectPath={path}
+          complianceRole={MANAGEMENT_ROLE}
+        />
       )}
       {!viewer.admin && managers.length === 0 && (
         <p className="text-sm text-muted-foreground">{t("askAdmin")}</p>

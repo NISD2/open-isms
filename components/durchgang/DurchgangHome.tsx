@@ -19,17 +19,19 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { Link } from "@/i18n/navigation";
 import type { WalkLock } from "@/lib/billing/access";
 import {
-  APPROVAL_SCREEN,
+  approvalOf,
   isFreeStep,
+  policiesOf,
   resumeAt,
   SETUP_STEP,
-  WALK_POLICIES,
+  WALKS,
+  type WalkFramework,
 } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
 import { Art, HOME_ART } from "./Art";
 import { itemShot } from "./itemShots";
 import { PromiseRow } from "./PromiseRow";
-import { hrefOf, useSteps } from "./setup";
+import { hrefOf as stepHref, useSteps } from "./setup";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
 import { WalkOffer } from "./WalkOffer";
@@ -69,6 +71,7 @@ const stepId = (code: string) => `dg-step-${code}`;
  * (`ForwardToManagement`), passed in by the server page only for someone who may send it.
  */
 export function DurchgangHome({
+  framework,
   walk,
   lock,
   price,
@@ -76,6 +79,7 @@ export function DurchgangHome({
   call,
   forward,
 }: {
+  framework: WalkFramework;
   walk: readonly WalkEntry[];
   lock: WalkLock | null;
   price: string | null;
@@ -86,11 +90,13 @@ export function DurchgangHome({
   const t = useTranslations("durchgang");
   const locale = useLocale();
   const locked = lock !== null;
-  const points = t.raw("ui.intro.points") as ReadonlyArray<{
+  const intro = `walks.${framework}.intro` as const;
+  const points = t.raw(`${intro}.points`) as ReadonlyArray<{
     title: string;
     text: string;
   }>;
-  const steps = useSteps(walk, setup);
+  const steps = useSteps(framework, walk, setup);
+  const hrefOf = (code: string) => stepHref(framework, code);
   // Setting the company up is not walking: a company set up but not walked yet still starts.
   const untouched = steps.every((w) => w.code === SETUP_STEP || w.state.kind === "open");
   // Without an order the walk ends at the last free step: "next" is the next one of those, and
@@ -108,7 +114,7 @@ export function DurchgangHome({
 
   /** A small sign-off tick leads to the step where management signs, and lights it briefly. */
   const showSignOff = () => {
-    const code = APPROVAL_SCREEN?.code;
+    const code = approvalOf(WALKS[framework])?.code;
     if (!code) return;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document
@@ -149,11 +155,12 @@ export function DurchgangHome({
         {lock && !next ? (
           // The free part is filled in, set-aside steps included: the offer takes this side.
           <WalkOffer
+            framework={framework}
             lock={lock}
             orderHref={orderHref}
             remaining={steps.filter((w) => !isFreeStep(w.code)).length}
             documents={
-              WALK_POLICIES.filter(
+              policiesOf(WALKS[framework]).filter(
                 (p) => !isFreeStep(p.code) && steps.some((w) => w.code === p.code),
               ).length
             }
@@ -168,13 +175,13 @@ export function DurchgangHome({
             <div className="flex items-end gap-6">
               <div className="min-w-0 flex-1">
                 <p className="inline-flex rounded-full bg-primary/[0.08] px-3 py-1 text-sm font-medium text-primary">
-                  {t("ui.intro.eyebrow")}
+                  {t(`${intro}.eyebrow`)}
                 </p>
                 <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-                  {t("ui.intro.title")}
+                  {t(`${intro}.title`)}
                 </h1>
                 <p className="mt-5 max-w-[52ch] text-lg leading-8 text-muted-foreground">
-                  {t("ui.intro.lead")}
+                  {t(`${intro}.lead`)}
                 </p>
               </div>
               <Art src={HOME_ART} className="hidden h-36 shrink-0 sm:block" />
@@ -198,7 +205,7 @@ export function DurchgangHome({
                 className="mt-8 h-12 self-start rounded-xl px-7 text-base"
               >
                 <Link href={hrefOf(next.code)}>
-                  {untouched ? t("ui.intro.start") : t("ui.home.continue")}
+                  {untouched ? t(`${intro}.start`) : t(`walks.${framework}.continue`)}
                   <ArrowRight />
                 </Link>
               </Button>
@@ -320,12 +327,14 @@ export function DurchgangHome({
                       </>
                     )}
                   </span>
-                  <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
-                    <Art
-                      src={entry.image}
-                      className={cn("h-full", settled && "opacity-40")}
-                    />
-                  </div>
+                  {entry.image && (
+                    <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
+                      <Art
+                        src={entry.image}
+                        className={cn("h-full", settled && "opacity-40")}
+                      />
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">{entry.section}</p>
                     {inert ? (
@@ -371,6 +380,18 @@ export function DurchgangHome({
                           className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-none"
                         />
                       </ImagePreview>
+                    </>
+                  )}
+                  {/* A locked step without a screenshot (the GDPR walk's) still leads to the
+                      order, as every locked step does. */}
+                  {closed && !shot && (
+                    <>
+                      <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                      <Link
+                        href={orderHref}
+                        aria-label={t("ui.home.lockedStep", { step: entry.headline })}
+                        className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-none"
+                      />
                     </>
                   )}
                 </div>

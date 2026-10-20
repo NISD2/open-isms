@@ -29,11 +29,12 @@ import { effectiveAccessLevel, mayWalkDurchgang } from "@/lib/billing/access";
 import { mayOrderIn, orderingMode } from "@/lib/billing/ordering";
 import type { DbOrTx } from "@/lib/db";
 import {
+  itemsFor,
+  NIS2_WALK,
   resolveItem,
   SETUP_STEP,
   type WalkLocale,
   walkLocaleOf,
-  walkOf,
 } from "@/lib/durchgang";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { env } from "@/lib/env";
@@ -103,7 +104,7 @@ export async function renderActivationNudge(
   input: ActivationNudgeInput,
 ): Promise<EmailContent> {
   const copy = NUDGE_COPY[input.locale];
-  const { ui } = WALK_COPY[input.locale];
+  const { nis2 } = WALK_COPY[input.locale].walks;
   const { walk } = input;
   const started = walk.kind === "open" && walk.done > 0;
   const greeting = copy.greeting(displayableFirstName(input.name));
@@ -116,7 +117,7 @@ export async function renderActivationNudge(
   const notes = walk.kind === "locked" ? [copy.promise, copy.unlock] : [copy.promise];
   // The open version's button says what the button it lands on says.
   const cta =
-    walk.kind === "locked" ? copy.see : started ? ui.home.continue : ui.intro.start;
+    walk.kind === "locked" ? copy.see : started ? nis2.continue : nis2.intro.start;
   const subject = safeHeader(
     `${started ? copy.subjectNext : copy.subjectFirst}: ${input.nextStepTitle}`,
   );
@@ -198,11 +199,17 @@ async function walkOfRecipient(
     false,
   );
   const states = mayWalk
-    ? new Map((await walkStates(db, r.companyId)).map((s) => [s.code, s.state]))
+    ? new Map(
+        (await walkStates(db, r.companyId, NIS2_WALK)).map((s) => [s.code, s.state]),
+      )
     : null;
   return {
     mayWalk,
-    progress: walkProgress({ walk: walkOf(r), states, setUp: r.activatedAt !== null }),
+    progress: walkProgress({
+      walk: itemsFor(NIS2_WALK, r),
+      states,
+      setUp: r.activatedAt !== null,
+    }),
   };
 }
 
@@ -225,7 +232,11 @@ async function emailFor(
   if (!mayWalk && !mayOrderIn(orderingMode(env), false)) return null;
   const shown =
     opts.fromStart && !progress.next
-      ? walkProgress({ walk: walkOf(r), states: null, setUp: r.activatedAt !== null })
+      ? walkProgress({
+          walk: itemsFor(NIS2_WALK, r),
+          states: null,
+          setUp: r.activatedAt !== null,
+        })
       : progress;
   if (!shown.next) return null;
   const locale = walkLocaleOf(resolveEmailLocale(r.locale, r.country));

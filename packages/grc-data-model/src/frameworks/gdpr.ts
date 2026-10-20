@@ -11,7 +11,9 @@
  * protection by design and by default (Art. 25), joint controllers (Art. 26),
  * the impact assessment (Art. 35), transfers (Art. 44 to 49), and every duty
  * of a company acting as a processor. Every row here signed is therefore not
- * the GDPR met, and nothing built on these rows may say it is.
+ * the GDPR met, and nothing built on these rows may say it is. The GDPR
+ * walkthrough (open-isms lib/durchgang/gdpr.ts) walks these rows and names
+ * the boundary to the person on its first screen.
  */
 import type { FrameworkCategory, FrameworkRequirement } from "./types";
 import { makeRequirementFactory } from "./types";
@@ -99,6 +101,20 @@ export const gdprCategories: FrameworkCategory[] = [
     estimatedMinutes: 45,
     relevantRoles: ["legal", "ceo"],
   },
+  // Accountability: the controller is responsible for, and must be able to
+  // demonstrate, compliance (Art. 5(2)), by measures that include data
+  // protection policies where proportionate (Art. 24(1), (2)). Code ACT, not
+  // ACC: category codes are unique across frameworks and NIS 2 has ACC.
+  {
+    id: "gdpr-cat-07",
+    code: "ACT",
+    slug: "gdpr-accountability",
+    referenceUrl: eurLex("art_24"),
+    nationalUrl: "",
+    sortOrder: 7,
+    estimatedMinutes: 30,
+    relevantRoles: ["ceo", "legal"],
+  },
 ];
 
 /**
@@ -145,13 +161,13 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // catches any employer running payroll or personnel records. Stating (1)
     // alone invited the reader to assume the exemption was overlooked; stating
     // both is what makes the requirement defensible to a Datenschutzbeauftragte.
-    // moduleRef "asset" is a stand-in: Art. 30(1) records processing activities,
-    // and the asset row holds one personal-data flag. The record gets its own
-    // table when the GDPR walkthrough is built, and moduleRef moves with it.
+    // The record is its own register, one row per processing activity
+    // (`processing_activity`): an activity is not an asset, and payroll and
+    // applicants sit under one asset-catalogue process.
     mkReq("G-ROP.1", "document", {
       legalRef: "GDPR Art. 30(1), (5)",
       frameworkRef: "Art. 30",
-      moduleRef: "asset",
+      moduleRef: "processing_activity",
       priority: "P0",
       frequency: "on-change",
     }),
@@ -236,6 +252,21 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
       legalRef: "GDPR Art. 37-39, §38 BDSG",
       frameworkRef: "Art. 37-39",
       priority: "P0",
+      frequency: "on-change",
+    }),
+  ],
+  "gdpr-accountability": () => [
+    // Art. 5(2) makes the controller responsible for, and able to demonstrate,
+    // compliance with the principles; Art. 24(1) asks for measures to ensure and
+    // demonstrate it, reviewed and updated where necessary; Art. 24(2) adds data
+    // protection policies where proportionate. No article names an approver or
+    // a signature: management's approval in the app is how this company
+    // records its decisions, which copy says as such.
+    mkReq("G-ACT.1", "document", {
+      legalRef: "GDPR Art. 5(2), 24(1), (2)",
+      frameworkRef: "Art. 24",
+      moduleRef: "policy",
+      priority: "P1",
       frequency: "on-change",
     }),
   ],

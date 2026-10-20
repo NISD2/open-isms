@@ -1,0 +1,135 @@
+{
+  "durchgang": {
+    "items": {
+      "G-BRC_1": {
+        "headline": "Decide what happens in a personal data breach",
+        "teaser": "Who decides, how the risk is assessed and who notifies within 72 hours.",
+        "fromNis2": "Your NIS 2 incident plan and reporting cover the authority for cybersecurity. A personal data breach also goes to the data protection authority, on its own clock: without undue delay and, where feasible, within 72 hours, unless it is unlikely to result in a risk to people (Art. 33(1)).",
+        "missed": [
+          "One incident can trigger three separate duties: reporting a significant incident to your NIS 2 authority, if your company falls under NIS 2, notifying the data protection authority, and telling the people affected. Each has its own conditions and deadlines; none replaces another.",
+          "A breach you do not have to notify is documented too: what happened, its effects and what you did about it. The documentation must let the supervisory authority verify your decision (Art. 33(5)). So record why you saw no risk.",
+          "The 72 hours run through weekends and public holidays."
+        ],
+        "screens": {
+          "learn": {
+            "title": "When personal data is affected",
+            "body": [
+              "A personal data breach is a breach of security leading to the accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to, personal data (Art. 4(12)). Examples: a lost laptop without encryption, an email with salary data to the wrong recipient, servers encrypted in an attack.",
+              "You notify it to the competent supervisory authority without undue delay and, where feasible, within 72 hours of becoming aware of it. The only exception is a breach that is unlikely to result in a risk to the people concerned (Art. 33(1)). A later notification needs reasons for the delay.",
+              "In this step you write the procedure for it: who decides, how the risk is assessed, who notifies and how everything is recorded. Your incident response plan from the NIS 2 walkthrough stays as it is; this procedure sits next to it."
+            ],
+            "duty": "The GDPR requires your company to notify a personal data breach to the supervisory authority, unless it is unlikely to result in a risk to the people concerned."
+          },
+          "notify": {
+            "title": "Notify or not",
+            "caption": "How you assess the risk to the people concerned",
+            "good": {
+              "value": "A laptop with customer data was stolen. The disk is encrypted to the state of the art, the password was not with it, and the data is in a current backup, so nothing is lost. A risk is unlikely: not notified, but documented with the reasons.",
+              "note": "The decision not to notify has its reasons and is recorded, so the supervisory authority can verify it (Art. 33(5))."
+            },
+            "bad": {
+              "value": "A list of salaries went by email to the wrong recipient outside the company. They promised to delete it, so we do not notify.",
+              "note": "The data reached the recipient, and you do not know whether they delete it. Notification is dropped only where a risk is unlikely. That is not the case here."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "After 72 hours we do not know everything yet. We notify what we know and send the rest later.",
+                  "note": "The information may follow in phases, without undue further delay (Art. 33(4))."
+                },
+                "bad": {
+                  "value": "We notify only once we know everything.",
+                  "note": "The deadline runs from the moment you became aware of the breach. A late notification needs reasons for the delay (Art. 33(1))."
+                }
+              }
+            ]
+          },
+          "lead": {
+            "title": "Who takes charge when personal data is affected",
+            "lead": "This person hears of every breach first, decides whether to notify, together with your data protection officer where you have one, and makes the notification. Choose someone who is usually reachable, and tell your staff who stands in when that person is away.",
+            "document": "Personal data breaches"
+          },
+          "procedure": {
+            "title": "Your personal data breach procedure",
+            "lead": "Who decides, how the risk is assessed, who notifies and how everything is recorded. The person you just named and your data protection officer are already in it. Read it, then choose below what also applies to you.",
+            "document": {
+              "title": "Personal data breach procedure of {company}",
+              "sections": [
+                {
+                  "heading": "What a personal data breach is",
+                  "text": "A personal data breach is a breach of security leading to the accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to, personal data (Art. 4(12) GDPR). Examples: a lost device with unencrypted data, an email to the wrong recipient, an attack on our systems, files in the waste paper. This procedure applies to all staff of {company}."
+                },
+                {
+                  "heading": "If you notice something",
+                  "text": "Anyone who notices or suspects a personal data breach reports it at once to {breachLead}, who takes charge of personal data breaches at {company}. If in doubt, report it."
+                },
+                {
+                  "heading": "Who decides",
+                  "text": "{breachLead} establishes what happened, involves our data protection officer at once where one is designated, decides whether to notify and informs management. Data protection officer: {dataProtectionOfficer}"
+                },
+                {
+                  "heading": "Assessing the risk",
+                  "text": "We ask what consequences the breach may have for the people concerned and how likely they are, such as identity theft, financial loss, damage to reputation or loss of control over their own data. What counts is the kind of data, how many people are affected, whether the data was encrypted and who has it now. If a risk is unlikely, we document the breach and do not notify. If there is a risk, we notify the supervisory authority. If there is a high risk, we also tell the people affected (Art. 34 GDPR)."
+                },
+                {
+                  "heading": "Notifying within 72 hours",
+                  "text": "We notify the competent supervisory authority without undue delay and, where feasible, within 72 hours of becoming aware of the breach (Art. 33(1) GDPR); for a company in Germany this is, as a rule, the data protection authority of its federal state (§ 40 BDSG). The notification describes the nature of the breach, where possible with the categories and approximate number of people and records concerned, names our data protection officer or another contact point, the likely consequences and the measures taken or proposed (Art. 33(3)). What we do not know yet we provide later, without undue further delay (Art. 33(4)). If we notify after more than 72 hours, we give the reasons for the delay."
+                },
+                {
+                  "heading": "Documenting",
+                  "text": "We record every personal data breach in the incident register, including one we do not notify: what happened, its effects, what we did about it and how we assessed the risk (Art. 33(5) GDPR)."
+                },
+                {
+                  "heading": "Our service providers",
+                  "text": "Our processors notify us of a personal data breach without undue delay after becoming aware of it (Art. 33(2) GDPR). With that notice at the latest we are aware of it, and our deadline runs."
+                },
+                {
+                  "heading": "Reporting under NIS 2",
+                  "text": "If {company} falls under NIS 2 and the breach is also a significant incident, it also reports it to its NIS 2 authority under its incident response plan. The two reports are separate; neither replaces the other."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "weekend",
+                  "label": "Reachable at weekends",
+                  "heading": "Being reachable",
+                  "text": "The 72 hours run through weekends and public holidays. {breachLead} or a named deputy can be reached then too."
+                },
+                {
+                  "id": "form",
+                  "label": "The authority's form",
+                  "heading": "Form",
+                  "text": "Where the competent supervisory authority offers a notification form on its website, we notify through it."
+                },
+                {
+                  "id": "processors",
+                  "label": "Deadlines with providers",
+                  "heading": "Deadlines with providers",
+                  "text": "Our data processing agreements set how quickly a provider notifies us of a breach, so that we have enough time for the 72 hours."
+                },
+                {
+                  "id": "review",
+                  "label": "Follow-up",
+                  "heading": "Follow-up",
+                  "text": "After every personal data breach we check whether our measures for the security of processing need to change."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your breach procedure is written",
+            "note": "Tell all staff whom they report a personal data breach to."
+          }
+        },
+        "fields": {
+          "breachLead": {
+            "label": "Who takes charge",
+            "hint": "Someone in your team who is usually reachable, or a person from outside, such as your IT service provider. The decision to notify stays with your company."
+          }
+        }
+      }
+    }
+  }
+}

@@ -32,7 +32,8 @@
       "bsi_registration": "BSI Registration",
       "bsi_incident_report": "BSI Incident Reports",
       "vulnerability": "Vulnerabilities",
-      "team": "Team and roles"
+      "team": "Team and roles",
+      "processing_activity": "Record of processing activities"
     },
     "moduleRef": {
       "confirmCompliance": "Confirm compliance",

@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { stepsOf, walkLanguage } from "@/app/[locale]/(portal)/durchgang/nis2/steps";
+import { stepsOf, walkLanguage } from "@/app/[locale]/(portal)/durchgang/_walk/steps";
 import { itemShot } from "@/components/durchgang/itemShots";
 import { WalkStepCards } from "./WalkStepCards";
 

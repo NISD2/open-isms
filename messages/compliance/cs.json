@@ -406,6 +406,13 @@
         "legalBasis": "čl. 37-39 GDPR",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Odpovědnost",
+        "description": "Doložení, že zpracování je v souladu s GDPR: opatření podle čl. 24 a tam, kde je to přiměřené, koncepce v oblasti ochrany údajů",
+        "legalBasis": "čl. 5 odst. 2, čl. 24 GDPR",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -511,18 +518,6 @@
     "saving": "Ukládání...",
     "failedToSave": "Uložení se nezdařilo",
     "requirementReopened": "{code} je znovu v úpravách."
-  },
-  "evidence": {
-    "dropzone": "Přetáhněte soubor sem nebo klikněte pro výběr",
-    "formats": "PDF, DOCX, XLSX, obrázky",
-    "description": "Popis (volitelné)",
-    "descriptionPlaceholder": "Co tento dokument dokládá?",
-    "uploading": "Nahrávání...",
-    "upload": "Nahrát důkaz",
-    "uploaded": "Důkaz nahrán",
-    "fileSaved": "{name} byl uložen.",
-    "loading": "Načítání souborů...",
-    "uploadFailed": "Nahrávání se nezdařilo"
   },
   "signoff": {
     "title": "Vyžadováno schválení vedením",

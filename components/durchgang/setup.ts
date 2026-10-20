@@ -1,25 +1,32 @@
 import { useTranslations } from "next-intl";
-import { SETUP_STEP, withSetup } from "@/lib/durchgang";
+import {
+  itemHref,
+  SETUP_STEP,
+  WALK_ROUTES,
+  WALKS,
+  type WalkFramework,
+  withSetup,
+} from "@/lib/durchgang";
 import { SETUP_ART } from "./Art";
 import type { WalkEntry } from "./view";
 
-/** Where a step of the walk opens: setting up the company has a page of its own. */
-export const hrefOf = (code: string) =>
-  code === SETUP_STEP
-    ? ("/durchgang/nis2/unternehmen" as const)
-    : ({ pathname: "/durchgang/nis2/[code]", params: { code } } as const);
+/** Where a step of a walk opens: setting up the company has a page of its own. */
+export const hrefOf = (framework: WalkFramework, code: string) =>
+  code === SETUP_STEP ? WALK_ROUTES[framework].setup : itemHref(framework, code);
 
 /**
- * The steps of the walk. Setting the company up is one of them, right after the registration
- * (`withSetup`): open until the company is set up, then filled in, and it stays on the path
- * (Simon, 20.10.2026: it must not vanish once the company is entered).
+ * The steps of a walk. Setting the company up is one of them, right after the walk's
+ * `setupAfter` (`withSetup`; a walk without one has no such step): open until the company is set
+ * up, then filled in, and it stays on the path (Simon, 20.10.2026: it must not vanish once the
+ * company is entered).
  */
 export function useSteps(
+  framework: WalkFramework,
   walk: readonly WalkEntry[],
   setup: boolean,
 ): readonly WalkEntry[] {
   const t = useTranslations("durchgang.ui.home");
-  return withSetup(walk, {
+  return withSetup(WALKS[framework], walk, {
     code: SETUP_STEP,
     section: t("setupSection"),
     headline: t("setupHeadline"),

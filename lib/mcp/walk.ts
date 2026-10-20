@@ -7,6 +7,7 @@ import {
   type AnyScreen,
   type ItemState,
   inAudience,
+  NIS2_WALK,
   type RegisterModule,
   type ScreenKind,
   TRAINING_ROW,
@@ -29,11 +30,19 @@ import type { Caller } from "./context";
  */
 
 /**
+ * The walk an assistant reads and fills: NIS 2's, until one server serves every walk with a
+ * framework parameter (NIS2 product-design/compliance-schema.md, step S4). Here rather than in
+ * gates.ts, which loads the database, so a test of the walk's data needs no environment.
+ */
+export const MCP_WALK = NIS2_WALK;
+
+/**
  * Who fills each kind of screen. "assistant": an AI assistant may, over MCP, through the
  * procedure the screen itself saves with (`SCREEN_FILLS` in screens.ts for all but the fields and
- * the register). "app": it takes input only from a person in the app: a file upload, and
- * management's approval. "none": it only shows something. Every kind must be named, so a new
- * kind cannot reach the walk undecided.
+ * the register). "app": it takes input only from a person in the app: a file upload,
+ * management's approval, and the GDPR walk's own screens, which the server does not serve yet
+ * (`MCP_WALK`). "none": it only shows something. Every kind must be named, so a new kind cannot
+ * reach the walk undecided.
  */
 export const FILLED_BY = {
   learn: "none",
@@ -57,6 +66,9 @@ export const FILLED_BY = {
   critical: "assistant",
   backups: "assistant",
   crypto: "assistant",
+  activities: "app",
+  describe: "app",
+  processors: "app",
   ongoing: "none",
   done: "none",
 } as const satisfies Record<ScreenKind, "assistant" | "app" | "none">;

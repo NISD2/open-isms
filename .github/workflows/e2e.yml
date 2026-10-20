@@ -1,14 +1,26 @@
 name: E2E
 
+# A pull request runs the specs of the areas it touches (e2e/select); anything
+# shared or unknown, and the e2e:full label, run the whole suite. Every merge to
+# main and a nightly run take the whole suite, so a break across areas that a
+# pull request's selection missed shows up there, at the latest after merging.
 on:
   pull_request:
     branches: [main]
+    # labeled: adding e2e:full reruns the PR with the whole suite.
+    types: [opened, synchronize, reopened, labeled]
+  push:
+    branches: [main]
+  schedule:
+    - cron: "23 2 * * *"
+  workflow_dispatch:
 
 # Superseded runs are cancelled. Pushing three times to a PR used to run three
-# full suites to completion; only the newest tells you anything.
+# full suites to completion; only the newest tells you anything. Runs on main
+# are left to finish: each one is the whole suite for a merge.
 concurrency:
   group: e2e-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   e2e:
@@ -16,6 +28,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          # The selection compares the branch with where it left main.
+          fetch-depth: 0
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -29,12 +44,23 @@ jobs:
 
       - run: bunx playwright install --with-deps chromium
 
+      # Empty output means the whole suite; on main and nightly it is never set.
+      - name: choose the specs this pull request needs
+        id: select
+        if: github.event_name == 'pull_request'
+        env:
+          E2E_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        run: bun scripts/ci/e2e-select.ts origin/main
+
       # e2e/start-server.sh brings up the docker stack (postgres + MinIO),
       # migrates via scripts/runtime-migrate.mjs, seeds, builds and serves.
       # No secrets: the whole stack is throwaway localhost dummies.
-      - run: bun run e2e
+      # E2E_SPECS is a list of fixed paths from e2e/select/areas.ts, split on
+      # purpose; empty runs everything.
+      - run: bun run e2e $E2E_SPECS
         env:
           CI: "1"
+          E2E_SPECS: ${{ steps.select.outputs.specs }}
 
       - uses: actions/upload-artifact@v7
         if: failure()

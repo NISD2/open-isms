@@ -19,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   type ResolvedScreen,
   recordedDay,
+  refKey,
   type SuggestSource,
   sliceOf,
 } from "@/lib/durchgang";
@@ -197,9 +198,17 @@ export function Fields({
   entry,
 }: WorkProps & { entry: Of<"fields"> }) {
   const t = useTranslations("durchgang.ui");
-  const suggest = entry.screen.suggest;
+  const { suggest, carry, unless } = entry.screen;
   const own = useOwnSuggestions(suggest?.from);
   const { steps, source } = entry.copy;
+  if (unless && draft.values[unless.field] === unless.is) {
+    return (
+      <>
+        <Heading>{entry.copy.title}</Heading>
+        <Aside className="mt-8">{entry.copy.unless}</Aside>
+      </>
+    );
+  }
   return (
     <>
       <Heading>{entry.copy.title}</Heading>
@@ -253,6 +262,16 @@ export function Fields({
                     onChange={onChange}
                     team={item.team}
                     viewer={item.viewer}
+                    startOnViewer={item.fields[field.key]?.required ?? false}
+                    other={field.other}
+                    carried={
+                      carry?.field === field.key
+                        ? item.elsewhere[refKey(carry.from)]
+                        : undefined
+                    }
+                    apart={(entry.screen.apart ?? []).flatMap(
+                      (ref) => item.elsewhere[refKey(ref)] ?? [],
+                    )}
                   />
                 ) : (
                   <FieldInput

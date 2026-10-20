@@ -1,10 +1,11 @@
 import { and, eq, inArray } from "drizzle-orm";
+import type { DbOrTx } from "@/lib/db";
 import {
   companyAssessment,
   companyRequirementStatus,
   complianceFramework,
 } from "@/schema";
-import type { DbOrTx } from "@/lib/db";
+import { assessmentIdsOf, assessmentOf } from "./framework-assessment";
 
 /**
  * NIS 2 is the only framework the product surfaces.
@@ -28,9 +29,7 @@ import type { DbOrTx } from "@/lib/db";
 export const NIS2_FRAMEWORK_CODE = "nis2" as const;
 
 /** The NIS 2 framework row id, or null when it has not been seeded. */
-export async function getNis2FrameworkId(
-  db: DbOrTx,
-): Promise<string | null> {
+export async function getNis2FrameworkId(db: DbOrTx): Promise<string | null> {
   const framework = await db.query.complianceFramework.findFirst({
     where: eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
     columns: { id: true },
@@ -44,41 +43,12 @@ export async function getNis2FrameworkId(
  * rather than "no filter": an empty `inArray` matches nothing, which is the
  * safe direction.
  */
-export async function getNis2AssessmentIds(
-  db: DbOrTx,
-  companyId: string,
-): Promise<string[]> {
-  const frameworkId = await getNis2FrameworkId(db);
-  if (!frameworkId) return [];
+export const getNis2AssessmentIds = (db: DbOrTx, companyId: string): Promise<string[]> =>
+  assessmentIdsOf(db, companyId, [NIS2_FRAMEWORK_CODE]);
 
-  const rows = await db
-    .select({ id: companyAssessment.id })
-    .from(companyAssessment)
-    .where(
-      and(
-        eq(companyAssessment.companyId, companyId),
-        eq(companyAssessment.frameworkId, frameworkId),
-      ),
-    );
-  return rows.map((r) => r.id);
-}
-
-/**
- * A company's single NIS 2 assessment, or null. The shape three callers wanted
- * after resolving the framework id by hand.
- */
-export async function getNis2Assessment(db: DbOrTx, companyId: string) {
-  const frameworkId = await getNis2FrameworkId(db);
-  if (!frameworkId) return null;
-  return (
-    (await db.query.companyAssessment.findFirst({
-      where: and(
-        eq(companyAssessment.companyId, companyId),
-        eq(companyAssessment.frameworkId, frameworkId),
-      ),
-    })) ?? null
-  );
-}
+/** A company's single NIS 2 assessment, or null. */
+export const getNis2Assessment = (db: DbOrTx, companyId: string) =>
+  assessmentOf(db, companyId, NIS2_FRAMEWORK_CODE);
 
 /**
  * Predicate restricting `company_requirement_status` rows to NIS 2 assessments

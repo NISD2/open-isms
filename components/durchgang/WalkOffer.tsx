@@ -6,6 +6,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { WalkLock } from "@/lib/billing/access";
+import type { WalkFramework } from "@/lib/durchgang";
 import { Art, HOME_ART } from "./Art";
 import { PromiseRow } from "./PromiseRow";
 
@@ -17,6 +18,7 @@ import { PromiseRow } from "./PromiseRow";
  * order, or to the pricing page where ordering is not open (`orderHref`).
  */
 export function WalkOffer({
+  framework,
   lock,
   orderHref,
   remaining,
@@ -25,6 +27,7 @@ export function WalkOffer({
   call,
   forward,
 }: {
+  framework: WalkFramework;
   lock: WalkLock;
   orderHref: ComponentProps<typeof Link>["href"];
   /** The steps of this company's walk that need the order. */
@@ -36,6 +39,7 @@ export function WalkOffer({
   forward?: ReactNode;
 }) {
   const t = useTranslations("durchgang.ui");
+  const tw = useTranslations(`durchgang.walks.${framework}`);
   const points = [
     {
       icon: ListChecks,
@@ -56,7 +60,7 @@ export function WalkOffer({
       <div className="flex items-end gap-6">
         <div className="min-w-0 flex-1">
           <p className="inline-flex rounded-full bg-primary/[0.08] px-3 py-1 text-sm font-medium text-primary">
-            {t("intro.eyebrow")}
+            {tw("intro.eyebrow")}
           </p>
           <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
             {t("offer.title")}
@@ -73,7 +77,12 @@ export function WalkOffer({
             key={point.key}
             icon={point.icon}
             title={point.title}
-            text={t(`offer.${point.key}.text`)}
+            // The documents still ahead are each walk's own.
+            text={
+              point.key === "documents"
+                ? tw("offerDocuments")
+                : t(`offer.${point.key}.text`)
+            }
           />
         ))}
       </ul>

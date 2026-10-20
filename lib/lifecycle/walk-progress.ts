@@ -10,6 +10,7 @@ import {
   type AnyItem,
   type ItemState,
   isSettled,
+  NIS2_WALK,
   resumeAt,
   SETUP_STEP,
   withSetup,
@@ -40,7 +41,7 @@ export function walkProgress({
   states,
   setUp,
 }: {
-  /** The items the company walks (`walkOf`). */
+  /** The items of the NIS 2 walk the company walks (`itemsFor`): the walk the emails are about. */
   readonly walk: readonly AnyItem[];
   /** Each item's state by code (`walkStates`); null for a locked walk. */
   readonly states: ReadonlyMap<string, ItemState> | null;
@@ -56,7 +57,11 @@ export function walkProgress({
   );
   const steps = setUp
     ? items
-    : withSetup<Entry>(items, { code: SETUP_STEP, step: { kind: "setup" }, state: OPEN });
+    : withSetup<Entry>(NIS2_WALK, items, {
+        code: SETUP_STEP,
+        step: { kind: "setup" },
+        state: OPEN,
+      });
   return {
     total: steps.length,
     done: steps.filter((s) => isSettled(s.state)).length,

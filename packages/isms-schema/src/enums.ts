@@ -40,6 +40,22 @@ export const dataProcessingAgreementEnum = pgEnum("data_processing_agreement", [
   "no",
 ]);
 
+/** A supplier's answer on where customers' personal data goes, the questionnaire's options. */
+export const personalDataTransfersEnum = pgEnum("personal_data_transfers", [
+  "inEea",
+  "adequacy",
+  "sccs",
+  "bcr",
+  "other",
+]);
+
+/** How a supplier engages sub-processors (Art. 28(2) GDPR), the questionnaire's options. */
+export const subprocessorEngagementEnum = pgEnum("subprocessor_engagement", [
+  "general",
+  "specific",
+  "none",
+]);
+
 /** Each series has its own counter, because invoice and credit note numbers never share. */
 export const documentSeriesEnum = pgEnum("document_series", ["invoice", "credit_note"]);
 

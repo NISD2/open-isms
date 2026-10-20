@@ -61,7 +61,7 @@
         "confirm": "Auf die Warteliste"
       },
       "places": {
-        "label": "Im NIS 2 Durchgang"
+        "label": "Im Durchgang"
       },
       "home": {
         "unlock": "30 Tage testen, Geld zurück",
@@ -82,7 +82,6 @@
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
-        "continue": "NIS 2 Umsetzung fortsetzen",
         "allFilled": "Alle Punkte sind ausgefüllt.",
         "allFilledNote": "Ändert sich etwas in Ihrem Unternehmen, öffnen Sie den Punkt und ändern es dort. Ein geändertes Dokument geht noch einmal zur Freigabe an die Geschäftsführung.",
         "yourWay": "Ihr Weg",
@@ -92,6 +91,7 @@
         "notApplicable": "Trifft nicht zu",
         "preview": "So sieht „{step}“ aus",
         "previewAlt": "Der Schritt „{step}“ am Beispiel einer erfundenen Firma",
+        "lockedStep": "„{step}“ gehört zur Bestellung",
         "continueHere": "Jetzt weitermachen",
         "forward": {
           "action": "An die Geschäftsführung weiterleiten",
@@ -112,30 +112,6 @@
           }
         }
       },
-      "intro": {
-        "eyebrow": "NIS 2 Durchgang",
-        "title": "NIS 2 Schritt für Schritt.",
-        "lead": "Wir führen Sie durch.",
-        "points": [
-          {
-            "title": "Eins nach dem anderen.",
-            "text": "Sie sehen einen Punkt, erklärt, bevor Sie etwas eintragen."
-          },
-          {
-            "title": "Die Standardmethoden übernehmen Sie.",
-            "text": "Wo es eine bewährte Methode gibt, zeigen wir sie. Sie entscheiden."
-          },
-          {
-            "title": "Es hängt? Lassen Sie es offen.",
-            "text": "Legen Sie den Punkt zur Seite und machen Sie mit dem nächsten weiter."
-          },
-          {
-            "title": "Am Ende unterschreibt die Geschäftsführung.",
-            "text": "Sie sieht alles an einer Stelle durch."
-          }
-        ],
-        "start": "Los geht's"
-      },
       "offer": {
         "title": "Testen Sie den Rest 30 Tage.",
         "lead": "Das war das Beispiel, mit den Angaben Ihres Unternehmens. Passt der Rest nicht, bekommen Sie innerhalb von 30 Tagen Ihr Geld zurück, solange Sie noch nichts exportiert oder freigegeben haben.",
@@ -144,8 +120,7 @@
           "text": "Einer nach dem anderen, wie bisher."
         },
         "documents": {
-          "title": "{count, plural, one {# Dokument aus Ihren Antworten.} other {# Dokumente aus Ihren Antworten.}}",
-          "text": "Leitlinie, Notfallplan und die weiteren, geschrieben aus dem, was Sie eintragen."
+          "title": "{count, plural, one {# Dokument aus Ihren Antworten.} other {# Dokumente aus Ihren Antworten.}}"
         },
         "kept": {
           "title": "Ihre Angaben bleiben.",

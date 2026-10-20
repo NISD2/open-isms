@@ -17,10 +17,8 @@
 import {
   asset,
   assetSupplierOffering,
-  complianceFramework,
   incident,
   requirement,
-  requirementCategory,
   risk,
   riskAsset,
   riskSupplier,
@@ -215,21 +213,6 @@ export const userInsertSchema = createInsertSchema(user, {
 });
 export const userSelectSchema = createSelectSchema(user);
 export const userUpdateSchema = userInsertSchema.partial().omit(omitTenantMeta);
-
-// ============================================================================
-// Compliance Frameworks
-// ============================================================================
-
-export const frameworkInsertSchema = createInsertSchema(complianceFramework, {
-  ...isoDateColumns(complianceFramework),
-});
-export const frameworkSelectSchema = createSelectSchema(complianceFramework);
-
-export const categoryInsertSchema = createInsertSchema(requirementCategory, {
-  slug: z.string().min(1).max(255),
-  sortOrder: z.number().int().nonnegative(),
-});
-export const categorySelectSchema = createSelectSchema(requirementCategory);
 
 // ============================================================================
 // Requirements
@@ -447,7 +430,8 @@ export const supplierInsertSchema = createInsertSchema(supplier, {
   // Per-customer contract clauses
   subprocessorList: z.string().max(2000).nullish(),
   incidentSlaHours: z.number().int().positive().max(168).nullish(),
-}).omit({ agreementsCheckedAt: true });
+  // The walks set these when they record a row; no form writes them.
+}).omit({ agreementsCheckedAt: true, processorCheckedAt: true, transferCheckedAt: true });
 export const supplierSelectSchema = createSelectSchema(supplier);
 /**
  * A new supplier: supplier.create, and an assistant's rows (lib/mcp). The customer is the

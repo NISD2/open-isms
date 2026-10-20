@@ -61,7 +61,7 @@ export default async function CompleteExportPage() {
     exportNames(locale),
     // The open points come from the walk, which only a company that may walk has; without it
     // they were never worked out (null), which is not the same as nothing open.
-    mayWalk ? api.durchgang.gaps({ locale }) : Promise.resolve(null),
+    mayWalk ? api.durchgang.gaps({ framework: "nis2", locale }) : Promise.resolve(null),
     mayWalk ? api.durchgang.measures() : Promise.resolve([]),
     getTranslations({ locale, namespace: "export.complete" }),
   ]);

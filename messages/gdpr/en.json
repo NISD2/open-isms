@@ -736,7 +736,7 @@
         "heading": "What the NIS 2 walkthrough already records",
         "lead": "Two items prepare for an emergency under NIS 2 and point to Art. 33 GDPR along the way; they do not cover the GDPR duties themselves.",
         "points": [
-          "3.1 Plan what happens in an incident: the incident response plan the walkthrough writes from your answers says under “Reporting to the authority” that if personal data is affected, you usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR).",
+          "3.1 Plan what happens in an incident: the incident response plan the walkthrough writes from your answers says under “Reporting to the authority” that if personal data is affected, you also notify the data protection authority unless a risk is unlikely (Art. 33 GDPR).",
           "Under “Your emergency contacts” in 3.1, the walkthrough suggests the data protection officer as a contact. According to the plan, the person who leads in an emergency decides whether to report and notes every decision with the time. Management approves the plan in 7.3.",
           "3.3 Know how to report an incident: the deadlines for reporting to the authority under Art. 23(4) NIS 2. Under “Often missed” it says that a personal data breach usually also goes to the data protection authority.",
           "Not in the walkthrough: the documentation under Art. 33(5), the assessment of the risk to people and the message under Art. 34."

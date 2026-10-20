@@ -10,9 +10,11 @@ import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
 import { signerMeetsRequiredRole, signerRoleOf } from "@/lib/compliance/signer-role";
 import { legislation } from "@/lib/content/citations";
+import { db } from "@/lib/db";
 import { type FieldMeta, introspectSchema } from "@/lib/forms/schema-introspect";
 import { api } from "@/lib/trpc/server";
 import type { Asset } from "@/schema/types";
+import { ensureAssessment } from "@/server/trpc/helpers/framework-assessment";
 
 type Items = Record<string, unknown>[];
 
@@ -38,6 +40,7 @@ const MODULE_FETCHERS: Record<string, () => Promise<Items>> = {
   change_request: () => api.change.list() as Promise<Items>,
   patch_record: () => api.patch.list() as Promise<Items>,
   training_record: () => api.training.list() as Promise<Items>,
+  processing_activity: () => api.processingActivity.list() as Promise<Items>,
   vulnerability: () => api.vulnerability.list() as Promise<Items>,
   team: () => api.team.listMembers() as Promise<Items>,
 };
@@ -152,14 +155,18 @@ export async function loadRequirementDetail(
   code: string,
 ): Promise<RequirementDetailData | null> {
   // Step 1: All independent fetches in parallel
-  const [session, req, assessment, locale] = await Promise.all([
+  const [session, req, locale] = await Promise.all([
     getSession(),
     api.requirement.getByCode({ code }),
-    api.assessment.getActiveAssessment(),
     getLocale(),
   ]);
 
   if (!req?.category) return null;
+  // The assessment of the requirement's own framework, made ready as the walk does: answers to a
+  // GDPR requirement are saved against the GDPR assessment, which the intake write checks.
+  const assessment = session?.companyId
+    ? { id: await ensureAssessment(db, session.companyId, req.category.framework.code) }
+    : null;
 
   // Step 2: Access check (needs session + assessment)
   if (assessment) {

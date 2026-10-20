@@ -6,7 +6,7 @@ import { showsExamples } from "@/lib/billing/shows-examples";
 import { db } from "@/lib/db";
 import { ensurePlatformSupplier } from "@/lib/supplier-portal/platform-supplier";
 import { api } from "@/lib/trpc/server";
-import { WalkPlaces } from "../durchgang/nis2/places";
+import { WalkPlaces } from "../durchgang/_walk/places";
 
 export default async function SuppliersRoute() {
   if (await showsExamples()) return <RegisterExamples register="suppliers" />;

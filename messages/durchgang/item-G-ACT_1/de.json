@@ -1,0 +1,178 @@
+{
+  "durchgang": {
+    "items": {
+      "G-ACT_1": {
+        "headline": "Ihre Datenschutzleitlinie schreiben und freigeben",
+        "teaser": "Wer verantwortlich ist, nach welchen Grundsätzen Sie arbeiten, und die Freigabe.",
+        "missed": [
+          "Eine Unterschrift verlangt die DSGVO nicht. Sie verlangt, dass Ihr Unternehmen die Einhaltung der Grundsätze nachweisen kann (Art. 5 Abs. 2). Die Freigabe hier hält fest, wer welches Dokument wann freigegeben hat.",
+          "Eine Leitlinie wirkt nur, wenn sie bekannt ist. Geben Sie sie allen, die mit personenbezogenen Daten arbeiten."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Nachweisen, was Sie tun",
+            "body": [
+              "Ihr Unternehmen ist dafür verantwortlich, dass es die Grundsätze der DSGVO einhält, und muss das nachweisen können (Art. 5 Abs. 2). Dazu trifft es geeignete technische und organisatorische Maßnahmen, die es erforderlichenfalls überprüft und aktualisiert (Art. 24 Abs. 1).",
+              "Sofern es im Verhältnis zu Ihren Verarbeitungstätigkeiten angemessen ist, gehören dazu Datenschutzvorkehrungen (Art. 24 Abs. 2), etwa eine Datenschutzleitlinie. Sie sagt, wer verantwortlich ist, nach welchen Grundsätzen Sie arbeiten und wo Verzeichnis und Verfahren liegen.",
+              "Danach gibt die Geschäftsführung die Dokumente dieses Durchgangs frei. Das verlangt kein Artikel der DSGVO; es ist der Weg, auf dem Ihr Unternehmen festhält, wer was wann entschieden hat."
+            ],
+            "duty": "Die DSGVO verlangt, dass Ihr Unternehmen die Einhaltung ihrer Grundsätze nachweisen kann und dafür geeignete Maßnahmen trifft, wo angemessen auch Datenschutzvorkehrungen."
+          },
+          "policy": {
+            "title": "Ihre Datenschutzleitlinie",
+            "lead": "Sie verweist auf alles, was dieser Durchgang geschrieben hat, und nennt Ihre Datenschutzbeauftragten. Lesen Sie sie, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
+            "document": {
+              "title": "Datenschutzleitlinie der {company}",
+              "sections": [
+                {
+                  "heading": "Zweck",
+                  "text": "Diese Leitlinie legt fest, wie die {company} mit personenbezogenen Daten umgeht. Sie gilt für alle Beschäftigten und für alle Verarbeitungen, für die die {company} Verantwortliche ist."
+                },
+                {
+                  "heading": "Verantwortung",
+                  "text": "Verantwortlich für den Datenschutz ist die Geschäftsführung der {company}. Sie sorgt dafür, dass diese Leitlinie eingehalten wird, stellt die nötigen Mittel bereit und gibt die Dokumente zum Datenschutz frei. Alle Beschäftigten gehen mit personenbezogenen Daten nach dieser Leitlinie um."
+                },
+                {
+                  "heading": "Datenschutzbeauftragte",
+                  "text": "Datenschutzbeauftragte: {dataProtectionOfficer}. Sind Datenschutzbeauftragte benannt, binden wir sie ordnungsgemäß und frühzeitig in alle Fragen des Datenschutzes ein. Sie berichten unmittelbar der Geschäftsführung und erhalten bei der Erfüllung ihrer Aufgaben keine Anweisungen (Art. 38 DSGVO)."
+                },
+                {
+                  "heading": "Unsere Grundsätze",
+                  "text": "Wir verarbeiten personenbezogene Daten rechtmäßig, nach Treu und Glauben und für die Betroffenen nachvollziehbar. Wir erheben sie für festgelegte, eindeutige Zwecke und verarbeiten sie nicht in einer Weise weiter, die mit diesen Zwecken nicht vereinbar ist. Wir verarbeiten nur, was für den Zweck nötig ist, halten die Daten richtig und aktuell und speichern sie nur so lange, wie es für den Zweck erforderlich ist. Wir schützen sie mit geeigneten technischen und organisatorischen Maßnahmen (Art. 5 Abs. 1 DSGVO)."
+                },
+                {
+                  "heading": "Unser Verzeichnis",
+                  "text": "Welche Verarbeitungstätigkeiten wir haben, wofür, mit welchen Daten, an wen sie gehen und wann sie gelöscht werden, steht in unserem Verzeichnis von Verarbeitungstätigkeiten (Art. 30 DSGVO). Wir führen es elektronisch und halten es aktuell."
+                },
+                {
+                  "heading": "Unsere Verfahren",
+                  "text": "Zu dieser Leitlinie gehören unsere technischen und organisatorischen Maßnahmen (Art. 32 DSGVO), unser Verfahren bei Datenpannen (Art. 33), unsere Vorlage für die Benachrichtigung der Betroffenen (Art. 34) und unser Verfahren für Anfragen betroffener Personen (Art. 12 bis 22). Auftragsverarbeiter setzen wir nur mit einem Vertrag nach Art. 28 ein."
+                },
+                {
+                  "heading": "Überprüfung",
+                  "text": "Wir überprüfen diese Leitlinie und die Dokumente, auf die sie verweist, wenn sich etwas ändert: eine neue Verarbeitungstätigkeit, ein neuer Dienstleister, eine Datenpanne, eine Änderung des Rechts. Die Geschäftsführung gibt jede Änderung frei."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "training",
+                  "label": "Unterweisung",
+                  "heading": "Unterweisung",
+                  "text": "Beschäftigte, die mit personenbezogenen Daten arbeiten, unterweisen wir bei Beginn ihrer Tätigkeit und danach regelmäßig im Datenschutz."
+                },
+                {
+                  "id": "newprocessing",
+                  "label": "Neue Verarbeitungen",
+                  "heading": "Neue Verarbeitungen",
+                  "text": "Bevor wir eine neue Verarbeitung beginnen oder ein neues Programm einführen, das personenbezogene Daten verarbeitet, prüfen wir, ob sie zulässig ist, wo benannt mit unseren Datenschutzbeauftragten, und tragen sie ins Verzeichnis ein."
+                },
+                {
+                  "id": "design",
+                  "label": "Datenschutzfreundliche Voreinstellungen",
+                  "heading": "Datenschutz durch Technikgestaltung",
+                  "text": "Neue Systeme richten wir so ein, dass durch Voreinstellung nur die personenbezogenen Daten verarbeitet werden, die für den jeweiligen Zweck nötig sind (Art. 25 DSGVO)."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "approve": {
+            "title": "Die Geschäftsführung gibt die Dokumente frei",
+            "lead": "Das sind die Dokumente, die dieser Durchgang geschrieben hat. Die Geschäftsführung liest jedes und gibt es hier frei, angemeldet mit ihrem eigenen Zugang. Eine Unterschrift verlangt die DSGVO nicht; die Freigabe hält fest, wer was wann entschieden hat."
+          },
+          "ongoing": {
+            "title": "Ab jetzt in Ihrer Hand",
+            "lead": "Mit der Freigabe ist festgehalten, was Ihr Unternehmen im Datenschutz tut. Diese Pflichten bleiben, wenn der Durchgang abgeschlossen ist.",
+            "groups": [
+              {
+                "title": "Wenn etwas passiert",
+                "items": [
+                  {
+                    "name": "Eine Datenpanne",
+                    "detail": "Unverzüglich bewerten. Besteht ein Risiko für die Betroffenen, unverzüglich und möglichst binnen 72 Stunden der Aufsichtsbehörde melden. Jede Datenpanne dokumentieren, auch eine nicht gemeldete.",
+                    "basis": "Art. 33 Abs. 1 und 5 DSGVO"
+                  },
+                  {
+                    "name": "Eine Datenpanne mit hohem Risiko",
+                    "detail": "Die betroffenen Menschen unverzüglich benachrichtigen, mit Ihrer Vorlage.",
+                    "basis": "Art. 34 Abs. 1 DSGVO"
+                  },
+                  {
+                    "name": "Eine Anfrage einer betroffenen Person",
+                    "detail": "Unverzüglich beantworten, spätestens innerhalb eines Monats nach Eingang.",
+                    "basis": "Art. 12 Abs. 3 DSGVO"
+                  },
+                  {
+                    "name": "Eine neue Verarbeitungstätigkeit",
+                    "detail": "Ins Verzeichnis eintragen, mit Zweck, Betroffenen, Daten, Empfängern und Löschfrist.",
+                    "basis": "Art. 30 Abs. 1 DSGVO"
+                  },
+                  {
+                    "name": "Ein neuer Dienstleister, der Daten für Sie verarbeitet",
+                    "detail": "Vorher prüfen, ob er hinreichende Garantien bietet, und den Vertrag zur Auftragsverarbeitung schließen.",
+                    "basis": "Art. 28 Abs. 1 und 3 DSGVO"
+                  },
+                  {
+                    "name": "Ein Auftragsverarbeiter meldet einen neuen Unterauftragnehmer",
+                    "detail": "Prüfen und Einspruch erheben, wenn er nicht passt.",
+                    "basis": "Art. 28 Abs. 2 DSGVO"
+                  },
+                  {
+                    "name": "Neue Datenschutzbeauftragte",
+                    "detail": "Die neuen Kontaktdaten veröffentlichen und der Aufsichtsbehörde mitteilen.",
+                    "basis": "Art. 37 Abs. 7 DSGVO"
+                  }
+                ]
+              },
+              {
+                "title": "Regelmäßig",
+                "items": [
+                  {
+                    "name": "Die Sicherheitsmaßnahmen überprüfen",
+                    "detail": "Regelmäßig überprüfen, bewerten und evaluieren, ob die Maßnahmen wirken. Einen Abstand nennt die DSGVO nicht; prüfen Sie so oft, wie es die Risiken Ihrer Verarbeitung verlangen.",
+                    "basis": "Art. 32 Abs. 1 Buchst. d DSGVO"
+                  },
+                  {
+                    "name": "Die Maßnahmen und die Leitlinie überprüfen",
+                    "detail": "Überprüfen und aktualisieren, wo nötig, besonders wenn sich Verarbeitungen ändern.",
+                    "basis": "Art. 24 Abs. 1 DSGVO"
+                  },
+                  {
+                    "name": "Die Pflicht zu Datenschutzbeauftragten neu prüfen",
+                    "detail": "Wenn Ihr Unternehmen wächst: Sind in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt?",
+                    "basis": "§ 38 Abs. 1 BDSG"
+                  }
+                ]
+              },
+              {
+                "title": "Laufend",
+                "items": [
+                  {
+                    "name": "Daten löschen",
+                    "detail": "Löschen, wenn die Daten für den Zweck nicht mehr erforderlich sind und keine Aufbewahrungsfrist mehr läuft, wie im Verzeichnis festgelegt.",
+                    "basis": "Art. 5 Abs. 1 Buchst. e, Art. 17 DSGVO"
+                  },
+                  {
+                    "name": "Das Verzeichnis aktuell halten",
+                    "detail": "Die Aufsichtsbehörde kann es anfordern; es zeigt dann den heutigen Stand.",
+                    "basis": "Art. 30 Abs. 1 und 4 DSGVO"
+                  },
+                  {
+                    "name": "Was dieser Durchgang noch nicht abdeckt",
+                    "detail": "Die Rechtsgrundlage jeder Tätigkeit, die Datenschutzhinweise und, wo nötig, Datenschutz-Folgenabschätzungen klären Sie selbst oder mit Ihren Datenschutzbeauftragten.",
+                    "basis": "Art. 6, 13, 14 und 35 DSGVO"
+                  }
+                ]
+              }
+            ]
+          },
+          "done": {
+            "title": "Ihre Datenschutzleitlinie ist geschrieben",
+            "note": "Die freigegebenen Dokumente gelten ab dem Tag, an dem die Geschäftsführung sie freigegeben hat. Was noch auf die Freigabe wartet, zeigt der Schritt davor."
+          }
+        }
+      }
+    }
+  }
+}

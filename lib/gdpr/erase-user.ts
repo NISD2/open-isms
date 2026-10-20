@@ -29,8 +29,7 @@
  * cannot join that transaction, so they go after it commits, and a file that
  * cannot be deleted is recorded and retried rather than undoing the erasure.
  */
-import { createHash, createHmac } from "node:crypto";
-import type { InferSelectModel } from "drizzle-orm";
+import { createHmac } from "node:crypto";
 import {
   and,
   desc,
@@ -99,6 +98,7 @@ import {
   patchRecord,
   policy,
   policyAcknowledgment,
+  processingActivity,
   requirementAssignment,
   risk,
   riskAsset,
@@ -114,6 +114,7 @@ import {
   vulnerability,
 } from "@/schema";
 import { alertGdprOperators } from "./alert";
+import { computeRecordChecksum } from "./erasure-checksum";
 import { redactPiiInJson } from "./redact-pii";
 import { scrubAuditTrail } from "./scrub-audit-log";
 import {
@@ -1385,6 +1386,12 @@ async function tearDownCompany(
   await del("gap_assessment", () =>
     tx.delete(gapAssessment).where(eq(gapAssessment.companyId, cid)).returning(),
   );
+  await del("processing_activity", () =>
+    tx
+      .delete(processingActivity)
+      .where(eq(processingActivity.companyId, cid))
+      .returning(),
+  );
   // Lifecycle claims (entity_type 'lifecycle_email') are per-USER once-ever
   // dedup records (lib/lifecycle) that merely carry the company the recipient
   // belonged to at claim time. Deleting them with this company would re-arm a
@@ -1463,57 +1470,6 @@ async function nextCaseRef(tx: Tx, now: Date): Promise<string> {
     .where(gte(dataErasureLog.erasedAt, startOfYear));
   const seq = String(thisYear.length + 1).padStart(4, "0");
   return `ERASURE-${year}-${seq}`;
-}
-
-/** Recursively canonicalise: sort object keys, render Dates as ISO. Produces a
- *  stable serialisation independent of key order, so a jsonb column re-read
- *  from Postgres (which reorders keys) canonicalises identically. */
-function sortValue(value: unknown): unknown {
-  if (value instanceof Date) return value.toISOString();
-  if (Array.isArray(value)) return value.map(sortValue);
-  if (value && typeof value === "object") {
-    const src = value as Record<string, unknown>;
-    const out: Record<string, unknown> = {};
-    for (const k of Object.keys(src).sort()) out[k] = sortValue(src[k]);
-    return out;
-  }
-  return value;
-}
-
-function computeRecordChecksum(payload: Record<string, unknown>): string {
-  return createHash("sha256")
-    .update(JSON.stringify(sortValue(payload)))
-    .digest("hex");
-}
-
-type ErasureLogRow = InferSelectModel<typeof dataErasureLog>;
-
-/** Recompute the checksum from a stored row and compare. subjectEmail and the
- *  bookkeeping columns (id, createdAt, checksum) are excluded, matching what
- *  was hashed at write time, so the check survives retention-minimisation.
- *  The payload keys must mirror `logCore` in eraseUserInTx. */
-export function verifyErasureRecord(row: ErasureLogRow): boolean {
-  const payload = {
-    caseRef: row.caseRef,
-    subjectUserId: row.subjectUserId,
-    subjectEmailHash: row.subjectEmailHash,
-    subjectName: row.subjectName,
-    companyId: row.companyId,
-    companyName: row.companyName,
-    requestReceivedAt: row.requestReceivedAt,
-    requestChannel: row.requestChannel,
-    rightsInvoked: row.rightsInvoked,
-    legalBasis: row.legalBasis,
-    erasedAt: row.erasedAt,
-    actorUserId: row.actorUserId,
-    actorEmail: row.actorEmail,
-    method: row.method,
-    companyTornDown: row.companyTornDown,
-    scope: row.scope,
-    notes: row.notes,
-    retentionUntil: row.retentionUntil,
-  };
-  return computeRecordChecksum(payload) === row.checksum;
 }
 
 /** Retention-policy step (Art. 5(1)(e)): minimise the raw email on erasure

@@ -61,7 +61,7 @@
         "confirm": "Přesunout mezi čekající"
       },
       "places": {
-        "label": "V průvodci NIS 2"
+        "label": "V průvodci"
       },
       "home": {
         "unlock": "Vyzkoušet, 30 dní vrácení peněz",
@@ -82,7 +82,6 @@
         "toSignOff": "Zatím neschváleno. Přejít ke schválení",
         "next": "Na řadě",
         "waiting": "Stále čeká",
-        "continue": "Pokračovat v zavádění NIS 2",
         "allFilled": "Všechny body jsou vyplněné.",
         "allFilledNote": "Když se ve vaší společnosti něco změní, otevřete příslušný bod a změňte to tam. Změněný dokument jde znovu ke schválení vedení.",
         "yourWay": "Vaše cesta",
@@ -92,6 +91,7 @@
         "notApplicable": "Nevztahuje se",
         "preview": "Jak vypadá krok „{step}“",
         "previewAlt": "Krok „{step}“ na příkladu smyšlené společnosti",
+        "lockedStep": "„{step}“ je součástí objednávky",
         "continueHere": "Pokračovat teď",
         "forward": {
           "action": "Předat vedení",
@@ -112,30 +112,6 @@
           }
         }
       },
-      "intro": {
-        "eyebrow": "NIS 2 průvodce",
-        "title": "NIS 2 krok za krokem.",
-        "lead": "Provedeme vás tím.",
-        "points": [
-          {
-            "title": "Jedno po druhém.",
-            "text": "Vidíte jeden bod, vysvětlený dřív, než cokoli zadáte."
-          },
-          {
-            "title": "Standardní metody převezmete vy.",
-            "text": "Kde existuje osvědčená metoda, ukážeme ji. Rozhodnete vy."
-          },
-          {
-            "title": "Něco vázne? Nechte to otevřené.",
-            "text": "Odložte bod a pokračujte dalším."
-          },
-          {
-            "title": "Na konci podepíše vedení.",
-            "text": "Vše projde na jednom místě."
-          }
-        ],
-        "start": "Začněme"
-      },
       "offer": {
         "title": "Vyzkoušejte zbytek 30 dní.",
         "lead": "To byl příklad s údaji vaší firmy. Pokud vám zbytek nebude vyhovovat, do 30 dnů vám vrátíme peníze, pokud jste ještě nic neexportovali ani neschválili.",
@@ -144,8 +120,7 @@
           "text": "Jeden po druhém, jako dosud."
         },
         "documents": {
-          "title": "{count, plural, one {# dokument z vašich odpovědí.} few {# dokumenty z vašich odpovědí.} other {# dokumentů z vašich odpovědí.}}",
-          "text": "Bezpečnostní politika, plán pro incidenty a další, napsané z toho, co zadáte."
+          "title": "{count, plural, one {# dokument z vašich odpovědí.} few {# dokumenty z vašich odpovědí.} other {# dokumentů z vašich odpovědí.}}"
         },
         "kept": {
           "title": "Vaše údaje zůstávají.",

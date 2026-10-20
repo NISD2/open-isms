@@ -239,6 +239,13 @@
       "when": 1792415566101,
       "tag": "0033_framework_data_sync",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1792453916792,
+      "tag": "0034_framework_data_sync",
+      "breakpoints": true
     }
   ]
 }

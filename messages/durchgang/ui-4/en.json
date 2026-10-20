@@ -1,0 +1,160 @@
+{
+  "durchgang": {
+    "ui": {
+      "kinds": {
+        "activities": "Your record",
+        "describe": "Describe",
+        "processors": "Check"
+      },
+      "fromNis2": {
+        "title": "Already in from your NIS 2 walkthrough",
+        "note": "A head start, not a sign-off: this item is approved on its own.",
+        "notStarted": "You have not walked these yet. This item works without them."
+      },
+      "activities": {
+        "count": "{count, plural, =0 {No activity on your record yet} one {# activity on your record} other {# activities on your record}}",
+        "suggested": "Ticked because your list from the NIS 2 walkthrough has a matching entry",
+        "onRecord": "Already on your record",
+        "own": "Add an activity of your own",
+        "ownPlaceholder": "For example: occupational health service",
+        "add": "Add",
+        "remove": "Remove",
+        "toRecord": "To the record",
+        "noted": "Added to the record",
+        "recorded": "On your record of processing activities"
+      },
+      "describe": {
+        "empty": "Your record has no activity yet. Choose your activities on the steps before.",
+        "suggestion": "Suggestion",
+        "useSuggestion": "Use it",
+        "suppliers": {
+          "label": "Suppliers that receive the data",
+          "hint": "Tick the suppliers from your supplier list that receive or store this data, for example the payroll service or the cloud for your files. Whether a supplier sends data outside the EEA is asked once for each supplier, in the next step.",
+          "none": "Your supplier list has no supplier that receives personal data. If one does, add it on the supplier page, then tick it here."
+        },
+        "facts": {
+          "purpose": {
+            "label": "Purpose",
+            "hint": "What you process the data for, in one sentence."
+          },
+          "legalBases": {
+            "label": "Lawful basis",
+            "hint": "Tick every basis this activity rests on (Art. 6(1)). The ones usually used for this kind of activity are marked; check them against what you actually do.",
+            "usual": "usual",
+            "bases": {
+              "consent": "Consent (a)",
+              "contract": "A contract with the person, or steps before one (b)",
+              "legal_obligation": "A legal obligation of yours (c)",
+              "vital_interests": "Someone's vital interests (d)",
+              "public_task": "A task in the public interest or official authority (e)",
+              "legitimate_interests": "Legitimate interests (f)"
+            }
+          },
+          "legitimateInterests": {
+            "label": "Which interest, and why it is not overridden",
+            "hint": "Name the interest and why the interests of the people concerned do not override it (Art. 6(1)(f)). Example: keeping the network safe from attacks (Recital 49)."
+          },
+          "dataSubjects": {
+            "label": "People concerned",
+            "hint": "Whose data, as groups: for example staff, customers, applicants."
+          },
+          "dataCategories": {
+            "label": "Categories of data",
+            "hint": "Which data, as groups: for example contact details, bank details, contract data."
+          },
+          "specialCategories": {
+            "label": "Specially protected data",
+            "hint": "For example health, religion, trade union membership or biometric data (Art. 9 GDPR), or data on criminal convictions and offences (Art. 10).",
+            "yes": "Yes, such data too",
+            "no": "No"
+          },
+          "recipients": {
+            "label": "Recipients",
+            "hint": "Who receives the data, inside the company and outside, as groups: for example the tax adviser, the tax office, the bank."
+          },
+          "transfersOutsideEea": {
+            "label": "Other ways outside the EEA",
+            "hint": "Apart from the suppliers above, does the data go to a country outside the EU, Iceland, Liechtenstein and Norway? For example to a group company or a business partner abroad.",
+            "yes": "Yes",
+            "no": "No",
+            "details": "Where to, and on which basis",
+            "detailsHint": "For example: USA, standard contractual clauses"
+          },
+          "retention": {
+            "label": "Time limit for erasure",
+            "hint": "When the data is erased, where it is possible to say."
+          }
+        }
+      },
+      "processors": {
+        "empty": "Your supplier list is empty. Enter your service providers on the suppliers page.",
+        "noProcessors": "None of your suppliers processes data on your behalf. There is nothing to do here.",
+        "onlyProcessors": "These are the suppliers that process data on your behalf.",
+        "toSuppliers": "To the supplier list",
+        "recorded": "Processors",
+        "noted": {
+          "role": "Suppliers' roles recorded",
+          "contract": "Data processing agreements recorded",
+          "transfer": "Transfers outside the EEA recorded",
+          "subprocessing": "Authorisation of sub-processors recorded"
+        },
+        "role": {
+          "processor": "Processes data on our behalf",
+          "separate_controller": "Processes data for its own purposes",
+          "joint_controller": "Decides purposes and means together with us",
+          "none": "Receives no personal data"
+        },
+        "contract": {
+          "yes": "A data processing agreement is in place",
+          "no": "No agreement yet"
+        },
+        "transfer": {
+          "no": "The data stays in the EEA",
+          "yes": "The data also goes to a country outside the EEA",
+          "mechanism": "Basis",
+          "countries": "Which countries",
+          "countriesHint": "For example: USA, India",
+          "mechanisms": {
+            "adequacy": "Adequacy decision of the European Commission",
+            "sccs": "Standard contractual clauses",
+            "bcr": "Binding corporate rules",
+            "derogation": "Derogation under Art. 49 GDPR",
+            "none": "No basis known"
+          }
+        },
+        "subprocessing": {
+          "general": "General authorisation: the provider reports every intended change, and we can object",
+          "specific": "Each sub-processor is authorised one by one",
+          "not_stated": "The agreement says nothing about it, or I cannot find it"
+        },
+        "stated": {
+          "label": "From their questionnaire",
+          "preselected": "A dashed answer is what the supplier said in its questionnaire. Check it against your contract, then tap it, or take all of them at once.",
+          "takeAll": "Take their answers ({count})",
+          "dataProcessingAgreement": {
+            "available": "Offers a standard data processing agreement",
+            "independentController": "Says it is a controller in its own right",
+            "noPersonalData": "Says it processes no personal data for customers",
+            "no": "Processes customers' data, offers no data processing agreement"
+          },
+          "locations": "Processes customers' data in: {countries}",
+          "personalDataTransfers": {
+            "inEea": "Keeps customers' personal data in the EEA",
+            "adequacy": "Transfers outside the EEA on an adequacy decision",
+            "sccs": "Transfers outside the EEA on standard contractual clauses",
+            "bcr": "Transfers outside the EEA on binding corporate rules",
+            "other": "Transfers outside the EEA on another basis"
+          },
+          "subprocessorEngagement": {
+            "general": "Engages sub-processors under a general authorisation, with notice and a right to object",
+            "specific": "Asks for a specific authorisation for each sub-processor",
+            "none": "Engages no sub-processors for customers' personal data"
+          },
+          "subprocessorList": "Sub-processors: {list}",
+          "breachNotice": "Notifies you of a personal data breach without undue delay",
+          "noBreachNotice": "Did not commit to notifying you of a personal data breach"
+        }
+      }
+    }
+  }
+}

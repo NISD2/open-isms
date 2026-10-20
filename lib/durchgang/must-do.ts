@@ -1,8 +1,8 @@
-import { NIS2_SCRIPT } from "./nis2";
+import { ALL_ITEMS } from "./walks";
 
-/** Items the law leaves no choice on (`mustDo`). */
+/** Items the law leaves no choice on (`mustDo`), in every walk. */
 const MUST_DO: ReadonlySet<string> = new Set(
-  NIS2_SCRIPT.flatMap((item) => (item.mustDo ? [item.code] : [])),
+  ALL_ITEMS.flatMap((item) => (item.mustDo ? [item.code] : [])),
 );
 
 /**

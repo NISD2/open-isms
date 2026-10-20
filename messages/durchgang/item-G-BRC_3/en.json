@@ -1,0 +1,95 @@
+{
+  "durchgang": {
+    "items": {
+      "G-BRC_3": {
+        "headline": "Prepare the notice to the people affected",
+        "teaser": "A template for a breach that puts people at high risk.",
+        "missed": [
+          "Even if you see an exception, the supervisory authority may require you to tell the people affected, or decide that an exception applies (Art. 34(4)).",
+          "In Germany the notice is also not owed insofar as it would disclose information that must be kept secret by law or by its nature. That does not hold where the interests of the people affected outweigh it, in particular in view of threatened harm (§ 29(1) sentences 3 and 4 BDSG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "When people are at high risk",
+            "body": [
+              "Where a breach is likely to result in a high risk to the people concerned, you tell them without undue delay (Art. 34(1)). For example when bank details have fallen into the wrong hands and people should protect themselves, such as by having their card blocked.",
+              "The notice describes in clear and plain language what happened, and states at least who can give more information, the likely consequences and what you are doing about it (Art. 34(2) with Art. 33(3)(b) to (d)). Notifying the supervisory authority does not replace it.",
+              "It is not required where the data was unintelligible to anyone not authorised, for example through encryption, where later measures have removed the high risk, or where it would involve disproportionate effort. In that last case you inform people publicly or in a similarly effective way instead (Art. 34(3)).",
+              "This step writes a template that you only fill in when it is needed."
+            ],
+            "duty": "The GDPR requires your company to tell the people concerned without undue delay when a personal data breach is likely to result in a high risk to their rights and freedoms."
+          },
+          "notice": {
+            "title": "Your template for the notice",
+            "lead": "At the top: when you send a notice and when not. Below: the letter itself. You fill in the parts in square brackets when it is needed. Read the template, then choose below what also applies to you.",
+            "document": {
+              "title": "Notice to people affected by a personal data breach: template of {company}",
+              "sections": [
+                {
+                  "heading": "When we send a notice",
+                  "text": "{company} tells the people concerned without undue delay when a breach of their personal data is likely to result in a high risk to their rights and freedoms (Art. 34(1) GDPR). Whether that is the case we decide under our personal data breach procedure."
+                },
+                {
+                  "heading": "When not",
+                  "text": "A notice is not required where measures applied to the data affected, such as encryption, made it unintelligible to anyone not authorised to access it, where later measures ensure that the high risk is no longer likely to materialise, or where it would involve disproportionate effort. In that last case we inform people publicly or in a similarly effective way instead (Art. 34(3) GDPR). In Germany it is also not owed insofar as it would disclose information that must be kept secret by law or by its nature, unless the interests of the people concerned outweigh that (§ 29(1) BDSG). We record why we sent no notice."
+                },
+                {
+                  "heading": "The letter: what happened",
+                  "text": "Subject: Information about a breach of your personal data. On [date] the following happened at {company}: [what happened, in plain words]. The following data about you is affected: [which data]."
+                },
+                {
+                  "heading": "Possible consequences for you",
+                  "text": "We consider these consequences possible: [for example unwanted advertising, fraud attempts by email or phone, misuse of your bank details]."
+                },
+                {
+                  "heading": "What we have done",
+                  "text": "We have [measures, for example blocked access, reset passwords, informed the supervisory authority]. We also plan [further measures] so that this does not happen again and possible consequences for you are reduced."
+                },
+                {
+                  "heading": "What you can do",
+                  "text": "We recommend: [for example check your bank statements, change your password, hang up on suspicious calls and let us know]."
+                },
+                {
+                  "heading": "Who to contact",
+                  "text": "For questions you can reach us at [phone, email]. Data protection officer: {dataProtectionOfficer}"
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "channel",
+                  "label": "By email, otherwise by letter",
+                  "heading": "How we send the notice",
+                  "text": "We send the notice the way we usually reach the people concerned, as a rule by email, and by letter where we have no email address."
+                },
+                {
+                  "id": "public",
+                  "label": "Public communication",
+                  "heading": "Public communication",
+                  "text": "Where telling each person individually would involve disproportionate effort, we publish the information prominently on our website and, where needed, through other channels that reach the people affected as effectively."
+                },
+                {
+                  "id": "hotline",
+                  "label": "Phone line for questions",
+                  "heading": "Phone line for questions",
+                  "text": "For a breach that affects many people we set up a phone number for questions and give it in the letter."
+                },
+                {
+                  "id": "languages",
+                  "label": "Other languages",
+                  "heading": "Other languages",
+                  "text": "Where the breach affects people who do not read the letter's language well, we also send it in their language."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your template is written",
+            "note": "When it is needed, fill in the parts in square brackets and send the letter without undue delay."
+          }
+        }
+      }
+    }
+  }
+}

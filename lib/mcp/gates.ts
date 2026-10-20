@@ -2,11 +2,15 @@ import "@/lib/server-guard";
 import { z } from "zod";
 import { getPathname } from "@/i18n/navigation";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
-import { WALK, WALK_LOCALES, type WalkLocale } from "@/lib/durchgang";
+import { itemHref, WALK_LOCALES, WALK_ROUTES, type WalkLocale } from "@/lib/durchgang";
 import { getAppUrl } from "@/lib/utils";
 import type { KeyHolder } from "./context";
+import { MCP_WALK } from "./walk";
 
 /** What every tool checks before it reads or writes, and the shape of its answer. */
+
+/** The input that names the served walk (`MCP_WALK`) to the walk's own procedures. */
+export const ON_WALK = { framework: MCP_WALK.framework } as const;
 
 export const language = z
   .enum(WALK_LOCALES)
@@ -22,7 +26,7 @@ export const refuse = (message: string): ToolOutcome => ({ ok: false, message })
 /** The item's page in the app, where the person finishes it. */
 export const linkOf = (code: string, language: WalkLocale): string =>
   `${getAppUrl()}${getPathname({
-    href: { pathname: "/durchgang/nis2/[code]", params: { code } },
+    href: itemHref(MCP_WALK.framework, code),
     locale: language,
   })}`;
 
@@ -33,9 +37,9 @@ export const linkOf = (code: string, language: WalkLocale): string =>
  */
 export async function itemOf(holder: KeyHolder, code: string) {
   const { caller } = holder;
-  const states = await caller.durchgang.walk();
+  const states = await caller.durchgang.walk(ON_WALK);
   const entry = states.find((s) => s.code === code);
-  const item = entry && WALK.find((i) => i.code === code);
+  const item = entry && MCP_WALK.items.find((i) => i.code === code);
   if (!entry || !item)
     return {
       ok: false as const,
@@ -90,6 +94,6 @@ export const notInPlan = (holder: KeyHolder, language: WalkLocale): ToolOutcome 
     ? null
     : refuse(
         NOT_IN_PLAN[language](
-          `${getAppUrl()}${getPathname({ href: "/durchgang/nis2", locale: language })}`,
+          `${getAppUrl()}${getPathname({ href: WALK_ROUTES[MCP_WALK.framework].home, locale: language })}`,
         ),
       );

@@ -71,6 +71,9 @@ export const QUESTIONNAIRE_PAGES = {
         "confidentialityCommitted",
         "dataReturnOnTermination",
         "dataProcessingAgreement",
+        "personalDataTransfers",
+        "subprocessorEngagement",
+        "breachNoticeToController",
       ],
     },
     {

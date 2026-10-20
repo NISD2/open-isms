@@ -63,6 +63,7 @@
     "training": "Instruire",
     "exercises": "Exerciții de urgență",
     "managementReviews": "Analize de management",
+    "processingActivities": "Registrul activităților de prelucrare",
     "kpis": "Indicatori de securitate",
     "changes": "Modificări",
     "patches": "Actualizări de securitate",
@@ -85,6 +86,7 @@
     "blockedBy": "Finalizați mai întâi: {codes}",
     "journey": "Parcurs",
     "durchgang": "Ghid NIS 2",
+    "durchgangGdpr": "Ghid GDPR",
     "administration": "Administrare",
     "comingSoon": "În curând",
     "journeyBoard": {

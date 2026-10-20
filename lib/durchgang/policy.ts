@@ -16,6 +16,7 @@ import {
 } from "@/lib/compliance/policy-config-schemas";
 import type { RegistrationPortal } from "@/lib/registration-portals/schema";
 import { marker } from "./copy";
+import type { DpoRecord } from "./dpo";
 import type { WalkLocale } from "./types";
 
 export interface PolicyDocument {
@@ -167,6 +168,68 @@ export const reportingChannelText = (
   return portal.authorityUrl
     ? `${portal.authority} (${portal.authorityUrl})`
     : portal.authority;
+};
+
+/**
+ * The GDPR documents' list words. The GDPR walk writes German and English only, so a Czech record
+ * language never reaches them; it reads the English words rather than none.
+ */
+const GDPR_LIST_TEXT = {
+  de: {
+    noDpo: "keine benannt",
+    approved: (day: string) => `freigegeben am ${day}`,
+    draft: "Entwurf, noch nicht freigegeben",
+    noDocuments: "Noch keine gesonderten Sicherheitsdokumente.",
+  },
+  en: {
+    noDpo: "none designated",
+    approved: (day: string) => `approved on ${day}`,
+    draft: "draft, not approved yet",
+    noDocuments: "No separate security documents yet.",
+  },
+} as const;
+
+const gdprListText = (locale: WalkLocale) =>
+  GDPR_LIST_TEXT[locale === "de" ? "de" : "en"];
+
+/**
+ * The data protection officer as a GDPR document names them, from G-DPO.1's answers: the person or
+ * service with their published contact, a line that none is designated, or a blank while the
+ * decision is open.
+ */
+export const dataProtectionOfficerText = (locale: WalkLocale, dpo: DpoRecord): string => {
+  switch (dpo.kind) {
+    case "none":
+      return gdprListText(locale).noDpo;
+    case "open":
+      return BLANK;
+    case "designated": {
+      const name = dpo.name ?? BLANK;
+      return dpo.contact ? `${name} (${dpo.contact})` : name;
+    }
+    default:
+      return dpo satisfies never;
+  }
+};
+
+/**
+ * The security documents the company's NIS 2 walk wrote, as a GDPR document lists them: each title
+ * with its state, the approval day where management approved it.
+ */
+export const securityDocumentsText = (
+  locale: WalkLocale,
+  documents: ReadonlyArray<{
+    readonly title: string;
+    readonly approvedOn: string | null;
+  }>,
+): string => {
+  const text = gdprListText(locale);
+  if (documents.length === 0) return text.noDocuments;
+  return documents
+    .map(
+      (d) => `- ${d.title} (${d.approvedOn ? text.approved(d.approvedOn) : text.draft})`,
+    )
+    .join("\n");
 };
 
 /** The names a policy is written with: the company's, and every asked field's answer or a blank. */

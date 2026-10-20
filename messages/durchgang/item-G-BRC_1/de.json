@@ -1,0 +1,135 @@
+{
+  "durchgang": {
+    "items": {
+      "G-BRC_1": {
+        "headline": "Festlegen, was bei einer Datenpanne passiert",
+        "teaser": "Wer entscheidet, wie das Risiko bewertet wird und wer binnen 72 Stunden meldet.",
+        "fromNis2": "Ihr Notfallplan und Ihre Meldungen aus NIS 2 betreffen die Behörde für Cybersicherheit. Eine Datenpanne geht außerdem an die Datenschutzaufsicht, mit eigener Frist: unverzüglich und möglichst binnen 72 Stunden, es sei denn, sie führt voraussichtlich nicht zu einem Risiko für Menschen (Art. 33 Abs. 1).",
+        "missed": [
+          "Ein Vorfall kann drei getrennte Pflichten auslösen: die Meldung eines erheblichen Sicherheitsvorfalls an das BSI, wenn Ihr Unternehmen unter NIS 2 fällt, die Meldung an die Datenschutzaufsicht und die Benachrichtigung der Betroffenen. Jede hat ihre eigenen Voraussetzungen und Fristen; keine ersetzt die andere.",
+          "Auch eine Datenpanne, die Sie nicht melden müssen, dokumentieren Sie: was geschah, welche Folgen sie hatte und was Sie dagegen getan haben. Die Dokumentation muss der Aufsichtsbehörde erlauben, Ihre Entscheidung zu überprüfen (Art. 33 Abs. 5). Halten Sie darum fest, warum Sie kein Risiko gesehen haben.",
+          "Die 72 Stunden laufen auch an Wochenenden und Feiertagen."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wenn personenbezogene Daten betroffen sind",
+            "body": [
+              "Eine Verletzung des Schutzes personenbezogener Daten, kurz Datenpanne, ist eine Verletzung der Sicherheit, die, ob unbeabsichtigt oder unrechtmäßig, zur Vernichtung, zum Verlust, zur Veränderung oder zur unbefugten Offenlegung von personenbezogenen Daten führt oder zum unbefugten Zugang zu ihnen (Art. 4 Nr. 12). Beispiele: ein verlorener Laptop ohne Verschlüsselung, eine E-Mail mit Gehaltsdaten an den falschen Empfänger, Server, die ein Angriff verschlüsselt hat.",
+              "Sie melden sie der zuständigen Aufsichtsbehörde unverzüglich und möglichst binnen 72 Stunden, nachdem sie Ihnen bekannt wurde. Das entfällt nur, wenn die Verletzung voraussichtlich nicht zu einem Risiko für die betroffenen Menschen führt (Art. 33 Abs. 1). Eine spätere Meldung braucht eine Begründung für die Verzögerung.",
+              "In diesem Schritt schreiben Sie das Verfahren dafür: wer entscheidet, wie das Risiko bewertet wird, wer meldet und wie alles festgehalten wird. Ihr Notfallplan aus dem NIS 2 Durchgang bleibt, wie er ist; dieses Verfahren steht daneben."
+            ],
+            "duty": "Die DSGVO verlangt, dass Ihr Unternehmen eine Verletzung des Schutzes personenbezogener Daten der Aufsichtsbehörde meldet, es sei denn, sie führt voraussichtlich nicht zu einem Risiko für die betroffenen Menschen."
+          },
+          "notify": {
+            "title": "Melden oder nicht",
+            "caption": "Wie Sie das Risiko für die betroffenen Menschen einschätzen",
+            "good": {
+              "value": "Ein Laptop mit Kundendaten ist gestohlen. Die Festplatte ist nach dem Stand der Technik verschlüsselt, das Passwort war nicht dabei, und die Daten liegen in einer aktuellen Sicherung, es geht also nichts verloren. Ein Risiko ist unwahrscheinlich: nicht gemeldet, aber mit Begründung dokumentiert.",
+              "note": "Die Entscheidung gegen die Meldung ist begründet und festgehalten, so dass die Aufsichtsbehörde sie überprüfen kann (Art. 33 Abs. 5)."
+            },
+            "bad": {
+              "value": "Eine Liste mit Gehältern ging per E-Mail an einen falschen Empfänger außerhalb des Unternehmens. Er hat zugesagt, sie zu löschen, also melden wir nicht.",
+              "note": "Die Daten sind beim Empfänger angekommen, und ob er löscht, wissen Sie nicht. Die Meldung entfällt nur, wenn ein Risiko unwahrscheinlich ist. Das ist hier nicht der Fall."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Nach 72 Stunden wissen wir noch nicht alles. Wir melden, was wir wissen, und reichen den Rest nach.",
+                  "note": "Die Angaben dürfen schrittweise folgen, ohne unangemessene weitere Verzögerung (Art. 33 Abs. 4)."
+                },
+                "bad": {
+                  "value": "Wir melden erst, wenn wir alles wissen.",
+                  "note": "Die Frist läuft ab dem Moment, in dem Ihnen die Verletzung bekannt wurde. Eine verspätete Meldung braucht eine Begründung (Art. 33 Abs. 1)."
+                }
+              }
+            ]
+          },
+          "lead": {
+            "title": "Wer führt, wenn personenbezogene Daten betroffen sind",
+            "lead": "Diese Person erfährt als Erste von jeder Datenpanne, entscheidet, ob gemeldet wird, zusammen mit Ihren Datenschutzbeauftragten, wo Sie welche haben, und erstattet die Meldung. Wählen Sie jemanden, der meist erreichbar ist, und sagen Sie Ihren Beschäftigten, wer vertritt, wenn diese Person nicht da ist.",
+            "document": "Datenpannen"
+          },
+          "procedure": {
+            "title": "Ihr Verfahren bei Datenpannen",
+            "lead": "Wer entscheidet, wie das Risiko bewertet wird, wer meldet und wie alles festgehalten wird. Die Person, die Sie eben benannt haben, und Ihre Datenschutzbeauftragten stehen schon darin. Lesen Sie es, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
+            "document": {
+              "title": "Verfahren bei Verletzungen des Schutzes personenbezogener Daten der {company}",
+              "sections": [
+                {
+                  "heading": "Was eine Datenpanne ist",
+                  "text": "Eine Verletzung des Schutzes personenbezogener Daten ist eine Verletzung der Sicherheit, die, ob unbeabsichtigt oder unrechtmäßig, zur Vernichtung, zum Verlust, zur Veränderung oder zur unbefugten Offenlegung personenbezogener Daten oder zum unbefugten Zugang zu ihnen führt (Art. 4 Nr. 12 DSGVO). Beispiele: ein verlorenes Gerät mit unverschlüsselten Daten, eine E-Mail an den falschen Empfänger, ein Angriff auf unsere Systeme, Akten im Altpapier. Dieses Verfahren gilt für alle Beschäftigten der {company}."
+                },
+                {
+                  "heading": "Wer etwas bemerkt",
+                  "text": "Wer eine Datenpanne bemerkt oder vermutet, meldet sie sofort {breachLead}, der Person, die bei der {company} im Ernstfall führt. Im Zweifel melden Sie."
+                },
+                {
+                  "heading": "Wer entscheidet",
+                  "text": "{breachLead} klärt, was geschehen ist, bezieht unsere Datenschutzbeauftragten sofort ein, sofern benannt, entscheidet, ob gemeldet wird, und informiert die Geschäftsführung. Datenschutzbeauftragte: {dataProtectionOfficer}"
+                },
+                {
+                  "heading": "Das Risiko bewerten",
+                  "text": "Wir fragen, welche Folgen die Verletzung für die betroffenen Menschen haben kann und wie wahrscheinlich sie sind, etwa Identitätsdiebstahl, finanzieller Verlust, Rufschädigung oder der Verlust der Kontrolle über die eigenen Daten. Dabei zählen die Art der Daten, wie viele Menschen betroffen sind, ob die Daten verschlüsselt waren und wer sie jetzt hat. Ist ein Risiko unwahrscheinlich, dokumentieren wir und melden nicht. Besteht ein Risiko, melden wir der Aufsichtsbehörde. Besteht ein hohes Risiko, benachrichtigen wir außerdem die betroffenen Menschen (Art. 34 DSGVO)."
+                },
+                {
+                  "heading": "Melden binnen 72 Stunden",
+                  "text": "Wir melden unverzüglich und möglichst binnen 72 Stunden, nachdem uns die Verletzung bekannt wurde, an die zuständige Aufsichtsbehörde (Art. 33 Abs. 1 DSGVO); für ein Unternehmen in Deutschland ist das in der Regel die Datenschutzaufsicht seines Bundeslandes (§ 40 BDSG). Die Meldung beschreibt die Art der Verletzung, soweit möglich mit den Kategorien und der ungefähren Zahl der betroffenen Personen und Datensätze, nennt unsere Datenschutzbeauftragten oder eine andere Anlaufstelle, die wahrscheinlichen Folgen und die ergriffenen oder geplanten Maßnahmen (Art. 33 Abs. 3). Was wir noch nicht wissen, reichen wir ohne unangemessene weitere Verzögerung nach (Art. 33 Abs. 4). Melden wir später als nach 72 Stunden, begründen wir die Verzögerung."
+                },
+                {
+                  "heading": "Dokumentieren",
+                  "text": "Jede Datenpanne halten wir im Vorfallregister fest, auch eine, die wir nicht melden: was geschah, welche Folgen sie hatte, was wir dagegen getan haben und wie wir das Risiko bewertet haben (Art. 33 Abs. 5 DSGVO)."
+                },
+                {
+                  "heading": "Unsere Dienstleister",
+                  "text": "Unsere Auftragsverarbeiter melden uns eine Datenpanne unverzüglich, nachdem sie ihnen bekannt wurde (Art. 33 Abs. 2 DSGVO). Spätestens mit dieser Meldung ist sie uns bekannt, und unsere Frist läuft."
+                },
+                {
+                  "heading": "Meldung an das BSI",
+                  "text": "Fällt die {company} unter NIS 2 und ist der Vorfall zugleich ein erheblicher Sicherheitsvorfall, meldet sie ihn außerdem nach ihrem Notfallplan an das BSI. Die beiden Meldungen sind getrennt; keine ersetzt die andere."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "weekend",
+                  "label": "Erreichbar am Wochenende",
+                  "heading": "Erreichbarkeit",
+                  "text": "Die 72 Stunden laufen auch an Wochenenden und Feiertagen. {breachLead} oder eine benannte Vertretung ist auch dann erreichbar."
+                },
+                {
+                  "id": "form",
+                  "label": "Formular der Aufsichtsbehörde",
+                  "heading": "Formular",
+                  "text": "Bietet die zuständige Aufsichtsbehörde ein Formular für die Meldung auf ihrer Website an, melden wir darüber."
+                },
+                {
+                  "id": "processors",
+                  "label": "Fristen mit Dienstleistern",
+                  "heading": "Fristen mit Dienstleistern",
+                  "text": "In unseren Verträgen zur Auftragsverarbeitung ist festgelegt, wie schnell der Dienstleister uns eine Datenpanne meldet, damit uns genug Zeit für die 72 Stunden bleibt."
+                },
+                {
+                  "id": "review",
+                  "label": "Nachbereitung",
+                  "heading": "Nachbereitung",
+                  "text": "Nach jeder Datenpanne prüfen wir, ob wir unsere Maßnahmen zur Sicherheit der Verarbeitung anpassen müssen."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihr Verfahren bei Datenpannen ist geschrieben",
+            "note": "Sagen Sie allen Beschäftigten, wem sie eine Datenpanne melden."
+          }
+        },
+        "fields": {
+          "breachLead": {
+            "label": "Wer führt",
+            "hint": "Jemand aus Ihrem Team, der meist erreichbar ist, oder eine Person von außen, etwa Ihr IT-Dienstleister. Die Entscheidung über die Meldung bleibt bei Ihrem Unternehmen."
+          }
+        }
+      }
+    }
+  }
+}
