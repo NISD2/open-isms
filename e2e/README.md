@@ -31,6 +31,30 @@ predates the image. The version-matched way to run it is from the tag:
 `git checkout v0.2.8 && bun run e2e:image 0.2.8`. Nothing in CI runs it
 either way.
 
+## What a pull request runs
+
+A pull request runs only the specs of the areas it touches; every merge to
+`main` and a nightly run take the whole suite. `e2e/select/areas.ts` holds the
+two tables (each spec's areas, and which source paths belong to which area),
+and `scripts/ci/e2e-select.ts` turns the changed files into a spec list:
+
+- A path no entry claims (schema, migrations, layouts, `e2e/lib`, `packages/`,
+  `package.json`, anything new) runs the whole suite. Narrow only what is
+  clearly one area's.
+- Sign-in and the smoke check always run; areas whose specs read the tenant's
+  intake answers and assets (`walk`, `signoff`, `registers`) get the L1 data
+  specs first. The grand tour runs only with the whole suite.
+- The PR label `e2e:full` runs the whole suite, whatever changed.
+- A new spec needs an entry, or `e2e/l0/e2e-select.test.ts` fails.
+
+The risk: a change in one area that breaks another area's spec shows up only on
+`main`, after merging. Add `e2e:full` when a change reaches further than its
+paths say.
+
+```bash
+bun scripts/ci/e2e-select.ts            # what this branch would run
+```
+
 ## Isolation
 
 The harness cannot reach production by construction:
