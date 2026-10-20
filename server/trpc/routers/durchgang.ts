@@ -14,13 +14,8 @@ import {
   ownDescription,
 } from "@/lib/asset-inventory/catalog-labels";
 import { CUSTOM_ASSET_TYPE } from "@/lib/asset-inventory/types";
-import { logAudit } from "@/lib/audit";
 import { isFreeMailAddress } from "@/lib/auth/free-mail";
-import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayWalkDurchgang } from "@/lib/billing/access";
 import { FREQUENCIES, IMPACTS, type RiskLevel } from "@/lib/compliance/bsi-200-3";
-import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import type { CountableModule } from "@/lib/compliance/module-tables";
 import { getDefaultPolicyConfig } from "@/lib/compliance/policy-config-defaults";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { seedLocale } from "@/lib/compliance/seed-locale";
@@ -88,7 +83,6 @@ import { improvementItemInsertSchema } from "@/schema/validators";
 import { verifyMemberReferences } from "../guards";
 import {
   appendNote,
-  type DurchgangActor,
   declineReason,
   durchgangItem,
   refuseSettled,

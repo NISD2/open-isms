@@ -49,7 +49,9 @@ export async function WalkPlaces({ register }: { register: WalkRegister }) {
           href={itemHref(framework, code, at)}
           className="inline-flex items-center gap-1.5 rounded-full border bg-background px-3 py-1 transition-colors hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
         >
-          <span className="whitespace-nowrap text-muted-foreground tabular-nums">{code}</span>
+          <span className="whitespace-nowrap text-muted-foreground tabular-nums">
+            {code}
+          </span>
           {headlineOf.get(code) ?? code}
         </Link>
       ))}

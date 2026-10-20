@@ -263,7 +263,10 @@ type Messages = Record<string, unknown>;
 const isRecord = (value: unknown): value is Messages =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
-/** Parts hold disjoint keys, so merging them is a union at every depth. */
+/**
+ * A union at every depth. A language's parts hold disjoint keys; where a later part repeats a key
+ * (a translation laid over the English copy), the later part wins.
+ */
 const merge = (a: Messages, b: Messages): Messages =>
   Object.entries(b).reduce<Messages>((out, [key, value]) => {
     const here = out[key];
