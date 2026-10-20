@@ -38,7 +38,6 @@ import { TERMS_VERSION } from "@/lib/billing/terms";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
-import { mayExport } from "@/lib/export/access";
 import { isLocaleCode } from "@/lib/locale";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
@@ -212,18 +211,13 @@ export const billingRouter = router({
 
   /**
    * The yes to the warning before a first export or sign-off inside the money back: it ends the
-   * money back (AGB B7), recorded on the order with who said yes. Only someone who may export or
-   * sign off says it, the same people the warning appears for.
+   * money back (AGB B7), recorded on the order with who said yes. Any member of the company may say
+   * it: a policy PDF is open to every member and a sign-off to whoever holds the requirement's
+   * role, so a narrower rule would leave someone who may act unable to confirm.
    */
   waiveMoneyBack: accountProcedure
     .input(z.object({ through: z.enum(["export", "sign_off"]) }))
     .mutation(async ({ ctx, input }) => {
-      if (!mayExport(ctx.session)) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "Only who may export or sign off.",
-        });
-      }
       const waived = await waiveMoneyBack(ctx.db, ctx.session, {
         userId: ctx.userId,
         through: input.through,

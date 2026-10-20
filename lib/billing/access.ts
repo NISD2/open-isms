@@ -120,6 +120,8 @@ export const FREE_WALK_PROCEDURES: ReadonlySet<string> = new Set([
   "training.delete",
   "training.managementCourse",
   "training.getCertificateUploadUrl",
+  // Inviting management to the course from the training step (CourseInvite).
+  "team.invite",
   "asset.list",
   "supplier.list",
   "durchgang.walk",

@@ -7,6 +7,7 @@ import type { ComponentProps } from "react";
 import { CompanyEssentials } from "@/components/organization/CompanyEssentials";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
+import { SETUP_STEP } from "@/lib/durchgang";
 import { FOOTER, HEADER, STAGE } from "./transition";
 
 const FORM_ID = "dg-setup-form";
@@ -64,7 +65,7 @@ export function SetupStep({
       </header>
 
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 pt-8 pb-12 sm:px-6 lg:px-10 lg:pt-14">
-        <div style={STAGE} className="w-full max-w-3xl" data-dg-item="unternehmen">
+        <div style={STAGE} className="w-full max-w-3xl" data-dg-item={SETUP_STEP}>
           <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
             <PenLine className="size-3.5" />
             {t("kinds.fields")}

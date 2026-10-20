@@ -100,6 +100,33 @@ const GREETING: Record<EmailLocale, string> = {
   cs: "Dobrý den,",
 };
 
+/** Why a cancel brought no money back, as the confirmation says it (AGB B7). */
+const NO_MONEY_BACK: Readonly<
+  Record<
+    Extract<CancelWindow, { kind: "renewal" }>["reason"],
+    Record<EmailLocale, string>
+  >
+> = {
+  not_first_invoice: {
+    de: "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos",
+    nl: "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account",
+    en: "The thirty days money back apply only to an account's first order",
+    cs: "Třicet dní na vrácení peněz platí jen pro první objednávku účtu",
+  },
+  window_passed: {
+    de: "Die 30 Tage Geld zurück sind vorbei",
+    nl: "De 30 dagen geld terug zijn voorbij",
+    en: "The thirty days money back have passed",
+    cs: "Třicet dní na vrácení peněz uplynulo",
+  },
+  money_back_waived: {
+    de: "Die 30 Tage Geld zurück endeten mit Ihrem ersten Export oder Ihrer ersten Freigabe",
+    nl: "De 30 dagen geld terug eindigden met uw eerste export of uw eerste goedkeuring",
+    en: "The thirty days money back ended with your first export or sign-off",
+    cs: "Třicet dní na vrácení peněz skončilo vaším prvním exportem nebo prvním schválením",
+  },
+};
+
 /** The confirmation of a cancel that only stops the renewal, in the holder's language. */
 const renewalWording = (
   mail: Extract<CanceledEmail, { kind: "renewal" }>,
@@ -109,7 +136,7 @@ const renewalWording = (
   const account = accountLine(locale, erased);
   const end = formatInvoiceDay(mail.periodEnd, locale);
   const inv = mail.invoiceNumber;
-  const firstOnly = mail.reason === "not_first_invoice";
+  const why = NO_MONEY_BACK[mail.reason][locale];
   const common = { locale, greeting: GREETING[locale] } as const;
   switch (locale) {
     case "de":
@@ -132,7 +159,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
+          `${why}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
           ...account,
         ],
       };
@@ -156,7 +183,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
+          `${why}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
           ...account,
         ],
       };
@@ -180,7 +207,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
+          `${why}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
           ...account,
         ],
       };
@@ -202,7 +229,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "Třicet dní na vrácení peněz platí jen pro první objednávku účtu" : "Třicet dní na vrácení peněz uplynulo"}, proto faktura ${inv} zůstává v platnosti. Pokud je ještě nezaplacená, uhraďte ji prosím podle dohody.`,
+          `${why}, proto faktura ${inv} zůstává v platnosti. Pokud je ještě nezaplacená, uhraďte ji prosím podle dohody.`,
           ...account,
         ],
       };

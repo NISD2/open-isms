@@ -27,9 +27,9 @@ import type { BillingAct } from "@/lib/billing/account-state";
 import { trpc } from "@/lib/trpc/client";
 
 export function useBillingAct(act: BillingAct): {
-  /** Whether the act needs the dialog first: a confirm, or an order. */
+  /** Whether the act may need the dialog first: a confirm, an order, or a state not loaded yet. */
   readonly blocks: boolean;
-  /** Runs `proceed` now if allowed, else after the dialog's yes. */
+  /** Runs `proceed` once allowed: now, or after the dialog's yes. Loads the state first if needed. */
   readonly guard: (proceed: () => void) => void;
   readonly dialog: ReactNode;
 } {
@@ -39,17 +39,22 @@ export function useBillingAct(act: BillingAct): {
   const acts = trpc.billing.acts.useQuery(undefined, { staleTime: 30_000 });
   const waive = trpc.billing.waiveMoneyBack.useMutation();
   const [pending, setPending] = useState<{ readonly proceed: () => void } | null>(null);
-  const verdict = acts.data
-    ? act === "export"
-      ? acts.data.export
-      : acts.data.signOff
-    : null;
+  const verdictOf = (data: NonNullable<typeof acts.data>) =>
+    act === "export" ? data.export : data.signOff;
+  const verdict = acts.data ? verdictOf(acts.data) : null;
 
-  // Before the state has loaded the act goes ahead; the server checks it again.
-  const blocks = verdict !== null && verdict.kind !== "allow";
+  const blocks = verdict === null || verdict.kind !== "allow";
+  // Never on a guess: a click before the state has loaded waits for it, so a refused download
+  // does not replace the page and a confirm is not skipped. If it cannot be read, the server
+  // decides, as it does every time.
   const guard = (proceed: () => void) => {
-    if (blocks) setPending({ proceed });
-    else proceed();
+    const decide = (data: typeof acts.data | null) => {
+      const v = data ? verdictOf(data) : null;
+      if (v && v.kind !== "allow") setPending({ proceed });
+      else proceed();
+    };
+    if (acts.data) decide(acts.data);
+    else utils.billing.acts.fetch().then(decide, () => decide(null));
   };
 
   const confirm = async () => {

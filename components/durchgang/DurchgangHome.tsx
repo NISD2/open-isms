@@ -12,7 +12,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { Fragment, type ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { ImagePreview } from "@/components/shared/ImagePreview";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -91,7 +91,8 @@ export function DurchgangHome({
     text: string;
   }>;
   const steps = useSteps(walk, setup);
-  const untouched = steps.every((w) => w.state.kind === "open");
+  // Setting the company up is not walking: a company set up but not walked yet still starts.
+  const untouched = steps.every((w) => w.code === SETUP_STEP || w.state.kind === "open");
   // Without an order the walk ends at the last free step: "next" is the next one of those, and
   // none left means the free part is filled in or set aside, which is where the order begins.
   const reachable = locked ? steps.filter((w) => isFreeStep(w.code)) : steps;
@@ -252,130 +253,128 @@ export function DurchgangHome({
               <Clock className="size-4" />
             ) : null;
             return (
-              <Fragment key={entry.code}>
-                <li className="relative">
-                  {index < steps.length - 1 && (
-                    // Joins this card to the next across the 8px gap, under the status circle's
-                    // centre (1px border, 20px padding, half the 28px circle).
-                    <span
-                      aria-hidden
-                      className="absolute top-full left-[35px] h-2 w-px -translate-x-1/2 bg-primary/25"
-                    />
+              <li key={entry.code} className="relative">
+                {index < steps.length - 1 && (
+                  // Joins this card to the next across the 8px gap, under the status circle's
+                  // centre (1px border, 20px padding, half the 28px circle).
+                  <span
+                    aria-hidden
+                    className="absolute top-full left-[35px] h-2 w-px -translate-x-1/2 bg-primary/25"
+                  />
+                )}
+                <div
+                  id={stepId(entry.code)}
+                  className={cn(
+                    "relative flex items-center gap-3 rounded-2xl border bg-card p-3 pr-4 pl-5 shadow-xs transition duration-500 sm:gap-4",
+                    !inert &&
+                      "hover:border-primary/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
+                    shot &&
+                      "hover:border-primary/40 has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring",
+                    isNext && "border-primary/60 ring-4 ring-primary/10",
+                    flash === entry.code &&
+                      "border-emerald-600 ring-4 ring-emerald-600/25",
                   )}
-                  <div
-                    id={stepId(entry.code)}
-                    className={cn(
-                      "relative flex items-center gap-3 rounded-2xl border bg-card p-3 pr-4 pl-5 shadow-xs transition duration-500 sm:gap-4",
-                      !inert &&
-                        "hover:border-primary/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
-                      shot &&
-                        "hover:border-primary/40 has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring",
-                      isNext && "border-primary/60 ring-4 ring-primary/10",
-                      flash === entry.code &&
-                        "border-emerald-600 ring-4 ring-emerald-600/25",
-                    )}
-                  >
-                    {/* Two marks, two questions. The big circle: is the step filled in (empty, or
+                >
+                  {/* Two marks, two questions. The big circle: is the step filled in (empty, or
                       a blue tick)? The small grey tick at its bottom right: signed off yet? Once
                       signed off the small one goes and the whole circle turns green (Simon,
                       03.10.2026). Both sit above the card's stretched link so they can show
                       their tooltips. The circle is itself a link to the same step, out of the
                       tab order, so a click on it opens it; the small tick leads to the step
                       where management signs. */}
-                    <span className="relative z-10 shrink-0">
-                      {inert ? (
-                        <span aria-hidden className={circle}>
-                          {mark}
-                        </span>
-                      ) : (
-                        <>
+                  <span className="relative z-10 shrink-0">
+                    {inert ? (
+                      <span aria-hidden className={circle}>
+                        {mark}
+                      </span>
+                    ) : (
+                      <>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link
+                              href={href}
+                              tabIndex={-1}
+                              aria-hidden
+                              className={circle}
+                            >
+                              {mark}
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent>{stateLabel(entry)}</TooltipContent>
+                        </Tooltip>
+                        {awaitsSignOff && (
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Link
-                                href={href}
-                                tabIndex={-1}
-                                aria-hidden
-                                className={circle}
+                              <button
+                                type="button"
+                                aria-label={t("ui.home.toSignOff")}
+                                onClick={showSignOff}
+                                className="absolute -right-1.5 -bottom-1.5 flex size-4 cursor-pointer items-center justify-center rounded-full border border-muted-foreground/30 bg-card text-muted-foreground/60 ring-2 ring-card hover:border-emerald-600 hover:text-emerald-600"
                               >
-                                {mark}
-                              </Link>
+                                <Check className="size-2.5" strokeWidth={3} />
+                              </button>
                             </TooltipTrigger>
-                            <TooltipContent>{stateLabel(entry)}</TooltipContent>
+                            <TooltipContent>{t("ui.home.toSignOff")}</TooltipContent>
                           </Tooltip>
-                          {awaitsSignOff && (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button
-                                  type="button"
-                                  aria-label={t("ui.home.toSignOff")}
-                                  onClick={showSignOff}
-                                  className="absolute -right-1.5 -bottom-1.5 flex size-4 cursor-pointer items-center justify-center rounded-full border border-muted-foreground/30 bg-card text-muted-foreground/60 ring-2 ring-card hover:border-emerald-600 hover:text-emerald-600"
-                                >
-                                  <Check className="size-2.5" strokeWidth={3} />
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent>{t("ui.home.toSignOff")}</TooltipContent>
-                            </Tooltip>
-                          )}
-                        </>
-                      )}
-                    </span>
-                    <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
-                      <Art
-                        src={entry.image}
-                        className={cn("h-full", settled && "opacity-40")}
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-xs text-muted-foreground">{entry.section}</p>
-                      {inert ? (
-                        <p className="text-sm font-semibold leading-snug">
-                          {entry.headline}
-                        </p>
-                      ) : (
-                        <Link
-                          href={href}
-                          className={cn(
-                            "text-sm font-semibold leading-snug after:absolute after:inset-0 focus-visible:outline-none",
-                            settled && "text-muted-foreground",
-                          )}
-                        >
-                          {entry.headline}
-                          <span className="sr-only">: {stateLabel(entry)}</span>
-                        </Link>
-                      )}
-                      {/* What a set-aside step still needs, in sight: the circle's tooltip never
-                        opens on touch. */}
-                      {entry.state.kind === "waiting" && entry.state.reason && (
-                        <p className="mt-0.5 text-xs text-amber-700 dark:text-amber-400">
-                          {t(`waitReasons.${entry.state.reason}`)}
-                        </p>
-                      )}
-                    </div>
-                    {!inert && (
-                      <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
-                    )}
-                    {/* A locked step does not open, it shows itself on hover: the whole card is the
-                      trigger, so the preview sits beside the card. A click leads to the order,
-                      or the pricing page where ordering is closed (Simon, 20.10.2026). */}
-                    {shot && (
-                      <>
-                        <Eye
-                          aria-hidden
-                          className="size-4 shrink-0 text-muted-foreground"
-                        />
-                        <ImagePreview image={shot} link>
-                          <Link
-                            href={orderHref}
-                            aria-label={t("ui.home.preview", { step: entry.headline })}
-                            className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-none"
-                          />
-                        </ImagePreview>
+                        )}
                       </>
                     )}
+                  </span>
+                  <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
+                    <Art
+                      src={entry.image}
+                      className={cn("h-full", settled && "opacity-40")}
+                    />
                   </div>
-                </li>
-              </Fragment>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs text-muted-foreground">{entry.section}</p>
+                    {inert ? (
+                      <p className="text-sm font-semibold leading-snug">
+                        {entry.headline}
+                      </p>
+                    ) : (
+                      <Link
+                        href={href}
+                        className={cn(
+                          "text-sm font-semibold leading-snug after:absolute after:inset-0 focus-visible:outline-none",
+                          settled && "text-muted-foreground",
+                        )}
+                      >
+                        {entry.headline}
+                        <span className="sr-only">: {stateLabel(entry)}</span>
+                      </Link>
+                    )}
+                    {/* What a set-aside step still needs, in sight: the circle's tooltip never
+                        opens on touch. */}
+                    {entry.state.kind === "waiting" && entry.state.reason && (
+                      <p className="mt-0.5 text-xs text-amber-700 dark:text-amber-400">
+                        {t(`waitReasons.${entry.state.reason}`)}
+                      </p>
+                    )}
+                  </div>
+                  {!inert && (
+                    <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                  )}
+                  {/* A locked step does not open, it shows itself on hover: the whole card is the
+                      trigger, so the preview sits beside the card. A click leads to the order,
+                      or the pricing page where ordering is closed (Simon, 20.10.2026). */}
+                  {shot && (
+                    <>
+                      <Eye
+                        aria-hidden
+                        className="size-4 shrink-0 text-muted-foreground"
+                      />
+                      <ImagePreview image={shot} link>
+                        <Link
+                          href={orderHref}
+                          aria-label={t("ui.home.preview", { step: entry.headline })}
+                          className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-none"
+                        />
+                      </ImagePreview>
+                    </>
+                  )}
+                </div>
+              </li>
             );
           })}
         </ol>

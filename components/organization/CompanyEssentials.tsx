@@ -75,6 +75,9 @@ export function CompanyEssentials({
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
+    // A second click while saving, from a submit button outside the form (the walk's footer)
+    // that stays enabled, would send the company a second time.
+    if (saving) return;
     setMissing(!ready);
     if (!ready) return;
     const values = { name: name.trim(), sector, entityType };

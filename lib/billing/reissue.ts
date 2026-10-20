@@ -170,7 +170,15 @@ export async function reissueInvoice(input: ReissueInput): Promise<ReissueOutcom
         mode.kind === "live"
           ? await takeDocumentNumber(db, "credit_note", CREDIT_NOTE_PREFIX, year)
           : sandboxInvoiceNumber(CREDIT_NOTE_PREFIX, year, now);
-      const wording = invoiceWording(dates, money, locale, firstOrder, old.number);
+      // The replacement keeps the terms, and so the money back, of the order it replaces.
+      const wording = invoiceWording(
+        dates,
+        money,
+        locale,
+        firstOrder,
+        old.termsVersion,
+        old.number,
+      );
 
       await markOrderCheck(db, account.id, number, now);
       progress.qontoCalled = true;

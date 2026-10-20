@@ -25,6 +25,7 @@ export function useSteps(
     headline: t("setupHeadline"),
     teaser: "",
     image: SETUP_ART,
-    state: setup ? { kind: "open" } : { kind: "filled", since: new Date() },
+    // No screen shows when setup was filled in; a fixed date keeps a render from inventing one.
+    state: setup ? { kind: "open" } : { kind: "filled", since: new Date(0) },
   });
 }

@@ -108,7 +108,7 @@ describe("a reissued invoice", () => {
   const money = priceFor("DE", null, 240_000);
 
   test("names the invoice it replaces, in the footer and the email", () => {
-    const de = invoiceWording(dates, money, "de", true, "NIS-2026-0001");
+    const de = invoiceWording(dates, money, "de", true, null, "NIS-2026-0001");
     expect(de.footer).toContain("ersetzt die stornierte Rechnung NIS-2026-0001");
     expect(de.description).toContain("bis 2027-12-31");
     const email = invoiceEmailWording({
@@ -127,6 +127,8 @@ describe("a reissued invoice", () => {
   });
 
   test("an ordinary invoice says nothing about replacing", () => {
-    expect(invoiceWording(dates, money, "de", true).footer).not.toContain("ersetzt");
+    expect(invoiceWording(dates, money, "de", true, null).footer).not.toContain(
+      "ersetzt",
+    );
   });
 });

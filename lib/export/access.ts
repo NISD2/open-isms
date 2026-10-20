@@ -36,11 +36,13 @@ export async function exportAccess(
   if (!mayExport(session)) {
     return { ok: false, response: new Response("Forbidden", { status: 403 }) };
   }
-  const verdict = await billingVerdict(db, session, "export");
-  if (verdict.kind !== "allow") return { ok: false, response: refusalResponse(verdict) };
+  // The limit first: the billing state may ask Qonto, and a refused download in a loop must not
+  // reach it more than a few times a minute.
   if (!(await rateLimit(`export:${kind}:${session.user.id}`, perMinute, 60_000))) {
     return { ok: false, response: new Response("Too many requests", { status: 429 }) };
   }
+  const verdict = await billingVerdict(db, session, "export");
+  if (verdict.kind !== "allow") return { ok: false, response: refusalResponse(verdict) };
   return { ok: true, companyId: session.companyId, userId: session.user.id };
 }
 
