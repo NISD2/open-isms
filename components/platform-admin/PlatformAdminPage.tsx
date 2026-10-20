@@ -17,6 +17,7 @@ import {
   ToggleRight,
   Trash2,
   Truck,
+  UserCheck,
   Users,
 } from "lucide-react";
 import { useState } from "react";
@@ -30,8 +31,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link, useRouter } from "@/i18n/navigation";
+import { ActiveUsersPanel } from "./ActiveUsersPanel";
 import { CloseSyncPanel } from "./CloseSyncPanel";
 import { DevPanel } from "./DevPanel";
+import { emailTypeLabel } from "./email-type-label";
 import { FeatureFlagsPanel } from "./FeatureFlagsPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
@@ -236,6 +239,7 @@ function planBadge(plan: string | null) {
 type Tab =
   | "graphs"
   | "users"
+  | "active"
   | "companies"
   | "compliance"
   | "training"
@@ -248,26 +252,6 @@ type Tab =
   | "close"
   | "flags"
   | "dev";
-
-/** Human-readable label for a notification.entityType value. */
-function emailTypeLabel(t: string): string {
-  switch (t) {
-    case "course_followup":
-      return "Course follow-up";
-    case "requirement":
-      return "Compliance reminder";
-    case "policy":
-      return "Policy reminder";
-    case "supplier_publication_event":
-      return "Supplier incident broadcast";
-    case "lifecycle_email":
-      return "Lifecycle nudge";
-    case "newsletter_issue":
-      return "Newsletter";
-    default:
-      return t;
-  }
-}
 
 // ---------------------------------------------------------------------------
 // Component
@@ -345,6 +329,12 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           { key: "users" as const, label: "Users", icon: Users, count: users.length },
+          {
+            key: "active" as const,
+            label: "Active users",
+            icon: UserCheck,
+            count: undefined as number | undefined,
+          },
           {
             key: "companies" as const,
             label: "Companies",
@@ -440,6 +430,7 @@ export function PlatformAdminPage({
       {/* Tab content */}
       {tab === "graphs" && <GraphsPanel />}
       {tab === "users" && <UsersTable users={users} />}
+      {tab === "active" && <ActiveUsersPanel />}
       {tab === "companies" && <CompaniesTable companies={companies} />}
       {tab === "compliance" && <ComplianceTable rows={complianceActivity} />}
       {tab === "training" && <TrainingTable rows={trainingActivity} />}
