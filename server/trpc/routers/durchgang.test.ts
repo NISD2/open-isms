@@ -481,7 +481,7 @@ describe("the walk's policy", () => {
     expect(content).toContain("IT-Notfallnummer _______________ an.");
     expect(content).toContain("mit unserer Nummer _______________.");
     expect(content).not.toContain("{");
-    // The answers are read from this company's assessment and the item's category, nowhere else.
+    // Read from this company's assessment and the item's category only.
     const intake = wheres.find((w) => w.table === "companyCategoryIntake");
     expect(intake && paramsOf(intake.where)).toEqual([ASSESSMENT, CATEGORY]);
   });
