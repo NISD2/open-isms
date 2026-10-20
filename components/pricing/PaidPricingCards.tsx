@@ -134,14 +134,15 @@ function FeatureItem({
   highlighted?: boolean;
 }) {
   return (
-    <li className="flex items-start gap-3 text-sm leading-snug">
-      {highlighted ? (
-        <span className="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400">
-          <Check className="size-3.5" strokeWidth={3} />
-        </span>
-      ) : (
-        <Check className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-      )}
+    <li className="flex items-start gap-2.5 text-sm leading-snug">
+      {/* One quiet tick for both cards; the offer's is in the brand colour. */}
+      <Check
+        className={cn(
+          "mt-0.5 size-4 shrink-0",
+          highlighted ? "text-primary" : "text-muted-foreground",
+        )}
+        strokeWidth={2.25}
+      />
       <span className={highlighted ? "text-foreground" : "text-muted-foreground"}>
         {children}
       </span>
@@ -319,13 +320,13 @@ export function OrderButton({
   const locale = useLocale();
   if (!orderOpen) {
     return (
-      <Button className="h-12 w-full text-base" size="lg" disabled>
+      <Button className="h-11 w-full text-[0.9375rem]" size="lg" disabled>
         {t("paid.cta")}
       </Button>
     );
   }
   return (
-    <Button className="h-12 w-full text-base" size="lg" asChild>
+    <Button className="h-11 w-full text-[0.9375rem]" size="lg" asChild>
       {signedIn ? (
         <Link href="/bestellen">{t("paid.cta")}</Link>
       ) : (
@@ -346,7 +347,7 @@ export function OrderButton({
 export function PaidFeatureList() {
   const t = useTranslations("pricing.tiers");
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-2.5">
       {paidFeatures.map((key) => (
         <FeatureItem key={key} highlighted>
           {key === "unlimited" ? (
@@ -400,19 +401,19 @@ function SideTier({
   readonly features: readonly { readonly key: string; readonly content: ReactNode }[];
 }) {
   return (
-    <Card className="h-full border-border/70 shadow-none">
+    <Card className="h-full gap-5 border shadow-none">
       <CardHeader>
-        <CardTitle className="text-lg">{name}</CardTitle>
+        <CardTitle className="text-base">{name}</CardTitle>
         <CardDescription>{description}</CardDescription>
-        <div className="mt-4 flex items-baseline gap-2">
-          <span className="text-4xl font-semibold tracking-tight">{price}</span>
+        <div className="mt-3 flex items-baseline gap-2">
+          <span className="text-3xl font-semibold tracking-tight">{price}</span>
           <span className="text-sm text-muted-foreground">{priceSub}</span>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-5">
         {cta}
         <Separator />
-        <ul className="space-y-3">
+        <ul className="space-y-2.5">
           {features.map((feature) => (
             <FeatureItem key={feature.key}>{feature.content}</FeatureItem>
           ))}
@@ -450,8 +451,9 @@ export function PaidPricingCards({
   const t = useTranslations("pricing.tiers");
 
   const tiers = (
-    <div className="mx-auto max-w-6xl space-y-10">
-      <div className="grid gap-6 lg:grid-cols-2">
+    // Two narrow cards rather than two wide ones: the lines read as a list, not a paragraph.
+    <div className="mx-auto max-w-4xl space-y-8">
+      <div className="grid gap-5 md:grid-cols-2">
         <SideTier
           name={t("free.name")}
           description={t("free.description")}
@@ -480,10 +482,10 @@ export function PaidPricingCards({
             Under the order button only the call; the approval page is linked from the FAQ. */}
         <Card
           id={PAID_CARD_ID}
-          className="order-first h-full scroll-mt-24 border-2 border-primary shadow-sm"
+          className="order-first h-full scroll-mt-24 gap-5 border border-primary/60 shadow-sm"
         >
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
+            <CardTitle className="flex items-center gap-2 text-base">
               {/* The nav's mark, smaller. */}
               <span
                 aria-hidden
@@ -494,13 +496,13 @@ export function PaidPricingCards({
               {t("paid.name")}
             </CardTitle>
             <CardDescription>{t("paid.description")}</CardDescription>
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
               {grandfathered ? (
                 <span className="text-lg text-muted-foreground line-through decoration-2">
                   {monthlyListPrice}
                 </span>
               ) : null}
-              <span className="text-4xl font-semibold tracking-tight">
+              <span className="text-3xl font-semibold tracking-tight">
                 {monthlyPrice}
               </span>
               <span className="text-sm text-muted-foreground">{t("paid.perMonth")}</span>
@@ -522,12 +524,12 @@ export function PaidPricingCards({
               ) : null}
             </div>
           </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Order and the call side by side, the call in the homepage hero's one-line form;
-                stacked on a phone. */}
-            <div className="grid gap-3 sm:grid-cols-2">
+          <CardContent className="space-y-5">
+            {/* Order, then the call under it in the homepage hero's one-line form: side by side
+                they no longer fit the narrower card. */}
+            <div className="grid gap-2.5">
               <OrderButton orderOpen={orderOpen} signedIn={signedIn} />
-              <TalkFirst size="button" className="h-12 w-full" />
+              <TalkFirst size="button" className="w-full" />
             </div>
             <Separator />
             <PaidFeatureList />
