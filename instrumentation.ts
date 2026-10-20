@@ -1,7 +1,8 @@
 /**
  * Next.js calls register() once when a server starts. It starts the jobs that run
- * inside the app rather than on an outside schedule: the daily deadline run and the
- * Close CRM sync. Each one decides for itself whether this is a deployed server.
+ * inside the app rather than on an outside schedule: the daily deadline run, the
+ * hourly unpaid-invoice check (AGB B9) and the Close CRM sync. Each one decides for
+ * itself whether this is a deployed server.
  *
  * The cheap checks come before the imports, so an instance without Close never
  * loads the CRM code, and a failure to start one schedule is logged instead of
@@ -21,6 +22,14 @@ export async function register() {
       startDeadlinesSchedule();
     } catch (err) {
       console.error("[instrumentation] deadlines schedule not started:", err);
+    }
+    try {
+      const { startNonPaymentSchedule } = await import(
+        "@/lib/billing/non-payment-schedule"
+      );
+      startNonPaymentSchedule();
+    } catch (err) {
+      console.error("[instrumentation] non-payment schedule not started:", err);
     }
     if (process.env.CLOSE_API_KEY?.trim()) {
       try {
