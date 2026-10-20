@@ -3,11 +3,15 @@
 import { Download } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { LEGAL_BASES } from "@/lib/durchgang";
+import { isYesNoFact, legalBasesIn } from "@/lib/durchgang";
 import { recordCsv } from "@/lib/processing-activities/record-csv";
 import type { RouterOutputs } from "@/lib/trpc/client";
+import { processingActivityCreateSchema } from "@/schema/processing-activity-validators";
 
 export type Controller = RouterOutputs["processingActivity"]["controller"];
+
+/** The record's columns, in the table's order: what a company writes of each activity. */
+const COLUMNS = Object.keys(processingActivityCreateSchema.shape);
 
 const textOf = (value: unknown): string | null =>
   typeof value === "string" && value.trim() !== "" ? value : null;
@@ -38,12 +42,12 @@ export function RecordHeader({
   ]
     .filter(Boolean)
     .join(", ");
+  const { dpo } = controller;
   const dpoLine =
-    controller.dpo.decision === "none"
+    dpo.kind === "none"
       ? t("record.dpoNone")
-      : controller.dpo.decision === "designated"
-        ? [controller.dpo.name, controller.dpo.contact].filter(Boolean).join(", ") ||
-          t("record.dpoUnnamed")
+      : dpo.kind === "designated"
+        ? [dpo.name, dpo.contact].filter(Boolean).join(", ") || t("record.dpoUnnamed")
         : t("record.dpoOpen");
   const measuresLine = !controller.measures
     ? t("record.measuresNone")
@@ -57,25 +61,14 @@ export function RecordHeader({
   const download = () => {
     const yesNo = (value: unknown) =>
       value === true ? t("record.yes") : value === false ? t("record.no") : null;
-    const bases = (value: unknown) =>
-      Array.isArray(value)
-        ? LEGAL_BASES.filter((b) => value.includes(b))
+    const cell = (column: string, value: unknown) =>
+      column === "legalBases"
+        ? legalBasesIn(value)
             .map((b) => t(`bases.${b}`))
-            .join("; ")
-        : null;
-    const columns = [
-      "name",
-      "purpose",
-      "legalBases",
-      "legitimateInterests",
-      "dataSubjects",
-      "dataCategories",
-      "specialCategories",
-      "recipients",
-      "transfersOutsideEea",
-      "transferDetails",
-      "retention",
-    ] as const;
+            .join("; ") || null
+        : isYesNoFact(column)
+          ? yesNo(value)
+          : textOf(value);
     const csv = recordCsv([
       [t("record.title")],
       [t("record.controller"), controllerLine || null],
@@ -83,16 +76,8 @@ export function RecordHeader({
       [t("record.measures"), measuresLine],
       [t("record.asOf"), day(new Date())],
       [],
-      columns.map((c) => t(`fields.${c}`)),
-      ...items.map((item) =>
-        columns.map((c) =>
-          c === "legalBases"
-            ? bases(item[c])
-            : c === "specialCategories" || c === "transfersOutsideEea"
-              ? yesNo(item[c])
-              : textOf(item[c]),
-        ),
-      ),
+      COLUMNS.map((c) => t(`fields.${c}`)),
+      ...items.map((item) => COLUMNS.map((c) => cell(c, item[c]))),
     ]);
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     const link = document.createElement("a");

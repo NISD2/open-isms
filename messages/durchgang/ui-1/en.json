@@ -86,7 +86,12 @@
         "other": "Someone else",
         "otherName": "Name of the person",
         "invite": "Not in the team yet? Invite them by email",
-        "placeholder": "name@your-company.com"
+        "placeholder": "name@your-company.com",
+        "carried": "Taken from {code} {headline}. Change it if someone else takes this on.",
+        "apart": {
+          "same": "{name} is also named in {code} {headline}. That can work. Check that {name} does not decide why and how personal data is processed, because a data protection officer monitors exactly that (Art. 38(6) GDPR).",
+          "management": "{name} is in management. Management decides why and how personal data is processed, which a data protection officer monitors, so the two roles usually conflict (Art. 38(6) GDPR). Check it, or choose someone else."
+        }
       },
       "suggestions": "Common answers:",
       "suggestionsOwn": "From your records:",

@@ -69,8 +69,9 @@
           },
           "who": {
             "title": "Who it is and how to reach them",
-            "lead": "Name the person or the provider, the contact details you publish, and the day you reported them to the data protection authority of your federal state (Art. 37(7)); most authorities have an online form for this. If you have not designated anyone, leave the fields empty and continue.",
-            "document": "Designation of the data protection officer"
+            "lead": "Pick the person from your team, or name the outside provider. Then the contact details you publish, and the day you reported them to the data protection authority of your federal state (Art. 37(7)); most authorities have an online form for this.",
+            "document": "Designation of the data protection officer",
+            "unless": "You designate no data protection officer, so there is nobody to name here. If that changes, for example when your company grows, come back to the step before."
           },
           "done": {
             "title": "Your decision is recorded",
@@ -89,7 +90,11 @@
           },
           "dpoName": {
             "label": "Data protection officer",
-            "hint": "The name of the person in the company, or the external provider and the person there who looks after you."
+            "hint": "Someone in your company, or an outside provider under a service contract (Art. 37(6)). Both are allowed. An outside one is common in smaller companies.",
+            "other": {
+              "label": "An outside provider",
+              "placeholder": "Firm and contact person, for example Muster Datenschutz GmbH, Anna Beispiel"
+            }
           },
           "dpoContact": {
             "label": "Published contact details",

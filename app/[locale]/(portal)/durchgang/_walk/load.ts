@@ -13,13 +13,16 @@ import { db } from "@/lib/db";
 import { getTermEntry } from "@/lib/dictionary/glossary";
 import {
   ALL_ITEMS,
+  type AnswerRef,
   type AnyItem,
   type AnyScreen,
+  answerRefsOf,
   askedFields,
   dutyHref,
   itemsFor,
   MANAGEMENT_ROLE,
   type RegisterModule,
+  refKey,
   type Walk,
   type WalkLocale,
   walkLocaleOf,
@@ -32,6 +35,7 @@ import { assistantFillsOf } from "@/lib/mcp/fills-store";
 import { suggestedActivities } from "@/lib/processing-activities/catalog";
 import { ensurePlatformSupplier } from "@/lib/supplier-portal/platform-supplier";
 import { api } from "@/lib/trpc/server";
+import { answersOf } from "@/server/trpc/helpers/durchgang-policy";
 import { ensureAssessment } from "@/server/trpc/helpers/framework-assessment";
 import { glossary } from "./gloss";
 import { imageFor, stepOf, wordsOf } from "./steps";
@@ -134,6 +138,32 @@ async function headStartOf(code: string, gap: string | null): Promise<HeadStart 
 }
 
 /**
+ * The answers of other items an item's screens read (`answerRefsOf`), each with the item it comes
+ * from. Only answers given; an item never walked gives none.
+ */
+async function answersElsewhere(
+  companyId: string,
+  refs: readonly AnswerRef[],
+): Promise<ItemView["elsewhere"]> {
+  const codes = [...new Set(refs.map((ref) => ref.code))];
+  if (codes.length === 0) return {};
+  const [answers, titles] = await Promise.all([
+    Promise.all(codes.map(async (c) => [c, await answersOf(db, companyId, c)] as const)),
+    headlinesOf(codes),
+  ]);
+  const byCode = new Map(answers);
+  return Object.fromEntries(
+    refs.flatMap((ref) => {
+      const value = byCode.get(ref.code)?.[ref.field];
+      const headline = titles.get(ref.code);
+      return typeof value === "string" && value.trim() !== "" && headline
+        ? [[refKey(ref), { code: ref.code, headline, value: value.trim() }]]
+        : [];
+    }),
+  );
+}
+
+/**
  * One item, resolved for its screens. Null when it is in no walk, not in the company's walk or
  * not visible to the caller.
  */
@@ -187,6 +217,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     registration,
     fills,
     record,
+    elsewhere,
   ] = await Promise.all([
     wordsOf(item),
     getTranslations("compliance"),
@@ -207,6 +238,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     showsPortals ? api.durchgang.portals() : Promise.resolve(null),
     assistantFillsOf(db, session.companyId, req.id),
     asksActivities ? api.processingActivity.list() : Promise.resolve([]),
+    answersElsewhere(session.companyId, answerRefsOf(item)),
   ]);
   const fromNis2 = await headStartOf(code, words.fromNis2);
   const listed = assets ? onRegister(assets).listed : [];
@@ -288,6 +320,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       management_review: reviews,
     },
     team,
+    elsewhere,
     register: assets
       ? { ...onRegister(assets), sectors: catalogueSectorsOf(company.sector) }
       : null,

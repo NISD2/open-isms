@@ -40,11 +40,18 @@ export type ActivityFact = (typeof ACTIVITY_FACTS)[number];
 export const LEGAL_BASES = legalBasisEnum.enumValues;
 export type LegalBasis = (typeof LEGAL_BASES)[number];
 
+/** The lawful bases a stored value holds, in the order of Art. 6(1); none for anything else. */
+export const legalBasesIn = (value: unknown): readonly LegalBasis[] =>
+  Array.isArray(value) ? LEGAL_BASES.filter((b) => value.includes(b)) : [];
+
 /** The facts answered yes or no; `legalBases` is a choice of several; every other fact is text. */
 export const YES_NO_FACTS = [
   "specialCategories",
   "transfersOutsideEea",
 ] as const satisfies readonly ActivityFact[];
+export type YesNoFact = (typeof YES_NO_FACTS)[number];
+export const isYesNoFact = (fact: string): fact is YesNoFact =>
+  (YES_NO_FACTS as readonly string[]).includes(fact);
 
 type Relationship = (typeof supplierRelationshipTypeEnum.enumValues)[number];
 

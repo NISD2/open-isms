@@ -4,23 +4,20 @@ import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
-import { GDPR_WALK } from "@/lib/durchgang";
+import { dpoOf, GDPR_WALK } from "@/lib/durchgang";
 import { company, processingActivity } from "@/schema";
 import {
   processingActivityCreateSchema,
   processingActivityUpdateSchema,
 } from "@/schema/processing-activity-validators";
 import { walkPolicyRows } from "../helpers/durchgang";
-import { answersOf } from "../helpers/durchgang-policy";
+import { answersOf, DPO_ITEM } from "../helpers/durchgang-policy";
 import {
   activatedCompanyProcedure,
   adminProcedure,
   companyProcedure,
   router,
 } from "../init";
-
-const textOf = (value: unknown): string | null =>
-  typeof value === "string" && value.trim() !== "" ? value : null;
 
 const MODULE = "processing_activity";
 
@@ -47,26 +44,16 @@ export const processingActivityRouter = router({
           contactPhone: true,
         },
       }),
-      answersOf(ctx.db, ctx.companyId, "G-DPO.1"),
+      answersOf(ctx.db, ctx.companyId, DPO_ITEM),
       walkPolicyRows(ctx.db, ctx.companyId, GDPR_WALK),
     ]);
     const measures = documents.find((d) => d.type === "gdpr_security_measures");
-    const decision = textOf(dpo.dpoDecision);
     return {
       name: org?.legalName || org?.name || null,
       address: org?.registeredAddress ?? null,
       email: org?.contactEmail ?? null,
       phone: org?.contactPhone ?? null,
-      dpo: {
-        decision:
-          decision === "none"
-            ? ("none" as const)
-            : decision
-              ? ("designated" as const)
-              : null,
-        name: textOf(dpo.dpoName),
-        contact: textOf(dpo.dpoContact),
-      },
+      dpo: dpoOf(dpo),
       measures: measures
         ? { title: measures.title, approvedAt: measures.approvedAt }
         : null,

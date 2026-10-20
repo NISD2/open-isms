@@ -16,6 +16,7 @@ import {
 } from "@/lib/compliance/policy-config-schemas";
 import type { RegistrationPortal } from "@/lib/registration-portals/schema";
 import { marker } from "./copy";
+import type { DpoRecord } from "./dpo";
 import type { WalkLocale } from "./types";
 
 export interface PolicyDocument {
@@ -196,19 +197,19 @@ const gdprListText = (locale: WalkLocale) =>
  * service with their published contact, a line that none is designated, or a blank while the
  * decision is open.
  */
-export const dataProtectionOfficerText = (
-  locale: WalkLocale,
-  answers: {
-    readonly decision: unknown;
-    readonly name: unknown;
-    readonly contact: unknown;
-  },
-): string => {
-  if (answers.decision === "none") return gdprListText(locale).noDpo;
-  if (answers.decision !== "required" && answers.decision !== "voluntary") return BLANK;
-  const name = answerText(answers.name);
-  const contact = answerText(answers.contact);
-  return contact === BLANK ? name : `${name} (${contact})`;
+export const dataProtectionOfficerText = (locale: WalkLocale, dpo: DpoRecord): string => {
+  switch (dpo.kind) {
+    case "none":
+      return gdprListText(locale).noDpo;
+    case "open":
+      return BLANK;
+    case "designated": {
+      const name = dpo.name ?? BLANK;
+      return dpo.contact ? `${name} (${dpo.contact})` : name;
+    }
+    default:
+      return dpo satisfies never;
+  }
 };
 
 /**

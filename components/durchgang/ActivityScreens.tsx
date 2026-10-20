@@ -10,15 +10,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { nameKey } from "@/lib/asset-inventory/catalog-labels";
 import {
   type ActivityFact,
+  isYesNoFact,
   LEGAL_BASES,
   type LegalBasis,
-  YES_NO_FACTS,
 } from "@/lib/durchgang";
-import {
-  ACTIVITY_BY_ID,
-  ACTIVITY_CATALOG,
-  suggestedActivities,
-} from "@/lib/processing-activities/catalog";
+import { ACTIVITY_BY_ID, ACTIVITY_CATALOG } from "@/lib/processing-activities/catalog";
 import { type ActivityCopy, activityCopyOf } from "@/lib/processing-activities/copy";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
@@ -57,7 +53,7 @@ export function Activities({
   // An own activity saved on an earlier slice is on the record now; it is not pending twice.
   const recordNames = new Set((record.data ?? []).map((a) => nameKey(a.name)));
   const pendingOwn = draft.ownActivities.filter((n) => !recordNames.has(nameKey(n)));
-  const suggested = new Set(suggestedActivities(item.register?.listed ?? []));
+  const suggested = new Set(item.suggestedActivities);
   const items = ACTIVITY_CATALOG.filter((a) =>
     entry.screen.groups.some((g) => g === a.group),
   );
@@ -197,8 +193,7 @@ export const describedAll = (
 ): boolean =>
   facts.every((fact) => {
     const value = shownValue(activity, draft, fact);
-    if ((YES_NO_FACTS as readonly string[]).includes(fact))
-      return typeof value === "boolean";
+    if (isYesNoFact(fact)) return typeof value === "boolean";
     if (fact === "legalBases") {
       const bases = Array.isArray(value) ? value : [];
       if (bases.length === 0) return false;
@@ -366,7 +361,7 @@ function FactInput({
       </fieldset>
     );
   }
-  if (fact === "specialCategories" || fact === "transfersOutsideEea") {
+  if (isYesNoFact(fact)) {
     const details = shownValue(activity, draft, "transferDetails");
     return (
       <fieldset>

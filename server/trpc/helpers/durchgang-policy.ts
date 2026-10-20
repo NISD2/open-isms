@@ -11,6 +11,7 @@ import {
   type CryptoLabels,
   criticalProcessesText,
   dataProtectionOfficerText,
+  dpoOf,
   enteredDay,
   marker,
   NIS2_WALK,
@@ -132,18 +133,8 @@ const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const satisfies
   field: CategoryField<"INC">;
 };
 
-/** Where the GDPR walk names the data protection officer, whom its documents name too. */
-const DATA_PROTECTION_OFFICER = {
-  code: "G-DPO.1",
-  decision: "dpoDecision",
-  name: "dpoName",
-  contact: "dpoContact",
-} as const satisfies {
-  code: string;
-  decision: CategoryField<"DPO">;
-  name: CategoryField<"DPO">;
-  contact: CategoryField<"DPO">;
-};
+/** Where the GDPR walk names the data protection officer (`dpoOf`), whom its documents name too. */
+export const DPO_ITEM = "G-DPO.1";
 
 const NO_ANSWERS: Readonly<Record<string, unknown>> = {};
 
@@ -229,9 +220,7 @@ const policyListsOf = async (
       : undefined,
     needs("emergencyLead") ? answersOf(db, companyId, EMERGENCY_LEAD.code) : NO_ANSWERS,
     needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
-    needs("dataProtectionOfficer")
-      ? answersOf(db, companyId, DATA_PROTECTION_OFFICER.code)
-      : NO_ANSWERS,
+    needs("dataProtectionOfficer") ? answersOf(db, companyId, DPO_ITEM) : NO_ANSWERS,
     needs("securityDocuments") ? securityDocumentsOf(db, companyId, locale) : [],
   ]);
   const portal =
@@ -253,12 +242,7 @@ const policyListsOf = async (
         ),
       ),
     acceptedCrypto: () => acceptedCryptoText(locale, cryptoLabelsOf(locale), crypto),
-    dataProtectionOfficer: () =>
-      dataProtectionOfficerText(locale, {
-        decision: dpo[DATA_PROTECTION_OFFICER.decision],
-        name: dpo[DATA_PROTECTION_OFFICER.name],
-        contact: dpo[DATA_PROTECTION_OFFICER.contact],
-      }),
+    dataProtectionOfficer: () => dataProtectionOfficerText(locale, dpoOf(dpo)),
     securityDocuments: () => securityDocumentsText(locale, documents),
   };
   return Object.fromEntries(used.map((name) => [name, text[name]()]));

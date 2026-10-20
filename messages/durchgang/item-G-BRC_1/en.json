@@ -46,7 +46,7 @@
           },
           "lead": {
             "title": "Who takes charge when personal data is affected",
-            "lead": "This person hears of every breach first, decides with your data protection officer whether to notify, and makes the notification. Choose someone who is usually reachable, and tell your staff who stands in when that person is away. If your company did the NIS 2 walkthrough, this is often the person who leads in an emergency there.",
+            "lead": "This person hears of every breach first, decides whether to notify, together with your data protection officer where you have one, and makes the notification. Choose someone who is usually reachable, and tell your staff who stands in when that person is away.",
             "document": "Personal data breaches"
           },
           "procedure": {
@@ -126,7 +126,7 @@
         "fields": {
           "breachLead": {
             "label": "Who takes charge",
-            "hint": "Someone in your team who is usually reachable, or a person from outside, such as your data protection officer."
+            "hint": "Someone in your team who is usually reachable, or a person from outside, such as your IT service provider. The decision to notify stays with your company."
           }
         }
       }

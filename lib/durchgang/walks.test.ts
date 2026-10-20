@@ -7,7 +7,14 @@ import { POLICY_TYPES } from "@/lib/compliance/policy-config-defaults";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { getTermEntry } from "@/lib/dictionary/glossary";
 import { marker } from "./copy";
-import { approvalOf, askedFields, resolveItem, WAIT_REASONS, WALKS } from "./index";
+import {
+  answerRefsOf,
+  approvalOf,
+  askedFields,
+  resolveItem,
+  WAIT_REASONS,
+  WALKS,
+} from "./index";
 import type { AnyItem, AnyScreen, Walk } from "./types";
 
 /**
@@ -131,6 +138,28 @@ for (const walk of Object.values(WALKS)) {
         i.screens.some((s) => s.kind === "approve"),
       );
       expect(approving).toHaveLength(1);
+    });
+
+    test("reads only answers another item asks, and keeps apart only person fields", () => {
+      const all = Object.values(WALKS).flatMap((w) => w.items);
+      const asks = ({ code, field }: { code: string; field: string }) => {
+        const owner = all.find((i) => i.code === code);
+        return !!owner && field in (CATEGORY_SCHEMAS[owner.category]?.shape ?? {});
+      };
+      for (const item of walk.items) {
+        for (const ref of answerRefsOf(item)) {
+          expect({ code: item.code, ref, asked: asks(ref) }).toEqual({
+            code: item.code,
+            ref,
+            asked: true,
+          });
+        }
+        for (const screen of screensOf(item)) {
+          if (screen.kind !== "fields") continue;
+          if (screen.apart) expect(screen.person).toBeDefined();
+          if (screen.carry) expect(screen.fields).toContain(screen.carry.field);
+        }
+      }
     });
 
     test("opens every item with what it is and closes with what was recorded", () => {

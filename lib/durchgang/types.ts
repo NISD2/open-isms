@@ -180,6 +180,15 @@ export const POLICY_TEMPLATES = [
 ] as const;
 export type PolicyTemplate = (typeof POLICY_TEMPLATES)[number];
 
+/**
+ * One answer of another item, in this walk or another: its code and field. walks.test checks that
+ * the item exists and its category asks the field.
+ */
+export interface AnswerRef {
+  readonly code: string;
+  readonly field: string;
+}
+
 export type Screen<C extends CategoryCode> =
   | { readonly kind: "learn"; readonly id: string; readonly link?: LearnLink }
   /**
@@ -214,10 +223,24 @@ export type Screen<C extends CategoryCode> =
       readonly id: string;
       readonly fields: readonly CategoryField<C>[];
       /**
-       * The field that names a person in the company, offered as a pick from the team with the
-       * person walking first, and an invite for someone not in it yet.
+       * The field that names a person in the company, offered as a pick from the team, someone
+       * outside it by name, and an invite for someone not in it yet. A required one starts on the
+       * person walking; an optional one starts empty, since naming nobody is an answer there.
        */
       readonly person?: CategoryField<C>;
+      /**
+       * A field that starts on another item's answer while it has none of its own, shown with
+       * where it came from, and saved like any answer once the person moves on: copied once,
+       * never kept in step, so a later change there rewrites nothing here.
+       */
+      readonly carry?: { readonly field: CategoryField<C>; readonly from: AnswerRef };
+      /**
+       * Answers elsewhere that should name someone else than `person`: a quiet note where they
+       * name the same team member, never a block (as Art. 38(6) GDPR does for a DPO).
+       */
+      readonly apart?: readonly AnswerRef[];
+      /** An answer on an earlier screen that leaves this one nothing to ask, said instead. */
+      readonly unless?: { readonly field: CategoryField<C>; readonly is: string };
       /** A rule or list shown above the fields, which the answers are read off. */
       readonly provision?: Provision;
       /**

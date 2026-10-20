@@ -63,6 +63,8 @@ const SCREEN_COPY = {
     document: text,
     steps: z.array(text).min(1).optional(),
     source: text.optional(),
+    /** Said in place of the fields when an earlier answer leaves nothing to ask (`unless`). */
+    unless: text.optional(),
   }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
@@ -187,6 +189,8 @@ const ITEM_COPY = z.object({
         options: z.record(z.string(), text).optional(),
         /** Common answers to a text field, which a tap adds to what is written. */
         suggestions: z.array(text).min(1).optional(),
+        /** On a person field: the choice for someone outside the team, and its placeholder. */
+        other: z.object({ label: text, placeholder: text }).optional(),
       }),
     )
     .default({}),

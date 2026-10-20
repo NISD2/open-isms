@@ -3,17 +3,12 @@ import {
   BACKUP_FREQUENCIES,
   type BackupFrequency,
   recordDay,
+  refKey,
   type WaitReason,
 } from "@/lib/durchgang";
 import { ACTIVITY_BY_ID } from "@/lib/processing-activities/catalog";
 import { trpc } from "@/lib/trpc/client";
-import {
-  changedAnswers,
-  type Draft,
-  fullRating,
-  initialDraft,
-  startOnToday,
-} from "./draft";
+import { changedAnswers, type Draft, fullRating, initialDraft, startWith } from "./draft";
 import { methodOf, mfaOf, useLoginRows } from "./LoginScreen";
 import { processorRowsOf, processorSave } from "./ProcessorScreen";
 import type { ItemView } from "./view";
@@ -34,16 +29,20 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
     ...initialDraft(item.answers, item.fields),
     activities: item.suggestedActivities,
   }));
-  const [draft, setDraft] = useState<Draft>(() =>
-    startOnToday(
-      stored,
-      item.screens.flatMap(({ screen }) =>
-        screen.kind === "fields" ? (screen.today ?? []) : [],
-      ),
-      item.fields,
-      recordDay(new Date()),
-    ),
-  );
+  const [draft, setDraft] = useState<Draft>(() => {
+    const today = recordDay(new Date());
+    const starts = item.screens.flatMap(({ screen }) => {
+      if (screen.kind !== "fields") return [];
+      const carried = screen.carry && item.elsewhere[refKey(screen.carry.from)];
+      return [
+        ...(screen.today ?? []).map((key) => [key, today] as const),
+        ...(screen.carry && carried
+          ? [[screen.carry.field, carried.value] as const]
+          : []),
+      ];
+    });
+    return startWith(stored, Object.fromEntries(starts), item.fields);
+  });
   const [adoptedAt, setAdoptedAt] = useState(item.adoptedAt);
   /** What the server holds, so an unchanged screen sends nothing and a date started on today is sent. */
   const saved = useRef(stored.values);

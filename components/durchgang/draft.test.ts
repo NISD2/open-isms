@@ -4,7 +4,7 @@ import {
   changedAnswers,
   initialDraft,
   isAnswered,
-  startOnToday,
+  startWith,
   toAnswer,
   toDraft,
 } from "./draft";
@@ -56,10 +56,19 @@ describe("the Durchgang draft", () => {
       { open: null, stored: "2026-03-02T00:00:00.000Z" },
       fields,
     );
-    const draft = startOnToday(stored, ["open", "stored"], fields, "2026-10-04");
+    const draft = startWith(stored, { open: "2026-10-04", stored: "2026-10-04" }, fields);
     expect(draft.values).toEqual({ open: "2026-10-04", stored: "2026-03-02" });
     expect(
       changedAnswers(["open", "stored"], draft.values, stored.values, fields),
     ).toEqual({ open: "2026-10-04" });
+  });
+
+  test("carries another item's answer into an empty field only, and sends it", () => {
+    const fields = { lead: meta("text"), kept: meta("text") };
+    const stored = initialDraft({ lead: "", kept: "Anna Beispiel" }, fields);
+    const draft = startWith(stored, { lead: "Ben Muster", kept: "Ben Muster" }, fields);
+    expect(draft.values).toEqual({ lead: "Ben Muster", kept: "Anna Beispiel" });
+    const sent = changedAnswers(["lead", "kept"], draft.values, stored.values, fields);
+    expect(sent).toEqual({ lead: "Ben Muster" });
   });
 });

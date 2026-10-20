@@ -40,6 +40,11 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
         kind: "fields",
         id: "who",
         fields: ["dpoName", "dpoContact", "dpoAuthorityNotifiedOn"],
+        person: "dpoName",
+        // Art. 38(6) GDPR: other tasks only without a conflict of interest, decided case by case
+        // (CJEU C-453/21, para 45); leading incident response is one to check.
+        apart: [{ code: "3.1", field: "incidentLead" }],
+        unless: { field: "dpoDecision", is: "none" },
       },
       { kind: "done", id: "done" },
     ],
@@ -122,7 +127,15 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "notify" },
       // The procedure names this person; asked here so it is never blank without the NIS 2 walk.
-      { kind: "fields", id: "lead", fields: ["breachLead"], person: "breachLead" },
+      // Neither Art. 33 GDPR nor Art. 23 NIS 2 asks for two people, so it starts on the NIS 2
+      // incident lead where the company named one.
+      {
+        kind: "fields",
+        id: "lead",
+        fields: ["breachLead"],
+        person: "breachLead",
+        carry: { field: "breachLead", from: { code: "3.1", field: "incidentLead" } },
+      },
       { kind: "policy", id: "procedure", policy: "gdpr_breach_procedure" },
       { kind: "done", id: "done" },
     ],

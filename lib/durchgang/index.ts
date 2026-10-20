@@ -3,10 +3,13 @@
  * database, no request. This file is the only way in.
  */
 
+export { answerRefsOf, refKey } from "./answer-refs";
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, ONGOING_COPY, resolveItem } from "./copy";
 export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
 export { coveredState, journeyStates } from "./coverage";
+export type { DpoRecord } from "./dpo";
+export { dpoOf } from "./dpo";
 export type { Gap, GapFacts, ShownGap } from "./gaps";
 export { GAP_STEP, gapLines, gapsOf, withPlanSlot } from "./gaps";
 export { GDPR_WALK } from "./gdpr";
@@ -25,7 +28,9 @@ export {
   ACTIVITY_FACTS,
   ACTIVITY_GROUPS,
   isProcessor,
+  isYesNoFact,
   LEGAL_BASES,
+  legalBasesIn,
   PROCESSOR_ROLES,
   processorAnswerSchema,
   roleOf,
@@ -127,6 +132,7 @@ export {
 export { contactSuggestions } from "./suggest";
 export type {
   Adoptable,
+  AnswerRef,
   AnyItem,
   AnyScreen,
   BackupFrequency,

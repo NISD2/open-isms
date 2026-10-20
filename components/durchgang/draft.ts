@@ -165,20 +165,22 @@ export const initialDraft = (
   processors: {},
 });
 
-/** The draft with each of `keys` set to `today` where no answer is stored yet. */
-export const startOnToday = (
+/**
+ * The draft with each field of `starts` set to its value where no answer is stored yet: today's
+ * date, or another item's answer carried over. Saved like an answer once the person moves on.
+ */
+export const startWith = (
   draft: Draft,
-  keys: readonly string[],
+  starts: Readonly<Record<string, string>>,
   fields: Fields,
-  today: string,
 ): Draft => ({
   ...draft,
   values: {
     ...draft.values,
     ...Object.fromEntries(
-      keys
-        .filter((key) => !isAnswered(fields[key], draft.values[key]))
-        .map((key) => [key, today]),
+      Object.entries(starts).filter(
+        ([key]) => !isAnswered(fields[key], draft.values[key]),
+      ),
     ),
   },
 });

@@ -13,9 +13,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useRouter } from "@/i18n/navigation";
-import { LEGAL_BASES } from "@/lib/durchgang";
+import { LEGAL_BASES, legalBasesIn } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
-import { processingActivityInsertSchema } from "@/schema/processing-activity-validators";
+import { processingActivityCreateSchema } from "@/schema/processing-activity-validators";
 import { type Controller, RecordHeader } from "./RecordHeader";
 
 const shown = (text: unknown) => (typeof text === "string" && text.trim() ? text : "—");
@@ -41,19 +41,16 @@ export function ProcessingActivitiesPage({
   const update = trpc.processingActivity.update.useMutation({ onSuccess: refresh });
   const remove = trpc.processingActivity.delete.useMutation({ onSuccess: refresh });
   const basesOf = (value: unknown) =>
-    Array.isArray(value) && value.length > 0
-      ? LEGAL_BASES.filter((b) => value.includes(b))
-          .map((b) => t(`bases.${b}`))
-          .join(", ")
-      : "—";
+    legalBasesIn(value)
+      .map((b) => t(`bases.${b}`))
+      .join(", ") || "—";
 
   return (
     <CrudPage
       items={items}
       icon={<ListTree className="h-8 w-8 text-primary" />}
       namespace="processingActivities"
-      schema={processingActivityInsertSchema}
-      omit={["id", "companyId", "catalogId", "createdAt", "updatedAt"]}
+      schema={processingActivityCreateSchema}
       fieldOverrides={{
         legalBases: {
           component: "multiselect",

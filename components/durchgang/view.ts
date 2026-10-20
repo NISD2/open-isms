@@ -21,6 +21,13 @@ export type Registers = Readonly<{ [M in RegisterModule]: RegisterRows[M] }>;
 /** The company's members, for a field that names a person. */
 export type Team = RouterOutputs["team"]["listMembers"];
 
+/** Another item's answer as an item reads it: the value and the item it was given in. */
+export interface Elsewhere {
+  readonly code: string;
+  readonly headline: string;
+  readonly value: string;
+}
+
 /** Where a company registers, for the registration screen. */
 export type Registration = RouterOutputs["durchgang"]["portals"];
 
@@ -110,6 +117,11 @@ export interface ItemView {
   readonly registers: Partial<Registers>;
   /** Loaded only for an item with a field that names a person. */
   readonly team: Team;
+  /**
+   * The answers of other items this item's screens read (`answerRefsOf`), by `refKey`, each with
+   * the item it comes from: carried into an empty field, or kept apart from a person field.
+   */
+  readonly elsewhere: Readonly<Record<string, Elsewhere>>;
   /**
    * The company's asset register as it stood when the item opened, for an item with asset
    * screens, else null: the catalogue items already on it, which the checklists show ticked, and
