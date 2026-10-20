@@ -1,31 +1,34 @@
 {
   "requirements": {
     "G-DPA_1": {
-      "title": "Data Processing Agreements"
+      "title": "Verwerkersovereenkomsten"
     },
     "G-DPA_2": {
-      "title": "Sub-processor Authorisation"
+      "title": "Toestemming voor subverwerkers"
     },
     "G-ROP_1": {
-      "title": "Records of Processing Activities"
+      "title": "Register van verwerkingsactiviteiten"
     },
     "G-TOM_1": {
-      "title": "Technical and Organisational Measures"
+      "title": "Technische en organisatorische maatregelen"
     },
     "G-BRC_1": {
-      "title": "Personal Data Breach Response Process"
+      "title": "Procedure bij inbreuken in verband met persoonsgegevens"
     },
     "G-BRC_2": {
-      "title": "Personal Data Breach Documentation"
+      "title": "Documentatie van inbreuken in verband met persoonsgegevens"
     },
     "G-DSR_1": {
-      "title": "Data Subject Rights Workflow"
+      "title": "Werkwijze voor verzoeken van betrokkenen"
     },
     "G-BRC_3": {
       "title": "Mededeling aan betrokkenen"
     },
     "G-DPO_1": {
       "title": "Aanwijzing van de functionaris voor gegevensbescherming"
+    },
+    "G-ACT_1": {
+      "title": "Verantwoordingsplicht en gegevensbeschermingsbeleid"
     }
   }
 }

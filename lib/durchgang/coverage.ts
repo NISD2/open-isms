@@ -9,18 +9,17 @@
 
 import { type DotState, journeyState } from "@/lib/compliance/journey-position";
 import type { SECTORS } from "@/lib/organization/constants";
-import { COVERED_BY, NIS2_SCRIPT } from "./nis2";
+import { NIS2_WALK } from "./nis2";
+import { COVERED_BY } from "./nis2-not-walked";
 import { type DurchgangEvent, type StatusRow, walkItemState } from "./state";
+import { approvalOf } from "./walks";
 
 /**
  * The item that holds management's approval. It is signed by the approval itself, before anyone
- * reaches its done screen, so a signed one counts as walked without that screen's event.
+ * reaches its done screen, so a signed one counts as walked without that screen's event. The
+ * journey is the NIS 2 journey, so it is the NIS 2 walk's.
  */
-const APPROVAL_ITEMS: ReadonlySet<string> = new Set(
-  NIS2_SCRIPT.flatMap((item) =>
-    item.screens.some((s) => s.kind === "approve") ? [item.code] : [],
-  ),
-);
+const APPROVAL_ITEM = approvalOf(NIS2_WALK)?.code ?? null;
 
 /**
  * The sectors the § 30 Abs. 3 providers are in: DNS, TLD registries, cloud, data centres, CDNs
@@ -114,7 +113,7 @@ export function journeyStates(
           state,
           walked:
             latest?.action === "durchgang.item_done" ||
-            (APPROVAL_ITEMS.has(r.code) && state === "signed"),
+            (r.code === APPROVAL_ITEM && state === "signed"),
         },
       ];
     }),

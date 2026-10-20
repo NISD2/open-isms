@@ -5,6 +5,7 @@ import {
   ClipboardList,
   FileText,
   GraduationCap,
+  ListTree,
   type LucideIcon,
   Server,
   Truck,
@@ -31,6 +32,7 @@ const REGISTERS = {
   policies: { namespace: "policies", icon: FileText },
   training: { namespace: "training", icon: GraduationCap },
   managementReviews: { namespace: "managementReviews", icon: ClipboardList },
+  processingActivities: { namespace: "processingActivities", icon: ListTree },
 } as const satisfies Record<string, { namespace: string; icon: LucideIcon }>;
 
 export type ExampleRegister = keyof typeof REGISTERS;

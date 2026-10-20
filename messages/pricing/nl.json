@@ -75,11 +75,11 @@
             "refund": "Een openstaande factuur wordt geannuleerd, een betaalde betalen wij binnen 30 dagen terug",
             "data": "Uw gegevens blijven bewaard"
           },
-          "note": "Geldt niet voor verlengingen. De details staan in de voorwaarden, artikel B7."
+          "note": "Geldt niet voor verlengingen en eindigt met de eerste export of goedkeuring. De details staan in de voorwaarden, artikel B7."
         },
         "grandfatheredBadge": "Uw prijs als bestaande gebruiker",
         "cta": "30 dagen proberen, geld terug",
-        "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen: factuur geannuleerd of geld terug.",
+        "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen, vóór de eerste export of goedkeuring: factuur geannuleerd of geld terug.",
         "termsLink": "Voorwaarden",
         "features": {
           "guided": "Begeleide NIS 2 implementatie, stap voor stap",
@@ -237,7 +237,12 @@
           "cryptography": "Cryptografiebeleid",
           "personnel_access": "Beleid voor personeel, toegang en IT",
           "it_rules": "Regels voor aankoop, onderhoud en kwetsbaarheden van IT",
-          "business_continuity": "Bedrijfscontinuïteitsplan"
+          "business_continuity": "Bedrijfscontinuïteitsplan",
+          "gdpr_security_measures": "Beschrijving van de technische en organisatorische maatregelen (art. 32 AVG)",
+          "gdpr_breach_procedure": "Procedure bij datalekken (art. 33 AVG)",
+          "gdpr_breach_notice": "Sjabloon om betrokkenen te informeren (art. 34 AVG)",
+          "gdpr_request_procedure": "Procedure voor verzoeken van betrokkenen (art. 12 tot en met 22 AVG)",
+          "gdpr_data_protection_policy": "Privacybeleid (art. 24 AVG)"
         },
         "records": {
           "training_management": "Trainingsbewijzen van de directie",
@@ -251,7 +256,9 @@
           "backups": "Uw back-ups en het laatste herstel dat werkte",
           "training_staff": "Trainingen en instructies van medewerkers",
           "management_review": "Uw directiebeoordeling",
-          "approvals": "Uw goedkeuring van elk document, met naam en datum"
+          "approvals": "Uw goedkeuring van elk document, met naam en datum",
+          "processing_activities": "Uw register van verwerkingsactiviteiten (art. 30 AVG)",
+          "processors": "Welke dienstverleners gegevens namens u verwerken, met overeenkomst en doorgifte"
         }
       },
       "people": {

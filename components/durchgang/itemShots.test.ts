@@ -1,8 +1,10 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { itemKey, WALK } from "@/lib/durchgang";
+import { itemKey, NIS2_WALK } from "@/lib/durchgang";
 import { ITEM_SHOTS, itemShot } from "./itemShots";
+
+const { items: WALK } = NIS2_WALK;
 
 const ITEMS = join(import.meta.dir, "../../public/images/durchgang/items");
 

@@ -27,40 +27,15 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import {
-  accessLevelEnum,
   aiDataSharingEnum,
   dataProcessingAgreementEnum,
   journeyModeEnum,
+  personalDataTransfersEnum,
   planEnum,
   settledFactEnum,
+  subprocessorEngagementEnum,
 } from "../enums";
-
-// ---------------------------------------------------------------------------
-// Billing accounts — The paying customer, above its companies
-// ---------------------------------------------------------------------------
-
-/**
- * One payment covers every company under the account, so what a company may use is decided here
- * and inherited by each company that points at it.
- *
- * Billing name, address and VAT number are deliberately absent: they live on the Qonto client, and
- * `qontoClientId` is the reference to it. The access level is kept here because it is our own
- * authorisation decision, read on every request, not a copy of anything Qonto holds.
- */
-export const billingAccount = pgTable("billing_account", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  /** The person who pays and may cancel. Survives their deletion as null, like `company.ownerId`. */
-  ownerUserId: uuid("owner_user_id").references((): AnyPgColumn => user.id, {
-    onDelete: "set null",
-  }),
-  /** Null until the first order creates or finds the customer in Qonto. */
-  qontoClientId: varchar("qonto_client_id", { length: 64 }).unique(),
-  accessLevel: accessLevelEnum("access_level").default("free").notNull(),
-  /** Set when the customer cancels after the thirty days: access runs out, nothing renews. */
-  renewalCanceledAt: timestamp("renewal_canceled_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+import { billingAccount } from "./billing";
 
 // ---------------------------------------------------------------------------
 // Companies — Regulated entities registered on the platform
@@ -230,6 +205,9 @@ export const company = pgTable("company", {
   backgroundChecks: boolean("background_checks"),
   dataReturnOnTermination: boolean("data_return_on_termination"),
   dataProcessingAgreement: dataProcessingAgreementEnum("data_processing_agreement"),
+  personalDataTransfers: personalDataTransfersEnum("personal_data_transfers"),
+  subprocessorEngagement: subprocessorEngagementEnum("subprocessor_engagement"),
+  breachNoticeToController: boolean("breach_notice_to_controller"),
   encryptionAtRest: boolean("encryption_at_rest"),
   encryptionInTransit: boolean("encryption_in_transit"),
   hasIsms: boolean("has_isms"),

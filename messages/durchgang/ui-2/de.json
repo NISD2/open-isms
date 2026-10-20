@@ -62,8 +62,6 @@
           "placeholder": "name@ihre-firma.de",
           "send": "Senden",
           "invited": "Einladung an {email} verschickt. Nach der Anmeldung landet die Person im Kurs.",
-          "notEmailed": "Die Einladung für {email} ist angelegt, aber es konnte keine E-Mail verschickt werden. Den Link finden Sie auf der Teamseite.",
-          "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.",
           "askAdmin": "Für jemanden, der neu dazukommt, bitten Sie einen Admin Ihres Unternehmens um die Einladung. Wer schon im Team ist, startet über den Link.",
           "copyLink": "Link zum Kurs kopieren"
         },

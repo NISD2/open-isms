@@ -65,7 +65,7 @@ import {
   preferenceFooterText,
   safeHeader,
 } from "./layout";
-import { type EmailLocale, resolveEmailLocale, workflowMailLocaleOf } from "./locale";
+import { codeMailLocale, type EmailLocale, resolveEmailLocale, workflowMailLocaleOf } from "./locale";
 import { renderEmail } from "./render";
 import { companyNameForMail } from "./sender-name";
 import { signupFollowUp } from "./signup-followup";
@@ -77,10 +77,7 @@ export type { DigestItem, DigestNextStep } from "./digest";
 const emailLocaleOf = (locale: Locale | undefined): EmailLocale =>
   resolveEmailLocale(locale ?? null, null);
 
-/**
- * The language of a workflow mail whose callers do not all name the reader's language yet: those
- * that do not keep the English this mail always had.
- */
+/** English for callers that name no language yet. */
 const workflowLocaleOr = (locale: EmailLocale | undefined) =>
   workflowMailLocaleOf(locale ?? "en");
 
@@ -1097,7 +1094,7 @@ export async function emailVerificationCodeEmail(opts: {
   code: string;
   locale?: Locale;
 }): Promise<EmailContent> {
-  const copy = VERIFICATION_COPY[opts.locale ?? "de"];
+  const copy = VERIFICATION_COPY[codeMailLocale(opts.locale)];
 
   return {
     subject: safeHeader(`${copy.subjectPrefix}: ${opts.code}`),
@@ -1364,7 +1361,7 @@ export async function registrationAttemptEmail(opts: {
   resetUrl: string;
   locale?: Locale;
 }): Promise<EmailContent> {
-  const copy = REGISTRATION_ATTEMPT_COPY[opts.locale ?? "de"];
+  const copy = REGISTRATION_ATTEMPT_COPY[codeMailLocale(opts.locale)];
 
   return {
     subject: safeHeader(copy.subject),
@@ -1442,7 +1439,7 @@ export async function passwordResetCodeEmail(opts: {
   code: string;
   locale?: Locale;
 }): Promise<EmailContent> {
-  const copy = PASSWORD_RESET_COPY[opts.locale ?? "de"];
+  const copy = PASSWORD_RESET_COPY[codeMailLocale(opts.locale)];
 
   return {
     subject: safeHeader(`${copy.subjectPrefix}: ${opts.code}`),

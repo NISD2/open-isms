@@ -15,7 +15,7 @@
  *      not mailed: the customer asked for the change, and the new invoice says what happened.
  *
  * Access does not change: the account stays full throughout. The thirty days money back carry
- * over, counted from the original order (cancel.ts originalInvoice), and so does the VAT
+ * over, counted from the original order (money-back.ts originalInvoice), and so does the VAT
  * treatment, so neither is decided twice.
  */
 import "@/lib/server-guard";
@@ -23,12 +23,13 @@ import { eq } from "drizzle-orm";
 import type { Database } from "@/lib/db";
 import { billingAccount, creditNote, invoice } from "@/schema";
 import { AlreadyAlerted, alertOperators } from "./alert";
-import { CREDIT_NOTE_PREFIX, cancelWindowFor, currentInvoice } from "./cancel";
+import { CREDIT_NOTE_PREFIX, currentInvoice } from "./cancel";
 import { creditNoteLine } from "./cancel-terms";
 import { deliverInvoice } from "./deliver-invoice";
 import { takeDocumentNumber } from "./document-number";
 import { pickPayableAccount } from "./iban";
 import { sandboxInvoiceNumber } from "./invoice-number";
+import { cancelWindowFor } from "./money-back";
 import {
   type InvoiceDates,
   invoiceDates,
@@ -169,7 +170,15 @@ export async function reissueInvoice(input: ReissueInput): Promise<ReissueOutcom
         mode.kind === "live"
           ? await takeDocumentNumber(db, "credit_note", CREDIT_NOTE_PREFIX, year)
           : sandboxInvoiceNumber(CREDIT_NOTE_PREFIX, year, now);
-      const wording = invoiceWording(dates, money, locale, firstOrder, old.number);
+      // The replacement keeps the terms, and so the money back, of the order it replaces.
+      const wording = invoiceWording(
+        dates,
+        money,
+        locale,
+        firstOrder,
+        old.termsVersion,
+        old.number,
+      );
 
       await markOrderCheck(db, account.id, number, now);
       progress.qontoCalled = true;

@@ -1,5 +1,5 @@
 import { getLocale } from "next-intl/server";
-import { headlinesOf } from "@/app/[locale]/(portal)/durchgang/nis2/load";
+import { headlinesOf } from "@/app/[locale]/(portal)/durchgang/_walk/load";
 import { GetStarted } from "@/components/GetStarted";
 import { StuckLink } from "@/components/help/StuckLink";
 import { AfterTrainingStep } from "@/components/training-portal/AfterTrainingStep";

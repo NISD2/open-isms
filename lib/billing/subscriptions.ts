@@ -14,7 +14,6 @@ import {
   desc,
   eq,
   exists,
-  gte,
   inArray,
   isNull,
   notExists,
@@ -22,7 +21,6 @@ import {
   sql,
 } from "drizzle-orm";
 import { alias } from "drizzle-orm/pg-core";
-import { z } from "zod";
 import type { DbOrTx } from "@/lib/db";
 import {
   billingAccount,
@@ -34,38 +32,14 @@ import {
 } from "@/schema";
 import { unpaidAccessLevel } from "./access";
 import type { AccessLevel } from "./accounts";
-import { cancelWindowFor } from "./cancel";
 import { isGrandfatheredHolder } from "./holder-price";
+import { type QontoStatus, readLiveInvoice } from "./invoice-status";
+import { cancelWindowFor } from "./money-back";
 import { formatEuro, INVOICE_TIME_ZONE, invoiceToday, shiftDay } from "./order";
 import type { OrderingMode } from "./ordering";
-import { getInvoice } from "./qonto";
-import { httpsHostOf } from "./sandbox-gate";
 
 /** Qonto's status, plus overdue: unpaid past its due date. Null when Qonto could not be read. */
 export type LiveStatus = "paid" | "unpaid" | "overdue" | "canceled" | "draft" | null;
-
-const QONTO_STATUSES = ["paid", "unpaid", "canceled", "draft"] as const;
-type QontoStatus = (typeof QONTO_STATUSES)[number];
-const isQontoStatus = (s: string | undefined): s is QontoStatus =>
-  QONTO_STATUSES.some((k) => k === s);
-
-const isoDay = z.iso.date();
-
-/** What Qonto says about an invoice now. Every field is checked, because it is an outside answer. */
-const readLive = async (mode: OrderingMode, qontoInvoiceId: string) => {
-  const none = { status: null, dueDate: null, url: null, customerName: null } as const;
-  if (mode.kind === "off") return none;
-  const res = await getInvoice(mode.qonto, qontoInvoiceId);
-  const record = res.ok ? res.data.client_invoice : undefined;
-  if (!record) return none;
-  return {
-    status: isQontoStatus(record.status) ? record.status : null,
-    dueDate: isoDay.safeParse(record.due_date).data ?? null,
-    url:
-      record.invoice_url && httpsHostOf(record.invoice_url) ? record.invoice_url : null,
-    customerName: typeof record.client?.name === "string" ? record.client.name : null,
-  };
-};
 
 const withOverdue = (
   status: QontoStatus | null,
@@ -144,7 +118,7 @@ export const listSubscriptions = async (
   return Promise.all(
     accounts.map(async (a) => {
       const latest = invoices.find((i) => i.accountId === a.id);
-      const live = latest ? await readLive(mode, latest.qontoInvoiceId) : null;
+      const live = latest ? await readLiveInvoice(mode, latest.qontoInvoiceId) : null;
       const current =
         latest && live
           ? await (async () => {

@@ -75,11 +75,11 @@
             "refund": "Nezaplacená faktura se stornuje, zaplacená se vrátí do 30 dnů",
             "data": "Vaše data zůstávají uložena"
           },
-          "note": "Neplatí pro prodloužení. Podrobnosti jsou v podmínkách, oddíl B7."
+          "note": "Neplatí pro prodloužení a končí prvním exportem nebo prvním schválením. Podrobnosti jsou v podmínkách, oddíl B7."
         },
         "grandfatheredBadge": "Vaše cena pro stávající uživatele",
         "cta": "Vyzkoušet 30 dní, peníze zpět",
-        "terms": "Na fakturu, splatnost 30 dní. Zrušení do 30 dnů od první objednávky: faktura se stornuje nebo se peníze vrátí.",
+        "terms": "Na fakturu, splatnost 30 dní. Zrušení do 30 dnů od první objednávky, před prvním exportem nebo schválením: faktura se stornuje nebo se peníze vrátí.",
         "termsLink": "Podmínky",
         "features": {
           "guided": "Řízené zavedení NIS 2 krok za krokem",
@@ -254,7 +254,12 @@
           "cryptography": "Kryptografická politika",
           "personnel_access": "Politika pro personál, přístupy a aktiva",
           "it_rules": "Pravidla pro nákup, údržbu a zranitelnosti IT",
-          "business_continuity": "Plán kontinuity provozu"
+          "business_continuity": "Plán kontinuity provozu",
+          "gdpr_security_measures": "Popis technických a organizačních opatření (čl. 32 GDPR)",
+          "gdpr_breach_procedure": "Postup při porušení zabezpečení osobních údajů (čl. 33 GDPR)",
+          "gdpr_breach_notice": "Vzor oznámení dotčeným osobám (čl. 34 GDPR)",
+          "gdpr_request_procedure": "Postup pro žádosti subjektů údajů (čl. 12 až 22 GDPR)",
+          "gdpr_data_protection_policy": "Zásady ochrany osobních údajů (čl. 24 GDPR)"
         },
         "records": {
           "training_management": "Záznamy o školení vedení",
@@ -268,7 +273,9 @@
           "backups": "Zálohy a poslední úspěšná obnova",
           "training_staff": "Školení a poučení zaměstnanců",
           "management_review": "Přezkoumání vedením",
-          "approvals": "Schválení každého dokumentu se jménem a datem"
+          "approvals": "Schválení každého dokumentu se jménem a datem",
+          "processing_activities": "Záznamy o činnostech zpracování (čl. 30 GDPR)",
+          "processors": "Kteří poskytovatelé zpracovávají údaje vaším jménem, se smlouvou a předáváním"
         }
       },
       "people": {

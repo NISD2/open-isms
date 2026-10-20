@@ -8,6 +8,7 @@ export const WALK_REGISTERS = [
   "policies",
   "training",
   "managementReviews",
+  "processingActivities",
 ] as const;
 export type WalkRegister = (typeof WALK_REGISTERS)[number];
 
@@ -19,11 +20,14 @@ const WRITES: Readonly<Record<WalkRegister, (screen: AnyScreen) => boolean>> = {
     s.kind === "backups" ||
     s.kind === "critical",
   suppliers: (s) =>
-    s.kind === "agreements" || (s.kind === "register" && s.module === "supplier"),
+    s.kind === "agreements" ||
+    s.kind === "processors" ||
+    (s.kind === "register" && s.module === "supplier"),
   risks: (s) => s.kind === "rate" || s.kind === "riskmap",
   policies: (s) => s.kind === "policy" || s.kind === "crypto",
   training: (s) => s.kind === "register" && s.module === "training_record",
   managementReviews: (s) => s.kind === "register" && s.module === "management_review",
+  processingActivities: (s) => s.kind === "activities" || s.kind === "describe",
 };
 
 /**

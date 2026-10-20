@@ -12,6 +12,15 @@ export const accessLevelEnum = pgEnum("access_level", ["free", "grandfathered", 
 export const invoiceSourceEnum = pgEnum("invoice_source", ["self_serve", "admin"]);
 
 /**
+ * What ended an order's thirty days money back early (AGB B7): the first export of the company's
+ * records, or the first sign-off, each confirmed by the person doing it.
+ */
+export const moneyBackWaivedThroughEnum = pgEnum("money_back_waived_through", [
+  "export",
+  "sign_off",
+]);
+
+/**
  * Platform switches a platform admin flips at runtime. One value per switch; absent means off.
  * What each one does is in lib/feature-flags.ts (FEATURE_FLAGS). `billing` and `walkthrough` are
  * retired there and stay here: existing rows hold them, and Postgres cannot drop an enum value
@@ -29,6 +38,22 @@ export const dataProcessingAgreementEnum = pgEnum("data_processing_agreement", [
   "independentController",
   "noPersonalData",
   "no",
+]);
+
+/** A supplier's answer on where customers' personal data goes, the questionnaire's options. */
+export const personalDataTransfersEnum = pgEnum("personal_data_transfers", [
+  "inEea",
+  "adequacy",
+  "sccs",
+  "bcr",
+  "other",
+]);
+
+/** How a supplier engages sub-processors (Art. 28(2) GDPR), the questionnaire's options. */
+export const subprocessorEngagementEnum = pgEnum("subprocessor_engagement", [
+  "general",
+  "specific",
+  "none",
 ]);
 
 /** Each series has its own counter, because invoice and credit note numbers never share. */

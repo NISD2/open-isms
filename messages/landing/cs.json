@@ -4,6 +4,10 @@
       "eyebrow": "Pro firmy s 50 až 150 zaměstnanci",
       "title": "Máte se postarat o <blue>NIS2</blue>?",
       "subtitle": "Provedeme vás krok za krokem. Vy vyplňujete, my vysvětlujeme každý bod srozumitelně a na konci podepisuje vedení.",
+      "ask": {
+        "title": "Máte se postarat o <blue>NIS2</blue>?",
+        "subtitle": "Provedeme vás krok za krokem. Vy vyplňujete, my vysvětlujeme každý bod srozumitelně a na konci podepisuje vedení."
+      },
       "cta": "Vyzkoušet 30 dní, peníze zpět",
       "trainingCta": "Bezplatné školení pro vašeho jednatele",
       "meta": {

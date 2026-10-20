@@ -11,6 +11,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import {
+  subprocessorAuthorisationEnum,
   supplierAuditFrequencyEnum,
   supplierRelationshipStatusEnum,
   supplierRelationshipTypeEnum,
@@ -130,6 +131,28 @@ export const supplier = pgTable(
     internationalTransfer: boolean("international_transfer").default(false),
     /** GDPR — adequacy / SCCs / BCRs / derogation. Only meaningful when internationalTransfer is true. */
     transferMechanism: transferMechanismEnum("transfer_mechanism"),
+    /** GDPR Art. 30(1)(e): the third countries the data goes to, where internationalTransfer is true. */
+    transferCountries: text("transfer_countries"),
+    /**
+     * When the GDPR walk last recorded this row's transfer answer. internationalTransfer defaults
+     * to false, so without it an untouched row reads as "no transfer" (Art. 30(1)(e) GDPR).
+     */
+    transferCheckedAt: timestamp("transfer_checked_at"),
+    /**
+     * GDPR Art. 28(3), (9): the customer's own answer that its contract with this processor is
+     * concluded, in writing, which electronic form is. Not a signature: the article asks for none.
+     * Null until answered; meaningful only while relationshipType is processor.
+     */
+    dpaConcluded: boolean("dpa_concluded"),
+    /** GDPR Art. 28(2): how the customer authorised this processor's sub-processors. */
+    subprocessorAuthorisation: subprocessorAuthorisationEnum(
+      "subprocessor_authorisation",
+    ),
+    /**
+     * When the GDPR walk last recorded this row's role (processor, controller, no personal data):
+     * the record that a row left at the defaults was looked at, as agreementsCheckedAt is for 5.2.
+     */
+    processorCheckedAt: timestamp("processor_checked_at"),
     /** ENISA TIG §5.1.4 TIPS — notify customer in advance if data-processing locations change. */
     notifyOnLocationChange: boolean("notify_on_location_change"),
     /** ENISA TIG §5.1.4 TIPS — supplier obligation to assist customer at no cost during incidents. */

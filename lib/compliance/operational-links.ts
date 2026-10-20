@@ -32,4 +32,5 @@ export const MODULE_HREF: Record<string, string> = {
   bsi_registration: "/compliance/registration",
   bsi_incident_report: "/bsi-reports",
   vulnerability: "/vulnerabilities",
+  processing_activity: "/processing-activities",
 };

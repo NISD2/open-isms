@@ -10,7 +10,7 @@ import { documentEmail, sendMail } from "@/lib/mail";
 import type { EmailLocale } from "@/lib/mail/locale";
 import type { DocumentEmail, DocumentSection, Enclosure } from "@/lib/mail/templates";
 import { alertOperators } from "./alert";
-import { type CancelWindow, canceledEmailWording } from "./cancel-terms";
+import { canceledEmailWording } from "./cancel-terms";
 import {
   creditNoteAttachment,
   creditNotePdf,
@@ -19,6 +19,7 @@ import {
   type IssuedCreditNote,
   sendCreditNoteEmail,
 } from "./deliver-credit-note";
+import type { CancelWindow } from "./money-back-window";
 
 /** Where the confirmation goes, and in which language: the holder, as they read the platform. */
 export interface HolderContact {

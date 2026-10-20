@@ -71,6 +71,27 @@
       "when": 1792078947392,
       "tag": "0009_requirement_czech_refs",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1792460973598,
+      "tag": "0010_processing_activity",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1792499003417,
+      "tag": "0011_supplier_transfer_checked",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1792510808381,
+      "tag": "0012_activity_suppliers",
+      "breakpoints": true
     }
   ]
 }

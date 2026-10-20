@@ -1,0 +1,68 @@
+{
+  "durchgang": {
+    "walks": {
+      "nis2": {
+        "title": "NIS 2 Durchgang",
+        "continue": "NIS 2 Umsetzung fortsetzen",
+        "approvalLead": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
+        "approvalLeadOthers": "Diese Dokumente sind im NIS 2 Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
+        "intro": {
+          "eyebrow": "NIS 2 Durchgang",
+          "title": "NIS 2 Schritt für Schritt.",
+          "lead": "Wir führen Sie durch.",
+          "points": [
+            {
+              "title": "Eins nach dem anderen.",
+              "text": "Sie sehen einen Punkt, erklärt, bevor Sie etwas eintragen."
+            },
+            {
+              "title": "Die Standardmethoden übernehmen Sie.",
+              "text": "Wo es eine bewährte Methode gibt, zeigen wir sie. Sie entscheiden."
+            },
+            {
+              "title": "Es hängt? Lassen Sie es offen.",
+              "text": "Legen Sie den Punkt zur Seite und machen Sie mit dem nächsten weiter."
+            },
+            {
+              "title": "Am Ende unterschreibt die Geschäftsführung.",
+              "text": "Sie sieht alles an einer Stelle durch."
+            }
+          ],
+          "start": "Los geht's"
+        },
+        "offerDocuments": "Leitlinie, Notfallplan und die weiteren, geschrieben aus dem, was Sie eintragen."
+      },
+      "gdpr": {
+        "title": "DSGVO Durchgang",
+        "continue": "DSGVO Durchgang fortsetzen",
+        "approvalLead": "Diese Dokumente sind im DSGVO Durchgang Ihres Unternehmens entstanden. Lesen Sie jedes und geben Sie es frei. Ihre Freigabe wird mit Ihrem Namen und dem heutigen Datum festgehalten.",
+        "approvalLeadOthers": "Diese Dokumente sind im DSGVO Durchgang Ihres Unternehmens entstanden. Die Geschäftsführung gibt sie hier frei, angemeldet mit ihrem eigenen Zugang.",
+        "intro": {
+          "eyebrow": "Datenschutz für den Mittelstand",
+          "title": "Die DSGVO, Punkt für Punkt.",
+          "lead": "Man hat Ihnen den Datenschutz übertragen, und Sie wissen nicht, wo Sie anfangen sollen? Wir gehen es mit Ihnen durch, eine Frage nach der anderen, und erklären jede Pflicht unterwegs. Am Ende haben Sie Ihre Entscheidung zu Datenschutzbeauftragten, ein Verzeichnis dessen, was Sie mit personenbezogenen Daten tun, Ihre Dienstleister und deren Verträge, und fünf Dokumente, die Ihre Geschäftsführung freigibt: Ihre Sicherheitsmaßnahmen, was zu tun ist, wenn Daten abhandenkommen, ein Schreiben an die Betroffenen, wie Sie Anfragen beantworten, und eine kurze Datenschutzleitlinie.",
+          "points": [
+            {
+              "title": "Was Sie bereithalten sollten",
+              "text": "Ihre Dienstleister (IT, Lohnabrechnung, E-Mail, Website, Software), deren Verträge oder Onlinebedingungen, und den, der Ihre IT betreut. Ihre Lieferantenliste und Ihre Sicherheitsdokumente aus dem NIS 2 Durchgang werden übernommen, wo sie passen."
+            },
+            {
+              "title": "Vorschläge statt leerer Seiten",
+              "text": "Für jede Tätigkeit im Verzeichnis gibt es einen Vorschlag. Sie übernehmen ihn oder ändern ihn."
+            },
+            {
+              "title": "Klar, was fehlt",
+              "text": "Der Durchgang deckt ausgewählte Pflichten ab, nicht die ganze DSGVO. Was er noch nicht enthält, steht im ersten Schritt."
+            },
+            {
+              "title": "Am Ende die Freigabe",
+              "text": "Die Geschäftsführung sieht alle Dokumente durch und gibt sie frei. Eine Unterschrift verlangt die DSGVO nicht."
+            }
+          ],
+          "start": "Los geht's"
+        },
+        "offerDocuments": "Datenschutzleitlinie, Verfahren bei Datenpannen und die weiteren, geschrieben aus dem, was Sie eintragen."
+      }
+    }
+  }
+}

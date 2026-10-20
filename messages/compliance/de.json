@@ -406,6 +406,13 @@
         "legalBasis": "Art. 37-39 DSGVO, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Rechenschaftspflicht",
+        "description": "Nachweis, dass die Verarbeitung der DSGVO entspricht: die Maßnahmen nach Art. 24 und, wo angemessen, Datenschutzvorkehrungen wie eine Datenschutzleitlinie",
+        "legalBasis": "Art. 5 Abs. 2, Art. 24 DSGVO",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -511,18 +518,6 @@
     "save": "Speichern",
     "saving": "Speichert...",
     "failedToSave": "Speichern fehlgeschlagen"
-  },
-  "evidence": {
-    "dropzone": "Datei hierher ziehen oder klicken zum Auswählen",
-    "formats": "PDF, DOCX, XLSX, Bilder",
-    "description": "Beschreibung (optional)",
-    "descriptionPlaceholder": "Was belegt dieses Dokument?",
-    "uploading": "Wird hochgeladen...",
-    "upload": "Nachweis hochladen",
-    "uploaded": "Nachweis hochgeladen",
-    "fileSaved": "{name} wurde gespeichert.",
-    "loading": "Dateien werden geladen...",
-    "uploadFailed": "Upload fehlgeschlagen"
   },
   "signoff": {
     "title": "Management-Freigabe erforderlich",

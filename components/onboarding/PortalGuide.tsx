@@ -5,10 +5,8 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { usePortalPath } from "@/components/portal/use-portal-path";
 import { Button } from "@/components/ui/button";
-import { isConsentPath } from "@/lib/mcp/consent-path";
 import type { Hint } from "@/lib/onboarding/hints";
 import { trpc } from "@/lib/trpc/client";
-import { HelpDialog } from "./HelpDialog";
 import { type RouteTour, type TourStep, toursForPath } from "./tour/steps";
 import { TourOverlay } from "./tour/TourOverlay";
 
@@ -33,20 +31,13 @@ const NO_STEPS: readonly TourStep[] = [];
 
 /**
  * Owns every guided surface in the portal: the question mark in the header,
- * the offer of help behind it, and the tour.
+ * which replays the page's tour, and the tour itself.
  *
  * One mount point, one piece of state. The pages being explained carry nothing
  * but `data-tour` attributes, so adding a tour to another screen never means
  * importing a hook into that screen's component.
  */
-export function PortalGuide({
-  hints,
-  calLink,
-}: {
-  hints: Record<Hint, boolean>;
-  /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
-  calLink: string;
-}) {
+export function PortalGuide({ hints }: { hints: Record<Hint, boolean> }) {
   const t = useTranslations("guide");
   const path = usePortalPath();
   const dismissHint = trpc.user.dismissHint.useMutation();
@@ -64,18 +55,15 @@ export function PortalGuide({
     journeyTourGuided: false,
     journeyTourTeam: false,
     requirementTour: false,
-    helpOffer: false,
     journeyNotice: false,
   });
-  const [helpManual, setHelpManual] = useState(false);
   const [steps, setSteps] = useState<readonly TourStep[]>(NO_STEPS);
   const [index, setIndex] = useState(0);
   // Which candidate actually started, so dismissal stamps the right hint.
   const [routeTour, setRouteTour] = useState<RouteTour | null>(null);
-
-  // Never offered over the consent page: it would cover the Allow the person came to press.
-  const helpAuto = hints.helpOffer && !dismissed.helpOffer && !isConsentPath(path);
-  const helpOpen = helpAuto || helpManual;
+  // Set once this page's tours have been checked, so a test can tell "no tour armed" from
+  // "not hydrated yet" (data-guide-resolved on the trigger).
+  const [resolved, setResolved] = useState(false);
 
   // Still-armed candidates for this route. The journey offers two, one per
   // layout, and the anchor present on the page picks between them. Memoised
@@ -92,11 +80,8 @@ export function PortalGuide({
   //
   // biome-ignore lint/correctness/useExhaustiveDependencies: path is deliberate. toursForPath returns module constants, so moving between two requirement pages leaves the candidate list identical and the walkthrough would never re-resolve for the page actually on screen.
   useEffect(() => {
-    // Hold back while the offer of help is up. The journey walkthroughs are no
-    // longer gated to the first login (a user meets the second layout whenever
-    // they switch), so this is what keeps a spotlight from opening behind that
-    // dialog. It re-runs when the dialog closes, so nothing is lost.
-    if (candidates.length === 0 || helpOpen) {
+    setResolved(true);
+    if (candidates.length === 0) {
       setSteps(NO_STEPS);
       setRouteTour(null);
       return;
@@ -136,7 +121,7 @@ export function PortalGuide({
       observer.disconnect();
       clearTimeout(giveUp);
     };
-  }, [candidates, helpOpen, path]);
+  }, [candidates, path]);
 
   // Plain functions: nothing downstream is memoised and none of these sit in a
   // dependency array, so useCallback would only add a list to keep in step.
@@ -149,27 +134,17 @@ export function PortalGuide({
     dismiss(routeTour.hint);
   };
 
-  const closeHelp = () => {
-    // Only the automatic offer is a one-time surface worth stamping. Closing
-    // one the user opened from the header themselves records nothing.
-    if (helpAuto) dismiss("helpOffer");
-    setDismissed((current) => ({ ...current, helpOffer: true }));
-    setHelpManual(false);
-  };
+  const routeTours = toursForPath(path);
 
   const startTour = () => {
     // Replay whichever layout is on screen, falling back to the route's first
-    // candidate: the help trigger is deliberately replayable, so an already
+    // candidate: the trigger is deliberately replayable, so an already
     // dismissed walkthrough is a legitimate thing to ask for here.
-    const routeTours = toursForPath(path);
     const match =
       routeTours.find((tour) =>
         document.querySelector(`[data-tour="${tour.steps[0].target}"]`),
       ) ?? routeTours[0];
     if (!match) return;
-    // Leaving through the tour still counts as having met the offer of help,
-    // otherwise the automatic one returns on the next page load.
-    closeHelp();
     setRouteTour(match);
     setSteps(presentSteps(match.steps));
     setIndex(0);
@@ -179,24 +154,21 @@ export function PortalGuide({
 
   return (
     <>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        aria-label={t("help.trigger")}
-        title={t("help.trigger")}
-        onClick={() => setHelpManual(true)}
-      >
-        <CircleQuestionMark className="size-4" />
-      </Button>
-
-      <HelpDialog
-        open={helpAuto || helpManual}
-        onOpenChange={(open) => !open && closeHelp()}
-        calLink={calLink}
-        permanent={helpAuto}
-        onStartTour={toursForPath(path).length > 0 ? startTour : undefined}
-      />
+      {/* Only where the page has a tour to show: a question mark that opens nothing is a dead end. */}
+      {routeTours.length > 0 && (
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          aria-label={t("help.startTour")}
+          title={t("help.startTour")}
+          data-testid="tour-replay"
+          data-guide-resolved={resolved || undefined}
+          onClick={startTour}
+        >
+          <CircleQuestionMark className="size-4" />
+        </Button>
+      )}
 
       {step && (
         <TourOverlay

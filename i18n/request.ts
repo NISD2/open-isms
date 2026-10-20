@@ -7,6 +7,7 @@ import { loadRequirements } from "./requirements";
 import { routing } from "./routing";
 
 const namespaces = [
+  "agb",
   "aiAssistants",
   "applicability",
   "assets",
@@ -47,6 +48,7 @@ const namespaces = [
   "policyGuides",
   "policy-config",
   "pricing",
+  "processingActivities",
   "portal",
   "requirements",
   "review",

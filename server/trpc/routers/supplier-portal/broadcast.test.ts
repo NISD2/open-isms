@@ -105,6 +105,7 @@ mock.module("@/lib/mail/send", () => ({
   },
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }),
   mailSuppressionReason: () => null,
+  accountEmailLocale: async () => "en" as const,
 }));
 
 const { broadcastIncidentBroadcast } = await import("./broadcast");

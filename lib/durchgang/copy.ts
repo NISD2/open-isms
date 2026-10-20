@@ -63,6 +63,8 @@ const SCREEN_COPY = {
     document: text,
     steps: z.array(text).min(1).optional(),
     source: text.optional(),
+    /** Said in place of the fields when an earlier answer leaves nothing to ask (`unless`). */
+    unless: text.optional(),
   }),
   evidence: z.object({ ...heading, document: text }),
   adopt: z.object({ ...heading, lines: z.array(z.object({ label: text, text })).min(1) }),
@@ -142,6 +144,12 @@ const SCREEN_COPY = {
     applies: text,
     change: text,
   }),
+  /** The activities' names and suggested answers are the catalogue's (`activities` in the namespace). */
+  activities: z.object(heading),
+  /** The labels of the facts asked are shared by every describe screen (`ui.describe`). */
+  describe: z.object(heading),
+  /** The answers a fact offers are shared by every screen that asks it (`ui.processors`). */
+  processors: z.object(heading),
   /** Each duty with what to do and when, and what it rests on (a provision, or the company's own Leitlinie). */
   ongoing: z.object({
     ...heading,
@@ -165,6 +173,11 @@ const ITEM_COPY = z.object({
   headline: text,
   teaser: text,
   missed: z.array(text).min(1),
+  /**
+   * A GDPR item that NIS 2 work gives a head start: what the GDPR still asks beyond it, shown
+   * beside the NIS 2 items it overlaps (`headStartsOf`). Never a credit: the pairs are overlaps.
+   */
+  fromNis2: text.optional(),
   screens: z.record(z.string(), z.unknown()),
   fields: z
     .record(
@@ -176,6 +189,8 @@ const ITEM_COPY = z.object({
         options: z.record(z.string(), text).optional(),
         /** Common answers to a text field, which a tap adds to what is written. */
         suggestions: z.array(text).min(1).optional(),
+        /** On a person field: the choice for someone outside the team, and its placeholder. */
+        other: z.object({ label: text, placeholder: text }).optional(),
       }),
     )
     .default({}),
@@ -206,6 +221,7 @@ export interface ResolvedItem {
   readonly headline: string;
   readonly teaser: string;
   readonly missed: readonly string[];
+  readonly fromNis2: string | null;
   readonly screens: readonly ResolvedScreen[];
 }
 
@@ -408,6 +424,12 @@ function resolveScreen(
         ? { ok: false, errors: [`${where}.document.clauses: duplicate id`] }
         : copy;
     }
+    case "activities":
+      return one(screen, SCREEN_COPY.activities);
+    case "describe":
+      return one(screen, SCREEN_COPY.describe);
+    case "processors":
+      return one(screen, SCREEN_COPY.processors);
     case "ongoing":
       return one(screen, SCREEN_COPY.ongoing);
     case "done":
@@ -462,6 +484,7 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
     headline: head.value.headline,
     teaser: head.value.teaser,
     missed: head.value.missed,
+    fromNis2: head.value.fromNis2 ?? null,
     screens: resolved.flatMap((r) => (r.ok ? [r.value] : [])),
   });
 }

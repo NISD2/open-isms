@@ -1,0 +1,37 @@
+{
+  "durchgang": {
+    "walks": {
+      "nis2": {
+        "title": "Průvodce NIS 2",
+        "continue": "Pokračovat v zavádění NIS 2",
+        "approvalLead": "Tyto dokumenty vznikly v průvodci NIS 2 vaší společnosti. Každý si přečtěte a schvalte. Vaše schválení se zaznamená s vaším jménem a dnešním datem.",
+        "approvalLeadOthers": "Tyto dokumenty vznikly v průvodci NIS 2 vaší společnosti. Vedení je zde schvaluje, přihlášené vlastním účtem.",
+        "intro": {
+          "eyebrow": "NIS 2 průvodce",
+          "title": "NIS 2 krok za krokem.",
+          "lead": "Provedeme vás tím.",
+          "points": [
+            {
+              "title": "Jedno po druhém.",
+              "text": "Vidíte jeden bod, vysvětlený dřív, než cokoli zadáte."
+            },
+            {
+              "title": "Standardní metody převezmete vy.",
+              "text": "Kde existuje osvědčená metoda, ukážeme ji. Rozhodnete vy."
+            },
+            {
+              "title": "Něco vázne? Nechte to otevřené.",
+              "text": "Odložte bod a pokračujte dalším."
+            },
+            {
+              "title": "Na konci podepíše vedení.",
+              "text": "Vše projde na jednom místě."
+            }
+          ],
+          "start": "Začněme"
+        },
+        "offerDocuments": "Bezpečnostní politika, plán pro incidenty a další, napsané z toho, co zadáte."
+      }
+    }
+  }
+}

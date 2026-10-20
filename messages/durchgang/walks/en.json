@@ -1,0 +1,68 @@
+{
+  "durchgang": {
+    "walks": {
+      "nis2": {
+        "title": "NIS 2 walkthrough",
+        "continue": "Continue your NIS 2 implementation",
+        "approvalLead": "These documents were written in your company's NIS 2 walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
+        "approvalLeadOthers": "These documents were written in your company's NIS 2 walkthrough. Management approves them here, signed in with its own account.",
+        "intro": {
+          "eyebrow": "NIS 2 walkthrough",
+          "title": "Do NIS 2 step by step.",
+          "lead": "We lead you through it.",
+          "points": [
+            {
+              "title": "One thing at a time.",
+              "text": "You see one item, explained before you enter anything."
+            },
+            {
+              "title": "You adopt the standard methods.",
+              "text": "Where a proven method exists, we show it. You decide."
+            },
+            {
+              "title": "Blocked? Leave it open.",
+              "text": "Set the item aside and carry on with the next."
+            },
+            {
+              "title": "Management signs at the end.",
+              "text": "They review everything in one place."
+            }
+          ],
+          "start": "Let's start"
+        },
+        "offerDocuments": "Your security policy, your incident plan and the others, written from what you enter."
+      },
+      "gdpr": {
+        "title": "GDPR walkthrough",
+        "continue": "Continue your GDPR walkthrough",
+        "approvalLead": "These documents were written in your company's GDPR walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
+        "approvalLeadOthers": "These documents were written in your company's GDPR walkthrough. Management approves them here, signed in with its own account.",
+        "intro": {
+          "eyebrow": "Data protection for mid-sized companies",
+          "title": "The GDPR, item by item.",
+          "lead": "You were handed data protection and do not know where to start? We go through it with you, one question at a time, and explain each duty as we go. At the end you hold your data protection officer decision, a record of what you do with personal data, your service providers and their agreements, and five documents your management approves: your security measures, what to do when data goes astray, a letter for the people affected, how you answer requests, and a short data protection policy.",
+          "points": [
+            {
+              "title": "What to have at hand",
+              "text": "Your service providers (IT, payroll, email, website, software), their contracts or online terms, and whoever looks after your IT. Your supplier list and security documents from the NIS 2 walkthrough are carried over where they fit."
+            },
+            {
+              "title": "Suggestions, not blank pages",
+              "text": "Every activity on the record comes with a suggestion. You use it or change it."
+            },
+            {
+              "title": "Clear about what is missing",
+              "text": "The walkthrough covers selected duties, not the whole GDPR. The first step says what it does not cover yet."
+            },
+            {
+              "title": "Approval at the end",
+              "text": "Management reviews all documents and approves them. The GDPR does not ask for a signature."
+            }
+          ],
+          "start": "Let's start"
+        },
+        "offerDocuments": "Your data protection policy, your breach procedure and the others, written from what you enter."
+      }
+    }
+  }
+}

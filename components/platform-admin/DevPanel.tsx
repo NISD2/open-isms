@@ -71,14 +71,6 @@ const SURFACES = [
     testId: "arm-requirement-tour",
     armedToast: "Requirement walkthrough armed. Open any requirement to see it.",
   },
-  {
-    hint: "helpOffer",
-    stamp: "helpOfferDismissedAt",
-    label: "Second-login offer",
-    button: "Arm the second-login offer",
-    testId: "arm-help-offer",
-    armedToast: "Offer of help armed. Open any portal page to see it.",
-  },
 ] as const;
 
 function Stamp({ value }: { value: Date | string | null }) {
@@ -318,6 +310,7 @@ function LanguageCard() {
           size="sm"
           data-testid="reset-locale"
           onClick={() => {
+            // biome-ignore lint/suspicious/noDocumentCookie: a dev-only reset of the next-intl locale cookie; the Cookie Store API is not in every browser
             document.cookie = `${LOCALE_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
             setCleared(true);
             toast.success("Locale cookie cleared.");

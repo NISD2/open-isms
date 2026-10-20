@@ -7,6 +7,7 @@ import { getPathname, Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
+import { billingVerdict } from "@/lib/billing/act-gate";
 import { db } from "@/lib/db";
 import { mayExport } from "@/lib/export/access";
 import { loadCompanyExport } from "@/lib/export/company-export";
@@ -34,13 +35,18 @@ const PRINT_CSS = `
 /**
  * Everything the company recorded on one long page, to read and to save as a PDF from the
  * browser's print window. Outside the portal's shell, so the sidebar never prints. Who may open
- * it is who may export (`mayExport`): review access, or management.
+ * it is who may export (`mayExport`): review access, or management. Inside an order's money back
+ * the export page asks first (AGB B7), so an unconfirmed visit goes back there.
  */
 export default async function CompleteExportPage() {
   const [session, localeTag] = await Promise.all([getSession(), getLocale()]);
   if (!session) redirect(getPathname({ href: "/auth/signin", locale: localeTag }));
   const companyId = session.companyId;
-  if (!companyId || !mayExport(session)) {
+  if (
+    !companyId ||
+    !mayExport(session) ||
+    (await billingVerdict(db, session, "export")).kind !== "allow"
+  ) {
     redirect(getPathname({ href: "/export", locale: localeTag }));
   }
   const locale = pdfLocale(localeTag);
@@ -55,7 +61,7 @@ export default async function CompleteExportPage() {
     exportNames(locale),
     // The open points come from the walk, which only a company that may walk has; without it
     // they were never worked out (null), which is not the same as nothing open.
-    mayWalk ? api.durchgang.gaps({ locale }) : Promise.resolve(null),
+    mayWalk ? api.durchgang.gaps({ framework: "nis2", locale }) : Promise.resolve(null),
     mayWalk ? api.durchgang.measures() : Promise.resolve([]),
     getTranslations({ locale, namespace: "export.complete" }),
   ]);

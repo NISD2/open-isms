@@ -90,7 +90,9 @@ export function CancelDialog({
               : t(
                   option.reason === "not_first_invoice"
                     ? "renewalLaterInvoiceBody"
-                    : "renewalBody",
+                    : option.reason === "money_back_waived"
+                      ? "renewalWaivedBody"
+                      : "renewalBody",
                   { periodEnd: day(option.periodEnd) },
                 )}{" "}
             {t("kept")}

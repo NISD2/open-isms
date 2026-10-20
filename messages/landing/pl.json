@@ -4,6 +4,10 @@
       "eyebrow": "Dla firm zatrudniających od 50 do 150 osób",
       "title": "Masz zająć się <blue>NIS2</blue>?",
       "subtitle": "Prowadzimy Cię krok po kroku. Ty wypełniasz, my wyjaśniamy każdy punkt prostymi słowami, a na końcu podpisuje kierownictwo.",
+      "ask": {
+        "title": "Masz zająć się <blue>NIS2</blue>?",
+        "subtitle": "Prowadzimy Cię krok po kroku. Ty wypełniasz, my wyjaśniamy każdy punkt prostymi słowami, a na końcu podpisuje kierownictwo."
+      },
       "cta": "Wypróbuj 30 dni, zwrot pieniędzy",
       "trainingCta": "Bezpłatne szkolenie dla zarządu",
       "meta": {

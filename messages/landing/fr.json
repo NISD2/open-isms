@@ -4,6 +4,10 @@
       "eyebrow": "Pour les entreprises de 50 à 150 salariés",
       "title": "On vous a confié <blue>NIS2</blue> ?",
       "subtitle": "Nous vous guidons pas à pas. Vous remplissez, nous expliquons chaque point en termes simples, et à la fin, la direction signe.",
+      "ask": {
+        "title": "On vous a confié <blue>NIS2</blue> ?",
+        "subtitle": "Nous vous guidons pas à pas. Vous remplissez, nous expliquons chaque point en termes simples, et à la fin, la direction signe."
+      },
       "cta": "Essayer 30 jours, remboursé",
       "trainingCta": "Formation gratuite pour votre dirigeant",
       "meta": {

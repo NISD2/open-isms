@@ -4,6 +4,20 @@
     "description": "Register your organization to start the compliance assessment.",
     "editTitle": "Organization Settings",
     "editDescription": "Update your organization details.",
+    "people": {
+      "title": "Who holds which role",
+      "lead": "The people your documents name. Changing someone here changes the same answer as in the step of the walkthrough.",
+      "notNamed": "Not named yet",
+      "noDpo": "None designated",
+      "change": "Change",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saved": "Saved",
+      "failed": "That did not save. Try again.",
+      "openStep": "Open the step",
+      "sentBack": "If management has approved this step, saving a new name sends it back to them, because the documents name who holds the role.",
+      "adminOnly": "Only an admin of your organisation changes who holds a role."
+    },
     "organizationId": {
       "label": "Organization ID",
       "hint": "Quote it when you write to us or run the platform yourself.",

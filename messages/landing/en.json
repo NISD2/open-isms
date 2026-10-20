@@ -2,8 +2,12 @@
   "landing": {
     "guided": {
       "eyebrow": "NIS2 software for companies with 50 to 150 employees",
-      "title": "Been asked to handle <blue>NIS2</blue>?",
-      "subtitle": "In the end you have everything in one document: what is done, what is still open, and your management's approval with name and date. The app writes the texts.",
+      "title": "Missed the <blue>NIS2</blue> deadline? <line>Start today.</line>",
+      "subtitle": "We guide you through NIS2 step by step, with no consultant and no prior knowledge. Registration comes first, with your country's authority and portal on screen. The app writes the texts, and your management approves them at the end.",
+      "ask": {
+        "title": "Been asked to handle <blue>NIS2</blue>?",
+        "subtitle": "In the end you have everything in one document: what is done, what is still open, and your management's approval with name and date. The app writes the texts."
+      },
       "cta": "Try 30 days, money back",
       "trainingCta": "Free training for your Managing Director",
       "meta": {

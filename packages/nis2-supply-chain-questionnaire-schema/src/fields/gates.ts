@@ -11,6 +11,17 @@ const yes = (field: string) => ({ field, equals: true });
 /** Holds customer data or documents, electronically or on paper. */
 export const PROCESSES_DATA: Gate = yes("processesCustomerData");
 
+/**
+ * Processes personal data on a customer's behalf: it offers a DPA, or it should and does not
+ * (Art. 28 GDPR). Not an independent controller, and not a supplier without personal data.
+ */
+export const PROCESSES_FOR_CUSTOMERS: Gate = {
+  anyOf: [
+    { field: "dataProcessingAgreement", equals: "available" },
+    { field: "dataProcessingAgreement", equals: "no" },
+  ],
+};
+
 /** Signs in to customer systems. */
 export const ACCESSES_SYSTEMS: Gate = yes("accessesCustomerSystems");
 

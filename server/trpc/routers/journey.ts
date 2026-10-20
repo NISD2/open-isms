@@ -3,7 +3,7 @@ import { z } from "zod";
 import { legalRefFor } from "@/lib/compliance/czech-law";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
 import { isDoneState } from "@/lib/compliance/journey-position";
-import { journeyStates, walkOf } from "@/lib/durchgang";
+import { itemsFor, journeyStates, NIS2_WALK } from "@/lib/durchgang";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -206,7 +206,7 @@ export const journeyRouter = router({
         companyRow
           ? {
               sector: companyRow.sector,
-              walks: walkOf(companyRow).map((item) => item.code),
+              walks: itemsFor(NIS2_WALK, companyRow).map((item) => item.code),
             }
           : null,
       );

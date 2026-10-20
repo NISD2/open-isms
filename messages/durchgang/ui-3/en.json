@@ -61,12 +61,12 @@
         "confirm": "Put on the waiting list"
       },
       "places": {
-        "label": "In the NIS 2 walkthrough"
+        "label": "In the walkthrough"
       },
       "home": {
-        "unlock": "Order now",
+        "unlock": "Try it, 30 days money back",
         "toJourney": "Continue in your journey, as before",
-        "price": "{price} net a year, plus VAT. 30 days money back.",
+        "price": "{price} net a year, plus VAT. 30 days money back, until the first export or sign-off.",
         "setupSection": "Getting started",
         "setupHeadline": "Set up your company",
         "setupLead": "The name and the sector are the same as in the registration. Everything else you enter where it is needed.",
@@ -82,7 +82,6 @@
         "toSignOff": "Not signed off yet. Jump to sign-off",
         "next": "Next",
         "waiting": "Still waiting",
-        "continue": "Continue your NIS 2 implementation",
         "allFilled": "Every item is filled in.",
         "allFilledNote": "When something in your company changes, open the item and change it there. A changed document goes to management for approval again.",
         "yourWay": "Your path",
@@ -92,6 +91,7 @@
         "notApplicable": "Does not apply",
         "preview": "What “{step}” looks like",
         "previewAlt": "The step “{step}” shown with a made-up company",
+        "lockedStep": "“{step}” comes with the order",
         "continueHere": "Continue now",
         "forward": {
           "action": "Forward to management",
@@ -112,29 +112,24 @@
           }
         }
       },
-      "intro": {
-        "eyebrow": "NIS 2 for mid-sized companies",
-        "title": "You are in the right place.",
-        "lead": "You have been asked to take care of NIS 2 and do not know where to start? That is how almost everyone feels. We go through it with you, item by item.",
-        "points": [
-          {
-            "title": "One thing at a time",
-            "text": "You only ever see one item. We explain it before you enter anything."
-          },
-          {
-            "title": "Methods we recommend",
-            "text": "Where a proven method exists, we show it to you. You decide whether to adopt it."
-          },
-          {
-            "title": "Leaving things open is fine",
-            "text": "What cannot be done yet, you set aside and carry on with the next item."
-          },
-          {
-            "title": "A signature at the end",
-            "text": "Management reviews everything and signs."
-          }
-        ],
-        "start": "Let's start"
+      "offer": {
+        "title": "Try the rest for 30 days.",
+        "lead": "That was the example, with your own company's details. If the rest is not right for you, you get your money back within 30 days, as long as you have not exported or signed off anything yet.",
+        "steps": {
+          "title": "{count, plural, one {# more step.} other {# more steps.}}",
+          "text": "One at a time, as before."
+        },
+        "documents": {
+          "title": "{count, plural, one {# document from your answers.} other {# documents from your answers.}}"
+        },
+        "kept": {
+          "title": "What you entered stays.",
+          "text": "Everything so far carries straight on."
+        },
+        "signs": {
+          "title": "Management signs at the end.",
+          "text": "In the app, in one place."
+        }
       }
     }
   }

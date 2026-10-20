@@ -1,0 +1,160 @@
+{
+  "durchgang": {
+    "ui": {
+      "kinds": {
+        "activities": "Ihr Verzeichnis",
+        "describe": "Beschreiben",
+        "processors": "Prüfen"
+      },
+      "fromNis2": {
+        "title": "Schon da aus Ihrem NIS 2 Durchgang",
+        "note": "Ein Vorsprung, keine Freigabe: Dieser Punkt wird für sich freigegeben.",
+        "notStarted": "Diese Schritte haben Sie noch nicht gemacht. Dieser Punkt geht auch ohne sie."
+      },
+      "activities": {
+        "count": "{count, plural, =0 {Noch keine Tätigkeit in Ihrem Verzeichnis} one {# Tätigkeit in Ihrem Verzeichnis} other {# Tätigkeiten in Ihrem Verzeichnis}}",
+        "suggested": "Vorausgewählt, weil Ihre Liste aus dem NIS 2 Durchgang einen passenden Eintrag hat",
+        "onRecord": "Steht schon in Ihrem Verzeichnis",
+        "own": "Eigene Tätigkeit hinzufügen",
+        "ownPlaceholder": "Zum Beispiel: Betriebsarzt",
+        "add": "Hinzufügen",
+        "remove": "Entfernen",
+        "toRecord": "Zum Verzeichnis",
+        "noted": "Ins Verzeichnis aufgenommen",
+        "recorded": "In Ihrem Verzeichnis von Verarbeitungstätigkeiten"
+      },
+      "describe": {
+        "empty": "In Ihrem Verzeichnis steht noch keine Tätigkeit. Wählen Sie Ihre Tätigkeiten auf den Schritten davor aus.",
+        "suggestion": "Vorschlag",
+        "useSuggestion": "Übernehmen",
+        "suppliers": {
+          "label": "Lieferanten, die die Daten bekommen",
+          "hint": "Kreuzen Sie die Lieferanten von Ihrer Lieferantenliste an, die diese Daten bekommen oder speichern, zum Beispiel das Lohnbüro oder die Cloud für Ihre Dateien. Ob ein Lieferant Daten außerhalb des EWR übermittelt, fragt der nächste Schritt einmal je Lieferant.",
+          "none": "Auf Ihrer Lieferantenliste steht kein Lieferant, der personenbezogene Daten bekommt. Wenn einer sie bekommt, tragen Sie ihn auf der Seite Lieferanten ein und kreuzen ihn hier an."
+        },
+        "facts": {
+          "purpose": {
+            "label": "Zweck",
+            "hint": "Wofür Sie die Daten verarbeiten, in einem Satz."
+          },
+          "legalBases": {
+            "label": "Rechtsgrundlage",
+            "hint": "Haken Sie jede Grundlage an, auf der diese Tätigkeit beruht (Art. 6 Abs. 1). Die für solche Tätigkeiten üblichen sind markiert; gleichen Sie sie mit dem ab, was Sie tatsächlich tun.",
+            "usual": "üblich",
+            "bases": {
+              "consent": "Einwilligung (a)",
+              "contract": "Ein Vertrag mit der Person, oder Schritte davor (b)",
+              "legal_obligation": "Eine rechtliche Verpflichtung Ihres Unternehmens (c)",
+              "vital_interests": "Lebenswichtige Interessen eines Menschen (d)",
+              "public_task": "Eine Aufgabe im öffentlichen Interesse oder in Ausübung öffentlicher Gewalt (e)",
+              "legitimate_interests": "Berechtigte Interessen (f)"
+            }
+          },
+          "legitimateInterests": {
+            "label": "Welches Interesse, und warum es nicht überwogen wird",
+            "hint": "Nennen Sie das Interesse und warum die Interessen der Betroffenen nicht überwiegen (Art. 6 Abs. 1 Buchst. f). Beispiel: das Netzwerk vor Angriffen schützen (Erwägungsgrund 49)."
+          },
+          "dataSubjects": {
+            "label": "Betroffene Personen",
+            "hint": "Wessen Daten, als Gruppen: zum Beispiel Beschäftigte, Kunden, Bewerber."
+          },
+          "dataCategories": {
+            "label": "Datenkategorien",
+            "hint": "Welche Daten, als Gruppen: zum Beispiel Kontaktdaten, Bankverbindung, Vertragsdaten."
+          },
+          "specialCategories": {
+            "label": "Besonders geschützte Daten",
+            "hint": "Zum Beispiel Gesundheit, Religion, Gewerkschaftszugehörigkeit oder biometrische Daten (Art. 9 DSGVO), oder Daten über strafrechtliche Verurteilungen und Straftaten (Art. 10).",
+            "yes": "Ja, auch solche Daten",
+            "no": "Nein"
+          },
+          "recipients": {
+            "label": "Empfänger",
+            "hint": "Wer die Daten bekommt, im Unternehmen und außerhalb, als Gruppen: zum Beispiel Steuerberater, Finanzamt, Bank."
+          },
+          "transfersOutsideEea": {
+            "label": "Andere Wege aus dem EWR",
+            "hint": "Gehen die Daten, außer über die Lieferanten oben, in ein Land außerhalb der EU, Islands, Liechtensteins und Norwegens? Zum Beispiel an eine Konzerngesellschaft oder einen Geschäftspartner im Ausland.",
+            "yes": "Ja",
+            "no": "Nein",
+            "details": "Wohin und auf welcher Grundlage",
+            "detailsHint": "Zum Beispiel: USA, Standardvertragsklauseln"
+          },
+          "retention": {
+            "label": "Löschfrist",
+            "hint": "Wann die Daten gelöscht werden, soweit sich das sagen lässt."
+          }
+        }
+      },
+      "processors": {
+        "empty": "Auf Ihrer Lieferantenliste steht noch niemand. Tragen Sie Ihre Dienstleister auf der Seite Lieferanten ein.",
+        "noProcessors": "Keiner Ihrer Lieferanten verarbeitet Daten in Ihrem Auftrag. Hier ist nichts zu tun.",
+        "onlyProcessors": "Hier stehen die Lieferanten, die Daten in Ihrem Auftrag verarbeiten.",
+        "toSuppliers": "Zur Lieferantenliste",
+        "recorded": "Auftragsverarbeiter",
+        "noted": {
+          "role": "Rolle der Lieferanten festgehalten",
+          "contract": "Verträge zur Auftragsverarbeitung festgehalten",
+          "transfer": "Übermittlung außerhalb des EWR festgehalten",
+          "subprocessing": "Genehmigung von Unterauftragnehmern festgehalten"
+        },
+        "role": {
+          "processor": "Verarbeitet Daten in unserem Auftrag",
+          "separate_controller": "Verarbeitet Daten für eigene Zwecke",
+          "joint_controller": "Entscheidet mit uns gemeinsam über Zweck und Mittel",
+          "none": "Bekommt keine personenbezogenen Daten"
+        },
+        "contract": {
+          "yes": "Vertrag zur Auftragsverarbeitung liegt vor",
+          "no": "Noch kein Vertrag"
+        },
+        "transfer": {
+          "no": "Die Daten bleiben im EWR",
+          "yes": "Die Daten gehen auch in ein Land außerhalb des EWR",
+          "mechanism": "Grundlage",
+          "countries": "In welche Länder",
+          "countriesHint": "Zum Beispiel: USA, Indien",
+          "mechanisms": {
+            "adequacy": "Angemessenheitsbeschluss der Europäischen Kommission",
+            "sccs": "Standardvertragsklauseln",
+            "bcr": "Verbindliche interne Datenschutzvorschriften",
+            "derogation": "Ausnahme nach Art. 49 DSGVO",
+            "none": "Keine Grundlage bekannt"
+          }
+        },
+        "subprocessing": {
+          "general": "Allgemein genehmigt: Der Dienstleister meldet jede geplante Änderung, wir können Einspruch erheben",
+          "specific": "Jeder Unterauftragnehmer wird einzeln genehmigt",
+          "not_stated": "Der Vertrag sagt nichts dazu, oder ich finde es nicht"
+        },
+        "stated": {
+          "label": "Aus seinem Fragebogen",
+          "preselected": "Eine gestrichelte Antwort ist das, was der Lieferant in seinem Fragebogen angegeben hat. Gleichen Sie sie mit Ihrem Vertrag ab, und tippen Sie sie dann an, oder übernehmen Sie alle auf einmal.",
+          "takeAll": "Seine Antworten übernehmen ({count})",
+          "dataProcessingAgreement": {
+            "available": "Bietet einen Standardvertrag zur Auftragsverarbeitung an",
+            "independentController": "Sagt, er sei selbst Verantwortlicher",
+            "noPersonalData": "Sagt, er verarbeite keine personenbezogenen Daten für Kunden",
+            "no": "Verarbeitet Daten von Kunden, bietet keinen Vertrag zur Auftragsverarbeitung an"
+          },
+          "locations": "Verarbeitet Daten von Kunden in: {countries}",
+          "personalDataTransfers": {
+            "inEea": "Bewahrt personenbezogene Daten von Kunden im EWR auf",
+            "adequacy": "Übermittelt außerhalb des EWR auf Grundlage eines Angemessenheitsbeschlusses",
+            "sccs": "Übermittelt außerhalb des EWR auf Grundlage von Standardvertragsklauseln",
+            "bcr": "Übermittelt außerhalb des EWR auf Grundlage verbindlicher interner Datenschutzvorschriften",
+            "other": "Übermittelt außerhalb des EWR auf einer anderen Grundlage"
+          },
+          "subprocessorEngagement": {
+            "general": "Setzt Unterauftragnehmer mit allgemeiner Genehmigung ein, mit Mitteilung und Einspruchsrecht",
+            "specific": "Bittet für jeden Unterauftragnehmer um eine gesonderte Genehmigung",
+            "none": "Setzt für personenbezogene Daten von Kunden keine Unterauftragnehmer ein"
+          },
+          "subprocessorList": "Unterauftragnehmer: {list}",
+          "breachNotice": "Meldet Ihnen eine Datenpanne unverzüglich",
+          "noBreachNotice": "Hat nicht zugesagt, Ihnen eine Datenpanne zu melden"
+        }
+      }
+    }
+  }
+}

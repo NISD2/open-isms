@@ -62,8 +62,6 @@
           "placeholder": "name@your-company.com",
           "send": "Send",
           "invited": "Invitation sent to {email}. After signing in they land in the course.",
-          "notEmailed": "The invitation for {email} was created but no email could be sent. Copy the link from the team page.",
-          "failed": "That did not work. Please try again.",
           "askAdmin": "To invite someone new, ask an admin of your company. A colleague already in your team starts with the link.",
           "copyLink": "Copy the link to the course"
         },

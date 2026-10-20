@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { WALK_ROUTES } from "@/lib/durchgang/routes";
 import type { Hint } from "@/lib/onboarding/hints";
 import { isLabelledSegment, SEGMENT_LABELS } from "./segment-labels";
 import { usePortalPath } from "./use-portal-path";
@@ -29,18 +30,14 @@ function titleCase(slug: string) {
 /**
  * `guide` is optional because this header is reused by two surfaces that
  * should not carry the product tour: the external supplier portal, whose
- * visitors are not our users at all, and the courses, where the offer of help
- * would open over the lesson. Leaving it off renders no trigger.
+ * visitors are not our users at all, and the courses, where a tour would open
+ * over the lesson. Leaving it off renders no trigger.
  */
 export function PortalHeader({
   guide,
   home,
 }: {
-  guide?: {
-    hints: Record<Hint, boolean>;
-    /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
-    calLink: string;
-  };
+  guide?: { hints: Record<Hint, boolean> };
   /**
    * Root the trail at the portal's home, the NIS 2 walkthrough. Only the entity
    * portal has one. The supplier portal's visitors are external and have no
@@ -55,6 +52,8 @@ export function PortalHeader({
     locale?: string;
     categorySlug?: string;
     requirementCode?: string;
+    /** A walk item's code, on its page: shown as written ("G-DPO.1"), never title-cased. */
+    code?: string;
   };
   const segments = usePortalPath().split("/").filter(Boolean);
 
@@ -77,19 +76,23 @@ export function PortalHeader({
       home === "walkthrough"
         ? {
             label: t("durchgang"),
-            href: "/durchgang/nis2",
+            href: WALK_ROUTES.nis2.home,
             at: ["durchgang", "walkthrough"],
           }
         : null;
     if (root && segments[0] !== undefined && root.at.includes(segments[0])) {
-      // Below the walk's home (/durchgang/nis2/<item>, its approval page): back to the home, and
-      // where you are.
+      // Below a walk's home (/durchgang/<walk>/<item>, its approval page): back to that walk's
+      // home, and where you are. The GDPR walk's slug is "dsgvo" in German, "gdpr" in English.
+      const walk =
+        segments[1] === "dsgvo" || segments[1] === "gdpr"
+          ? { label: t("durchgangGdpr"), href: WALK_ROUTES.gdpr.home }
+          : root;
       const below = segments.slice(2).at(-1);
       return below === undefined
-        ? [{ label: root.label, href: undefined }]
+        ? [{ label: walk.label, href: undefined }]
         : [
-            { label: root.label, href: root.href },
-            { label: titleCase(below), href: undefined },
+            { label: walk.label, href: walk.href },
+            { label: params.code ?? titleCase(below), href: undefined },
           ];
     }
 
@@ -155,7 +158,7 @@ export function PortalHeader({
           (Simon, 05.10.2026); the profile menu keeps its own. */}
       <div className="ml-auto flex items-center gap-1">
         <LocaleSwitcher />
-        {guide && <PortalGuide hints={guide.hints} calLink={guide.calLink} />}
+        {guide && <PortalGuide hints={guide.hints} />}
       </div>
     </header>
   );

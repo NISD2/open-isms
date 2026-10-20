@@ -1,0 +1,111 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DPO_1": {
+        "headline": "Klären, ob Sie Datenschutzbeauftragte benennen müssen",
+        "teaser": "Ob Sie benennen müssen, wer es ist und wo man sie erreicht.",
+        "missed": [
+          "Dieser Durchgang deckt ausgewählte Pflichten eines Verantwortlichen ab: Datenschutzbeauftragte, das Verzeichnis von Verarbeitungstätigkeiten, Auftragsverarbeiter, die Sicherheit der Verarbeitung, Datenpannen, Anfragen betroffener Personen und Ihre Datenschutzleitlinie. Er ist nicht die ganze DSGVO.",
+          "Noch nicht enthalten sind: Datenschutzhinweise, etwa für Ihre Website, Beschäftigte und Bewerber (Art. 13, 14), die Einwilligung in Cookies auf Ihrer Website (§ 25 TDDDG), ein Löschkonzept, die Bedingungen für besondere Kategorien von Daten (Art. 9 Abs. 2, Art. 10), Nachweise über Einwilligungen (Art. 7), Datenschutz-Folgenabschätzungen (Art. 35), Übermittlungen in Drittländer im Einzelnen (Art. 44 bis 49), Vereinbarungen mit gemeinsam Verantwortlichen (Art. 26) und die Pflichten, wenn Ihr Unternehmen selbst Daten im Auftrag seiner Kunden verarbeitet (Art. 28, Art. 30 Abs. 2). Diese Punkte klären Sie bis dahin selbst oder mit Ihren Datenschutzbeauftragten.",
+          "Datenschutzbeauftragte dürfen andere Aufgaben haben, solange daraus kein Interessenkonflikt entsteht (Art. 38 Abs. 6). Wer selbst über Zwecke und Mittel der Verarbeitung entscheidet, etwa die Geschäftsführung, kann sich schlecht selbst überwachen.",
+          "Schreibt das Gesetz Datenschutzbeauftragte vor, kann einer beschäftigten Person in dieser Rolle nicht ordentlich gekündigt werden, solange sie die Rolle hat und ein Jahr danach; möglich ist nur eine Kündigung aus wichtigem Grund ohne Frist (§ 38 Abs. 2 mit § 6 Abs. 4 BDSG)."
+        ],
+        "screens": {
+          "basics": {
+            "title": "Die Begriffe, die Ihnen begegnen",
+            "body": [
+              "Personenbezogene Daten sind alles, was eine Person betrifft: ein Name, eine E-Mail-Adresse, eine Gehaltsabrechnung, ein Foto einer Kamera.",
+              "Verarbeitung ist alles, was Sie damit tun: erheben, speichern, ansehen, versenden, löschen.",
+              "Ihr Unternehmen ist der Verantwortliche. Es entscheidet, wofür und wie es die Daten nutzt, deshalb sind die Pflichten in diesem Durchgang seine Pflichten.",
+              "Ein Auftragsverarbeiter ist ein Anbieter, der die Daten nur für Sie und nach Ihren Weisungen verarbeitet, etwa Ihr Anbieter für E-Mail oder Lohnabrechnung. Die Menschen, um deren Daten es geht, heißen betroffene Personen.",
+              "Die Aufsichtsbehörde ist die Datenschutzaufsicht Ihres Bundeslandes. An sie melden Sie, und sie kann Ihre Unterlagen anfordern.",
+              "Dieser Durchgang geht eine Pflicht nach der anderen durch. Jeder Schritt erklärt, was das Gesetz verlangt, zeigt ein Beispiel und fragt Sie dann nach dem, was nur Ihr Unternehmen weiß."
+            ],
+            "duty": "Die DSGVO macht Ihr Unternehmen als Verantwortlichen dafür verantwortlich, wie es personenbezogene Daten verarbeitet, und verlangt, dass es das nachweisen kann (Art. 5 Abs. 2, Art. 24)."
+          },
+          "learn": {
+            "title": "Brauchen Sie Datenschutzbeauftragte?",
+            "body": [
+              "Datenschutzbeauftragte beraten Ihr Unternehmen und überwachen, ob es die DSGVO einhält. Sie berichten unmittelbar der Geschäftsführung (Art. 38 Abs. 3, Art. 39). Das kann jemand aus dem Unternehmen sein oder ein externer Dienstleister mit Vertrag (Art. 37 Abs. 6).",
+              "Die DSGVO verlangt eine Benennung, wenn Ihre Kerntätigkeit in der umfangreichen regelmäßigen und systematischen Überwachung von Personen besteht oder in der umfangreichen Verarbeitung besonderer Kategorien von Daten, etwa Gesundheitsdaten, oder von Daten über Straftaten (Art. 37 Abs. 1). Behörden und öffentliche Stellen brauchen immer welche.",
+              "In Deutschland kommt § 38 Abs. 1 BDSG hinzu: Die Pflicht gilt, soweit Sie in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigen. Mitzuzählen sind nach verbreiteter Auslegung alle, die bei ihrer Arbeit regelmäßig am Computer mit Daten von Personen arbeiten, nicht nur die IT. Unabhängig von der Zahl gilt sie, wenn Sie Verarbeitungen vornehmen, die einer Datenschutz-Folgenabschätzung unterliegen, oder Daten geschäftsmäßig zur Übermittlung oder für Markt- oder Meinungsforschung verarbeiten.",
+              "Müssen Sie niemanden benennen, bleiben die Pflichten der DSGVO trotzdem bei Ihrem Unternehmen. Sie dürfen auch freiwillig benennen (Art. 37 Abs. 4)."
+            ],
+            "duty": "DSGVO und BDSG verlangen in bestimmten Fällen, dass Ihr Unternehmen Datenschutzbeauftragte benennt, ihre Kontaktdaten veröffentlicht und der Aufsichtsbehörde mitteilt."
+          },
+          "examples": {
+            "title": "Wer benennen muss",
+            "caption": "Vier Unternehmen, gelesen gegen die Regeln",
+            "good": {
+              "value": "Ein Maschinenbauer mit 120 Beschäftigten; 35 davon arbeiten jeden Tag am Computer mit Daten von Kunden, Beschäftigten oder Lieferanten. Er benennt Datenschutzbeauftragte.",
+              "note": "Mindestens 20 Personen verarbeiten ständig automatisiert personenbezogene Daten, also gilt § 38 Abs. 1 BDSG. Zählen Sie die Personen, die das tun, nicht die ganze Belegschaft."
+            },
+            "bad": {
+              "value": "Ein Reinigungsunternehmen mit 200 Beschäftigten, von denen 3 im Büro am Computer arbeiten. Es zählt alle 200 und schließt, dass es benennen muss.",
+              "note": "Die Zahl der Beschäftigten allein entscheidet nichts; § 38 Abs. 1 BDSG zählt die Personen, die ständig automatisiert personenbezogene Daten verarbeiten. Hier sind das 3. Prüfen Sie als Nächstes die Fälle von Art. 37 Abs. 1; eine freiwillige Benennung bleibt möglich (Art. 37 Abs. 4)."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Ein Klinikverbund behandelt Patienten als Kerntätigkeit und verarbeitet ihre Gesundheitsdaten in großem Umfang. Er benennt Datenschutzbeauftragte, gleich wie viele Beschäftigte er hat.",
+                  "note": "Die umfangreiche Verarbeitung besonderer Kategorien von Daten als Kerntätigkeit löst die Pflicht für sich allein aus (Art. 37 Abs. 1 Buchst. c)."
+                },
+                "bad": {
+                  "value": "Ein Softwareunternehmen macht seinen IT-Leiter zum Datenschutzbeauftragten.",
+                  "note": "Datenschutzbeauftragte dürfen in keinem Interessenkonflikt stehen (Art. 38 Abs. 6). Wer entscheidet, wie personenbezogene Daten verarbeitet werden, wie es ein IT-Leiter oft tut, kann das in der Regel schlecht überwachen. Ob ein Konflikt besteht, hängt von den tatsächlichen Aufgaben ab."
+                }
+              }
+            ]
+          },
+          "decision": {
+            "title": "Ihre Entscheidung",
+            "lead": "Gehen Sie die Fälle aus dem ersten Schritt und die Beispiele durch. Trifft einer zu, müssen Sie benennen. Trifft keiner zu, entscheiden Sie, ob Sie freiwillig benennen.",
+            "document": "Benennung der Datenschutzbeauftragten",
+            "steps": [
+              "Gehen Sie Ihre Abteilungen durch: Geschäftsführung, Büro, Buchhaltung, Personal, Vertrieb, Einkauf, IT. Zählen Sie jede Person, die an den meisten Tagen am Computer mit Daten von Kunden, Beschäftigten oder Lieferanten arbeitet. Sind es 20 oder mehr, besteht in Deutschland die Pflicht (§ 38 Abs. 1 BDSG).",
+              "Prüfen Sie die übrigen Fälle: Überwachung von Personen oder besondere Kategorien von Daten als Kerntätigkeit; Verarbeitungen, die eine Datenschutz-Folgenabschätzung brauchen, etwa Videoüberwachung öffentlich zugänglicher Bereiche oder die systematische Überwachung von Beschäftigten (die deutschen Aufsichtsbehörden veröffentlichen eine Liste solcher Verarbeitungen, Art. 35 Abs. 4); Datenhandel; Markt- oder Meinungsforschung.",
+              "Trifft nichts davon zu, entscheiden Sie, ob Sie trotzdem jemanden benennen."
+            ]
+          },
+          "who": {
+            "title": "Wer es ist und wo man sie erreicht",
+            "lead": "Wählen Sie die Person aus Ihrem Team, oder nennen Sie den externen Dienstleister. Dann die Kontaktdaten, die Sie veröffentlichen, und den Tag, an dem Sie sie der Datenschutzaufsicht Ihres Bundeslandes mitgeteilt haben (Art. 37 Abs. 7); die meisten Aufsichtsbehörden haben dafür ein Onlineformular.",
+            "document": "Benennung der Datenschutzbeauftragten",
+            "unless": "Sie benennen keine Datenschutzbeauftragten, darum gibt es hier niemanden zu nennen. Ändert sich das, etwa wenn Ihr Unternehmen wächst, kehren Sie zum Schritt davor zurück."
+          },
+          "done": {
+            "title": "Ihre Entscheidung ist festgehalten",
+            "note": "Veröffentlichen Sie die Kontaktdaten, etwa auf der Datenschutzseite Ihrer Website, die oft „Datenschutz“ heißt (Art. 37 Abs. 7)."
+          }
+        },
+        "fields": {
+          "dpoDecision": {
+            "label": "Müssen Sie Datenschutzbeauftragte benennen?",
+            "hint": "Trifft einer der Fälle zu, ist die Antwort „Ja, Pflicht“. Prüfen Sie die Frage neu, wenn Ihr Unternehmen wächst oder neue Verarbeitungen dazukommen.",
+            "options": {
+              "required": "Ja, Pflicht",
+              "voluntary": "Keine Pflicht, wir benennen freiwillig",
+              "none": "Keine Pflicht, wir benennen niemanden"
+            }
+          },
+          "dpoName": {
+            "label": "Datenschutzbeauftragte",
+            "hint": "Jemand in Ihrem Unternehmen oder ein externer Dienstleister mit Dienstleistungsvertrag (Art. 37 Abs. 6). Beides ist erlaubt. In kleineren Unternehmen ist ein externer üblich.",
+            "other": {
+              "label": "Ein externer Dienstleister",
+              "placeholder": "Firma und Ansprechperson, zum Beispiel Muster Datenschutz GmbH, Anna Beispiel"
+            }
+          },
+          "dpoContact": {
+            "label": "Veröffentlichte Kontaktdaten",
+            "hint": "Die Adresse, die Sie veröffentlichen, etwa in der Datenschutzerklärung Ihrer Website. Eine eigene Adresse wie datenschutz@ mit Ihrer Domain bleibt gültig, wenn die Person wechselt."
+          },
+          "dpoAuthorityNotifiedOn": {
+            "label": "Der Aufsichtsbehörde mitgeteilt am",
+            "hint": "Für ein Unternehmen in Deutschland ist das in der Regel die Datenschutzaufsichtsbehörde seines Bundeslandes (§ 40 BDSG)."
+          }
+        }
+      }
+    }
+  }
+}

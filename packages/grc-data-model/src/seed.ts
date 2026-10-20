@@ -85,7 +85,7 @@ export interface FrameworkSeedSpec {
    * pairs keep resolving and existing tenants keep their rows.
    */
   isActive: boolean;
-  categories: FrameworkCategory[];
+  categories: readonly FrameworkCategory[];
   getRequirements: (slug: string) => FrameworkRequirement[];
 }
 

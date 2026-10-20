@@ -63,6 +63,7 @@
     "training": "Training",
     "exercises": "Nooddriloefeningen",
     "managementReviews": "Mgmt-reviews",
+    "processingActivities": "Verwerkingsregister",
     "kpis": "Beveiligingsmetrieken",
     "changes": "Wijzigingen",
     "patches": "Beveiligingsupdates",
@@ -85,6 +86,7 @@
     "blockedBy": "Voltooi eerst: {codes}",
     "journey": "Traject",
     "durchgang": "NIS 2 stappenplan",
+    "durchgangGdpr": "AVG stappenplan",
     "administration": "Beheer",
     "comingSoon": "Binnenkort beschikbaar",
     "journeyBoard": {

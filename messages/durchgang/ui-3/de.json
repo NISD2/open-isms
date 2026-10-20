@@ -61,12 +61,12 @@
         "confirm": "Auf die Warteliste"
       },
       "places": {
-        "label": "Im NIS 2 Durchgang"
+        "label": "Im Durchgang"
       },
       "home": {
-        "unlock": "Jetzt bestellen",
+        "unlock": "30 Tage testen, Geld zurück",
         "toJourney": "Weiter im Weg, wie bisher",
-        "price": "{price} netto im Jahr, zzgl. USt. 30 Tage Geld zurück.",
+        "price": "{price} netto im Jahr, zzgl. USt. 30 Tage Geld zurück, bis zum ersten Export oder zur ersten Freigabe.",
         "setupSection": "Vorbereitung",
         "setupHeadline": "Ihr Unternehmen anlegen",
         "setupLead": "Name und Sektor sind dieselben wie bei der Registrierung. Alles Weitere tragen Sie dort ein, wo es gebraucht wird.",
@@ -82,7 +82,6 @@
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
-        "continue": "NIS 2 Umsetzung fortsetzen",
         "allFilled": "Alle Punkte sind ausgefüllt.",
         "allFilledNote": "Ändert sich etwas in Ihrem Unternehmen, öffnen Sie den Punkt und ändern es dort. Ein geändertes Dokument geht noch einmal zur Freigabe an die Geschäftsführung.",
         "yourWay": "Ihr Weg",
@@ -92,6 +91,7 @@
         "notApplicable": "Trifft nicht zu",
         "preview": "So sieht „{step}“ aus",
         "previewAlt": "Der Schritt „{step}“ am Beispiel einer erfundenen Firma",
+        "lockedStep": "„{step}“ gehört zur Bestellung",
         "continueHere": "Jetzt weitermachen",
         "forward": {
           "action": "An die Geschäftsführung weiterleiten",
@@ -112,29 +112,24 @@
           }
         }
       },
-      "intro": {
-        "eyebrow": "NIS 2 für den Mittelstand",
-        "title": "Sie sind hier richtig.",
-        "lead": "Sie sollen sich um NIS 2 kümmern und wissen nicht, wo Sie anfangen? Das geht fast allen so. Wir gehen es mit Ihnen durch, Punkt für Punkt.",
-        "points": [
-          {
-            "title": "Eins nach dem anderen",
-            "text": "Sie sehen immer nur einen Punkt. Wir erklären ihn, bevor Sie etwas eintragen."
-          },
-          {
-            "title": "Die Vorgaben des BSI",
-            "text": "Wo das BSI eine Methode empfiehlt, zeigen wir sie Ihnen. Sie entscheiden, ob Sie sie übernehmen."
-          },
-          {
-            "title": "Offen lassen ist erlaubt",
-            "text": "Was noch nicht geht, legen Sie zur Seite und machen mit dem nächsten Punkt weiter."
-          },
-          {
-            "title": "Am Ende eine Unterschrift",
-            "text": "Die Geschäftsführung sieht alles durch und unterschreibt."
-          }
-        ],
-        "start": "Los geht's"
+      "offer": {
+        "title": "Testen Sie den Rest 30 Tage.",
+        "lead": "Das war das Beispiel, mit den Angaben Ihres Unternehmens. Passt der Rest nicht, bekommen Sie innerhalb von 30 Tagen Ihr Geld zurück, solange Sie noch nichts exportiert oder freigegeben haben.",
+        "steps": {
+          "title": "{count, plural, one {Noch # Schritt.} other {Noch # Schritte.}}",
+          "text": "Einer nach dem anderen, wie bisher."
+        },
+        "documents": {
+          "title": "{count, plural, one {# Dokument aus Ihren Antworten.} other {# Dokumente aus Ihren Antworten.}}"
+        },
+        "kept": {
+          "title": "Ihre Angaben bleiben.",
+          "text": "Was Sie bisher eingetragen haben, geht direkt weiter."
+        },
+        "signs": {
+          "title": "Am Ende unterschreibt die Geschäftsführung.",
+          "text": "In der App, an einer Stelle."
+        }
       }
     }
   }

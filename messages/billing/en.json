@@ -63,7 +63,7 @@
       },
       "b2b": "For businesses only. The seller is Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Germany, Amtsgericht Köln HRB 126993, VAT ID DE462889433.",
       "term": "The licence runs for one year from today and then renews for one year at a time. We remind you by email 14 days before we issue the invoice for the new year. You can cancel up to the renewal date.",
-      "moneyBack": "If this is your account's first order, you can cancel within 30 days from today without giving a reason. If the invoice is still open, we cancel it with a credit note. If you have already paid, we transfer the amount back within 30 days of the cancellation. This does not apply to renewals or later orders.",
+      "moneyBack": "If this is your account's first order, you can cancel within 30 days from today without giving a reason. If the invoice is still open, we cancel it with a credit note. If you have already paid, we transfer the amount back within 30 days of the cancellation. Your first export or sign-off ends this right earlier; the platform asks you before (terms B7). This does not apply to renewals or later orders.",
       "payment": "Payment by bank transfer within 30 days of the invoice date. If the invoice is not paid by then, we suspend access to the licence until the payment arrives.",
       "contract": "You check your details and the price, confirm the terms and click \"Place order\". We accept the order by opening access at once and sending the invoice by email. You correct input errors in the fields before you click. Which version of the terms you accepted is shown under Billing afterwards. You can save or print the terms and the DPA now. The contract language is German or English, depending on the language you order in."
     },
@@ -101,7 +101,7 @@
     },
     "trust": {
       "invoice": "Nothing is charged now. You pay the invoice within 30 days.",
-      "moneyBack": "First order: cancel within 30 days and get your money back.",
+      "moneyBack": "First order: cancel within 30 days and get your money back, until the first export or sign-off.",
       "access": "Access opens as soon as you order."
     },
     "treatment": {
@@ -138,6 +138,20 @@
       "termsChanged": "Our terms have changed since you opened this page. Please reload it, read the current version, then order again.",
       "unknown": "We could not tell for certain whether the invoice was created. Please do not order again. We will check and get back to you."
     },
+    "acts": {
+      "export": {
+        "confirmTitle": "This export ends the 30 days money back",
+        "confirmBody": "Until {lastDay} you could still cancel and get your money back. Your first export ends that (terms B7). The invoice is then to be paid, even if you cancel later.",
+        "confirm": "Yes, export"
+      },
+      "signOff": {
+        "confirmTitle": "This sign-off ends the 30 days money back",
+        "confirmBody": "Until {lastDay} you could still cancel and get your money back. Your first sign-off ends that (terms B7). The invoice is then to be paid, even if you cancel later.",
+        "confirm": "Yes, sign off"
+      },
+      "cancel": "Cancel",
+      "failed": "That did not work. Please try again."
+    },
     "cancel": {
       "menuItem": "Cancel licence",
       "button": "Cancel",
@@ -145,6 +159,7 @@
       "moneyBackBody": "You are still within the thirty days money back, until {lastDay}. We cancel the invoice with a credit note, and the annual licence ends right away. If you have already paid, we transfer the amount back to you within 30 days of the cancellation.",
       "renewalTitle": "Cancel the renewal?",
       "renewalBody": "The thirty days money back have passed. Your licence runs until {periodEnd} and does not renew after that. The invoice stands.",
+      "renewalWaivedBody": "The thirty days money back ended with your first export or sign-off, as confirmed at the time. Your licence runs until {periodEnd} and does not renew after that. The invoice stands.",
       "renewalLaterInvoiceBody": "The thirty days money back apply only to an account's first order. Your licence runs until {periodEnd} and does not renew after that. The invoice stands.",
       "kept": "Your organizations and everything you entered stay in your account.",
       "confirm": "Yes, cancel",
@@ -156,6 +171,16 @@
       "unknown": "We could not tell for certain whether the cancel went through. Please do not try again. We will check and get back to you.",
       "failed": "The cancel did not go through just now. Please try again later.",
       "tooManyRequests": "Too many attempts. Please wait a minute."
+    },
+    "nonPayment": {
+      "due": {
+        "title": "Invoice {number} is due on {date}",
+        "body": "If it is not paid by the end of that day, access to the annual licence is suspended until the payment arrives (<terms>terms, B9</terms>). Your data stays stored."
+      },
+      "suspended": {
+        "title": "Access to the annual licence is suspended",
+        "body": "Invoice {number}, due on {date}, is not paid (<terms>terms, B9</terms>). Access reopens by itself once the payment is booked to the invoice. Your data stays stored, and Export stays open."
+      }
     },
     "page": {
       "renewalCanceled": "Canceled. Your licence ends on {date} and does not renew.",

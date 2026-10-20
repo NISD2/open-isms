@@ -3,6 +3,7 @@ import "@/lib/server-guard";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { journeyIndex } from "@/lib/compliance/journey-position";
 import type { DbOrTx } from "@/lib/db";
+import { NIS2_WALK } from "@/lib/durchgang";
 import {
   asset,
   assetProvider,
@@ -194,7 +195,7 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
       where: eq(incident.companyId, companyId),
       columns: columnsOf(EXPORT_FIELDS.incident),
     }),
-    walkPolicyRows(db, companyId),
+    walkPolicyRows(db, companyId, NIS2_WALK),
     getNis2Assessment(db, companyId),
     journeyStatesOf(db, companyId),
   ]);

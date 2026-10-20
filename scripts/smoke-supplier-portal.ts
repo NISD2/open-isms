@@ -100,7 +100,6 @@ async function main() {
         journeyTourGuided: false,
         journeyTourTeam: false,
         requirementTour: false,
-        helpOffer: false,
         journeyNotice: false,
       },
     },

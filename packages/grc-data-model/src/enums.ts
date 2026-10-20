@@ -122,6 +122,28 @@ export const supplierRelationshipStatusEnum = pgEnum("supplier_relationship_stat
   "bounced",
 ]);
 
+/**
+ * How the controller authorised a processor to engage sub-processors (Art. 28(2) GDPR): for each
+ * one by name (specific), or in general with the processor telling it of every change so it can
+ * object.
+ */
+export const subprocessorAuthorisationEnum = pgEnum("subprocessor_authorisation", [
+  "general",
+  "specific",
+  // The agreement says nothing about sub-processors, or it was not found: a gap, not an answer.
+  "not_stated",
+]);
+
+/** The six lawful bases of Art. 6(1) GDPR, points (a) to (f) in order. */
+export const legalBasisEnum = pgEnum("legal_basis", [
+  "consent",
+  "contract",
+  "legal_obligation",
+  "vital_interests",
+  "public_task",
+  "legitimate_interests",
+]);
+
 export const transferMechanismEnum = pgEnum("transfer_mechanism", [
   "adequacy",
   "sccs",

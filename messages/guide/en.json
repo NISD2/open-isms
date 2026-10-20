@@ -91,18 +91,7 @@
       }
     },
     "help": {
-      "trigger": "Help",
-      "title": "Anything we can help with?",
-      "body": "This is your second time here. If something is unclear or you are stuck, say so. You reach us directly.",
-      "email": "Write to us at",
-      "emailCopied": "Email address copied",
-      "call": "Or book a call",
-      "selfHost": "The code is open on GitHub under AGPL-3.0. You are free to run the platform on your own infrastructure whenever you want, and we answer questions about it.",
-      "training": "Our management training course walks through all of this.",
-      "trainingLink": "Open the course",
-      "startTour": "Show me around",
-      "close": "Close",
-      "dismissForever": "Don't show this again"
+      "startTour": "Show me around"
     }
   }
 }

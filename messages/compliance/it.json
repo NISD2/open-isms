@@ -339,6 +339,13 @@
         "legalBasis": "GDPR Art. 37-39, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Responsabilizzazione",
+        "description": "Dimostrare che il trattamento è conforme al GDPR: le misure dell'art. 24 e, se proporzionato, politiche in materia di protezione dei dati",
+        "legalBasis": "GDPR Art. 5(2), 24",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -388,18 +395,6 @@
     "save": "Salva",
     "saving": "Salvataggio...",
     "failedToSave": "Salvataggio non riuscito"
-  },
-  "evidence": {
-    "dropzone": "Trascina il file qui o fai clic per selezionarlo",
-    "formats": "PDF, DOCX, XLSX, immagini",
-    "description": "Descrizione (facoltativa)",
-    "descriptionPlaceholder": "Cosa dimostra questo documento?",
-    "uploading": "Caricamento...",
-    "upload": "Carica evidenza",
-    "uploaded": "Evidenza caricata",
-    "fileSaved": "{name} è stato salvato.",
-    "loading": "Caricamento dei file...",
-    "uploadFailed": "Caricamento non riuscito"
   },
   "signoff": {
     "title": "Approvazione del management richiesta",

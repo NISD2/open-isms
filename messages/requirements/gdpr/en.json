@@ -35,6 +35,10 @@
     "G-DPO_1": {
       "title": "Designate a data protection officer",
       "description": "Assess and document whether a data protection officer must be designated. The GDPR requires one for public bodies, and where the core activities consist of regular and systematic monitoring of data subjects on a large scale, or of processing special categories of data (Art. 9) or data on criminal convictions (Art. 10) on a large scale (Art. 37(1)). In Germany the duty also applies where, as a rule, at least 20 persons are constantly engaged in the automated processing of personal data (§38(1) BDSG), and regardless of headcount where processing is subject to a data protection impact assessment or personal data are processed commercially for transfer, anonymised transfer or market or opinion research. Position and tasks follow Art. 38 and 39 GDPR; where the designation is required, the DPO can be removed or dismissed only for good cause (§38(2) with §6(4) BDSG). The contact details must be published and communicated to the supervisory authority (Art. 37(7))."
+    },
+    "G-ACT_1": {
+      "title": "Accountability and data protection policy",
+      "description": "Be responsible for, and be able to demonstrate, compliance with the principles in Art. 5(1) (Art. 5(2), accountability). To that end implement appropriate technical and organisational measures to ensure and to be able to demonstrate that processing is performed in accordance with the Regulation, and review and update them where necessary (Art. 24(1)). Where proportionate in relation to the processing activities, those measures include appropriate data protection policies (Art. 24(2)). The GDPR prescribes no particular form and no signature for them. Recommendation: keep the record, the procedures and the policy in one place and have management approve them, so you can show who decided what and when."
     }
   }
 }

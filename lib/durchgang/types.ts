@@ -16,26 +16,40 @@ import type {
   assetHostingEnum,
   assetMfaMethodEnum,
   entityTypeEnum,
+  frameworkEnum,
 } from "@nisd2/grc-data-model/enums";
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
-import {
-  BCP_SCHEMA,
-  type CategoryCode,
-  type CategoryField,
-} from "@/lib/compliance/category-schemas";
+import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
+import { BCP_SCHEMA } from "@/lib/compliance/category-schemas/nis2";
 import type { CountableModule } from "@/lib/compliance/module-tables";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { settledFactEnum } from "@/schema/enums";
+import type { ActivityFact, ActivityGroup, ProcessorFact } from "./gdpr-records";
 import type { AssetSlice, RatingTarget } from "./ratings";
+
+/** A framework as the database enum on `compliance_framework.code` defines it. */
+export type FrameworkCode = (typeof frameworkEnum.enumValues)[number];
 
 /** The languages the walk is written in: its screens, and the notes and documents it writes. */
 export const WALK_LOCALES = ["de", "en", "cs"] as const;
 export type WalkLocale = (typeof WALK_LOCALES)[number];
 
-/** The language the walk shows itself in for a page language: its own where it is written, else English. */
-export const walkLocaleOf = (locale: string): WalkLocale =>
-  locale === "de" || locale === "cs" ? locale : "en";
+/**
+ * The language a walk shows itself in for a page language: its own where it is written, else
+ * English. The NIS 2 walk is written in all three; a walk written in fewer passes its own.
+ */
+export const walkLocaleOf = (
+  locale: string,
+  written: readonly WalkLocale[] = WALK_LOCALES,
+): WalkLocale => written.find((l) => l === locale) ?? "en";
+
+/** The frameworks that have a walk, by their `compliance_framework.code`. */
+export const WALK_FRAMEWORKS = [
+  "nis2",
+  "gdpr",
+] as const satisfies readonly FrameworkCode[];
+export type WalkFramework = (typeof WALK_FRAMEWORKS)[number];
 
 /**
  * A rule shown as it is, read-only, rendered from the module that holds it: the 200-3 matrix
@@ -132,8 +146,9 @@ export type BackupFrequency = (typeof BACKUP_FREQUENCIES)[number];
 /**
  * Names a policy may carry that the server reads off the company's own records rather than off
  * an answer: the processes that must keep running, the order systems come back in, where
- * incidents are reported (from the company's country), who leads in an emergency (from 3.1), and
- * the cryptographic methods the company accepts (its crypto list, 9.1).
+ * incidents are reported (from the company's country), who leads in an emergency (from 3.1), the
+ * cryptographic methods the company accepts (its crypto list, 9.1), its data protection officer
+ * (G-DPO.1) and the security documents its NIS 2 walk wrote, with their state.
  */
 export const POLICY_LISTS = [
   "criticalProcesses",
@@ -141,6 +156,8 @@ export const POLICY_LISTS = [
   "reportingChannel",
   "emergencyLead",
   "acceptedCrypto",
+  "dataProtectionOfficer",
+  "securityDocuments",
 ] as const;
 export type PolicyList = (typeof POLICY_LISTS)[number];
 
@@ -155,8 +172,28 @@ export const POLICY_TEMPLATES = [
   "personnel_access",
   "it_rules",
   "business_continuity",
+  "gdpr_security_measures",
+  "gdpr_breach_procedure",
+  "gdpr_breach_notice",
+  "gdpr_request_procedure",
+  "gdpr_data_protection_policy",
 ] as const;
 export type PolicyTemplate = (typeof POLICY_TEMPLATES)[number];
+
+/**
+ * A record that makes a policy clause true: "restore_tested", a backup system with a restore test
+ * on record (NIS 2 4.4, `asset.last_backup_test_date`).
+ */
+export type ClauseEvidence = "restore_tested";
+
+/**
+ * One answer of another item, in this walk or another: its code and field. walks.test checks that
+ * the item exists and its category asks the field.
+ */
+export interface AnswerRef {
+  readonly code: string;
+  readonly field: string;
+}
 
 export type Screen<C extends CategoryCode> =
   | { readonly kind: "learn"; readonly id: string; readonly link?: LearnLink }
@@ -192,10 +229,24 @@ export type Screen<C extends CategoryCode> =
       readonly id: string;
       readonly fields: readonly CategoryField<C>[];
       /**
-       * The field that names a person in the company, offered as a pick from the team with the
-       * person walking first, and an invite for someone not in it yet.
+       * The field that names a person in the company, offered as a pick from the team, someone
+       * outside it by name, and an invite for someone not in it yet. A required one starts on the
+       * person walking; an optional one starts empty, since naming nobody is an answer there.
        */
       readonly person?: CategoryField<C>;
+      /**
+       * A field that starts on another item's answer while it has none of its own, shown with
+       * where it came from, and saved like any answer once the person moves on: copied once,
+       * never kept in step, so a later change there rewrites nothing here.
+       */
+      readonly carry?: { readonly field: CategoryField<C>; readonly from: AnswerRef };
+      /**
+       * Answers elsewhere that should name someone else than `person`: a quiet note where they
+       * name the same team member, never a block (as Art. 38(6) GDPR does for a DPO).
+       */
+      readonly apart?: readonly AnswerRef[];
+      /** An answer on an earlier screen that leaves this one nothing to ask, said instead. */
+      readonly unless?: { readonly field: CategoryField<C>; readonly is: string };
       /** A rule or list shown above the fields, which the answers are read off. */
       readonly provision?: Provision;
       /**
@@ -255,7 +306,20 @@ export type Screen<C extends CategoryCode> =
    * company's name and the item's answers filled in. Stored as one `policy` row of the item's
    * requirement.
    */
-  | { readonly kind: "policy"; readonly id: string; readonly policy: PolicyTemplate }
+  | {
+      readonly kind: "policy";
+      readonly id: string;
+      readonly policy: PolicyTemplate;
+      /**
+       * Clauses ticked on a first visit where the company's own records show the clause is true,
+       * each with the record it rests on. A suggestion: saved only when the person moves on, and
+       * never again once the company has chosen its clauses.
+       */
+      readonly tickWhen?: ReadonlyArray<{
+        readonly clause: string;
+        readonly when: ClauseEvidence;
+      }>;
+    }
   /**
    * Every policy the walk wrote, with its state. Management approves the drafts here, signed in
    * with its own account; anyone else sends them the page.
@@ -279,6 +343,25 @@ export type Screen<C extends CategoryCode> =
    */
   | { readonly kind: "crypto"; readonly id: string }
   /**
+   * One slice of the processing-activity catalogue: the person ticks what the company does, which
+   * becomes rows of its record of processing activities (`processing_activity`).
+   */
+  | {
+      readonly kind: "activities";
+      readonly id: string;
+      readonly groups: readonly ActivityGroup[];
+    }
+  /** Each activity on the record, with the Art. 30(1) facts this screen asks of it. */
+  | {
+      readonly kind: "describe";
+      readonly id: string;
+      readonly facts: readonly ActivityFact[];
+      /** Also which suppliers receive the data (`processing_activity_supplier`). */
+      readonly suppliers?: true;
+    }
+  /** Each supplier on the list, with one GDPR fact about it (`ProcessorAnswer`). */
+  | { readonly kind: "processors"; readonly id: string; readonly fact: ProcessorFact }
+  /**
    * What the company does itself from now on, after management signed: the duties that arise
    * when something happens, the ones that recur, and the ones that never end. Read only.
    */
@@ -291,16 +374,20 @@ export type ScreenKind = AnyScreen["kind"];
 type IsoDate = `${number}-${number}-${number}`;
 
 /**
- * Where the duty card's sentence comes from, so the card opens that exact text: the BSIG paragraph
- * for German readers, the directive's article for everyone else. The requirement's own citations
- * name several provisions and its category link is per category (spec §0.7, correction 3), so
- * neither can serve. A test checks both against the requirement's first citation.
+ * Where the duty card's sentence comes from, so the card opens that exact text. NIS 2: the BSIG
+ * paragraph for German readers, the directive's article for everyone else. GDPR: the regulation's
+ * article, which applies directly in every language. The requirement's own citations name several
+ * provisions and its category link is per category (spec §0.7, correction 3), so neither can
+ * serve. A test checks each against the requirement's citations.
  */
-export interface DutyLaw {
-  readonly bsig: number;
-  /** Null for a duty only the BSIG sets, which no article of the directive carries. */
-  readonly article: number | null;
-}
+export type DutyLaw =
+  | {
+      readonly act: "nis2";
+      readonly bsig: number;
+      /** Null for a duty only the BSIG sets, which no article of the directive carries. */
+      readonly article: number | null;
+    }
+  | { readonly act: "gdpr"; readonly article: number };
 
 /** An entity type as the database enum on `company.entity_type` defines it. */
 export type EntityType = (typeof entityTypeEnum.enumValues)[number];
@@ -315,7 +402,7 @@ export interface WalkFacts {
 }
 
 export interface Item<C extends CategoryCode> {
-  /** Requirement code in the NIS 2 framework. */
+  /** Requirement code, unique across frameworks (`requirement.code`). */
   readonly code: string;
   /** The requirement's category, which types its fields. A test checks it against the framework. */
   readonly category: C;
@@ -349,6 +436,29 @@ export interface Item<C extends CategoryCode> {
 
 /** Any item, with its screens typed against its own category. */
 export type AnyItem = { readonly [C in CategoryCode]: Item<C> }[CategoryCode];
+
+/**
+ * One framework's walk: its items in walk order with the approval last, and what it leaves out.
+ * The engine reads only this, so a new framework is a new value, not new engine code.
+ */
+export interface Walk {
+  readonly framework: WalkFramework;
+  readonly items: readonly AnyItem[];
+  /**
+   * Requirements of the framework the walk leaves out, each with the reason. The requirement page
+   * keeps them; a test fails on a requirement that is neither walked nor here.
+   */
+  readonly notWalked: Readonly<Record<string, string>>;
+  /** The languages its copy is written in; any other page language walks it in English. */
+  readonly locales: readonly WalkLocale[];
+  /**
+   * The item a company not set up yet walks before setting itself up, or null when the walk opens
+   * only to a company already set up.
+   */
+  readonly setupAfter: string | null;
+  /** The last item an account that has not ordered may walk (`isFreeStep`). */
+  readonly lastFreeStep: string;
+}
 
 /** The intake fields an item asks for: on its field screens, and the one its upload fills. */
 export const askedFields = (item: AnyItem): readonly string[] =>

@@ -42,12 +42,15 @@ export function CompanyEssentials({
   initial,
   next,
   submitLabel,
+  formId,
   hints,
 }: {
   mode: "create" | "edit";
   initial?: Essentials;
   next?: Href;
   submitLabel: string;
+  /** The page puts the submit button elsewhere (the walk's footer), which names this form. */
+  formId?: string;
   hints?: {
     readonly name: string;
     readonly sector: string;
@@ -72,6 +75,9 @@ export function CompanyEssentials({
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
+    // A second click while saving, from a submit button outside the form (the walk's footer)
+    // that stays enabled, would send the company a second time.
+    if (saving) return;
     setMissing(!ready);
     if (!ready) return;
     const values = { name: name.trim(), sector, entityType };
@@ -87,7 +93,7 @@ export function CompanyEssentials({
   };
 
   return (
-    <form onSubmit={submit} className="space-y-6">
+    <form id={formId} onSubmit={submit} className="space-y-6">
       <div className="space-y-2">
         <Label htmlFor={`${id}-name`}>{t("essentials.name")}</Label>
         <Input
@@ -157,14 +163,16 @@ export function CompanyEssentials({
       </fieldset>
 
       <div className="space-y-2">
-        <Button
-          type="submit"
-          size="lg"
-          disabled={saving}
-          className="h-12 rounded-xl px-7 text-base"
-        >
-          {submitLabel}
-        </Button>
+        {formId === undefined && (
+          <Button
+            type="submit"
+            size="lg"
+            disabled={saving}
+            className="h-12 rounded-xl px-7 text-base"
+          >
+            {submitLabel}
+          </Button>
+        )}
         {missing && !ready && (
           <p role="alert" className="text-sm text-muted-foreground">
             {t("essentials.missing")}

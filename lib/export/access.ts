@@ -1,6 +1,8 @@
 import "@/lib/server-guard";
 
 import { getSession, hasReviewAccess } from "@/lib/auth";
+import { billingVerdict, refusalResponse } from "@/lib/billing/act-gate";
+import { db } from "@/lib/db";
 import { MANAGEMENT_ROLE } from "@/lib/durchgang";
 import { rateLimit } from "@/lib/rate-limit";
 
@@ -19,7 +21,9 @@ export const mayExport = (session: {
 
 /**
  * Who may download an export (`mayExport`), a few times a minute per person and kind. Not behind
- * the paywall: a company's own records always leave with it.
+ * the paywall: a company's own records always leave with it (AGB B10). Inside an order's money back
+ * the first export ends it (`billingVerdict`, AGB B7), so the page asks first and records the yes,
+ * and a download that arrives unconfirmed is held back.
  */
 export async function exportAccess(
   kind: string,
@@ -32,9 +36,13 @@ export async function exportAccess(
   if (!mayExport(session)) {
     return { ok: false, response: new Response("Forbidden", { status: 403 }) };
   }
+  // The limit first: the billing state may ask Qonto, and a refused download in a loop must not
+  // reach it more than a few times a minute.
   if (!(await rateLimit(`export:${kind}:${session.user.id}`, perMinute, 60_000))) {
     return { ok: false, response: new Response("Too many requests", { status: 429 }) };
   }
+  const verdict = await billingVerdict(db, session, "export");
+  if (verdict.kind !== "allow") return { ok: false, response: refusalResponse(verdict) };
   return { ok: true, companyId: session.companyId, userId: session.user.id };
 }
 

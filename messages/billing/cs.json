@@ -63,7 +63,7 @@
       },
       "b2b": "Pouze pro podnikatele. Prodávajícím je Kardashev Catalyst UG (haftungsbeschränkt), Trierer Str. 6, 50676 Köln, Německo, Amtsgericht Köln HRB 126993, DIČ DE462889433.",
       "term": "Licence platí jeden rok ode dneška a pak se prodlužuje vždy o jeden rok. 14 dní předtím, než vystavíme fakturu na nový rok, vám to připomeneme e-mailem. Zrušit můžete až do data prodloužení.",
-      "moneyBack": "Pokud jde o první objednávku vašeho účtu, můžete ji do 30 dnů ode dneška zrušit bez udání důvodu. Je-li faktura ještě nezaplacená, stornujeme ji dobropisem. Pokud jste už zaplatili, vrátíme vám částku převodem do 30 dnů od zrušení. Neplatí pro prodloužení ani pro pozdější objednávky.",
+      "moneyBack": "Pokud jde o první objednávku vašeho účtu, můžete ji do 30 dnů ode dneška zrušit bez udání důvodu. Je-li faktura ještě nezaplacená, stornujeme ji dobropisem. Pokud jste už zaplatili, vrátíme vám částku převodem do 30 dnů od zrušení. Prvním exportem nebo prvním schválením toto právo končí dříve; platforma se vás předtím zeptá (podmínky B7). Neplatí pro prodloužení ani pro pozdější objednávky.",
       "payment": "Platba bankovním převodem do 30 dnů od data faktury. Pokud do té doby faktura zaplacena není, pozastavíme přístup k licenci, dokud platba nedorazí.",
       "contract": "Zkontrolujete své údaje a cenu, potvrdíte podmínky a kliknete na „Objednat“. Objednávku přijímáme tím, že ihned otevřeme přístup a pošleme fakturu e-mailem. Chyby v zadání opravíte v polích před kliknutím. Kterou verzi podmínek jste přijali, se pak zobrazí v sekci Fakturace. Podmínky a smlouvu o zpracování osobních údajů si můžete nyní uložit nebo vytisknout. Smluvním jazykem je němčina nebo angličtina podle jazyka, ve kterém objednáváte."
     },
@@ -101,7 +101,7 @@
     },
     "trust": {
       "invoice": "Nyní se nic neúčtuje. Fakturu zaplatíte do 30 dnů.",
-      "moneyBack": "První objednávka: zrušte do 30 dnů a peníze dostanete zpět.",
+      "moneyBack": "První objednávka: zrušte do 30 dnů a peníze dostanete zpět, do prvního exportu nebo prvního schválení.",
       "access": "Přístup se otevře hned po objednání."
     },
     "treatment": {
@@ -138,6 +138,20 @@
       "termsChanged": "Od otevření této stránky se naše podmínky změnily. Načtěte ji prosím znovu, přečtěte si aktuální verzi a objednejte znovu.",
       "unknown": "Nepodařilo se s jistotou zjistit, zda byla faktura vytvořena. Neobjednávejte prosím znovu. Prověříme to a ozveme se vám."
     },
+    "acts": {
+      "export": {
+        "confirmTitle": "Tímto exportem končí 30 dní na vrácení peněz",
+        "confirmBody": "Do {lastDay} byste ještě mohli vypovědět a dostat peníze zpět. Prvním exportem to končí (VOP B7). Fakturu je pak třeba zaplatit, i když později vypovíte.",
+        "confirm": "Ano, exportovat"
+      },
+      "signOff": {
+        "confirmTitle": "Tímto schválením končí 30 dní na vrácení peněz",
+        "confirmBody": "Do {lastDay} byste ještě mohli vypovědět a dostat peníze zpět. Prvním schválením to končí (VOP B7). Fakturu je pak třeba zaplatit, i když později vypovíte.",
+        "confirm": "Ano, schválit"
+      },
+      "cancel": "Zrušit",
+      "failed": "To se nepovedlo. Zkuste to prosím znovu."
+    },
     "cancel": {
       "menuItem": "Zrušit licenci",
       "button": "Zrušit",
@@ -145,6 +159,7 @@
       "moneyBackBody": "Stále jste v rámci třiceti dnů na vrácení peněz, do {lastDay}. Fakturu stornujeme dobropisem a roční licence ihned skončí. Pokud jste už zaplatili, vrátíme vám částku převodem do 30 dnů od zrušení.",
       "renewalTitle": "Zrušit prodloužení?",
       "renewalBody": "Třicet dní na vrácení peněz uplynulo. Vaše licence platí do {periodEnd} a poté se neprodlouží. Faktura zůstává v platnosti.",
+      "renewalWaivedBody": "Třicet dní na vrácení peněz skončilo vaším prvním exportem nebo prvním schválením, jak jste tehdy potvrdili. Vaše licence platí do {periodEnd} a poté se neprodlouží. Faktura zůstává v platnosti.",
       "renewalLaterInvoiceBody": "Třicet dní na vrácení peněz platí jen pro první objednávku účtu. Vaše licence platí do {periodEnd} a poté se neprodlouží. Faktura zůstává v platnosti.",
       "kept": "Vaše organizace a vše, co jste zadali, zůstávají ve vašem účtu.",
       "confirm": "Ano, zrušit",

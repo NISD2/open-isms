@@ -5,59 +5,9 @@
 
 import type { EmailLocale } from "@/lib/mail/locale";
 import type { DocumentEmail } from "@/lib/mail/templates";
-import {
-  amountFact,
-  formatInvoiceDay,
-  invoiceToday,
-  licenceTitle,
-  shiftDay,
-} from "./order";
+import type { CancelWindow } from "./money-back-window";
+import { amountFact, formatInvoiceDay, licenceTitle, shiftDay } from "./order";
 import type { InvoiceLine } from "./qonto";
-
-/** Money back for thirty days from the order, the same thirty days the invoice gives to pay. */
-export const MONEY_BACK_DAYS = 30;
-
-export type CancelWindow =
-  | {
-      /** Inside the thirty days of the account's first invoice: a full credit note cancels it. */
-      readonly kind: "money_back";
-      /** Days since the issue date: 0 on the order day, 30 on the last day. */
-      readonly day: number;
-      readonly lastDay: string;
-    }
-  | {
-      /** Otherwise: nothing is credited, the paid year runs out and does not renew. */
-      readonly kind: "renewal";
-      readonly day: number;
-      /**
-       * Why there is no money back: the thirty days have passed, or the invoice is not the
-       * account's first (a renewal, or a new order after a cancel), which never has them (AGB B7).
-       */
-      readonly reason: "window_passed" | "not_first_invoice";
-    };
-
-const daysBetween = (from: string, to: string): number =>
-  Math.round(
-    (Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86_400_000,
-  );
-
-/**
- * Which cancel applies to an invoice today. Money back belongs to the account's first invoice
- * only. The order day does not count and the thirtieth day after it does (§ 187 Abs. 1, § 188
- * Abs. 1 BGB), so an order on the 1st can be canceled for its money until the end of the 31st, in
- * Berlin, where invoices are dated.
- */
-export const cancelWindow = (
-  inv: { readonly issueDate: string; readonly firstInvoice: boolean },
-  now: Date,
-): CancelWindow => {
-  const lastDay = shiftDay(inv.issueDate, { days: MONEY_BACK_DAYS });
-  const day = daysBetween(inv.issueDate, invoiceToday(now));
-  if (!inv.firstInvoice) return { kind: "renewal", day, reason: "not_first_invoice" };
-  return invoiceToday(now) <= lastDay
-    ? { kind: "money_back", day, lastDay }
-    : { kind: "renewal", day, reason: "window_passed" };
-};
 
 /** The facts of the invoice a credit note cancels, as our row keeps them. */
 export interface CreditedInvoice {
@@ -150,6 +100,33 @@ const GREETING: Record<EmailLocale, string> = {
   cs: "Dobrý den,",
 };
 
+/** Why a cancel brought no money back, as the confirmation says it (AGB B7). */
+const NO_MONEY_BACK: Readonly<
+  Record<
+    Extract<CancelWindow, { kind: "renewal" }>["reason"],
+    Record<EmailLocale, string>
+  >
+> = {
+  not_first_invoice: {
+    de: "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos",
+    nl: "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account",
+    en: "The thirty days money back apply only to an account's first order",
+    cs: "Třicet dní na vrácení peněz platí jen pro první objednávku účtu",
+  },
+  window_passed: {
+    de: "Die 30 Tage Geld zurück sind vorbei",
+    nl: "De 30 dagen geld terug zijn voorbij",
+    en: "The thirty days money back have passed",
+    cs: "Třicet dní na vrácení peněz uplynulo",
+  },
+  money_back_waived: {
+    de: "Die 30 Tage Geld zurück endeten mit Ihrem ersten Export oder Ihrer ersten Freigabe",
+    nl: "De 30 dagen geld terug eindigden met uw eerste export of uw eerste goedkeuring",
+    en: "The thirty days money back ended with your first export or sign-off",
+    cs: "Třicet dní na vrácení peněz skončilo vaším prvním exportem nebo prvním schválením",
+  },
+};
+
 /** The confirmation of a cancel that only stops the renewal, in the holder's language. */
 const renewalWording = (
   mail: Extract<CanceledEmail, { kind: "renewal" }>,
@@ -159,7 +136,7 @@ const renewalWording = (
   const account = accountLine(locale, erased);
   const end = formatInvoiceDay(mail.periodEnd, locale);
   const inv = mail.invoiceNumber;
-  const firstOnly = mail.reason === "not_first_invoice";
+  const why = NO_MONEY_BACK[mail.reason][locale];
   const common = { locale, greeting: GREETING[locale] } as const;
   switch (locale) {
     case "de":
@@ -182,7 +159,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
+          `${why}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
           ...account,
         ],
       };
@@ -206,7 +183,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
+          `${why}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
           ...account,
         ],
       };
@@ -230,7 +207,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
+          `${why}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
           ...account,
         ],
       };
@@ -252,7 +229,7 @@ const renewalWording = (
           ],
         },
         outro: [
-          `${firstOnly ? "Třicet dní na vrácení peněz platí jen pro první objednávku účtu" : "Třicet dní na vrácení peněz uplynulo"}, proto faktura ${inv} zůstává v platnosti. Pokud je ještě nezaplacená, uhraďte ji prosím podle dohody.`,
+          `${why}, proto faktura ${inv} zůstává v platnosti. Pokud je ještě nezaplacená, uhraďte ji prosím podle dohody.`,
           ...account,
         ],
       };

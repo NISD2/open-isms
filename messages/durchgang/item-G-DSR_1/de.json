@@ -1,0 +1,149 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DSR_1": {
+        "headline": "Anfragen betroffener Personen beantworten",
+        "teaser": "Wer Anfragen beantwortet, wo sie ankommen und in welcher Frist.",
+        "missed": [
+          "Für eine Anfrage schreibt die DSGVO kein Formular und kein Stichwort vor. Auch ein Brief an die Buchhaltung oder eine Nachricht über soziale Medien kann eine Anfrage sein, und die Frist läuft ab Eingang (Art. 12 Abs. 3).",
+          "Die erste Kopie der Daten ist kostenlos. Erst für weitere Kopien dürfen Sie ein angemessenes Entgelt auf Grundlage der Verwaltungskosten verlangen (Art. 15 Abs. 3).",
+          "Widerspricht jemand der Werbung, dürfen Sie seine Daten für Werbung nicht mehr verarbeiten (Art. 21 Abs. 2 und 3). Damit er nicht wieder angeschrieben wird, führen viele Unternehmen eine Sperrliste."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wenn jemand wissen will, was Sie über ihn speichern",
+            "body": [
+              "Jede Person, deren Daten Sie verarbeiten, hat Rechte: Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch und das Recht, keiner ausschließlich automatisierten Entscheidung unterworfen zu werden (Art. 15 bis 22). Anfragen kommen von Kunden, Beschäftigten, ehemaligen Bewerbern, von allen.",
+              "Sie antworten unverzüglich, spätestens innerhalb eines Monats nach Eingang. Wenn es wegen der Komplexität oder der Zahl der Anfragen nötig ist, verlängert sich die Frist um zwei weitere Monate; das teilen Sie der Person innerhalb des ersten Monats mit, zusammen mit den Gründen (Art. 12 Abs. 3). Werden Sie nicht tätig, sagen Sie ihr innerhalb eines Monats, warum, und dass sie sich bei einer Aufsichtsbehörde beschweren und einen gerichtlichen Rechtsbehelf einlegen kann (Art. 12 Abs. 4).",
+              "In diesem Schritt legen Sie fest, wer antwortet und wo Anfragen ankommen. Daraus wird Ihr Verfahren."
+            ],
+            "duty": "Die DSGVO verlangt, dass Ihr Unternehmen den betroffenen Personen die Ausübung ihrer Rechte erleichtert und ihre Anfragen fristgerecht beantwortet."
+          },
+          "rights": {
+            "title": "Was Menschen von Ihnen verlangen können",
+            "lead": "Jeder, dessen Daten Sie verarbeiten, kann das verlangen. Sie müssen es nicht auswendig kennen: Ihr Verfahren sagt zu jedem Punkt, was zu tun ist.",
+            "items": [
+              {
+                "name": "Auskunft (Art. 15)",
+                "detail": "ob Sie Daten über die Person verarbeiten, eine Kopie davon und Angaben etwa zu Zweck, Empfängern, Speicherdauer und Herkunft"
+              },
+              {
+                "name": "Berichtigung (Art. 16)",
+                "detail": "falsche Daten korrigieren, unvollständige ergänzen"
+              },
+              {
+                "name": "Löschung (Art. 17)",
+                "detail": "löschen, wenn etwa der Zweck entfallen ist, außer eine Ausnahme greift, zum Beispiel eine gesetzliche Aufbewahrungspflicht"
+              },
+              {
+                "name": "Einschränkung (Art. 18)",
+                "detail": "Daten nur noch speichern statt nutzen, etwa solange ihre Richtigkeit bestritten ist"
+              },
+              {
+                "name": "Datenübertragbarkeit (Art. 20)",
+                "detail": "Daten, die die Person selbst bereitgestellt hat, in einem gängigen, maschinenlesbaren Format herausgeben, wenn die Verarbeitung auf Einwilligung oder Vertrag beruht und automatisiert erfolgt"
+              },
+              {
+                "name": "Widerspruch (Art. 21)",
+                "detail": "gegen Verarbeitungen aus berechtigtem Interesse aus Gründen der besonderen Situation der Person, gegen Werbung jederzeit"
+              },
+              {
+                "name": "Automatisierte Entscheidungen (Art. 22)",
+                "detail": "keine Entscheidung mit rechtlicher oder ähnlich erheblicher Wirkung, die ausschließlich automatisiert getroffen wird, außer in den Fällen des Art. 22 Abs. 2"
+              },
+              {
+                "name": "Widerruf der Einwilligung (Art. 7 Abs. 3)",
+                "detail": "wo eine Verarbeitung auf Einwilligung beruht, sie jederzeit widerrufen, so einfach, wie sie erteilt wurde"
+              }
+            ],
+            "source": "Art. 15 bis 22 DSGVO. In Deutschland schränken §§ 34 und 35 BDSG die Auskunft und die Löschung in engen Fällen ein."
+          },
+          "inbox": {
+            "title": "Wer antwortet und wo Anfragen ankommen",
+            "lead": "Eine Person ist zuständig, und Anfragen haben eine feste Adresse. Diese Adresse nennen Sie auch in Ihrer Datenschutzerklärung.",
+            "document": "Ihr Verfahren für Anfragen betroffener Personen"
+          },
+          "procedure": {
+            "title": "Ihr Verfahren für Anfragen betroffener Personen",
+            "lead": "Wer antwortet, wie Sie die Identität prüfen, welche Fristen gelten und wie Sie mit jedem Recht umgehen. Ihre Antworten stehen schon darin. Lesen Sie es, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
+            "document": {
+              "title": "Verfahren für Anfragen betroffener Personen der {company}",
+              "sections": [
+                {
+                  "heading": "Zuständigkeit und Eingang",
+                  "text": "Anfragen betroffener Personen beantwortet bei der {company} {requestHandler}. Anfragen erreichen uns unter {requestAddress}. Sie können aber auf jedem Weg eingehen, auch per Brief, Telefon oder E-Mail an andere Beschäftigte. Wer eine Anfrage erhält, leitet sie am selben Tag an {requestHandler} weiter. Sind Datenschutzbeauftragte benannt, beraten sie dabei. Datenschutzbeauftragte: {dataProtectionOfficer}"
+                },
+                {
+                  "heading": "Identität prüfen",
+                  "text": "Haben wir begründete Zweifel, ob die Anfrage von der betroffenen Person selbst kommt, fordern wir die zusätzlichen Informationen an, die zur Bestätigung ihrer Identität erforderlich sind (Art. 12 Abs. 6 DSGVO). Wir fragen nicht mehr ab als dafür nötig."
+                },
+                {
+                  "heading": "Fristen",
+                  "text": "Wir antworten unverzüglich, spätestens innerhalb eines Monats nach Eingang (Art. 12 Abs. 3 DSGVO). Ist es wegen der Komplexität oder der Zahl der Anfragen nötig, verlängern wir um höchstens zwei weitere Monate und teilen das der Person innerhalb des ersten Monats mit, zusammen mit den Gründen. Kam die Anfrage elektronisch, antworten wir nach Möglichkeit elektronisch, wenn die Person nichts anderes wünscht."
+                },
+                {
+                  "heading": "Kosten",
+                  "text": "Die Antwort ist unentgeltlich. Nur bei offenkundig unbegründeten oder, insbesondere bei häufiger Wiederholung, exzessiven Anfragen können wir ein angemessenes Entgelt verlangen oder die Bearbeitung verweigern; das müssen wir dann nachweisen (Art. 12 Abs. 5 DSGVO)."
+                },
+                {
+                  "heading": "Die Rechte im Einzelnen",
+                  "text": "Auskunft: Wir bestätigen, ob wir Daten über die Person verarbeiten, und geben eine Kopie mit den Angaben nach Art. 15 DSGVO heraus. Berichtigung: Wir korrigieren falsche Daten und ergänzen unvollständige (Art. 16). Löschung: Wir löschen, wenn ein Grund nach Art. 17 Abs. 1 vorliegt und keine Ausnahme nach Art. 17 Abs. 3 greift, etwa eine gesetzliche Aufbewahrungspflicht. Einschränkung: Wir schränken die Verarbeitung in den Fällen des Art. 18 ein. Datenübertragbarkeit: Wir geben Daten, die uns die Person bereitgestellt hat, in einem gängigen maschinenlesbaren Format heraus, wenn die Verarbeitung auf Einwilligung oder Vertrag beruht und automatisiert erfolgt (Art. 20). Widerspruch: Gegen Werbung beenden wir die Verarbeitung für Werbung; in den übrigen Fällen prüfen wir, ob zwingende schutzwürdige Gründe überwiegen (Art. 21). Entscheidungen mit rechtlicher oder ähnlich erheblicher Wirkung treffen wir nicht ausschließlich automatisiert, außer Art. 22 Abs. 2 erlaubt es. Haben wir Daten berichtigt, gelöscht oder eingeschränkt, teilen wir das allen Empfängern mit, soweit das möglich und nicht unverhältnismäßig ist (Art. 19)."
+                },
+                {
+                  "heading": "Einschränkungen nach dem BDSG",
+                  "text": "Das Auskunftsrecht besteht in engen Fällen nicht, etwa für Daten, die wir nur wegen gesetzlicher Aufbewahrungsvorschriften nicht löschen dürfen, wenn die Auskunft einen unverhältnismäßigen Aufwand erfordern würde und eine Verarbeitung zu anderen Zwecken technisch und organisatorisch ausgeschlossen ist (§ 34 Abs. 1 BDSG). Die Gründe einer Auskunftsverweigerung dokumentieren wir und begründen die Ablehnung gegenüber der Person, soweit das den Zweck der Verweigerung nicht gefährdet (§ 34 Abs. 2 BDSG). Bei nicht automatisierter Verarbeitung tritt an die Stelle der Löschung die Einschränkung, wenn eine Löschung wegen der besonderen Art der Speicherung nicht oder nur mit unverhältnismäßig hohem Aufwand möglich und das Interesse der Person daran gering ist; bei unrechtmäßig verarbeiteten Daten gilt das nicht (§ 35 Abs. 1 BDSG)."
+                },
+                {
+                  "heading": "Ablehnen und festhalten",
+                  "text": "Werden wir auf eine Anfrage hin nicht tätig, teilen wir der Person ohne Verzögerung, spätestens innerhalb eines Monats, die Gründe mit und dass sie sich bei einer Aufsichtsbehörde beschweren und einen gerichtlichen Rechtsbehelf einlegen kann (Art. 12 Abs. 4 DSGVO). Jede Anfrage halten wir mit Eingang, Antwort und Datum fest."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "templates",
+                  "label": "Antwortvorlagen",
+                  "heading": "Antwortvorlagen",
+                  "text": "Für Auskunft, Löschung und Widerspruch haben wir Antwortvorlagen, die {requestHandler} für jede Anfrage anpasst."
+                },
+                {
+                  "id": "blocklist",
+                  "label": "Sperrliste für Werbung",
+                  "heading": "Sperrliste für Werbung",
+                  "text": "Wer der Werbung widerspricht, kommt auf eine Sperrliste, damit wir ihn nicht erneut anschreiben. Die Liste enthält nur, was für die Sperre nötig ist."
+                },
+                {
+                  "id": "deputy",
+                  "label": "Vertretung",
+                  "heading": "Vertretung",
+                  "text": "Ist {requestHandler} länger abwesend, übernimmt eine benannte Vertretung, damit keine Frist verstreicht."
+                },
+                {
+                  "id": "processors",
+                  "label": "Hilfe der Dienstleister",
+                  "heading": "Hilfe der Dienstleister",
+                  "text": "Unsere Auftragsverarbeiter unterstützen uns bei der Beantwortung, wie es die Verträge zur Auftragsverarbeitung vorsehen (Art. 28 Abs. 3 Buchst. e DSGVO)."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihr Verfahren für Anfragen ist geschrieben",
+            "note": "Nennen Sie die Adresse für Anfragen in Ihrer Datenschutzerklärung, und sagen Sie allen Beschäftigten, wohin sie Anfragen weiterleiten."
+          }
+        },
+        "fields": {
+          "requestHandler": {
+            "label": "Wer Anfragen beantwortet",
+            "hint": "Die Person, die Anfragen annimmt, die Frist im Blick behält und die Antwort schreibt oder veranlasst. Datenschutzbeauftragte beraten dabei; die Antwort gibt Ihr Unternehmen."
+          },
+          "requestAddress": {
+            "label": "Wo Anfragen ankommen",
+            "hint": "Eine E-Mail-Adresse, die mehr als eine Person liest, etwa datenschutz@ mit Ihrer Domain. So bleibt keine Anfrage liegen, wenn jemand im Urlaub ist."
+          }
+        }
+      }
+    }
+  }
+}

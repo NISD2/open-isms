@@ -31,11 +31,11 @@ export async function LegalSections({
   base,
   keys,
 }: {
-  /** The message path the sections live under, such as "agb.sections". */
+  /** The full message path the sections live under: "agb.sections", "info.avvContract.sections". */
   readonly base: string;
   readonly keys: readonly string[];
 }) {
-  const t = await getTranslations("info");
+  const t = await getTranslations();
   return (
     <div className="space-y-8">
       {keys.map((key) => {

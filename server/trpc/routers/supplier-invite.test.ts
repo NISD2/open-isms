@@ -6,17 +6,19 @@
 import { describe, expect, mock, test } from "bun:test";
 
 mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
-mock.module("../helpers/supplier-mail-budget", () => ({
-  requireSupplierMailBudget: async () => {},
-  requireInboxBudget: async () => {},
-}));
+// The real mail budget runs with a rate limit that always has room. Mocking the budget helper
+// itself replaced it for every later test file in the run (mock.module is process-wide), which
+// left supplier-mail-budget.test.ts without SUPPLIER_MAIL_BUDGET whenever this file ran first.
+mock.module("@/lib/rate-limit", () => ({ rateLimit: async () => true }));
 const sent: string[] = [];
 const mail = await import("@/lib/mail");
+// The real templates: a dummy one here reached supplier-mail-budget.test.ts, which reads the
+// invite's wording. Only sending is replaced, with the full result shape other files read.
 mock.module("@/lib/mail", () => ({
   ...mail,
-  entityInvitesSupplierEmail: async () => ({ subject: "s", html: "h", text: "t" }),
   sendMail: async ({ to }: { to: string }) => {
     sent.push(to);
+    return { success: true, id: "sent-1" };
   },
 }));
 

@@ -1,0 +1,95 @@
+{
+  "durchgang": {
+    "items": {
+      "G-BRC_3": {
+        "headline": "Die Benachrichtigung der Betroffenen vorbereiten",
+        "teaser": "Eine Vorlage für den Fall, dass eine Datenpanne Menschen hoch gefährdet.",
+        "missed": [
+          "Auch wenn Sie eine Ausnahme sehen: Die Aufsichtsbehörde kann verlangen, dass Sie die Betroffenen benachrichtigen, oder feststellen, dass eine Ausnahme vorliegt (Art. 34 Abs. 4).",
+          "In Deutschland entfällt die Benachrichtigung außerdem, soweit sie Informationen offenbaren würde, die nach einer Rechtsvorschrift oder ihrem Wesen nach geheim gehalten werden müssen. Das gilt nicht, wenn die Interessen der Betroffenen überwiegen, insbesondere wegen drohender Schäden (§ 29 Abs. 1 Sätze 3 und 4 BDSG)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wenn Menschen hoch gefährdet sind",
+            "body": [
+              "Hat eine Datenpanne voraussichtlich ein hohes Risiko für die betroffenen Menschen zur Folge, benachrichtigen Sie sie unverzüglich (Art. 34 Abs. 1). Etwa wenn Bankdaten in fremde Hände geraten sind und die Menschen sich schützen sollten, zum Beispiel ihre Karte sperren lassen.",
+              "Die Benachrichtigung beschreibt in klarer und einfacher Sprache, was passiert ist, und nennt mindestens, wer Auskunft gibt, welche Folgen wahrscheinlich sind und was Sie dagegen tun (Art. 34 Abs. 2 mit Art. 33 Abs. 3 Buchst. b bis d). Die Meldung an die Aufsichtsbehörde ersetzt sie nicht.",
+              "Sie entfällt, wenn die Daten für Unbefugte unzugänglich waren, etwa durch Verschlüsselung, wenn nachfolgende Maßnahmen das hohe Risiko beseitigt haben, oder wenn sie einen unverhältnismäßigen Aufwand bedeuten würde. Im letzten Fall informieren Sie stattdessen öffentlich oder auf ähnlich wirksame Weise (Art. 34 Abs. 3).",
+              "In diesem Schritt entsteht eine Vorlage, die Sie im Ernstfall nur noch ausfüllen."
+            ],
+            "duty": "Die DSGVO verlangt, dass Ihr Unternehmen die betroffenen Menschen unverzüglich benachrichtigt, wenn eine Datenpanne voraussichtlich ein hohes Risiko für ihre Rechte und Freiheiten zur Folge hat."
+          },
+          "notice": {
+            "title": "Ihre Vorlage für die Benachrichtigung",
+            "lead": "Oben steht, wann Sie benachrichtigen und wann nicht, darunter das Schreiben selbst. Die Stellen in eckigen Klammern füllen Sie im Ernstfall aus. Lesen Sie die Vorlage, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
+            "document": {
+              "title": "Benachrichtigung betroffener Personen bei einer Datenpanne: Vorlage der {company}",
+              "sections": [
+                {
+                  "heading": "Wann wir benachrichtigen",
+                  "text": "Die {company} benachrichtigt betroffene Personen unverzüglich, wenn eine Verletzung des Schutzes ihrer personenbezogenen Daten voraussichtlich ein hohes Risiko für ihre Rechte und Freiheiten zur Folge hat (Art. 34 Abs. 1 DSGVO). Ob das so ist, entscheiden wir nach unserem Verfahren bei Datenpannen."
+                },
+                {
+                  "heading": "Wann nicht",
+                  "text": "Eine Benachrichtigung ist nicht erforderlich, wenn die betroffenen Daten durch angewandte Maßnahmen wie Verschlüsselung für Unbefugte unzugänglich waren, wenn wir durch nachfolgende Maßnahmen sichergestellt haben, dass das hohe Risiko aller Wahrscheinlichkeit nach nicht mehr besteht, oder wenn sie mit einem unverhältnismäßigen Aufwand verbunden wäre. Im letzten Fall informieren wir stattdessen öffentlich oder auf eine ähnlich wirksame Weise (Art. 34 Abs. 3 DSGVO). Sie entfällt auch, soweit sie Informationen offenbaren würde, die nach einer Rechtsvorschrift oder ihrem Wesen nach geheim gehalten werden müssen, es sei denn, die Interessen der Betroffenen überwiegen (§ 29 Abs. 1 BDSG). Wir halten fest, warum wir nicht benachrichtigt haben."
+                },
+                {
+                  "heading": "Das Schreiben: was passiert ist",
+                  "text": "Betreff: Information über eine Verletzung des Schutzes Ihrer personenbezogenen Daten. Am [Datum] ist bei der {company} Folgendes geschehen: [was passiert ist, in einfachen Worten]. Davon betroffen sind diese Daten von Ihnen: [welche Daten]."
+                },
+                {
+                  "heading": "Mögliche Folgen für Sie",
+                  "text": "Wir halten diese Folgen für möglich: [zum Beispiel unerwünschte Werbung, Betrugsversuche per E-Mail oder Telefon, Missbrauch Ihrer Bankverbindung]."
+                },
+                {
+                  "heading": "Was wir getan haben",
+                  "text": "Wir haben [Maßnahmen, etwa Zugänge gesperrt, Passwörter zurückgesetzt, die Aufsichtsbehörde informiert]. Außerdem planen wir [weitere Maßnahmen], damit sich so etwas nicht wiederholt und mögliche Folgen für Sie geringer ausfallen."
+                },
+                {
+                  "heading": "Was Sie tun können",
+                  "text": "Wir empfehlen Ihnen: [zum Beispiel Kontoauszüge prüfen, Passwort ändern, bei verdächtigen Anrufen auflegen und uns Bescheid geben]."
+                },
+                {
+                  "heading": "Ihre Ansprechpartner",
+                  "text": "Für Fragen erreichen Sie uns unter [Telefon, E-Mail]. Datenschutzbeauftragte: {dataProtectionOfficer}"
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "channel",
+                  "label": "Per E-Mail, sonst per Brief",
+                  "heading": "Wie wir benachrichtigen",
+                  "text": "Wir benachrichtigen auf dem Weg, auf dem wir die Menschen sonst erreichen, in der Regel per E-Mail, und per Brief, wenn wir keine E-Mail-Adresse haben."
+                },
+                {
+                  "id": "public",
+                  "label": "Öffentliche Bekanntmachung",
+                  "heading": "Öffentliche Bekanntmachung",
+                  "text": "Wäre eine Benachrichtigung jeder einzelnen Person unverhältnismäßig aufwendig, veröffentlichen wir die Information gut sichtbar auf unserer Website und, wo nötig, auf weiteren Wegen, die die Betroffenen ebenso wirksam erreichen."
+                },
+                {
+                  "id": "hotline",
+                  "label": "Telefon für Rückfragen",
+                  "heading": "Telefon für Rückfragen",
+                  "text": "Bei einer Datenpanne, die viele Menschen betrifft, richten wir eine Telefonnummer für Rückfragen ein und nennen sie im Schreiben."
+                },
+                {
+                  "id": "languages",
+                  "label": "Weitere Sprachen",
+                  "heading": "Weitere Sprachen",
+                  "text": "Betrifft die Datenpanne Menschen, die Deutsch nicht gut lesen, verschicken wir das Schreiben auch in ihrer Sprache."
+                }
+              ],
+              "own": "Weitere Regelungen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihre Vorlage ist geschrieben",
+            "note": "Im Ernstfall füllen Sie die Stellen in eckigen Klammern aus und verschicken das Schreiben unverzüglich."
+          }
+        }
+      }
+    }
+  }
+}

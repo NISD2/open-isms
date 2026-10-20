@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { NonPaymentNotice } from "@/components/billing/NonPaymentNotice";
 import { PortalOffer } from "@/components/billing/PortalOffer";
 import { redirect } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
@@ -19,5 +20,11 @@ export default async function OfferPage() {
   if (session?.accessLevel !== "free") {
     redirect({ href: "/dashboard", locale: await getLocale() });
   }
-  return <PortalOffer />;
+  // A suspended account lands here too (AGB B9): it is told what reopens it before any offer.
+  return (
+    <>
+      <NonPaymentNotice className="mx-auto mb-6 max-w-5xl" />
+      <PortalOffer />
+    </>
+  );
 }

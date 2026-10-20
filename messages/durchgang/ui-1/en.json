@@ -1,6 +1,5 @@
 {
   "durchgang": {
-    "title": "NIS 2 walkthrough",
     "terms": {
       "authority": "your authority"
     },
@@ -72,6 +71,9 @@
       "policy": {
         "question": "Which of these does your company have or do?",
         "questionHint": "Each one you pick adds a section to the document above, lit up for a moment. Pick it again to take it out.",
+        "ticked": {
+          "restore_tested": "{clause} is already on: {name} was restored from its backup on {on}, as recorded in your NIS 2 walkthrough (4.4). Take it out if you no longer test restores."
+        },
         "read": "I have read the document, and it fits our company",
         "ownLabel": "Anything else that applies at your company (optional)",
         "ownHint": "For example a number, a rule of your own or a contact. It is added as the last section, as you write it.",
@@ -87,7 +89,12 @@
         "other": "Someone else",
         "otherName": "Name of the person",
         "invite": "Not in the team yet? Invite them by email",
-        "placeholder": "name@your-company.com"
+        "placeholder": "name@your-company.com",
+        "carried": "Taken from {code} {headline}. Change it if someone else takes this on.",
+        "apart": {
+          "same": "{name} is also named in {code} {headline}. That can work. Check that {name} does not decide why and how personal data is processed, because a data protection officer monitors exactly that (Art. 38(6) GDPR).",
+          "management": "{name} is in management. Management decides why and how personal data is processed, which a data protection officer monitors, so the two roles usually conflict (Art. 38(6) GDPR). Check it, or choose someone else."
+        }
       },
       "suggestions": "Common answers:",
       "suggestionsOwn": "From your records:",
@@ -144,6 +151,13 @@
         "failed": "That was not saved. Please try again."
       },
       "approve": {
+        "scope": {
+          "title": "What this approval covers",
+          "own": "The {law} documents and steps listed below, and nothing else. Each one you approve records your name and the date.",
+          "other": "It approves nothing for {law}, even where the two laws ask for similar things.",
+          "also": "For {law}, it also counts where the record is the same there: {codes}.",
+          "openOther": "{law} has its own approval page."
+        },
         "approve": "Approve",
         "approvedOn": "Approved on {date}",
         "approvedBy": "Approved on {date} by {name}",
@@ -163,13 +177,10 @@
         "placeholder": "name@your-company.com",
         "send": "Send",
         "invited": "Invitation sent to {email}. After signing in they land on the page with the documents.",
-        "notEmailed": "The invitation for {email} was created but no email could be sent. Copy the link from the team page.",
         "askAdmin": "Ask an admin of your company to invite someone from management.",
         "itsMe": "I am part of management myself",
         "pageTitle": "Approval by management",
         "pageHeading": "Approve the documents",
-        "pageLead": "These documents were written in your company's NIS 2 walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
-        "pageLeadOthers": "These documents were written in your company's NIS 2 walkthrough. Management approves them here, signed in with its own account.",
         "close": "Close",
         "signTitle": "You sign off these items with it",
         "signLead": "These items of the walkthrough are filled in. Your approval signs them off, so they count as done everywhere in the app, with your name and today's date. For an item the company decided not to do, you sign that decision with its reason. An item whose document you leave out stays open.",

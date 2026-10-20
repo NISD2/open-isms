@@ -120,8 +120,21 @@ describe("money back is promised on the account's first invoice only", () => {
       where: { attached: true, invoiceUrl: null },
       termsVersion: null,
     }).outro.join(" ");
-  const pdfFooter = (firstOrder: boolean) =>
-    invoiceWording(order.dates, priceFor("DE", null, 480_000), "en", firstOrder).footer;
+  const pdfFooter = (firstOrder: boolean, termsVersion: string | null = null) =>
+    invoiceWording(
+      order.dates,
+      priceFor("DE", null, 480_000),
+      "en",
+      firstOrder,
+      termsVersion,
+    ).footer;
+
+  test("the promise names its end only under terms that tie it to export and sign-off", () => {
+    expect(pdfFooter(true, "2026-10-20")).toContain("until the first export or sign-off");
+    // An order under earlier terms, reissued later, keeps the promise it was made with.
+    expect(pdfFooter(true, "2026-10-05")).not.toContain("export");
+    expect(pdfFooter(true, null)).not.toContain("export");
+  });
 
   test("the first invoice and its email promise it", () => {
     expect(email(true)).toMatch(PROMISE);

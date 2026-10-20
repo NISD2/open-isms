@@ -57,7 +57,7 @@
                 },
                 {
                   "heading": "Meldung an das BSI",
-                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn über {reportingChannel}: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. Die frühe Erstmeldung sagt, ob wir eine rechtswidrige oder böswillige Handlung vermuten und ob sich der Vorfall auf andere Länder auswirken könnte; alles Weitere, was wir bis dahin wissen, folgt mit der zweiten Meldung. Sind personenbezogene Daten betroffen, melden wir das in der Regel auch der Datenschutzaufsicht, möglichst binnen 72 Stunden (Art. 33 DSGVO)."
+                  "text": "Ist ein Vorfall erheblich, meldet die {company} ihn über {reportingChannel}: eine frühe Erstmeldung spätestens 24 Stunden, nachdem wir davon erfahren haben, eine Meldung spätestens nach 72 Stunden und eine Abschlussmeldung spätestens einen Monat nach der Meldung (§ 32 BSIG). {incidentLead} sorgt dafür, dass gemeldet wird. Die frühe Erstmeldung sagt, ob wir eine rechtswidrige oder böswillige Handlung vermuten und ob sich der Vorfall auf andere Länder auswirken könnte; alles Weitere, was wir bis dahin wissen, folgt mit der zweiten Meldung. Sind personenbezogene Daten betroffen, melden wir das unverzüglich und möglichst binnen 72 Stunden auch der Datenschutzaufsicht, es sei denn, ein Risiko für die betroffenen Menschen ist unwahrscheinlich (Art. 33 DSGVO)."
                 },
                 {
                   "heading": "Zurück zum Normalbetrieb",

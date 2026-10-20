@@ -62,12 +62,13 @@ supported.
 
 ## Cron schedules
 
-Two jobs run inside the app and need no scheduled task: the daily deadline
-run (`lib/cron/deadlines-schedule.ts`, once per Berlin day from 06:00 Berlin)
-and the Close CRM sync (`lib/crm/schedule.ts`, every 30 minutes when
-`CLOSE_API_KEY` is set). Both start from `instrumentation.ts` on a production
-build with a public `NEXT_PUBLIC_APP_URL`, and hold a Postgres advisory lock so
-one server runs them at a time.
+Three jobs run inside the app and need no scheduled task: the daily deadline
+run (`lib/cron/deadlines-schedule.ts`, once per Berlin day from 06:00 Berlin),
+the unpaid-invoice check of AGB B9 (`lib/billing/non-payment-schedule.ts`,
+every hour while ordering is on) and the Close CRM sync (`lib/crm/schedule.ts`,
+every 30 minutes when `CLOSE_API_KEY` is set). All start from
+`instrumentation.ts` on a production build with a public `NEXT_PUBLIC_APP_URL`,
+and hold a Postgres advisory lock so one server runs them at a time.
 
 The rest are configured as Coolify "Scheduled tasks" or an external cron
 pointing at the public URL with the `Authorization: Bearer ${CRON_SECRET}`
