@@ -18,7 +18,8 @@ const OTHER = "__other";
  * A field that names a person: the team to pick from, someone outside it by name, and for an
  * admin an invite by email. A required one starts on the person walking; an optional one starts
  * empty (`startOnViewer`), where naming nobody is an answer. An invited person is written by
- * email, and by name once they joined.
+ * email and shows as picked once they joined; the answer changes only when someone picks, since
+ * a changed name sends an approved step back to management.
  */
 export function PersonPick({
   id,
@@ -62,10 +63,6 @@ export function PersonPick({
   useEffect(() => {
     if (startOnViewer && value === "" && me && !typing) onChange(nameOf(me));
   }, [startOnViewer, value, me, typing, onChange]);
-  // Someone invited by email has joined: the record names them by their name.
-  useEffect(() => {
-    if (picked && nameOf(picked) !== value) onChange(nameOf(picked));
-  }, [picked, value, onChange]);
 
   const notes = picked
     ? [
