@@ -91,6 +91,7 @@
         "notApplicable": "Trifft nicht zu",
         "preview": "So sieht „{step}“ aus",
         "previewAlt": "Der Schritt „{step}“ am Beispiel einer erfundenen Firma",
+        "lockedStep": "„{step}“ gehört zur Bestellung",
         "continueHere": "Jetzt weitermachen",
         "forward": {
           "action": "An die Geschäftsführung weiterleiten",

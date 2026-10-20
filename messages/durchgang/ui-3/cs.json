@@ -91,6 +91,7 @@
         "notApplicable": "Nevztahuje se",
         "preview": "Jak vypadá krok „{step}“",
         "previewAlt": "Krok „{step}“ na příkladu smyšlené společnosti",
+        "lockedStep": "„{step}“ je součástí objednávky",
         "continueHere": "Pokračovat teď",
         "forward": {
           "action": "Předat vedení",

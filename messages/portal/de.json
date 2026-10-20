@@ -205,6 +205,43 @@
               "Leitlinie und Notfallplan freigegeben. Zweiter Faktor für das ERP bis 31.03.2027."
             ]
           ]
+        },
+        "processingActivities": {
+          "text": "So sieht Ihr Verzeichnis von Verarbeitungstätigkeiten aus: was Ihr Unternehmen mit personenbezogenen Daten tut, auf welcher Grundlage und wer sie bekommt. Der DSGVO Durchgang füllt es mit Ihnen.",
+          "columns": [
+            "Tätigkeit",
+            "Zweck",
+            "Rechtsgrundlage",
+            "Betroffene Personen",
+            "Lieferanten, die die Daten bekommen",
+            "Löschfrist"
+          ],
+          "rows": [
+            [
+              "Lohnabrechnung",
+              "Löhne, Steuern und Sozialversicherungsbeiträge zahlen",
+              "Vertrag (b), Rechtliche Verpflichtung (c)",
+              "Beschäftigte",
+              "DATEV eG: die Daten bleiben im EWR",
+              "Wenn die gesetzlichen Aufbewahrungsfristen enden"
+            ],
+            [
+              "Bewerbungen",
+              "Neue Beschäftigte auswählen",
+              "Vertrag (b)",
+              "Bewerberinnen und Bewerber",
+              "Keine",
+              "Sechs Monate nach der Entscheidung, außer die Person willigt in eine längere Frist ein"
+            ],
+            [
+              "Newsletter",
+              "Kunden über neue Produkte informieren",
+              "Einwilligung (a)",
+              "Abonnenten",
+              "Newsletterdienst Muster Inc.: außerhalb des EWR (USA), Grundlage: Standardvertragsklauseln (Art. 46)",
+              "Wenn die Person den Newsletter abbestellt"
+            ]
+          ]
         }
       }
     },

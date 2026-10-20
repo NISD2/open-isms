@@ -189,6 +189,43 @@
               "Policy and incident plan approved. Second factor for the ERP by 31 March 2027."
             ]
           ]
+        },
+        "processingActivities": {
+          "text": "This is what your record of processing activities looks like: what your company does with personal data, on which basis, and who receives it. The GDPR walkthrough fills it with you.",
+          "columns": [
+            "Activity",
+            "Purpose",
+            "Lawful basis",
+            "Data subjects",
+            "Suppliers receiving the data",
+            "Time limit for erasure"
+          ],
+          "rows": [
+            [
+              "Payroll",
+              "Paying salaries, tax and social security contributions",
+              "Contract (b), Legal obligation (c)",
+              "Staff",
+              "DATEV eG: the data stays in the EEA",
+              "When the statutory retention periods end"
+            ],
+            [
+              "Applications",
+              "Choosing new staff",
+              "Contract (b)",
+              "Applicants",
+              "None",
+              "Six months after the decision, unless the applicant agrees to longer"
+            ],
+            [
+              "Newsletter",
+              "Telling customers about new products",
+              "Consent (a)",
+              "Subscribers",
+              "Newsletter service Muster Inc.: outside the EEA (USA), basis: Standard Contractual Clauses (Art. 46)",
+              "When the subscriber unsubscribes"
+            ]
+          ]
         }
       }
     },

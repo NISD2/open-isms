@@ -103,12 +103,13 @@ export const walkLockFor = (
     : { orderAt: orderingOpen ? "/bestellen" : null, journey: level === "grandfathered" };
 
 /**
- * The API calls an account that has not ordered still makes, because the first steps of the walk
- * (`isFreeStep`: registration, setting up, management's training, the risk method, the list of
- * what the company has) use them. The company tiers refuse a free account on everything else. The
- * walk's own calls check the step they are for (`durchgang.ts`), and
- * `intake.saveRequirementAnswers` checks the requirement. The asset and supplier lists are read
- * only; the free step writes them through the walk's own calls.
+ * The API calls an account that has not ordered still makes, because the first steps of each walk
+ * (`isFreeStep`: in NIS 2 registration, setting up, management's training, the risk method, the
+ * list of what the company has; in GDPR the data protection officer and the record of processing
+ * activities) use them. The company tiers refuse a free account on everything else. The walks'
+ * own calls check the step they are for (`durchgang.ts`, `durchgang-gdpr.ts`), and
+ * `intake.saveRequirementAnswers` checks the requirement. The asset, supplier and activity lists
+ * are read only; the free steps write them through the walks' own calls.
  */
 export const FREE_WALK_PROCEDURES: ReadonlySet<string> = new Set([
   "assessment.getStatusesByCategory",
@@ -137,6 +138,11 @@ export const FREE_WALK_PROCEDURES: ReadonlySet<string> = new Set([
   "durchgang.addAssets",
   "durchgang.specifyAssets",
   "durchgang.addAnotherAsset",
+  // The GDPR walk's free record step (G-ROP.1); each write checks its step (`gateStep`).
+  "processingActivity.list",
+  "durchgang.gdpr.processorRows",
+  "durchgang.gdpr.addActivities",
+  "durchgang.gdpr.describeActivities",
 ]);
 
 /**
@@ -157,6 +163,7 @@ export const EXAMPLE_PORTAL_PATHS: readonly string[] = [
   "/policies",
   "/training",
   "/management-reviews",
+  "/processing-activities",
   "/audit",
 ];
 

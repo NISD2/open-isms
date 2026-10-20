@@ -382,6 +382,18 @@ export function DurchgangHome({
                       </ImagePreview>
                     </>
                   )}
+                  {/* A locked step without a screenshot (the GDPR walk's) still leads to the
+                      order, as every locked step does. */}
+                  {closed && !shot && (
+                    <>
+                      <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                      <Link
+                        href={orderHref}
+                        aria-label={t("ui.home.lockedStep", { step: entry.headline })}
+                        className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-none"
+                      />
+                    </>
+                  )}
                 </div>
               </li>
             );

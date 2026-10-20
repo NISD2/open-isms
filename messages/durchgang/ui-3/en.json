@@ -91,6 +91,7 @@
         "notApplicable": "Does not apply",
         "preview": "What “{step}” looks like",
         "previewAlt": "The step “{step}” shown with a made-up company",
+        "lockedStep": "“{step}” comes with the order",
         "continueHere": "Continue now",
         "forward": {
           "action": "Forward to management",
