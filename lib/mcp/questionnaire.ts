@@ -7,16 +7,8 @@ import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import { enforceAssignment } from "@/server/trpc/guards";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
-import {
-  itemOf,
-  language,
-  linkOf,
-  MCP_WALK,
-  notInPlan,
-  refuse,
-  type ToolOutcome,
-} from "./gates";
-import { registerOfItem } from "./walk";
+import { itemOf, language, linkOf, notInPlan, refuse, type ToolOutcome } from "./gates";
+import { MCP_WALK, registerOfItem } from "./walk";
 
 /** Suppliers one call may send to: a whole list, small enough to read the answer back. */
 const MAX_SUPPLIERS = 50;

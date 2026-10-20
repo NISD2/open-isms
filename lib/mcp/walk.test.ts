@@ -5,7 +5,6 @@
  */
 import { describe, expect, test } from "bun:test";
 import { trainingCreateSchema } from "@/schema/validators";
-import { MCP_WALK } from "./gates";
 import { isFillableKind } from "./screens";
 import {
   answersProblem,
@@ -16,6 +15,7 @@ import {
   fieldsSchemaOf,
   filledBy,
   jsonSchemaOf,
+  MCP_WALK,
   markSupplierText,
   registerOfItem,
   rowsProblem,

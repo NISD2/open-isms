@@ -7,6 +7,7 @@ import {
   type AnyScreen,
   type ItemState,
   inAudience,
+  NIS2_WALK,
   type RegisterModule,
   type ScreenKind,
   TRAINING_ROW,
@@ -27,6 +28,13 @@ import type { Caller } from "./context";
  * procedures the screens call, validated by the same schemas. This file holds the one thing the
  * walk keeps in its components rather than in data: which procedure saves which kind of screen.
  */
+
+/**
+ * The walk an assistant reads and fills: NIS 2's, until one server serves every walk with a
+ * framework parameter (NIS2 product-design/compliance-schema.md, step S4). Here rather than in
+ * gates.ts, which loads the database, so a test of the walk's data needs no environment.
+ */
+export const MCP_WALK = NIS2_WALK;
 
 /**
  * Who fills each kind of screen. "assistant": an AI assistant may, over MCP, through the

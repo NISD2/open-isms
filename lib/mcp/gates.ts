@@ -2,24 +2,14 @@ import "@/lib/server-guard";
 import { z } from "zod";
 import { getPathname } from "@/i18n/navigation";
 import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
-import {
-  itemHref,
-  NIS2_WALK,
-  WALK_LOCALES,
-  WALK_ROUTES,
-  type WalkLocale,
-} from "@/lib/durchgang";
+import { itemHref, WALK_LOCALES, WALK_ROUTES, type WalkLocale } from "@/lib/durchgang";
 import { getAppUrl } from "@/lib/utils";
 import type { KeyHolder } from "./context";
+import { MCP_WALK } from "./walk";
 
 /** What every tool checks before it reads or writes, and the shape of its answer. */
 
-/**
- * The walk an assistant reads and fills: NIS 2's, until one server serves every walk with a
- * framework parameter (NIS2 product-design/compliance-schema.md, step S4).
- */
-export const MCP_WALK = NIS2_WALK;
-/** The input that names it to the walk's own procedures. */
+/** The input that names the served walk (`MCP_WALK`) to the walk's own procedures. */
 export const ON_WALK = { framework: MCP_WALK.framework } as const;
 
 export const language = z
