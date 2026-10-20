@@ -57,7 +57,7 @@
                 },
                 {
                   "heading": "Reporting to the authority",
-                  "text": "If an incident is significant, {company} reports it to the competent CSIRT or authority, through {reportingChannel}: an early warning within 24 hours of becoming aware of it, an incident notification within 72 hours and a final report within one month of the notification (Art. 23(4) NIS 2). {incidentLead} makes sure the reports are made. The early warning says whether we suspect an unlawful or malicious act and whether the incident could affect other countries; everything else we know so far follows with the notification. If personal data is affected, we usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR)."
+                  "text": "If an incident is significant, {company} reports it to the competent CSIRT or authority, through {reportingChannel}: an early warning within 24 hours of becoming aware of it, an incident notification within 72 hours and a final report within one month of the notification (Art. 23(4) NIS 2). {incidentLead} makes sure the reports are made. The early warning says whether we suspect an unlawful or malicious act and whether the incident could affect other countries; everything else we know so far follows with the notification. If personal data is affected, we also notify the data protection authority without undue delay and, where feasible, within 72 hours, unless the breach is unlikely to result in a risk to the people affected (Art. 33 GDPR)."
                 },
                 {
                   "heading": "Getting back to normal",

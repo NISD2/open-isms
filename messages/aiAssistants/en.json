@@ -2916,7 +2916,7 @@
           "paragraphs": [
             "In 2.2 you record what your company does every day, such as “HR and payroll administration”, and which software you use from which vendor. In our reading, processing activities can be derived from these processes. Which personal data a process handles, however, is not on the list.",
             "The list in 5.1 names each supplier with what it does for you. Whether it processes personal data on your behalf and is therefore a processor (Art. 4(8) GDPR) is not something the screen asks. You check that for each one.",
-            "The incident response plan in 3.1 says that if personal data is affected, you usually also notify the data protection authority, where feasible within 72 hours (Art. 33 GDPR). The walkthrough has no place for the documentation under Art. 33(5)."
+            "The incident response plan in 3.1 says that if personal data is affected, you also notify the data protection authority unless a risk is unlikely (Art. 33 GDPR). The walkthrough has no place for the documentation under Art. 33(5)."
           ],
           "law": "Art. 4(8) · Art. 33 GDPR"
         }
