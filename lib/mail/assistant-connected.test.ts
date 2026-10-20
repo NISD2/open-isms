@@ -4,10 +4,10 @@
  * name made unlinkable like every other name someone else typed.
  */
 import { describe, expect, mock, test } from "bun:test";
-import { ALL_MAIL_IN_ENGLISH } from "./locale";
+import { isApprovedMailLocale } from "./locale";
 
-// While every mail is English, the Czech copy is switched off, not deleted.
-const whenLocalised = ALL_MAIL_IN_ENGLISH ? test.skip : test;
+// Until Czech is in APPROVED_MAIL_LOCALES the copy is switched off, not deleted.
+const whenLocalised = isApprovedMailLocale("cs") ? test : test.skip;
 
 mock.module("../env", () => ({
   env: {

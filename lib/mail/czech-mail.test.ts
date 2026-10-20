@@ -4,10 +4,10 @@
  * workflow mail they had before Czech was added, so those paths are pinned too.
  */
 import { describe, expect, mock, test } from "bun:test";
-import { ALL_MAIL_IN_ENGLISH } from "./locale";
+import { isApprovedMailLocale } from "./locale";
 
-// While every mail is English, the Czech workflow copy is switched off, not deleted.
-const whenLocalised = ALL_MAIL_IN_ENGLISH ? test.skip : test;
+// Until Czech is in APPROVED_MAIL_LOCALES the copy is switched off, not deleted.
+const whenLocalised = isApprovedMailLocale("cs") ? test : test.skip;
 
 mock.module("../env", () => ({
   env: {

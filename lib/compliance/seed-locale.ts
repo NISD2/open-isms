@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import type { Database } from "@/lib/db";
 import { type WalkLocale, walkLocaleOf } from "@/lib/durchgang/types";
-import { resolveEmailLocale } from "@/lib/mail/locale";
+import { resolveContentLocale } from "@/lib/mail/locale";
 import { company, user } from "@/schema";
 
 /**
@@ -12,7 +12,7 @@ import { company, user } from "@/schema";
 export const seedLocaleOf = (
   userLocale: string | null,
   country: string | null,
-): WalkLocale => walkLocaleOf(resolveEmailLocale(userLocale, country));
+): WalkLocale => walkLocaleOf(resolveContentLocale(userLocale, country));
 
 /**
  * The language default text is written in when a company's row is first created: the BSI 200-3

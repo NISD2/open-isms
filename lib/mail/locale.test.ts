@@ -1,15 +1,38 @@
 import { describe, expect, test } from "bun:test";
-import { ALL_MAIL_IN_ENGLISH, resolveEmailLocale, workflowMailLocaleOf } from "./locale";
+import { LOCALE_CODES } from "@/lib/locale";
+import {
+  codeMailLocale,
+  EMAIL_LOCALES,
+  isApprovedMailLocale,
+  resolveEmailLocale,
+  workflowMailLocaleOf,
+} from "./locale";
 
-// While every mail is English, the per-language rules below are switched off, not deleted.
-const whenLocalised = ALL_MAIL_IN_ENGLISH ? test.skip : test;
+// The per-language rules below describe every language being approved; until then they are
+// switched off, not deleted.
+const whenLocalised = EMAIL_LOCALES.every(isApprovedMailLocale) ? test : test.skip;
 
-describe("all mail in English", () => {
-  test("no stored locale or country changes the language", () => {
-    expect(resolveEmailLocale("cs", "CZ")).toBe("en");
-    expect(resolveEmailLocale("de", "DE")).toBe("en");
-    expect(resolveEmailLocale(null, null)).toBe("en");
-    expect(workflowMailLocaleOf("cs")).toBe("en");
+const COUNTRIES = [null, "DE", "AT", "NL", "CZ", "FR", "PL"] as const;
+
+describe("only approved languages are ever sent", () => {
+  test("whatever the account says, the resolved language is approved", () => {
+    for (const locale of [null, ...LOCALE_CODES]) {
+      for (const country of COUNTRIES) {
+        expect(isApprovedMailLocale(resolveEmailLocale(locale, country))).toBe(true);
+      }
+    }
+  });
+
+  test("code mails (OTP, reset) are approved for every request locale", () => {
+    for (const locale of [undefined, ...LOCALE_CODES]) {
+      expect(isApprovedMailLocale(codeMailLocale(locale))).toBe(true);
+    }
+  });
+
+  test("the workflow mail language is approved", () => {
+    for (const locale of EMAIL_LOCALES) {
+      expect(isApprovedMailLocale(workflowMailLocaleOf(locale))).toBe(true);
+    }
   });
 });
 
