@@ -4,203 +4,109 @@
 
 <p align="center">
   <a href="https://github.com/NISD2/open-isms/tags"><img src="https://img.shields.io/github/v/tag/NISD2/open-isms?logo=github&label=version&color=284b63" alt="Latest version"></a>
-  <a href="https://www.npmjs.com/package/@nisd2/grc-data-model"><img src="https://img.shields.io/npm/v/@nisd2/grc-data-model.svg?logo=npm&label=grc-data-model" alt="npm"></a>
   <a href="https://github.com/NISD2/open-isms/pkgs/container/open-isms"><img src="https://img.shields.io/badge/ghcr.io-open--isms-284b63?logo=docker&logoColor=white" alt="Container image"></a>
   <a href="https://github.com/NISD2/open-isms/actions/workflows/ci.yml"><img src="https://github.com/NISD2/open-isms/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/NISD2/open-isms/actions/workflows/release.yml"><img src="https://github.com/NISD2/open-isms/actions/workflows/release.yml/badge.svg" alt="Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License: AGPL-3.0"></a>
-  <a href="https://www.nisd2.eu"><img src="https://img.shields.io/badge/site-nisd2.eu-284b63.svg" alt="nisd2.eu"></a>
+</p>
+
+<p align="center">
+  <a href="https://www.nisd2.eu"><b>nisd2.eu</b></a> ·
+  <a href="https://www.nisd2.eu/docs"><b>Documentation</b></a> ·
+  <a href="https://www.nisd2.eu/docs/getting-started/quickstart"><b>Self-host in one command</b></a>
 </p>
 
 ---
 
-The platform behind [nisd2.eu](https://www.nisd2.eu): a self-hostable Information Security Management System built for the EU NIS 2 Directive, with GDPR, the EU AI Act, and the CRA alongside it. An MCP endpoint lets your own AI assistant fill the walkthrough ([see below](#connect-an-ai-assistant-mcp)); people still sign.
+# NIS 2, done step by step
 
-Most compliance tooling treats evidence as a folder of PDFs you assemble the week before an audit. open-isms inverts that. Every requirement carries an owner, a deadline, and a sign-off, so assignments, approvals, and an append-only audit trail become your evidence as you operate, not something you reconstruct after the fact.
+You were handed NIS 2 and don't know where to start. open-isms walks your company through it
+one item at a time: it explains each duty in plain words, asks only what that duty needs, and
+writes the documents from your answers. At the end, management reviews and approves everything
+in the app, with name and date on record.
 
-Free and open source. AGPL-3.0. Mission: halve Europe's NIS 2 compliance bill.
+It is the platform behind [nisd2.eu](https://www.nisd2.eu), open source under AGPL-3.0, and you
+can run the same thing on your own server.
 
-## What's in here
+## What your company ends up with
 
-```
-apps/
-  reference/                      # minimal docker-compose demo (Postgres + Next.js)
-                                  # boot stack, gates routes behind email magic links
+- **A guided walkthrough** of the NIS 2 duties, in German, English and Czech. Each step says why
+  it applies, shows what good looks like where that helps, and lets you set a step aside when it
+  cannot be done yet.
+- **Documents written from your answers:** the security policy, the incident plan and the others,
+  ready for management to approve. No templates to fill in by hand.
+- **Your registers, kept in one place:** assets, suppliers, risks, trainings, management reviews,
+  each linked to the requirement it proves.
+- **Approvals that count as evidence.** Every sign-off is stored with who approved what and when,
+  so the record builds up as you work instead of the week before an audit.
+- **A supplier questionnaire** your suppliers answer in their own portal, instead of a spreadsheet
+  sent around by email.
+- **A GDPR walkthrough** for the controller duties most companies have: the data protection
+  officer, the record of processing activities, processors and their agreements, breaches and
+  requests from data subjects.
+- **Your own AI assistant can help.** Connect it over MCP and it fills in the walkthrough for you.
+  It never signs: approvals stay with people.
 
-packages/
-  grc-data-model/                 # framework data + entity model (NIS 2, GDPR, EU AI Act, CRA)
-  incident-notification-schema/   # NIS 2 §23(4) incident notification format
-  isms-schema/                    # operational ISMS schema (audit-log, sign-off, evidence, policies, training)
-  isms-ui/                        # shadcn-based UI primitives
-  isms-pages/                     # pre-translated page components
-  isms-lib/                       # compliance helpers (deadlines, format)
-  isms-trpc/                      # tRPC setup + audit middleware
+The interface speaks ten EU languages.
 
-app/                              # the production SaaS — marketing + portal + supplier + training
-components/  lib/  schema/  server/  drizzle/  messages/  i18n/   # SaaS app code
-lib/mcp/  app/api/mcp/            # MCP server: tools, sign-in, per-company switch
-courses/                          # NIS 2 CEO course content + tabletop exercises + CRA SBOM
-data/  docs/                      # public reference data + deployment docs
-public/                           # static assets
+## Two ways to use it
 
-scripts/                          # operational + release tooling
-.github/workflows/                # CI + release pipeline
-```
+**Hosted, on [nisd2.eu](https://www.nisd2.eu).** Sign up and start with your registration; the
+first steps are free.
 
-`grc-data-model` and `incident-notification-schema` are published to npm. The other packages are workspace-only (consumed via bun workspaces; not on npm yet).
-
-## Quick start (local dev)
-
-```bash
-git clone https://github.com/NISD2/open-isms.git
-cd open-isms
-bun install
-bun run dev               # http://localhost:3026
-```
-
-## Quick start (self-host the whole platform)
-
-One command. It checks Docker, downloads the compose file, generates the
-secrets, picks free ports, starts the stack and waits until it answers.
+**On your own server.** One command checks Docker, generates the secrets, starts the stack and
+loads the framework data:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/NISD2/open-isms/main/install.sh | bash
-# http://localhost:3026
+# then open http://localhost:3026
 ```
 
-Rather read it first? `curl -fsSL … -o install.sh && less install.sh && bash install.sh`.
+Rather read the script first, or set it up by hand? The
+[installation guide](https://www.nisd2.eu/docs/self-hosting/installation) covers both, plus TLS,
+email, storage, backups and updates.
 
-By hand instead, three files and a published image, no clone and nothing
-compiled:
+## For developers
 
-```bash
-mkdir open-isms && cd open-isms
-curl -o compose.yaml https://raw.githubusercontent.com/NISD2/open-isms/main/compose.self-host.yml
-curl -o .env         https://raw.githubusercontent.com/NISD2/open-isms/main/.env.self-host.example
-curl -o Caddyfile    https://raw.githubusercontent.com/NISD2/open-isms/main/Caddyfile.self-host.example
-# fill in the required values in .env, then:
-docker compose up -d                        # http://localhost:3026
-```
+The framework data is on npm, so you can build on it without running the platform:
 
-Sign-up verifies the address with a one-time code, so a fresh instance needs a
-way to get you the first one. Set `BOOTSTRAP_ADMIN_EMAIL` and
-`BOOTSTRAP_ADMIN_PASSWORD` in `.env` to create your account at startup with no
-mail at all, or read the code out of the log with
-`docker compose logs app | grep "sign-in code"`. Colleagues arrive by
-invitation, which is an email, so set `SMTP_HOST` for your own relay or
-`RESEND_API_KEY` for the hosted API before inviting anyone.
+| Package | What it gives you |
+|---|---|
+| [`@nisd2/grc-data-model`](https://www.npmjs.com/package/@nisd2/grc-data-model) | 219 requirements across NIS 2, GDPR, the EU AI Act, the CRA and ISO 27001:2022, with the links between them, and Drizzle schemas for Postgres |
+| [`@nisd2/incident-notification-schema`](https://www.npmjs.com/package/@nisd2/incident-notification-schema) | The NIS 2 Article 23 incident notification as a typed Zod schema |
+| [`@nisd2/nis2-supply-chain-questionnaire-schema`](https://www.npmjs.com/package/@nisd2/nis2-supply-chain-questionnaire-schema) | The questions a regulated company asks its suppliers, as Zod and JSON Schema |
 
-**[nisd2.eu/docs](https://www.nisd2.eu/docs)** is the full documentation:
-installation, every environment variable, storage, email, TLS, updates,
-backup and restore, and the platform's own data model. Its source is
-[`content/docs/`](./content/docs/) in this repository, so a correction is a
-pull request against the same file the site renders.
-
-Framework data loads itself: the container fills an empty requirement catalogue
-from `db/framework-seed.sql` at startup, so a fresh install has NIS 2 in it
-without a checkout or a seed script.
-
-For the minimal workspace demo instead of the full platform:
-
-```bash
-cd apps/reference
-cp .env.example .env      # set AUTH_SECRET via `openssl rand -base64 32`
-docker compose up --build # http://localhost:3000
-```
-
-## Connect an AI assistant (MCP)
-
-Every instance, nisd2.eu and each self-hosted one, serves an MCP endpoint at
-`/api/mcp`. A connected assistant reads the company's NIS 2 walkthrough and
-fills in what its items ask for: fields, registers, the asset list, ratings,
-agreements and evidence uploads. It never signs. Finishing an item, deciding it
-is not applicable and management's approval stay with people in the app.
-
-It is off until a company admin turns on *Allow AI assistants for this company*
-in Settings. Each person then connects their own assistant by signing in through
-the browser or by pasting a key.
+Every instance serves an MCP endpoint at `/api/mcp`, off until a company admin turns it on:
 
 ```bash
 claude mcp add --transport http nisd2 https://isms.example.com/api/mcp
 ```
 
-Tools, connection steps per client, and what the assistant is refused:
-[nisd2.eu/docs/self-hosting/mcp](https://www.nisd2.eu/docs/self-hosting/mcp),
-source in [`content/docs/self-hosting/mcp.md`](./content/docs/self-hosting/mcp.md)
-and [`lib/mcp/`](./lib/mcp/).
+## Documentation
 
-## Quick start (just the schema packages)
+Everything else lives at **[nisd2.eu/docs](https://www.nisd2.eu/docs)**:
 
-The framework data and schemas are published to npm on their own, so you can
-build against them without running any of this. There is no npm package for
-the platform itself: open-isms ships as a container image, see above.
+- [Quickstart](https://www.nisd2.eu/docs/getting-started/quickstart) and
+  [how it works](https://www.nisd2.eu/docs/getting-started/how-it-works)
+- [Self-hosting](https://www.nisd2.eu/docs/self-hosting/installation): configuration, domains and
+  TLS, email, storage, backup and restore, troubleshooting
+- [Connecting an AI assistant](https://www.nisd2.eu/docs/self-hosting/mcp)
+- [The npm packages](https://www.nisd2.eu/docs/packages/npm-packages)
+- [Contributing](https://www.nisd2.eu/docs/contributing/local-development): local development,
+  project structure, tests, migrations, releases
 
-```bash
-bun add @nisd2/grc-data-model @nisd2/incident-notification-schema @nisd2/nis2-supply-chain-questionnaire-schema
-```
-
-| package | what it gives you |
-|---|---|
-| [`@nisd2/grc-data-model`](https://www.npmjs.com/package/@nisd2/grc-data-model) | 219 requirements across NIS 2, GDPR, the EU AI Act, the CRA and ISO 27001:2022, cross-framework links marked as the same record or a partial overlap, and Drizzle-compatible Postgres schemas |
-| [`@nisd2/incident-notification-schema`](https://www.npmjs.com/package/@nisd2/incident-notification-schema) | the NIS 2 Article 23 incident notification format as a typed Zod schema |
-| [`@nisd2/nis2-supply-chain-questionnaire-schema`](https://www.npmjs.com/package/@nisd2/nis2-supply-chain-questionnaire-schema) | the questions a regulated entity asks its suppliers, as Zod plus JSON Schema |
-
-```ts
-import { nis2Categories, getNis2RequirementsForCategory } from "@nisd2/grc-data-model/frameworks";
-import { complianceFramework, requirement } from "@nisd2/grc-data-model/schema";
-```
-
-Per framework: NIS 2 12 categories / 49 requirements, GDPR 6 / 9, EU AI Act
-10 / 24, CRA 10 / 21, ISO 27001:2022 5 / 116.
-
-## Legal scope
-
-- **EU Directive**: 2022/2555 (NIS 2)
-- **German transposition**: NIS2UmsuCG → revised BSIG (2025)
-- **Implementing Regulation**: Commission Implementing Regulation (EU) 2024/2690
-- **Effective**: 6 December 2025
-- **Registration deadline**: 6 March 2026
-
-## Tech stack
-
-| Layer | Tech |
-|---|---|
-| Framework | Next.js 16 + React 19 (App Router, SSR-first) |
-| Language | TypeScript 6 strict mode |
-| Styling | Tailwind CSS 4 + shadcn |
-| Validation | Zod 4 |
-| ORM | Drizzle 0.45 (Postgres) |
-| API | tRPC 11 |
-| Auth | Auth.js v5 (email and password, one-time code verification, optional Google OAuth) |
-| i18n | next-intl, 10 locales (DE/EN/NL/FR/IT/ES/PL/CS/PT/RO) |
-| AI | Vercel AI SDK + xAI Grok for form prefill; MCP server (`/api/mcp`) for your own assistant |
-| Runtime | Bun 1.3+ |
-| Hosting | Coolify (self-hosted) |
+The docs are written in [`content/docs/`](./content/docs/), so a correction is a pull request
+against the same file the site shows.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./.github/CONTRIBUTING.md). External PRs welcome — particularly:
-
-- New framework articles / mappings (`packages/grc-data-model/src/frameworks/`)
-- Translation work (`messages/`)
-- Schema improvements (`packages/isms-schema/src/tables/`)
-- Documentation and examples
-
-For security disclosures, see [SECURITY.md](./.github/SECURITY.md).
+Pull requests are welcome, especially framework mappings, translations and documentation. Start
+with [CONTRIBUTING.md](./.github/CONTRIBUTING.md). To report a security issue, see
+[SECURITY.md](./.github/SECURITY.md).
 
 ## License
 
-[AGPL-3.0-or-later](./LICENSE) for the app, scripts, and workspace-only packages.
-
-**Course content is [CC BY 4.0](./courses/LICENSE).** Everything under `courses/` — lesson text, quizzes, appendices and the typeset PDF editions — may be reused, adapted and republished under your own name, including commercially. Attribution is the only condition. Chambers of commerce, associations and schools are explicitly welcome to turn it into their own guidance under their own branding.
-
-Published npm packages have their own licenses:
-
-| Package | License |
-|---|---|
-| `@nisd2/grc-data-model` | MIT |
-| `@nisd2/nis2-supply-chain-questionnaire-schema` | MIT (code) + CC BY 4.0 (content) |
-| `@nisd2/incident-notification-schema` | Dual: AGPL-3.0 + commercial |
-| `@nisd2/isms-*` (workspace-only) | AGPL-3.0-or-later |
-
-Laws and standards the repository refers to, ISO/IEC 27001 and the BSI IT-Grundschutz-Kompendium among them, are not licensed by any of the above: [LICENSE-DATA.md](./LICENSE-DATA.md) records what the repository holds of each and on what terms.
+The platform is [AGPL-3.0-or-later](./LICENSE). The NIS 2 management course in `courses/` is
+[CC BY 4.0](./courses/LICENSE): reuse it, adapt it and publish it under your own name, commercially
+too, with attribution. The npm packages carry their own licenses (MIT for
+`@nisd2/grc-data-model`; see each package). What the repository holds of laws and standards such
+as ISO/IEC 27001 is set out in [LICENSE-DATA.md](./LICENSE-DATA.md).

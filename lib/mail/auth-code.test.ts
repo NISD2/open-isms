@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
 
 /**
- * The installer, the README and three docs pages all tell a self-hoster to
+ * The installer and three docs pages all tell a self-hoster to
  * find their first sign-in code with:
  *
  *   docker compose logs app | grep "sign-in code"
