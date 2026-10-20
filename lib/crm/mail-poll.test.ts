@@ -94,6 +94,9 @@ function memoryStore(known: string[] = []) {
     refused: async () => {},
     forget: async () => {},
     optOut: async () => 0,
+    openInvites: async () => ({ invites: [], waiting: 0 }),
+    inviteHandled: async () => {},
+    leadCompanies: async () => new Set(),
     knownMail: async (wanted) => new Set(wanted.filter((id) => ids.has(id))),
     recordMail: async (row) => {
       ids.add(row.resendId);

@@ -10,6 +10,8 @@
  *     and the lead too when the sync created it and nobody else is left on it.
  *  2. Objections come back. With CLOSE_SUPPRESSED_STATUS_ID set, everyone on a lead
  *     sales put in that status gets all optional platform email switched off.
+ *  2b. Invitees (./invite-step): everyone a user invited becomes a contact on the
+ *     inviter's lead, so they sit in the inviter's company.
  *  3. Everyone else is compared with what was last written. A person with no link
  *     is looked up by email and linked to the contact Close already holds, or gets
  *     a new lead. A linked person whose values changed is updated. When the link
@@ -47,8 +49,11 @@ import {
   closeFieldValues,
 } from "./fields";
 import { fingerprint } from "./fingerprint";
+import { type InviteStore, syncInvites } from "./invite-step";
 import { type MailPoll, type MailStore, pollMail } from "./mail-poll";
 import { addressOf } from "./mail-rules";
+
+const NO_INVITES = { added: 0, known: 0, refused: 0, pending: 0, stopped: null };
 
 export const MAX_PER_RUN = 50;
 export const MAX_REFUSALS = 5;
@@ -62,15 +67,19 @@ export type ErasedCloseRow = Pick<SyncRow, "id" | "leadId" | "contactId" | "crea
 
 export interface CloseSyncPerson {
   readonly userId: string;
+  /** The company they have open; null without one. */
+  readonly companyId: string | null;
   readonly email: string;
   readonly name: string;
   readonly facts: CloseFacts;
   readonly sync: CloseSyncLinkRow | null;
 }
 
-export interface CloseSyncStore extends MailStore {
+export interface CloseSyncStore extends MailStore, InviteStore {
   erased(): Promise<ErasedCloseRow[]>;
   people(): Promise<CloseSyncPerson[]>;
+  /** The companies of the synced people whose lead in Close this is. */
+  leadCompanies(leadId: string): Promise<ReadonlySet<string>>;
   linked(
     userId: string,
     link: CloseLink,
@@ -100,6 +109,14 @@ export type CloseSyncRunResult =
       readonly mailNoted: number;
       /** Resend mails dealt with without an email: not listed, not delivered, nobody in Close. */
       readonly mailSkipped: number;
+      /** Invitees added to their inviter's lead this run (./invite-step). */
+      readonly invitesAdded: number;
+      /** Invitees whose address Close already held, left where it was. */
+      readonly invitesKnown: number;
+      /** Invitees Close turned down; dropped, not retried. */
+      readonly invitesRefused: number;
+      /** Invites left for the next run. */
+      readonly invitesPending: number;
       /** Resend mails seen and left for the next run. */
       readonly mailPending: number;
       /** Erasures Close turned down; retried every run, and the run counts as failed. */
@@ -257,6 +274,27 @@ async function write(
   return contact.ok ? close.updateLead(link.leadId, fields.lead) : contact;
 }
 
+/**
+ * Writes onto a contact found by address. The lead's company facts go along only when
+ * the lead is this person's company's: a supplier invited by a customer sits on the
+ * customer's lead, and must not overwrite that company's name, sector and size with
+ * their own. A lead nobody else is synced on has no other company, so it is written.
+ */
+async function writeOnto(
+  close: CloseClient,
+  store: CloseSyncStore,
+  person: CloseSyncPerson,
+  found: CloseLink,
+  fields: CloseFieldValues,
+): Promise<CloseResult<null>> {
+  const companies = await store.leadCompanies(found.leadId);
+  const foreign =
+    companies.size > 0 && (!person.companyId || !companies.has(person.companyId));
+  return foreign
+    ? close.updateContact(found.contactId, fields.contact)
+    : write(close, found, fields);
+}
+
 async function syncPerson(
   close: CloseClient,
   store: CloseSyncStore,
@@ -294,7 +332,7 @@ async function syncPerson(
   const found = byId?.value ?? byEmail?.value ?? null;
 
   if (found) {
-    const written = await write(close, found, fields);
+    const written = await writeOnto(close, store, person, found, fields);
     if (!written.ok) return refuse(written);
     const sameLead = link !== null && found.leadId === link.leadId;
     await store.linked(
@@ -377,10 +415,17 @@ export async function runCloseSync(
       ? 0
       : await readSuppressions(close, store, settings.suppressedStatusId);
   const suppressionStop = typeof suppressed === "number" ? [] : [suppressed];
+  const stoppedBeforeInvites = erasures.some(isStop) || suppressionStop.length > 0;
+  // Invitees come before the people, so a colleague who has since signed up is found on
+  // the inviter's lead and linked there instead of getting a lead of their own.
+  const invited = stoppedBeforeInvites
+    ? NO_INVITES
+    : await syncInvites(close, store, settings.fieldIds);
+  const inviteStop = invited.stopped ? [{ stopped: invited.stopped }] : [];
   // Suppressions come before the people are read, so this run already writes
   // "may email: No" for everyone just switched off.
   const plan =
-    erasures.some(isStop) || suppressionStop.length > 0
+    stoppedBeforeInvites || inviteStop.length > 0
       ? { work: [], gaveUp: 0 }
       : planCloseSync(await store.people(), settings.fieldIds);
   const syncs = await stepThrough(plan.work.slice(0, MAX_PER_RUN), (work) =>
@@ -388,7 +433,9 @@ export async function runCloseSync(
   );
 
   // Mail waits for a clean run: a stop above means Close or a setting is wrong right now.
-  const stoppedEarlier = [...erasures, ...suppressionStop, ...syncs].some(isStop);
+  const stoppedEarlier = [...erasures, ...suppressionStop, ...inviteStop, ...syncs].some(
+    isStop,
+  );
   const polled =
     mail && !stoppedEarlier
       ? await pollMail(close, store, mail)
@@ -397,6 +444,7 @@ export async function runCloseSync(
   const steps: Step[] = [
     ...erasures,
     ...suppressionStop,
+    ...inviteStop,
     ...syncs,
     ...(polled.stopped ? [{ stopped: polled.stopped }] : []),
   ];
@@ -410,6 +458,10 @@ export async function runCloseSync(
     linked: count("linked"),
     updated: count("updated"),
     refused: count("refused"),
+    invitesAdded: invited.added,
+    invitesKnown: invited.known,
+    invitesRefused: invited.refused,
+    invitesPending: invited.pending,
     mailNoted: polled.noted,
     mailSkipped: polled.skipped,
     mailPending: polled.pending,

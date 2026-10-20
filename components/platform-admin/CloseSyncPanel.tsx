@@ -97,7 +97,7 @@ function outcomeText(outcome: Outcome): string {
   if (!outcome.ok) return `The run threw: ${outcome.error}`;
   const r = outcome.result;
   if ("skipped" in r) return `Skipped: ${r.skipped}`;
-  const counts = `created ${r.created}, linked ${r.linked}, updated ${r.updated}, refused ${r.refused}, ${r.mailNoted} mails logged, ${r.pending} still to do`;
+  const counts = `created ${r.created}, linked ${r.linked}, updated ${r.updated}, refused ${r.refused}, ${r.invitesAdded} invitees added, ${r.mailNoted} mails logged, ${r.pending} still to do`;
   return r.stopped ? `Stopped: ${r.stopped} (${counts})` : `Done: ${counts}`;
 }
 
@@ -195,11 +195,12 @@ function SyncCard({ s }: { s: Status }) {
             <Contact className="h-4 w-4" /> Close sync
           </CardTitle>
           <CardDescription>
-            Two jobs in one run. First it keeps every verified account in Close (up to{" "}
-            {perRun} people a run, newest signups first). Then it puts the emails Resend
-            sent onto the recipients' contacts in Close. Runs by itself every{" "}
-            {everyMinutes} minutes, the first {firstRunMinutes} minutes after the server
-            starts.
+            Three jobs in one run. First it adds everyone a user invited (colleagues and
+            suppliers) as a contact on the inviter's lead. Then it keeps every verified
+            account in Close (up to {perRun} people a run, newest signups first). Last it
+            puts the emails Resend sent onto the recipients' contacts. Runs by itself
+            every {everyMinutes} minutes, the first {firstRunMinutes} minutes after the
+            server starts.
           </CardDescription>
         </div>
         <Button
@@ -275,6 +276,9 @@ function PeopleCard({ s }: { s: Status }) {
     { label: "Refused, retrying", value: p.retrying },
     { label: "Given up", value: p.gaveUp },
     { label: "Erasures queued", value: p.erasuresQueued },
+    { label: "Invitees added", value: p.inviteesAdded },
+    { label: "Invitees already there", value: p.inviteesKnown },
+    { label: "Invitees refused", value: p.inviteesRefused },
   ];
   return (
     <Card>

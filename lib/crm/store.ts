@@ -21,6 +21,7 @@ import {
 } from "@/schema";
 import { journeyStatesByCompany } from "@/server/trpc/helpers/durchgang";
 import { closeFactsFor } from "./facts";
+import { inviteStore } from "./invite-store";
 import { MAIL_LOG_FORMAT } from "./mail-poll";
 import { type CloseSyncStore, MAX_REFUSALS } from "./sync";
 
@@ -105,6 +106,8 @@ const ceoCourseProgress = (db: DbOrTx) =>
 
 /** Every company's NIS 2 path in one read (~49 rows a company), summarised in memory. */
 export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
+  ...inviteStore(db),
+
   erased: () =>
     db
       .select({
@@ -136,6 +139,7 @@ export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
     });
     return users.map((row) => ({
       userId: row.userId,
+      companyId: row.companyId,
       email: row.email,
       name: row.name,
       facts: factsOf(row),

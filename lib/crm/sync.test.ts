@@ -46,6 +46,7 @@ const facts = (n: number): CloseFacts => ({
 
 const person = (n: number, sync: CloseSyncLinkRow | null = null): CloseSyncPerson => ({
   userId: `user-${n}`,
+  companyId: `company-${n}`,
   email: `user-${n}@example.test`,
   name: `User ${n}`,
   facts: facts(n),
@@ -77,6 +78,10 @@ function memoryStore(people: CloseSyncPerson[], erased: ErasedCloseRow[] = []) {
     // The mail step has its own tests (./mail-poll.test.ts); here it is never reached.
     knownMail: async () => new Set(),
     recordMail: async () => {},
+    // Invitees and the shared-lead guard have their own tests (./invite-step.test.ts).
+    openInvites: async () => ({ invites: [], waiting: 0 }),
+    inviteHandled: async () => {},
+    leadCompanies: async () => new Set(),
     people: async () =>
       people.map((p) => ({
         ...p,

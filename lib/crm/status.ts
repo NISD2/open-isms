@@ -19,7 +19,7 @@ import {
 import { isDeployedServer } from "@/lib/cron/in-app";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
-import { auditLog, closeCrmSync, closeResendLog, user } from "@/schema";
+import { auditLog, closeCrmSync, closeInviteSync, closeResendLog, user } from "@/schema";
 import { CLOSE_CONFIGURABLE_KEYS } from "./config-schema";
 import { MAIL_LOG_FORMAT, MAX_ENTRIES_PER_RUN } from "./mail-poll";
 import {
@@ -54,8 +54,13 @@ const setup = () => ({
   })),
 });
 
+const inviteCount = (outcome: string) =>
+  sql<number>`count(*) filter (where ${closeInviteSync.outcome} = ${outcome})`.mapWith(
+    Number,
+  );
+
 const people = async (db: DbOrTx) => {
-  const [[accounts], [erasures]] = await Promise.all([
+  const [[accounts], [erasures], [invitees]] = await Promise.all([
     db
       .select({
         synced: count(),
@@ -74,8 +79,18 @@ const people = async (db: DbOrTx) => {
       .leftJoin(closeCrmSync, eq(closeCrmSync.userId, user.id))
       .where(isSyncedAccount()),
     db.select({ queued: count() }).from(closeCrmSync).where(isNull(closeCrmSync.userId)),
+    db
+      .select({
+        added: inviteCount("added"),
+        known: inviteCount("already_in_close"),
+        refused: inviteCount("refused"),
+      })
+      .from(closeInviteSync),
   ]);
   return {
+    inviteesAdded: invitees?.added ?? 0,
+    inviteesKnown: invitees?.known ?? 0,
+    inviteesRefused: invitees?.refused ?? 0,
     accounts: accounts?.synced ?? 0,
     inClose: accounts?.inClose ?? 0,
     retrying: accounts?.retrying ?? 0,

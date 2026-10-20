@@ -122,3 +122,39 @@ export const closeResendLog = pgTable(
     ),
   ],
 );
+
+/**
+ * Every invite (a colleague invite or a supplier invite, as the platform admin's
+ * "Invited users" tab lists them) the close-sync has dealt with, one row per invite, so
+ * an invitee whose contact sales deletes in Close is not added again. A row holds the
+ * invite's id and where the contact sits in Close, never an address or a name.
+ *
+ * - added: the sync created the invitee's contact on the inviter's lead.
+ * - already_in_close: Close already held that address, wherever; left as it is.
+ * - refused: Close turned the address down (a 4xx about this contact); not retried.
+ *
+ * The invite rows themselves belong to company_invite and supplier_invite, so there is
+ * no foreign key: a supplier invite and a colleague invite are different tables.
+ */
+export const closeInviteSync = pgTable(
+  "close_invite_sync",
+  {
+    inviteId: varchar("invite_id", { length: 64 }).primaryKey(),
+    kind: varchar("kind", { length: 12 }).notNull(),
+    outcome: varchar("outcome", { length: 20 }).notNull(),
+    leadId: varchar("lead_id", { length: 64 }),
+    contactId: varchar("contact_id", { length: 64 }),
+    handledAt: timestamp("handled_at").defaultNow().notNull(),
+  },
+  (t) => [
+    check("close_invite_sync_kind_check", sql`${t.kind} IN ('team', 'supplier')`),
+    check(
+      "close_invite_sync_outcome_check",
+      sql`${t.outcome} IN ('added', 'already_in_close', 'refused')`,
+    ),
+    check(
+      "close_invite_sync_in_close_has_ids",
+      sql`(${t.outcome} = 'refused') OR (${t.leadId} IS NOT NULL AND ${t.contactId} IS NOT NULL)`,
+    ),
+  ],
+);

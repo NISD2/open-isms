@@ -305,6 +305,42 @@ export const closeClient = (settings: CloseSettings, fetchImpl: FetchLike = fetc
         : unavailable("POST /lead/: no contact in the response", 200);
     },
 
+    /**
+     * A contact on a lead that already exists, e.g. a colleague the lead's owner
+     * invited. A refusal means the lead is gone or the address is not accepted: it is
+     * about this contact, never about a setting.
+     */
+    createContact: async (
+      leadId: string,
+      person: { readonly name: string; readonly email: string },
+      fields: CloseFieldValues["contact"],
+    ): Promise<CloseResult<CloseLink>> => {
+      const created = await request("POST", "/contact/", contactBody, {
+        lead_id: leadId,
+        name: person.name,
+        emails: [{ email: person.email, type: "office" }],
+        ...fields,
+      });
+      return created.ok
+        ? ok({ leadId: created.value.lead_id, contactId: created.value.id })
+        : created;
+    },
+
+    /** A note on the contact's timeline, dated when the thing happened. */
+    addNote: async (
+      link: CloseLink,
+      note: string,
+      at: Date,
+    ): Promise<CloseResult<null>> => {
+      const added = await request("POST", "/activity/note/", idBody, {
+        lead_id: link.leadId,
+        contact_id: link.contactId,
+        note,
+        date_created: at.toISOString(),
+      });
+      return added.ok ? ok(null) : added;
+    },
+
     /** Only the fields sent change; a null clears one. Nothing to send, no call. */
     updateLead: async (
       leadId: string,

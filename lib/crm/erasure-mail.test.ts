@@ -49,6 +49,9 @@ function memoryStore() {
       forgotten.push(id);
     },
     optOut: async () => 0,
+    openInvites: async () => ({ invites: [], waiting: 0 }),
+    inviteHandled: async () => {},
+    leadCompanies: async () => new Set(),
     knownMail: async () => new Set(),
     recordMail: async () => {},
   };
