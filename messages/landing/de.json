@@ -2,8 +2,12 @@
   "landing": {
     "guided": {
       "eyebrow": "NIS2 Software für Betriebe mit 50 bis 150 Beschäftigten",
-      "title": "Sie sollen sich um <blue>NIS2</blue> kümmern?",
-      "subtitle": "Am Ende haben Sie alles in einem Dokument: was getan ist, was noch offen ist, und die Freigabe Ihrer Geschäftsführung mit Namen und Datum. Die Texte schreibt die App.",
+      "title": "<blue>NIS2</blue> Frist verpasst? <line>Fangen Sie heute an.</line>",
+      "subtitle": "Wir führen Sie Schritt für Schritt durch NIS2, ohne Berater und ohne Vorwissen. Zuerst kommt die Registrierung, die auch nach der Frist noch möglich ist. Die Texte schreibt die App, am Ende gibt Ihre Geschäftsführung frei.",
+      "ask": {
+        "title": "Sie sollen sich um <blue>NIS2</blue> kümmern?",
+        "subtitle": "Am Ende haben Sie alles in einem Dokument: was getan ist, was noch offen ist, und die Freigabe Ihrer Geschäftsführung mit Namen und Datum. Die Texte schreibt die App."
+      },
       "cta": "30 Tage testen, Geld zurück",
       "trainingCta": "Kostenlose Schulung für Ihre Geschäftsführung",
       "meta": {

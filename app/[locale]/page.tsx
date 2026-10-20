@@ -66,6 +66,8 @@ export default async function LandingPage() {
           <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
             {t.rich("guided.title", {
               blue: (chunks) => <span className="text-primary">{chunks}</span>,
+              // The answer to the headline's question starts its own line instead of wrapping mid-phrase.
+              line: (chunks) => <span className="block">{chunks}</span>,
             })}
           </h1>
 

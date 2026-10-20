@@ -4,6 +4,10 @@
       "eyebrow": "Per aziende da 50 a 150 dipendenti",
       "title": "Ti hanno affidato <blue>NIS2</blue>?",
       "subtitle": "Ti guidiamo passo dopo passo. Tu compili, noi spieghiamo ogni punto con parole semplici, e alla fine firma la direzione.",
+      "ask": {
+        "title": "Ti hanno affidato <blue>NIS2</blue>?",
+        "subtitle": "Ti guidiamo passo dopo passo. Tu compili, noi spieghiamo ogni punto con parole semplici, e alla fine firma la direzione."
+      },
       "cta": "Prova 30 giorni, rimborso",
       "trainingCta": "Formazione gratuita per il tuo amministratore delegato",
       "meta": {

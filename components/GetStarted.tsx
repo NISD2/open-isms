@@ -90,14 +90,14 @@ async function FunnelAsk({ className, href }: { className?: string; href?: Href 
       )}
     >
       <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-        {t.rich("title", {
+        {t.rich("ask.title", {
           blue: (chunks) => <span className="text-primary">{chunks}</span>,
         })}
       </h2>
       <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,25rem)_1fr] lg:items-start">
         <div>
           <p className="max-w-sm text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {t("subtitle")}
+            {t("ask.subtitle")}
           </p>
           <div className="mt-8 flex flex-col items-start gap-3">
             <StartButton href={href} />

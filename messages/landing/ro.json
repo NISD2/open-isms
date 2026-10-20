@@ -4,6 +4,10 @@
       "eyebrow": "Pentru companii cu 50 până la 150 de angajați",
       "title": "Vi s-a cerut să vă ocupați de <blue>NIS2</blue>?",
       "subtitle": "Vă ghidăm pas cu pas. Dumneavoastră completați, noi explicăm fiecare punct pe înțelesul tuturor, iar la final semnează conducerea.",
+      "ask": {
+        "title": "Vi s-a cerut să vă ocupați de <blue>NIS2</blue>?",
+        "subtitle": "Vă ghidăm pas cu pas. Dumneavoastră completați, noi explicăm fiecare punct pe înțelesul tuturor, iar la final semnează conducerea."
+      },
       "cta": "Încercați 30 de zile, banii înapoi",
       "trainingCta": "Instruire gratuită pentru directorul general",
       "meta": {
