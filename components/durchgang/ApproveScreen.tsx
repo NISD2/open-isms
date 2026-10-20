@@ -1,11 +1,11 @@
 "use client";
 
-import { Check, ChevronDown, Copy, Send, UserCheck } from "lucide-react";
+import { Check, ChevronDown, Copy, UserCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import { InlineInvite } from "@/components/team/InlineInvite";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getPathname, Link, useRouter } from "@/i18n/navigation";
 import {
   alsoCountsFor,
@@ -318,21 +318,12 @@ function SendToManagement({
 }) {
   const t = useTranslations("durchgang.ui.approve");
   const router = useRouter();
-  const [email, setEmail] = useState("");
   const [copied, setCopied] = useState(false);
   const members = trpc.team.listMembers.useQuery();
   const managers = (members.data ?? []).filter(
     (m) => m.jobTitle === MANAGEMENT_ROLE && m.id !== viewer.id,
   );
   const path = getPathname({ href: WALK_ROUTES[framework].approval, locale });
-  const invite = trpc.team.invite.useMutation({
-    onSuccess: (data, input) => {
-      setEmail("");
-      if (data.emailed) toast.success(t("invited", { email: input.email }));
-      else toast.warning(t("notEmailed", { email: input.email }));
-    },
-    onError: (err) => toast.error(userFacingError(err, t("failed"))),
-  });
   const claim = trpc.team.assignRole.useMutation({
     onSuccess: () => router.refresh(),
     onError: (err) => toast.error(userFacingError(err, t("failed"))),
@@ -365,37 +356,14 @@ function SendToManagement({
         </div>
       )}
       {viewer.admin && (
-        <form
-          className="space-y-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (email.trim()) {
-              invite.mutate({
-                email: email.trim(),
-                complianceRole: MANAGEMENT_ROLE,
-                redirectPath: path,
-              });
-            }
-          }}
-        >
-          <label htmlFor="dg-management-email" className="text-sm font-medium">
-            {t("inviteLabel")}
-          </label>
-          <div className="flex max-w-md gap-2">
-            <Input
-              id="dg-management-email"
-              type="email"
-              required
-              placeholder={t("placeholder")}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button type="submit" disabled={invite.isPending}>
-              <Send />
-              {t("send")}
-            </Button>
-          </div>
-        </form>
+        <InlineInvite
+          label={t("inviteLabel")}
+          sendLabel={t("send")}
+          sentText={(email) => t("invited", { email })}
+          placeholder={t("placeholder")}
+          redirectPath={path}
+          complianceRole={MANAGEMENT_ROLE}
+        />
       )}
       {!viewer.admin && managers.length === 0 && (
         <p className="text-sm text-muted-foreground">{t("askAdmin")}</p>

@@ -162,7 +162,6 @@
         "placeholder": "name@ihre-firma.de",
         "send": "Senden",
         "invited": "Einladung an {email} verschickt. Nach der Anmeldung landet die Person auf der Seite mit den Dokumenten.",
-        "notEmailed": "Die Einladung für {email} ist angelegt, aber es konnte keine E-Mail verschickt werden. Den Link finden Sie auf der Teamseite.",
         "askAdmin": "Bitten Sie einen Admin Ihres Unternehmens, jemanden aus der Geschäftsführung einzuladen.",
         "itsMe": "Ich gehöre selbst zur Geschäftsführung",
         "pageTitle": "Freigabe durch die Geschäftsführung",

@@ -62,8 +62,6 @@
           "placeholder": "jmeno@firma.cz",
           "send": "Odeslat",
           "invited": "Pozvánka odeslána na {email}. Po přihlášení se otevře kurz.",
-          "notEmailed": "Pozvánka pro {email} byla vytvořena, ale e-mail se nepodařilo odeslat. Odkaz zkopírujte na stránce Tým.",
-          "failed": "To se nepodařilo. Zkuste to prosím znovu.",
           "askAdmin": "Pro pozvání nového člena požádejte správce vaší společnosti. Kolega, který už je ve vašem týmu, začne přes odkaz.",
           "copyLink": "Zkopírovat odkaz na kurz"
         },

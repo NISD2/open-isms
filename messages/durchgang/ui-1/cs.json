@@ -162,7 +162,6 @@
         "placeholder": "jmeno@firma.cz",
         "send": "Odeslat",
         "invited": "Pozvánka odeslána na {email}. Po přihlášení se otevře stránka s dokumenty.",
-        "notEmailed": "Pozvánka pro {email} byla vytvořena, ale e-mail se nepodařilo odeslat. Odkaz zkopírujte na stránce Tým.",
         "askAdmin": "Požádejte správce vaší společnosti, aby pozval někoho z vedení.",
         "itsMe": "Patřím do vedení",
         "pageTitle": "Schválení vedením",

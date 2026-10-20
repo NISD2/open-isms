@@ -44,7 +44,9 @@
     "inline": {
       "sent": "Invite sent to {email}",
       "notEmailed": "Invite created for {email}. This instance has no mail transport, so send them the link yourself.",
-      "linkCopied": "Link copied"
+      "linkCopied": "Link copied",
+      "send": "Send invite",
+      "copyLink": "Copy the invite link"
     },
     "invalidTitle": "Invalid Invite",
     "invalidDescription": "This invite link is invalid or has already been used.",

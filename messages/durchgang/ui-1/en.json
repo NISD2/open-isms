@@ -177,7 +177,6 @@
         "placeholder": "name@your-company.com",
         "send": "Send",
         "invited": "Invitation sent to {email}. After signing in they land on the page with the documents.",
-        "notEmailed": "The invitation for {email} was created but no email could be sent. Copy the link from the team page.",
         "askAdmin": "Ask an admin of your company to invite someone from management.",
         "itsMe": "I am part of management myself",
         "pageTitle": "Approval by management",
