@@ -23,20 +23,37 @@ type TRPCContext = import("../init").TRPCContext;
 
 const dialect = new PgDialect();
 
-/** A caller signed in as `email`, over a database that records the query's filter. */
-function setup(email: string) {
+const PERSON = "22222222-2222-4222-8222-222222222222";
+
+/**
+ * A caller signed in as `email`, over a database that records every query's filter and knows one
+ * person, or none.
+ */
+function setup(email: string, person: { id: string; name: string } | null = null) {
   const wheres: SQL[] = [];
   const chain = {
     from: () => chain,
     leftJoin: () => chain,
+    innerJoin: () => chain,
     where: (where: SQL) => {
       wheres.push(where);
       return chain;
     },
-    orderBy: async () => [],
+    orderBy: () => Object.assign(Promise.resolve([]), { limit: async () => [] }),
+  };
+  const db = {
+    select: () => chain,
+    query: {
+      user: {
+        findFirst: async ({ where }: { where: SQL }) => {
+          wheres.push(where);
+          return person;
+        },
+      },
+    },
   };
   const caller = createCallerFactory(platformAdminUsersRouter)({
-    db: { select: () => chain } as unknown as TRPCContext["db"],
+    db: db as unknown as TRPCContext["db"],
     session: {
       role: "admin",
       accessLevel: "full",
@@ -66,5 +83,31 @@ describe("active users (platform admin)", () => {
     const at = new Date(cutoff).getTime();
     expect(ACTIVE_WINDOW_MS).toBe(7 * 24 * 60 * 60 * 1000);
     expect(Math.abs(at - (now - ACTIVE_WINDOW_MS))).toBeLessThan(5_000);
+  });
+});
+
+describe("one user's details (platform admin)", () => {
+  test("is closed to anyone who is not a platform admin", async () => {
+    const { caller, wheres } = setup("someone@example.com");
+    await expect(caller.detail({ id: PERSON })).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+    expect(wheres).toEqual([]);
+  });
+
+  test("reads the account, its companies and its activity for that person only", async () => {
+    const { caller, wheres } = setup(ADMIN, { id: PERSON, name: "Anna Beispiel" });
+    const result = await caller.detail({ id: PERSON });
+    expect(result?.person.name).toBe("Anna Beispiel");
+    expect(wheres.map((w) => dialect.sqlToQuery(w).params)).toEqual([
+      [PERSON],
+      [PERSON],
+      [PERSON],
+    ]);
+  });
+
+  test("names nobody for an id no account has, an erased one included", async () => {
+    const { caller } = setup(ADMIN, null);
+    expect(await caller.detail({ id: PERSON })).toBeNull();
   });
 });

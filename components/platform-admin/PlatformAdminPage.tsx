@@ -32,16 +32,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link, useRouter } from "@/i18n/navigation";
 import { ActiveUsersPanel } from "./ActiveUsersPanel";
+import { planBadge, timeAgo } from "./admin-format";
 import { CloseSyncPanel } from "./CloseSyncPanel";
 import { DevPanel } from "./DevPanel";
 import { emailTypeLabel } from "./email-type-label";
 import { FeatureFlagsPanel } from "./FeatureFlagsPanel";
-import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
+import { ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
 import { median } from "./graphs/derive";
 import { PartnerContractsPanel } from "./PartnerContractsPanel";
 import { PricingPanel } from "./PricingPanel";
 import { SubscriptionsPanel } from "./SubscriptionsPanel";
+import { UserName } from "./UserDialog";
+import { type UserRow, UsersTable } from "./UsersTable";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -59,19 +62,6 @@ interface Overview {
   ceoCourseStarted: number;
   /** GDPR erasures: requests carried out, accounts deleted by them, and how many the person did. */
   erasures: { requests: number; people: number; selfService: number };
-}
-
-interface UserRow {
-  id: string;
-  email: string;
-  name: string;
-  /** Role in the company the person has open; null without one. */
-  role: string | null;
-  createdAt: Date;
-  companyId: string | null;
-  companyName: string | null;
-  companySector: string | null;
-  companyPlan: string | null;
 }
 
 interface CompanyRow {
@@ -203,38 +193,6 @@ interface Props {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-function timeAgo(date: Date | string): string {
-  const d = typeof date === "string" ? new Date(date) : date;
-  const diffMs = Date.now() - d.getTime();
-  const diffMins = Math.floor(diffMs / 60000);
-  if (diffMins < 60) return `${diffMins}m ago`;
-  const diffHours = Math.floor(diffMins / 60);
-  if (diffHours < 24) return `${diffHours}h ago`;
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays < 30) return `${diffDays}d ago`;
-  return d.toLocaleDateString("de-DE");
-}
-
-function planBadge(plan: string | null) {
-  if (!plan || plan === "free")
-    return (
-      <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">
-        free
-      </span>
-    );
-  if (plan === "guided")
-    return (
-      <span className="rounded bg-blue-100 px-1.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
-        guided
-      </span>
-    );
-  return (
-    <span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
-      {plan}
-    </span>
-  );
-}
 
 type Tab =
   | "graphs"
@@ -979,58 +937,6 @@ function StatCard({
 }
 
 // ---------------------------------------------------------------------------
-// Users table
-// ---------------------------------------------------------------------------
-
-function UsersTable({ users }: { users: UserRow[] }) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">All Users</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b text-left text-muted-foreground">
-                <th className="pb-2 pr-4 font-medium">Name</th>
-                <th className="pb-2 pr-4 font-medium">Email</th>
-                <th className="pb-2 pr-4 font-medium">Company</th>
-                <th className="pb-2 pr-4 font-medium">Plan</th>
-                <th className="pb-2 pr-4 font-medium">Role</th>
-                <th className="pb-2 pr-4 font-medium">Joined</th>
-                <th className="pb-2 font-medium">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((u) => (
-                <tr key={u.id} className="border-b border-border/50 last:border-0">
-                  <td className="py-2 pr-4 font-medium">{u.name}</td>
-                  <td className="py-2 pr-4 text-muted-foreground">{u.email}</td>
-                  <td className="py-2 pr-4">
-                    {u.companyName ?? (
-                      <span className="text-muted-foreground italic">none</span>
-                    )}
-                  </td>
-                  <td className="py-2 pr-4">{planBadge(u.companyPlan)}</td>
-                  <td className="py-2 pr-4">{u.role}</td>
-                  <td className="py-2 pr-4 text-muted-foreground">
-                    {timeAgo(u.createdAt)}
-                  </td>
-                  <td className="py-2">
-                    <EraseUserButton userId={u.id} email={u.email} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // Companies table
 // ---------------------------------------------------------------------------
 
@@ -1234,7 +1140,9 @@ function TrainingTable({ rows }: { rows: TrainingRow[] }) {
             <tbody>
               {rows.map((r) => (
                 <tr key={r.userId} className="border-b border-border/50 last:border-0">
-                  <td className="py-2 pr-4 font-medium">{r.userName}</td>
+                  <td className="py-2 pr-4 font-medium">
+                    <UserName id={r.userId}>{r.userName}</UserName>
+                  </td>
                   <td className="py-2 pr-4 text-muted-foreground">{r.userEmail}</td>
                   <td className="py-2 pr-4">
                     {r.companyName ?? (
@@ -1773,7 +1681,9 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
               <tbody>
                 {data.optedOutUsers.map((u) => (
                   <tr key={u.id} className="border-b border-border/50 last:border-0">
-                    <td className="py-2 pr-4 font-medium">{u.name}</td>
+                    <td className="py-2 pr-4 font-medium">
+                      <UserName id={u.id}>{u.name}</UserName>
+                    </td>
                     <td className="py-2 pr-4 text-muted-foreground">{u.email}</td>
                     <td className="py-2 pr-4">
                       {u.allOff ? (

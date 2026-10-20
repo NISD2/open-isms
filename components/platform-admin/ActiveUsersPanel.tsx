@@ -3,6 +3,7 @@
 import { Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc/client";
+import { UserName } from "./UserDialog";
 
 const signedInAt = new Intl.DateTimeFormat("de-DE", {
   timeZone: "Europe/Berlin",
@@ -48,7 +49,9 @@ export function ActiveUsersPanel() {
               <tbody>
                 {active.data.map((u) => (
                   <tr key={u.id} className="border-b border-border/50 last:border-0">
-                    <td className="py-2 pr-4 font-medium">{u.name}</td>
+                    <td className="py-2 pr-4 font-medium">
+                      <UserName id={u.id}>{u.name}</UserName>
+                    </td>
                     <td className="py-2 pr-4 text-muted-foreground">{u.email}</td>
                     <td className="py-2 pr-4">
                       {u.companyName ?? (
