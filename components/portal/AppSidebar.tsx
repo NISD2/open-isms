@@ -10,9 +10,11 @@ import {
   Footprints,
   Gauge,
   GraduationCap,
+  ListTree,
   Receipt,
   ScrollText,
   Server,
+  ShieldCheck,
   Truck,
   Users,
 } from "lucide-react";
@@ -42,6 +44,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { WALK_ROUTES } from "@/lib/durchgang/routes";
 import { PortalSwitcher } from "./PortalSwitcher";
 import { UserNav } from "./UserNav";
 
@@ -174,11 +177,11 @@ export function AppSidebar({
   const pathname = usePathname();
 
   const journey: NavItem = { href: "/journey", label: t("journey"), icon: Compass };
-  const walkthrough: NavItem = {
-    href: "/durchgang/nis2",
-    label: t("durchgang"),
-    icon: Footprints,
-  };
+  // One walk per framework in the offer: NIS 2, then the GDPR (lib/durchgang/walks.ts).
+  const walkthroughs: NavItem[] = [
+    { href: WALK_ROUTES.nis2.home, label: t("durchgang"), icon: Footprints },
+    { href: WALK_ROUTES.gdpr.home, label: t("durchgangGdpr"), icon: ShieldCheck },
+  ];
 
   // The registers the walk writes into, in the walk's order (2.2 assets, 5.1 suppliers, 2.3 risks,
   // 2.4 and on the policies, 1.1 and 8.2 training, 7.3 reviews).
@@ -189,6 +192,11 @@ export function AppSidebar({
     { href: "/policies", label: t("policies"), icon: FileText },
     { href: "/training", label: t("training"), icon: GraduationCap },
     { href: "/management-reviews", label: t("managementReviews"), icon: ClipboardCheck },
+    {
+      href: "/processing-activities",
+      label: t("processingActivities"),
+      icon: ListTree,
+    },
   ];
 
   // Admin surfaces the walk never covers (org master data, roster, audit log). The roster sits
@@ -219,7 +227,7 @@ export function AppSidebar({
         <SidebarGroup>
           <SidebarGroupLabel>{t("overview")}</SidebarGroupLabel>
           <SidebarGroupContent>
-            <NavMenu items={[walkthrough]} pathname={pathname} />
+            <NavMenu items={walkthroughs} pathname={pathname} />
             {portalOpen && (
               <SidebarMenu>
                 <JourneyItem item={journey} notice={journeyNotice} pathname={pathname} />

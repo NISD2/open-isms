@@ -339,6 +339,13 @@
         "legalBasis": "GDPR Art. 37-39, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Responsabilidad proactiva",
+        "description": "Demostración de que el tratamiento cumple el GDPR: las medidas del art. 24 y, cuando sea proporcionado, políticas de protección de datos",
+        "legalBasis": "GDPR Art. 5(2), 24",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -388,18 +395,6 @@
     "save": "Guardar",
     "saving": "Guardando...",
     "failedToSave": "No se pudo guardar"
-  },
-  "evidence": {
-    "dropzone": "Arrastre el archivo aquí o haga clic para seleccionar",
-    "formats": "PDF, DOCX, XLSX, imágenes",
-    "description": "Descripción (opcional)",
-    "descriptionPlaceholder": "¿Qué demuestra este documento?",
-    "uploading": "Subiendo...",
-    "upload": "Subir evidencia",
-    "uploaded": "Evidencia subida",
-    "fileSaved": "{name} se ha guardado.",
-    "loading": "Cargando archivos...",
-    "uploadFailed": "La subida ha fallado"
   },
   "signoff": {
     "title": "Se requiere la aprobación de la dirección",

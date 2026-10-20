@@ -122,93 +122,38 @@ import {
   storedConfigOf,
 } from "../helpers/durchgang-policy";
 import {
+  actorOf,
+  durchgangProcedure,
+  durchgangWrite,
+  logWalk,
+  recheck,
+} from "../helpers/durchgang-procedures";
+import {
   headlineOf,
   NAMESPACES,
   recordLocaleOf,
   walkItem,
 } from "../helpers/durchgang-words";
 import { approvePolicies, WITHDRAWN_APPROVAL } from "../helpers/policy-approval";
-import {
-  activatedCompanyProcedure,
-  companyProcedure,
-  router,
-  type TRPCContext,
-} from "../init";
+import { router } from "../init";
+import { durchgangGdprRouter } from "./durchgang-gdpr";
 
 /**
  * The Durchgang's own writes: what the existing procedures cannot record. Field answers, uploads
  * and register entries go through intake, evidence and the module routers, as on the requirement
  * page. This router adds the item's trail (a line in `internal_notes`) and its state (an audit row
- * logged like `announceWithdrawal`, which `walk` reads back).
- *
- * The layout gate is not enough on its own: an API call skips it. So every procedure checks the
- * same rule, paid or platform admin, and resolves the item from the session's company and a fixed
- * list of codes.
+ * logged like `announceWithdrawal`, which `walk` reads back). The GDPR walk's own screens are
+ * `gdpr` (./durchgang-gdpr).
  */
-const gate = (session: TRPCContext["session"]) => {
-  if (
-    !session ||
-    !mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email))
-  ) {
-    throw new TRPCError({
-      code: "FORBIDDEN",
-      message: "The Durchgang is not part of this plan.",
-    });
-  }
-};
-
-const durchgangProcedure = companyProcedure.use(({ ctx, next }) => {
-  gate(ctx.session);
-  return next({ ctx });
-});
-
-/** Writes into the company's registers, which need a set-up company like the module routers do. */
-const durchgangWrite = activatedCompanyProcedure.use(({ ctx, next }) => {
-  gate(ctx.session);
-  return next({ ctx });
-});
-
-/**
- * A register changed: sign-offs that relied on it are rechecked, in the background, as the module
- * routers do. A new or renamed row reverts every framework that reads the register; facts only one
- * item's walk records (`of`, that item's code) revert only that walk's framework.
- */
-const recheck = (
-  ctx: { db: TRPCContext["db"]; companyId: string; userId: string },
-  module: CountableModule,
-  of?: string,
-) => {
-  const only = of === undefined ? undefined : walkOfCode(of)?.framework;
-  return invalidateModuleSignOffs(
-    ctx.db,
-    ctx.companyId,
-    module,
-    ctx.userId,
-    only ? [only] : undefined,
-  ).catch((err) => console.error(`[background] ${module} recheck:`, err));
-};
-
-/** The walk's audit entry: its action is one the walk's state and overview know. */
-const logWalk = (entry: Parameters<typeof logAudit>[0] & { action: DurchgangAction }) =>
-  logAudit(entry);
 
 /** How many steps a stored scale has; the column is JSON, so its shape is checked, not assumed. */
 const steps = (levels: unknown) => (Array.isArray(levels) ? levels.length : 0);
-
-const actorOf = (ctx: {
-  companyId: string;
-  userId: string;
-  session: { role: string };
-}): DurchgangActor => ({
-  companyId: ctx.companyId,
-  userId: ctx.userId,
-  role: ctx.session.role,
-});
 
 /** A walk-level procedure names its walk; an item-level one names an item, which names its walk. */
 const framework = z.object({ framework: z.enum(WALK_FRAMEWORKS) });
 
 export const durchgangRouter = router({
+  gdpr: durchgangGdprRouter,
   /** Where each item of the company's walk stands. Read on the server by every Durchgang page. */
   walk: durchgangProcedure
     .input(framework)

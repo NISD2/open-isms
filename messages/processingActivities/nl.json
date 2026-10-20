@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Register van verwerkingsactiviteiten",
+    "description": "Wat uw bedrijf met persoonsgegevens doet, een regel per activiteit, met de gegevens die art. 30 lid 1 AVG vraagt.",
+    "helpText": "Het register vermeldt elke verwerkingsactiviteit van uw bedrijf met de gegevens van art. 30 lid 1 AVG. Het is schriftelijk, ook in elektronische vorm (art. 30 lid 3), en wordt op verzoek ter beschikking gesteld van de toezichthoudende autoriteit (art. 30 lid 4). Werk het bij zodra er een activiteit bijkomt of wegvalt.",
+    "add": "Activiteit toevoegen",
+    "edit": "Activiteit bewerken",
+    "empty": "Uw register bevat nog geen activiteit. De AVG-doorloop stelt de gebruikelijke voor.",
+    "deleteConfirm": "Wilt u deze activiteit echt uit het register verwijderen?",
+    "actions": "Acties",
+    "fields": {
+      "name": "Activiteit",
+      "purpose": "Doel",
+      "dataSubjects": "Betrokkenen",
+      "dataCategories": "Categorieën van gegevens",
+      "specialCategories": "Bijzondere categorieën (art. 9, 10)",
+      "recipients": "Ontvangers",
+      "transfersOutsideEea": "Doorgifte buiten de EER",
+      "transferDetails": "Derde land en grondslag",
+      "retention": "Termijn voor wissing"
+    },
+    "fieldDescriptions": {
+      "name": "Een korte naam voor de activiteit, bijvoorbeeld salarisadministratie of nieuwsbrief.",
+      "purpose": "Waarvoor u de gegevens verwerkt, in één zin (art. 30 lid 1, punt b)).",
+      "dataSubjects": "Wiens gegevens, in groepen, bijvoorbeeld werknemers, klanten of sollicitanten (art. 30 lid 1, punt c)).",
+      "dataCategories": "Welke gegevens, in groepen, bijvoorbeeld contactgegevens, bankgegevens of contractgegevens (art. 30 lid 1, punt c)).",
+      "specialCategories": "Of de activiteit bijzondere categorieën van gegevens omvat als bedoeld in art. 9 lid 1, zoals gezondheidsgegevens, of gegevens over strafrechtelijke veroordelingen en strafbare feiten als bedoeld in art. 10.",
+      "recipients": "Wie de gegevens ontvangt, binnen en buiten het bedrijf, ook dienstverleners en ontvangers in derde landen (art. 30 lid 1, punt d)).",
+      "transfersOutsideEea": "Of gegevens naar een land buiten de EER of naar een internationale organisatie gaan (art. 30 lid 1, punt e)).",
+      "transferDetails": "Het derde land en de grondslag van de doorgifte, bijvoorbeeld een adequaatheidsbesluit of modelcontractbepalingen (art. 30 lid 1, punt e)).",
+      "retention": "Wanneer de gegevens worden gewist, zo mogelijk met de termijn en de grondslag daarvan (art. 30 lid 1, punt f))."
+    }
+  }
+}

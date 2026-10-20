@@ -237,7 +237,12 @@
           "cryptography": "Política de criptografia",
           "personnel_access": "Política de pessoal, acessos e ativos",
           "it_rules": "Regras de compra, manutenção e vulnerabilidades de TI",
-          "business_continuity": "Plano de continuidade de negócio"
+          "business_continuity": "Plano de continuidade de negócio",
+          "gdpr_security_measures": "Descrição das medidas técnicas e organizativas (art. 32 RGPD)",
+          "gdpr_breach_procedure": "Procedimento em caso de violação de dados pessoais (art. 33 RGPD)",
+          "gdpr_breach_notice": "Modelo de comunicação aos titulares dos dados (art. 34 RGPD)",
+          "gdpr_request_procedure": "Procedimento para pedidos dos titulares dos dados (arts. 12 a 22 RGPD)",
+          "gdpr_data_protection_policy": "Política de proteção de dados (art. 24 RGPD)"
         },
         "records": {
           "training_management": "Comprovativos de formação da gestão",
@@ -251,7 +256,9 @@
           "backups": "As suas cópias de segurança e o último restauro bem-sucedido",
           "training_staff": "Formações e instruções do pessoal",
           "management_review": "A sua revisão pela gestão",
-          "approvals": "A sua aprovação de cada documento, com nome e data"
+          "approvals": "A sua aprovação de cada documento, com nome e data",
+          "processing_activities": "O seu registo das atividades de tratamento (art. 30 RGPD)",
+          "processors": "Que prestadores tratam dados em seu nome, com contrato e transferências"
         }
       },
       "people": {

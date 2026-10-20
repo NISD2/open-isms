@@ -63,6 +63,7 @@
     "training": "Formazione",
     "exercises": "Esercitazioni di emergenza",
     "managementReviews": "Riesami della direzione",
+    "processingActivities": "Registro dei trattamenti",
     "kpis": "Metriche di sicurezza",
     "changes": "Modifiche",
     "patches": "Aggiornamenti di sicurezza",
@@ -85,6 +86,7 @@
     "blockedBy": "Completa prima: {codes}",
     "journey": "Percorso",
     "durchgang": "Percorso guidato NIS 2",
+    "durchgangGdpr": "Percorso guidato GDPR",
     "administration": "Amministrazione",
     "comingSoon": "Prossimamente",
     "journeyBoard": {

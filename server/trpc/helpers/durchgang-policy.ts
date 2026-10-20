@@ -10,6 +10,8 @@ import {
   acceptedCryptoText,
   type CryptoLabels,
   criticalProcessesText,
+  dataProtectionOfficerText,
+  enteredDay,
   marker,
   NIS2_WALK,
   POLICY_LISTS,
@@ -20,6 +22,7 @@ import {
   recoveryOrderText,
   reportingChannelText,
   resolveItem,
+  securityDocumentsText,
   type WalkLocale,
   walkOfCode,
 } from "@/lib/durchgang";
@@ -32,7 +35,7 @@ import {
   risk,
   riskAsset,
 } from "@/schema";
-import { walkItemRef } from "./durchgang";
+import { walkItemRef, walkPolicyRows } from "./durchgang";
 import { NAMESPACES, recordLocaleOf, walkItem } from "./durchgang-words";
 
 /**
@@ -129,14 +132,35 @@ const EMERGENCY_LEAD = { code: "3.1", field: "incidentLead" } as const satisfies
   field: CategoryField<"INC">;
 };
 
-/** Who leads in an emergency, as 3.1 saved it, or nothing when 3.1 has no answer yet. */
-const emergencyLeadOf = async (db: Database, companyId: string) => {
-  // Only "3.1 has no row yet" means no lead; any other failure must not print a blank plan.
-  const ref = await walkItemRef(db, companyId, EMERGENCY_LEAD.code).catch((error) => {
+/** Where the GDPR walk names the data protection officer, whom its documents name too. */
+const DATA_PROTECTION_OFFICER = {
+  code: "G-DPO.1",
+  decision: "dpoDecision",
+  name: "dpoName",
+  contact: "dpoContact",
+} as const satisfies {
+  code: string;
+  decision: CategoryField<"DPO">;
+  name: CategoryField<"DPO">;
+  contact: CategoryField<"DPO">;
+};
+
+const NO_ANSWERS: Readonly<Record<string, unknown>> = {};
+
+/**
+ * One item's saved answers, or none while the item has no status row yet. Only "no row yet" means
+ * no answers; any other failure must not print a blank document.
+ */
+const answersOf = async (
+  db: Database,
+  companyId: string,
+  code: string,
+): Promise<Readonly<Record<string, unknown>>> => {
+  const ref = await walkItemRef(db, companyId, code).catch((error) => {
     if (error instanceof TRPCError && error.code === "NOT_FOUND") return null;
     throw error;
   });
-  if (!ref) return null;
+  if (!ref) return NO_ANSWERS;
   const row = await db.query.companyCategoryIntake.findFirst({
     where: and(
       eq(companyCategoryIntake.assessmentId, ref.assessmentId),
@@ -144,14 +168,25 @@ const emergencyLeadOf = async (db: Database, companyId: string) => {
     ),
     columns: { answers: true },
   });
-  return row?.answers?.[EMERGENCY_LEAD.field] ?? null;
+  return row?.answers ?? NO_ANSWERS;
 };
+
+/** The security documents the company's NIS 2 walk wrote, each with the day it was approved. */
+const securityDocumentsOf = async (db: DbOrTx, companyId: string, locale: WalkLocale) =>
+  (await walkPolicyRows(db, companyId, NIS2_WALK)).map((row) => ({
+    title: row.title,
+    approvedOn:
+      row.status !== "draft" && row.effectiveFrom
+        ? enteredDay(locale, row.effectiveFrom)
+        : null,
+  }));
 
 /**
  * What a plan's list names stand for, read off the company's own records: the processes marked
  * `is_critical` with their line, the systems in the order their 2.3 ratings give, where incidents
- * are reported from the company's country, who leads in an emergency from 3.1, and the methods
- * the company's crypto list accepts.
+ * are reported from the company's country, who leads in an emergency from 3.1, the methods
+ * the company's crypto list accepts, its data protection officer from G-DPO.1, and the security
+ * documents its NIS 2 walk wrote.
  */
 const policyListsOf = async (
   db: Database,
@@ -161,7 +196,7 @@ const policyListsOf = async (
   locale: WalkLocale,
 ): Promise<Partial<Record<PolicyList, string>>> => {
   const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
-  const [assets, links, org, lead, crypto] = await Promise.all([
+  const [assets, links, org, lead, crypto, dpo, documents] = await Promise.all([
     needs("criticalProcesses", "recoveryOrder")
       ? db
           .select({
@@ -192,14 +227,18 @@ const policyListsOf = async (
           columns: { country: true },
         })
       : undefined,
-    needs("emergencyLead") ? emergencyLeadOf(db, companyId) : null,
+    needs("emergencyLead") ? answersOf(db, companyId, EMERGENCY_LEAD.code) : NO_ANSWERS,
     needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
+    needs("dataProtectionOfficer")
+      ? answersOf(db, companyId, DATA_PROTECTION_OFFICER.code)
+      : NO_ANSWERS,
+    needs("securityDocuments") ? securityDocumentsOf(db, companyId, locale) : [],
   ]);
   const portal =
     getRegistrationPortals().portals.find((p) => p.countryCode === org?.country) ?? null;
   const text: Record<PolicyList, () => string> = {
     reportingChannel: () => reportingChannelText(locale, portal),
-    emergencyLead: () => personText(lead),
+    emergencyLead: () => personText(lead[EMERGENCY_LEAD.field]),
     criticalProcesses: () =>
       criticalProcessesText(
         assets
@@ -214,6 +253,13 @@ const policyListsOf = async (
         ),
       ),
     acceptedCrypto: () => acceptedCryptoText(locale, cryptoLabelsOf(locale), crypto),
+    dataProtectionOfficer: () =>
+      dataProtectionOfficerText(locale, {
+        decision: dpo[DATA_PROTECTION_OFFICER.decision],
+        name: dpo[DATA_PROTECTION_OFFICER.name],
+        contact: dpo[DATA_PROTECTION_OFFICER.contact],
+      }),
+    securityDocuments: () => securityDocumentsText(locale, documents),
   };
   return Object.fromEntries(used.map((name) => [name, text[name]()]));
 };

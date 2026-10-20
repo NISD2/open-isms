@@ -1,0 +1,67 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DPA_1": {
+        "headline": "Ihre Auftragsverarbeiter und ihre Verträge festhalten",
+        "teaser": "Wer Daten in Ihrem Auftrag verarbeitet, und ob der Vertrag dazu vorliegt.",
+        "missed": [
+          "Der Vertrag muss nicht unterschrieben sein. Er ist schriftlich abzufassen, was auch in einem elektronischen Format erfolgen kann (Art. 28 Abs. 9). Große Anbieter stellen ihn oft online bereit, als Teil ihrer Bedingungen; suchen Sie dort nach „Auftragsverarbeitung“ oder „Data Processing Addendum“.",
+          "Bevor Sie einen Dienstleister beauftragen, prüfen Sie, ob er hinreichende Garantien für geeignete technische und organisatorische Maßnahmen bietet (Art. 28 Abs. 1), etwa anhand der Maßnahmen, die er beschreibt.",
+          "Gehen Daten in ein Land außerhalb des EWR, braucht die Übermittlung eine Grundlage: einen Angemessenheitsbeschluss der Europäischen Kommission (Art. 45), geeignete Garantien wie Standardvertragsklauseln (Art. 46) oder in bestimmten Fällen eine Ausnahme (Art. 49). Dieser Schritt hält die Grundlage fest; die Prüfung im Einzelnen ist noch nicht Teil des Durchgangs."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wer Daten für Sie verarbeitet",
+            "body": [
+              "Verantwortlicher ist, wer über Zwecke und Mittel der Verarbeitung entscheidet (Art. 4 Nr. 7): für die Daten Ihrer Kunden und Beschäftigten also Ihr Unternehmen. Auftragsverarbeiter ist, wer personenbezogene Daten in Ihrem Auftrag verarbeitet (Art. 4 Nr. 8), etwa der Anbieter Ihres Clouddienstes, Ihres E-Mail-Postfachs oder Ihres Newsletterversands.",
+              "Mit jedem Auftragsverarbeiter brauchen Sie einen Vertrag, der ihn an Ihre Weisungen bindet und festlegt, welche Daten er wofür und wie lange verarbeitet (Art. 28 Abs. 3).",
+              "Nicht jeder Dienstleister ist Auftragsverarbeiter. Wer Daten für eigene Zwecke und in eigener Verantwortung verarbeitet, ist selbst Verantwortlicher, etwa Ihre Bank oder Ihr Steuerberater. Mit ihm schließen Sie keinen Vertrag nach Art. 28.",
+              "Die nächsten Schritte gehen Ihre Lieferantenliste durch: Für jeden Lieferanten halten Sie fest, welche Rolle er hat, ob der Vertrag vorliegt und ob Daten den EWR verlassen."
+            ],
+            "duty": "Die DSGVO verlangt, dass Ihr Unternehmen nur Auftragsverarbeiter mit hinreichenden Garantien einsetzt und die Verarbeitung mit jedem in einem Vertrag regelt."
+          },
+          "who_is": {
+            "title": "Auftragsverarbeiter oder selbst verantwortlich",
+            "caption": "Wie Sie einen Dienstleister einordnen",
+            "good": {
+              "value": "Unser Clouddienst speichert die Kundendaten nur für uns und nach unseren Weisungen. Er ist Auftragsverarbeiter, der Vertrag nach Art. 28 liegt vor.",
+              "note": "Der Anbieter entscheidet nicht selbst, wofür die Daten verwendet werden. Darum braucht es den Vertrag."
+            },
+            "bad": {
+              "value": "Unsere Bank verarbeitet die Daten unserer Überweisungen in unserem Auftrag. Wir brauchen mit ihr einen Vertrag zur Auftragsverarbeitung.",
+              "note": "Die Bank führt Zahlungen nach eigenen gesetzlichen Pflichten aus und entscheidet selbst über diese Verarbeitung. Sie ist selbst Verantwortliche; ein Vertrag nach Art. 28 passt nicht."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Unser Steuerberater bekommt die Lohndaten. Er ist selbst Verantwortlicher.",
+                  "note": "Das Steuerberatungsgesetz legt es fest: Steuerberater verarbeiten die Daten ihrer Mandanten weisungsfrei und als Verantwortliche (§ 11 Abs. 2 StBerG)."
+                },
+                "bad": {
+                  "value": "Für den Newsletterdienst brauchen wir nichts, er bekommt ja nur E-Mail-Adressen.",
+                  "note": "Auch E-Mail-Adressen sind personenbezogene Daten. Der Dienst verschickt in Ihrem Auftrag, also ist er Auftragsverarbeiter und braucht den Vertrag."
+                }
+              }
+            ]
+          },
+          "role": {
+            "title": "Welche Rolle jeder Lieferant hat",
+            "lead": "Wählen Sie für jeden Lieferanten, wie er mit personenbezogenen Daten umgeht. Im Zweifel hilft die Frage: Entscheidet er selbst, wofür er die Daten verwendet? Gemeinsam verantwortlich sind Sie nur, wenn Sie mit ihm zusammen über Zwecke und Mittel entscheiden (Art. 26)."
+          },
+          "contract": {
+            "title": "Ob der Vertrag vorliegt",
+            "lead": "Für jeden Auftragsverarbeiter: Liegt der Vertrag zur Auftragsverarbeitung vor? Er kann ein eigenes Dokument sein oder Teil der Bedingungen des Anbieters."
+          },
+          "where": {
+            "title": "Wohin die Daten gehen",
+            "lead": "Bleiben die Daten im EWR, also in der EU, in Island, Liechtenstein und Norwegen? Gehen sie in ein anderes Land, wählen Sie die Grundlage. Sie steht oft im Vertrag zur Auftragsverarbeitung, etwa als Standardvertragsklauseln."
+          },
+          "done": {
+            "title": "Ihre Auftragsverarbeiter sind festgehalten",
+            "note": "Wo der Vertrag fehlt, fordern Sie ihn beim Anbieter an und tragen ihn nach, sobald er vorliegt."
+          }
+        }
+      }
+    }
+  }
+}

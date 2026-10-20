@@ -30,7 +30,8 @@
       "internal_audit": "Audits internes",
       "improvement_item": "Améliorations",
       "bsi_registration": "Enregistrement BSI",
-      "bsi_incident_report": "Notifications d'incident BSI"
+      "bsi_incident_report": "Notifications d'incident BSI",
+      "processing_activity": "Registre des activités de traitement"
     },
     "moduleRef": {
       "confirmCompliance": "Confirmer la conformité",

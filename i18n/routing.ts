@@ -274,6 +274,16 @@ export const routing = defineRouting({
       de: "/durchgang/nis2/unternehmen",
       en: "/walkthrough/nis2/company",
     },
+    // The GDPR walkthrough, written in German and English (lib/durchgang/gdpr.ts).
+    "/durchgang/dsgvo": { de: "/durchgang/dsgvo", en: "/walkthrough/gdpr" },
+    "/durchgang/dsgvo/[code]": {
+      de: "/durchgang/dsgvo/[code]",
+      en: "/walkthrough/gdpr/[code]",
+    },
+    "/durchgang/dsgvo/freigabe": {
+      de: "/durchgang/dsgvo/freigabe",
+      en: "/walkthrough/gdpr/approval",
+    },
     "/exercises": "/exercises",
     "/export": "/export",
     "/export/gesamt": { de: "/export/gesamt", en: "/export/complete" },
@@ -286,6 +296,7 @@ export const routing = defineRouting({
     "/journey": "/journey",
     "/kpis": "/kpis",
     "/management-reviews": "/management-reviews",
+    "/processing-activities": "/processing-activities",
     "/notifications": "/notifications",
     "/organization": "/organization",
     "/patches": "/patches",

@@ -63,6 +63,7 @@
     "training": "Training",
     "exercises": "Emergency Drills",
     "managementReviews": "Management reviews",
+    "processingActivities": "Processing activities",
     "kpis": "Security Metrics",
     "changes": "Changes",
     "patches": "Security Updates",
@@ -85,6 +86,7 @@
     "blockedBy": "Complete first: {codes}",
     "journey": "Journey",
     "durchgang": "NIS 2 walkthrough",
+    "durchgangGdpr": "GDPR walkthrough",
     "administration": "Administration",
     "comingSoon": "Coming soon",
     "examples": {

@@ -30,6 +30,36 @@
           ],
           "start": "Let's start"
         }
+      },
+      "gdpr": {
+        "title": "GDPR walkthrough",
+        "continue": "Continue your GDPR walkthrough",
+        "approvalLead": "These documents were written in your company's GDPR walkthrough. Read each one and approve it. Your approval is recorded with your name and today's date.",
+        "approvalLeadOthers": "These documents were written in your company's GDPR walkthrough. Management approves them here, signed in with its own account.",
+        "intro": {
+          "eyebrow": "Data protection for mid-sized companies",
+          "title": "The GDPR, item by item.",
+          "lead": "Data protection officer, record, service providers, security, breaches and requests: we go through selected duties of the GDPR with you and write the documents your company needs for them along the way.",
+          "points": [
+            {
+              "title": "What you already have",
+              "text": "Your supplier list and your security documents from the NIS 2 walkthrough are carried over where they fit."
+            },
+            {
+              "title": "Suggestions, not blank pages",
+              "text": "Every activity on the record comes with a suggestion. You use it or change it."
+            },
+            {
+              "title": "Clear about what is missing",
+              "text": "The walkthrough covers selected duties, not the whole GDPR. The first step says what it does not cover yet."
+            },
+            {
+              "title": "Approval at the end",
+              "text": "Management reviews all documents and approves them. The GDPR does not ask for a signature."
+            }
+          ],
+          "start": "Let's start"
+        }
       }
     }
   }

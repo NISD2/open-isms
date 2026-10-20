@@ -122,6 +122,16 @@ export const supplierRelationshipStatusEnum = pgEnum("supplier_relationship_stat
   "bounced",
 ]);
 
+/**
+ * How the controller authorised a processor to engage sub-processors (Art. 28(2) GDPR): for each
+ * one by name (specific), or in general with the processor telling it of every change so it can
+ * object.
+ */
+export const subprocessorAuthorisationEnum = pgEnum("subprocessor_authorisation", [
+  "general",
+  "specific",
+]);
+
 export const transferMechanismEnum = pgEnum("transfer_mechanism", [
   "adequacy",
   "sccs",

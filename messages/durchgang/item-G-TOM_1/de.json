@@ -1,0 +1,101 @@
+{
+  "durchgang": {
+    "items": {
+      "G-TOM_1": {
+        "headline": "Die Sicherheit Ihrer personenbezogenen Daten beschreiben",
+        "teaser": "Welche Maßnahmen die Daten schützen, nach Art. 32 geordnet.",
+        "missed": [
+          "Maßgeblich ist das Risiko für die Menschen, deren Daten Sie verarbeiten, nicht allein das für Ihr Unternehmen (Art. 32 Abs. 1). Gelangt eine Personalakte in falsche Hände, trifft der Schaden vor allem die Beschäftigten.",
+          "Wer Zugang zu personenbezogenen Daten hat, darf sie nur auf Ihre Anweisung verarbeiten; Sie unternehmen Schritte, um das sicherzustellen (Art. 32 Abs. 4). Viele Unternehmen unterweisen dafür ihre Beschäftigten und verpflichten sie schriftlich zur Vertraulichkeit.",
+          "Verschlüsselte Geräte zahlen sich bei einer Datenpanne aus: Waren die Daten für Unbefugte unzugänglich, etwa durch Verschlüsselung, müssen Sie die Betroffenen nicht benachrichtigen (Art. 34 Abs. 3 Buchst. a)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Sicherheit der Verarbeitung",
+            "body": [
+              "Personenbezogene Daten schützen Sie mit technischen und organisatorischen Maßnahmen, angemessen zum Risiko. Was angemessen ist, richtet sich nach dem Stand der Technik, den Kosten und danach, wie wahrscheinlich und wie schwer ein Schaden für die betroffenen Menschen wäre (Art. 32 Abs. 1).",
+              "Die DSGVO nennt Beispiele: Pseudonymisierung und Verschlüsselung; Systeme, die auf Dauer vertraulich, integer, verfügbar und belastbar sind; die rasche Wiederherstellung nach einem Zwischenfall; und ein Verfahren, das die Wirksamkeit der Maßnahmen regelmäßig überprüft.",
+              "Hat Ihr Unternehmen den NIS 2 Durchgang gemacht, ist vieles davon schon festgelegt: Zugänge, Verschlüsselung, Datensicherung, Updates. Das Dokument in diesem Schritt nennt diese Dokumente und sagt, dass sie auch für personenbezogene Daten gelten. Darunter wählen Sie, was die DSGVO darüber hinaus nahelegt."
+            ],
+            "duty": "Die DSGVO verlangt, dass Ihr Unternehmen geeignete technische und organisatorische Maßnahmen trifft, um ein dem Risiko angemessenes Schutzniveau für personenbezogene Daten zu gewährleisten."
+          },
+          "measures": {
+            "title": "Ihre Maßnahmen zur Sicherheit der Verarbeitung",
+            "lead": "Geordnet nach Art. 32 Abs. 1 Buchst. a bis d. Ihr Firmenname und die Sicherheitsdokumente aus dem NIS 2 Durchgang stehen schon darin. Lesen Sie es, und wählen Sie darunter, was bei Ihnen zusätzlich gilt.",
+            "document": {
+              "title": "Technische und organisatorische Maßnahmen der {company} nach Art. 32 DSGVO",
+              "sections": [
+                {
+                  "heading": "Zweck und Geltungsbereich",
+                  "text": "Dieses Dokument beschreibt, wie die {company} die personenbezogenen Daten schützt, die sie als Verantwortliche verarbeitet: die Daten ihrer Beschäftigten, Bewerber, Kunden, Lieferanten und aller anderen Personen in ihrem Verzeichnis von Verarbeitungstätigkeiten. Es gilt für alle Systeme, Akten und Dienstleister, mit denen diese Daten verarbeitet werden. Die Maßnahmen richten sich nach dem Risiko für die betroffenen Menschen."
+                },
+                {
+                  "heading": "Unsere Sicherheitsdokumente",
+                  "text": "Die folgenden Dokumente unserer Informationssicherheit gelten auch für die Systeme, in denen wir personenbezogene Daten verarbeiten, und sind Teil dieser Beschreibung: {securityDocuments}"
+                },
+                {
+                  "heading": "Pseudonymisierung und Verschlüsselung (Art. 32 Abs. 1 Buchst. a)",
+                  "text": "Personenbezogene Daten übertragen wir verschlüsselt, etwa über unsere Website und beim Fernzugriff. Wo Personen für einen Zweck nicht erkennbar sein müssen, etwa bei Auswertungen, ersetzen wir Namen durch Kennungen oder lassen sie weg."
+                },
+                {
+                  "heading": "Vertraulichkeit, Integrität, Verfügbarkeit und Belastbarkeit (Buchst. b)",
+                  "text": "Zugang zu personenbezogenen Daten bekommt nur, wer ihn für seine Aufgabe braucht. Zugänge sind persönlich und werden entzogen, wenn jemand das Unternehmen verlässt oder die Aufgabe wechselt. Wer Zugang hat, verarbeitet die Daten nur auf unsere Anweisung (Art. 32 Abs. 4 DSGVO). Sicherheitsupdates spielen wir zeitnah ein. Papierakten mit personenbezogenen Daten bewahren wir verschlossen auf."
+                },
+                {
+                  "heading": "Wiederherstellung nach einem Zwischenfall (Buchst. c)",
+                  "text": "Wir sichern die Daten regelmäßig, und so, dass ein Angriff oder Ausfall nicht zugleich die Sicherungen trifft. Dass die Wiederherstellung funktioniert, prüfen wir mit Tests."
+                },
+                {
+                  "heading": "Regelmäßige Überprüfung (Buchst. d)",
+                  "text": "Wir überprüfen regelmäßig, ob diese Maßnahmen wirken, außerdem nach jedem Vorfall und jeder größeren Änderung an Systemen oder Verarbeitungen. Was wir prüfen, finden und ändern, halten wir fest."
+                },
+                {
+                  "heading": "Dienstleister",
+                  "text": "Auftragsverarbeiter setzen wir nur ein, wenn sie hinreichende Garantien für geeignete technische und organisatorische Maßnahmen bieten, und nur mit einem Vertrag nach Art. 28 DSGVO, der sie auf die Maßnahmen nach Art. 32 verpflichtet."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "devices",
+                  "label": "Verschlüsselte Laptops und Handys",
+                  "heading": "Verschlüsselte Geräte",
+                  "text": "Die Festplatten unserer Laptops und die Speicher unserer Diensthandys sind verschlüsselt. Geht ein Gerät verloren, sind die Daten darauf für Unbefugte nicht lesbar."
+                },
+                {
+                  "id": "pseudonymisation",
+                  "label": "Pseudonymisierung",
+                  "heading": "Pseudonymisierung",
+                  "text": "Für Auswertungen, Tests und Statistiken verwenden wir pseudonymisierte Daten: Namen sind durch Kennungen ersetzt, und die Zuordnung wird getrennt und geschützt aufbewahrt (Art. 4 Nr. 5 DSGVO)."
+                },
+                {
+                  "id": "testing",
+                  "label": "Jährliche Prüfung",
+                  "heading": "Jährliche Prüfung",
+                  "text": "Einmal im Jahr lassen wir die Wirksamkeit unserer Maßnahmen prüfen, etwa durch unseren IT-Dienstleister oder einen externen Sicherheitstest, und halten das Ergebnis fest."
+                },
+                {
+                  "id": "confidentiality",
+                  "label": "Verpflichtung auf Vertraulichkeit",
+                  "heading": "Verpflichtung auf Vertraulichkeit",
+                  "text": "Beschäftigte mit Zugang zu personenbezogenen Daten verpflichten wir bei Beginn ihrer Tätigkeit schriftlich zur Vertraulichkeit und unterweisen sie im Umgang mit den Daten."
+                },
+                {
+                  "id": "disposal",
+                  "label": "Sichere Entsorgung",
+                  "heading": "Sichere Entsorgung",
+                  "text": "Papier mit personenbezogenen Daten vernichten wir mit einem Aktenvernichter oder über einen Entsorgungsdienst. Datenträger und alte Geräte löschen wir sicher oder lassen sie zerstören, bevor sie das Haus verlassen."
+                }
+              ],
+              "own": "Weitere Maßnahmen",
+              "signature": "Freigabe durch die Geschäftsführung der {company}"
+            }
+          },
+          "done": {
+            "title": "Ihre Maßnahmen sind beschrieben",
+            "note": "Ändern sich Ihre Systeme oder kommen neue Verarbeitungen dazu, passen Sie die Beschreibung an."
+          }
+        }
+      }
+    }
+  }
+}

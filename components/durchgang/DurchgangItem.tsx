@@ -53,6 +53,7 @@ import {
 } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
+import { Activities, Describe } from "./ActivityScreens";
 import { Agreements } from "./AgreementScreen";
 import { Approve } from "./ApproveScreen";
 import { BackupsScreen } from "./BackupsScreen";
@@ -70,6 +71,7 @@ import {
 import { GlossProvider } from "./Glossed";
 import { Logins } from "./LoginScreen";
 import { PolicyScreen } from "./PolicyScreen";
+import { Processors } from "./ProcessorScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
 import { RiskMapScreen } from "./RiskMapScreen";
@@ -112,6 +114,9 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   critical: LifeBuoy,
   backups: DatabaseBackup,
   crypto: LockKeyhole,
+  activities: ListChecks,
+  describe: PenLine,
+  processors: Handshake,
   ongoing: CalendarClock,
   done: CircleCheckBig,
 };
@@ -305,6 +310,12 @@ export function DurchgangItem({
         return <CryptoScreen {...work} entry={entry} />;
       case "riskmap":
         return <RiskMapScreen {...work} entry={entry} />;
+      case "activities":
+        return <Activities {...work} entry={entry} />;
+      case "describe":
+        return <Describe {...work} entry={entry} />;
+      case "processors":
+        return <Processors {...work} entry={entry} />;
       case "ongoing":
         return <Ongoing entry={entry} />;
       case "done":

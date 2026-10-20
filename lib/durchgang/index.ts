@@ -9,6 +9,29 @@ export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
 export { coveredState, journeyStates } from "./coverage";
 export type { Gap, GapFacts, ShownGap } from "./gaps";
 export { GAP_STEP, gapLines, gapsOf, withPlanSlot } from "./gaps";
+export { GDPR_WALK } from "./gdpr";
+export type {
+  ActivityFact,
+  ActivityGroup,
+  ProcessorAnswer,
+  ProcessorFact,
+  ProcessorRole,
+  StoredProcessor,
+  SubprocessorAuthorisation,
+  TransferMechanism,
+} from "./gdpr-records";
+export {
+  ACTIVITY_FACTS,
+  ACTIVITY_GROUPS,
+  isProcessor,
+  PROCESSOR_FACTS,
+  PROCESSOR_ROLES,
+  roleOf,
+  SUBPROCESSOR_AUTHORISATIONS,
+  storedAnswer,
+  TRANSFER_MECHANISMS,
+  YES_NO_FACTS,
+} from "./gdpr-records";
 export { dutyHref } from "./law";
 export { leavesNoChoice } from "./must-do";
 export { NIS2_WALK } from "./nis2";
@@ -32,6 +55,7 @@ export type { CryptoLabels, PolicyDocument, PolicyPart } from "./policy";
 export {
   acceptedCryptoText,
   criticalProcessesText,
+  dataProtectionOfficerText,
   personText,
   policyNames,
   policyParts,
@@ -40,6 +64,7 @@ export {
   policyTitle,
   recoveryOrderText,
   reportingChannelText,
+  securityDocumentsText,
 } from "./policy";
 export type {
   AssetSlice,

@@ -339,6 +339,13 @@
         "legalBasis": "GDPR Art. 37-39, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Responsabilitate",
+        "description": "Demonstrarea faptului că prelucrarea respectă GDPR: măsurile de la art. 24 și, atunci când sunt proporționale, politici de protecție a datelor",
+        "legalBasis": "GDPR Art. 5(2), 24",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -388,18 +395,6 @@
     "save": "Salveaza",
     "saving": "Se salveaza...",
     "failedToSave": "Salvarea a esuat"
-  },
-  "evidence": {
-    "dropzone": "Trageti fisierul aici sau faceti clic pentru a selecta",
-    "formats": "PDF, DOCX, XLSX, imagini",
-    "description": "Descriere (optional)",
-    "descriptionPlaceholder": "Ce dovedeste acest document?",
-    "uploading": "Se incarca...",
-    "upload": "Incarca dovada",
-    "uploaded": "Dovada incarcata",
-    "fileSaved": "{name} a fost salvat.",
-    "loading": "Se incarca fisierele...",
-    "uploadFailed": "Incarcarea a esuat"
   },
   "signoff": {
     "title": "Este necesara aprobarea conducerii",

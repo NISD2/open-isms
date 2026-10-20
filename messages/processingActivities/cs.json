@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Záznamy o činnostech zpracování",
+    "description": "Co vaše společnost dělá s osobními údaji, jeden řádek na činnost, s údaji podle čl. 30 odst. 1 GDPR.",
+    "helpText": "Záznamy uvádějí každou činnost zpracování vaší společnosti s údaji podle čl. 30 odst. 1 GDPR. Vedou se písemně, i v elektronické podobě (čl. 30 odst. 3), a na požádání se zpřístupní dozorovému úřadu (čl. 30 odst. 4). Upravte je, jakmile nějaká činnost přibude nebo odpadne.",
+    "add": "Přidat činnost",
+    "edit": "Upravit činnost",
+    "empty": "Ve vašich záznamech zatím není žádná činnost. Průvodce GDPR vám navrhne ty obvyklé.",
+    "deleteConfirm": "Opravdu chcete tuto činnost ze záznamů odstranit?",
+    "actions": "Akce",
+    "fields": {
+      "name": "Činnost",
+      "purpose": "Účel",
+      "dataSubjects": "Subjekty údajů",
+      "dataCategories": "Kategorie osobních údajů",
+      "specialCategories": "Zvláštní kategorie (čl. 9, 10)",
+      "recipients": "Příjemci",
+      "transfersOutsideEea": "Předání mimo EHP",
+      "transferDetails": "Třetí země a právní základ",
+      "retention": "Lhůta pro výmaz"
+    },
+    "fieldDescriptions": {
+      "name": "Krátký název činnosti, například mzdové účetnictví nebo newsletter.",
+      "purpose": "K čemu údaje zpracováváte, jednou větou (čl. 30 odst. 1 písm. b)).",
+      "dataSubjects": "Čí údaje, po skupinách, například zaměstnanci, zákazníci nebo uchazeči (čl. 30 odst. 1 písm. c)).",
+      "dataCategories": "Jaké údaje, po skupinách, například kontaktní údaje, bankovní spojení nebo smluvní údaje (čl. 30 odst. 1 písm. c)).",
+      "specialCategories": "Zda činnost zahrnuje zvláštní kategorie údajů podle čl. 9 odst. 1, například údaje o zdravotním stavu, nebo údaje týkající se rozsudků v trestních věcech a trestných činů podle čl. 10.",
+      "recipients": "Kdo údaje dostává, ve společnosti i mimo ni, včetně poskytovatelů služeb a příjemců ve třetích zemích (čl. 30 odst. 1 písm. d)).",
+      "transfersOutsideEea": "Zda údaje směřují do země mimo EHP nebo mezinárodní organizaci (čl. 30 odst. 1 písm. e)).",
+      "transferDetails": "Třetí země a základ předání, například rozhodnutí o odpovídající ochraně nebo standardní smluvní doložky (čl. 30 odst. 1 písm. e)).",
+      "retention": "Kdy budou údaje vymazány, pokud možno s lhůtou a jejím důvodem (čl. 30 odst. 1 písm. f))."
+    }
+  }
+}

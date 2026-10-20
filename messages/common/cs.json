@@ -32,7 +32,8 @@
       "bsi_registration": "Registrace u NÚKIB",
       "bsi_incident_report": "Hlášení incidentů",
       "vulnerability": "Zranitelnosti",
-      "team": "Tým a role"
+      "team": "Tým a role",
+      "processing_activity": "Záznamy o činnostech zpracování"
     },
     "moduleRef": {
       "confirmCompliance": "Potvrdit shodu",

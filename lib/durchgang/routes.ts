@@ -12,6 +12,13 @@ export const WALK_ROUTES = {
     approval: "/durchgang/nis2/freigabe",
     setup: "/durchgang/nis2/unternehmen",
   },
+  gdpr: {
+    home: "/durchgang/dsgvo",
+    item: "/durchgang/dsgvo/[code]",
+    approval: "/durchgang/dsgvo/freigabe",
+    // Setting a company up is one step, the NIS 2 walk's; the GDPR walk opens after it.
+    setup: "/durchgang/nis2/unternehmen",
+  },
 } as const satisfies Record<
   WalkFramework,
   { home: string; item: string; approval: string; setup: string }

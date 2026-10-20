@@ -107,6 +107,11 @@ export interface ItemView {
     /** The catalogue sectors of the company's profile, whose own entries the checklists add. */
     readonly sectors: readonly string[];
   } | null;
+  /**
+   * For an item with activity screens: the catalogue activities its asset list from the NIS 2 walk
+   * suggests and its record does not hold yet, which start ticked. Empty for every other item.
+   */
+  readonly suggestedActivities: readonly string[];
   /** When the company took over the BSI method in the walk; a second pass then writes nothing. */
   readonly adoptedAt: Date | null;
   /** Loaded only for an item with a registration portals or reporting channels screen. */

@@ -20,14 +20,12 @@ import type {
 } from "@nisd2/grc-data-model/enums";
 import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
-import {
-  BCP_SCHEMA,
-  type CategoryCode,
-  type CategoryField,
-} from "@/lib/compliance/category-schemas";
+import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
+import { BCP_SCHEMA } from "@/lib/compliance/category-schemas/nis2";
 import type { CountableModule } from "@/lib/compliance/module-tables";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { settledFactEnum } from "@/schema/enums";
+import type { ActivityFact, ActivityGroup, ProcessorFact } from "./gdpr-records";
 import type { AssetSlice, RatingTarget } from "./ratings";
 
 /** A framework as the database enum on `compliance_framework.code` defines it. */
@@ -47,7 +45,10 @@ export const walkLocaleOf = (
 ): WalkLocale => written.find((l) => l === locale) ?? "en";
 
 /** The frameworks that have a walk, by their `compliance_framework.code`. */
-export const WALK_FRAMEWORKS = ["nis2"] as const satisfies readonly FrameworkCode[];
+export const WALK_FRAMEWORKS = [
+  "nis2",
+  "gdpr",
+] as const satisfies readonly FrameworkCode[];
 export type WalkFramework = (typeof WALK_FRAMEWORKS)[number];
 
 /**
@@ -145,8 +146,9 @@ export type BackupFrequency = (typeof BACKUP_FREQUENCIES)[number];
 /**
  * Names a policy may carry that the server reads off the company's own records rather than off
  * an answer: the processes that must keep running, the order systems come back in, where
- * incidents are reported (from the company's country), who leads in an emergency (from 3.1), and
- * the cryptographic methods the company accepts (its crypto list, 9.1).
+ * incidents are reported (from the company's country), who leads in an emergency (from 3.1), the
+ * cryptographic methods the company accepts (its crypto list, 9.1), its data protection officer
+ * (G-DPO.1) and the security documents its NIS 2 walk wrote, with their state.
  */
 export const POLICY_LISTS = [
   "criticalProcesses",
@@ -154,6 +156,8 @@ export const POLICY_LISTS = [
   "reportingChannel",
   "emergencyLead",
   "acceptedCrypto",
+  "dataProtectionOfficer",
+  "securityDocuments",
 ] as const;
 export type PolicyList = (typeof POLICY_LISTS)[number];
 
@@ -168,6 +172,11 @@ export const POLICY_TEMPLATES = [
   "personnel_access",
   "it_rules",
   "business_continuity",
+  "gdpr_security_measures",
+  "gdpr_breach_procedure",
+  "gdpr_breach_notice",
+  "gdpr_request_procedure",
+  "gdpr_data_protection_policy",
 ] as const;
 export type PolicyTemplate = (typeof POLICY_TEMPLATES)[number];
 
@@ -291,6 +300,23 @@ export type Screen<C extends CategoryCode> =
    * type `crypto`), or the BSI TR-02102 list until it has one, which the item's policy prints.
    */
   | { readonly kind: "crypto"; readonly id: string }
+  /**
+   * One slice of the processing-activity catalogue: the person ticks what the company does, which
+   * becomes rows of its record of processing activities (`processing_activity`).
+   */
+  | {
+      readonly kind: "activities";
+      readonly id: string;
+      readonly groups: readonly ActivityGroup[];
+    }
+  /** Each activity on the record, with the Art. 30(1) facts this screen asks of it. */
+  | {
+      readonly kind: "describe";
+      readonly id: string;
+      readonly facts: readonly ActivityFact[];
+    }
+  /** Each supplier on the list, with one GDPR fact about it (`PROCESSOR_FACTS`). */
+  | { readonly kind: "processors"; readonly id: string; readonly fact: ProcessorFact }
   /**
    * What the company does itself from now on, after management signed: the duties that arise
    * when something happens, the ones that recur, and the ones that never end. Read only.

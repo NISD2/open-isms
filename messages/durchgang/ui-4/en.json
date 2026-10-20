@@ -1,0 +1,103 @@
+{
+  "durchgang": {
+    "ui": {
+      "kinds": {
+        "activities": "Your record",
+        "describe": "Describe",
+        "processors": "Check"
+      },
+      "activities": {
+        "count": "{count, plural, =0 {No activity on your record yet} one {# activity on your record} other {# activities on your record}}",
+        "suggested": "Ticked because your list from the NIS 2 walkthrough has a matching entry",
+        "onRecord": "Already on your record",
+        "own": "Add an activity of your own",
+        "ownPlaceholder": "For example: occupational health service",
+        "add": "Add",
+        "remove": "Remove",
+        "toRecord": "To the record",
+        "noted": "Added to the record",
+        "recorded": "On your record of processing activities"
+      },
+      "describe": {
+        "empty": "Your record has no activity yet. Choose your activities on the steps before.",
+        "suggestion": "Suggestion",
+        "useSuggestion": "Use it",
+        "facts": {
+          "purpose": {
+            "label": "Purpose",
+            "hint": "What you process the data for, in one sentence."
+          },
+          "dataSubjects": {
+            "label": "People concerned",
+            "hint": "Whose data, as groups: for example staff, customers, applicants."
+          },
+          "dataCategories": {
+            "label": "Categories of data",
+            "hint": "Which data, as groups: for example contact details, bank details, contract data."
+          },
+          "specialCategories": {
+            "label": "Specially protected data",
+            "hint": "For example health, religion, trade union membership or biometric data (Art. 9 GDPR), or data on criminal convictions and offences (Art. 10).",
+            "yes": "Yes, such data too",
+            "no": "No"
+          },
+          "recipients": {
+            "label": "Recipients",
+            "hint": "Who receives the data, inside the company and outside: for example the tax adviser, a payroll service, the tax office."
+          },
+          "transfersOutsideEea": {
+            "label": "Outside the EEA",
+            "hint": "Does the data go to a country outside the EU, Iceland, Liechtenstein and Norway?",
+            "yes": "Yes",
+            "no": "No",
+            "details": "Where to, and on which basis",
+            "detailsHint": "For example: USA, standard contractual clauses"
+          },
+          "retention": {
+            "label": "Time limit for erasure",
+            "hint": "When the data is erased, where it is possible to say."
+          }
+        }
+      },
+      "processors": {
+        "empty": "Your supplier list is empty. Enter your service providers on the suppliers page.",
+        "noProcessors": "None of your suppliers processes data on your behalf. There is nothing to do here.",
+        "onlyProcessors": "These are the suppliers that process data on your behalf.",
+        "toSuppliers": "To the supplier list",
+        "recorded": "Processors",
+        "noted": {
+          "role": "Suppliers' roles recorded",
+          "contract": "Data processing agreements recorded",
+          "transfer": "Transfers outside the EEA recorded",
+          "subprocessing": "Authorisation of sub-processors recorded"
+        },
+        "role": {
+          "processor": "Processes data on our behalf",
+          "separate_controller": "Processes data for its own purposes",
+          "joint_controller": "Decides purposes and means together with us",
+          "none": "Receives no personal data"
+        },
+        "contract": {
+          "yes": "A data processing agreement is in place",
+          "no": "No agreement yet"
+        },
+        "transfer": {
+          "no": "The data stays in the EEA",
+          "yes": "The data also goes to a country outside the EEA",
+          "mechanism": "Basis",
+          "mechanisms": {
+            "adequacy": "Adequacy decision of the European Commission",
+            "sccs": "Standard contractual clauses",
+            "bcr": "Binding corporate rules",
+            "derogation": "Derogation under Art. 49 GDPR",
+            "none": "No basis known"
+          }
+        },
+        "subprocessing": {
+          "general": "General authorisation: the provider reports every intended change, and we can object",
+          "specific": "Each sub-processor is authorised one by one"
+        }
+      }
+    }
+  }
+}

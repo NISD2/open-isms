@@ -1,0 +1,69 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DPO_1": {
+        "headline": "Find out whether you must designate a data protection officer",
+        "teaser": "Whether you must designate one, who it is and how to reach them.",
+        "missed": [
+          "This walkthrough covers selected duties of a controller: the data protection officer, the record of processing activities, processors, security of processing, personal data breaches, requests from data subjects and your data protection policy. It is not the whole GDPR.",
+          "Not covered yet: the legal basis of each processing activity (Art. 6), privacy notices, for example for your website, staff and applicants (Art. 13, 14), data protection impact assessments (Art. 35), transfers to third countries in depth (Art. 44 to 49), arrangements with joint controllers (Art. 26) and the duties that apply when your company itself processes data on behalf of its customers (Art. 28, Art. 30(2)). Until then, you handle these yourself or with your data protection officer.",
+          "A data protection officer may have other tasks, as long as they do not result in a conflict of interests (Art. 38(6)). Someone who decides on the purposes and means of processing, such as management, is badly placed to monitor themselves."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Do you need a data protection officer?",
+            "body": [
+              "A data protection officer advises your company and monitors whether it complies with the GDPR. They report directly to the highest management level (Art. 38(3), Art. 39). They can be a member of staff or an external provider under a service contract (Art. 37(6)).",
+              "The GDPR requires one where your core activities consist of regular and systematic monitoring of people on a large scale, or of processing on a large scale special categories of data, such as health data, or data relating to criminal convictions and offences (Art. 37(1)). Public authorities and bodies always need one.",
+              "In Germany, § 38(1) BDSG adds a further case: the duty applies as far as, as a rule, at least 20 persons are constantly engaged in the automated processing of personal data. On the common reading this counts everyone whose work regularly involves people's data on a computer, not only IT. Regardless of that number, it applies where you carry out processing that is subject to a data protection impact assessment, or process data commercially for transfer or for market or opinion research.",
+              "If you do not have to designate anyone, the GDPR's duties still rest with your company. You may also designate one voluntarily (Art. 37(4))."
+            ],
+            "duty": "The GDPR and the German BDSG require your company, in certain cases, to designate a data protection officer, publish their contact details and communicate them to the supervisory authority."
+          },
+          "decision": {
+            "title": "Your decision",
+            "lead": "Go through the cases on the previous step. If one applies, you must designate one. If none applies, decide whether to designate one voluntarily.",
+            "document": "Designation of the data protection officer",
+            "steps": [
+              "Count the persons who, as a rule, are constantly engaged in the automated processing of personal data. If there are 20 or more, the duty applies in Germany.",
+              "Check the other cases: monitoring people or special categories of data as a core activity, processing that needs a data protection impact assessment, trading in data, market or opinion research.",
+              "If none of this applies, decide whether to designate someone anyway."
+            ]
+          },
+          "who": {
+            "title": "Who it is and how to reach them",
+            "lead": "Name the person or the provider, the contact details you publish, and the day you communicated them to the supervisory authority (Art. 37(7)). If you have not designated anyone, leave the fields empty.",
+            "document": "Designation of the data protection officer"
+          },
+          "done": {
+            "title": "Your decision is recorded",
+            "note": "If the contact details are not yet in your privacy notice, add them there."
+          }
+        },
+        "fields": {
+          "dpoDecision": {
+            "label": "Must you designate a data protection officer?",
+            "hint": "If one of the cases applies, the answer is \"Yes, required\". Check again when your company grows or new processing is added.",
+            "options": {
+              "required": "Yes, required",
+              "voluntary": "Not required, we designate one voluntarily",
+              "none": "Not required, we designate no one"
+            }
+          },
+          "dpoName": {
+            "label": "Data protection officer",
+            "hint": "The name of the person in the company, or the external provider and the person there who looks after you."
+          },
+          "dpoContact": {
+            "label": "Published contact details",
+            "hint": "The address you publish, for example in the privacy notice on your website. An address of its own, such as dataprotection@ at your domain, stays valid when the person changes."
+          },
+          "dpoAuthorityNotifiedOn": {
+            "label": "Communicated to the supervisory authority on",
+            "hint": "For a company in Germany this is, as a rule, the data protection authority of its federal state (§ 40 BDSG)."
+          }
+        }
+      }
+    }
+  }
+}

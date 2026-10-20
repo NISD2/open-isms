@@ -1,13 +1,16 @@
 import { describe, expect, test } from "bun:test";
-import { NIS2_WALK } from "./index";
+import { ALL_ITEMS, GDPR_WALK, NIS2_WALK } from "./index";
 import { placesOf, WALK_REGISTERS } from "./places";
 
 const { items: WALK } = NIS2_WALK;
 
-describe("where each register is filled in the walk", () => {
-  test("every register the walk writes into has at least one place", () => {
+describe("where each register is filled in the walks", () => {
+  test("every register a walk writes into has at least one place in some walk", () => {
     for (const register of WALK_REGISTERS) {
-      expect(placesOf(WALK, register).length).toBeGreaterThan(0);
+      expect({ register, places: placesOf(ALL_ITEMS, register).length > 0 }).toEqual({
+        register,
+        places: true,
+      });
     }
   });
 
@@ -21,5 +24,15 @@ describe("where each register is filled in the walk", () => {
 
   test("the management review register is filled at 7.3", () => {
     expect(placesOf(WALK, "managementReviews").map((p) => p.code)).toEqual(["7.3"]);
+  });
+
+  test("the record of processing activities is filled at G-ROP.1, the supplier list in both walks", () => {
+    expect(placesOf(GDPR_WALK.items, "processingActivities").map((p) => p.code)).toEqual([
+      "G-ROP.1",
+    ]);
+    expect(placesOf(GDPR_WALK.items, "suppliers").map((p) => p.code)).toEqual([
+      "G-DPA.1",
+      "G-DPA.2",
+    ]);
   });
 });

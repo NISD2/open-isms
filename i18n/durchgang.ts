@@ -1,8 +1,10 @@
 /**
  * The Durchgang's words: one namespace, `durchgang`, stored in parts so no file outgrows what a
- * reader holds at once (scripts/check-file-size.ts). `ui-1` to `ui-3` hold the shared screen
- * texts, cut by size; `item-<code>` holds one walk item's. A new item's copy is a new part,
- * listed here once per language.
+ * reader holds at once (scripts/check-file-size.ts). `ui-1` to `ui-4` hold the shared screen
+ * texts, cut by size; `walks` each walk's own title, home and approval words; `activities` the
+ * processing-activity catalogue; `item-<code>` one walk item's. A new item's copy is a new part,
+ * listed here once per language it is written in: the GDPR walk's parts exist in German and
+ * English only, and a Czech page walks it in English (`walkLocaleOf`).
  *
  *   messages/durchgang/<part>/<locale>.json  { "durchgang": { ... } }
  *
@@ -11,6 +13,8 @@
  */
 
 import type { WalkLocale } from "@/lib/durchgang/types";
+import activitiesDe from "@/messages/durchgang/activities/de.json";
+import activitiesEn from "@/messages/durchgang/activities/en.json";
 import item1_1Cs from "@/messages/durchgang/item-1_1/cs.json";
 import item1_1De from "@/messages/durchgang/item-1_1/de.json";
 import item1_1En from "@/messages/durchgang/item-1_1/en.json";
@@ -74,6 +78,24 @@ import item12_3En from "@/messages/durchgang/item-12_3/en.json";
 import item12_4Cs from "@/messages/durchgang/item-12_4/cs.json";
 import item12_4De from "@/messages/durchgang/item-12_4/de.json";
 import item12_4En from "@/messages/durchgang/item-12_4/en.json";
+import itemGAct1De from "@/messages/durchgang/item-G-ACT_1/de.json";
+import itemGAct1En from "@/messages/durchgang/item-G-ACT_1/en.json";
+import itemGBrc1De from "@/messages/durchgang/item-G-BRC_1/de.json";
+import itemGBrc1En from "@/messages/durchgang/item-G-BRC_1/en.json";
+import itemGBrc3De from "@/messages/durchgang/item-G-BRC_3/de.json";
+import itemGBrc3En from "@/messages/durchgang/item-G-BRC_3/en.json";
+import itemGDpa1De from "@/messages/durchgang/item-G-DPA_1/de.json";
+import itemGDpa1En from "@/messages/durchgang/item-G-DPA_1/en.json";
+import itemGDpa2De from "@/messages/durchgang/item-G-DPA_2/de.json";
+import itemGDpa2En from "@/messages/durchgang/item-G-DPA_2/en.json";
+import itemGDpo1De from "@/messages/durchgang/item-G-DPO_1/de.json";
+import itemGDpo1En from "@/messages/durchgang/item-G-DPO_1/en.json";
+import itemGDsr1De from "@/messages/durchgang/item-G-DSR_1/de.json";
+import itemGDsr1En from "@/messages/durchgang/item-G-DSR_1/en.json";
+import itemGRop1De from "@/messages/durchgang/item-G-ROP_1/de.json";
+import itemGRop1En from "@/messages/durchgang/item-G-ROP_1/en.json";
+import itemGTom1De from "@/messages/durchgang/item-G-TOM_1/de.json";
+import itemGTom1En from "@/messages/durchgang/item-G-TOM_1/en.json";
 import ui1Cs from "@/messages/durchgang/ui-1/cs.json";
 import ui1De from "@/messages/durchgang/ui-1/de.json";
 import ui1En from "@/messages/durchgang/ui-1/en.json";
@@ -83,6 +105,8 @@ import ui2En from "@/messages/durchgang/ui-2/en.json";
 import ui3Cs from "@/messages/durchgang/ui-3/cs.json";
 import ui3De from "@/messages/durchgang/ui-3/de.json";
 import ui3En from "@/messages/durchgang/ui-3/en.json";
+import ui4De from "@/messages/durchgang/ui-4/de.json";
+import ui4En from "@/messages/durchgang/ui-4/en.json";
 import walksCs from "@/messages/durchgang/walks/cs.json";
 import walksDe from "@/messages/durchgang/walks/de.json";
 import walksEn from "@/messages/durchgang/walks/en.json";
@@ -114,6 +138,17 @@ const PARTS: Readonly<Record<WalkLocale, readonly unknown[]>> = {
     item12_2De,
     item12_3De,
     item12_4De,
+    ui4De,
+    activitiesDe,
+    itemGDpo1De,
+    itemGRop1De,
+    itemGDpa1De,
+    itemGDpa2De,
+    itemGTom1De,
+    itemGBrc1De,
+    itemGBrc3De,
+    itemGDsr1De,
+    itemGAct1De,
   ],
   en: [
     ui1En,
@@ -141,6 +176,17 @@ const PARTS: Readonly<Record<WalkLocale, readonly unknown[]>> = {
     item12_2En,
     item12_3En,
     item12_4En,
+    ui4En,
+    activitiesEn,
+    itemGDpo1En,
+    itemGRop1En,
+    itemGDpa1En,
+    itemGDpa2En,
+    itemGTom1En,
+    itemGBrc1En,
+    itemGBrc3En,
+    itemGDsr1En,
+    itemGAct1En,
   ],
   cs: [
     ui1Cs,
@@ -199,7 +245,18 @@ export type DurchgangMessages = typeof ui1En &
   typeof item11_2En &
   typeof item12_2En &
   typeof item12_3En &
-  typeof item12_4En;
+  typeof item12_4En &
+  typeof ui4En &
+  typeof activitiesEn &
+  typeof itemGDpo1En &
+  typeof itemGRop1En &
+  typeof itemGDpa1En &
+  typeof itemGDpa2En &
+  typeof itemGTom1En &
+  typeof itemGBrc1En &
+  typeof itemGBrc3En &
+  typeof itemGDsr1En &
+  typeof itemGAct1En;
 
 type Messages = Record<string, unknown>;
 

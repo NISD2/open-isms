@@ -406,6 +406,13 @@
         "legalBasis": "GDPR Art. 37-39, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Accountability",
+        "description": "Demonstrating that processing complies with the GDPR: the measures under Art. 24 and, where proportionate, data protection policies",
+        "legalBasis": "GDPR Art. 5(2), 24",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -511,18 +518,6 @@
     "save": "Save",
     "saving": "Saving...",
     "failedToSave": "Failed to save"
-  },
-  "evidence": {
-    "dropzone": "Drag file here or click to select",
-    "formats": "PDF, DOCX, XLSX, Images",
-    "description": "Description (optional)",
-    "descriptionPlaceholder": "What does this document prove?",
-    "uploading": "Uploading...",
-    "upload": "Upload evidence",
-    "uploaded": "Evidence uploaded",
-    "fileSaved": "{name} has been saved.",
-    "loading": "Loading files...",
-    "uploadFailed": "Upload failed"
   },
   "signoff": {
     "title": "Management sign-off required",

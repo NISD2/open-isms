@@ -28,6 +28,7 @@ import {
   policy,
   policyAcknowledgment,
   policyVersion,
+  processingActivity,
   requirement,
   requirementAssignment,
   requirementCategory,
@@ -71,6 +72,7 @@ export const RESET_BY_COMPANY = [
   incident,
   risk,
   asset,
+  processingActivity,
 ] as const;
 
 /** Reset through a column of another name, or rebuilt rather than cleared; see resetImplementation. */

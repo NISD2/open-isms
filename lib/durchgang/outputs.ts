@@ -4,12 +4,11 @@
  * nothing the walk does not produce. A new screen kind does not compile until it is placed here.
  *
  * Only items every company walks count; an item for operators of critical facilities alone
- * (`onlyFor`) is left out, since the page speaks to everyone. The page sells the NIS 2 walk, so
- * these are its outputs.
+ * (`onlyFor`) is left out, since the page speaks to everyone. The offer is every walk (NIS 2 and
+ * the GDPR since 20.10.2026), so these are all walks' outputs, NIS 2's first.
  */
-import { NIS2_WALK } from "./nis2";
 import type { AnyScreen, PolicyTemplate } from "./types";
-import { policiesOf } from "./walks";
+import { ALL_ITEMS, policiesOf, WALKS } from "./walks";
 
 export type WalkRecord =
   | "assets"
@@ -23,7 +22,9 @@ export type WalkRecord =
   | "training_management"
   | "training_staff"
   | "management_review"
-  | "approvals";
+  | "approvals"
+  | "processing_activities"
+  | "processors";
 
 /** The record a screen writes into, or null for a screen that explains, asks or shows. */
 export const recordOf = (screen: AnyScreen): WalkRecord | null => {
@@ -60,6 +61,11 @@ export const recordOf = (screen: AnyScreen): WalkRecord | null => {
       return "crypto";
     case "approve":
       return "approvals";
+    case "activities":
+    case "describe":
+      return "processing_activities";
+    case "processors":
+      return "processors";
     // Answers on a fields or evidence screen go into the item's own record and its document;
     // a policy screen is a document (`WALK_DOCUMENTS`).
     case "learn":
@@ -80,26 +86,25 @@ export const recordOf = (screen: AnyScreen): WalkRecord | null => {
 };
 
 const forEveryone = new Set(
-  NIS2_WALK.items.filter((item) => item.onlyFor === undefined).map((item) => item.code),
+  ALL_ITEMS.filter((item) => item.onlyFor === undefined).map((item) => item.code),
 );
 
-/** The documents the walk writes, in walk order. */
+/** The documents the walks write, in walk order. */
 export const WALK_DOCUMENTS: readonly PolicyTemplate[] = [
   ...new Set(
-    policiesOf(NIS2_WALK)
+    Object.values(WALKS)
+      .flatMap(policiesOf)
       .filter((p) => forEveryone.has(p.code))
       .map((p) => p.policy),
   ),
 ];
 
-/** The records the walk keeps, in the order it first writes each. */
+/** The records the walks keep, in the order they first write each. */
 export const WALK_RECORDS: readonly WalkRecord[] = [
   ...new Set(
-    NIS2_WALK.items
-      .filter((item) => forEveryone.has(item.code))
-      .flatMap((item) => {
-        const screens: readonly AnyScreen[] = item.screens;
-        return screens.flatMap((screen) => recordOf(screen) ?? []);
-      }),
+    ALL_ITEMS.filter((item) => forEveryone.has(item.code)).flatMap((item) => {
+      const screens: readonly AnyScreen[] = item.screens;
+      return screens.flatMap((screen) => recordOf(screen) ?? []);
+    }),
   ),
 ];

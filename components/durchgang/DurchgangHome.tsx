@@ -325,12 +325,14 @@ export function DurchgangHome({
                       </>
                     )}
                   </span>
-                  <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
-                    <Art
-                      src={entry.image}
-                      className={cn("h-full", settled && "opacity-40")}
-                    />
-                  </div>
+                  {entry.image && (
+                    <div className="flex h-12 w-14 shrink-0 items-end justify-center sm:h-14 sm:w-16">
+                      <Art
+                        src={entry.image}
+                        className={cn("h-full", settled && "opacity-40")}
+                      />
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">{entry.section}</p>
                     {locked ? (

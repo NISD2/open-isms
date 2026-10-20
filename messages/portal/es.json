@@ -63,6 +63,7 @@
     "training": "Formación",
     "exercises": "Simulacros de emergencia",
     "managementReviews": "Revisiones por la dirección",
+    "processingActivities": "Registro de actividades de tratamiento",
     "kpis": "Métricas de seguridad",
     "changes": "Cambios",
     "patches": "Actualizaciones de seguridad",
@@ -83,6 +84,8 @@
     "phaseVerification": "Verificación",
     "phaseAdmin": "Administración",
     "blockedBy": "Complete primero: {codes}",
+    "durchgang": "Recorrido guiado NIS 2",
+    "durchgangGdpr": "Recorrido guiado RGPD",
     "journeyBoard": {
       "hero": {
         "title": "Su implementación de NIS2",

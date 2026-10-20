@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Rejestr czynności przetwarzania",
+    "description": "Co Twoja firma robi z danymi osobowymi, jeden wiersz na czynność, z informacjami wymaganymi przez art. 30 ust. 1 GDPR.",
+    "helpText": "Rejestr wymienia każdą czynność przetwarzania w Twojej firmie z informacjami z art. 30 ust. 1 GDPR. Prowadzi się go w formie pisemnej, w tym elektronicznej (art. 30 ust. 3), i udostępnia organowi nadzorczemu na jego żądanie (art. 30 ust. 4). Zaktualizuj go, gdy tylko dojdzie lub odpadnie jakaś czynność.",
+    "add": "Dodaj czynność",
+    "edit": "Edytuj czynność",
+    "empty": "W Twoim rejestrze nie ma jeszcze żadnej czynności. Przewodnik GDPR zaproponuje te najczęstsze.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć tę czynność z rejestru?",
+    "actions": "Działania",
+    "fields": {
+      "name": "Czynność",
+      "purpose": "Cel",
+      "dataSubjects": "Osoby, których dane dotyczą",
+      "dataCategories": "Kategorie danych",
+      "specialCategories": "Szczególne kategorie (art. 9, 10)",
+      "recipients": "Odbiorcy",
+      "transfersOutsideEea": "Przekazanie poza EOG",
+      "transferDetails": "Państwo trzecie i podstawa",
+      "retention": "Termin usunięcia"
+    },
+    "fieldDescriptions": {
+      "name": "Krótka nazwa czynności, na przykład płace lub newsletter.",
+      "purpose": "W jakim celu przetwarzasz dane, w jednym zdaniu (art. 30 ust. 1 lit. b)).",
+      "dataSubjects": "Czyje dane, w grupach, na przykład pracownicy, klienci lub kandydaci (art. 30 ust. 1 lit. c)).",
+      "dataCategories": "Jakie dane, w grupach, na przykład dane kontaktowe, dane bankowe lub dane z umowy (art. 30 ust. 1 lit. c)).",
+      "specialCategories": "Czy czynność obejmuje szczególne kategorie danych, o których mowa w art. 9 ust. 1, na przykład dane dotyczące zdrowia, lub dane dotyczące wyroków skazujących i czynów zabronionych, o których mowa w art. 10.",
+      "recipients": "Kto otrzymuje dane, w firmie i poza nią, w tym usługodawcy i odbiorcy w państwach trzecich (art. 30 ust. 1 lit. d)).",
+      "transfersOutsideEea": "Czy dane trafiają do państwa spoza EOG lub do organizacji międzynarodowej (art. 30 ust. 1 lit. e)).",
+      "transferDetails": "Państwo trzecie i podstawa przekazania, na przykład decyzja stwierdzająca odpowiedni stopień ochrony lub standardowe klauzule umowne (art. 30 ust. 1 lit. e)).",
+      "retention": "Kiedy dane zostaną usunięte, w miarę możliwości z terminem i jego podstawą (art. 30 ust. 1 lit. f))."
+    }
+  }
+}

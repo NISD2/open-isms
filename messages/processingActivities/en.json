@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Record of processing activities",
+    "description": "What your company does with personal data, one line per activity, with the entries Art. 30(1) GDPR asks for.",
+    "helpText": "The record lists every processing activity of your company with the entries of Art. 30(1) GDPR. It has to be in writing, which includes electronic form (Art. 30(3)), and made available to the supervisory authority on request (Art. 30(4)). Change it as soon as an activity is added or dropped.",
+    "add": "Add activity",
+    "edit": "Edit activity",
+    "empty": "Your record has no activity yet. The GDPR walkthrough suggests the usual ones.",
+    "deleteConfirm": "Do you really want to delete this activity from the record?",
+    "actions": "Actions",
+    "fields": {
+      "name": "Activity",
+      "purpose": "Purpose",
+      "dataSubjects": "Data subjects",
+      "dataCategories": "Categories of data",
+      "specialCategories": "Special categories (Art. 9, 10)",
+      "recipients": "Recipients",
+      "transfersOutsideEea": "Transfer outside the EEA",
+      "transferDetails": "Third country and basis",
+      "retention": "Time limit for erasure"
+    },
+    "fieldDescriptions": {
+      "name": "A short name for the activity, for example payroll or newsletter.",
+      "purpose": "What you process the data for, in one sentence (Art. 30(1)(b)).",
+      "dataSubjects": "Whose data, as groups, for example staff, customers or applicants (Art. 30(1)(c)).",
+      "dataCategories": "Which data, as groups, for example contact details, bank details or contract data (Art. 30(1)(c)).",
+      "specialCategories": "Whether the activity includes special categories of data under Art. 9(1), such as health data, or data on criminal convictions and offences under Art. 10.",
+      "recipients": "Who receives the data, inside the company and outside, including service providers and recipients in third countries (Art. 30(1)(d)).",
+      "transfersOutsideEea": "Whether data goes to a country outside the EEA or to an international organisation (Art. 30(1)(e)).",
+      "transferDetails": "The third country and the basis of the transfer, for example an adequacy decision or standard contractual clauses (Art. 30(1)(e)).",
+      "retention": "When the data is erased, where possible with the period and its basis (Art. 30(1)(f))."
+    }
+  }
+}

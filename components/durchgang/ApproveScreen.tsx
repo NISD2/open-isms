@@ -207,7 +207,7 @@ function SignedWith({
       <ul className="mt-4 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
         {items.map((item) => (
           <li key={item.code} className="flex items-baseline gap-3 px-5 py-3">
-            <span className="w-10 shrink-0 text-sm tabular-nums text-muted-foreground">
+            <span className="min-w-10 shrink-0 whitespace-nowrap text-sm tabular-nums text-muted-foreground">
               {item.code}
             </span>
             <span className="min-w-0 flex-1">

@@ -1,0 +1,67 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DPA_1": {
+        "headline": "Record your processors and their agreements",
+        "teaser": "Who processes data on your behalf, and whether the agreement is in place.",
+        "missed": [
+          "The agreement does not have to be signed. It has to be in writing, which includes electronic form (Art. 28(9)). Large providers often publish it online as part of their terms; look there for \"data processing addendum\" or \"data processing agreement\".",
+          "Before you engage a provider, check that it offers sufficient guarantees of appropriate technical and organisational measures (Art. 28(1)), for example from the measures it describes.",
+          "If data goes to a country outside the EEA, the transfer needs a basis: an adequacy decision of the European Commission (Art. 45), appropriate safeguards such as standard contractual clauses (Art. 46) or, in specific situations, a derogation (Art. 49). This step records the basis; checking it in depth is not part of the walkthrough yet."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Who processes data for you",
+            "body": [
+              "The controller is whoever determines the purposes and means of the processing (Art. 4(7)): for the data of your customers and staff, that is your company. A processor processes personal data on your behalf (Art. 4(8)), for example the provider of your cloud service, your mailboxes or your newsletter mailings.",
+              "With every processor you need an agreement that binds it to your instructions and sets out which data it processes, what for and for how long (Art. 28(3)).",
+              "Not every service provider is a processor. A provider that processes data for its own purposes and under its own responsibility is a controller itself, for example your bank or, in Germany, your tax adviser. With them you make no Art. 28 agreement.",
+              "The next steps go through your supplier list: for each supplier you record its role, whether the agreement is in place and whether data leaves the EEA."
+            ],
+            "duty": "The GDPR requires your company to use only processors that provide sufficient guarantees, and to govern the processing by an agreement with each of them."
+          },
+          "who_is": {
+            "title": "Processor or a controller of its own",
+            "caption": "How to place a service provider",
+            "good": {
+              "value": "Our cloud service stores the customer data only for us and on our instructions. It is a processor, and the Art. 28 agreement is in place.",
+              "note": "The provider does not decide what the data is used for. That is why the agreement is needed."
+            },
+            "bad": {
+              "value": "Our bank processes the data of our transfers on our behalf. We need a data processing agreement with it.",
+              "note": "The bank carries out payments under its own legal obligations and decides on that processing itself. It is a controller of its own; an Art. 28 agreement does not fit."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "Our tax adviser receives the payroll data. They are a controller of their own.",
+                  "note": "German law settles it: tax advisers process their clients' data free of instructions and as controllers (§ 11(2) StBerG)."
+                },
+                "bad": {
+                  "value": "We need nothing for the newsletter service, it only gets email addresses.",
+                  "note": "Email addresses are personal data too. The service sends mailings on your behalf, so it is a processor and needs the agreement."
+                }
+              }
+            ]
+          },
+          "role": {
+            "title": "What role each supplier has",
+            "lead": "Choose for each supplier how it handles personal data. If in doubt, ask: does it decide itself what it uses the data for? You are joint controllers only if you decide the purposes and means together with it (Art. 26)."
+          },
+          "contract": {
+            "title": "Whether the agreement is in place",
+            "lead": "For each processor: is the data processing agreement in place? It can be a document of its own or part of the provider's terms."
+          },
+          "where": {
+            "title": "Where the data goes",
+            "lead": "Does the data stay in the EEA, that is the EU, Iceland, Liechtenstein and Norway? If it goes to another country, choose the basis. It is often in the data processing agreement, for example as standard contractual clauses."
+          },
+          "done": {
+            "title": "Your processors are recorded",
+            "note": "Where the agreement is missing, ask the provider for it and add it once you have it."
+          }
+        }
+      }
+    }
+  }
+}

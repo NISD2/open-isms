@@ -339,6 +339,13 @@
         "legalBasis": "GDPR Art. 37-39, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Responsabilidade",
+        "description": "Comprovar que o tratamento cumpre o GDPR: as medidas do art. 24.o e, quando proporcionado, políticas em matéria de proteção de dados",
+        "legalBasis": "GDPR Art. 5(2), 24",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -388,18 +395,6 @@
     "save": "Guardar",
     "saving": "A guardar...",
     "failedToSave": "Falha ao guardar"
-  },
-  "evidence": {
-    "dropzone": "Arraste o ficheiro para aqui ou clique para selecionar",
-    "formats": "PDF, DOCX, XLSX, imagens",
-    "description": "Descrição (opcional)",
-    "descriptionPlaceholder": "O que comprova este documento?",
-    "uploading": "A carregar...",
-    "upload": "Carregar evidência",
-    "uploaded": "Evidência carregada",
-    "fileSaved": "{name} foi guardado.",
-    "loading": "A carregar ficheiros...",
-    "uploadFailed": "Falha no carregamento"
   },
   "signoff": {
     "title": "É necessária a aprovação da gestão",

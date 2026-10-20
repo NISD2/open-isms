@@ -237,7 +237,12 @@
           "cryptography": "Politica de criptografie",
           "personnel_access": "Politica privind personalul, accesul și activele",
           "it_rules": "Reguli pentru achiziția, întreținerea și vulnerabilitățile IT",
-          "business_continuity": "Plan de continuitate a activității"
+          "business_continuity": "Plan de continuitate a activității",
+          "gdpr_security_measures": "Descrierea măsurilor tehnice și organizatorice (art. 32 GDPR)",
+          "gdpr_breach_procedure": "Procedura în caz de încălcare a securității datelor personale (art. 33 GDPR)",
+          "gdpr_breach_notice": "Model de informare a persoanelor vizate (art. 34 GDPR)",
+          "gdpr_request_procedure": "Procedura pentru cererile persoanelor vizate (art. 12-22 GDPR)",
+          "gdpr_data_protection_policy": "Politica de protecție a datelor (art. 24 GDPR)"
         },
         "records": {
           "training_management": "Dovezi de instruire a conducerii",
@@ -251,7 +256,9 @@
           "backups": "Copiile de rezervă și ultima restaurare reușită",
           "training_staff": "Instruirile și informările personalului",
           "management_review": "Analiza efectuată de management",
-          "approvals": "Aprobarea fiecărui document, cu nume și dată"
+          "approvals": "Aprobarea fiecărui document, cu nume și dată",
+          "processing_activities": "Registrul activităților de prelucrare (art. 30 GDPR)",
+          "processors": "Ce furnizori prelucrează date în numele dumneavoastră, cu contract și transferuri"
         }
       },
       "people": {

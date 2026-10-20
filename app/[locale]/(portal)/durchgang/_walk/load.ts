@@ -21,17 +21,42 @@ import {
   MANAGEMENT_ROLE,
   type RegisterModule,
   type Walk,
+  type WalkLocale,
   walkLocaleOf,
   walkOfCode,
 } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { assistantMarks } from "@/lib/mcp/fills";
 import { assistantFillsOf } from "@/lib/mcp/fills-store";
+import { suggestedActivities } from "@/lib/processing-activities/catalog";
 import { ensurePlatformSupplier } from "@/lib/supplier-portal/platform-supplier";
 import { api } from "@/lib/trpc/server";
 import { ensureAssessment } from "@/server/trpc/helpers/framework-assessment";
 import { glossary } from "./gloss";
 import { imageFor, stepOf, wordsOf } from "./steps";
+
+/**
+ * The citation the duty card prints. NIS 2: the BSIG in German, the directive's article otherwise.
+ * GDPR: the requirement's full reference in every language (the regulation applies directly, the
+ * BDSG beside it), named as the reader names the regulation: DSGVO in German.
+ */
+const dutyCitation = (
+  item: AnyItem,
+  req: { readonly legalRef: string | null; readonly frameworkRef: string | null },
+  locale: WalkLocale,
+): string => {
+  const legal = req.legalRef ?? "";
+  switch (item.law.act) {
+    case "nis2":
+      return (locale === "de" ? req.legalRef : req.frameworkRef) ?? legal;
+    case "gdpr":
+      return locale === "de" && legal.startsWith("GDPR ")
+        ? `DSGVO ${legal.slice("GDPR ".length)}`
+        : legal;
+    default:
+      return item.law satisfies never;
+  }
+};
 
 /** The caller's company and the items of this walk it walks, read off its profile; none without a company. */
 async function callerWalk(walk: Walk) {
@@ -110,7 +135,8 @@ export async function loadItem(code: string): Promise<ItemView | null> {
   const screens: readonly AnyScreen[] = item.screens;
   const shows = (module: RegisterModule) =>
     screens.some((s) => s.kind === "register" && s.module === module);
-  const asksAssets = screens.some((s) => s.kind === "assets");
+  const asksActivities = screens.some((s) => s.kind === "activities");
+  const asksAssets = screens.some((s) => s.kind === "assets") || asksActivities;
   const asksAdopt = screens.some((s) => s.kind === "adopt");
   const showsPortals = screens.some(
     (s) =>
@@ -136,6 +162,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     adoption,
     registration,
     fills,
+    record,
   ] = await Promise.all([
     wordsOf(item),
     getTranslations("compliance"),
@@ -155,7 +182,10 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     asksAdopt ? api.durchgang.adoption() : Promise.resolve({ adoptedAt: null }),
     showsPortals ? api.durchgang.portals() : Promise.resolve(null),
     assistantFillsOf(db, session.companyId, req.id),
+    asksActivities ? api.processingActivity.list() : Promise.resolve([]),
   ]);
+  const listed = assets ? onRegister(assets).listed : [];
+  const onRecord = new Set(record.flatMap((a) => (a.catalogId ? [a.catalogId] : [])));
 
   const statusId = statuses.find((s) => s.requirementId === req.id)?.status?.id ?? null;
   const asked = new Set(askedFields(item));
@@ -215,11 +245,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     citations: law,
     // The duty card cites what its text is written from: the BSIG in German, Czech law in Czech,
     // the directive in English; a GDPR item its article. All of them stay in the rail.
-    duty:
-      czechDuty?.cite ??
-      typesetCitation(
-        (locale === "de" ? req.legalRef : req.frameworkRef) ?? req.legalRef ?? "",
-      ),
+    duty: czechDuty?.cite ?? typesetCitation(dutyCitation(item, req, locale)),
     dutyHref: czechDuty?.href ?? dutyHref(item.law, locale),
     gloss: glossary(prose, locale),
     screens: words.screens,
@@ -239,6 +265,9 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     register: assets
       ? { ...onRegister(assets), sectors: catalogueSectorsOf(company.sector) }
       : null,
+    suggestedActivities: asksActivities
+      ? suggestedActivities(listed).filter((id) => !onRecord.has(id))
+      : [],
     adoptedAt: adoption.adoptedAt,
     registration,
     assistant: assistantMarks(

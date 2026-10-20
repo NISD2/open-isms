@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Verzeichnis von Verarbeitungstätigkeiten",
+    "description": "Was Ihr Unternehmen mit personenbezogenen Daten tut, eine Zeile je Tätigkeit, mit den Angaben nach Art. 30 Abs. 1 DSGVO.",
+    "helpText": "Das Verzeichnis listet jede Verarbeitungstätigkeit Ihres Unternehmens mit den Angaben nach Art. 30 Abs. 1 DSGVO. Es ist schriftlich zu führen, was auch elektronisch erfolgen kann (Art. 30 Abs. 3), und der Aufsichtsbehörde auf Anfrage zur Verfügung zu stellen (Art. 30 Abs. 4). Ändern Sie es, sobald eine Tätigkeit dazukommt oder wegfällt.",
+    "add": "Tätigkeit hinzufügen",
+    "edit": "Tätigkeit bearbeiten",
+    "empty": "In Ihrem Verzeichnis steht noch keine Tätigkeit. Der DSGVO Durchgang schlägt Ihnen die üblichen vor.",
+    "deleteConfirm": "Möchten Sie diese Tätigkeit wirklich aus dem Verzeichnis löschen?",
+    "actions": "Aktionen",
+    "fields": {
+      "name": "Tätigkeit",
+      "purpose": "Zweck",
+      "dataSubjects": "Betroffene Personen",
+      "dataCategories": "Datenkategorien",
+      "specialCategories": "Besondere Kategorien (Art. 9, 10)",
+      "recipients": "Empfänger",
+      "transfersOutsideEea": "Übermittlung außerhalb des EWR",
+      "transferDetails": "Drittland und Grundlage",
+      "retention": "Löschfrist"
+    },
+    "fieldDescriptions": {
+      "name": "Ein kurzer Name für die Tätigkeit, zum Beispiel Lohnabrechnung oder Newsletter.",
+      "purpose": "Wofür Sie die Daten verarbeiten, in einem Satz (Art. 30 Abs. 1 Buchst. b).",
+      "dataSubjects": "Wessen Daten, als Gruppen, etwa Beschäftigte, Kunden oder Bewerber (Art. 30 Abs. 1 Buchst. c).",
+      "dataCategories": "Welche Daten, als Gruppen, etwa Kontaktdaten, Bankverbindung oder Vertragsdaten (Art. 30 Abs. 1 Buchst. c).",
+      "specialCategories": "Ob die Tätigkeit besondere Kategorien von Daten nach Art. 9 Abs. 1 umfasst, etwa Gesundheitsdaten, oder Daten über strafrechtliche Verurteilungen und Straftaten nach Art. 10.",
+      "recipients": "Wer die Daten bekommt, im Unternehmen und außerhalb, auch Dienstleister und Empfänger in Drittländern (Art. 30 Abs. 1 Buchst. d).",
+      "transfersOutsideEea": "Ob Daten in ein Land außerhalb des EWR oder an eine internationale Organisation gehen (Art. 30 Abs. 1 Buchst. e).",
+      "transferDetails": "Das Drittland und die Grundlage der Übermittlung, etwa ein Angemessenheitsbeschluss oder Standardvertragsklauseln (Art. 30 Abs. 1 Buchst. e).",
+      "retention": "Wann die Daten gelöscht werden, wenn möglich mit der Frist und ihrer Grundlage (Art. 30 Abs. 1 Buchst. f)."
+    }
+  }
+}

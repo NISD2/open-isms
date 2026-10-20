@@ -29,6 +29,7 @@ import { patchRouter } from "./routers/patch";
 import { platformAdminRouter } from "./routers/platform-admin";
 import { policyRouter } from "./routers/policy";
 import { policyConfigRouter } from "./routers/policy-config";
+import { processingActivityRouter } from "./routers/processing-activity";
 import { requirementRouter } from "./routers/requirement";
 import { reviewRouter } from "./routers/review";
 import { riskRouter } from "./routers/risk";
@@ -65,6 +66,7 @@ export const appRouter = router({
   training: trainingRouter,
   exercise: exerciseRouter,
   managementReview: managementReviewRouter,
+  processingActivity: processingActivityRouter,
   kpi: kpiRouter,
   change: changeRouter,
   patch: patchRouter,

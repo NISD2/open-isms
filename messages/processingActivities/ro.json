@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Evidența activităților de prelucrare",
+    "description": "Ce face compania dumneavoastră cu datele cu caracter personal, un rând pentru fiecare activitate, cu informațiile cerute de art. 30 alin. (1) din GDPR.",
+    "helpText": "Evidența cuprinde fiecare activitate de prelucrare a companiei dumneavoastră, cu informațiile de la art. 30 alin. (1) din GDPR. Se ține în scris, inclusiv în format electronic (art. 30 alin. (3)), și se pune la dispoziția autorității de supraveghere, la cerere (art. 30 alin. (4)). Actualizați-o imediat ce o activitate se adaugă sau dispare.",
+    "add": "Adăugați o activitate",
+    "edit": "Editați activitatea",
+    "empty": "Evidența dumneavoastră nu conține încă nicio activitate. Parcursul GDPR vă propune activitățile obișnuite.",
+    "deleteConfirm": "Sigur doriți să ștergeți această activitate din evidență?",
+    "actions": "Acțiuni",
+    "fields": {
+      "name": "Activitate",
+      "purpose": "Scop",
+      "dataSubjects": "Persoane vizate",
+      "dataCategories": "Categorii de date",
+      "specialCategories": "Categorii speciale (art. 9, 10)",
+      "recipients": "Destinatari",
+      "transfersOutsideEea": "Transfer în afara SEE",
+      "transferDetails": "Țară terță și temei",
+      "retention": "Termen de ștergere"
+    },
+    "fieldDescriptions": {
+      "name": "Un nume scurt pentru activitate, de exemplu salarizare sau buletin informativ.",
+      "purpose": "În ce scop prelucrați datele, într-o propoziție (art. 30 alin. (1) lit. (b)).",
+      "dataSubjects": "Ale cui sunt datele, pe grupuri, de exemplu angajați, clienți sau candidați (art. 30 alin. (1) lit. (c)).",
+      "dataCategories": "Ce date, pe grupuri, de exemplu date de contact, date bancare sau date contractuale (art. 30 alin. (1) lit. (c)).",
+      "specialCategories": "Dacă activitatea include categorii speciale de date în sensul art. 9 alin. (1), cum ar fi date privind sănătatea, sau date referitoare la condamnări penale și infracțiuni în sensul art. 10.",
+      "recipients": "Cine primește datele, în companie și în afara ei, inclusiv furnizori de servicii și destinatari din țări terțe (art. 30 alin. (1) lit. (d)).",
+      "transfersOutsideEea": "Dacă datele ajung într-o țară din afara SEE sau la o organizație internațională (art. 30 alin. (1) lit. (e)).",
+      "transferDetails": "Țara terță și temeiul transferului, de exemplu o decizie privind caracterul adecvat sau clauze contractuale standard (art. 30 alin. (1) lit. (e)).",
+      "retention": "Când sunt șterse datele, dacă este posibil cu termenul și temeiul acestuia (art. 30 alin. (1) lit. (f))."
+    }
+  }
+}

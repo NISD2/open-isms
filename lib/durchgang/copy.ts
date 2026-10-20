@@ -142,6 +142,12 @@ const SCREEN_COPY = {
     applies: text,
     change: text,
   }),
+  /** The activities' names and suggested answers are the catalogue's (`activities` in the namespace). */
+  activities: z.object(heading),
+  /** The labels of the facts asked are shared by every describe screen (`ui.describe`). */
+  describe: z.object(heading),
+  /** The answers a fact offers are shared by every screen that asks it (`ui.processors`). */
+  processors: z.object(heading),
   /** Each duty with what to do and when, and what it rests on (a provision, or the company's own Leitlinie). */
   ongoing: z.object({
     ...heading,
@@ -408,6 +414,12 @@ function resolveScreen(
         ? { ok: false, errors: [`${where}.document.clauses: duplicate id`] }
         : copy;
     }
+    case "activities":
+      return one(screen, SCREEN_COPY.activities);
+    case "describe":
+      return one(screen, SCREEN_COPY.describe);
+    case "processors":
+      return one(screen, SCREEN_COPY.processors);
     case "ongoing":
       return one(screen, SCREEN_COPY.ongoing);
     case "done":

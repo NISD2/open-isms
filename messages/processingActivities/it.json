@@ -1,0 +1,34 @@
+{
+  "processingActivities": {
+    "title": "Registro delle attività di trattamento",
+    "description": "Ciò che la vostra azienda fa con i dati personali, una riga per attività, con le informazioni richieste dall'art. 30, paragrafo 1, del GDPR.",
+    "helpText": "Il registro elenca ogni attività di trattamento della vostra azienda con le informazioni dell'art. 30, paragrafo 1, del GDPR. È tenuto in forma scritta, anche in formato elettronico (art. 30, paragrafo 3), e messo a disposizione dell'autorità di controllo su richiesta (art. 30, paragrafo 4). Aggiornatelo non appena un'attività si aggiunge o viene meno.",
+    "add": "Aggiungi attività",
+    "edit": "Modifica attività",
+    "empty": "Il vostro registro non contiene ancora alcuna attività. Il percorso GDPR vi propone quelle più comuni.",
+    "deleteConfirm": "Volete davvero eliminare questa attività dal registro?",
+    "actions": "Azioni",
+    "fields": {
+      "name": "Attività",
+      "purpose": "Finalità",
+      "dataSubjects": "Interessati",
+      "dataCategories": "Categorie di dati",
+      "specialCategories": "Categorie particolari (artt. 9, 10)",
+      "recipients": "Destinatari",
+      "transfersOutsideEea": "Trasferimento fuori dal SEE",
+      "transferDetails": "Paese terzo e base giuridica",
+      "retention": "Termine per la cancellazione"
+    },
+    "fieldDescriptions": {
+      "name": "Un nome breve per l'attività, per esempio paghe o newsletter.",
+      "purpose": "Per che cosa trattate i dati, in una frase (art. 30, paragrafo 1, lettera b)).",
+      "dataSubjects": "Di chi sono i dati, per gruppi, per esempio dipendenti, clienti o candidati (art. 30, paragrafo 1, lettera c)).",
+      "dataCategories": "Quali dati, per gruppi, per esempio dati di contatto, coordinate bancarie o dati contrattuali (art. 30, paragrafo 1, lettera c)).",
+      "specialCategories": "Se l'attività comprende categorie particolari di dati ai sensi dell'art. 9, paragrafo 1, come dati relativi alla salute, o dati relativi a condanne penali e reati ai sensi dell'art. 10.",
+      "recipients": "Chi riceve i dati, dentro e fuori l'azienda, compresi fornitori di servizi e destinatari in paesi terzi (art. 30, paragrafo 1, lettera d)).",
+      "transfersOutsideEea": "Se i dati vanno verso un paese fuori dal SEE o verso un'organizzazione internazionale (art. 30, paragrafo 1, lettera e)).",
+      "transferDetails": "Il paese terzo e la base del trasferimento, per esempio una decisione di adeguatezza o clausole contrattuali tipo (art. 30, paragrafo 1, lettera e)).",
+      "retention": "Quando i dati vengono cancellati, se possibile con il termine e la sua base (art. 30, paragrafo 1, lettera f))."
+    }
+  }
+}

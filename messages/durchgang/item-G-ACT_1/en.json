@@ -1,0 +1,184 @@
+{
+  "durchgang": {
+    "items": {
+      "G-ACT_1": {
+        "headline": "Write and approve your data protection policy",
+        "teaser": "Who is responsible, the principles you work by, and the approval.",
+        "missed": [
+          "The GDPR does not ask for a signature. It asks that your company can demonstrate compliance with its principles (Art. 5(2)). The approval here records who approved which document and when.",
+          "A policy only works if people know it. Give it to everyone who works with personal data."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Showing what you do",
+            "body": [
+              "Your company is responsible for complying with the principles of the GDPR and must be able to demonstrate it (Art. 5(2)). To that end it implements appropriate technical and organisational measures, which it reviews and updates where necessary (Art. 24(1)).",
+              "Where proportionate in relation to your processing activities, these measures include appropriate data protection policies (Art. 24(2)). A data protection policy says who is responsible, which principles you work by and where the record and the procedures are kept.",
+              "Then management approves the documents of this walkthrough. No article of the GDPR requires that; it is how your company records who decided what, and when."
+            ],
+            "duty": "The GDPR requires your company to be able to demonstrate compliance with its principles and to implement appropriate measures for that, including data protection policies where proportionate."
+          },
+          "policy": {
+            "title": "Your data protection policy",
+            "lead": "It refers to everything this walkthrough wrote and names your data protection officer. Read it, then choose below what also applies to you.",
+            "document": {
+              "title": "Data protection policy of {company}",
+              "sections": [
+                {
+                  "heading": "Purpose",
+                  "text": "This policy sets out how {company} handles personal data. It applies to all staff and to all processing for which {company} is the controller."
+                },
+                {
+                  "heading": "Responsibility",
+                  "text": "Management of {company} is responsible for data protection. It makes sure this policy is followed, provides the resources needed and approves the documents on data protection. All staff handle personal data in line with this policy."
+                },
+                {
+                  "heading": "Data protection officer",
+                  "text": "Data protection officer: {dataProtectionOfficer}. Where a data protection officer is designated, we involve them properly and in a timely manner in all issues relating to data protection. They report directly to management and receive no instructions regarding the exercise of their tasks (Art. 38 GDPR)."
+                },
+                {
+                  "heading": "Our principles",
+                  "text": "We process personal data lawfully, fairly and in a transparent manner. We collect it for specified, explicit purposes and do not process it further in a way incompatible with them. We process only what the purpose needs, keep the data accurate and up to date, and keep it no longer than necessary for the purpose. We protect it with appropriate technical and organisational measures (Art. 5(1) GDPR)."
+                },
+                {
+                  "heading": "Our record",
+                  "text": "Which processing activities we have, what for, with which data, to whom it goes and when it is erased is set out in our record of processing activities (Art. 30 GDPR). We keep it electronically and up to date."
+                },
+                {
+                  "heading": "Our procedures",
+                  "text": "Part of this policy are our technical and organisational measures (Art. 32 GDPR), our personal data breach procedure (Art. 33), our template for telling the people affected (Art. 34) and our procedure for data subject requests (Art. 12 to 22). We use processors only under an agreement under Art. 28."
+                },
+                {
+                  "heading": "Review",
+                  "text": "We review this policy and the documents it refers to whenever something changes: a new processing activity, a new service provider, a personal data breach, a change in the law. Management approves every change."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "training",
+                  "label": "Briefing",
+                  "heading": "Briefing",
+                  "text": "Staff who work with personal data are briefed on data protection when they start and regularly after that."
+                },
+                {
+                  "id": "annual",
+                  "label": "Annual review",
+                  "heading": "Annual review",
+                  "text": "Even without a reason, we review this policy once a year."
+                },
+                {
+                  "id": "newprocessing",
+                  "label": "New processing",
+                  "heading": "New processing",
+                  "text": "Before we start new processing or introduce a new program that processes personal data, we check whether it is permitted, with our data protection officer where one is designated, and add it to the record."
+                },
+                {
+                  "id": "design",
+                  "label": "Privacy-friendly defaults",
+                  "heading": "Data protection by design",
+                  "text": "We set up new systems so that, by default, only the personal data necessary for each specific purpose is processed (Art. 25 GDPR)."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "approve": {
+            "title": "Management approves the documents",
+            "lead": "These are the documents this walkthrough wrote. Management reads each one and approves it here, signed in with its own account. The GDPR does not ask for a signature; the approval records who decided what, and when."
+          },
+          "ongoing": {
+            "title": "From now on, in your hands",
+            "lead": "With the approval, what your company does about data protection is on record. These duties remain after the walkthrough is finished.",
+            "groups": [
+              {
+                "title": "When something happens",
+                "items": [
+                  {
+                    "name": "A personal data breach",
+                    "detail": "Assess it without delay. If there is a risk to the people concerned, notify the supervisory authority without undue delay and, where feasible, within 72 hours. Document every breach, including one not notified.",
+                    "basis": "Art. 33(1) and (5) GDPR"
+                  },
+                  {
+                    "name": "A breach with a high risk",
+                    "detail": "Tell the people concerned without undue delay, using your template.",
+                    "basis": "Art. 34(1) GDPR"
+                  },
+                  {
+                    "name": "A request from a data subject",
+                    "detail": "Answer without undue delay, at the latest within one month of receipt.",
+                    "basis": "Art. 12(3) GDPR"
+                  },
+                  {
+                    "name": "A new processing activity",
+                    "detail": "Add it to the record, with purpose, data subjects, data, recipients and erasure.",
+                    "basis": "Art. 30(1) GDPR"
+                  },
+                  {
+                    "name": "A new provider that processes data for you",
+                    "detail": "Check beforehand that it offers sufficient guarantees, and make the data processing agreement.",
+                    "basis": "Art. 28(1) and (3) GDPR"
+                  },
+                  {
+                    "name": "A processor reports a new sub-processor",
+                    "detail": "Check it, and object if it does not suit you.",
+                    "basis": "Art. 28(2) GDPR"
+                  },
+                  {
+                    "name": "A new data protection officer",
+                    "detail": "Publish the new contact details and communicate them to the supervisory authority.",
+                    "basis": "Art. 37(7) GDPR"
+                  }
+                ]
+              },
+              {
+                "title": "Regularly",
+                "items": [
+                  {
+                    "name": "Test the security measures",
+                    "detail": "Regularly test, assess and evaluate whether the measures work. The GDPR names no interval; if your description has the annual test, a year applies.",
+                    "basis": "Art. 32(1)(d) GDPR"
+                  },
+                  {
+                    "name": "Review the measures and the policy",
+                    "detail": "Review and update them where necessary, especially when processing changes.",
+                    "basis": "Art. 24(1) GDPR"
+                  },
+                  {
+                    "name": "Check again whether you need a data protection officer",
+                    "detail": "When your company grows: are, as a rule, at least 20 persons constantly engaged in the automated processing of personal data?",
+                    "basis": "§ 38(1) BDSG"
+                  }
+                ]
+              },
+              {
+                "title": "Ongoing",
+                "items": [
+                  {
+                    "name": "Erase data",
+                    "detail": "Erase data once it is no longer necessary for the purpose and no retention period runs, as set in the record.",
+                    "basis": "Art. 5(1)(e), Art. 17 GDPR"
+                  },
+                  {
+                    "name": "Keep the record up to date",
+                    "detail": "The supervisory authority can ask for it; it should then show how things stand today.",
+                    "basis": "Art. 30(1) and (4) GDPR"
+                  },
+                  {
+                    "name": "What this walkthrough does not cover yet",
+                    "detail": "The legal basis of each activity, privacy notices and, where needed, data protection impact assessments: handle them yourself or with your data protection officer.",
+                    "basis": "Art. 6, 13, 14 and 35 GDPR"
+                  }
+                ]
+              }
+            ]
+          },
+          "done": {
+            "title": "Your data protection policy is written",
+            "note": "Approved documents apply from the day management approved them. What still waits for approval is shown on the step before."
+          }
+        }
+      }
+    }
+  }
+}

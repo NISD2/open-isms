@@ -63,6 +63,7 @@
     "training": "Školení",
     "exercises": "Krizová cvičení",
     "managementReviews": "Přezkumy vedení",
+    "processingActivities": "Záznamy o činnostech zpracování",
     "kpis": "Bezpečnostní metriky",
     "changes": "Změny",
     "patches": "Bezpečnostní aktualizace",
@@ -85,6 +86,7 @@
     "blockedBy": "Nejprve dokončete: {codes}",
     "journey": "Cesta",
     "durchgang": "Průvodce NIS 2",
+    "durchgangGdpr": "Průvodce GDPR",
     "administration": "Správa",
     "comingSoon": "Již brzy",
     "examples": {

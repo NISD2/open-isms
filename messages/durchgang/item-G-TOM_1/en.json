@@ -1,0 +1,101 @@
+{
+  "durchgang": {
+    "items": {
+      "G-TOM_1": {
+        "headline": "Describe how your personal data is secured",
+        "teaser": "Which measures protect the data, ordered by Art. 32.",
+        "missed": [
+          "What counts is the risk to the people whose data you process, not only the risk to your company (Art. 32(1)). If a personnel file ends up in the wrong hands, the harm falls mainly on the staff member.",
+          "Anyone with access to personal data may process it only on your instructions, and you take steps to ensure that (Art. 32(4)). Many companies brief their staff for this and commit them to confidentiality in writing.",
+          "Encrypted devices pay off in a breach: if the data was unintelligible to anyone not authorised to access it, for example through encryption, you do not have to tell the people affected (Art. 34(3)(a))."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Security of processing",
+            "body": [
+              "You protect personal data with technical and organisational measures appropriate to the risk. What is appropriate depends on the state of the art, the costs, and how likely and how severe harm to the people concerned would be (Art. 32(1)).",
+              "The GDPR gives examples: pseudonymisation and encryption; systems that stay confidential, intact, available and resilient; restoring data in a timely manner after an incident; and a process for regularly testing whether the measures work.",
+              "If your company has done the NIS 2 walkthrough, much of this is already set: access, encryption, backups, updates. The document in this step names those documents and says they apply to personal data too. Below it you choose what the GDPR suggests beyond them."
+            ],
+            "duty": "The GDPR requires your company to implement appropriate technical and organisational measures to ensure a level of security for personal data appropriate to the risk."
+          },
+          "measures": {
+            "title": "Your measures for the security of processing",
+            "lead": "Ordered by Art. 32(1)(a) to (d). Your company name and the security documents from the NIS 2 walkthrough are already in it. Read it, then choose below what also applies to you.",
+            "document": {
+              "title": "Technical and organisational measures of {company} under Art. 32 GDPR",
+              "sections": [
+                {
+                  "heading": "Purpose and scope",
+                  "text": "This document describes how {company} protects the personal data it processes as a controller: the data of its staff, applicants, customers, suppliers and everyone else in its record of processing activities. It applies to all systems, files and service providers used to process that data. The measures follow the risk to the people concerned."
+                },
+                {
+                  "heading": "Our security documents",
+                  "text": "The following documents of our information security also apply to the systems in which we process personal data, and form part of this description: {securityDocuments}"
+                },
+                {
+                  "heading": "Pseudonymisation and encryption (Art. 32(1)(a))",
+                  "text": "We transmit personal data encrypted, for example through our website and for remote access. Where people need not be identifiable for a purpose, such as analyses, we replace names with identifiers or leave them out."
+                },
+                {
+                  "heading": "Confidentiality, integrity, availability and resilience (point (b))",
+                  "text": "Only those who need access to personal data for their work get it. Access is personal and is withdrawn when someone leaves the company or changes role. Anyone with access processes the data only on our instructions (Art. 32(4) GDPR). We install security updates promptly. Paper files with personal data are kept locked away."
+                },
+                {
+                  "heading": "Restoring data after an incident (point (c))",
+                  "text": "We back up the data regularly, and in a way that an attack or failure does not hit the backups at the same time. We check with tests that restoring works."
+                },
+                {
+                  "heading": "Regular testing (point (d))",
+                  "text": "We regularly check whether these measures work, and also after every incident and every major change to systems or processing. We record what we check, find and change."
+                },
+                {
+                  "heading": "Service providers",
+                  "text": "We use processors only where they provide sufficient guarantees of appropriate technical and organisational measures, and only under an agreement under Art. 28 GDPR that binds them to the measures of Art. 32."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "devices",
+                  "label": "Encrypted laptops and phones",
+                  "heading": "Encrypted devices",
+                  "text": "The disks of our laptops and the storage of our company phones are encrypted. If a device is lost, the data on it cannot be read by anyone not authorised."
+                },
+                {
+                  "id": "pseudonymisation",
+                  "label": "Pseudonymisation",
+                  "heading": "Pseudonymisation",
+                  "text": "For analyses, tests and statistics we use pseudonymised data: names are replaced by identifiers, and the key is kept separately and protected (Art. 4(5) GDPR)."
+                },
+                {
+                  "id": "testing",
+                  "label": "Annual test",
+                  "heading": "Annual test",
+                  "text": "Once a year we have the effectiveness of our measures tested, for example by our IT service provider or an external security test, and record the result."
+                },
+                {
+                  "id": "confidentiality",
+                  "label": "Commitment to confidentiality",
+                  "heading": "Commitment to confidentiality",
+                  "text": "Staff with access to personal data commit in writing to confidentiality when they start, and are briefed on how to handle the data."
+                },
+                {
+                  "id": "disposal",
+                  "label": "Secure disposal",
+                  "heading": "Secure disposal",
+                  "text": "We destroy paper with personal data in a shredder or through a disposal service. Storage media and old devices are securely wiped or destroyed before they leave the premises."
+                }
+              ],
+              "own": "Further measures",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your measures are described",
+            "note": "When your systems change or new processing is added, update the description."
+          }
+        }
+      }
+    }
+  }
+}

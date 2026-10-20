@@ -63,6 +63,7 @@
     "training": "Schulungen",
     "exercises": "Notfallübungen",
     "managementReviews": "Managementbewertungen",
+    "processingActivities": "Verarbeitungsverzeichnis",
     "kpis": "Sicherheitskennzahlen",
     "changes": "Änderungen",
     "patches": "Sicherheitsupdates",
@@ -85,6 +86,7 @@
     "blockedBy": "Zuerst abschließen: {codes}",
     "journey": "Weg",
     "durchgang": "NIS 2 Durchgang",
+    "durchgangGdpr": "DSGVO Durchgang",
     "administration": "Verwaltung",
     "comingSoon": "Bald verfügbar",
     "examples": {

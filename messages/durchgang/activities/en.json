@@ -1,0 +1,134 @@
+{
+  "durchgang": {
+    "activities": {
+      "payroll": {
+        "label": "Payroll",
+        "purpose": "Calculate and pay wages, pay over income tax and social security contributions",
+        "dataSubjects": "Staff, apprentices, temporary staff",
+        "dataCategories": "Name, address, bank details, tax ID, social security number, salary, tax class, religious affiliation for German church tax",
+        "recipients": "Tax adviser or payroll service, tax office, health insurers, bank",
+        "retention": "Payroll accounts until the end of the sixth calendar year after the last payment (§ 41(1) EStG), accounting vouchers eight years (§ 147(3) AO)"
+      },
+      "personnel_records": {
+        "label": "Personnel administration",
+        "purpose": "Establish, carry out and end employment",
+        "dataSubjects": "Staff, former staff",
+        "dataCategories": "Contact details, employment contract, qualifications, leave, absences, appraisals",
+        "recipients": "Management, line managers, tax adviser, authorities where a law requires it",
+        "retention": "Until the employment ends, then only what a law requires to be kept or possible claims need; the company sets the exact period"
+      },
+      "applicants": {
+        "label": "Applications",
+        "purpose": "Review applications and fill positions",
+        "dataSubjects": "Applicants",
+        "dataCategories": "Contact details, CV, references, interview notes",
+        "recipients": "Management, the hiring department, a recruitment agency where used",
+        "retention": "After a rejection only as long as discrimination claims are possible (in Germany to be raised within two months of receiving the rejection, § 15(4) AGG); the company sets the exact period"
+      },
+      "working_time": {
+        "label": "Working time records",
+        "purpose": "Record working hours, settle overtime and leave",
+        "dataSubjects": "Staff",
+        "dataCategories": "Name, start, end and length of working time, breaks, absences",
+        "recipients": "Line managers, payroll",
+        "retention": "Records under § 16(2) ArbZG at least two years, then erased once payroll no longer needs them"
+      },
+      "customers": {
+        "label": "Customer management",
+        "purpose": "Make offers, process orders, look after customers",
+        "dataSubjects": "Customers, contacts at business customers, prospects",
+        "dataCategories": "Name, contact details, company, orders, correspondence",
+        "recipients": "Sales, accounts, delivery services, the provider of the customer management software",
+        "retention": "Until the business relationship ends; business letters six years, invoices as accounting vouchers eight years (§ 257(4) HGB, § 147(3) AO)"
+      },
+      "accounting": {
+        "label": "Accounting",
+        "purpose": "Book transactions, issue and pay invoices, prepare the annual accounts",
+        "dataSubjects": "Customers, suppliers, staff, contacts",
+        "dataCategories": "Name, address, bank details, invoices, payments",
+        "recipients": "Tax adviser, tax office, bank, auditor",
+        "retention": "Books and annual accounts ten years, accounting vouchers eight years, business letters six years (§ 257(4) HGB, § 147(3) AO)"
+      },
+      "suppliers": {
+        "label": "Suppliers and purchasing",
+        "purpose": "Order goods and services, manage suppliers",
+        "dataSubjects": "Contacts at suppliers, sole traders",
+        "dataCategories": "Name, contact details, company, orders, bank details",
+        "recipients": "Purchasing, accounts, tax adviser",
+        "retention": "Until the business relationship ends; business letters six years, accounting vouchers eight years (§ 257(4) HGB, § 147(3) AO)"
+      },
+      "enquiries": {
+        "label": "Enquiries and customer service",
+        "purpose": "Answer enquiries, handle complaints",
+        "dataSubjects": "Prospects, customers",
+        "dataCategories": "Name, contact details, content of the enquiry",
+        "recipients": "Customer service, the department concerned, the provider of the ticket system",
+        "retention": "Until the enquiry is settled, then erased; if it leads to an order, the periods of customer management apply"
+      },
+      "website": {
+        "label": "Website",
+        "purpose": "Provide the website and protect it against attacks",
+        "dataSubjects": "Website visitors",
+        "dataCategories": "IP address, time, pages visited, browser",
+        "recipients": "The website's host",
+        "retention": "Logs only as long as operation and security need; the company sets the exact period"
+      },
+      "newsletter": {
+        "label": "Newsletter",
+        "purpose": "Inform prospects and customers about offers by email",
+        "dataSubjects": "Subscribers",
+        "dataCategories": "Email address, name, time and proof of consent",
+        "recipients": "The newsletter service provider",
+        "retention": "Until unsubscribed; the proof of consent as long as it is needed to demonstrate the consent (Art. 7(1) GDPR)"
+      },
+      "social_media": {
+        "label": "Social media",
+        "purpose": "Present the company on social networks, answer messages and comments",
+        "dataSubjects": "Followers, people who write or comment",
+        "dataCategories": "Profile name, messages, comments",
+        "recipients": "The platform operator",
+        "retention": "Messages erased once settled; the company sets the exact period"
+      },
+      "video_meetings": {
+        "label": "Video meetings",
+        "purpose": "Hold meetings online with staff, customers and partners",
+        "dataSubjects": "Staff, outside participants",
+        "dataCategories": "Name, email address, image and sound, time of participation",
+        "recipients": "The video meeting provider",
+        "retention": "Recordings only where needed, and erased once the purpose is met; the company sets the exact period"
+      },
+      "email": {
+        "label": "Email",
+        "purpose": "Communicate for business",
+        "dataSubjects": "Staff, customers, suppliers and anyone who writes to the company",
+        "dataCategories": "Name, email address, content of messages, attachments",
+        "recipients": "The email service provider",
+        "retention": "Business letters six years, accounting vouchers eight years (§ 257(4) HGB, § 147(3) AO); everything else erased once the purpose is met"
+      },
+      "it_logging": {
+        "label": "IT logs",
+        "purpose": "Run systems, find faults, detect attacks",
+        "dataSubjects": "Staff and other users of the systems",
+        "dataCategories": "User name, IP address, time, sign-ins, actions in the system",
+        "recipients": "IT department, IT service provider",
+        "retention": "Only as long as security and troubleshooting need; the company sets the exact period"
+      },
+      "access_control": {
+        "label": "Access control",
+        "purpose": "Control access to buildings and rooms",
+        "dataSubjects": "Staff, visitors, service providers",
+        "dataCategories": "Name, badge number, access rights, time of access",
+        "recipients": "Facilities, the access system provider",
+        "retention": "Access rights until the authorisation ends, logs only briefly; the company sets the exact period"
+      },
+      "video_surveillance": {
+        "label": "Video surveillance",
+        "purpose": "Protect buildings and grounds, investigate incidents",
+        "dataSubjects": "Staff, visitors, passers-by in the area covered",
+        "dataCategories": "Video images, time",
+        "recipients": "Management, in individual cases the police",
+        "retention": "As briefly as possible, only until it is clear whether an incident occurred; the company sets the exact period"
+      }
+    }
+  }
+}

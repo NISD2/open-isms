@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { inAudience, type ResolvedScreen } from "@/lib/durchgang";
+import { inAudience, isProcessor, type ResolvedScreen } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import type { Draft } from "./draft";
 import { headOf } from "./TrainingRecords";
@@ -30,6 +30,12 @@ export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
     enabled: modules.has("supplier"),
   });
   const assets = trpc.asset.list.useQuery(undefined, { enabled: kinds.has("assets") });
+  const record = trpc.processingActivity.list.useQuery(undefined, {
+    enabled: kinds.has("activities"),
+  });
+  const processors = trpc.supplier.list.useQuery(undefined, {
+    enabled: kinds.has("processors"),
+  });
 
   const listed = (label: string, names: readonly (string | null)[]): string[] => {
     const shown = names.filter((n): n is string => Boolean(n?.trim()));
@@ -91,6 +97,14 @@ export function useRecorded(item: ItemView, draft: Draft): readonly string[] {
 
   return [
     ...item.screens.flatMap(linesOf),
+    ...listed(
+      t("activities.recorded"),
+      (record.data ?? []).map((row) => row.name),
+    ),
+    ...listed(
+      t("processors.recorded"),
+      (processors.data ?? []).filter(isProcessor).map((row) => row.name),
+    ),
     ...(assets.data ? [t("onList", { count: assets.data.length })] : []),
     ...(draft.uploaded ? [draft.uploaded] : []),
   ];

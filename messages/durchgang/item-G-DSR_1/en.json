@@ -1,0 +1,145 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DSR_1": {
+        "headline": "Answer requests from data subjects",
+        "teaser": "Who answers requests, where they arrive and the deadline.",
+        "missed": [
+          "The GDPR prescribes no form and no keyword for a request. A letter to accounts or a message on social media can be a request too, and the deadline runs from receipt (Art. 12(3)).",
+          "The first copy of the data is free. Only for further copies may you charge a reasonable fee based on administrative costs (Art. 15(3)).",
+          "If someone objects to direct marketing, you may no longer process their data for it (Art. 21(2) and (3)). Many companies keep a suppression list so the person is not contacted again."
+        ],
+        "screens": {
+          "learn": {
+            "title": "When someone wants to know what you hold about them",
+            "body": [
+              "Everyone whose data you process has rights: access, rectification, erasure, restriction of processing, data portability, objection, and the right not to be subject to a decision based solely on automated processing (Art. 15 to 22). Requests come from customers, staff, former applicants, anyone.",
+              "You answer without undue delay and at the latest within one month of receipt. Where necessary because of the complexity or number of requests, the period extends by two further months; you tell the person within the first month, together with the reasons (Art. 12(3)). If you do not act on a request, you tell them within one month why, and that they may complain to a supervisory authority and seek a judicial remedy (Art. 12(4)).",
+              "In this step you decide who answers and where requests arrive. That becomes your procedure."
+            ],
+            "duty": "The GDPR requires your company to facilitate the exercise of data subjects' rights and to answer their requests on time."
+          },
+          "rights": {
+            "title": "Which rights there are",
+            "lead": "Every data subject can exercise these rights. Your procedure says what to do for each.",
+            "items": [
+              {
+                "name": "Access (Art. 15)",
+                "detail": "whether you process data about the person, a copy of it, and information such as the purpose, recipients, storage period and source"
+              },
+              {
+                "name": "Rectification (Art. 16)",
+                "detail": "correct inaccurate data, complete incomplete data"
+              },
+              {
+                "name": "Erasure (Art. 17)",
+                "detail": "erase, for example when the purpose has ended, unless an exception applies, such as a statutory retention duty"
+              },
+              {
+                "name": "Restriction (Art. 18)",
+                "detail": "only store the data instead of using it, for example while its accuracy is contested"
+              },
+              {
+                "name": "Data portability (Art. 20)",
+                "detail": "hand over data the person provided in a commonly used, machine-readable format, where the processing rests on consent or a contract and is automated"
+              },
+              {
+                "name": "Objection (Art. 21)",
+                "detail": "against processing based on legitimate interests, on grounds of the person's particular situation, and against direct marketing at any time"
+              },
+              {
+                "name": "Automated decisions (Art. 22)",
+                "detail": "no decision with legal or similarly significant effects based solely on automated processing, except in the cases of Art. 22(2)"
+              }
+            ],
+            "source": "Art. 15 to 22 GDPR. In Germany, §§ 34 and 35 BDSG narrow access and erasure in a few defined cases."
+          },
+          "inbox": {
+            "title": "Who answers and where requests arrive",
+            "lead": "One person is responsible, and requests have a fixed address. You also give this address in your privacy notice.",
+            "document": "Your procedure for data subject requests"
+          },
+          "procedure": {
+            "title": "Your procedure for data subject requests",
+            "lead": "Who answers, how you check identity, which deadlines apply and how you handle each right. Your answers are already in it. Read it, then choose below what also applies to you.",
+            "document": {
+              "title": "Procedure for data subject requests of {company}",
+              "sections": [
+                {
+                  "heading": "Responsibility and receipt",
+                  "text": "At {company}, requests from data subjects are answered by {requestHandler}. Requests reach us at {requestAddress}. They can arrive by any route, though, including by letter, phone or email to other staff. Anyone who receives a request forwards it to {requestHandler} the same day. Where a data protection officer is designated, they advise. Data protection officer: {dataProtectionOfficer}"
+                },
+                {
+                  "heading": "Checking identity",
+                  "text": "Where we have reasonable doubts whether the request comes from the data subject, we ask for the additional information necessary to confirm their identity (Art. 12(6) GDPR). We ask for no more than that."
+                },
+                {
+                  "heading": "Deadlines",
+                  "text": "We answer without undue delay and at the latest within one month of receipt (Art. 12(3) GDPR). Where necessary because of the complexity or number of requests, we extend by at most two further months and tell the person within the first month, together with the reasons. If the request came electronically, we answer electronically where possible, unless the person asks otherwise."
+                },
+                {
+                  "heading": "Costs",
+                  "text": "The answer is free of charge. Only for manifestly unfounded or excessive requests, in particular repetitive ones, may we charge a reasonable fee or refuse to act; we then have to demonstrate that (Art. 12(5) GDPR)."
+                },
+                {
+                  "heading": "The rights one by one",
+                  "text": "Access: we confirm whether we process data about the person and provide a copy with the information of Art. 15 GDPR. Rectification: we correct inaccurate data and complete incomplete data (Art. 16). Erasure: we erase where a ground in Art. 17(1) applies and no exception in Art. 17(3) does, such as a statutory retention duty. Restriction: we restrict processing in the cases of Art. 18. Data portability: we hand over data the person provided to us in a commonly used, machine-readable format where the processing rests on consent or a contract and is automated (Art. 20). Objection: for direct marketing we stop processing for that purpose; in other cases we check whether compelling legitimate grounds override (Art. 21). We take no decision with legal or similarly significant effects based solely on automated processing unless Art. 22(2) allows it. Where we have rectified, erased or restricted data, we tell every recipient, unless that proves impossible or involves disproportionate effort (Art. 19)."
+                },
+                {
+                  "heading": "Limits under German law",
+                  "text": "The right of access does not apply in a few defined cases, for example to data we may not erase only because of statutory retention rules, where answering would take disproportionate effort and processing for other purposes is excluded by technical and organisational measures (§ 34(1) BDSG). We document the reasons for refusing access and give the person the reasons, unless that would defeat the purpose of the refusal (§ 34(2) BDSG). In non-automated processing, restriction takes the place of erasure where erasure is impossible or takes disproportionate effort because of the way the data is stored and the person's interest in erasure is minor; never for unlawfully processed data (§ 35(1) BDSG)."
+                },
+                {
+                  "heading": "Refusing and recording",
+                  "text": "If we do not act on a request, we tell the person without delay and at the latest within one month the reasons, and that they may complain to a supervisory authority and seek a judicial remedy (Art. 12(4) GDPR). We record every request with its receipt, answer and date."
+                }
+              ],
+              "clauses": [
+                {
+                  "id": "templates",
+                  "label": "Answer templates",
+                  "heading": "Answer templates",
+                  "text": "For access, erasure and objection we have answer templates that {requestHandler} adapts to each request."
+                },
+                {
+                  "id": "blocklist",
+                  "label": "Marketing suppression list",
+                  "heading": "Marketing suppression list",
+                  "text": "Anyone who objects to direct marketing goes on a suppression list so we do not contact them again. The list holds only what is needed for that."
+                },
+                {
+                  "id": "deputy",
+                  "label": "Deputy",
+                  "heading": "Deputy",
+                  "text": "If {requestHandler} is away for longer, a named deputy takes over so that no deadline is missed."
+                },
+                {
+                  "id": "processors",
+                  "label": "Help from providers",
+                  "heading": "Help from providers",
+                  "text": "Our processors assist us in answering, as the data processing agreements provide (Art. 28(3)(e) GDPR)."
+                }
+              ],
+              "own": "Further rules",
+              "signature": "Approval by the management of {company}"
+            }
+          },
+          "done": {
+            "title": "Your request procedure is written",
+            "note": "Give the address for requests in your privacy notice, and tell all staff where to forward requests."
+          }
+        },
+        "fields": {
+          "requestHandler": {
+            "label": "Who answers requests",
+            "hint": "The person who takes requests, keeps an eye on the deadline and writes the answer or has it written. A data protection officer advises; the answer comes from your company."
+          },
+          "requestAddress": {
+            "label": "Where requests arrive",
+            "hint": "An email address that more than one person reads, such as privacy@ at your domain. Then no request waits while someone is on holiday."
+          }
+        }
+      }
+    }
+  }
+}

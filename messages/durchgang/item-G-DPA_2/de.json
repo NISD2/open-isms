@@ -1,0 +1,32 @@
+{
+  "durchgang": {
+    "items": {
+      "G-DPA_2": {
+        "headline": "Festhalten, wie Ihre Auftragsverarbeiter Unterauftragnehmer einsetzen dürfen",
+        "teaser": "Für jeden Auftragsverarbeiter: einzeln oder allgemein genehmigt.",
+        "missed": [
+          "Bei einer allgemeinen Genehmigung informiert Sie der Auftragsverarbeiter über jede beabsichtigte Hinzuziehung oder Ersetzung eines Unterauftragnehmers, damit Sie Einspruch erheben können (Art. 28 Abs. 2). Sorgen Sie dafür, dass diese Mitteilungen bei jemandem ankommen, der sie liest.",
+          "Der Auftragsverarbeiter muss jedem Unterauftragnehmer dieselben Datenschutzpflichten auferlegen, die er Ihnen gegenüber hat (Art. 28 Abs. 4)."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Wer für Ihren Dienstleister arbeitet",
+            "body": [
+              "Viele Auftragsverarbeiter setzen selbst weitere Auftragsverarbeiter ein, sogenannte Unterauftragnehmer, etwa ein Softwareanbieter sein Rechenzentrum. Das darf er nur mit Ihrer vorherigen schriftlichen Genehmigung (Art. 28 Abs. 2).",
+              "Die Genehmigung gibt es in zwei Formen: gesondert, für jeden Unterauftragnehmer einzeln, oder allgemein. Bei der allgemeinen informiert Sie der Auftragsverarbeiter über jede beabsichtigte Änderung, und Sie können Einspruch erheben. Oft steht die Genehmigung im Vertrag zur Auftragsverarbeitung, mit einer Liste der Unterauftragnehmer."
+            ],
+            "duty": "Die DSGVO verlangt, dass ein Auftragsverarbeiter weitere Auftragsverarbeiter nur mit vorheriger gesonderter oder allgemeiner schriftlicher Genehmigung Ihres Unternehmens einsetzt."
+          },
+          "authorisation": {
+            "title": "Wie Sie genehmigt haben",
+            "lead": "Für jeden Auftragsverarbeiter: Was sagt der Vertrag zu Unterauftragnehmern? Sehen Sie dort nach, meist unter „Unterauftragsverhältnisse“ oder „weitere Auftragsverarbeiter“."
+          },
+          "done": {
+            "title": "Ihre Genehmigungen sind festgehalten",
+            "note": "Bei allgemeiner Genehmigung lesen Sie die Änderungsmitteilungen Ihrer Anbieter und erheben Einspruch, wenn ein neuer Unterauftragnehmer nicht passt."
+          }
+        }
+      }
+    }
+  }
+}

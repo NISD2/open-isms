@@ -32,7 +32,8 @@
       "bsi_registration": "BSI-Registrierung",
       "bsi_incident_report": "BSI-Vorfallmeldungen",
       "vulnerability": "Schwachstellen",
-      "team": "Team und Rollen"
+      "team": "Team und Rollen",
+      "processing_activity": "Verarbeitungsverzeichnis"
     },
     "moduleRef": {
       "confirmCompliance": "Compliance bestätigen",

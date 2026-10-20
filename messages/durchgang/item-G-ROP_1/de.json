@@ -1,0 +1,91 @@
+{
+  "durchgang": {
+    "items": {
+      "G-ROP_1": {
+        "headline": "Ihr Verzeichnis von Verarbeitungstätigkeiten anlegen",
+        "teaser": "Was Sie mit personenbezogenen Daten tun, eine Zeile je Tätigkeit.",
+        "missed": [
+          "Die Ausnahme für Unternehmen mit weniger als 250 Beschäftigten (Art. 30 Abs. 5) greift fast nie. Sie entfällt schon, wenn eine von drei Bedingungen vorliegt: Die Verarbeitung birgt ein Risiko für die Betroffenen, sie erfolgt nicht nur gelegentlich, oder sie umfasst besondere Kategorien von Daten oder Daten über Straftaten. Eine monatliche Lohnabrechnung erfolgt nicht nur gelegentlich.",
+          "Die Aufsichtsbehörde kann das Verzeichnis anfordern (Art. 30 Abs. 4). Ändern Sie es, sobald eine Tätigkeit dazukommt oder wegfällt.",
+          "Wenn möglich, gehört eine allgemeine Beschreibung Ihrer Sicherheitsmaßnahmen dazu (Art. 30 Abs. 1 Buchst. g). Die schreibt der Schritt zur Sicherheit der Verarbeitung; das Verzeichnis kann darauf verweisen."
+        ],
+        "screens": {
+          "learn": {
+            "title": "Was Sie mit Daten tun",
+            "body": [
+              "Das Verzeichnis listet jede Verarbeitungstätigkeit Ihres Unternehmens, etwa Lohnabrechnung, Kundenverwaltung, Website oder Videoüberwachung. Zu jeder steht, wofür Sie die Daten verarbeiten, wessen Daten und welche, wer sie bekommt, ob sie in ein Land außerhalb des EWR gehen und wann sie gelöscht werden (Art. 30 Abs. 1). Dazu kommen Name und Kontaktdaten Ihres Unternehmens und Ihrer Datenschutzbeauftragten.",
+              "Schriftlich heißt hier: auch elektronisch (Art. 30 Abs. 3). Eine Unterschrift verlangt die DSGVO nicht.",
+              "In den nächsten Schritten wählen Sie Ihre Tätigkeiten aus einer Liste und beschreiben jede. Für jede Angabe gibt es einen Vorschlag, den Sie übernehmen oder ändern. Führen Ihre Datenschutzbeauftragten schon ein Verzeichnis, legen Sie es daneben und gleichen Sie ab."
+            ],
+            "duty": "Die DSGVO verlangt, dass Ihr Unternehmen ein Verzeichnis aller Verarbeitungstätigkeiten führt, für die es zuständig ist."
+          },
+          "line": {
+            "title": "So sieht eine Zeile aus",
+            "caption": "Eine ausgedachte Zeile für die Lohnabrechnung:",
+            "rows": [
+              { "name": "Tätigkeit", "detail": "Lohn- und Gehaltsabrechnung" },
+              {
+                "name": "Zweck",
+                "detail": "Löhne berechnen und zahlen, Lohnsteuer und Sozialversicherungsbeiträge abführen"
+              },
+              {
+                "name": "Betroffene Personen",
+                "detail": "Beschäftigte, Auszubildende, Aushilfen"
+              },
+              {
+                "name": "Datenkategorien",
+                "detail": "Name, Anschrift, Bankverbindung, Steueridentifikationsnummer, Sozialversicherungsnummer, Gehalt, Steuerklasse"
+              },
+              {
+                "name": "Besonders geschützte Daten",
+                "detail": "Ja: die Religionszugehörigkeit für die Kirchensteuer"
+              },
+              {
+                "name": "Empfänger",
+                "detail": "Steuerberater, Finanzamt, Krankenkassen, Bank"
+              },
+              { "name": "Außerhalb des EWR", "detail": "Nein" },
+              {
+                "name": "Löschfrist",
+                "detail": "Lohnkonten bis zum Ende des sechsten Kalenderjahres nach der letzten Lohnzahlung (§ 41 Abs. 1 EStG), Buchungsbelege acht Jahre (§ 147 Abs. 3 AO)"
+              }
+            ],
+            "note": "Wie ausführlich eine Zeile sein muss, schreibt die DSGVO nicht vor. Sie soll zeigen, was mit den Daten geschieht."
+          },
+          "staff": {
+            "title": "Ihre Beschäftigten",
+            "lead": "Was tun Sie mit den Daten Ihrer Beschäftigten und Bewerber? Haken Sie an, was es bei Ihnen gibt."
+          },
+          "customers": {
+            "title": "Kunden und Lieferanten",
+            "lead": "Was tun Sie mit den Daten von Kunden, Interessenten und Lieferanten? Auch die Ansprechpartner bei Firmenkunden sind Personen mit Daten."
+          },
+          "online": {
+            "title": "Online",
+            "lead": "Website, Newsletter, soziale Medien und Videokonferenzen. Haken Sie an, was Ihr Unternehmen nutzt."
+          },
+          "operations": {
+            "title": "Im Betrieb",
+            "lead": "E-Mail, Protokolle Ihrer IT, Zutritt und Kameras. Auch Sicherheitsmaßnahmen verarbeiten personenbezogene Daten, etwa die Protokolle, die Ihre IT über Anmeldungen schreibt."
+          },
+          "what": {
+            "title": "Wofür, wessen Daten, welche",
+            "lead": "Für jede Tätigkeit steht ein Vorschlag da. Übernehmen Sie ihn, oder schreiben Sie, wie es bei Ihnen ist. Gruppen genügen, Namen gehören nicht hinein."
+          },
+          "who": {
+            "title": "Wer die Daten bekommt",
+            "lead": "Empfänger ist jeder, dem Sie die Daten offenlegen, auch Ihre Dienstleister (Art. 4 Nr. 9). Sagen Sie auch, ob Daten in ein Land außerhalb des EWR gehen, etwa zu einem Clouddienst in den USA."
+          },
+          "keep": {
+            "title": "Wann gelöscht wird",
+            "lead": "Personenbezogene Daten dürfen nur so lange gespeichert werden, wie es für den Zweck erforderlich ist (Art. 5 Abs. 1 Buchst. e). Wo ein Gesetz eine Aufbewahrungsfrist vorgibt, nennt der Vorschlag sie. Wo keines das tut, legen Sie die Frist selbst fest."
+          },
+          "done": {
+            "title": "Ihr Verzeichnis ist angelegt",
+            "note": "Kommt eine Tätigkeit dazu oder fällt eine weg, ändern Sie das Verzeichnis. Sie finden es jederzeit im Verarbeitungsverzeichnis."
+          }
+        }
+      }
+    }
+  }
+}

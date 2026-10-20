@@ -339,6 +339,13 @@
         "legalBasis": "GDPR Art. 37-39, §38 BDSG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "ACT": {
+        "name": "Rozliczalność",
+        "description": "Wykazanie, że przetwarzanie jest zgodne z GDPR: środki z art. 24 oraz, jeżeli jest to proporcjonalne, polityki ochrony danych",
+        "legalBasis": "GDPR Art. 5(2), 24",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
@@ -388,18 +395,6 @@
     "save": "Zapisz",
     "saving": "Zapisywanie...",
     "failedToSave": "Nie udało się zapisać"
-  },
-  "evidence": {
-    "dropzone": "Przeciągnij plik tutaj lub kliknij, aby wybrać",
-    "formats": "PDF, DOCX, XLSX, obrazy",
-    "description": "Opis (opcjonalnie)",
-    "descriptionPlaceholder": "Co potwierdza ten dokument?",
-    "uploading": "Przesyłanie...",
-    "upload": "Prześlij dowód",
-    "uploaded": "Dowód przesłany",
-    "fileSaved": "{name} został zapisany.",
-    "loading": "Ładowanie plików...",
-    "uploadFailed": "Przesyłanie nie powiodło się"
   },
   "signoff": {
     "title": "Wymagane zatwierdzenie przez zarząd",

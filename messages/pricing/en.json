@@ -254,7 +254,12 @@
           "cryptography": "Cryptography policy",
           "personnel_access": "Staff, access and asset policy",
           "it_rules": "Rules for buying, maintaining and securing IT",
-          "business_continuity": "Business continuity plan"
+          "business_continuity": "Business continuity plan",
+          "gdpr_security_measures": "Description of the technical and organisational measures (Art. 32 GDPR)",
+          "gdpr_breach_procedure": "Procedure for personal data breaches (Art. 33 GDPR)",
+          "gdpr_breach_notice": "Template for telling the people affected (Art. 34 GDPR)",
+          "gdpr_request_procedure": "Procedure for requests from data subjects (Art. 12 to 22 GDPR)",
+          "gdpr_data_protection_policy": "Data protection policy (Art. 24 GDPR)"
         },
         "records": {
           "training_management": "Training records for management",
@@ -268,7 +273,9 @@
           "backups": "Your backups and their last restore that worked",
           "training_staff": "Staff training and briefings",
           "management_review": "Your management review",
-          "approvals": "Your approval of each document, with name and date"
+          "approvals": "Your approval of each document, with name and date",
+          "processing_activities": "Your record of processing activities (Art. 30 GDPR)",
+          "processors": "Which service providers process data on your behalf, with contract and transfers"
         }
       },
       "people": {

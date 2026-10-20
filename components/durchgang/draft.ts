@@ -1,6 +1,14 @@
+import type { z } from "zod";
 import type { AssetLayer } from "@/lib/asset-inventory/types";
-import type { Hosting, MfaMethod, RatedKind, Rating } from "@/lib/durchgang";
+import type {
+  Hosting,
+  MfaMethod,
+  ProcessorAnswer,
+  RatedKind,
+  Rating,
+} from "@/lib/durchgang";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
+import type { activityFactsSchema } from "@/schema/processing-activity-validators";
 
 /**
  * An asset as the "which one exactly" screen edits it: its name, what it is for in the company's
@@ -66,7 +74,20 @@ export interface Draft {
   readonly critical: Readonly<Record<string, Critical>>;
   /** The backup systems' answers, by asset id, changed on this visit. */
   readonly backups: Readonly<Record<string, Backup>>;
+  /** Ticked processing-activity catalogue items, and the company's own activities by name. */
+  readonly activities: readonly string[];
+  readonly ownActivities: readonly string[];
+  /** The facts of each processing activity edited on this visit, by activity id. */
+  readonly described: Readonly<Record<string, Described>>;
+  /** Each supplier's answer on the processors screen, by supplier id, chosen on this visit. */
+  readonly processors: Readonly<Record<string, ProcessorAnswer>>;
 }
+
+/**
+ * A processing activity's facts as a describe screen edits them, the shape the save takes
+ * (`activityFactsSchema`): only the facts the person touched or the screen proposed are present.
+ */
+export type Described = z.infer<typeof activityFactsSchema>;
 
 /** A supplier's answer on 5.2: neither ticked means the person found nothing agreed. */
 export interface Agreed {
@@ -138,6 +159,10 @@ export const initialDraft = (
   methods: {},
   critical: {},
   backups: {},
+  activities: [],
+  ownActivities: [],
+  described: {},
+  processors: {},
 });
 
 /** The draft with each of `keys` set to `today` where no answer is stored yet. */

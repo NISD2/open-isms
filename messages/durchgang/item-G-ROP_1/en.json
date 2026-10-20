@@ -1,0 +1,91 @@
+{
+  "durchgang": {
+    "items": {
+      "G-ROP_1": {
+        "headline": "Set up your record of processing activities",
+        "teaser": "What you do with personal data, one line per activity.",
+        "missed": [
+          "The exemption for companies employing fewer than 250 persons (Art. 30(5)) almost never applies. Any one of three conditions removes it: the processing is likely to result in a risk to the people concerned, it is not occasional, or it includes special categories of data or data on criminal convictions and offences. A monthly payroll is not occasional.",
+          "The supervisory authority can ask for the record (Art. 30(4)). Change it as soon as an activity is added or dropped.",
+          "Where possible, the record also holds a general description of your security measures (Art. 30(1)(g)). The step on security of processing writes it; the record can refer to it."
+        ],
+        "screens": {
+          "learn": {
+            "title": "What you do with data",
+            "body": [
+              "The record lists every processing activity of your company, such as payroll, customer management, the website or video surveillance. For each it says what you process the data for, whose data and which, who receives it, whether it goes to a country outside the EEA and when it is erased (Art. 30(1)). It also names your company and your data protection officer, with contact details.",
+              "In writing here includes electronic form (Art. 30(3)). The GDPR does not ask for a signature.",
+              "On the next steps you choose your activities from a list and describe each one. Every entry comes with a suggestion you can use or change. If your data protection officer already keeps a record, put it next to this one and compare the two."
+            ],
+            "duty": "The GDPR requires your company to maintain a record of the processing activities under its responsibility."
+          },
+          "line": {
+            "title": "What a line looks like",
+            "caption": "A made-up line for payroll:",
+            "rows": [
+              { "name": "Activity", "detail": "Payroll" },
+              {
+                "name": "Purpose",
+                "detail": "Calculate and pay wages, pay over income tax and social security contributions"
+              },
+              {
+                "name": "People concerned",
+                "detail": "Staff, apprentices, temporary staff"
+              },
+              {
+                "name": "Categories of data",
+                "detail": "Name, address, bank details, tax ID, social security number, salary, tax class"
+              },
+              {
+                "name": "Specially protected data",
+                "detail": "Yes: religious affiliation, for German church tax"
+              },
+              {
+                "name": "Recipients",
+                "detail": "Tax adviser, tax office, health insurers, bank"
+              },
+              { "name": "Outside the EEA", "detail": "No" },
+              {
+                "name": "Erasure",
+                "detail": "Payroll accounts until the end of the sixth calendar year after the last payment (§ 41(1) EStG), accounting vouchers eight years (§ 147(3) AO)"
+              }
+            ],
+            "note": "The GDPR does not say how detailed a line must be. It should show what happens to the data."
+          },
+          "staff": {
+            "title": "Your staff",
+            "lead": "What do you do with the data of your staff and applicants? Tick what applies to you."
+          },
+          "customers": {
+            "title": "Customers and suppliers",
+            "lead": "What do you do with the data of customers, prospects and suppliers? Your contacts at business customers are people with data too."
+          },
+          "online": {
+            "title": "Online",
+            "lead": "Website, newsletter, social media and video meetings. Tick what your company uses."
+          },
+          "operations": {
+            "title": "Running the company",
+            "lead": "Email, your IT's logs, access control and cameras. Security measures process personal data too, for example the logs your IT writes of every sign-in."
+          },
+          "what": {
+            "title": "What for, whose data, which data",
+            "lead": "Each activity comes with a suggestion. Use it, or write how it is for you. Groups are enough; names do not belong here."
+          },
+          "who": {
+            "title": "Who receives the data",
+            "lead": "A recipient is anyone you disclose the data to, your service providers included (Art. 4(9)). Also say whether data goes to a country outside the EEA, for example to a cloud service in the USA."
+          },
+          "keep": {
+            "title": "When data is erased",
+            "lead": "Personal data may be kept only as long as necessary for the purpose (Art. 5(1)(e)). Where a law sets a retention period, the suggestion names it. Where none does, you set the period yourself."
+          },
+          "done": {
+            "title": "Your record is set up",
+            "note": "When an activity is added or dropped, change the record. You find it at any time under Record of processing activities."
+          }
+        }
+      }
+    }
+  }
+}

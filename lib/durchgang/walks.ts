@@ -4,6 +4,7 @@
  * framework beside it.
  */
 
+import { GDPR_WALK } from "./gdpr";
 import { NIS2_WALK } from "./nis2";
 import type {
   AnyItem,
@@ -14,7 +15,10 @@ import type {
   WalkFramework,
 } from "./types";
 
-export const WALKS: Readonly<Record<WalkFramework, Walk>> = { nis2: NIS2_WALK };
+export const WALKS: Readonly<Record<WalkFramework, Walk>> = {
+  nis2: NIS2_WALK,
+  gdpr: GDPR_WALK,
+};
 
 const BY_CODE: ReadonlyMap<string, { readonly walk: Walk; readonly item: AnyItem }> =
   new Map(
