@@ -1,6 +1,6 @@
 import "@/lib/server-guard";
 import { getLocale, getTranslations } from "next-intl/server";
-import type { ItemView, WalkEntry } from "@/components/durchgang/view";
+import type { HeadStart, ItemView, WalkEntry } from "@/components/durchgang/view";
 import { onRegister } from "@/lib/asset-inventory/catalog-labels";
 import { catalogueSectorsOf } from "@/lib/asset-inventory/sectors";
 import { getSession } from "@/lib/auth";
@@ -25,6 +25,7 @@ import {
   walkLocaleOf,
   walkOfCode,
 } from "@/lib/durchgang";
+import { headStartsOf } from "@/lib/durchgang/head-starts";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { assistantMarks } from "@/lib/mcp/fills";
 import { assistantFillsOf } from "@/lib/mcp/fills-store";
@@ -110,6 +111,29 @@ export async function headlinesOf(
 }
 
 /**
+ * Where the company stands on the NIS 2 items that give a GDPR item a head start, with the item's
+ * line on what the GDPR still asks. Null where there is no head start or no line for it.
+ */
+async function headStartOf(code: string, gap: string | null): Promise<HeadStart | null> {
+  const codes = headStartsOf(code);
+  if (!gap || codes.length === 0) return null;
+  const [states, titles] = await Promise.all([
+    api.durchgang.walk({ framework: "nis2" }),
+    headlinesOf(codes),
+  ]);
+  const stateOf = new Map(states.map((s) => [s.code, s.state]));
+  return {
+    gap,
+    items: codes.flatMap((c) => {
+      const title = titles.get(c);
+      return title
+        ? [{ code: c, title, state: stateOf.get(c) ?? { kind: "open" as const } }]
+        : [];
+    }),
+  };
+}
+
+/**
  * One item, resolved for its screens. Null when it is in no walk, not in the company's walk or
  * not visible to the caller.
  */
@@ -184,6 +208,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     assistantFillsOf(db, session.companyId, req.id),
     asksActivities ? api.processingActivity.list() : Promise.resolve([]),
   ]);
+  const fromNis2 = await headStartOf(code, words.fromNis2);
   const listed = assets ? onRegister(assets).listed : [];
   const onRecord = new Set(record.flatMap((a) => (a.catalogId ? [a.catalogId] : [])));
 
@@ -236,6 +261,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     title: words.headline,
     image: imageFor(code),
     missed: words.missed,
+    fromNis2,
     terms: item.glossary.map((term) => {
       const entry = getTermEntry(term, locale);
       if (!entry)

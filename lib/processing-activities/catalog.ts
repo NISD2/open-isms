@@ -1,4 +1,4 @@
-import type { ActivityGroup } from "@/lib/durchgang/gdpr-records";
+import type { ActivityGroup, LegalBasis } from "@/lib/durchgang/gdpr-records";
 
 /**
  * The processing activities a company of this size usually carries out, offered as ticks so a
@@ -12,53 +12,110 @@ export interface ActivityItem {
   readonly group: ActivityGroup;
   /** Asset-catalogue items any of which, listed by the company, ticks this activity. */
   readonly fromAssets: readonly string[];
+  /**
+   * The lawful bases (Art. 6(1)) such an activity usually rests on, marked as usual on the walk's
+   * basis screen and never ticked for the person: the company decides what holds for it.
+   */
+  readonly bases: readonly LegalBasis[];
 }
 
 export const ACTIVITY_CATALOG = [
-  { id: "payroll", group: "staff", fromAssets: ["hr-payroll", "bp-hr-payroll"] },
+  {
+    id: "payroll",
+    group: "staff",
+    fromAssets: ["hr-payroll", "bp-hr-payroll"],
+    bases: ["contract", "legal_obligation"],
+  },
   {
     id: "personnel_records",
     group: "staff",
     fromAssets: ["hr-personnel-files", "hr-hris", "bp-hr-payroll"],
+    bases: ["contract", "legal_obligation"],
   },
-  { id: "applicants", group: "staff", fromAssets: ["hr-recruiting"] },
+  {
+    id: "applicants",
+    group: "staff",
+    fromAssets: ["hr-recruiting"],
+    bases: ["contract"],
+  },
   {
     id: "working_time",
     group: "staff",
     fromAssets: ["hr-time-tracking", "hr-scheduling"],
+    bases: ["legal_obligation", "contract"],
   },
   {
     id: "customers",
     group: "customers",
     fromAssets: ["sales-crm", "cf-customer-portal", "cf-webshop", "bp-sales-cs"],
+    bases: ["contract", "legitimate_interests"],
   },
   {
     id: "accounting",
     group: "customers",
     fromAssets: ["fin-accounting", "fin-invoicing", "fin-erp", "bp-finance-accounting"],
+    bases: ["legal_obligation", "contract"],
   },
   {
     id: "suppliers",
     group: "customers",
     fromAssets: ["fin-procurement-system", "bp-procurement"],
+    bases: ["contract", "legitimate_interests"],
   },
   {
     id: "enquiries",
     group: "customers",
     fromAssets: ["cs-helpdesk", "cs-shared-mailbox", "cf-contact-form", "cs-live-chat"],
+    bases: ["contract", "legitimate_interests"],
   },
-  { id: "website", group: "online", fromAssets: ["cf-website", "cf-webshop"] },
-  { id: "newsletter", group: "online", fromAssets: ["cf-newsletter"] },
-  { id: "social_media", group: "online", fromAssets: ["cf-social-media"] },
-  { id: "video_meetings", group: "online", fromAssets: ["it-video-conferencing"] },
-  { id: "email", group: "operations", fromAssets: ["it-email", "it-office-suite"] },
+  {
+    id: "website",
+    group: "online",
+    fromAssets: ["cf-website", "cf-webshop"],
+    bases: ["legitimate_interests"],
+  },
+  {
+    id: "newsletter",
+    group: "online",
+    fromAssets: ["cf-newsletter"],
+    bases: ["consent"],
+  },
+  {
+    id: "social_media",
+    group: "online",
+    fromAssets: ["cf-social-media"],
+    bases: ["legitimate_interests"],
+  },
+  {
+    id: "video_meetings",
+    group: "online",
+    fromAssets: ["it-video-conferencing"],
+    bases: ["contract", "legitimate_interests"],
+  },
+  {
+    id: "email",
+    group: "operations",
+    fromAssets: ["it-email", "it-office-suite"],
+    bases: ["contract", "legitimate_interests"],
+  },
   {
     id: "it_logging",
     group: "operations",
     fromAssets: ["it-monitoring", "it-endpoint-protection", "it-identity-provider"],
+    bases: ["legitimate_interests"],
   },
-  { id: "access_control", group: "operations", fromAssets: ["ep-access-control"] },
-  { id: "video_surveillance", group: "operations", fromAssets: ["ep-cameras"] },
+  {
+    id: "access_control",
+    group: "operations",
+    fromAssets: ["ep-access-control"],
+    bases: ["legitimate_interests"],
+  },
+  {
+    id: "video_surveillance",
+    group: "operations",
+    fromAssets: ["ep-cameras"],
+    bases: ["legitimate_interests"],
+  },
 ] as const satisfies readonly ActivityItem[];
 
 export type ActivityId = (typeof ACTIVITY_CATALOG)[number]["id"];

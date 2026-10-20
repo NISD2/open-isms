@@ -8,16 +8,17 @@ import {
   type ProcessorAnswer,
   type ProcessorFact,
   SUBPROCESSOR_AUTHORISATIONS,
-  storedAnswer,
   TRANSFER_MECHANISMS,
 } from "@/lib/durchgang";
+import { answerFor, type SupplierStatement } from "@/lib/supplier-portal/statements";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import type { Draft } from "./draft";
 import { Aside, Heading, Lead } from "./ExplainScreens";
 import { Toggle } from "./RowParts";
 import type { Of, WorkProps } from "./WorkScreens";
 
-type Supplier = RouterOutputs["supplier"]["list"][number];
+/** A supplier as the processors screens read it: the customer's facts and what it stated. */
+type Supplier = RouterOutputs["durchgang"]["gdpr"]["processorRows"][number];
 
 /**
  * The suppliers a processors screen asks about: every supplier for their role; for the facts that
@@ -40,21 +41,27 @@ export function useProcessorRows(
   fact: ProcessorFact | null,
   draft: Draft,
 ): readonly Supplier[] | undefined {
-  const suppliers = trpc.supplier.list.useQuery(undefined, { enabled: fact !== null });
+  const suppliers = trpc.durchgang.gdpr.processorRows.useQuery(undefined, {
+    enabled: fact !== null,
+  });
   return fact && suppliers.data
     ? processorRowsOf(fact, suppliers.data, draft)
     : undefined;
 }
 
-/** The answer a row shows: what was chosen on this visit, else what is stored, else none. */
+/**
+ * The answer a row shows and where it comes from: chosen on this visit, recorded by the company,
+ * stated by the supplier in its questionnaire, or the transfer columns' default (`answerFor`).
+ */
+export const resolvedAnswer = (fact: ProcessorFact, row: Supplier, draft: Draft) =>
+  answerFor(fact, row, draft.processors[row.id]);
+
+/** The answer a row shows, whatever its source. */
 export const processorAnswerOf = (
   fact: ProcessorFact,
   row: Supplier,
   draft: Draft,
-): ProcessorAnswer | null => {
-  const chosen = draft.processors[row.id];
-  return chosen?.fact === fact ? chosen : storedAnswer(fact, row);
-};
+): ProcessorAnswer | null => resolvedAnswer(fact, row, draft)?.answer ?? null;
 
 /** Whether a row's answer is complete: a transfer outside the EEA names its basis. */
 export const answered = (answer: ProcessorAnswer | null): boolean =>
@@ -63,8 +70,9 @@ export const answered = (answer: ProcessorAnswer | null): boolean =>
 
 /**
  * What leaving a processors screen saves, as `durchgang.gdpr.recordProcessors` takes it, or null
- * when nothing is to be saved: the complete answers chosen on this visit, and on the transfer
- * screen every row it shows, since that screen starts each row answered (as 11.1 does).
+ * when nothing is to be saved: the complete answers chosen on this visit or taken from the
+ * supplier's statement (moving on confirms what the screen showed), and on the transfer screen
+ * every row it shows, since that screen starts each row answered (as 11.1 does).
  */
 export const processorSave = (
   code: string,
@@ -73,11 +81,14 @@ export const processorSave = (
   draft: Draft,
 ) => {
   const picked = rows.flatMap((row) => {
-    const answer =
-      fact === "transfer"
-        ? processorAnswerOf(fact, row, draft)
-        : draft.processors[row.id];
-    return answer?.fact === fact && answered(answer)
+    const resolved = resolvedAnswer(fact, row, draft);
+    const saved =
+      resolved !== null &&
+      (fact === "transfer" ||
+        resolved.source === "chosen" ||
+        resolved.source === "stated");
+    const answer = resolved?.answer;
+    return saved && answer?.fact === fact && answered(answer)
       ? [{ supplierId: row.id, answer }]
       : [];
   });
@@ -135,6 +146,51 @@ export function Processors({
   const rows = useProcessorRows(fact, draft);
   const set = (row: Supplier, answer: ProcessorAnswer) =>
     onDraft({ ...draft, processors: { ...draft.processors, [row.id]: answer } });
+
+  /** What the supplier stated in its questionnaire that bears on this screen's fact. */
+  const statedLines = (stated: SupplierStatement | null): readonly string[] => {
+    if (!stated) return [];
+    const agreement = stated.dataProcessingAgreement
+      ? [t(`stated.dataProcessingAgreement.${stated.dataProcessingAgreement}`)]
+      : [];
+    switch (fact) {
+      case "role":
+        return agreement;
+      case "contract":
+        return [
+          ...agreement,
+          ...(stated.breachNoticeToController === null
+            ? []
+            : [
+                t(
+                  stated.breachNoticeToController
+                    ? "stated.breachNotice"
+                    : "stated.noBreachNotice",
+                ),
+              ]),
+        ];
+      case "transfer":
+        return stated.personalDataTransfers
+          ? [t(`stated.personalDataTransfers.${stated.personalDataTransfers}`)]
+          : stated.dataProcessingLocations
+            ? [t("stated.locations", { countries: stated.dataProcessingLocations })]
+            : [];
+      case "subprocessing":
+        return [
+          ...(stated.subprocessorEngagement
+            ? [t(`stated.subprocessorEngagement.${stated.subprocessorEngagement}`)]
+            : []),
+          ...(stated.subprocessorList
+            ? [t("stated.subprocessorList", { list: stated.subprocessorList })]
+            : []),
+        ];
+      default:
+        return fact satisfies never;
+    }
+  };
+  const anyStated = rows?.some(
+    (row) => resolvedAnswer(fact, row, draft)?.source === "stated",
+  );
 
   const answers = (row: Supplier) => {
     const answer = processorAnswerOf(fact, row, draft);
@@ -235,16 +291,34 @@ export function Processors({
           {fact !== "role" && (
             <p className="mt-4 text-sm text-muted-foreground">{t("onlyProcessors")}</p>
           )}
+          {anyStated && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {t("stated.preselected")}
+            </p>
+          )}
           <ul className="mt-6 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
-            {rows.map((row) => (
-              <li
-                key={row.id}
-                className="grid gap-3 px-5 py-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:items-start lg:gap-6"
-              >
-                <p className="min-w-0 truncate font-medium">{row.name}</p>
-                <div className="flex flex-wrap gap-2">{answers(row)}</div>
-              </li>
-            ))}
+            {rows.map((row) => {
+              const lines = statedLines(row.stated);
+              return (
+                <li
+                  key={row.id}
+                  className="grid gap-3 px-5 py-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:items-start lg:gap-6"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{row.name}</p>
+                    {lines.length > 0 && (
+                      <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
+                        <p className="font-medium">{t("stated.label")}</p>
+                        {lines.map((line) => (
+                          <p key={line}>{line}</p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2">{answers(row)}</div>
+                </li>
+              );
+            })}
           </ul>
         </>
       )}

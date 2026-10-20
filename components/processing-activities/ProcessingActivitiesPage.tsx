@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useRouter } from "@/i18n/navigation";
+import { LEGAL_BASES } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { processingActivityInsertSchema } from "@/schema/processing-activity-validators";
 
@@ -36,6 +37,12 @@ export function ProcessingActivitiesPage({
   const create = trpc.processingActivity.create.useMutation({ onSuccess: refresh });
   const update = trpc.processingActivity.update.useMutation({ onSuccess: refresh });
   const remove = trpc.processingActivity.delete.useMutation({ onSuccess: refresh });
+  const basesOf = (value: unknown) =>
+    Array.isArray(value) && value.length > 0
+      ? LEGAL_BASES.filter((b) => value.includes(b))
+          .map((b) => t(`bases.${b}`))
+          .join(", ")
+      : "—";
 
   return (
     <CrudPage
@@ -44,6 +51,12 @@ export function ProcessingActivitiesPage({
       namespace="processingActivities"
       schema={processingActivityInsertSchema}
       omit={["id", "companyId", "catalogId", "createdAt", "updatedAt"]}
+      fieldOverrides={{
+        legalBases: {
+          component: "multiselect",
+          options: LEGAL_BASES.map((b) => ({ value: b, label: t(`bases.${b}`) })),
+        },
+      }}
       onCreate={(data) => create.mutateAsync(data)}
       onUpdate={(id, data) => update.mutateAsync({ id, ...data })}
       onDelete={admin ? (id) => remove.mutate({ id }) : undefined}
@@ -55,6 +68,7 @@ export function ProcessingActivitiesPage({
             <TableRow>
               <TableHead>{t("fields.name")}</TableHead>
               <TableHead>{t("fields.purpose")}</TableHead>
+              <TableHead>{t("fields.legalBases")}</TableHead>
               <TableHead>{t("fields.dataSubjects")}</TableHead>
               <TableHead>{t("fields.recipients")}</TableHead>
               <TableHead>{t("fields.retention")}</TableHead>
@@ -67,6 +81,9 @@ export function ProcessingActivitiesPage({
                 <TableCell className="font-medium">{shown(item.name)}</TableCell>
                 <TableCell className="max-w-64 whitespace-normal">
                   {shown(item.purpose)}
+                </TableCell>
+                <TableCell className="max-w-48 whitespace-normal">
+                  {basesOf(item.legalBases)}
                 </TableCell>
                 <TableCell className="max-w-48 whitespace-normal">
                   {shown(item.dataSubjects)}

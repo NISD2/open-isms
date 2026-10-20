@@ -171,6 +171,11 @@ const ITEM_COPY = z.object({
   headline: text,
   teaser: text,
   missed: z.array(text).min(1),
+  /**
+   * A GDPR item that NIS 2 work gives a head start: what the GDPR still asks beyond it, shown
+   * beside the NIS 2 items it overlaps (`headStartsOf`). Never a credit: the pairs are overlaps.
+   */
+  fromNis2: text.optional(),
   screens: z.record(z.string(), z.unknown()),
   fields: z
     .record(
@@ -212,6 +217,7 @@ export interface ResolvedItem {
   readonly headline: string;
   readonly teaser: string;
   readonly missed: readonly string[];
+  readonly fromNis2: string | null;
   readonly screens: readonly ResolvedScreen[];
 }
 
@@ -474,6 +480,7 @@ export function resolveItem(namespace: unknown, item: AnyItem): Result<ResolvedI
     headline: head.value.headline,
     teaser: head.value.teaser,
     missed: head.value.missed,
+    fromNis2: head.value.fromNis2 ?? null,
     screens: resolved.flatMap((r) => (r.ok ? [r.value] : [])),
   });
 }

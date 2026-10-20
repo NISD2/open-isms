@@ -70,7 +70,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const addActivities = trpc.durchgang.gdpr.addActivities.useMutation();
   const describeActivities = trpc.durchgang.gdpr.describeActivities.useMutation();
   const recordProcessors = trpc.durchgang.gdpr.recordProcessors.useMutation();
-  const suppliers = trpc.supplier.list.useQuery(undefined, {
+  const suppliers = trpc.durchgang.gdpr.processorRows.useQuery(undefined, {
     enabled: item.screens.some((s) => s.screen.kind === "processors"),
   });
   // Every sign-in shown starts with an answer, so 11.1 records them all, not only the touched ones.
@@ -275,7 +275,10 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         );
         if (input) {
           await recordProcessors.mutateAsync(input);
-          await utils.supplier.list.invalidate();
+          await Promise.all([
+            utils.durchgang.gdpr.processorRows.invalidate(),
+            utils.supplier.list.invalidate(),
+          ]);
         }
         return;
       }

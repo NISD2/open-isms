@@ -31,6 +31,7 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-10-20",
     screens: [
       { kind: "learn", id: "learn" },
+      { kind: "compare", id: "examples" },
       { kind: "fields", id: "decision", fields: ["dpoDecision"] },
       {
         kind: "fields",
@@ -58,6 +59,7 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
         id: "what",
         facts: ["purpose", "dataSubjects", "dataCategories", "specialCategories"],
       },
+      { kind: "describe", id: "basis", facts: ["legalBases"] },
       { kind: "describe", id: "who", facts: ["recipients", "transfersOutsideEea"] },
       { kind: "describe", id: "keep", facts: ["retention"] },
       { kind: "done", id: "done" },
@@ -86,6 +88,7 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-10-20",
     screens: [
       { kind: "learn", id: "learn" },
+      { kind: "compare", id: "examples" },
       { kind: "processors", id: "authorisation", fact: "subprocessing" },
       { kind: "done", id: "done" },
     ],

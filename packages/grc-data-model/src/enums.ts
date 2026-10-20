@@ -132,6 +132,16 @@ export const subprocessorAuthorisationEnum = pgEnum("subprocessor_authorisation"
   "specific",
 ]);
 
+/** The six lawful bases of Art. 6(1) GDPR, points (a) to (f) in order. */
+export const legalBasisEnum = pgEnum("legal_basis", [
+  "consent",
+  "contract",
+  "legal_obligation",
+  "vital_interests",
+  "public_task",
+  "legitimate_interests",
+]);
+
 export const transferMechanismEnum = pgEnum("transfer_mechanism", [
   "adequacy",
   "sccs",

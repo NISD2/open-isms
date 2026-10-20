@@ -20,9 +20,33 @@
             ],
             "duty": "The GDPR and the German BDSG require your company, in certain cases, to designate a data protection officer, publish their contact details and communicate them to the supervisory authority."
           },
+          "examples": {
+            "title": "Who must designate one",
+            "caption": "Four companies, read against the rules",
+            "good": {
+              "value": "A machine builder with 120 staff; 35 of them work on a computer with customer, staff or supplier data every day. It designates a data protection officer.",
+              "note": "At least 20 persons constantly process personal data by automated means, so § 38(1) BDSG applies. Count the people who do that, not the whole workforce."
+            },
+            "bad": {
+              "value": "A cleaning company with 200 staff, of whom 3 work in the office on a computer. It designates one because it has more than 20 employees.",
+              "note": "The headcount alone decides nothing; § 38(1) BDSG counts the people constantly processing personal data by automated means. Here that is 3. Check the cases of Art. 37(1) next; a voluntary designation remains possible (Art. 37(4))."
+            },
+            "more": [
+              {
+                "good": {
+                  "value": "A group of clinics treats patients as its core activity and processes their health data on a large scale. It designates one, whatever its headcount.",
+                  "note": "Processing special categories of data on a large scale as a core activity triggers the duty on its own (Art. 37(1)(c))."
+                },
+                "bad": {
+                  "value": "A software company makes its head of IT the data protection officer.",
+                  "note": "The officer must not be in a conflict of interests (Art. 38(6)). Whoever decides how personal data is processed, as a head of IT often does, cannot also be the one who monitors it."
+                }
+              }
+            ]
+          },
           "decision": {
             "title": "Your decision",
-            "lead": "Go through the cases on the previous step. If one applies, you must designate one. If none applies, decide whether to designate one voluntarily.",
+            "lead": "Go through the cases from the first step and the examples. If one applies, you must designate one. If none applies, decide whether to designate one voluntarily.",
             "document": "Designation of the data protection officer",
             "steps": [
               "Count the persons who, as a rule, are constantly engaged in the automated processing of personal data. If there are 20 or more, the duty applies in Germany.",

@@ -1,5 +1,5 @@
 {
-  "id": "d6652860-985f-4016-ad3f-20b2b701c384",
+  "id": "2feff73a-8adb-4f88-b182-c6abbac2270f",
   "prevId": "6dd41f4c-c5c2-4fd8-8470-f88b3a58aea3",
   "version": "7",
   "dialect": "postgresql",
@@ -1324,6 +1324,19 @@
         },
         "purpose": {
           "name": "purpose",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "legal_bases": {
+          "name": "legal_bases",
+          "type": "legal_basis[]",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "legitimate_interests": {
+          "name": "legitimate_interests",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -3014,6 +3027,18 @@
         "near_miss",
         "incident",
         "significant"
+      ]
+    },
+    "public.legal_basis": {
+      "name": "legal_basis",
+      "schema": "public",
+      "values": [
+        "consent",
+        "contract",
+        "legal_obligation",
+        "vital_interests",
+        "public_task",
+        "legitimate_interests"
       ]
     },
     "public.priority": {

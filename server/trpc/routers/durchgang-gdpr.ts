@@ -13,12 +13,14 @@ import {
 } from "@/lib/durchgang";
 import { ACTIVITY_CATALOG } from "@/lib/processing-activities/catalog";
 import { activityCopyOf } from "@/lib/processing-activities/copy";
-import { processingActivity, supplier } from "@/schema";
+import { answeringCompanyId } from "@/lib/supplier-portal/platform-supplier";
+import { company, processingActivity, supplier } from "@/schema";
 import { activityFactsSchema } from "@/schema/processing-activity-validators";
 import { appendNote, durchgangItem } from "../helpers/durchgang";
 import { itemCode as code } from "../helpers/durchgang-inputs";
 import {
   actorOf,
+  durchgangProcedure,
   durchgangWrite,
   logWalk,
   recheck,
@@ -58,6 +60,12 @@ type ActivityFacts = z.infer<typeof activityFactsSchema>;
 const FACT_KEYS = Object.keys(activityFactsSchema.shape) as ReadonlyArray<
   keyof ActivityFacts
 >;
+
+/** Whether a sent fact equals the stored one; a list of bases compares by its members in order. */
+const sameFact = (sent: unknown, stored: unknown): boolean =>
+  Array.isArray(sent) && Array.isArray(stored)
+    ? sent.length === stored.length && sent.every((v, i) => v === stored[i])
+    : sent === stored;
 
 const supplierId = z.string().uuid();
 const ROWS_MAX = 500;
@@ -134,7 +142,60 @@ const updatesOf = (input: z.infer<typeof processorsInput>, now: Date) => {
   }
 };
 
+/** The supplier columns a processors screen reads: who it is, and the customer's GDPR facts. */
+const PROCESSOR_COLUMNS = {
+  id: true,
+  name: true,
+  status: true,
+  source: true,
+  supplierCompanyId: true,
+  processesPersonalData: true,
+  relationshipType: true,
+  processorCheckedAt: true,
+  dpaConcluded: true,
+  internationalTransfer: true,
+  transferMechanism: true,
+  subprocessorAuthorisation: true,
+} as const;
+
+/** What a supplier stated about personal data in its own questionnaire (`SupplierStatement`). */
+const STATEMENT_COLUMNS = {
+  dataProcessingAgreement: true,
+  dataProcessingLocations: true,
+  personalDataTransfers: true,
+  subprocessorEngagement: true,
+  subprocessorList: true,
+  breachNoticeToController: true,
+} as const;
+
 export const durchgangGdprRouter = router({
+  /**
+   * G-DPA.1 and G-DPA.2: the company's suppliers, each with what it stated about personal data in
+   * its own questionnaire, so a screen can start from the supplier's answer where the company has
+   * recorded nothing. Only the company's own rows; a supplier that stopped acting as one, or never
+   * answered, states nothing.
+   */
+  processorRows: durchgangProcedure.query(async ({ ctx }) => {
+    const rows = await ctx.db.query.supplier.findMany({
+      where: eq(supplier.customerCompanyId, ctx.companyId),
+      columns: PROCESSOR_COLUMNS,
+      orderBy: (s, { asc }) => [asc(s.name)],
+    });
+    const answering = [...new Set(rows.flatMap((row) => answeringCompanyId(row) ?? []))];
+    const statements =
+      answering.length === 0
+        ? []
+        : await ctx.db.query.company.findMany({
+            where: and(inArray(company.id, answering), eq(company.actsAsSupplier, true)),
+            columns: { id: true, ...STATEMENT_COLUMNS },
+          });
+    const byCompany = new Map(statements.map(({ id, ...stated }) => [id, stated]));
+    return rows.map((row) => {
+      const answeredBy = answeringCompanyId(row);
+      return { ...row, stated: (answeredBy && byCompany.get(answeredBy)) || null };
+    });
+  }),
+
   /**
    * G-ROP.1: the ticked catalogue activities and the company's own become rows of its record of
    * processing activities, named in the record language. An activity already on the record, by
@@ -240,7 +301,9 @@ export const durchgangGdprRouter = router({
         const was = before.get(row.id);
         const changed = Object.fromEntries(
           FACT_KEYS.flatMap((key) =>
-            row[key] !== undefined && row[key] !== was?.[key] ? [[key, row[key]]] : [],
+            row[key] !== undefined && !sameFact(row[key], was?.[key])
+              ? [[key, row[key]]]
+              : [],
           ),
         );
         return Object.keys(changed).length > 0 ? [{ id: row.id, changed }] : [];

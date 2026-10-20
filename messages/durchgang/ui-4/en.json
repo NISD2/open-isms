@@ -6,6 +6,10 @@
         "describe": "Describe",
         "processors": "Check"
       },
+      "fromNis2": {
+        "title": "Already in from your NIS 2 walkthrough",
+        "note": "A head start, not a sign-off: this item is approved on its own."
+      },
       "activities": {
         "count": "{count, plural, =0 {No activity on your record yet} one {# activity on your record} other {# activities on your record}}",
         "suggested": "Ticked because your list from the NIS 2 walkthrough has a matching entry",
@@ -26,6 +30,23 @@
           "purpose": {
             "label": "Purpose",
             "hint": "What you process the data for, in one sentence."
+          },
+          "legalBases": {
+            "label": "Lawful basis",
+            "hint": "Tick every basis this activity rests on (Art. 6(1)). The ones usually used for this kind of activity are marked; check them against what you actually do.",
+            "usual": "usual",
+            "bases": {
+              "consent": "Consent (a)",
+              "contract": "A contract with the person, or steps before one (b)",
+              "legal_obligation": "A legal obligation of yours (c)",
+              "vital_interests": "Someone's vital interests (d)",
+              "public_task": "A task in the public interest or official authority (e)",
+              "legitimate_interests": "Legitimate interests (f)"
+            }
+          },
+          "legitimateInterests": {
+            "label": "Which interest, and why it weighs more",
+            "hint": "Name the interest and why the interests of the people concerned do not override it (Art. 6(1)(f)). Example: keeping the network safe from attacks (Recital 49)."
           },
           "dataSubjects": {
             "label": "People concerned",
@@ -96,6 +117,32 @@
         "subprocessing": {
           "general": "General authorisation: the provider reports every intended change, and we can object",
           "specific": "Each sub-processor is authorised one by one"
+        },
+        "stated": {
+          "label": "From their questionnaire",
+          "preselected": "Preselected from their answers. Change it if your contract says otherwise.",
+          "dataProcessingAgreement": {
+            "available": "Offers a standard data processing agreement",
+            "independentController": "Says it is a controller in its own right",
+            "noPersonalData": "Says it processes no personal data for customers",
+            "no": "Processes customers' data, offers no data processing agreement"
+          },
+          "locations": "Processes customers' data in: {countries}",
+          "personalDataTransfers": {
+            "inEea": "Keeps customers' personal data in the EEA",
+            "adequacy": "Transfers outside the EEA on an adequacy decision",
+            "sccs": "Transfers outside the EEA on standard contractual clauses",
+            "bcr": "Transfers outside the EEA on binding corporate rules",
+            "other": "Transfers outside the EEA on another basis"
+          },
+          "subprocessorEngagement": {
+            "general": "Engages sub-processors under a general authorisation, with notice and a right to object",
+            "specific": "Asks for a specific authorisation for each sub-processor",
+            "none": "Engages no sub-processors for customers' personal data"
+          },
+          "subprocessorList": "Sub-processors: {list}",
+          "breachNotice": "Notifies you of a personal data breach without undue delay",
+          "noBreachNotice": "Did not commit to notifying you of a personal data breach"
         }
       }
     }

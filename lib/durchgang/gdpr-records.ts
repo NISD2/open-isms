@@ -5,6 +5,7 @@
  */
 
 import type {
+  legalBasisEnum,
   subprocessorAuthorisationEnum,
   supplierRelationshipTypeEnum,
   transferMechanismEnum,
@@ -24,6 +25,7 @@ export type ActivityGroup = (typeof ACTIVITY_GROUPS)[number];
  */
 export const ACTIVITY_FACTS = [
   "purpose",
+  "legalBases",
   "dataSubjects",
   "dataCategories",
   "specialCategories",
@@ -33,7 +35,18 @@ export const ACTIVITY_FACTS = [
 ] as const;
 export type ActivityFact = (typeof ACTIVITY_FACTS)[number];
 
-/** The facts answered yes or no; every other fact is text. */
+/** The six lawful bases of Art. 6(1), as `processing_activity.legal_bases` stores them. */
+export const LEGAL_BASES = [
+  "consent",
+  "contract",
+  "legal_obligation",
+  "vital_interests",
+  "public_task",
+  "legitimate_interests",
+] as const satisfies readonly (typeof legalBasisEnum.enumValues)[number][];
+export type LegalBasis = (typeof LEGAL_BASES)[number];
+
+/** The facts answered yes or no; `legalBases` is a choice of several; every other fact is text. */
 export const YES_NO_FACTS = [
   "specialCategories",
   "transfersOutsideEea",

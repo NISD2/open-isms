@@ -9,6 +9,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+import { legalBasisEnum } from "../enums";
 
 /**
  * The record of processing activities (Art. 30(1) GDPR): one row per activity the company carries
@@ -33,6 +34,14 @@ export const processingActivity = pgTable(
 
     /** 30(1)(b): what the data is processed for. */
     purpose: text("purpose"),
+    /**
+     * Art. 6(1): the lawful bases the activity rests on, often more than one (payroll: the
+     * employment contract and the tax and social security duties). Not asked by Art. 30, but the
+     * company must be able to show it (Art. 5(2)).
+     */
+    legalBases: legalBasisEnum("legal_bases").array(),
+    /** Art. 6(1)(f): the interest pursued, where the activity rests on legitimate interests. */
+    legitimateInterests: text("legitimate_interests"),
     /** 30(1)(c): whose data, as categories of people. */
     dataSubjects: text("data_subjects"),
     /** 30(1)(c): which data, as categories. */

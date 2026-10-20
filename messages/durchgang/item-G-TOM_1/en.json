@@ -4,6 +4,7 @@
       "G-TOM_1": {
         "headline": "Describe how your personal data is secured",
         "teaser": "Which measures protect the data, ordered by Art. 32.",
+        "fromNis2": "Your security documents from NIS 2 become part of this description. What the GDPR adds: the measures are weighed against the risk to the people whose data you process, not only the risk to your company (Art. 32(1)).",
         "missed": [
           "What counts is the risk to the people whose data you process, not only the risk to your company (Art. 32(1)). If a personnel file ends up in the wrong hands, the harm falls mainly on the staff member.",
           "Anyone with access to personal data may process it only on your instructions, and you take steps to ensure that (Art. 32(4)). Many companies brief their staff for this and commit them to confidentiality in writing.",

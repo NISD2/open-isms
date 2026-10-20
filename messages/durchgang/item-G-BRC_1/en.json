@@ -4,6 +4,7 @@
       "G-BRC_1": {
         "headline": "Decide what happens in a personal data breach",
         "teaser": "Who decides, how the risk is assessed and who notifies within 72 hours.",
+        "fromNis2": "Your NIS 2 incident plan and reporting cover the authority for cybersecurity. A personal data breach also goes to the data protection authority, on its own clock: without undue delay and, where feasible, within 72 hours, unless it is unlikely to result in a risk to people (Art. 33(1)).",
         "missed": [
           "One incident can trigger three separate duties: reporting a significant incident to your NIS 2 authority, if your company falls under NIS 2, notifying the data protection authority, and telling the people affected. Each has its own conditions and deadlines; none replaces another.",
           "A breach you do not have to notify is documented too: what happened, its effects and what you did about it. The documentation must let the supervisory authority verify your decision (Art. 33(5)). So record why you saw no risk.",

@@ -280,9 +280,16 @@ const merge = (a: Messages, b: Messages): Messages =>
 const mergedOf = (parts: readonly unknown[]): DurchgangMessages =>
   parts.filter(isRecord).reduce<Messages>(merge, {}) as DurchgangMessages;
 
-/** The `durchgang` namespace per language, as one file per language used to hold it. */
+const english = mergedOf(PARTS.en);
+
+/**
+ * The `durchgang` namespace per language, as one file per language used to hold it. Other
+ * languages are laid over the English one, so a key not translated yet reads in English wherever
+ * the walk's words are read (the screens, the router's records, the MCP, the export): new copy is
+ * written in English first and translated in a later pass.
+ */
 export const DURCHGANG_MESSAGES: Readonly<Record<WalkLocale, DurchgangMessages>> = {
-  de: mergedOf(PARTS.de),
-  en: mergedOf(PARTS.en),
-  cs: mergedOf(PARTS.cs),
+  de: mergedOf([english, ...PARTS.de]),
+  en: english,
+  cs: mergedOf([english, ...PARTS.cs]),
 };

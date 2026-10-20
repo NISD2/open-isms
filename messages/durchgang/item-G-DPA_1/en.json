@@ -4,6 +4,7 @@
       "G-DPA_1": {
         "headline": "Record your processors and their agreements",
         "teaser": "Who processes data on your behalf, and whether the agreement is in place.",
+        "fromNis2": "Your supplier list from NIS 2 is the list you start from, and its security clauses cover part of what Art. 28(3) asks. NIS 2 does not ask which suppliers process personal data on your behalf, or whether an agreement with the content of Art. 28(3) is in place, documented instructions and confidentiality included.",
         "missed": [
           "The agreement does not have to be signed. It has to be in writing, which includes electronic form (Art. 28(9)). Large providers often publish it online as part of their terms; look there for \"data processing addendum\" or \"data processing agreement\".",
           "Before you engage a provider, check that it offers sufficient guarantees of appropriate technical and organisational measures (Art. 28(1)), for example from the measures it describes.",

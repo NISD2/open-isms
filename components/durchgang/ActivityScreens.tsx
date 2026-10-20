@@ -8,8 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { nameKey } from "@/lib/asset-inventory/catalog-labels";
-import { type ActivityFact, YES_NO_FACTS } from "@/lib/durchgang";
 import {
+  type ActivityFact,
+  LEGAL_BASES,
+  type LegalBasis,
+  YES_NO_FACTS,
+} from "@/lib/durchgang";
+import {
+  ACTIVITY_BY_ID,
   ACTIVITY_CATALOG,
   suggestedActivities,
 } from "@/lib/processing-activities/catalog";
@@ -193,6 +199,16 @@ export const describedAll = (
     const value = shownValue(activity, draft, fact);
     if ((YES_NO_FACTS as readonly string[]).includes(fact))
       return typeof value === "boolean";
+    if (fact === "legalBases") {
+      const bases = Array.isArray(value) ? value : [];
+      if (bases.length === 0) return false;
+      // Legitimate interests are a basis only with the interest named (Art. 6(1)(f)).
+      const interests = shownValue(activity, draft, "legitimateInterests");
+      return (
+        !bases.includes("legitimate_interests") ||
+        (typeof interests === "string" && interests.trim() !== "")
+      );
+    }
     return typeof value === "string" && value.trim() !== "";
   });
 
@@ -211,6 +227,7 @@ const suggestionOf = (
       return copy[fact];
     case "specialCategories":
     case "transfersOutsideEea":
+    case "legalBases":
       return null;
     default:
       return fact satisfies never;
@@ -261,6 +278,11 @@ export function Describe({
                       activity={activity}
                       draft={draft}
                       suggestion={suggestionOf(own, fact)}
+                      usual={
+                        (activity.catalogId &&
+                          ACTIVITY_BY_ID.get(activity.catalogId)?.bases) ||
+                        []
+                      }
                       onChange={(change) => set(activity, change)}
                     />
                   ))}
@@ -280,6 +302,7 @@ function FactInput({
   activity,
   draft,
   suggestion,
+  usual,
   onChange,
 }: {
   id: string;
@@ -287,10 +310,53 @@ function FactInput({
   activity: Activity;
   draft: Draft;
   suggestion: string | null;
+  /** The bases a catalogue activity usually rests on, marked, never ticked for the person. */
+  usual: readonly LegalBasis[];
   onChange: (change: Described) => void;
 }) {
   const t = useTranslations("durchgang.ui.describe.facts");
   const value = shownValue(activity, draft, fact);
+  if (fact === "legalBases") {
+    const chosen: readonly LegalBasis[] = Array.isArray(value) ? value : [];
+    const interests = shownValue(activity, draft, "legitimateInterests");
+    // Kept in the order of Art. 6(1), so the same choice is always stored the same way.
+    const toggle = (basis: LegalBasis) =>
+      onChange({
+        legalBases: LEGAL_BASES.filter((b) =>
+          b === basis ? !chosen.includes(b) : chosen.includes(b),
+        ),
+      });
+    return (
+      <fieldset>
+        <legend className="text-sm font-medium">{t("legalBases.label")}</legend>
+        <p className="mt-0.5 text-sm text-muted-foreground">{t("legalBases.hint")}</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {LEGAL_BASES.map((basis) => (
+            <Toggle key={basis} on={chosen.includes(basis)} onClick={() => toggle(basis)}>
+              {usual.includes(basis)
+                ? `${t(`legalBases.bases.${basis}`)} · ${t("legalBases.usual")}`
+                : t(`legalBases.bases.${basis}`)}
+            </Toggle>
+          ))}
+        </div>
+        {chosen.includes("legitimate_interests") && (
+          <div className="mt-3 max-w-xl space-y-1.5">
+            <Label htmlFor={`${id}-interests`}>{t("legitimateInterests.label")}</Label>
+            <p className="text-sm text-muted-foreground">
+              {t("legitimateInterests.hint")}
+            </p>
+            <Textarea
+              id={`${id}-interests`}
+              rows={2}
+              value={typeof interests === "string" ? interests : ""}
+              onChange={(e) => onChange({ legitimateInterests: e.target.value })}
+              className="text-base sm:text-sm"
+            />
+          </div>
+        )}
+      </fieldset>
+    );
+  }
   if (fact === "specialCategories" || fact === "transfersOutsideEea") {
     const details = shownValue(activity, draft, "transferDetails");
     return (

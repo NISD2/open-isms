@@ -57,6 +57,19 @@ export type Gloss =
   | { readonly text: string }
   | { readonly term: string; readonly definition: string };
 
+/**
+ * A GDPR item's head start from the NIS 2 walk: the overlapping NIS 2 items where the company
+ * stands, and what the GDPR still asks beyond them. A hint, never a sign-off.
+ */
+export interface HeadStart {
+  readonly gap: string;
+  readonly items: ReadonlyArray<{
+    readonly code: string;
+    readonly title: string;
+    readonly state: ItemState;
+  }>;
+}
+
 /** Everything one item's screens need, resolved on the server. */
 export interface ItemView {
   readonly code: string;
@@ -66,6 +79,8 @@ export interface ItemView {
   readonly title: string;
   readonly image: string | null;
   readonly missed: readonly string[];
+  /** Null for an item NIS 2 work gives no head start, and for every NIS 2 item. */
+  readonly fromNis2: HeadStart | null;
   readonly terms: readonly Term[];
   readonly citations: readonly Citation[];
   /** The requirement's own legal reference, as the duty card prints it. */

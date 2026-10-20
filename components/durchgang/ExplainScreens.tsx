@@ -30,6 +30,7 @@ import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import { Art } from "./Art";
 import { Glossed } from "./Glossed";
+import { HeadStartCard } from "./HeadStartCard";
 import { RegistrationPortals } from "./RegistrationPortals";
 import { ReportingChannels } from "./ReportingChannels";
 import { ReportingClock } from "./ReportingClock";
@@ -198,6 +199,7 @@ export function Learn({ item, entry }: { item: ItemView; entry: Of<"learn"> }) {
         ))}
       </div>
       {link && entry.copy.link && <LearnMore link={link} label={entry.copy.link} />}
+      {item.fromNis2 && <HeadStartCard start={item.fromNis2} />}
       <Duty text={entry.copy.duty} cite={item.duty} href={item.dutyHref} />
     </>
   );

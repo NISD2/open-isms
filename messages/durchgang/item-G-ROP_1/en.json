@@ -4,6 +4,7 @@
       "G-ROP_1": {
         "headline": "Set up your record of processing activities",
         "teaser": "What you do with personal data, one line per activity.",
+        "fromNis2": "Your asset list from NIS 2 suggests the activities here. NIS 2 records your systems and how much they matter to the business; this record says what you do with personal data: the purpose, whose data, which data, who receives it and when it is erased (Art. 30(1)).",
         "missed": [
           "The exemption for companies employing fewer than 250 persons (Art. 30(5)) almost never applies. Any one of three conditions removes it: the processing is likely to result in a risk to the people concerned, it is not occasional, or it includes special categories of data or data on criminal convictions and offences. A monthly payroll is not occasional.",
           "The supervisory authority can ask for the record (Art. 30(4)). Change it as soon as an activity is added or dropped.",
@@ -71,6 +72,10 @@
           "what": {
             "title": "What for, whose data, which data",
             "lead": "Each activity comes with a suggestion. Use it, or write how it is for you. Groups are enough; names do not belong here."
+          },
+          "basis": {
+            "title": "On what lawful basis",
+            "lead": "Processing is lawful only on at least one of the six bases in Art. 6(1). Most activities rest on a contract with the person or on a legal obligation. Consent fits only where the person has a genuine choice and can withdraw it at any time (Recital 42, Art. 7(3)). Where you rely on legitimate interests, write down which interest and why it weighs more than the people's interests."
           },
           "who": {
             "title": "Who receives the data",

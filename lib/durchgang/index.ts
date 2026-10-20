@@ -13,6 +13,7 @@ export { GDPR_WALK } from "./gdpr";
 export type {
   ActivityFact,
   ActivityGroup,
+  LegalBasis,
   ProcessorAnswer,
   ProcessorFact,
   ProcessorRole,
@@ -24,6 +25,7 @@ export {
   ACTIVITY_FACTS,
   ACTIVITY_GROUPS,
   isProcessor,
+  LEGAL_BASES,
   PROCESSOR_FACTS,
   PROCESSOR_ROLES,
   roleOf,

@@ -11,6 +11,8 @@
     "fields": {
       "name": "Activity",
       "purpose": "Purpose",
+      "legalBases": "Lawful basis",
+      "legitimateInterests": "Legitimate interest",
       "dataSubjects": "Data subjects",
       "dataCategories": "Categories of data",
       "specialCategories": "Special categories (Art. 9, 10)",
@@ -22,6 +24,8 @@
     "fieldDescriptions": {
       "name": "A short name for the activity, for example payroll or newsletter.",
       "purpose": "What you process the data for, in one sentence (Art. 30(1)(b)).",
+      "legalBases": "Every basis of Art. 6(1) the activity rests on.",
+      "legitimateInterests": "Where the activity rests on legitimate interests: which interest, and why the interests of the people concerned do not override it (Art. 6(1)(f)).",
       "dataSubjects": "Whose data, as groups, for example staff, customers or applicants (Art. 30(1)(c)).",
       "dataCategories": "Which data, as groups, for example contact details, bank details or contract data (Art. 30(1)(c)).",
       "specialCategories": "Whether the activity includes special categories of data under Art. 9(1), such as health data, or data on criminal convictions and offences under Art. 10.",
@@ -29,6 +33,14 @@
       "transfersOutsideEea": "Whether data goes to a country outside the EEA or to an international organisation (Art. 30(1)(e)).",
       "transferDetails": "The third country and the basis of the transfer, for example an adequacy decision or standard contractual clauses (Art. 30(1)(e)).",
       "retention": "When the data is erased, where possible with the period and its basis (Art. 30(1)(f))."
+    },
+    "bases": {
+      "consent": "Consent (a)",
+      "contract": "Contract (b)",
+      "legal_obligation": "Legal obligation (c)",
+      "vital_interests": "Vital interests (d)",
+      "public_task": "Public task (e)",
+      "legitimate_interests": "Legitimate interests (f)"
     }
   }
 }
