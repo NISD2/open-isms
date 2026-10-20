@@ -13,7 +13,8 @@ import { z } from "zod";
 import { selectSpecs } from "../../e2e/select/select";
 
 // Throws on a failing git, so a base that does not resolve fails the job instead of selecting less.
-const git = (...args: string[]): string => execFileSync("git", args, { encoding: "utf8" });
+const git = (...args: string[]): string =>
+  execFileSync("git", args, { encoding: "utf8" });
 
 const base = process.argv[2] ?? "origin/main";
 const changed = git("diff", "--name-only", `${base}...HEAD`)
