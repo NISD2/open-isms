@@ -11,6 +11,8 @@ import {
   type LatestInvoice,
   needsQonto,
   nonPaymentAction,
+  nonPaymentNotice,
+  noticeNeedsQonto,
   sweepNonPayment,
 } from "./non-payment";
 
@@ -78,6 +80,47 @@ describe("whom the sweep asks Qonto about", () => {
     expect(needsQonto("free", INVOICE, "2027-09-30", false)).toBe(true);
     expect(needsQonto("free", INVOICE, "2027-10-01", false)).toBe(false);
     expect(needsQonto("full", { ...INVOICE, credited: true }, "2026-12-01", false)).toBe(
+      false,
+    );
+  });
+});
+
+describe("what the account is told", () => {
+  const tell = (over: Partial<Parameters<typeof nonPaymentNotice>[0]>) =>
+    nonPaymentNotice({
+      level: "full",
+      invoice: INVOICE,
+      status: "unpaid",
+      dueDate: DUE,
+      today: DUE,
+      ...over,
+    });
+
+  test("a week before the due date, and on it, that an unpaid invoice suspends the licence", () => {
+    expect(tell({ today: "2026-10-23" })).toBeNull();
+    expect(tell({ today: "2026-10-24" })).toEqual({ kind: "due", dueDate: DUE });
+    expect(tell({ today: DUE })).toEqual({ kind: "due", dueDate: DUE });
+  });
+
+  test("once suspended, why and what reopens it, for the rest of the licence year", () => {
+    expect(tell({ level: "free", today: "2026-11-01" })).toEqual({
+      kind: "suspended",
+      dueDate: DUE,
+    });
+    expect(tell({ level: "free", today: "2027-10-01" })).toBeNull();
+  });
+
+  test("nothing for a paid, credited or unreadable invoice", () => {
+    expect(tell({ status: "paid" })).toBeNull();
+    expect(tell({ status: null })).toBeNull();
+    expect(tell({ invoice: { ...INVOICE, credited: true } })).toBeNull();
+  });
+
+  test("a page asks Qonto only when a notice could apply", () => {
+    expect(noticeNeedsQonto("full", INVOICE, "2026-10-23")).toBe(false);
+    expect(noticeNeedsQonto("full", INVOICE, "2026-10-24")).toBe(true);
+    expect(noticeNeedsQonto("free", INVOICE, "2027-10-01")).toBe(false);
+    expect(noticeNeedsQonto("full", { ...INVOICE, credited: true }, "2026-10-30")).toBe(
       false,
     );
   });

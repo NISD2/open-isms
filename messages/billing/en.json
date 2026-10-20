@@ -172,6 +172,16 @@
       "failed": "The cancel did not go through just now. Please try again later.",
       "tooManyRequests": "Too many attempts. Please wait a minute."
     },
+    "nonPayment": {
+      "due": {
+        "title": "Invoice {number} is due on {date}",
+        "body": "If it is not paid by the end of that day, access to the annual licence is suspended until the payment arrives (<terms>terms, B9</terms>). Your data stays stored."
+      },
+      "suspended": {
+        "title": "Access to the annual licence is suspended",
+        "body": "Invoice {number}, due on {date}, is not paid (<terms>terms, B9</terms>). Access reopens by itself once the payment is booked to the invoice. Your data stays stored, and Export stays open."
+      }
+    },
     "page": {
       "renewalCanceled": "Canceled. Your licence ends on {date} and does not renew.",
       "moneyBackUntil": "Thirty days money back until {date}.",

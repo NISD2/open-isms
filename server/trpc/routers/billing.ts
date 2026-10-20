@@ -27,6 +27,7 @@ import {
   cancelSubscription,
 } from "@/lib/billing/cancel";
 import { holderNetCents } from "@/lib/billing/holder-price";
+import { nonPaymentNoticeOf } from "@/lib/billing/non-payment-schedule";
 import { formatReaderEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
@@ -195,6 +196,16 @@ export const billingRouter = router({
           ? await cancelOption(ctx.db, account, active, now)
           : null,
     };
+  }),
+
+  /**
+   * What the open company's account is told about an open invoice (AGB B9): that it falls due soon,
+   * or that the licence is suspended until it is paid. Every member sees it, since a suspension
+   * locks all of them out; it names the invoice and its due date, never the amount.
+   */
+  nonPayment: accountProcedure.query(async ({ ctx }) => {
+    const account = await accountOf(ctx.db, ctx.companyId);
+    return nonPaymentNoticeOf(ctx.db, account.id);
   }),
 
   /**

@@ -19,6 +19,9 @@ import { readLiveInvoice } from "./invoice-status";
 import {
   type Applied,
   type Candidate,
+  type NonPaymentNotice,
+  nonPaymentNotice,
+  noticeNeedsQonto,
   type SweepResult,
   sweepNonPayment,
 } from "./non-payment";
@@ -36,9 +39,13 @@ const NON_PAYMENT_LOCK = 7_346_201_906;
 /** Invoices this server has seen paid; paid stays paid until a credit note, which ends the look. */
 const seenPaid = new Set<string>();
 
-/** Every account with an invoice, with its latest one: the newest issue date, then the newest row. */
+/**
+ * Every account with an invoice, or the one asked for, with its latest invoice: the newest issue
+ * date, then the newest row.
+ */
 export const nonPaymentCandidates = async (
   tx: DbOrTx,
+  accountId?: string,
 ): Promise<readonly (Candidate & { readonly holderEmail: string | null })[]> => {
   const rows = await tx
     .select({
@@ -55,6 +62,7 @@ export const nonPaymentCandidates = async (
     .innerJoin(billingAccount, eq(billingAccount.id, invoice.billingAccountId))
     .leftJoin(user, eq(user.id, billingAccount.ownerUserId))
     .leftJoin(creditNote, eq(creditNote.invoiceId, invoice.id))
+    .where(accountId ? eq(billingAccount.id, accountId) : undefined)
     .orderBy(billingAccount.id, desc(invoice.issueDate), desc(invoice.createdAt));
   return rows.flatMap((r, i) =>
     i > 0 && rows[i - 1]?.accountId === r.accountId
@@ -74,6 +82,26 @@ export const nonPaymentCandidates = async (
           },
         ],
   );
+};
+
+/**
+ * What the open account is told about its latest invoice (`nonPaymentNotice`), with Qonto asked
+ * only when a notice could apply: once the warning window may have begun, or while the account is
+ * below full in a licence year its invoice pays for.
+ */
+export const nonPaymentNoticeOf = async (
+  tx: DbOrTx,
+  accountId: string,
+  now = new Date(),
+): Promise<(NonPaymentNotice & { readonly invoiceNumber: string }) | null> => {
+  const mode = orderingMode(env);
+  const [latest] = await nonPaymentCandidates(tx, accountId);
+  const today = invoiceToday(now);
+  if (mode.kind === "off" || !latest) return null;
+  if (!noticeNeedsQonto(latest.level, latest.invoice, today)) return null;
+  const live = await readLiveInvoice(mode, latest.invoice.qontoInvoiceId);
+  const notice = nonPaymentNotice({ ...latest, ...live, today });
+  return notice ? { ...notice, invoiceNumber: latest.invoice.number } : null;
 };
 
 /** B9's reopening: back to full, only from below full, so it never overwrites a person's change. */

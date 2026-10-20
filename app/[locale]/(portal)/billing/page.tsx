@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { CancelButton } from "@/components/billing/CancelButton";
 import { InvoicePdfButton } from "@/components/billing/InvoicePdfButton";
+import { NonPaymentNotice } from "@/components/billing/NonPaymentNotice";
 import { PaidPricingCards } from "@/components/pricing/PaidPricingCards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -89,6 +90,7 @@ export default async function BillingPage({
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       {header}
+      <NonPaymentNotice />
 
       <Card>
         <CardHeader>

@@ -73,6 +73,55 @@ export const nonPaymentAction = (facts: {
   return status === "paid" && today <= invoice.periodEnd ? "reopen" : "none";
 };
 
+/** How many days before the due date the account is told what B9 will do. */
+const WARN_DAYS = 7;
+
+export type NonPaymentNotice =
+  /** The invoice is still open and its due date is close: what happens if it stays unpaid. */
+  | { readonly kind: "due"; readonly dueDate: string }
+  /** The licence is suspended for this invoice: what reopens it. */
+  | { readonly kind: "suspended"; readonly dueDate: string };
+
+/**
+ * What the account is told, in the app, about its open invoice. B9 needs no notice; the lock comes
+ * "without a further period". It is shown anyway, because a lock nobody announced reads as an
+ * error, and because it says how to get back in. Only the invoice B9 would act on counts: the
+ * latest, uncredited, unpaid in Qonto.
+ */
+export const nonPaymentNotice = (facts: {
+  readonly level: AccessLevel;
+  readonly invoice: LatestInvoice;
+  readonly status: QontoStatus | null;
+  readonly dueDate: string | null;
+  readonly today: string;
+}): NonPaymentNotice | null => {
+  const { level, invoice, status, dueDate, today } = facts;
+  if (invoice.credited || status !== "unpaid" || dueDate === null) return null;
+  if (level === "full") {
+    return today <= dueDate && today >= shiftDay(dueDate, { days: -WARN_DAYS })
+      ? { kind: "due", dueDate }
+      : null;
+  }
+  return today > dueDate && today <= invoice.periodEnd
+    ? { kind: "suspended", dueDate }
+    : null;
+};
+
+/**
+ * Whether a notice could apply, so a page asks Qonto only then: a full account from a week before
+ * the earliest due date B5 allows, an account below full while its licence year runs.
+ */
+export const noticeNeedsQonto = (
+  level: AccessLevel,
+  invoice: LatestInvoice,
+  today: string,
+): boolean => {
+  if (invoice.credited) return false;
+  return level === "full"
+    ? today >= shiftDay(invoice.issueDate, { days: PAYMENT_TERM_DAYS - WARN_DAYS })
+    : today <= invoice.periodEnd;
+};
+
 /** One account the sweep looks at, with its latest invoice. */
 export interface Candidate {
   readonly accountId: string;
