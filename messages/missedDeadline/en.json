@@ -1,14 +1,14 @@
 {
   "missedDeadline": {
     "meta": {
-      "title": "Missed the NIS2 deadline? What to do now",
-      "description": "Missed the NIS2 deadline? The registration deadline in every EU country, with its authority and portal, and the five steps that come next."
+      "title": "NIS2 registration deadline in all 27 EU countries",
+      "description": "Missed the NIS2 deadline, or is it coming up? When to register in all 27 EU countries, with the authority and portal, and what comes next."
     },
     "badge": "Art. 3(4) NIS 2",
     "title": "Missed the NIS2 deadline? What to do now",
     "subtitle": "Register now with your country's authority and start on the measures. Your country's law sets the deadline. The table below shows it for all 27 EU countries, with the authority and the portal.",
     "countries": {
-      "heading": "The deadline in your country",
+      "heading": "NIS2 registration deadlines in all 27 EU countries",
       "lead": "As of our list of registration bodies: {date}. The page on your country explains who the deadline applies to.",
       "later": "If your company only comes into scope later, for example because it grows, the period in Germany and Poland starts on that day: three months under § 33(1) BSIG, six months under Art. 7c(1) of the Polish National Cybersecurity System Act (KSC).",
       "columns": {
@@ -68,6 +68,10 @@
     },
     "faq": {
       "heading": "Frequently asked questions",
+      "when": {
+        "q": "When do I have to register for NIS2?",
+        "a": "Your country's law sets the deadline. The table above shows it for every EU country. In Germany you register no later than three months after your company first counts as an entity (§ 33(1) BSIG). For companies covered since the BSIG entered into force on 6 December 2025, the deadline was 6 March 2026."
+      },
       "q1": {
         "q": "Can I still register after the deadline?",
         "a": "In Germany, yes, through the same BSI portal. Registrations kept coming in there after the deadline: the federal government reported 19,058 by 31 July 2026, and the BSI counted 20,141 by 30 September 2026. For other countries, ask the authority in the table."
@@ -97,6 +101,7 @@
       ],
       "list": "Our list of registration bodies"
     },
-    "fromRegistration": "Deadlines and authorities in every EU country"
+    "fromRegistration": "Deadlines and authorities in every EU country",
+    "fromTracker": "The NIS2 registration deadline in every country, and what to do once it has passed"
   }
 }

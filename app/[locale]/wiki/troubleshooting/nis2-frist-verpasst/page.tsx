@@ -62,7 +62,8 @@ export async function generateMetadata({
 }
 
 const stepKeys = ["find", "register", "record", "measures", "management"] as const;
-const faqKeys = ["q1", "q2", "q3", "q4"] as const;
+// "when" first: "bis wann" and "Frist" are what people search (Keyword Planner, 20.10.2026).
+const faqKeys = ["when", "q1", "q2", "q3", "q4"] as const;
 
 /** The walk's registration step, whose screen shows the country and its authority. */
 const REGISTRATION_STEP = "12.2";

@@ -1,14 +1,14 @@
 {
   "missedDeadline": {
     "meta": {
-      "title": "NIS2 Frist verpasst? Was Sie jetzt tun",
-      "description": "NIS2 Frist verpasst? Die Frist zur Registrierung in jedem Land der EU, mit Behörde und Portal, und die fünf Schritte, die jetzt kommen."
+      "title": "NIS2 Frist zur Registrierung: alle 27 Länder der EU",
+      "description": "NIS2 Frist verpasst oder bald fällig? Bis wann Sie sich registrieren müssen, in allen 27 Ländern der EU, mit Behörde und Portal, und was jetzt kommt."
     },
     "badge": "Art. 3 Abs. 4 NIS 2",
     "title": "NIS2 Frist verpasst? Was Sie jetzt tun",
     "subtitle": "Registrieren Sie sich jetzt bei der Behörde Ihres Landes und fangen Sie mit den Maßnahmen an. Die Frist setzt das Gesetz Ihres Landes. Die Tabelle unten zeigt sie für alle 27 Länder der EU, mit Behörde und Portal.",
     "countries": {
-      "heading": "Die Frist in Ihrem Land",
+      "heading": "NIS2 Fristen zur Registrierung in allen 27 Ländern der EU",
       "lead": "Stand unserer Übersicht der Registrierungsstellen: {date}. Die Seite zu Ihrem Land erklärt, für wen die Frist gilt.",
       "later": "Wird Ihr Unternehmen erst später betroffen, etwa weil es wächst, beginnt die Frist in Deutschland und Polen an diesem Tag: drei Monate nach § 33 Abs. 1 BSIG, sechs Monate nach Art. 7c Abs. 1 des polnischen Gesetzes über das nationale Cybersicherheitssystem (KSC).",
       "columns": {
@@ -68,6 +68,10 @@
     },
     "faq": {
       "heading": "Häufige Fragen",
+      "when": {
+        "q": "Bis wann muss ich mich für NIS2 registrieren?",
+        "a": "Das regelt das Gesetz Ihres Landes. Die Tabelle oben zeigt die Frist für jedes Land der EU. In Deutschland registrieren Sie sich spätestens drei Monate, nachdem Ihr Unternehmen erstmals als Einrichtung gilt (§ 33 Abs. 1 BSIG). Für Unternehmen, die seit dem Inkrafttreten des BSIG am 6. Dezember 2025 betroffen sind, endete die Frist am 6. März 2026."
+      },
       "q1": {
         "q": "Kann ich mich nach Ablauf der Frist noch registrieren?",
         "a": "In Deutschland ja, über dasselbe Portal des BSI. Dort sind auch nach dem Stichtag weiter Registrierungen eingegangen: Die Bundesregierung nannte 19.058 bis zum 31. Juli 2026, das BSI zählte zum 30. September 2026 insgesamt 20.141. Für andere Länder fragen Sie die Behörde aus der Tabelle."
@@ -97,6 +101,7 @@
       ],
       "list": "Unsere Übersicht der Registrierungsstellen"
     },
-    "fromRegistration": "Fristen und Behörden in allen Ländern der EU"
+    "fromRegistration": "Fristen und Behörden in allen Ländern der EU",
+    "fromTracker": "Die NIS2 Frist zur Registrierung in jedem Land, und was Sie tun, wenn sie vorbei ist"
   }
 }

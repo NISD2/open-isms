@@ -21,6 +21,7 @@ import {
 } from "@/components/wiki/WikiSection";
 import { Link } from "@/i18n/navigation";
 import { isWikiLocale } from "@/lib/content/wiki-locale";
+import { isPublished } from "@/lib/content/wiki-publish-schedule";
 import { isLocaleCode } from "@/lib/locale";
 import {
   getRegistrationPortals,
@@ -125,9 +126,10 @@ export default async function Nis2TrackerEuPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = resolveLocale(rawLocale);
-  const [t, w] = await Promise.all([
+  const [t, w, missed] = await Promise.all([
     getTranslations("info.euTracker"),
     getTranslations("info.wikiWalk"),
+    getTranslations("missedDeadline"),
   ]);
   const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
   if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
@@ -300,6 +302,12 @@ export default async function Nis2TrackerEuPage({
               </tbody>
             </table>
           </div>
+          {/* Scheduled (wiki-publish-schedule.json): no link to a page that is not live yet. */}
+          {isPublished("nis2-frist-verpasst") && (
+            <WikiMoreLink href="/wiki/troubleshooting/nis2-frist-verpasst">
+              {missed("fromTracker")}
+            </WikiMoreLink>
+          )}
         </section>
 
         <WikiSection heading={t("latest.heading")} paragraphs={[t("latest.lead")]}>

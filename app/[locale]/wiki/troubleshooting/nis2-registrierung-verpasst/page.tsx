@@ -14,6 +14,7 @@ import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { WikiPartnerStrip } from "@/components/wiki/WikiPartnerStrip";
 import { wikiLabel, wikiLocale } from "@/lib/content/wiki-locale";
+import { isPublished } from "@/lib/content/wiki-publish-schedule";
 import { pageAlternates, pageOg } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -211,9 +212,12 @@ export default async function MissedRegistrationPage({
               </li>
             ))}
           </ol>
-          <WikiMoreLink href="/wiki/troubleshooting/nis2-frist-verpasst">
-            {missed("fromRegistration")}
-          </WikiMoreLink>
+          {/* Scheduled (wiki-publish-schedule.json): no link to a page that is not live yet. */}
+          {isPublished("nis2-frist-verpasst") && (
+            <WikiMoreLink href="/wiki/troubleshooting/nis2-frist-verpasst">
+              {missed("fromRegistration")}
+            </WikiMoreLink>
+          )}
         </section>
 
         <section className="space-y-4">
