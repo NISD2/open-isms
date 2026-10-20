@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getPathname, Link, useRouter } from "@/i18n/navigation";
 import {
+  alsoCountsFor,
   approvalOf,
   enteredDay,
   gapLines,
@@ -22,7 +23,9 @@ import {
 } from "@/lib/durchgang";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
+import { ApprovalScope } from "./ApprovalScope";
 import { Heading, Lead } from "./ExplainScreens";
+import { CountsFor } from "./FrameworkBadge";
 import { OpenPointPlan } from "./OpenPointPlan";
 import { Toggle } from "./RowParts";
 import type { ItemView } from "./view";
@@ -106,12 +109,19 @@ export function Approval({
 
   return (
     <>
+      <ApprovalScope
+        framework={framework}
+        codes={[...rows.map((row) => row.code), ...items.map((item) => item.code)]}
+      />
       {rows.length > 0 && (
-        <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
+        <ul className="mt-6 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
           {rows.map((row) => (
             <li key={`${row.code}:${row.type}`} className="px-5 py-4">
               <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-6">
-                <p className="font-medium break-words">{row.title}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="font-medium break-words">{row.title}</p>
+                  <CountsFor framework={framework} also={alsoCountsFor(row.code)} />
+                </div>
                 {row.status !== "draft" ? (
                   <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <Check className="size-4 text-primary" />
@@ -147,7 +157,12 @@ export function Approval({
         </ul>
       )}
       {items.length > 0 && (
-        <SignedWith items={items} staysOpen={staysOpen} management={viewer.management} />
+        <SignedWith
+          framework={framework}
+          items={items}
+          staysOpen={staysOpen}
+          management={viewer.management}
+        />
       )}
       {gaps !== undefined && gaps.length > 0 && (
         <OpenPoints framework={framework} gaps={gaps} canChange={viewer.admin} />
@@ -189,10 +204,12 @@ export function Approval({
  * besides the documents. An item whose document is left out stays open and says why.
  */
 function SignedWith({
+  framework,
   items,
   staysOpen,
   management,
 }: {
+  framework: WalkFramework;
   items: readonly Waiting[];
   staysOpen: (item: Waiting) => boolean;
   management: boolean;
@@ -211,7 +228,8 @@ function SignedWith({
               {item.code}
             </span>
             <span className="min-w-0 flex-1">
-              <span className="font-medium break-words">{item.headline}</span>
+              <span className="font-medium break-words">{item.headline}</span>{" "}
+              <CountsFor framework={framework} also={alsoCountsFor(item.code)} />
               {item.declined !== null && (
                 <span className="block text-sm text-muted-foreground">
                   {t("declined", { reason: item.declined })}

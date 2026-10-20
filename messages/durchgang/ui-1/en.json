@@ -148,6 +148,13 @@
         "failed": "That was not saved. Please try again."
       },
       "approve": {
+        "scope": {
+          "title": "What this approval covers",
+          "own": "The {law} documents and steps listed below, and nothing else. Each one you approve records your name and the date.",
+          "other": "It approves nothing for {law}, even where the two laws ask for similar things.",
+          "also": "For {law}, it also counts where the record is the same there: {codes}.",
+          "openOther": "{law} has its own approval page."
+        },
         "approve": "Approve",
         "approvedOn": "Approved on {date}",
         "approvedBy": "Approved on {date} by {name}",
