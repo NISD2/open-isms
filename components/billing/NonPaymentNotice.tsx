@@ -28,7 +28,9 @@ export async function NonPaymentNotice({ className }: { className?: string }) {
     >
       <CalendarClock className="mt-0.5 size-5 shrink-0 text-amber-700 dark:text-amber-400" />
       <div className="space-y-1">
-        <p className="font-medium">{t(`${notice.kind}.title`)}</p>
+        <p className="font-medium">
+          {t(`${notice.kind}.title`, { number: notice.invoiceNumber, date })}
+        </p>
         <p className="text-muted-foreground">
           {t.rich(`${notice.kind}.body`, {
             number: notice.invoiceNumber,

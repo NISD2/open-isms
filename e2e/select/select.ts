@@ -4,6 +4,7 @@ import {
   FULL_LABEL,
   NEEDS_TENANT_DATA,
   PATH_AREAS,
+  RUNS_ALL,
   SPEC_AREAS,
   TENANT_DATA,
 } from "./areas";
@@ -19,6 +20,7 @@ export type Selection =
 
 /** The areas one changed path belongs to, or null when no entry claims it. */
 export const areasOf = (path: string): readonly Area[] | null => {
+  if (RUNS_ALL.includes(path)) return null;
   const own = SPEC_AREAS[path];
   if (own === "full") return null;
   if (own) return own;

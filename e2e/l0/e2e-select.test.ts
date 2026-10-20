@@ -42,6 +42,17 @@ describe("what a pull request runs", () => {
     }
   });
 
+  test("a file every request goes through runs the whole suite, though its folder is one area's", () => {
+    for (const path of [
+      "lib/billing/access.ts",
+      "lib/billing/promo.ts",
+      "lib/mcp/procedures.ts",
+    ]) {
+      expect(selectSpecs([path], []).kind).toBe("all");
+    }
+    expect(selectSpecs(["lib/billing/order.ts"], []).kind).toBe("some");
+  });
+
   test("a path no entry claims runs the whole suite", () => {
     expect(selectSpecs(["lib/somewhere-new/thing.ts"], [])).toEqual({
       kind: "all",

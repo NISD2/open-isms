@@ -62,7 +62,8 @@ export const nonPaymentCandidates = async (
     .innerJoin(billingAccount, eq(billingAccount.id, invoice.billingAccountId))
     .leftJoin(user, eq(user.id, billingAccount.ownerUserId))
     .leftJoin(creditNote, eq(creditNote.invoiceId, invoice.id))
-    .where(accountId ? eq(billingAccount.id, accountId) : undefined)
+    // An empty id must still filter: dropping the filter would read every account.
+    .where(accountId !== undefined ? eq(billingAccount.id, accountId) : undefined)
     .orderBy(billingAccount.id, desc(invoice.issueDate), desc(invoice.createdAt));
   return rows.flatMap((r, i) =>
     i > 0 && rows[i - 1]?.accountId === r.accountId

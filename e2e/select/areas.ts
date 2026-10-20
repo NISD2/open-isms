@@ -143,5 +143,16 @@ export const PATH_AREAS: ReadonlyArray<
   ["messages/landing/", []],
 ];
 
+/**
+ * Files inside an area's folder that every request goes through, so a change to one runs the whole
+ * suite: the paywall's procedure list and the assistant key list gate every tRPC call
+ * (server/trpc/init.ts), and the promo is read by the route gate (proxy.ts).
+ */
+export const RUNS_ALL: readonly string[] = [
+  "lib/billing/access.ts",
+  "lib/billing/promo.ts",
+  "lib/mcp/procedures.ts",
+];
+
 /** The PR label that runs the whole suite whatever changed. */
 export const FULL_LABEL = "e2e:full";

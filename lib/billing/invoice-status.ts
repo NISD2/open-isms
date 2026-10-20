@@ -32,8 +32,13 @@ export const readLiveInvoice = async (
   const none = { status: null, dueDate: null, url: null, customerName: null } as const;
   if (mode.kind === "off") return none;
   const res = await getInvoice(mode.qonto, qontoInvoiceId);
-  const record = res.ok ? res.data.client_invoice : undefined;
-  if (!record) return none;
+  // The body is a cast, not a check: a 2xx with a null or non-object body is no answer, not a
+  // crash on the billing page.
+  const record =
+    res.ok && res.data !== null && typeof res.data === "object"
+      ? res.data.client_invoice
+      : undefined;
+  if (!record || typeof record !== "object") return none;
   return {
     status: isQontoStatus(record.status) ? record.status : null,
     dueDate: isoDay.safeParse(record.due_date).data ?? null,

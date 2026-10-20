@@ -17,7 +17,9 @@ const git = (...args: string[]): string =>
   execFileSync("git", args, { encoding: "utf8" });
 
 const base = process.argv[2] ?? "origin/main";
-const changed = git("diff", "--name-only", `${base}...HEAD`)
+// --no-renames lists a moved file under its old path too: moving proxy.ts into docs/ must still
+// run the specs proxy.ts belongs to, not only docs/'s.
+const changed = git("diff", "--name-only", "--no-renames", `${base}...HEAD`)
   .split("\n")
   .map((line) => line.trim())
   .filter((line) => line !== "");

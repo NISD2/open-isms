@@ -22,6 +22,10 @@ concurrency:
   group: e2e-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+# The suite runs the pull request's own code: its token reads the repository and nothing more.
+permissions:
+  contents: read
+
 jobs:
   e2e:
     runs-on: ubuntu-latest
@@ -31,6 +35,8 @@ jobs:
         with:
           # The selection compares the branch with where it left main.
           fetch-depth: 0
+          # No token left in .git/config while the pull request's code runs.
+          persist-credentials: false
 
       - uses: oven-sh/setup-bun@v2
         with:
