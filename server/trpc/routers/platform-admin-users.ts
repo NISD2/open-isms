@@ -1,90 +1,102 @@
-import { desc, eq, gte } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { auditLog, company, companyMembership, user } from "@/schema";
+import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
+import { env } from "@/lib/env";
+import { issuer } from "@/lib/mcp/config";
+import { DEFAULT_ACTIVE_DAYS, MAX_ACTIVE_DAYS } from "@/lib/platform-admin/active-window";
+import {
+  activeUsers,
+  auditLogFor,
+  personWithCompanies,
+} from "@/lib/platform-admin/users";
+import { testInstanceKey } from "@/lib/test-mcp/context";
+import { DAYS_IN_ORDER, daysInOrder } from "@/lib/test-mcp/inputs";
+import { mintTestKey, TEST_KEY_SECONDS } from "@/lib/test-mcp/key";
+import { user } from "@/schema";
 import { platformAdminProcedure, router } from "../init";
 
-/** How far back "active" looks: a rolling week, counted from now. */
-export const ACTIVE_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 /** The newest entries a person's page shows; their whole history can run to thousands. */
 export const ACTIVITY_LIMIT = 500;
 
 /**
  * Who used the platform lately, for the platform admin's "Active users" tab. Kept apart from
- * `platformAdmin`, whose file is over the size limit.
+ * `platformAdmin`, whose file is over the size limit. The reads live in lib/platform-admin/users.ts,
+ * which the test endpoint shares.
  */
 export const platformAdminUsersRouter = router({
-  /**
-   * Everyone who signed in during the past seven days, the latest first. `lastLoginAt` moves once
-   * per completed sign-in and never on the silent token refreshes (lib/auth/config.ts), so this
-   * counts sign-ins, not open tabs. The company is the one the person last worked in.
-   */
-  active: platformAdminProcedure.query(({ ctx }) =>
-    ctx.db
-      .select({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        lastLoginAt: user.lastLoginAt,
-        loginCount: user.loginCount,
-        companyName: company.name,
-      })
-      .from(user)
-      .leftJoin(company, eq(user.companyId, company.id))
-      .where(gte(user.lastLoginAt, new Date(Date.now() - ACTIVE_WINDOW_MS)))
-      .orderBy(desc(user.lastLoginAt)),
-  ),
+  /** Everyone who signed in during the past `days` days (14 unless asked), the latest first. */
+  active: platformAdminProcedure
+    .input(
+      z
+        .object({
+          days: z.number().int().min(1).max(MAX_ACTIVE_DAYS).default(DEFAULT_ACTIVE_DAYS),
+        })
+        .default({ days: DEFAULT_ACTIVE_DAYS }),
+    )
+    .query(({ ctx, input }) =>
+      activeUsers(ctx.db, new Date(Date.now() - input.days * DAY_MS)),
+    ),
 
   /**
    * One person, for the admin's user dialog: the account, every company they belong to, and what
-   * they did, from the audit log, newest first. Only what each entry says happened: its stored
-   * values and the IP address stay in the log. Null for an id that names nobody (erased).
+   * they did, from the audit log, newest first, with what each entry stored; optionally between
+   * two calendar days in Berlin. Null for an id that names nobody (erased).
    */
   detail: platformAdminProcedure
-    .input(z.object({ id: z.string().uuid() }))
+    .input(
+      z
+        .object({
+          id: z.string().uuid(),
+          fromDay: z.iso.date().optional(),
+          toDay: z.iso.date().optional(),
+        })
+        .refine(daysInOrder, DAYS_IN_ORDER),
+    )
     .query(async ({ ctx, input }) => {
-      const [person, memberships, activity] = await Promise.all([
-        ctx.db.query.user.findFirst({
-          where: eq(user.id, input.id),
-          columns: {
-            id: true,
-            name: true,
-            email: true,
-            phone: true,
-            createdAt: true,
-            emailVerifiedAt: true,
-            lastLoginAt: true,
-            loginCount: true,
-            grandfatheredAt: true,
-          },
-        }),
-        ctx.db
-          .select({
-            companyId: company.id,
-            companyName: company.name,
-            role: companyMembership.role,
-            jobTitle: companyMembership.jobTitle,
-            since: companyMembership.createdAt,
-          })
-          .from(companyMembership)
-          .innerJoin(company, eq(company.id, companyMembership.companyId))
-          .where(eq(companyMembership.userId, input.id))
-          .orderBy(desc(companyMembership.createdAt)),
-        ctx.db
-          .select({
-            id: auditLog.id,
-            at: auditLog.createdAt,
-            action: auditLog.action,
-            entityType: auditLog.entityType,
-            description: auditLog.description,
-            companyName: company.name,
-          })
-          .from(auditLog)
-          .leftJoin(company, eq(company.id, auditLog.companyId))
-          .where(eq(auditLog.userId, input.id))
-          .orderBy(desc(auditLog.createdAt))
-          .limit(ACTIVITY_LIMIT),
+      const { id, fromDay, toDay } = input;
+      const [found, log] = await Promise.all([
+        personWithCompanies(ctx.db, id),
+        auditLogFor(ctx.db, { kind: "user", id }, { fromDay, toDay }, ACTIVITY_LIMIT),
       ]);
-      return person ? { person, memberships, activity } : null;
+      return found ? { ...found, activity: log.rows } : null;
     }),
+
+  /**
+   * A key and address for the test endpoint (lib/test-mcp), shown once and stored nowhere. It ends
+   * after a few hours, when the person signs out or disconnects their assistants in Settings, or
+   * when their address leaves PLATFORM_ADMIN_EMAILS (which a running instance reads from its
+   * environment, so that takes a deploy). Needs a sign-in from the last few minutes, because a key
+   * outlives the browser session it was made in. Never reachable with an assistant's key (the
+   * tier refuses it).
+   */
+  createTestKey: platformAdminProcedure.mutation(async ({ ctx }) => {
+    const path = env.TEST_MCP_PATH;
+    if (!path) {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message: "TEST_MCP_PATH is not set on this instance.",
+      });
+    }
+    const nowS = epochSeconds(new Date());
+    if (!isRecentSignIn(ctx.session?.authTime ?? null, nowS)) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "reauth" });
+    }
+    const versions = await ctx.db.query.user.findFirst({
+      where: eq(user.id, ctx.userId),
+      columns: { mcpKeyVersion: true, sessionVersion: true },
+    });
+    if (!versions) throw new TRPCError({ code: "NOT_FOUND" });
+    return {
+      key: mintTestKey(
+        testInstanceKey(),
+        { sub: ctx.userId, ver: versions.mcpKeyVersion, sv: versions.sessionVersion },
+        nowS,
+      ),
+      url: `${issuer()}/api/t/${path}`,
+      hours: TEST_KEY_SECONDS / 3600,
+    };
+  }),
 });

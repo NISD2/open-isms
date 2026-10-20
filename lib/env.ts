@@ -178,6 +178,27 @@ const envSchema = z.object({
     return undefined;
   }),
 
+  // The secret last segment of the address of the test MCP endpoint (lib/test-mcp): /api/t/<value>.
+  // Unset by default, which means the endpoint does not exist: every address under /api/t answers
+  // 404. This repository is public, so the address is kept out of it. A value that is not 43 to
+  // 128 URL-safe characters with at least 20 different ones switches the endpoint off with a warning.
+  TEST_MCP_PATH: z
+    .preprocess(
+      trimmed,
+      z
+        .string()
+        .regex(/^[A-Za-z0-9_-]{43,128}$/)
+        // 43 characters of base64url is 256 bits only if they are random: refuse a repeated one.
+        .refine((value) => new Set(value).size >= 20)
+        .optional(),
+    )
+    .catch(() => {
+      console.warn(
+        "[env] TEST_MCP_PATH must be 43-128 random chars of [A-Za-z0-9_-] (openssl rand -base64 32 | tr '+/' '-_' | tr -d '='); the test endpoint is off",
+      );
+      return undefined;
+    }),
+
   // Standard
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });

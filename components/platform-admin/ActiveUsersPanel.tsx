@@ -1,7 +1,15 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  clampActiveDays,
+  DEFAULT_ACTIVE_DAYS,
+  MAX_ACTIVE_DAYS,
+  QUICK_ACTIVE_DAYS,
+} from "@/lib/platform-admin/active-window";
 import { trpc } from "@/lib/trpc/client";
 import { UserName } from "./UserDialog";
 
@@ -11,21 +19,67 @@ const signedInAt = new Intl.DateTimeFormat("de-DE", {
   timeStyle: "short",
 });
 
-/** Everyone who signed in during the past seven days, the latest first (`platformAdminUsers.active`). */
+/**
+ * Everyone who signed in during the past N days, the latest first (`platformAdminUsers.active`).
+ * N starts at 14 and is the admin's to change. What is typed is a draft until the field is left
+ * or Enter is pressed, so a number can be edited freely and only the finished one is asked for.
+ */
 export function ActiveUsersPanel() {
-  const active = trpc.platformAdminUsers.active.useQuery();
+  const [days, setDays] = useState<number>(DEFAULT_ACTIVE_DAYS);
+  const [draft, setDraft] = useState(String(DEFAULT_ACTIVE_DAYS));
+  const choose = (next: number) => {
+    setDays(next);
+    setDraft(String(next));
+  };
+  // An empty or non-numeric draft goes back to the window in use.
+  const commit = () => choose(clampActiveDays(draft) ?? days);
+  const active = trpc.platformAdminUsers.active.useQuery(
+    { days },
+    // Changing the window keeps the rows on screen until the new ones arrive.
+    { placeholderData: (previous) => previous },
+  );
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-3 space-y-0">
         <CardTitle className="text-base">
-          Signed in during the past 7 days
+          Signed in during the past {days} {days === 1 ? "day" : "days"}
           {active.data && (
             <span className="ml-2 font-normal text-muted-foreground">
               ({active.data.length})
             </span>
           )}
         </CardTitle>
+        <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+          <label className="flex items-center gap-1.5">
+            Days
+            <input
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={MAX_ACTIVE_DAYS}
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
+              onBlur={commit}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") commit();
+              }}
+              className="w-20 rounded-md border bg-background px-2 py-1 text-foreground"
+            />
+          </label>
+          {QUICK_ACTIVE_DAYS.map((d) => (
+            <Button
+              key={d}
+              type="button"
+              size="sm"
+              variant={d === days ? "secondary" : "ghost"}
+              onClick={() => choose(d)}
+            >
+              {d}
+            </Button>
+          ))}
+          {active.isFetching && <Loader2 className="h-4 w-4 animate-spin" />}
+        </div>
       </CardHeader>
       <CardContent>
         {active.isPending ? (
@@ -33,7 +87,9 @@ export function ActiveUsersPanel() {
         ) : active.error ? (
           <p className="text-sm text-destructive">{active.error.message}</p>
         ) : active.data.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Nobody signed in this week.</p>
+          <p className="text-sm text-muted-foreground">
+            Nobody signed in during the past {days} {days === 1 ? "day" : "days"}.
+          </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">

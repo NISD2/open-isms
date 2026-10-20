@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/card";
 import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
+import { TestKeyCard } from "./TestKeyCard";
 
 /** next-intl writes the chosen locale here; clearing it restores detection. */
 const LOCALE_COOKIE = "NEXT_LOCALE";
@@ -264,6 +265,7 @@ export function DevPanel() {
       </Card>
 
       <LanguageCard />
+      <TestKeyCard />
     </div>
   );
 }
