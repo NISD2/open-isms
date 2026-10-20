@@ -19,9 +19,11 @@ export interface TestHolder {
   readonly userAgent: string | null;
 }
 
-/** Derived once: the secret does not change while the process runs. */
-const signingKey = testSigningKey(env.AUTH_SECRET);
-export const testInstanceKey = (): Buffer => signingKey;
+/**
+ * Derived when used, never when the module loads: the app router imports this file, so a build
+ * that has no AUTH_SECRET (the Docker image build) would fail on /api/mcp at import time.
+ */
+export const testInstanceKey = (): Buffer => testSigningKey(env.AUTH_SECRET);
 
 /**
  * The person behind a key, or null: a key this instance did not sign, an ended one, one made
@@ -34,7 +36,7 @@ export async function holderOf(
   token: string,
   request: Request,
 ): Promise<TestHolder | null> {
-  const claims = readTestKey(signingKey, token, epochSeconds(new Date()));
+  const claims = readTestKey(testInstanceKey(), token, epochSeconds(new Date()));
   if (!claims) return null;
   const row = await db.query.user.findFirst({
     where: eq(user.id, claims.sub),
