@@ -3417,7 +3417,35 @@
       "sourceId": "traficom",
       "sourceUrl": "https://www.traficom.fi/fi/uutiset/teletoiminnan-hairiotilanteista-ilmoittaminen-muuttuu",
       "addedAt": "2026-10-16T11:37:24Z"
+    },
+    {
+      "id": "2026-10-16-national-transposition-pl-cyber-plenipotentiary-recommendation",
+      "date": "2026-10-16",
+      "category": "national-transposition",
+      "tags": ["pl", "guidance"],
+      "type": "update",
+      "title": "Poland: Government Plenipotentiary for Cybersecurity publishes a recommendation of basic security measures for KSC entities",
+      "titleDe": "Polen: Regierungsbeauftragter fuer Cybersicherheit veroeffentlicht Empfehlung grundlegender Sicherheitsmassnahmen fuer KSC-Einrichtungen",
+      "summary": "On 16 October 2026 the Polish Ministry of Digital Affairs published a recommendation of the Government Plenipotentiary for Cybersecurity on organisational and technical measures, addressed to the more than 70,000 entities of the national cybersecurity system (KSC). It lists a basic catalogue including risk management, multi-factor authentication, vulnerability management, backups, supply chain risk, monitoring and incident response, and staff training. It is non-binding guidance without a deadline and does not replace the KSC act; it is a national document, not an EU-wide rule.",
+      "summaryDe": "Das polnische Ministerium fuer Digitalisierung hat am 16. Oktober 2026 eine Empfehlung des Regierungsbeauftragten fuer Cybersicherheit zu organisatorischen und technischen Massnahmen veroeffentlicht, gerichtet an die mehr als 70.000 Einrichtungen des nationalen Cybersicherheitssystems (KSC). Sie nennt einen Grundkatalog mit Risikomanagement, Multi-Faktor-Authentifizierung, Schwachstellenmanagement, Datensicherung, Lieferkettenrisiken, Ueberwachung und Vorfallbehandlung sowie Mitarbeiterschulung. Es handelt sich um unverbindliche Hinweise ohne Frist, die das KSC-Gesetz nicht ersetzen; das Dokument ist national und keine EU-weite Regel.",
+      "sourceId": "gov-pl-cyfryzacja",
+      "sourceUrl": "https://www.gov.pl/web/cyfryzacja/rekomendacja-pelnomocnika-rzadu-ds-cyberbezpieczenstwa-dot-srodkow-organizacyjnych-i-technicznych-zwiekszajacych-poziom-bezpieczenstwa-systemow-informacyjnych",
+      "addedAt": "2026-10-19T12:00:00Z"
+    },
+    {
+      "id": "2026-10-20-national-transposition-at-nisv-2026-faq",
+      "date": "2026-10-20",
+      "category": "national-transposition",
+      "tags": ["at", "guidance"],
+      "type": "update",
+      "title": "Austria: the Bundesamt fuer Cybersicherheit publishes an FAQ on the NISV 2026 covering risk management measures, risk categories, compensating measures and significant incidents",
+      "titleDe": "Oesterreich: Das Bundesamt fuer Cybersicherheit veroeffentlicht FAQ zur NISV 2026 zu Risikomanagementmassnahmen, Risikokategorien, kompensierenden Massnahmen und erheblichen Vorfaellen",
+      "summary": "The Austrian Bundesamt fuer Cybersicherheit lists FAQ pages on the NISV 2026 (BGBl. II Nr. 290/2026) for section 2 (risk management requirements), section 3 (risk categories), section 4 (compensating measures), section 5 (significant incidents) and section 7 (repeated incidents), marked as last updated on 20 October 2026. The authority says it deliberately avoids a full treatment of legal questions and refers to the explanatory remarks to the regulation. It is non-binding guidance that does not replace the NISG 2026 or the NISV 2026, and it is an Austrian document, not an EU-wide rule. The page shows only its last update date, so the date of first publication is not known.",
+      "summaryDe": "Das oesterreichische Bundesamt fuer Cybersicherheit fuehrt FAQ Seiten zur NISV 2026 (BGBl. II Nr. 290/2026) zu Paragraf 2 (Anforderungen an Risikomanagementmassnahmen), Paragraf 3 (Risikokategorien), Paragraf 4 (kompensierende Massnahmen), Paragraf 5 (erhebliche Vorfaelle) und Paragraf 7 (wiederholte Vorfaelle), zuletzt aktualisiert am 20. Oktober 2026. Das Amt verzichtet nach eigener Angabe bewusst auf eine umfassende Behandlung von Rechtsfragen und verweist auf die Erlaeuternden Bemerkungen zur Verordnung. Es handelt sich um unverbindliche Hinweise, die das NISG 2026 und die NISV 2026 nicht ersetzen, und um ein oesterreichisches Dokument, keine EU-weite Regel. Die Seite nennt nur das Datum der letzten Aktualisierung, das Datum der Erstveroeffentlichung ist nicht bekannt.",
+      "sourceId": "bcs-at",
+      "sourceUrl": "https://www.bundesamt-cybersicherheit.gv.at/faq/start.html",
+      "addedAt": "2026-10-20T12:00:00Z"
     }
   ],
-  "lastUpdated": "2026-10-16T11:37:24Z"
+  "lastUpdated": "2026-10-20T12:00:00Z"
 }
