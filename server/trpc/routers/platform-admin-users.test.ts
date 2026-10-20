@@ -4,7 +4,7 @@
  * fourteen days and takes the number the admin asks for, and a key needs a recent sign-in.
  */
 import { describe, expect, mock, test } from "bun:test";
-import type { SQL } from "drizzle-orm";
+import { type SQL, sql } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
 import { DEFAULT_ACTIVE_DAYS, MAX_ACTIVE_DAYS } from "@/lib/platform-admin/active-window";
 
@@ -46,15 +46,23 @@ function setup(
     from: () => chain,
     leftJoin: () => chain,
     innerJoin: () => chain,
+    groupBy: () => chain,
     where: (where: SQL) => {
       wheres.push(where);
       return chain;
     },
     orderBy: () => Object.assign(Promise.resolve([]), { limit: async () => [] }),
   };
+  // A named subquery whose every column is plain SQL, which is all the filters need to render.
+  const subquery = new Proxy(
+    {},
+    { get: (_, column) => sql.raw(`actors.${String(column)}`) },
+  );
   const inserted: unknown[] = [];
   const db = {
     select: () => chain,
+    $with: () => ({ as: () => subquery }),
+    with: () => ({ select: () => chain }),
     insert: () => ({
       values: async (row: unknown) => {
         if (options.failInsert) throw new Error("audit table unavailable");

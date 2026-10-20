@@ -32,7 +32,10 @@ export const ACTIVITY_LIMIT = 500;
  * which the test endpoint shares.
  */
 export const platformAdminUsersRouter = router({
-  /** Everyone who signed in during the past `days` days (14 unless asked), the latest first. */
+  /**
+   * Everyone who signed in or did something during the past `days` days (14 unless asked), the
+   * latest of the two first.
+   */
   active: platformAdminProcedure
     .input(
       z

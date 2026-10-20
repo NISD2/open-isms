@@ -20,8 +20,8 @@ const signedInAt = new Intl.DateTimeFormat("de-DE", {
 });
 
 /**
- * Everyone who signed in during the past N days, the latest first (`platformAdminUsers.active`).
- * N starts at 14 and is the admin's to change. What is typed is a draft until the field is left
+ * Everyone who signed in or did something during the past N days, the latest of the two first
+ * (`platformAdminUsers.active`). N starts at 14 and is the admin's to change. What is typed is a draft until the field is left
  * or Enter is pressed, so a number can be edited freely and only the finished one is asked for.
  */
 export function ActiveUsersPanel() {
@@ -43,7 +43,7 @@ export function ActiveUsersPanel() {
     <Card>
       <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-3 space-y-0">
         <CardTitle className="text-base">
-          Signed in during the past {days} {days === 1 ? "day" : "days"}
+          Active during the past {days} {days === 1 ? "day" : "days"}
           {active.data && (
             <span className="ml-2 font-normal text-muted-foreground">
               ({active.data.length})
@@ -88,7 +88,8 @@ export function ActiveUsersPanel() {
           <p className="text-sm text-destructive">{active.error.message}</p>
         ) : active.data.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            Nobody signed in during the past {days} {days === 1 ? "day" : "days"}.
+            Nobody signed in or did anything during the past {days}{" "}
+            {days === 1 ? "day" : "days"}.
           </p>
         ) : (
           <div className="overflow-x-auto">
@@ -99,6 +100,7 @@ export function ActiveUsersPanel() {
                   <th className="pb-2 pr-4 font-medium">Email</th>
                   <th className="pb-2 pr-4 font-medium">Company</th>
                   <th className="pb-2 pr-4 font-medium">Last sign-in (Berlin)</th>
+                  <th className="pb-2 pr-4 font-medium">Last action (Berlin)</th>
                   <th className="pb-2 font-medium">Sign-ins in total</th>
                 </tr>
               </thead>
@@ -116,6 +118,11 @@ export function ActiveUsersPanel() {
                     </td>
                     <td className="py-2 pr-4 text-muted-foreground">
                       {u.lastLoginAt ? signedInAt.format(new Date(u.lastLoginAt)) : null}
+                    </td>
+                    <td className="py-2 pr-4 text-muted-foreground">
+                      {u.lastActionAt
+                        ? signedInAt.format(new Date(u.lastActionAt))
+                        : null}
                     </td>
                     <td className="py-2 tabular-nums">{u.loginCount}</td>
                   </tr>

@@ -89,8 +89,8 @@ function buildServer(holder: TestHolder): McpServer {
   server.registerTool(
     "recent_users",
     {
-      title: "People who signed in lately",
-      description: `People whose last sign-in falls within the past N days (${DEFAULT_ACTIVE_DAYS} unless asked), latest first: account age, sign-in count, company. ${DATA}.`,
+      title: "People active lately",
+      description: `People who signed in or did anything (a recorded action) within the past N days (${DEFAULT_ACTIVE_DAYS} unless asked), the latest of the two first: account age, last sign-in, last action, sign-in count, company. ${DATA}.`,
       inputSchema: z.object({
         days: z.number().int().min(1).max(MAX_ACTIVE_DAYS).default(DEFAULT_ACTIVE_DAYS),
         limit: Limit(500, 200),
