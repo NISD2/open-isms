@@ -51,7 +51,11 @@ export function HeadStartCard({ start }: { start: HeadStart }) {
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-xs text-muted-foreground">{t("fromNis2.note")}</p>
+      <p className="mt-3 text-xs text-muted-foreground">
+        {start.items.every((item) => item.state.kind === "open")
+          ? t("fromNis2.notStarted")
+          : t("fromNis2.note")}
+      </p>
     </section>
   );
 }

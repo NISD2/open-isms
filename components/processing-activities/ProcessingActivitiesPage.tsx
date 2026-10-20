@@ -16,6 +16,7 @@ import { useRouter } from "@/i18n/navigation";
 import { LEGAL_BASES } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { processingActivityInsertSchema } from "@/schema/processing-activity-validators";
+import { type Controller, RecordHeader } from "./RecordHeader";
 
 const shown = (text: unknown) => (typeof text === "string" && text.trim() ? text : "—");
 
@@ -27,9 +28,11 @@ const shown = (text: unknown) => (typeof text === "string" && text.trim() ? text
 export function ProcessingActivitiesPage({
   items,
   admin,
+  controller,
 }: {
   items: Record<string, unknown>[];
   admin: boolean;
+  controller: Controller;
 }) {
   const t = useTranslations("processingActivities");
   const router = useRouter();
@@ -63,55 +66,58 @@ export function ProcessingActivitiesPage({
       isSubmitting={create.isPending || update.isPending}
     >
       {({ items, onEdit, onDelete }) => (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>{t("fields.name")}</TableHead>
-              <TableHead>{t("fields.purpose")}</TableHead>
-              <TableHead>{t("fields.legalBases")}</TableHead>
-              <TableHead>{t("fields.dataSubjects")}</TableHead>
-              <TableHead>{t("fields.recipients")}</TableHead>
-              <TableHead>{t("fields.retention")}</TableHead>
-              <TableHead className="text-right">{t("actions")}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {items.map((item) => (
-              <TableRow key={String(item.id)}>
-                <TableCell className="font-medium">{shown(item.name)}</TableCell>
-                <TableCell className="max-w-64 whitespace-normal">
-                  {shown(item.purpose)}
-                </TableCell>
-                <TableCell className="max-w-48 whitespace-normal">
-                  {basesOf(item.legalBases)}
-                </TableCell>
-                <TableCell className="max-w-48 whitespace-normal">
-                  {shown(item.dataSubjects)}
-                </TableCell>
-                <TableCell className="max-w-48 whitespace-normal">
-                  {shown(item.recipients)}
-                </TableCell>
-                <TableCell className="max-w-48 whitespace-normal">
-                  {shown(item.retention)}
-                </TableCell>
-                <TableCell className="text-right">
-                  <Button variant="ghost" size="icon" onClick={() => onEdit(item)}>
-                    <Pencil className="h-4 w-4" />
-                  </Button>
-                  {admin && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => onDelete(String(item.id))}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  )}
-                </TableCell>
+        <>
+          <RecordHeader controller={controller} items={items} />
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>{t("fields.name")}</TableHead>
+                <TableHead>{t("fields.purpose")}</TableHead>
+                <TableHead>{t("fields.legalBases")}</TableHead>
+                <TableHead>{t("fields.dataSubjects")}</TableHead>
+                <TableHead>{t("fields.recipients")}</TableHead>
+                <TableHead>{t("fields.retention")}</TableHead>
+                <TableHead className="text-right">{t("actions")}</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {items.map((item) => (
+                <TableRow key={String(item.id)}>
+                  <TableCell className="font-medium">{shown(item.name)}</TableCell>
+                  <TableCell className="max-w-64 whitespace-normal">
+                    {shown(item.purpose)}
+                  </TableCell>
+                  <TableCell className="max-w-48 whitespace-normal">
+                    {basesOf(item.legalBases)}
+                  </TableCell>
+                  <TableCell className="max-w-48 whitespace-normal">
+                    {shown(item.dataSubjects)}
+                  </TableCell>
+                  <TableCell className="max-w-48 whitespace-normal">
+                    {shown(item.recipients)}
+                  </TableCell>
+                  <TableCell className="max-w-48 whitespace-normal">
+                    {shown(item.retention)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="ghost" size="icon" onClick={() => onEdit(item)}>
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                    {admin && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => onDelete(String(item.id))}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </>
       )}
     </CrudPage>
   );

@@ -151,7 +151,7 @@ const NO_ANSWERS: Readonly<Record<string, unknown>> = {};
  * One item's saved answers, or none while the item has no status row yet. Only "no row yet" means
  * no answers; any other failure must not print a blank document.
  */
-const answersOf = async (
+export const answersOf = async (
   db: Database,
   companyId: string,
   code: string,

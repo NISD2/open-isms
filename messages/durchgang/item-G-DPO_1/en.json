@@ -6,10 +6,23 @@
         "teaser": "Whether you must designate one, who it is and how to reach them.",
         "missed": [
           "This walkthrough covers selected duties of a controller: the data protection officer, the record of processing activities, processors, security of processing, personal data breaches, requests from data subjects and your data protection policy. It is not the whole GDPR.",
-          "Not covered yet: the legal basis of each processing activity (Art. 6), privacy notices, for example for your website, staff and applicants (Art. 13, 14), data protection impact assessments (Art. 35), transfers to third countries in depth (Art. 44 to 49), arrangements with joint controllers (Art. 26) and the duties that apply when your company itself processes data on behalf of its customers (Art. 28, Art. 30(2)). Until then, you handle these yourself or with your data protection officer.",
-          "A data protection officer may have other tasks, as long as they do not result in a conflict of interests (Art. 38(6)). Someone who decides on the purposes and means of processing, such as management, is badly placed to monitor themselves."
+          "Not covered yet: privacy notices, for example for your website, staff and applicants (Art. 13, 14), cookie consent on your website (§ 25 TDDDG), a deletion concept, the conditions for special categories of data (Art. 9(2), 10), consent records (Art. 7), data protection impact assessments (Art. 35), transfers to third countries in depth (Art. 44 to 49), arrangements with joint controllers (Art. 26) and the duties that apply when your company itself processes data on behalf of its customers (Art. 28, Art. 30(2)). Until then, you handle these yourself or with your data protection officer.",
+          "A data protection officer may have other tasks, as long as they do not result in a conflict of interests (Art. 38(6)). Someone who decides on the purposes and means of processing, such as management, is badly placed to monitor themselves.",
+          "Where the law requires a data protection officer, an employee in the role cannot be dismissed with notice while in it and for a year after, only for a serious reason without notice (§ 38(2) with § 6(4) BDSG)."
         ],
         "screens": {
+          "basics": {
+            "title": "The words you will meet",
+            "body": [
+              "Personal data is anything about a person: a name, an email address, a payslip, a photo from a camera.",
+              "Processing is anything you do with it: collect it, store it, look at it, send it, delete it.",
+              "Your company is the controller. It decides why and how it uses the data, so the duties in this walkthrough are its duties.",
+              "A processor is a provider that handles the data only for you and on your instructions, such as your email or payroll provider. The people the data is about are called data subjects.",
+              "The supervisory authority is the data protection authority of your federal state. You report to it, and it may ask to see your records.",
+              "This walkthrough goes through one duty at a time. Each step explains what the law asks, shows an example, and then asks you for what only your company knows."
+            ],
+            "duty": "The GDPR makes your company, as controller, responsible for how it processes personal data, and asks that it can show this (Art. 5(2), Art. 24)."
+          },
           "learn": {
             "title": "Do you need a data protection officer?",
             "body": [
@@ -28,7 +41,7 @@
               "note": "At least 20 persons constantly process personal data by automated means, so § 38(1) BDSG applies. Count the people who do that, not the whole workforce."
             },
             "bad": {
-              "value": "A cleaning company with 200 staff, of whom 3 work in the office on a computer. It designates one because it has more than 20 employees.",
+              "value": "A cleaning company with 200 staff, of whom 3 work in the office on a computer. It counts all 200 and concludes it must designate one.",
               "note": "The headcount alone decides nothing; § 38(1) BDSG counts the people constantly processing personal data by automated means. Here that is 3. Check the cases of Art. 37(1) next; a voluntary designation remains possible (Art. 37(4))."
             },
             "more": [
@@ -39,7 +52,7 @@
                 },
                 "bad": {
                   "value": "A software company makes its head of IT the data protection officer.",
-                  "note": "The officer must not be in a conflict of interests (Art. 38(6)). Whoever decides how personal data is processed, as a head of IT often does, cannot also be the one who monitors it."
+                  "note": "The officer must not be in a conflict of interests (Art. 38(6)). Whoever decides how personal data is processed, as a head of IT often does, is as a rule badly placed to monitor it. Whether there is a conflict depends on the actual tasks."
                 }
               }
             ]
@@ -49,19 +62,19 @@
             "lead": "Go through the cases from the first step and the examples. If one applies, you must designate one. If none applies, decide whether to designate one voluntarily.",
             "document": "Designation of the data protection officer",
             "steps": [
-              "Count the persons who, as a rule, are constantly engaged in the automated processing of personal data. If there are 20 or more, the duty applies in Germany.",
-              "Check the other cases: monitoring people or special categories of data as a core activity, processing that needs a data protection impact assessment, trading in data, market or opinion research.",
+              "Go through your departments: management, office, accounts, HR, sales, purchasing, IT. Count each person who works with customer, staff or supplier data on a computer most days. If there are 20 or more, the duty applies in Germany (§ 38(1) of the BDSG, the German Federal Data Protection Act).",
+              "Check the other cases: monitoring people or processing special categories of data as a core activity; processing that needs a data protection impact assessment, for example video surveillance of areas open to the public or systematic monitoring of staff (the German supervisory authorities publish a list of such processing, Art. 35(4)); trading in data; market or opinion research.",
               "If none of this applies, decide whether to designate someone anyway."
             ]
           },
           "who": {
             "title": "Who it is and how to reach them",
-            "lead": "Name the person or the provider, the contact details you publish, and the day you communicated them to the supervisory authority (Art. 37(7)). If you have not designated anyone, leave the fields empty.",
+            "lead": "Name the person or the provider, the contact details you publish, and the day you reported them to the data protection authority of your federal state (Art. 37(7)); most authorities have an online form for this. If you have not designated anyone, leave the fields empty and continue.",
             "document": "Designation of the data protection officer"
           },
           "done": {
             "title": "Your decision is recorded",
-            "note": "If the contact details are not yet in your privacy notice, add them there."
+            "note": "Publish the contact details, for example on the privacy page of your website, often called \"Privacy\" or \"Datenschutz\" (Art. 37(7))."
           }
         },
         "fields": {

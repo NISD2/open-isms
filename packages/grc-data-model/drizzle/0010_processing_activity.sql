@@ -1,5 +1,5 @@
 CREATE TYPE "public"."legal_basis" AS ENUM('consent', 'contract', 'legal_obligation', 'vital_interests', 'public_task', 'legitimate_interests');--> statement-breakpoint
-CREATE TYPE "public"."subprocessor_authorisation" AS ENUM('general', 'specific');--> statement-breakpoint
+CREATE TYPE "public"."subprocessor_authorisation" AS ENUM('general', 'specific', 'not_stated');--> statement-breakpoint
 CREATE TABLE "processing_activity" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"company_id" uuid NOT NULL,

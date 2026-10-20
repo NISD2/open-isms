@@ -28,6 +28,16 @@ describe("the processing-activity catalogue", () => {
     });
   }
 
+  test("an activity usually resting on legitimate interests suggests the interest, in English", () => {
+    const { copy } = activityCopyOf(DURCHGANG_MESSAGES.en.durchgang);
+    const missing = ACTIVITY_CATALOG.filter(
+      (a) =>
+        (a.bases as readonly string[]).includes("legitimate_interests") &&
+        !copy.get(a.id)?.legitimateInterests,
+    ).map((a) => a.id);
+    expect(missing).toEqual([]);
+  });
+
   test("each activity's name differs per language only, never between activities", () => {
     for (const locale of GDPR_WALK.locales) {
       const { copy } = activityCopyOf(DURCHGANG_MESSAGES[locale].durchgang);

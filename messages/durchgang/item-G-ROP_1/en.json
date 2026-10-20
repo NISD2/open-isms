@@ -15,7 +15,7 @@
             "title": "What you do with data",
             "body": [
               "The record lists every processing activity of your company, such as payroll, customer management, the website or video surveillance. For each it says what you process the data for, whose data and which, who receives it, whether it goes to a country outside the EEA and when it is erased (Art. 30(1)). It also names your company and your data protection officer, with contact details.",
-              "In writing here includes electronic form (Art. 30(3)). The GDPR does not ask for a signature.",
+              "In writing here includes electronic form (Art. 30(3)).",
               "On the next steps you choose your activities from a list and describe each one. Every entry comes with a suggestion you can use or change. If your data protection officer already keeps a record, put it next to this one and compare the two."
             ],
             "duty": "The GDPR requires your company to maintain a record of the processing activities under its responsibility."
@@ -71,11 +71,11 @@
           },
           "what": {
             "title": "What for, whose data, which data",
-            "lead": "Each activity comes with a suggestion. Use it, or write how it is for you. Groups are enough; names do not belong here."
+            "lead": "Each activity comes with a suggestion. Use it, or write how it is for you. Write groups, such as staff or customers, not the names of individual people."
           },
           "basis": {
             "title": "On what lawful basis",
-            "lead": "Processing is lawful only on at least one of the six bases in Art. 6(1). Most activities rest on a contract with the person or on a legal obligation. Consent fits only where the person has a genuine choice and can withdraw it at any time (Recital 42, Art. 7(3)). Where you rely on legitimate interests, write down which interest and why it weighs more than the people's interests."
+            "lead": "Why may you use this data? The law allows it only for one of six reasons (Art. 6(1)). Most activities rest on one of two: you need the data for a contract with the person, such as an employment contract or an order, or a law makes you keep it, such as tax law. The usual reason for each activity is marked; take it unless your case is different. Consent fits only where the person has a genuine choice and can withdraw it at any time (Recital 42, Art. 7(3)). Website tools that store or read information on a visitor's device need consent unless they are strictly necessary (§ 25 TDDDG). If you rely on legitimate interests, write in one sentence what your company needs, and why the interests of the people concerned do not override it."
           },
           "who": {
             "title": "Who receives the data",

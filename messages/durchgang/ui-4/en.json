@@ -8,7 +8,8 @@
       },
       "fromNis2": {
         "title": "Already in from your NIS 2 walkthrough",
-        "note": "A head start, not a sign-off: this item is approved on its own."
+        "note": "A head start, not a sign-off: this item is approved on its own.",
+        "notStarted": "You have not walked these yet. This item works without them."
       },
       "activities": {
         "count": "{count, plural, =0 {No activity on your record yet} one {# activity on your record} other {# activities on your record}}",
@@ -45,7 +46,7 @@
             }
           },
           "legitimateInterests": {
-            "label": "Which interest, and why it weighs more",
+            "label": "Which interest, and why it is not overridden",
             "hint": "Name the interest and why the interests of the people concerned do not override it (Art. 6(1)(f)). Example: keeping the network safe from attacks (Recital 49)."
           },
           "dataSubjects": {
@@ -116,7 +117,8 @@
         },
         "subprocessing": {
           "general": "General authorisation: the provider reports every intended change, and we can object",
-          "specific": "Each sub-processor is authorised one by one"
+          "specific": "Each sub-processor is authorised one by one",
+          "not_stated": "The agreement says nothing about it, or I cannot find it"
         },
         "stated": {
           "label": "From their questionnaire",

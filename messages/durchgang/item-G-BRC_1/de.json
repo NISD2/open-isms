@@ -55,11 +55,11 @@
                 },
                 {
                   "heading": "Wer etwas bemerkt",
-                  "text": "Wer eine Datenpanne bemerkt oder vermutet, meldet sie sofort {emergencyLead}, der Person, die bei der {company} im Ernstfall führt. Im Zweifel melden Sie."
+                  "text": "Wer eine Datenpanne bemerkt oder vermutet, meldet sie sofort {breachLead}, der Person, die bei der {company} im Ernstfall führt. Im Zweifel melden Sie."
                 },
                 {
                   "heading": "Wer entscheidet",
-                  "text": "{emergencyLead} klärt, was geschehen ist, bezieht unsere Datenschutzbeauftragten sofort ein, sofern benannt, entscheidet, ob gemeldet wird, und informiert die Geschäftsführung. Datenschutzbeauftragte: {dataProtectionOfficer}"
+                  "text": "{breachLead} klärt, was geschehen ist, bezieht unsere Datenschutzbeauftragten sofort ein, sofern benannt, entscheidet, ob gemeldet wird, und informiert die Geschäftsführung. Datenschutzbeauftragte: {dataProtectionOfficer}"
                 },
                 {
                   "heading": "Das Risiko bewerten",
@@ -87,7 +87,7 @@
                   "id": "weekend",
                   "label": "Erreichbar am Wochenende",
                   "heading": "Erreichbarkeit",
-                  "text": "Die 72 Stunden laufen auch an Wochenenden und Feiertagen. {emergencyLead} oder eine benannte Vertretung ist auch dann erreichbar."
+                  "text": "Die 72 Stunden laufen auch an Wochenenden und Feiertagen. {breachLead} oder eine benannte Vertretung ist auch dann erreichbar."
                 },
                 {
                   "id": "form",

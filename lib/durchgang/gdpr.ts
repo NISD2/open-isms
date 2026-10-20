@@ -30,6 +30,9 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
     glossary: [],
     reviewed: "2026-10-20",
     screens: [
+      // The walk's first screen: the few words every later screen uses, for someone starting
+      // from nothing.
+      { kind: "learn", id: "basics" },
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "examples" },
       { kind: "fields", id: "decision", fields: ["dpoDecision"] },
@@ -118,6 +121,8 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
     screens: [
       { kind: "learn", id: "learn" },
       { kind: "compare", id: "notify" },
+      // The procedure names this person; asked here so it is never blank without the NIS 2 walk.
+      { kind: "fields", id: "lead", fields: ["breachLead"], person: "breachLead" },
       { kind: "policy", id: "procedure", policy: "gdpr_breach_procedure" },
       { kind: "done", id: "done" },
     ],

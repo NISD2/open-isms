@@ -130,6 +130,8 @@ export const supplierRelationshipStatusEnum = pgEnum("supplier_relationship_stat
 export const subprocessorAuthorisationEnum = pgEnum("subprocessor_authorisation", [
   "general",
   "specific",
+  // The agreement says nothing about sub-processors, or it was not found: a gap, not an answer.
+  "not_stated",
 ]);
 
 /** The six lawful bases of Art. 6(1) GDPR, points (a) to (f) in order. */

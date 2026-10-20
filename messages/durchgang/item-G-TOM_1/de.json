@@ -27,7 +27,7 @@
               "sections": [
                 {
                   "heading": "Zweck und Geltungsbereich",
-                  "text": "Dieses Dokument beschreibt, wie die {company} die personenbezogenen Daten schützt, die sie als Verantwortliche verarbeitet: die Daten ihrer Beschäftigten, Bewerber, Kunden, Lieferanten und aller anderen Personen in ihrem Verzeichnis von Verarbeitungstätigkeiten. Es gilt für alle Systeme, Akten und Dienstleister, mit denen diese Daten verarbeitet werden. Die Maßnahmen richten sich nach dem Risiko für die betroffenen Menschen."
+                  "text": "Dieses Dokument beschreibt, wie die {company} die personenbezogenen Daten schützt, die sie als Verantwortliche verarbeitet: die Daten ihrer Beschäftigten, Bewerber, Kunden, Lieferanten und aller anderen Personen in ihrem Verzeichnis von Verarbeitungstätigkeiten. Es gilt für alle Systeme, Akten und Dienstleister, mit denen diese Daten verarbeitet werden. Die Maßnahmen wählen wir nach dem Risiko für die betroffenen Menschen (Art. 32 Abs. 1) und stimmen sie mit denen ab, die unsere IT betreuen."
                 },
                 {
                   "heading": "Unsere Sicherheitsdokumente",
@@ -35,15 +35,15 @@
                 },
                 {
                   "heading": "Pseudonymisierung und Verschlüsselung (Art. 32 Abs. 1 Buchst. a)",
-                  "text": "Personenbezogene Daten übertragen wir verschlüsselt, etwa über unsere Website und beim Fernzugriff. Wo Personen für einen Zweck nicht erkennbar sein müssen, etwa bei Auswertungen, ersetzen wir Namen durch Kennungen oder lassen sie weg."
+                  "text": "Verschlüsselung und Pseudonymisierung setzen wir ein, wo sie dem Risiko entsprechen. Wo Personen für einen Zweck nicht erkennbar sein müssen, etwa bei Auswertungen, ersetzen wir Namen durch Kennungen oder lassen sie weg."
                 },
                 {
                   "heading": "Vertraulichkeit, Integrität, Verfügbarkeit und Belastbarkeit (Buchst. b)",
-                  "text": "Zugang zu personenbezogenen Daten bekommt nur, wer ihn für seine Aufgabe braucht. Zugänge sind persönlich und werden entzogen, wenn jemand das Unternehmen verlässt oder die Aufgabe wechselt. Wer Zugang hat, verarbeitet die Daten nur auf unsere Anweisung (Art. 32 Abs. 4 DSGVO). Sicherheitsupdates spielen wir zeitnah ein. Papierakten mit personenbezogenen Daten bewahren wir verschlossen auf."
+                  "text": "Zugang zu personenbezogenen Daten bekommt nur, wer ihn für seine Aufgabe braucht. Zugänge sind persönlich und werden entzogen, wenn jemand das Unternehmen verlässt oder die Aufgabe wechselt. Wer Zugang hat, verarbeitet die Daten nur auf unsere Anweisung (Art. 32 Abs. 4 DSGVO). Sicherheitsupdates spielen wir zeitnah ein."
                 },
                 {
                   "heading": "Wiederherstellung nach einem Zwischenfall (Buchst. c)",
-                  "text": "Wir sichern die Daten regelmäßig, und so, dass ein Angriff oder Ausfall nicht zugleich die Sicherungen trifft. Dass die Wiederherstellung funktioniert, prüfen wir mit Tests."
+                  "text": "Wir sichern die Daten regelmäßig, und so, dass ein Angriff oder Ausfall nicht zugleich die Sicherungen trifft."
                 },
                 {
                   "heading": "Regelmäßige Überprüfung (Buchst. d)",
@@ -84,6 +84,24 @@
                   "label": "Sichere Entsorgung",
                   "heading": "Sichere Entsorgung",
                   "text": "Papier mit personenbezogenen Daten vernichten wir mit einem Aktenvernichter oder über einen Entsorgungsdienst. Datenträger und alte Geräte löschen wir sicher oder lassen sie zerstören, bevor sie das Haus verlassen."
+                },
+                {
+                  "id": "transfer",
+                  "label": "Verschlüsselte Übertragung",
+                  "heading": "Verschlüsselte Übertragung",
+                  "text": "Personenbezogene Daten übertragen wir nur verschlüsselt, etwa über unsere Website und beim Fernzugriff."
+                },
+                {
+                  "id": "locked_files",
+                  "label": "Verschlossene Papierakten",
+                  "heading": "Verschlossene Papierakten",
+                  "text": "Papierakten mit personenbezogenen Daten bewahren wir verschlossen auf."
+                },
+                {
+                  "id": "restore_tests",
+                  "label": "Tests der Wiederherstellung",
+                  "heading": "Tests der Wiederherstellung",
+                  "text": "Dass die Wiederherstellung aus den Sicherungen funktioniert, prüfen wir mit Tests und halten das Ergebnis fest."
                 }
               ],
               "own": "Weitere Maßnahmen",

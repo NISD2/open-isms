@@ -22,13 +22,13 @@
           },
           "measures": {
             "title": "Your measures for the security of processing",
-            "lead": "Ordered by Art. 32(1)(a) to (d). Your company name and the security documents from the NIS 2 walkthrough are already in it. Read it, then choose below what also applies to you.",
+            "lead": "Ordered by Art. 32(1)(a) to (d). Your company name and the security documents from the NIS 2 walkthrough are already in it. Some of it is IT work, such as backups and encryption: send it to whoever looks after your IT and ask whether each part is true for you. Then tick below what also applies, and add what is missing.",
             "document": {
               "title": "Technical and organisational measures of {company} under Art. 32 GDPR",
               "sections": [
                 {
                   "heading": "Purpose and scope",
-                  "text": "This document describes how {company} protects the personal data it processes as a controller: the data of its staff, applicants, customers, suppliers and everyone else in its record of processing activities. It applies to all systems, files and service providers used to process that data. The measures follow the risk to the people concerned."
+                  "text": "This document describes how {company} protects the personal data it processes as a controller: the data of its staff, applicants, customers, suppliers and everyone else in its record of processing activities. It applies to all systems, files and service providers used to process that data. We choose the measures by the risk to the people concerned (Art. 32(1)) and agree them with whoever runs our IT."
                 },
                 {
                   "heading": "Our security documents",
@@ -36,15 +36,15 @@
                 },
                 {
                   "heading": "Pseudonymisation and encryption (Art. 32(1)(a))",
-                  "text": "We transmit personal data encrypted, for example through our website and for remote access. Where people need not be identifiable for a purpose, such as analyses, we replace names with identifiers or leave them out."
+                  "text": "We use encryption and pseudonymisation where they suit the risk. Where people need not be identifiable for a purpose, such as analyses, we replace names with identifiers or leave them out."
                 },
                 {
                   "heading": "Confidentiality, integrity, availability and resilience (point (b))",
-                  "text": "Only those who need access to personal data for their work get it. Access is personal and is withdrawn when someone leaves the company or changes role. Anyone with access processes the data only on our instructions (Art. 32(4) GDPR). We install security updates promptly. Paper files with personal data are kept locked away."
+                  "text": "Only those who need access to personal data for their work get it. Access is personal and is withdrawn when someone leaves the company or changes role. Anyone with access processes the data only on our instructions (Art. 32(4) GDPR). We install security updates promptly."
                 },
                 {
                   "heading": "Restoring data after an incident (point (c))",
-                  "text": "We back up the data regularly, and in a way that an attack or failure does not hit the backups at the same time. We check with tests that restoring works."
+                  "text": "We back up the data regularly, and in a way that an attack or failure does not hit the backups at the same time."
                 },
                 {
                   "heading": "Regular testing (point (d))",
@@ -85,6 +85,24 @@
                   "label": "Secure disposal",
                   "heading": "Secure disposal",
                   "text": "We destroy paper with personal data in a shredder or through a disposal service. Storage media and old devices are securely wiped or destroyed before they leave the premises."
+                },
+                {
+                  "id": "transfer",
+                  "label": "Encrypted transmission",
+                  "heading": "Encrypted transmission",
+                  "text": "We transmit personal data only encrypted, for example through our website and for remote access."
+                },
+                {
+                  "id": "locked_files",
+                  "label": "Locked paper files",
+                  "heading": "Locked paper files",
+                  "text": "Paper files with personal data are kept locked away."
+                },
+                {
+                  "id": "restore_tests",
+                  "label": "Restore tests",
+                  "heading": "Restore tests",
+                  "text": "We check with tests that restoring from the backups works, and record the result."
                 }
               ],
               "own": "Further measures",

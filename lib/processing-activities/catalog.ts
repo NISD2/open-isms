@@ -36,7 +36,14 @@ export const ACTIVITY_CATALOG = [
     id: "applicants",
     group: "staff",
     fromAssets: ["hr-recruiting"],
-    bases: ["contract"],
+    bases: ["contract", "legitimate_interests"],
+  },
+  {
+    // A legal duty from 50 employees in Germany (§ 12 HinSchG); nothing on an asset list shows it.
+    id: "whistleblowing",
+    group: "staff",
+    fromAssets: [],
+    bases: ["legal_obligation"],
   },
   {
     id: "working_time",
@@ -75,6 +82,14 @@ export const ACTIVITY_CATALOG = [
     bases: ["legitimate_interests"],
   },
   {
+    // Not ticked from the website: whether a site runs analytics or marketing tools is not on the
+    // asset list, and guessing it would put a consent duty on a company that has none.
+    id: "website_analytics",
+    group: "online",
+    fromAssets: [],
+    bases: ["consent"],
+  },
+  {
     id: "newsletter",
     group: "online",
     fromAssets: ["cf-newsletter"],
@@ -102,6 +117,12 @@ export const ACTIVITY_CATALOG = [
     id: "it_logging",
     group: "operations",
     fromAssets: ["it-monitoring", "it-endpoint-protection", "it-identity-provider"],
+    bases: ["legitimate_interests"],
+  },
+  {
+    id: "phishing_tests",
+    group: "operations",
+    fromAssets: [],
     bases: ["legitimate_interests"],
   },
   {

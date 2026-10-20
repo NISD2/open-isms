@@ -225,9 +225,11 @@ const suggestionOf = (
     case "recipients":
     case "retention":
       return copy[fact];
+    // The bases themselves are marked as usual, never filled in; the interest has a suggestion.
+    case "legalBases":
+      return copy.legitimateInterests ?? null;
     case "specialCategories":
     case "transfersOutsideEea":
-    case "legalBases":
       return null;
     default:
       return fact satisfies never;
@@ -352,6 +354,13 @@ function FactInput({
               onChange={(e) => onChange({ legitimateInterests: e.target.value })}
               className="text-base sm:text-sm"
             />
+            {suggestion && (
+              <Suggestions
+                items={[suggestion]}
+                value={typeof interests === "string" ? interests : ""}
+                onChange={(next) => onChange({ legitimateInterests: next })}
+              />
+            )}
           </div>
         )}
       </fieldset>

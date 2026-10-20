@@ -221,7 +221,7 @@ test.describe("GDPR walkthrough", () => {
     // (f) alone is not an answer: the interest has to be written down.
     await expect(enabledNext(page)).toHaveCount(0);
     await card
-      .getByLabel("Which interest, and why it weighs more")
+      .getByLabel("Which interest, and why it is not overridden")
       .fill("Keeping payroll data correct across systems.");
 
     await enabledNext(page).click();
@@ -255,7 +255,8 @@ test.describe("GDPR walkthrough", () => {
     await expect(start.getByText("5.1", { exact: true })).toBeVisible();
     await expect(start.getByText("5.2", { exact: true })).toBeVisible();
 
-    await page.goto("/de/durchgang/dsgvo/G-DPO.1?s=1");
+    // basics, learn, examples, ...
+    await page.goto("/de/durchgang/dsgvo/G-DPO.1?s=2");
     await expect(
       page.getByRole("heading", { name: "Who must designate one" }),
     ).toBeVisible({

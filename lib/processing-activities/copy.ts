@@ -17,6 +17,11 @@ const ACTIVITY_COPY = z.object({
   dataCategories: text,
   recipients: text,
   retention: text,
+  /**
+   * The interest pursued, for an activity whose usual bases include legitimate interests
+   * (`ACTIVITY_CATALOG[].bases`); a test checks each such activity has one.
+   */
+  legitimateInterests: text.optional(),
 });
 
 export type ActivityCopy = z.infer<typeof ACTIVITY_COPY>;

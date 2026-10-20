@@ -4,17 +4,23 @@ import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
-import { processingActivity } from "@/schema";
+import { GDPR_WALK } from "@/lib/durchgang";
+import { company, processingActivity } from "@/schema";
 import {
   processingActivityCreateSchema,
   processingActivityUpdateSchema,
 } from "@/schema/processing-activity-validators";
+import { walkPolicyRows } from "../helpers/durchgang";
+import { answersOf } from "../helpers/durchgang-policy";
 import {
   activatedCompanyProcedure,
   adminProcedure,
   companyProcedure,
   router,
 } from "../init";
+
+const textOf = (value: unknown): string | null =>
+  typeof value === "string" && value.trim() !== "" ? value : null;
 
 const MODULE = "processing_activity";
 
@@ -24,6 +30,49 @@ const MODULE = "processing_activity";
  * a change sends the requirements resting on the record back to management, as every register does.
  */
 export const processingActivityRouter = router({
+  /**
+   * What the record states beside its activities: the controller and its contact details
+   * (Art. 30(1)(a)), the data protection officer as G-DPO.1 recorded it, and the description of
+   * the security measures (30(1)(g)) as G-TOM.1 wrote it, with whether management approved it.
+   */
+  controller: companyProcedure.query(async ({ ctx }) => {
+    const [org, dpo, documents] = await Promise.all([
+      ctx.db.query.company.findFirst({
+        where: eq(company.id, ctx.companyId),
+        columns: {
+          name: true,
+          legalName: true,
+          registeredAddress: true,
+          contactEmail: true,
+          contactPhone: true,
+        },
+      }),
+      answersOf(ctx.db, ctx.companyId, "G-DPO.1"),
+      walkPolicyRows(ctx.db, ctx.companyId, GDPR_WALK),
+    ]);
+    const measures = documents.find((d) => d.type === "gdpr_security_measures");
+    const decision = textOf(dpo.dpoDecision);
+    return {
+      name: org?.legalName || org?.name || null,
+      address: org?.registeredAddress ?? null,
+      email: org?.contactEmail ?? null,
+      phone: org?.contactPhone ?? null,
+      dpo: {
+        decision:
+          decision === "none"
+            ? ("none" as const)
+            : decision
+              ? ("designated" as const)
+              : null,
+        name: textOf(dpo.dpoName),
+        contact: textOf(dpo.dpoContact),
+      },
+      measures: measures
+        ? { title: measures.title, approvedAt: measures.approvedAt }
+        : null,
+    };
+  }),
+
   list: companyProcedure.query(({ ctx }) =>
     ctx.db.query.processingActivity.findMany({
       where: eq(processingActivity.companyId, ctx.companyId),

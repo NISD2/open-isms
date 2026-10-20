@@ -38,7 +38,7 @@
                 },
                 {
                   "heading": "Our principles",
-                  "text": "We process personal data lawfully, fairly and in a transparent manner. We collect it for specified, explicit purposes and do not process it further in a way incompatible with them. We process only what the purpose needs, keep the data accurate and up to date, and keep it no longer than necessary for the purpose. We protect it with appropriate technical and organisational measures (Art. 5(1) GDPR)."
+                  "text": "We process personal data lawfully, fairly and in a transparent manner. We collect it for specified, explicit and legitimate purposes and do not process it further in a way incompatible with them. We process only what the purpose needs, keep the data accurate and up to date, and keep it no longer than necessary for the purpose. We protect it with appropriate technical and organisational measures (Art. 5(1) GDPR)."
                 },
                 {
                   "heading": "Our record",
@@ -166,8 +166,8 @@
                   },
                   {
                     "name": "What this walkthrough does not cover yet",
-                    "detail": "The legal basis of each activity, privacy notices and, where needed, data protection impact assessments: handle them yourself or with your data protection officer.",
-                    "basis": "Art. 6, 13, 14 and 35 GDPR"
+                    "detail": "Privacy notices, cookie consent, a deletion concept and, where needed, data protection impact assessments: handle them yourself or with your data protection officer.",
+                    "basis": "Art. 13, 14, 17 and 35 GDPR, § 25 TDDDG"
                   }
                 ]
               }

@@ -90,6 +90,7 @@ export type TransferMechanism = (typeof TRANSFER_MECHANISMS)[number];
 export const SUBPROCESSOR_AUTHORISATIONS = [
   "general",
   "specific",
+  "not_stated",
 ] as const satisfies readonly (typeof subprocessorAuthorisationEnum.enumValues)[number][];
 export type SubprocessorAuthorisation = (typeof SUBPROCESSOR_AUTHORISATIONS)[number];
 

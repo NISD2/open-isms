@@ -1,5 +1,5 @@
 {
-  "id": "2feff73a-8adb-4f88-b182-c6abbac2270f",
+  "id": "6b3e4253-80d2-4518-a961-08cf0ac315c0",
   "prevId": "6dd41f4c-c5c2-4fd8-8470-f88b3a58aea3",
   "version": "7",
   "dialect": "postgresql",
@@ -3075,7 +3075,8 @@
       "schema": "public",
       "values": [
         "general",
-        "specific"
+        "specific",
+        "not_stated"
       ]
     },
     "public.supplier_audit_frequency": {

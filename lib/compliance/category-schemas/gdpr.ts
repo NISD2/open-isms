@@ -57,12 +57,25 @@ export const DSR_SCHEMA = z.object({
     .describe("Where requests reach the company, for example an email address"),
 });
 
+// ============================================================================
+// BRC — Personal data breaches (Art. 33, 34 GDPR)
+// ============================================================================
+
+export const BRC_SCHEMA = z.object({
+  breachLead: z
+    .string()
+    .max(255)
+    .describe(
+      "Who takes charge when personal data is affected: hears of every breach first, decides with the data protection officer whether to notify, and makes the notification",
+    ),
+});
+
 /** The GDPR categories' schemas, by category code (the registry is ./index). */
 export const GDPR_SCHEMAS = {
   DPA: NOTHING_ASKED,
   ROP: NOTHING_ASKED,
   TOM: NOTHING_ASKED,
-  BRC: NOTHING_ASKED,
+  BRC: BRC_SCHEMA,
   DSR: DSR_SCHEMA,
   DPO: DPO_SCHEMA,
   ACT: NOTHING_ASKED,
@@ -79,5 +92,8 @@ export const GDPR_FIELD_MAPPING: Record<string, Record<string, string[]>> = {
   DSR: {
     requestHandler: ["G-DSR.1"],
     requestAddress: ["G-DSR.1"],
+  },
+  BRC: {
+    breachLead: ["G-BRC.1"],
   },
 };

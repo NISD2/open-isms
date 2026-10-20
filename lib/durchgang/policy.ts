@@ -178,13 +178,13 @@ const GDPR_LIST_TEXT = {
     noDpo: "keine benannt",
     approved: (day: string) => `freigegeben am ${day}`,
     draft: "Entwurf, noch nicht freigegeben",
-    noDocuments: "Noch keine. Die Sicherheitsdokumente entstehen im NIS 2 Durchgang.",
+    noDocuments: "Noch keine gesonderten Sicherheitsdokumente.",
   },
   en: {
     noDpo: "none designated",
     approved: (day: string) => `approved on ${day}`,
     draft: "draft, not approved yet",
-    noDocuments: "None yet. The security documents are written in the NIS 2 walkthrough.",
+    noDocuments: "No separate security documents yet.",
   },
 } as const;
 

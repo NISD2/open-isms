@@ -20,8 +20,8 @@
             "duty": "The GDPR requires your company to facilitate the exercise of data subjects' rights and to answer their requests on time."
           },
           "rights": {
-            "title": "Which rights there are",
-            "lead": "Every data subject can exercise these rights. Your procedure says what to do for each.",
+            "title": "What people can ask you for",
+            "lead": "Anyone whose data you process can ask for these. You do not need to know them by heart: your procedure says what to do for each.",
             "items": [
               {
                 "name": "Access (Art. 15)",
@@ -50,6 +50,10 @@
               {
                 "name": "Automated decisions (Art. 22)",
                 "detail": "no decision with legal or similarly significant effects based solely on automated processing, except in the cases of Art. 22(2)"
+              },
+              {
+                "name": "Withdrawing consent (Art. 7(3))",
+                "detail": "where processing rests on consent, withdraw it at any time, as easily as it was given"
               }
             ],
             "source": "Art. 15 to 22 GDPR. In Germany, §§ 34 and 35 BDSG narrow access and erasure in a few defined cases."

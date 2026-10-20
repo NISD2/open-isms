@@ -24,7 +24,7 @@
             "title": "Notify or not",
             "caption": "How you assess the risk to the people concerned",
             "good": {
-              "value": "A laptop with customer data was stolen. The disk is encrypted to the state of the art and the password was not with it. A risk is unlikely: not notified, but documented with the reasons.",
+              "value": "A laptop with customer data was stolen. The disk is encrypted to the state of the art, the password was not with it, and the data is in a current backup, so nothing is lost. A risk is unlikely: not notified, but documented with the reasons.",
               "note": "The decision not to notify has its reasons and is recorded, so the supervisory authority can verify it (Art. 33(5))."
             },
             "bad": {
@@ -44,9 +44,14 @@
               }
             ]
           },
+          "lead": {
+            "title": "Who takes charge when personal data is affected",
+            "lead": "This person hears of every breach first, decides with your data protection officer whether to notify, and makes the notification. Choose someone who is usually reachable, and tell your staff who stands in when that person is away. If your company did the NIS 2 walkthrough, this is often the person who leads in an emergency there.",
+            "document": "Personal data breaches"
+          },
           "procedure": {
             "title": "Your personal data breach procedure",
-            "lead": "Who decides, how the risk is assessed, who notifies and how everything is recorded. The person who leads in an emergency and your data protection officer are already in it. Read it, then choose below what also applies to you.",
+            "lead": "Who decides, how the risk is assessed, who notifies and how everything is recorded. The person you just named and your data protection officer are already in it. Read it, then choose below what also applies to you.",
             "document": {
               "title": "Personal data breach procedure of {company}",
               "sections": [
@@ -56,11 +61,11 @@
                 },
                 {
                   "heading": "If you notice something",
-                  "text": "Anyone who notices or suspects a personal data breach reports it at once to {emergencyLead}, the person who leads in an emergency at {company}. If in doubt, report it."
+                  "text": "Anyone who notices or suspects a personal data breach reports it at once to {breachLead}, who takes charge of personal data breaches at {company}. If in doubt, report it."
                 },
                 {
                   "heading": "Who decides",
-                  "text": "{emergencyLead} establishes what happened, involves our data protection officer at once where one is designated, decides whether to notify and informs management. Data protection officer: {dataProtectionOfficer}"
+                  "text": "{breachLead} establishes what happened, involves our data protection officer at once where one is designated, decides whether to notify and informs management. Data protection officer: {dataProtectionOfficer}"
                 },
                 {
                   "heading": "Assessing the risk",
@@ -88,7 +93,7 @@
                   "id": "weekend",
                   "label": "Reachable at weekends",
                   "heading": "Being reachable",
-                  "text": "The 72 hours run through weekends and public holidays. {emergencyLead} or a named deputy can be reached then too."
+                  "text": "The 72 hours run through weekends and public holidays. {breachLead} or a named deputy can be reached then too."
                 },
                 {
                   "id": "form",
@@ -116,6 +121,12 @@
           "done": {
             "title": "Your breach procedure is written",
             "note": "Tell all staff whom they report a personal data breach to."
+          }
+        },
+        "fields": {
+          "breachLead": {
+            "label": "Who takes charge",
+            "hint": "Someone in your team who is usually reachable, or a person from outside, such as your data protection officer."
           }
         }
       }
