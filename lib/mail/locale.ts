@@ -48,7 +48,39 @@ const COUNTRY_LOCALE: Readonly<Record<string, EmailLocale>> = {
   CZ: "cs",
 };
 
+/**
+ * The languages a reviewed person has signed off for sending. Having copy (EMAIL_LOCALES) is not
+ * enough: on 20.10.2026 an unreviewed Czech invitation went out where English was expected. Every
+ * path that picks a mail language ends in `approvedMailLocale`, so a language goes live by being
+ * added here, in a change someone reviews, and by no other route.
+ */
+export const APPROVED_MAIL_LOCALES = ["en"] as const satisfies readonly EmailLocale[];
+
+export const isApprovedMailLocale = (value: string): boolean =>
+  APPROVED_MAIL_LOCALES.some((code) => code === value);
+
+/** The language itself when it is approved, English otherwise. */
+export const approvedMailLocale = <T extends LocaleCode>(locale: T): T | "en" =>
+  isApprovedMailLocale(locale) ? locale : "en";
+
+/** The copy language of a code mail: the request's locale, "de" when unknown. */
+export const codeMailLocale = (locale: LocaleCode | undefined): LocaleCode =>
+  approvedMailLocale(locale ?? "de");
+
 export function resolveEmailLocale(
+  userLocale: string | null,
+  companyCountry: string | null,
+): EmailLocale {
+  return approvedMailLocale(resolveContentLocale(userLocale, companyCountry));
+}
+
+/**
+ * The language an account reads, whether or not mail has been approved in it: for the text the
+ * walk writes for the company and the wording a signer sees. Never for mail, which goes through
+ * `resolveEmailLocale` (the 20.10.2026 stop-gap put English into the walk's own records by
+ * clamping this one).
+ */
+export function resolveContentLocale(
   userLocale: string | null,
   companyCountry: string | null,
 ): EmailLocale {
@@ -70,4 +102,4 @@ export function resolveEmailLocale(
 export type WorkflowMailLocale = "en" | "cs";
 
 export const workflowMailLocaleOf = (locale: EmailLocale): WorkflowMailLocale =>
-  locale === "cs" ? "cs" : "en";
+  locale === "cs" && isApprovedMailLocale("cs") ? "cs" : "en";

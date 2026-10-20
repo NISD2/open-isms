@@ -19,6 +19,7 @@ mock.module("./send", () => ({
   sendMail,
   sendWelcomeEmail: async () => ({ success: true, id: "no-transport" }) as const,
   mailSuppressionReason: () => null,
+  accountEmailLocale: async () => "en" as const,
 }));
 
 /**

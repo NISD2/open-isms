@@ -130,6 +130,7 @@ mock.module("@/lib/mail/send", () => ({
   },
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }) as const,
   mailSuppressionReason: () => null,
+  accountEmailLocale: async () => "en" as const,
 }));
 
 const register = await import("@/app/api/auth/register/route");

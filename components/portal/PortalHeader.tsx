@@ -30,18 +30,14 @@ function titleCase(slug: string) {
 /**
  * `guide` is optional because this header is reused by two surfaces that
  * should not carry the product tour: the external supplier portal, whose
- * visitors are not our users at all, and the courses, where the offer of help
- * would open over the lesson. Leaving it off renders no trigger.
+ * visitors are not our users at all, and the courses, where a tour would open
+ * over the lesson. Leaving it off renders no trigger.
  */
 export function PortalHeader({
   guide,
   home,
 }: {
-  guide?: {
-    hints: Record<Hint, boolean>;
-    /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
-    calLink: string;
-  };
+  guide?: { hints: Record<Hint, boolean> };
   /**
    * Root the trail at the portal's home, the NIS 2 walkthrough. Only the entity
    * portal has one. The supplier portal's visitors are external and have no
@@ -162,7 +158,7 @@ export function PortalHeader({
           (Simon, 05.10.2026); the profile menu keeps its own. */}
       <div className="ml-auto flex items-center gap-1">
         <LocaleSwitcher />
-        {guide && <PortalGuide hints={guide.hints} calLink={guide.calLink} />}
+        {guide && <PortalGuide hints={guide.hints} />}
       </div>
     </header>
   );

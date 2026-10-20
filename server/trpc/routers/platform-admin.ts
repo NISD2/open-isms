@@ -789,7 +789,6 @@ export const platformAdminRouter = router({
         journeyTourGuidedDismissedAt: true,
         journeyTourTeamDismissedAt: true,
         requirementTourDismissedAt: true,
-        helpOfferDismissedAt: true,
         journeyNoticeDismissedAt: true,
       },
     });
@@ -821,33 +820,26 @@ export const platformAdminRouter = router({
   /**
    * Re-arm one of the one-time onboarding surfaces for the caller.
    *
-   * Takes which surface because the two cannot both be armed: resolveHints
-   * gates the tours on `loginCount <= 1` and the offer of help on
-   * `loginCount >= 2`, so arming either means moving the counter to a value
-   * that disarms the other. Clearing the dismissal stamp alone would do
-   * nothing on an account that has signed in more than once.
+   * Clearing the dismissal stamp alone would not re-arm the requirement
+   * walkthrough on an account that has signed in more than once: resolveHints
+   * gates it on `loginCount <= 1`.
    *
    * Self-scoped, so the worst it can do is show the caller a tour.
    */
   armOnboardingSurface: platformAdminProcedure
     .input(z.object({ surface: z.enum(HINTS) }))
     .mutation(async ({ ctx, input }) => {
-      // The requirement walkthrough wants a first-login account and the offer
-      // of help wants a second; the two journey walkthroughs gate on their own
-      // column alone, so login_count is irrelevant to them and 0 is simply the
-      // value that leaves the other surfaces armable. Everything else is just
-      // clearing that surface's own stamp.
+      // The journey walkthroughs gate on their own column alone, so login_count
+      // is irrelevant to them; the requirement walkthrough wants a first login.
       //
-      // The tours arm at 0, not 1, so that arming survives a sign-out. The
-      // jwt callback increments this on every sign-in, so parking it on the
-      // last value that still counts as a first login meant "arm it, log out,
-      // log back in" landed on 2 and silently disarmed the thing that had
-      // just been armed. From 0 the next sign-in lands on 1 and the tour is
-      // still there, which is how the reset is actually used.
-      const loginCount = input.surface === "helpOffer" ? 2 : 0;
+      // Arm at 0, not 1, so that arming survives a sign-out. The jwt callback
+      // increments this on every sign-in, so parking it on the last value that
+      // still counts as a first login meant "arm it, log out, log back in"
+      // landed on 2 and silently disarmed the thing that had just been armed.
+      // From 0 the next sign-in lands on 1 and the tour is still there.
       await ctx.db
         .update(user)
-        .set({ loginCount, [HINT_COLUMN[input.surface]]: null })
+        .set({ loginCount: 0, [HINT_COLUMN[input.surface]]: null })
         .where(eq(user.id, ctx.userId));
       return { surface: input.surface };
     }),

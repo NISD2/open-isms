@@ -1,7 +1,7 @@
 import type { SignedWording } from "@nisd2/isms-schema/tables/sign-off-history";
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { resolveEmailLocale } from "@/lib/mail/locale";
+import { resolveContentLocale } from "@/lib/mail/locale";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -37,7 +37,7 @@ export async function signedWording(
     }),
   ]);
   if (!req) throw new Error(`requirement ${args.requirementId} not found`);
-  const locale = resolveEmailLocale(signer?.locale ?? null, org?.country ?? null);
+  const locale = resolveContentLocale(signer?.locale ?? null, org?.country ?? null);
   const messages = await getRequirementsMessages(locale);
   return {
     code: req.code,

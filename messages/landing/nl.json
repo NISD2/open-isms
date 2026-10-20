@@ -4,6 +4,10 @@
       "eyebrow": "Voor bedrijven met 50 tot 150 medewerkers",
       "title": "Moet u zich met <blue>NIS2</blue> bezighouden?",
       "subtitle": "We begeleiden u stap voor stap. U vult in, wij leggen elk punt in eenvoudige woorden uit, en aan het eind tekent de directie.",
+      "ask": {
+        "title": "Moet u zich met <blue>NIS2</blue> bezighouden?",
+        "subtitle": "We begeleiden u stap voor stap. U vult in, wij leggen elk punt in eenvoudige woorden uit, en aan het eind tekent de directie."
+      },
       "cta": "30 dagen proberen, geld terug",
       "trainingCta": "Gratis training voor uw bestuurder",
       "meta": {
