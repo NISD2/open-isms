@@ -12,6 +12,26 @@ The switch is the first thing on the page. Below it each person connects their o
 
 An assistant works only for a person who may open the walkthrough: on nisd2.eu an account whose order includes it, on a self-hosted instance, where new accounts do not get the walkthrough, the addresses in `PLATFORM_ADMIN_EMAILS`. Anyone else gets a refusal on every call, and Settings and the sign-in page show them the way to the walkthrough instead of a key or an *Allow* button.
 
+## Setting it up on your own server
+
+Nothing to install: the endpoint is part of the app, so a self-hosted instance that runs a release with it already serves it. Five steps.
+
+1. **Tell the instance its public address.** Set `NEXT_PUBLIC_APP_URL` in `.env` to the address your people type, with `https://` and no path, for example `https://isms.example.com`. The endpoint, the sign-in and the metadata an assistant reads are all built from it. Left unset, the shipped `compose.yaml` fills in `http://localhost:3026`, and an assistant would be sent there. `AUTH_URL` does not do this job.
+2. **Name who may use it.** Put the sign-in addresses in `PLATFORM_ADMIN_EMAILS` (comma separated). A self-hosted instance does not give new accounts the walkthrough, and an assistant works only for someone who has it. Then apply both settings with `docker compose up -d`.
+3. **Create the organisation and sign in as its admin.** The person who creates the organisation is its admin.
+4. **Turn it on.** In Settings, switch on *Allow AI assistants for this company*. It is off until an admin does.
+5. **Connect an assistant.** Use the endpoint `https://isms.example.com/api/mcp`, with your own address, and the steps for your client below.
+
+To check it before connecting anything, two requests from any machine. The first answers with your own address in `authorization_servers`; if it names another address, step 1 is not applied yet. The second answers `401`, since it carries no key.
+
+```bash
+curl -s https://isms.example.com/.well-known/oauth-protected-resource/api/mcp
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://isms.example.com/api/mcp \
+  -H 'content-type: application/json' -d '{}'
+```
+
+With your own reverse proxy, pass `/.well-known/` through to the app as well as `/api/`: an assistant finds the sign-in there. The bundled Caddy profile passes everything. Claude on the web, ChatGPT and Copilot Studio also need the instance reachable from the internet, as described under each client below.
+
 ## What an assistant can do
 
 Four tools.
