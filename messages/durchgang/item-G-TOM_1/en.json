@@ -70,9 +70,9 @@
                 },
                 {
                   "id": "testing",
-                  "label": "Annual test",
-                  "heading": "Annual test",
-                  "text": "Once a year we have the effectiveness of our measures tested, for example by our IT service provider or an external security test, and record the result."
+                  "label": "Outside test",
+                  "heading": "Outside test",
+                  "text": "We also have the effectiveness of our measures tested by someone other than those who run them, for example our IT service provider or an external security test, and record the result."
                 },
                 {
                   "id": "confidentiality",

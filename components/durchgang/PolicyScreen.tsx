@@ -101,12 +101,25 @@ export function PolicyScreen({
     return () => clearTimeout(off);
   }, [lit]);
 
+  // A first visit starts with the clauses the company's records show are true; moving on saves
+  // them like a tick of the person's own, which they can take back here.
+  const firstTicks = policyDraft.data?.ticked;
+  useEffect(() => {
+    if (draft.clauses !== null || !firstTicks || firstTicks.length === 0) return;
+    const stored = policyDraft.data?.clauses ?? [];
+    onDraft({
+      ...draft,
+      clauses: [...new Set([...stored, ...firstTicks.map((tick) => tick.clause)])],
+    });
+  }, [firstTicks, draft, onDraft, policyDraft.data?.clauses]);
+
   if (!policyDraft.data) return null;
   const {
     document,
     language,
     company,
     clauses: stored,
+    ticked,
     own: storedOwn,
     lists,
   } = policyDraft.data;
@@ -199,6 +212,20 @@ export function PolicyScreen({
             />
           ))}
         </div>
+        {ticked
+          .filter((tick) => chosen.includes(tick.clause))
+          .map((tick) => (
+            <p
+              key={tick.clause}
+              className="mt-3 max-w-[62ch] text-sm text-muted-foreground"
+            >
+              {t(`ticked.${tick.when}`, {
+                clause: readClause.get(tick.clause)?.label ?? tick.clause,
+                name: tick.name,
+                on: tick.on,
+              })}
+            </p>
+          ))}
         {language !== item.locale && (
           <p className="mt-3 text-sm text-muted-foreground">
             {t(`recordLanguage.${language}`)}

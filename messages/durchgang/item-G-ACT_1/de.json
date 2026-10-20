@@ -61,12 +61,6 @@
                   "text": "Beschäftigte, die mit personenbezogenen Daten arbeiten, unterweisen wir bei Beginn ihrer Tätigkeit und danach regelmäßig im Datenschutz."
                 },
                 {
-                  "id": "annual",
-                  "label": "Jährliche Überprüfung",
-                  "heading": "Jährliche Überprüfung",
-                  "text": "Auch ohne Anlass überprüfen wir diese Leitlinie einmal im Jahr."
-                },
-                {
                   "id": "newprocessing",
                   "label": "Neue Verarbeitungen",
                   "heading": "Neue Verarbeitungen",
@@ -136,7 +130,7 @@
                 "items": [
                   {
                     "name": "Die Sicherheitsmaßnahmen überprüfen",
-                    "detail": "Regelmäßig überprüfen, bewerten und evaluieren, ob die Maßnahmen wirken. Einen Abstand nennt die DSGVO nicht; hat Ihre Beschreibung die jährliche Prüfung, gilt ein Jahr.",
+                    "detail": "Regelmäßig überprüfen, bewerten und evaluieren, ob die Maßnahmen wirken. Einen Abstand nennt die DSGVO nicht; prüfen Sie so oft, wie es die Risiken Ihrer Verarbeitung verlangen.",
                     "basis": "Art. 32 Abs. 1 Buchst. d DSGVO"
                   },
                   {

@@ -69,9 +69,9 @@
                 },
                 {
                   "id": "testing",
-                  "label": "Jährliche Prüfung",
-                  "heading": "Jährliche Prüfung",
-                  "text": "Einmal im Jahr lassen wir die Wirksamkeit unserer Maßnahmen prüfen, etwa durch unseren IT-Dienstleister oder einen externen Sicherheitstest, und halten das Ergebnis fest."
+                  "label": "Prüfung von außen",
+                  "heading": "Prüfung von außen",
+                  "text": "Wir lassen die Wirksamkeit unserer Maßnahmen auch von jemandem prüfen, der sie nicht selbst betreibt, etwa von unserem IT-Dienstleister oder durch einen externen Sicherheitstest, und halten das Ergebnis fest."
                 },
                 {
                   "id": "confidentiality",

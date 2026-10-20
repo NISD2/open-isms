@@ -71,6 +71,9 @@
       "policy": {
         "question": "Which of these does your company have or do?",
         "questionHint": "Each one you pick adds a section to the document above, lit up for a moment. Pick it again to take it out.",
+        "ticked": {
+          "restore_tested": "{clause} is already on: {name} was restored from its backup on {on}, as recorded in your NIS 2 walkthrough (4.4). Take it out if you no longer test restores."
+        },
         "read": "I have read the document, and it fits our company",
         "ownLabel": "Anything else that applies at your company (optional)",
         "ownHint": "For example a number, a rule of your own or a contact. It is added as the last section, as you write it.",

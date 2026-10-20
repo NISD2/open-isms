@@ -61,12 +61,6 @@
                   "text": "Staff who work with personal data are briefed on data protection when they start and regularly after that."
                 },
                 {
-                  "id": "annual",
-                  "label": "Annual review",
-                  "heading": "Annual review",
-                  "text": "Even without a reason, we review this policy once a year."
-                },
-                {
                   "id": "newprocessing",
                   "label": "New processing",
                   "heading": "New processing",
@@ -136,7 +130,7 @@
                 "items": [
                   {
                     "name": "Test the security measures",
-                    "detail": "Regularly test, assess and evaluate whether the measures work. The GDPR names no interval; if your description has the annual test, a year applies.",
+                    "detail": "Regularly test, assess and evaluate whether the measures work. The GDPR names no interval; test often enough for the risks of your processing.",
                     "basis": "Art. 32(1)(d) GDPR"
                   },
                   {

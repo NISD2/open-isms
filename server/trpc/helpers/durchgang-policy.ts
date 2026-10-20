@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import type { CategoryField } from "@/lib/compliance/category-schemas";
 import { POLICY_CONFIG_SCHEMAS } from "@/lib/compliance/policy-config-schemas";
@@ -8,6 +8,7 @@ import type { Database, DbOrTx } from "@/lib/db";
 import {
   type AnyScreen,
   acceptedCryptoText,
+  type ClauseEvidence,
   type CryptoLabels,
   criticalProcessesText,
   dataProtectionOfficerText,
@@ -106,8 +107,43 @@ export const storedConfigOf = async (
         eq(companyPolicyConfig.policyType, type),
       ),
     );
-  return STORED_CONFIG.parse(row?.config ?? {});
+  // `chosen`: the company has saved a choice of clauses, even an empty one.
+  return { ...STORED_CONFIG.parse(row?.config ?? {}), chosen: row !== undefined };
 };
+
+/**
+ * The clauses a policy screen ticks on a first visit (`tickWhen`), each with the record it rests
+ * on: for "restore_tested", the backup system restored most recently in NIS 2 4.4.
+ */
+const tickedClauses = async (
+  db: DbOrTx,
+  companyId: string,
+  tickWhen: ReadonlyArray<{ readonly clause: string; readonly when: ClauseEvidence }>,
+  locale: WalkLocale,
+) =>
+  (
+    await Promise.all(
+      tickWhen.map(async ({ clause, when }) => {
+        switch (when) {
+          case "restore_tested": {
+            const [latest] = await db
+              .select({ name: asset.name, on: asset.lastBackupTestDate })
+              .from(asset)
+              .where(
+                and(eq(asset.companyId, companyId), isNotNull(asset.lastBackupTestDate)),
+              )
+              .orderBy(desc(asset.lastBackupTestDate))
+              .limit(1);
+            return latest?.on
+              ? [{ clause, when, name: latest.name, on: enteredDay(locale, latest.on) }]
+              : [];
+          }
+          default:
+            return when satisfies never;
+        }
+      }),
+    )
+  ).flat();
 
 /** The editor's policy type the crypto list is kept under (the requirement page edits it too). */
 export const CRYPTO_LIST = "crypto";
@@ -284,6 +320,9 @@ export const policyDraftOf = async (
     language: locale,
     company: org.name,
     clauses: stored.clauses,
+    ticked: stored.chosen
+      ? []
+      : await tickedClauses(ctx.db, ctx.companyId, screen.screen.tickWhen ?? [], locale),
     own: stored.own,
     fallbacks: stored.fallbacks,
     lists:

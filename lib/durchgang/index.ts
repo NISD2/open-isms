@@ -137,6 +137,7 @@ export type {
   AnyItem,
   AnyScreen,
   BackupFrequency,
+  ClauseEvidence,
   EntityType,
   Hosting,
   LearnLink,

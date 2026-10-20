@@ -181,6 +181,12 @@ export const POLICY_TEMPLATES = [
 export type PolicyTemplate = (typeof POLICY_TEMPLATES)[number];
 
 /**
+ * A record that makes a policy clause true: "restore_tested", a backup system with a restore test
+ * on record (NIS 2 4.4, `asset.last_backup_test_date`).
+ */
+export type ClauseEvidence = "restore_tested";
+
+/**
  * One answer of another item, in this walk or another: its code and field. walks.test checks that
  * the item exists and its category asks the field.
  */
@@ -300,7 +306,20 @@ export type Screen<C extends CategoryCode> =
    * company's name and the item's answers filled in. Stored as one `policy` row of the item's
    * requirement.
    */
-  | { readonly kind: "policy"; readonly id: string; readonly policy: PolicyTemplate }
+  | {
+      readonly kind: "policy";
+      readonly id: string;
+      readonly policy: PolicyTemplate;
+      /**
+       * Clauses ticked on a first visit where the company's own records show the clause is true,
+       * each with the record it rests on. A suggestion: saved only when the person moves on, and
+       * never again once the company has chosen its clauses.
+       */
+      readonly tickWhen?: ReadonlyArray<{
+        readonly clause: string;
+        readonly when: ClauseEvidence;
+      }>;
+    }
   /**
    * Every policy the walk wrote, with its state. Management approves the drafts here, signed in
    * with its own account; anyone else sends them the page.

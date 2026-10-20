@@ -1332,18 +1332,7 @@ export const durchgangRouter = router({
   /** The policy an item writes, as its screen shows it and the server stores it. */
   policyDraft: durchgangProcedure
     .input(z.object({ code }))
-    .query(async ({ ctx, input }) => {
-      const draft = await policyDraftOf(ctx, input.code);
-      return {
-        document: draft.document,
-        language: draft.language,
-        company: draft.company,
-        clauses: draft.clauses,
-        own: draft.own,
-        fallbacks: draft.fallbacks,
-        lists: draft.lists,
-      };
-    }),
+    .query(({ ctx, input }) => policyDraftOf(ctx, input.code)),
 
   /**
    * 4.2: which of the company's business processes must keep running without IT. The mark is

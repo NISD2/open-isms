@@ -111,7 +111,13 @@ const GDPR_SCRIPT: readonly AnyItem[] = [
     reviewed: "2026-10-20",
     screens: [
       { kind: "learn", id: "learn" },
-      { kind: "policy", id: "measures", policy: "gdpr_security_measures" },
+      {
+        kind: "policy",
+        id: "measures",
+        policy: "gdpr_security_measures",
+        // Art. 32(1)(c): a restore test on record in NIS 2 4.4 is the evidence for the clause.
+        tickWhen: [{ clause: "restore_tests", when: "restore_tested" }],
+      },
       { kind: "done", id: "done" },
     ],
   }),
