@@ -218,4 +218,7 @@ export const GDPR_WALK: Walk = {
   notWalked: NOT_WALKED,
   locales: ["de", "en"],
   setupAfter: null,
+  // As in the NIS 2 walk, the steps that collect the company's own data are free: who its DPO is
+  // and its record of processing activities. The processors and every document need the order.
+  lastFreeStep: "G-ROP.1",
 };

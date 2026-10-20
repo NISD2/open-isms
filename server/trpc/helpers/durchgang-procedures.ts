@@ -1,42 +1,14 @@
-import { TRPCError } from "@trpc/server";
 import { logAudit } from "@/lib/audit";
-import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { mayWalkDurchgang } from "@/lib/billing/access";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import type { CountableModule } from "@/lib/compliance/module-tables";
 import { type DurchgangAction, walkOfCode } from "@/lib/durchgang";
-import { activatedCompanyProcedure, companyProcedure, type TRPCContext } from "../init";
+import type { TRPCContext } from "../init";
 import type { DurchgangActor } from "./durchgang";
 
 /**
- * The procedures every walk router builds on, and what each of them does around a write.
- *
- * The layout gate is not enough on its own: an API call skips it. So every procedure checks the
- * same rule, paid or platform admin, and resolves the item from the session's company and a fixed
- * list of codes.
+ * What every walk router does around a write. Who may call a walk procedure is
+ * `routers/durchgang-access`.
  */
-const gate = (session: TRPCContext["session"]) => {
-  if (
-    !session ||
-    !mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email))
-  ) {
-    throw new TRPCError({
-      code: "FORBIDDEN",
-      message: "The Durchgang is not part of this plan.",
-    });
-  }
-};
-
-export const durchgangProcedure = companyProcedure.use(({ ctx, next }) => {
-  gate(ctx.session);
-  return next({ ctx });
-});
-
-/** Writes into the company's registers, which need a set-up company like the module routers do. */
-export const durchgangWrite = activatedCompanyProcedure.use(({ ctx, next }) => {
-  gate(ctx.session);
-  return next({ ctx });
-});
 
 /**
  * A register changed: sign-offs that relied on it are rechecked, in the background, as the module

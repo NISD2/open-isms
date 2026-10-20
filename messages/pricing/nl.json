@@ -75,11 +75,11 @@
             "refund": "Een openstaande factuur wordt geannuleerd, een betaalde betalen wij binnen 30 dagen terug",
             "data": "Uw gegevens blijven bewaard"
           },
-          "note": "Geldt niet voor verlengingen. De details staan in de voorwaarden, artikel B7."
+          "note": "Geldt niet voor verlengingen en eindigt met de eerste export of goedkeuring. De details staan in de voorwaarden, artikel B7."
         },
         "grandfatheredBadge": "Uw prijs als bestaande gebruiker",
         "cta": "30 dagen proberen, geld terug",
-        "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen: factuur geannuleerd of geld terug.",
+        "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen, vóór de eerste export of goedkeuring: factuur geannuleerd of geld terug.",
         "termsLink": "Voorwaarden",
         "features": {
           "guided": "Begeleide NIS 2 implementatie, stap voor stap",

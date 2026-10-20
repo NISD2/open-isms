@@ -1,5 +1,9 @@
 {
   "events": {
+    "2026-10-20-national-transposition-at-nisv-2026-faq": {
+      "title": "Rakousko: Spolkový úřad pro kybernetickou bezpečnost zveřejnil FAQ k NISV 2026 o opatřeních řízení rizik, kategoriích rizik, kompenzačních opatřeních a významných incidentech",
+      "summary": "Rakouský Spolkový úřad pro kybernetickou bezpečnost uvádí stránky FAQ k nařízení NISV 2026 (BGBl. II č. 290/2026) pro § 2 (požadavky na opatření řízení rizik), § 3 (kategorie rizik), § 4 (kompenzační opatření), § 5 (významné incidenty) a § 7 (opakované incidenty), naposledy aktualizované 20. října 2026. Úřad uvádí, že se záměrně vyhýbá úplnému výkladu právních otázek, a odkazuje na vysvětlující poznámky k nařízení. Jde o nezávazná vodítka, která NISG 2026 ani NISV 2026 nenahrazují, a o rakouský dokument, nikoli o pravidlo platné v celé EU. Stránka uvádí jen datum poslední aktualizace, datum prvního zveřejnění není známo."
+    },
     "2022-12-27-eu-nis2-published": {
       "title": "Směrnice NIS2 zveřejněna v Úředním věstníku",
       "summary": "Směrnice (EU) 2022/2555 o opatřeních k zajištění vysoké společné úrovně kybernetické bezpečnosti v Unii byla zveřejněna v Úředním věstníku Evropské unie."
@@ -815,6 +819,10 @@
     "2026-10-15-national-transposition-fi-traficom-telecom-disruption-reporting": {
       "title": "Finsko: Traficom nahrazuje předpis o hlášení poruch v telekomunikacích, jedno oznámení může pokrýt i povinnost podle zákona o kybernetické bezpečnosti",
       "summary": "Traficom dne 15. října 2026 oznámil aktualizovaný předpis o poruchových situacích v telekomunikacích, který nabývá účinnosti 1. ledna 2027 a nahrazuje předpis platný od začátku roku 2020. Telekomunikační podniky musí nově hlásit také hrozby pro funkčnost a kybernetickou bezpečnost, které služby zatím nenarušily, a možnou sabotáž; čtyřstupňová škála závažnosti A až D se nahrazuje jedním prahem pro hlášení. Traficom uvádí, že aktualizace zohledňuje později účinný zákon o kybernetické bezpečnosti (Kyberturvallisuuslaki 124/2025, finská transpozice NIS 2), takže jedno oznámení může splnit jak předpis, tak povinnost podniku hlásit podle tohoto zákona a stejný případ se nehlásí opakovaně. Jde o závazný vnitrostátní předpis pro telekomunikační podniky, nikoli o pravidlo platné v celé EU."
+    },
+    "2026-10-16-national-transposition-pl-cyber-plenipotentiary-recommendation": {
+      "title": "Polsko: vládní zmocněnec pro kybernetickou bezpečnost zveřejnil doporučení základních bezpečnostních opatření pro subjekty KSC",
+      "summary": "Polské ministerstvo digitalizace dne 16. října 2026 zveřejnilo doporučení vládního zmocněnce pro kybernetickou bezpečnost k organizačním a technickým opatřením, určené více než 70 000 subjektům národního systému kybernetické bezpečnosti (KSC). Uvádí základní katalog: řízení rizik, vícefaktorové ověřování, správu zranitelností, zálohování, rizika dodavatelského řetězce, monitorování a řešení incidentů a školení zaměstnanců. Jde o nezávazné doporučení bez lhůty, které nenahrazuje zákon o KSC; je to vnitrostátní dokument, nikoli pravidlo platné v celé EU."
     }
   }
 }

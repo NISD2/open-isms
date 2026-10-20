@@ -456,6 +456,8 @@ export interface Walk {
    * only to a company already set up.
    */
   readonly setupAfter: string | null;
+  /** The last item an account that has not ordered may walk (`isFreeStep`). */
+  readonly lastFreeStep: string;
 }
 
 /** The intake fields an item asks for: on its field screens, and the one its upload fills. */

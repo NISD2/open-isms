@@ -7,7 +7,7 @@ import "@/lib/server-guard";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { newSaleEmail, sendMail } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
-import { cancelWindow } from "./cancel-terms";
+import { cancelWindow } from "./money-back-window";
 import { formatEuro, formatInvoiceDay } from "./order";
 
 export interface Sale {
@@ -37,8 +37,9 @@ const day = (isoDay: string) => formatInvoiceDay(isoDay, "de");
 export const saleNoticeWording = (sale: Sale, now: Date) => {
   const { amounts, dates } = sale;
   const gross = formatEuro(amounts.grossCents);
+  // Written at the order, before anything could have been exported or signed off.
   const window = cancelWindow(
-    { issueDate: dates.issueDate, firstInvoice: sale.firstOrder },
+    { issueDate: dates.issueDate, firstInvoice: sale.firstOrder, waived: false },
     now,
   );
   const rows: readonly (readonly [string, string])[] = [

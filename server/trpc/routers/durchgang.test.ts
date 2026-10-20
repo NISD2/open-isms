@@ -229,11 +229,11 @@ function setup(opts: {
 describe("durchgang router", () => {
   test("is closed to accounts that have not bought the Durchgang", async () => {
     const { caller, writes } = setup({ accessLevel: "grandfathered" });
-    await expect(caller.walk()).rejects.toMatchObject({ code: "FORBIDDEN" });
-    await expect(caller.wait({ code: "12.2", reason: "letter" })).rejects.toMatchObject({
+    await expect(caller.walk({ framework: "nis2" })).resolves.toBeDefined();
+    await expect(caller.wait({ code: "5.1", reason: "letter" })).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
-    await expect(caller.addAssets({ catalogIds: [] })).rejects.toMatchObject({
+    await expect(caller.finish({ code: "2.3" })).rejects.toMatchObject({
       code: "FORBIDDEN",
     });
     await expect(

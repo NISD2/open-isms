@@ -32,7 +32,6 @@ import { Link, useRouter } from "@/i18n/navigation";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
 import type { CitationSource } from "@/lib/compliance/citations";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
-import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import {
@@ -46,25 +45,18 @@ import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import { trpc } from "@/lib/trpc/client";
 import type { Asset } from "@/schema/types";
-import { AssetRiskRegister } from "../risks/AssetRiskRegister";
-import { RiskTreatmentView } from "../risks/RiskTreatmentView";
-import { SupplierRiskRegister } from "../suppliers/SupplierRiskRegister";
-import { AccessControlEditor } from "./AccessControlEditor";
+import { useBillingAct } from "../billing/BillingActGate";
 import { CitationList } from "./CitationList";
-import { CryptoPolicyEditor } from "./CryptoPolicyEditor";
+import { CUSTOM_EDITOR_LOOKUP } from "./custom-editors";
 import { DeadlineBadge } from "./DeadlineBadge";
 import { FileUpload } from "./FileUpload";
 import { InlineModulePanel } from "./InlineModulePanel";
-import { PatchPolicyEditor } from "./PatchPolicyEditor";
 import { PolicyItemsPanel, SKIP_INLINE_MODULE } from "./PolicyItemsPanel";
-import { ProcurementEditor } from "./ProcurementEditor";
 import { ReopenButton } from "./ReopenButton";
 import { type AssignmentRow, RequirementAssignPopover } from "./RequirementAssignPopover";
 import { PriorityBadge, StatusBadge } from "./RequirementConstants";
 import { type NavLink, RequirementFooterNav } from "./RequirementFooterNav";
 import { RequirementGuidance } from "./RequirementGuidance";
-import { RiskMethodologyEditor } from "./RiskMethodologyEditor";
-import { SecureDevEditor } from "./SecureDevEditor";
 import { SignOffButton } from "./SignOffButton";
 
 // Requirements where the built-in CEO management training course satisfies
@@ -159,35 +151,6 @@ export interface RequirementDetailProps {
 }
 
 // ---------------------------------------------------------------------------
-// Custom editor lookup — requirement code → structured editor component
-// ---------------------------------------------------------------------------
-// Typed against CUSTOM_EDITOR_KEYS (lib/compliance/requirement-fields.ts):
-// an editor added or removed on one side without the other is a compile error.
-const CUSTOM_EDITORS: Record<
-  CustomEditorKey,
-  React.ComponentType<{
-    disabled?: boolean;
-    guidance?: RequirementGuidanceData | null;
-    initialData?: Record<string, unknown> | null;
-  }>
-> = {
-  "RSK:2.1": RiskMethodologyEditor,
-  "RSK:2.3": AssetRiskRegister,
-  "RSK:2.4": RiskTreatmentView,
-  "SUP:5.3": SupplierRiskRegister,
-  "CRY:9.1": CryptoPolicyEditor,
-  "ACC:10.1": AccessControlEditor,
-  "PRO:6.1": ProcurementEditor,
-  "PRO:6.2": SecureDevEditor,
-  "PRO:6.4": PatchPolicyEditor,
-};
-
-// Widened view for lookups with runtime-built keys.
-const CUSTOM_EDITOR_LOOKUP: Partial<
-  Record<string, (typeof CUSTOM_EDITORS)[CustomEditorKey]>
-> = CUSTOM_EDITORS;
-
-// ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
 
@@ -236,6 +199,8 @@ export function RequirementDetail({
   const reopen = trpc.assessment.reopenRequirement.useMutation();
   const updateStatus = trpc.assessment.updateRequirementStatus.useMutation();
   const confirmModuleRef = trpc.assessment.confirmModuleRef.useMutation();
+  // Signing off is asked first inside the money back or without an order (AGB B7).
+  const act = useBillingAct("sign_off");
   const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation();
   const assignReq = trpc.assignment.assignRequirement.useMutation();
   const unassignReq = trpc.assignment.unassignRequirement.useMutation();
@@ -394,18 +359,20 @@ export function RequirementDetail({
   function handleSignOff() {
     const statusId = status.statusId;
     if (!statusId) return;
-    startTransition(async () => {
-      try {
-        await signOff.mutateAsync({ statusId });
-        toast.success(tf("requirementCompleted", { code: requirement.code }));
-        router.refresh();
-      } catch {
-        // Sign-off has refusals the person can act on, and the server words
-        // each one for the screen ("Only CEO signs this off in this app").
-        // The shared mutation handler shows them; this catch exists
-        // so the rejection does not escape the transition.
-      }
-    });
+    act.guard(() =>
+      startTransition(async () => {
+        try {
+          await signOff.mutateAsync({ statusId });
+          toast.success(tf("requirementCompleted", { code: requirement.code }));
+          router.refresh();
+        } catch {
+          // Sign-off has refusals the person can act on, and the server words
+          // each one for the screen ("Only CEO signs this off in this app").
+          // The shared mutation handler shows them; this catch exists
+          // so the rejection does not escape the transition.
+        }
+      }),
+    );
   }
 
   function handleReopen() {
@@ -450,16 +417,18 @@ export function RequirementDetail({
   function handleModuleConfirm() {
     const statusId = status.statusId;
     if (!statusId) return;
-    startTransition(async () => {
-      try {
-        await confirmModuleRef.mutateAsync({ statusId });
-        toast.success(tf("requirementCompleted", { code: requirement.code }));
-        router.refresh();
-      } catch {
-        // confirmModuleRef enforces the same per-requirement guards as
-        // signOff, so it raises the same refusals and they read the same way.
-      }
-    });
+    act.guard(() =>
+      startTransition(async () => {
+        try {
+          await confirmModuleRef.mutateAsync({ statusId });
+          toast.success(tf("requirementCompleted", { code: requirement.code }));
+          router.refresh();
+        } catch {
+          // confirmModuleRef enforces the same per-requirement guards as
+          // signOff, so it raises the same refusals and they read the same way.
+        }
+      }),
+    );
   }
 
   function handleAssign(userId: string) {
@@ -1001,6 +970,7 @@ export function RequirementDetail({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      {act.dialog}
     </div>
   );
 }

@@ -80,6 +80,7 @@ import {
 } from "@/schema";
 import { improvementItemInsertSchema } from "@/schema/validators";
 import { verifyMemberReferences } from "../guards";
+import { requireBillingAct } from "../helpers/billing-act";
 import {
   appendNote,
   declineReason,
@@ -114,13 +115,7 @@ import {
   policyTypeOf,
   storedConfigOf,
 } from "../helpers/durchgang-policy";
-import {
-  actorOf,
-  durchgangProcedure,
-  durchgangWrite,
-  logWalk,
-  recheck,
-} from "../helpers/durchgang-procedures";
+import { actorOf, logWalk, recheck } from "../helpers/durchgang-procedures";
 import {
   askedOnScreen,
   headlineOf,
@@ -129,7 +124,13 @@ import {
   walkItem,
 } from "../helpers/durchgang-words";
 import { approvePolicies, WITHDRAWN_APPROVAL } from "../helpers/policy-approval";
-import { router } from "../init";
+import { companyProcedure, router } from "../init";
+import {
+  durchgangProcedure,
+  durchgangWrite,
+  gateStep,
+  stepWrite,
+} from "./durchgang-access";
 import { durchgangGdprRouter } from "./durchgang-gdpr";
 
 /**
@@ -137,7 +138,7 @@ import { durchgangGdprRouter } from "./durchgang-gdpr";
  * and register entries go through intake, evidence and the module routers, as on the requirement
  * page. This router adds the item's trail (a line in `internal_notes`) and its state (an audit row
  * logged like `announceWithdrawal`, which `walk` reads back). The GDPR walk's own screens are
- * `gdpr` (./durchgang-gdpr).
+ * `gdpr` (./durchgang-gdpr). Who may call what: `durchgang-access`.
  */
 
 /** How many steps a stored scale has; the column is JSON, so its shape is checked, not assumed. */
@@ -149,7 +150,7 @@ const framework = z.object({ framework: z.enum(WALK_FRAMEWORKS) });
 export const durchgangRouter = router({
   gdpr: durchgangGdprRouter,
   /** Where each item of the company's walk stands. Read on the server by every Durchgang page. */
-  walk: durchgangProcedure
+  walk: companyProcedure
     .input(framework)
     .query(({ ctx, input }) => walkStates(ctx.db, ctx.companyId, WALKS[input.framework])),
 
@@ -157,7 +158,7 @@ export const durchgangRouter = router({
    * When the company last took over the BSI method here, or null. A method row alone says nothing:
    * `risk.getMethodology` writes the default on its first read, before anyone chose it.
    */
-  adoption: durchgangProcedure.query(async ({ ctx }) => {
+  adoption: companyProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.auditLog.findFirst({
       where: and(
         eq(auditLog.companyId, ctx.companyId),
@@ -173,7 +174,7 @@ export const durchgangRouter = router({
    * Where a company registers: every member state's authority and portal, with the company's own
    * country, which the screen puts first. The list is the one the wiki's portal page shows.
    */
-  portals: durchgangProcedure.query(async ({ ctx }) => {
+  portals: companyProcedure.query(async ({ ctx }) => {
     const [org, data] = await Promise.all([
       ctx.db.query.company.findFirst({
         where: eq(company.id, ctx.companyId),
@@ -201,7 +202,7 @@ export const durchgangRouter = router({
    * the caller's own when the company has none: setting the company up no longer asks for one. A
    * free-mail address names no company domain, so it suggests nothing.
    */
-  contactSuggestions: durchgangProcedure.query(async ({ ctx }) => {
+  contactSuggestions: companyProcedure.query(async ({ ctx }) => {
     const org = await ctx.db.query.company.findFirst({
       where: eq(company.id, ctx.companyId),
       columns: { contactEmail: true },
@@ -212,7 +213,7 @@ export const durchgangRouter = router({
   }),
 
   /** "Geht noch nicht": the reason goes into the audit row, the free text only into the notes. */
-  wait: durchgangProcedure
+  wait: companyProcedure
     .input(
       z.object({
         code,
@@ -221,6 +222,7 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       refuseSettled(ref);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
@@ -241,29 +243,29 @@ export const durchgangRouter = router({
       });
     }),
 
-  resume: durchgangProcedure
-    .input(z.object({ code }))
-    .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      // Picked up again: an earlier decision not to do it no longer stands either.
-      await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
-      await logWalk({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        // An assistant picks an item up as it fills it (lib/mcp/tools.ts): the entry names it.
-        userAgent: ctx.userAgent,
-        action: "durchgang.resumed",
-        entityType: "requirement",
-        entityId: ref.requirementId,
-        description: `${ref.code} resumed`,
-      });
-    }),
+  resume: companyProcedure.input(z.object({ code })).mutation(async ({ ctx, input }) => {
+    gateStep(ctx.session, input.code);
+    const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+    // Picked up again: an earlier decision not to do it no longer stands either.
+    await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
+    await logWalk({
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      // An assistant picks an item up as it fills it (lib/mcp/tools.ts): the entry names it.
+      userAgent: ctx.userAgent,
+      action: "durchgang.resumed",
+      entityType: "requirement",
+      entityId: ref.requirementId,
+      description: `${ref.code} resumed`,
+    });
+  }),
 
   /**
    * "Übernehmen" on 2.1: the BSI 200-3 scales, in the person's language, as an explicit write. A
    * company that set its own scales on the requirement page gets them replaced only by this click.
    */
-  adoptMethod: durchgangProcedure.mutation(async ({ ctx }) => {
+  adoptMethod: companyProcedure.mutation(async ({ ctx }) => {
+    gateStep(ctx.session, "2.1");
     const ref = await durchgangItem(ctx.db, actorOf(ctx), "2.1");
     const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
     const method = getDefaultMethodology(locale);
@@ -301,7 +303,7 @@ export const durchgangRouter = router({
    * (`notApplicableReason`); the status stays until management signs. The audit row carries no
    * free text.
    */
-  decline: durchgangProcedure
+  decline: companyProcedure
     .input(
       z.object({
         code,
@@ -309,6 +311,7 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
       if (walkItem(input.code).mustDo) {
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -335,21 +338,20 @@ export const durchgangRouter = router({
     }),
 
   /** The end of an item: filled in, waiting for the signature. The status column stays. */
-  finish: durchgangProcedure
-    .input(z.object({ code }))
-    .mutation(async ({ ctx, input }) => {
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      // Filled in after all: an earlier decision not to do it no longer stands.
-      await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
-      await logWalk({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        action: "durchgang.item_done",
-        entityType: "requirement",
-        entityId: ref.requirementId,
-        description: `${ref.code} filled in`,
-      });
-    }),
+  finish: companyProcedure.input(z.object({ code })).mutation(async ({ ctx, input }) => {
+    gateStep(ctx.session, input.code);
+    const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+    // Filled in after all: an earlier decision not to do it no longer stands.
+    await declineReason(ctx.db, ctx.companyId, ref.statusId, null);
+    await logWalk({
+      companyId: ctx.companyId,
+      userId: ctx.userId,
+      action: "durchgang.item_done",
+      entityType: "requirement",
+      entityId: ref.requirementId,
+      description: `${ref.code} filled in`,
+    });
+  }),
 
   /**
    * 2.2: the ticked catalogue items and the person's own entries become asset rows, named in the
@@ -357,7 +359,7 @@ export const durchgangRouter = router({
    * is. An item already listed, under any name, is skipped, so a second pass adds only what is
    * new, and nothing is ever deleted here.
    */
-  addAssets: durchgangWrite
+  addAssets: stepWrite("2.2")
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(addAssetsInput)
     .mutation(async ({ ctx, input }) => {
@@ -409,7 +411,7 @@ export const durchgangRouter = router({
    * Who provides each of the company's assets (`asset_provider`), any number per asset. The
    * tenant filter runs through the asset, so a link is only ever read for the company's own.
    */
-  providers: durchgangProcedure.query(({ ctx }) =>
+  providers: companyProcedure.query(({ ctx }) =>
     ctx.db
       .select({ assetId: assetProvider.assetId, supplierId: assetProvider.supplierId })
       .from(assetProvider)
@@ -425,7 +427,7 @@ export const durchgangRouter = router({
    * changes keeps the catalogue item it was listed as in `catalog_id`, so a rename does not lose
    * what kind of thing it is. An omitted description keeps the stored one.
    */
-  specifyAssets: durchgangWrite
+  specifyAssets: stepWrite("2.2")
     // The input is shared with the MCP tools, which save this screen for an assistant.
     .input(specifyAssetsInput)
     .mutation(async ({ ctx, input }) => {
@@ -553,7 +555,7 @@ export const durchgangRouter = router({
    * catalogue item and a numbered name the person then replaces; what it is for is its own, so the
    * first one's description is not copied.
    */
-  addAnotherAsset: durchgangWrite
+  addAnotherAsset: stepWrite("2.2")
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const source = await ctx.db.query.asset.findFirst({
@@ -1232,6 +1234,8 @@ export const durchgangRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // Management's approval signs off (AGB B7).
+      await requireBillingAct(ctx, "sign_off");
       const walk = walkOfCode(input.code);
       if (!walk || approvalOf(walk)?.code !== input.code) {
         throw new TRPCError({

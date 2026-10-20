@@ -20,18 +20,21 @@ import { Link } from "@/i18n/navigation";
 import type { WalkLock } from "@/lib/billing/access";
 import {
   approvalOf,
+  isFreeStep,
+  policiesOf,
   resumeAt,
   SETUP_STEP,
   WALKS,
   type WalkFramework,
 } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
-import { Art } from "./Art";
+import { Art, HOME_ART } from "./Art";
 import { itemShot } from "./itemShots";
-import { PromiseCard } from "./PromiseCard";
+import { PromiseRow } from "./PromiseRow";
 import { hrefOf as stepHref, useSteps } from "./setup";
 import { STAGE } from "./transition";
 import type { WalkEntry } from "./view";
+import { WalkOffer } from "./WalkOffer";
 
 /**
  * Each promise carries the sign the person meets for it in the walk: the walk's own footprints,
@@ -49,13 +52,14 @@ const stepId = (code: string) => `dg-step-${code}`;
  * step, each step a card with its status circle and its picture. There is no separate
  * introduction screen; this page is it (Simon, 03.10.2026).
  *
- * `lock` (`walkLockFor`): an account that has not paid sees the same page locked, with "Jetzt
- * bestellen" in place of the way in, and steps that show but do not open. An account that keeps
- * its journey free (grandfathered) is offered it beside the order, as the quieter way, or as the
- * one way on while ordering is not open yet. `price` is what that account would pay, shown under
- * the order. Locked, each step shows a screenshot of itself on hover, or on a tap on touch, and
- * zooms into the part that matters (`itemShots`); open, a step opens itself instead (Simon,
- * 04.10.2026).
+ * `lock` (`walkLockFor`): an account that has not paid walks the first steps (`isFreeStep`, up to
+ * the list of what the company has) and sees the rest locked: steps that show but do not open.
+ * Once the free steps are filled in, even if some are set aside, the left side becomes the offer
+ * (`WalkOffer`; Simon, 20.10.2026). An account that keeps its journey free (grandfathered) is
+ * offered it beside the order, as the quieter way. `price` is what that account would pay, shown
+ * under the order. A locked step shows a screenshot of itself on hover, or on a tap on touch, and
+ * zooms into the part that matters (`itemShots`), and a click leads to the order; an open step
+ * opens itself instead (Simon, 04.10.2026).
  *
  * `setup`: a company not set up yet walks one step more, setting itself up right after the
  * registration (`useSteps`).
@@ -93,19 +97,20 @@ export function DurchgangHome({
   }>;
   const steps = useSteps(framework, walk, setup);
   const hrefOf = (code: string) => stepHref(framework, code);
-  const untouched = steps.every((w) => w.state.kind === "open");
-  const next = resumeAt(steps, (w) => w.state);
+  // Setting the company up is not walking: a company set up but not walked yet still starts.
+  const untouched = steps.every((w) => w.code === SETUP_STEP || w.state.kind === "open");
+  // Without an order the walk ends at the last free step: "next" is the next one of those, and
+  // none left means the free part is filled in or set aside, which is where the order begins.
+  const reachable = locked ? steps.filter((w) => isFreeStep(w.code)) : steps;
+  const next = resumeAt(reachable, (w) => w.state);
   const [flash, setFlash] = useState<string | null>(null);
 
-  /** What a click on a locked step offers under its screenshot: the way on the big button gives. */
-  const wayOn = lock && (
-    <Button asChild size="lg" className="h-11 rounded-xl px-6">
-      <Link href={lock.orderAt ?? "/journey"}>
-        {lock.orderAt ? t("ui.home.unlock") : t("ui.home.toJourney")}
-        <ArrowRight />
-      </Link>
-    </Button>
-  );
+  /**
+   * Where a locked step and the order button lead. Where ordering is not open (no live keys, so
+   * no order page) the public pricing page is still there to read (Simon, 20.10.2026: nothing led
+   * to pricing while locked).
+   */
+  const orderHref = lock?.orderAt ?? "/pricing";
 
   /** A small sign-off tick leads to the step where management signs, and lights it briefly. */
   const showSignOff = () => {
@@ -147,77 +152,70 @@ export function DurchgangHome({
       className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-[minmax(0,1fr)_28rem] xl:gap-16"
     >
       <div className="flex flex-col lg:sticky lg:top-18 lg:self-start lg:py-6">
-        <p className="self-start rounded-full bg-primary/[0.08] px-3 py-1 text-sm font-medium text-primary">
-          {t(`${intro}.eyebrow`)}
-        </p>
-        <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-          {t(`${intro}.title`)}
-        </h1>
-        <p className="mt-5 max-w-[52ch] text-lg leading-8 text-muted-foreground">
-          {t(`${intro}.lead`)}
-        </p>
-        <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-          {points.map((point, i) => (
-            <PromiseCard
-              key={point.title}
-              icon={POINT_ICONS[i]}
-              title={point.title}
-              text={point.text}
-            />
-          ))}
-        </ul>
-        {lock?.orderAt === null ? (
-          // Ordering is not open yet: the journey is the one way on.
-          <Button
-            asChild
-            size="lg"
-            className="mt-10 h-12 self-start rounded-xl px-7 text-base"
-          >
-            <Link href="/journey">
-              {t("ui.home.toJourney")}
-              <ArrowRight />
-            </Link>
-          </Button>
-        ) : lock ? (
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Button asChild size="lg" className="h-12 rounded-xl px-7 text-base">
-              <Link href={lock.orderAt}>
-                {t("ui.home.unlock")}
-                <ArrowRight />
-              </Link>
-            </Button>
-            {call}
-            {lock.journey && (
-              <Link
-                href="/journey"
-                className="text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-              >
-                {t("ui.home.toJourney")}
-              </Link>
-            )}
-            {price && (
-              <p className="w-full text-sm text-muted-foreground">
-                {t("ui.home.price", { price })}
-              </p>
-            )}
-            {forward && <div className="w-full">{forward}</div>}
-          </div>
-        ) : next ? (
-          <Button
-            asChild
-            size="lg"
-            className="mt-10 h-12 self-start rounded-xl px-7 text-base"
-          >
-            <Link href={hrefOf(next.code)}>
-              {untouched ? t(`${intro}.start`) : t(`walks.${framework}.continue`)}
-              <ArrowRight />
-            </Link>
-          </Button>
+        {lock && !next ? (
+          // The free part is filled in, set-aside steps included: the offer takes this side.
+          <WalkOffer
+            framework={framework}
+            lock={lock}
+            orderHref={orderHref}
+            remaining={steps.filter((w) => !isFreeStep(w.code)).length}
+            documents={
+              policiesOf(WALKS[framework]).filter(
+                (p) => !isFreeStep(p.code) && steps.some((w) => w.code === p.code),
+              ).length
+            }
+            price={price}
+            call={call}
+            forward={forward}
+          />
         ) : (
-          <div className="mt-10 rounded-3xl border bg-card p-8">
-            <p className="text-xl font-semibold">{t("ui.home.allFilled")}</p>
-            <p className="mt-2 text-muted-foreground">{t("ui.home.allFilledNote")}</p>
-          </div>
+          <>
+            {/* The picture sits beside the title, not above it, so the list and the button
+                stay in the first screen (Simon, 20.10.2026). */}
+            <div className="flex items-end gap-6">
+              <div className="min-w-0 flex-1">
+                <p className="inline-flex rounded-full bg-primary/[0.08] px-3 py-1 text-sm font-medium text-primary">
+                  {t(`${intro}.eyebrow`)}
+                </p>
+                <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+                  {t(`${intro}.title`)}
+                </h1>
+                <p className="mt-5 max-w-[52ch] text-lg leading-8 text-muted-foreground">
+                  {t(`${intro}.lead`)}
+                </p>
+              </div>
+              <Art src={HOME_ART} className="hidden h-36 shrink-0 sm:block" />
+            </div>
+            <ul className="mt-8 divide-y border-y">
+              {points.map((point, i) => (
+                <PromiseRow
+                  key={point.title}
+                  icon={POINT_ICONS[i]}
+                  title={point.title}
+                  text={point.text}
+                />
+              ))}
+            </ul>
+            {/* Without the order the free part is walked like the rest: the order is not
+                mentioned until it is reached (Simon, 20.10.2026). */}
+            {next ? (
+              <Button
+                asChild
+                size="lg"
+                className="mt-8 h-12 self-start rounded-xl px-7 text-base"
+              >
+                <Link href={hrefOf(next.code)}>
+                  {untouched ? t(`${intro}.start`) : t(`walks.${framework}.continue`)}
+                  <ArrowRight />
+                </Link>
+              </Button>
+            ) : (
+              <div className="mt-10 rounded-3xl border bg-card p-8">
+                <p className="text-xl font-semibold">{t("ui.home.allFilled")}</p>
+                <p className="mt-2 text-muted-foreground">{t("ui.home.allFilledNote")}</p>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -238,7 +236,11 @@ export function DurchgangHome({
             const waiting = entry.state.kind === "waiting";
             const isNext = next?.code === entry.code;
             const href = hrefOf(entry.code);
-            const shot = locked
+            // Locked: not walkable without the order. A company already set up has nothing
+            // left to do on its setup step, which stays on the path but opens nothing.
+            const closed = locked && !isFreeStep(entry.code);
+            const inert = closed || (entry.code === SETUP_STEP && settled);
+            const shot = closed
               ? itemShot(
                   entry.code,
                   locale,
@@ -271,7 +273,7 @@ export function DurchgangHome({
                   id={stepId(entry.code)}
                   className={cn(
                     "relative flex items-center gap-3 rounded-2xl border bg-card p-3 pr-4 pl-5 shadow-xs transition duration-500 sm:gap-4",
-                    !locked &&
+                    !inert &&
                       "hover:border-primary/40 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring",
                     shot &&
                       "hover:border-primary/40 has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring",
@@ -288,7 +290,7 @@ export function DurchgangHome({
                       tab order, so a click on it opens it; the small tick leads to the step
                       where management signs. */}
                   <span className="relative z-10 shrink-0">
-                    {locked ? (
+                    {inert ? (
                       <span aria-hidden className={circle}>
                         {mark}
                       </span>
@@ -335,7 +337,7 @@ export function DurchgangHome({
                   )}
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground">{entry.section}</p>
-                    {locked ? (
+                    {inert ? (
                       <p className="text-sm font-semibold leading-snug">
                         {entry.headline}
                       </p>
@@ -359,21 +361,21 @@ export function DurchgangHome({
                       </p>
                     )}
                   </div>
-                  {!locked && (
+                  {!inert && (
                     <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
                   )}
-                  {/* A locked step does not open, it shows itself: the whole card is the trigger,
-                      so the preview sits beside the card, and the eye tells a phone user that a
-                      tap shows it. A click or a tap keeps it open with the way on under it. */}
+                  {/* A locked step does not open, it shows itself on hover: the whole card is the
+                      trigger, so the preview sits beside the card. A click leads to the order,
+                      or the pricing page where ordering is closed (Simon, 20.10.2026). */}
                   {shot && (
                     <>
                       <Eye
                         aria-hidden
                         className="size-4 shrink-0 text-muted-foreground"
                       />
-                      <ImagePreview image={shot} footer={wayOn || undefined}>
-                        <button
-                          type="button"
+                      <ImagePreview image={shot} link>
+                        <Link
+                          href={orderHref}
                           aria-label={t("ui.home.preview", { step: entry.headline })}
                           className="absolute inset-0 z-20 cursor-pointer rounded-2xl focus-visible:outline-none"
                         />

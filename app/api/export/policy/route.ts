@@ -1,7 +1,8 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import { eq } from "drizzle-orm";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
+import { billingVerdict, refusalResponse } from "@/lib/billing/act-gate";
 import { db } from "@/lib/db";
 import { pdfLocale } from "@/lib/pdf/format";
 import { loadPolicyData } from "@/lib/pdf/load-policy-data";
@@ -18,6 +19,10 @@ export async function GET(request: NextRequest) {
   if (!(await rateLimit(`export:policy:${session.user.id}`, 5, 60_000))) {
     return new Response("Too many requests", { status: 429 });
   }
+
+  // A policy as PDF is an export of the company's records (AGB B7).
+  const verdict = await billingVerdict(db, session, "export");
+  if (verdict.kind !== "allow") return refusalResponse(verdict);
 
   const assessmentId = request.nextUrl.searchParams.get("assessmentId");
   const categoryCode = request.nextUrl.searchParams.get("categoryCode");

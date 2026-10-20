@@ -317,6 +317,9 @@ function lockingSetup(opts: {
     },
     select: () => ({
       from: (table: unknown) => ({
+        // The billing state's lookup (signOffProcedure): no billing account, so a full session
+        // reads as licensed and signs.
+        innerJoin: () => ({ where: async () => [] }),
         where: () =>
           Object.assign(Promise.resolve([]), {
             for: async () => {

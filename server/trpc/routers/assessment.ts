@@ -70,6 +70,7 @@ import {
   companyProcedure,
   protectedProcedure,
   router,
+  signOffProcedure,
 } from "../init";
 
 // Prerequisites are advisory only — the UI surfaces them as a "recommended
@@ -637,11 +638,8 @@ export const assessmentRouter = router({
       }));
     }),
 
-  // ---------------------------------------------------------------------------
-  // Sign-off
-  // ---------------------------------------------------------------------------
-
-  signOff: companyProcedure
+  // Sign-off: every procedure that signs asks the billing state first (signOffProcedure, AGB B7).
+  signOff: signOffProcedure
     .input(z.object({ statusId: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
@@ -919,7 +917,7 @@ export const assessmentRouter = router({
       return reopened;
     }),
 
-  confirmModuleRef: companyProcedure
+  confirmModuleRef: signOffProcedure
     .input(z.object({ statusId: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
@@ -1069,7 +1067,7 @@ export const assessmentRouter = router({
       return result.row;
     }),
 
-  bulkConfirmModuleRef: companyProcedure
+  bulkConfirmModuleRef: signOffProcedure
     .input(
       z.object({
         assessmentId: z.string().uuid(),
@@ -1169,7 +1167,7 @@ export const assessmentRouter = router({
       return { confirmed: updated.length };
     }),
 
-  bulkSignOffCategory: companyProcedure
+  bulkSignOffCategory: signOffProcedure
     .input(
       z.object({
         assessmentId: z.string().uuid(),

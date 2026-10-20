@@ -9,7 +9,8 @@ import {
   Sheet,
 } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { ExportLink } from "@/components/export/ExportLink";
+import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { mayExport } from "@/lib/export/access";
 import { pdfLocale } from "@/lib/pdf/format";
@@ -49,8 +50,8 @@ const hrefOf = (key: FileKey, locale: string, assessmentId: string | null): stri
 
 /**
  * Everything the company recorded, as files to pass on. One card per file, each a download
- * link as a whole (ui-design principle 14). The routes check access themselves; the page only
- * says who may use it.
+ * link as a whole (ui-design principle 14). The routes check access themselves, the billing
+ * state included; each link asks first where that would refuse (`ExportLink`).
  */
 export default async function ExportPage() {
   const [t, locale, session, assessment] = await Promise.all([
@@ -73,12 +74,12 @@ export default async function ExportPage() {
             <BookOpen className="size-5" />
           </span>
           <div className="min-w-0 flex-1">
-            <Link
-              href="/export/gesamt"
+            <ExportLink
+              href={getPathname({ href: "/export/gesamt", locale })}
               className="font-semibold after:absolute after:inset-0 focus-visible:outline-none"
             >
               {t("complete.card.title")}
-            </Link>
+            </ExportLink>
             <p className="mt-0.5 text-sm text-muted-foreground">
               {t("complete.card.text")}
             </p>
@@ -105,13 +106,13 @@ export default async function ExportPage() {
                   <Icon className="size-5" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <a
+                  <ExportLink
                     href={hrefOf(file.key, pdf, assessment?.id ?? null)}
                     download
                     className="font-medium after:absolute after:inset-0 focus-visible:outline-none"
                   >
                     {t(`files.${file.key}.title`)}
-                  </a>
+                  </ExportLink>
                   <p className="mt-0.5 text-sm text-muted-foreground">
                     {t(`files.${file.key}.text`)}
                   </p>

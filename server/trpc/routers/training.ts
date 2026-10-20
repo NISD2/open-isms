@@ -5,6 +5,7 @@ import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
+import { rateLimit } from "@/lib/rate-limit";
 import {
   companyUploadPrefixes,
   createPresignedGet,
@@ -57,6 +58,10 @@ const MANAGEMENT_COURSE: CourseId = "nis2-ceo";
 
 /** Where getCertificateUploadUrl puts a company's certificates; the only keys a record may hold. */
 const certificatePrefix = companyUploadPrefixes.trainingCertificates;
+
+/** Certificate uploads one person may start in an hour: far more than recording a team needs. */
+const UPLOADS_PER_HOUR = 30;
+const HOUR_MS = 60 * 60 * 1000;
 
 export const trainingRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -205,6 +210,16 @@ export const trainingRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // An account that has not ordered reaches this through the walk's training step
+      // (FREE_WALK_PROCEDURES), so the storage it can fill is bounded per person.
+      if (
+        !(await rateLimit(`training-upload:${ctx.userId}`, UPLOADS_PER_HOUR, HOUR_MS))
+      ) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Too many uploads. Please try again later.",
+        });
+      }
       // Audit F-4 (2026-09-10): same treatment as evidence.createUploadUrl —
       // the filename does not get to shape the key, and the caller does not
       // get to choose a content type a browser will render. `contentType` is

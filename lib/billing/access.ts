@@ -85,15 +85,14 @@ export const OFFER_PATH = "/billing/offer";
 /**
  * What the walk's locked home offers an account that may not walk. A free account orders from the
  * offer, which opens the Compliance Portal and shows the two portals that need no order. Any other
- * (grandfathered, or no level yet) has the journey open, as the portal gate has it: it goes
- * straight to the order page with its own price and is offered its journey beside it. While
- * ordering is not open to it (`billingFor`: no live keys, as on a self-hosted instance) the order
- * page does not exist, so only the journey is offered.
+ * goes straight to the order page with its own price. Only a grandfathered account is offered its
+ * journey beside it, the way it walked before (Simon, 20.10.2026: "this button only for
+ * grandfathered"). While ordering is not open to it (`billingFor`: no live keys, as on a
+ * self-hosted instance) the order page does not exist, and the home links the pricing page.
  */
 export type WalkLock =
   | { readonly orderAt: typeof OFFER_PATH; readonly journey: false }
-  | { readonly orderAt: "/bestellen"; readonly journey: true }
-  | { readonly orderAt: null; readonly journey: true };
+  | { readonly orderAt: "/bestellen" | null; readonly journey: boolean };
 
 export const walkLockFor = (
   level: AccessLevel | null,
@@ -101,7 +100,44 @@ export const walkLockFor = (
 ): WalkLock =>
   level === "free"
     ? { orderAt: OFFER_PATH, journey: false }
-    : { orderAt: orderingOpen ? "/bestellen" : null, journey: true };
+    : { orderAt: orderingOpen ? "/bestellen" : null, journey: level === "grandfathered" };
+
+/**
+ * The API calls an account that has not ordered still makes, because the first steps of the walk
+ * (`isFreeStep`: registration, setting up, management's training, the risk method, the list of
+ * what the company has) use them. The company tiers refuse a free account on everything else. The
+ * walk's own calls check the step they are for (`durchgang.ts`), and
+ * `intake.saveRequirementAnswers` checks the requirement. The asset and supplier lists are read
+ * only; the free step writes them through the walk's own calls.
+ */
+export const FREE_WALK_PROCEDURES: ReadonlySet<string> = new Set([
+  "assessment.getStatusesByCategory",
+  "evidence.listByRequirementStatus",
+  "intake.getRequirementAnswers",
+  "intake.saveRequirementAnswers",
+  "training.list",
+  "training.create",
+  "training.delete",
+  "training.managementCourse",
+  "training.getCertificateUploadUrl",
+  // Inviting management to the course from the training step (CourseInvite).
+  "team.invite",
+  "asset.list",
+  "supplier.list",
+  "durchgang.walk",
+  "durchgang.adoption",
+  "durchgang.portals",
+  "durchgang.contactSuggestions",
+  "durchgang.providers",
+  "durchgang.wait",
+  "durchgang.resume",
+  "durchgang.decline",
+  "durchgang.finish",
+  "durchgang.adoptMethod",
+  "durchgang.addAssets",
+  "durchgang.specifyAssets",
+  "durchgang.addAnotherAsset",
+]);
 
 /**
  * The order page as the portal layout sees it. It is the one portal page with a translated slug,

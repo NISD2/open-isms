@@ -4,6 +4,7 @@ import { Check, ChevronDown, Copy, UserCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useBillingAct } from "@/components/billing/BillingActGate";
 import { InlineInvite } from "@/components/team/InlineInvite";
 import { Button } from "@/components/ui/button";
 import { getPathname, Link, useRouter } from "@/i18n/navigation";
@@ -93,6 +94,8 @@ export function Approval({
     },
     onError: (err) => toast.error(userFacingError(err, t("failed"))),
   });
+  // Management's approval signs off: asked first inside the money back or without an order.
+  const act = useBillingAct("sign_off");
 
   if (rows === undefined || items === undefined) return null;
   if (rows.length === 0 && items.length === 0) {
@@ -178,11 +181,13 @@ export function Approval({
                 (chosen.length === 0 && signing.length === 0) || approve.isPending
               }
               onClick={() =>
-                approval &&
-                approve.mutate({
-                  code: approval.code,
-                  types: chosen.map((row) => row.type),
-                  sign: signing.map((item) => item.code),
+                act.guard(() => {
+                  if (!approval) return;
+                  approve.mutate({
+                    code: approval.code,
+                    types: chosen.map((row) => row.type),
+                    sign: signing.map((item) => item.code),
+                  });
                 })
               }
             >
@@ -195,6 +200,7 @@ export function Approval({
         ) : (
           <SendToManagement framework={framework} viewer={viewer} locale={locale} />
         ))}
+      {act.dialog}
     </>
   );
 }

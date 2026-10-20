@@ -22,6 +22,7 @@ import {
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { hasSignOffToWithdraw } from "@/lib/compliance/sign-off-state";
 import type { Database, DbOrTx } from "@/lib/db";
+import { isFreeStep } from "@/lib/durchgang";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import {
   company,
@@ -39,7 +40,7 @@ import {
   reopenedReviewDate,
   withdrawSignOff,
 } from "../helpers/withdraw-sign-off";
-import { companyProcedure, router } from "../init";
+import { companyProcedure, MustOrderFirstError, router } from "../init";
 
 export const intakeRouter = router({
   // --------------------------------------------------------------------------
@@ -147,6 +148,11 @@ export const intakeRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // An account that has not ordered answers the walk's free steps only
+      // (`FREE_WALK_PROCEDURES`), not the rest of the requirements through the API.
+      if (ctx.session.accessLevel === "free" && !isFreeStep(input.requirementCode)) {
+        throw new MustOrderFirstError();
+      }
       const categoryCode = await authorizeIntakeWrite(ctx, input);
 
       // A requirement of another category would write its field keys into this

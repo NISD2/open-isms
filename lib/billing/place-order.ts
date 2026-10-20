@@ -308,7 +308,13 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       // Money back belongs to the account's first invoice only (cancelWindowFor, AGB B7), so only
       // that invoice and its email may promise it. Read under the account lock, like the rest.
       const firstOrder = !(await hasInvoice(tx, account.id));
-      const wording = invoiceWording(dates, money, locale, firstOrder);
+      const wording = invoiceWording(
+        dates,
+        money,
+        locale,
+        firstOrder,
+        input.terms?.version ?? null,
+      );
 
       // Committed on its own before Qonto is asked, so it survives whatever happens to this
       // transaction; removed below, inside the transaction, once Qonto has answered clearly.

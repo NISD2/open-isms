@@ -16,6 +16,7 @@ import {
   requirement,
   user,
 } from "@/schema";
+import { requireBillingAct } from "../helpers/billing-act";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import { reviewerProcedure, router } from "../init";
 
@@ -94,6 +95,7 @@ export const reviewRouter = router({
               inArray(auditLog.entityId, statusIds),
             ),
             columns: {
+              id: true,
               entityId: true,
               action: true,
               description: true,
@@ -122,12 +124,19 @@ export const reviewRouter = router({
     // Group audit entries by entityId
     const auditByStatus = new Map<
       string,
-      { action: string; description: string; createdAt: Date; userName: string | null }[]
+      {
+        id: string;
+        action: string;
+        description: string;
+        createdAt: Date;
+        userName: string | null;
+      }[]
     >();
     for (const a of auditRows) {
       if (!a.entityId) continue;
       const list = auditByStatus.get(a.entityId) ?? [];
       list.push({
+        id: a.id,
         action: a.action,
         description: a.description,
         createdAt: a.createdAt,
@@ -175,7 +184,7 @@ export const reviewRouter = router({
 
     return result?.count ?? 0;
   }),
-  /** Approve a submission */
+  /** Approve a submission: a sign-off, so the billing state is asked first (AGB B7). */
   approve: reviewerProcedure
     .input(
       z.object({
@@ -184,6 +193,7 @@ export const reviewRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      await requireBillingAct(ctx, "sign_off");
       // Verify the status belongs to this company's assessment
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
         where: eq(companyRequirementStatus.id, input.statusId),

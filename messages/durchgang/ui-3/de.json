@@ -64,9 +64,9 @@
         "label": "Im Durchgang"
       },
       "home": {
-        "unlock": "Jetzt bestellen",
+        "unlock": "30 Tage testen, Geld zurück",
         "toJourney": "Weiter im Weg, wie bisher",
-        "price": "{price} netto im Jahr, zzgl. USt. 30 Tage Geld zurück.",
+        "price": "{price} netto im Jahr, zzgl. USt. 30 Tage Geld zurück, bis zum ersten Export oder zur ersten Freigabe.",
         "setupSection": "Vorbereitung",
         "setupHeadline": "Ihr Unternehmen anlegen",
         "setupLead": "Name und Sektor sind dieselben wie bei der Registrierung. Alles Weitere tragen Sie dort ein, wo es gebraucht wird.",
@@ -109,6 +109,25 @@
             "limit": "Heute sind aus Ihrem Konto schon mehrere Einladungen verschickt worden. Morgen geht es wieder.",
             "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal."
           }
+        }
+      },
+      "offer": {
+        "title": "Testen Sie den Rest 30 Tage.",
+        "lead": "Das war das Beispiel, mit den Angaben Ihres Unternehmens. Passt der Rest nicht, bekommen Sie innerhalb von 30 Tagen Ihr Geld zurück, solange Sie noch nichts exportiert oder freigegeben haben.",
+        "steps": {
+          "title": "{count, plural, one {Noch # Schritt.} other {Noch # Schritte.}}",
+          "text": "Einer nach dem anderen, wie bisher."
+        },
+        "documents": {
+          "title": "{count, plural, one {# Dokument aus Ihren Antworten.} other {# Dokumente aus Ihren Antworten.}}"
+        },
+        "kept": {
+          "title": "Ihre Angaben bleiben.",
+          "text": "Was Sie bisher eingetragen haben, geht direkt weiter."
+        },
+        "signs": {
+          "title": "Am Ende unterschreibt die Geschäftsführung.",
+          "text": "In der App, an einer Stelle."
         }
       }
     }

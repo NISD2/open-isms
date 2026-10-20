@@ -7,7 +7,7 @@
 import { z } from "zod";
 import type { EmailLocale } from "@/lib/mail/locale";
 import type { DocumentEmail, DocumentFact } from "@/lib/mail/templates";
-import { termsVersionLabel } from "./terms";
+import { paysOnUse, termsVersionLabel } from "./terms";
 import { checkStructure } from "./vat-checksum";
 import { type VatCheck, type VatTreatment, vatTreatment } from "./vies";
 
@@ -244,15 +244,26 @@ const PAYMENT_REFERENCE = {
 
 /**
  * The money-back promise, on the account's first invoice only: a renewal or a new order after a
- * cancel never has it (AGB B7, cancelWindowFor), so a later invoice must not say it does.
+ * cancel never has it (AGB B7, cancelWindowFor), so a later invoice must not say it does. Under
+ * terms that end it with the first export or sign-off (`paysOnUse`) it says so; an order placed
+ * under earlier terms, reissued later, keeps the promise it was made with.
  */
-const moneyBack = (locale: "de" | "en", firstOrder: boolean): string =>
-  firstOrder
+const moneyBack = (
+  locale: "de" | "en",
+  firstOrder: boolean,
+  termsVersion: string | null,
+): string => {
+  if (!firstOrder) return "";
+  return paysOnUse(termsVersion)
     ? {
+        de: "30 Tage Geld zurück ab Bestelldatum, bis zum ersten Export oder zur ersten Freigabe.",
+        en: "Thirty days money back from the order date, until the first export or sign-off.",
+      }[locale]
+    : {
         de: "30 Tage Geld zurück ab Bestelldatum.",
         en: "Thirty days money back from the order date.",
-      }[locale]
-    : "";
+      }[locale];
+};
 
 /** On an invoice a platform admin reissued (./reissue): the number of the one it replaces. */
 const replaces = (locale: "de" | "en", replacesNumber: string | undefined): string =>
@@ -275,6 +286,8 @@ export const invoiceWording = (
   money: Money,
   locale: "de" | "en",
   firstOrder: boolean,
+  /** The AGB version the order was placed under; null where none was recorded. */
+  termsVersion: string | null,
   replacesNumber?: string,
 ): { readonly title: string; readonly description: string; readonly footer: string } => {
   const period =
@@ -293,7 +306,7 @@ export const invoiceWording = (
     footer: [
       replaces(locale, replacesNumber),
       taxNote,
-      moneyBack(locale, firstOrder),
+      moneyBack(locale, firstOrder, termsVersion),
       PAYMENT_REFERENCE[locale],
     ]
       .filter(Boolean)
@@ -365,7 +378,7 @@ export const invoiceEmailWording = (opts: {
   const { number, locale, where, termsVersion, amounts, dates, firstOrder } = opts;
   const replaced = replaces(locale, opts.replacesNumber);
   const day = (iso: string) => formatInvoiceDay(iso, locale);
-  const payment = [PAYMENT_REFERENCE[locale], moneyBack(locale, firstOrder)]
+  const payment = [PAYMENT_REFERENCE[locale], moneyBack(locale, firstOrder, termsVersion)]
     .filter(Boolean)
     .join(" ");
   const online =

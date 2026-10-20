@@ -185,5 +185,20 @@ export {
   withSetup,
 } from "./walks";
 
+import { walkOfCode } from "./walks";
+
 /** Setting up the company, as a step of the walk. It has no item code, so it carries its own. */
 export const SETUP_STEP = "unternehmen";
+
+/**
+ * Whether an account that has not ordered may walk this step: setting up the company, and each
+ * walk's steps up to its `lastFreeStep`, in walk order.
+ */
+export const isFreeStep = (code: string): boolean => {
+  if (code === SETUP_STEP) return true;
+  const walk = walkOfCode(code);
+  if (!walk) return false;
+  const { lastFreeStep } = walk;
+  const at = walk.items.findIndex((item) => item.code === code);
+  return at <= walk.items.findIndex((item) => item.code === lastFreeStep);
+};

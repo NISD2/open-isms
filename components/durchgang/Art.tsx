@@ -3,6 +3,9 @@ import { cn } from "@/lib/utils";
 /** The art of the walk's setup step, setting up the company; it has no item code to look it up by. */
 export const SETUP_ART = "/images/durchgang/unternehmen.svg";
 
+/** The walk home's one picture, beside its title: rating risks, the step's own art. */
+export const HOME_ART = "/images/durchgang/2_3.svg";
+
 /** The step art carries its own white ground; multiply lets the tinted panel show through it. */
 export function Art({ src, className }: { src: string | null; className: string }) {
   if (!src) return null;

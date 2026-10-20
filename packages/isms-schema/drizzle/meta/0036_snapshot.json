@@ -1,5 +1,5 @@
 {
-  "id": "e455c41b-3806-40a2-aa1a-25f26ff14396",
+  "id": "8f51663f-461b-48ca-91f1-8a341cdad74f",
   "prevId": "c8c4397c-db00-4816-8028-eca3d9299bd3",
   "version": "7",
   "dialect": "postgresql",
@@ -1216,88 +1216,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.billing_account": {
-      "name": "billing_account",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "owner_user_id": {
-          "name": "owner_user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "qonto_client_id": {
-          "name": "qonto_client_id",
-          "type": "varchar(64)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "access_level": {
-          "name": "access_level",
-          "type": "access_level",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'free'"
-        },
-        "renewal_canceled_at": {
-          "name": "renewal_canceled_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "billing_account_owner_user_id_user_id_fk": {
-          "name": "billing_account_owner_user_id_user_id_fk",
-          "tableFrom": "billing_account",
-          "tableTo": "user",
-          "columnsFrom": [
-            "owner_user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "billing_account_qonto_client_id_unique": {
-          "name": "billing_account_qonto_client_id_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "qonto_client_id"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.credit_note": {
       "name": "credit_note",
       "schema": "",
@@ -1600,6 +1518,25 @@
           "primaryKey": false,
           "notNull": false
         },
+        "money_back_waived_at": {
+          "name": "money_back_waived_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "money_back_waived_through": {
+          "name": "money_back_waived_through",
+          "type": "money_back_waived_through",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "money_back_waived_by_user_id": {
+          "name": "money_back_waived_by_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -1677,6 +1614,19 @@
           ],
           "onDelete": "restrict",
           "onUpdate": "no action"
+        },
+        "invoice_money_back_waived_by_user_id_user_id_fk": {
+          "name": "invoice_money_back_waived_by_user_id_user_id_fk",
+          "tableFrom": "invoice",
+          "tableTo": "user",
+          "columnsFrom": [
+            "money_back_waived_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1712,6 +1662,14 @@
         "invoice_terms_by_only_if_accepted": {
           "name": "invoice_terms_by_only_if_accepted",
           "value": "\"invoice\".\"terms_accepted_by_user_id\" IS NULL OR \"invoice\".\"terms_accepted_at\" IS NOT NULL"
+        },
+        "invoice_waiver_time_with_through": {
+          "name": "invoice_waiver_time_with_through",
+          "value": "(\"invoice\".\"money_back_waived_at\" IS NULL) = (\"invoice\".\"money_back_waived_through\" IS NULL)"
+        },
+        "invoice_waiver_by_only_if_waived": {
+          "name": "invoice_waiver_by_only_if_waived",
+          "value": "\"invoice\".\"money_back_waived_by_user_id\" IS NULL OR \"invoice\".\"money_back_waived_at\" IS NOT NULL"
         },
         "invoice_net_positive": {
           "name": "invoice_net_positive",
@@ -4196,6 +4154,88 @@
       },
       "isRLSEnabled": false
     },
+    "public.billing_account": {
+      "name": "billing_account",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "owner_user_id": {
+          "name": "owner_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qonto_client_id": {
+          "name": "qonto_client_id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_level": {
+          "name": "access_level",
+          "type": "access_level",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'free'"
+        },
+        "renewal_canceled_at": {
+          "name": "renewal_canceled_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_account_owner_user_id_user_id_fk": {
+          "name": "billing_account_owner_user_id_user_id_fk",
+          "tableFrom": "billing_account",
+          "tableTo": "user",
+          "columnsFrom": [
+            "owner_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_account_qonto_client_id_unique": {
+          "name": "billing_account_qonto_client_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "qonto_client_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.company": {
       "name": "company",
       "schema": "",
@@ -4584,26 +4624,6 @@
           "name": "data_processing_agreement",
           "type": "data_processing_agreement",
           "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "personal_data_transfers": {
-          "name": "personal_data_transfers",
-          "type": "personal_data_transfers",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "subprocessor_engagement": {
-          "name": "subprocessor_engagement",
-          "type": "subprocessor_engagement",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "breach_notice_to_controller": {
-          "name": "breach_notice_to_controller",
-          "type": "boolean",
           "primaryKey": false,
           "notNull": false
         },
@@ -7367,6 +7387,14 @@
         "legal_reviewer"
       ]
     },
+    "public.money_back_waived_through": {
+      "name": "money_back_waived_through",
+      "schema": "public",
+      "values": [
+        "export",
+        "sign_off"
+      ]
+    },
     "public.notification_channel": {
       "name": "notification_channel",
       "schema": "public",
@@ -7397,17 +7425,6 @@
         "not_applicable"
       ]
     },
-    "public.personal_data_transfers": {
-      "name": "personal_data_transfers",
-      "schema": "public",
-      "values": [
-        "inEea",
-        "adequacy",
-        "sccs",
-        "bcr",
-        "other"
-      ]
-    },
     "public.plan": {
       "name": "plan",
       "schema": "public",
@@ -7424,15 +7441,6 @@
         "yes",
         "no",
         "unsettled"
-      ]
-    },
-    "public.subprocessor_engagement": {
-      "name": "subprocessor_engagement",
-      "schema": "public",
-      "values": [
-        "general",
-        "specific",
-        "none"
       ]
     },
     "public.supplier_publication_broadcast_status": {

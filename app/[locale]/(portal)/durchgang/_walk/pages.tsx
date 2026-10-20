@@ -11,7 +11,13 @@ import { getSession } from "@/lib/auth";
 import { walkLockFor } from "@/lib/billing/access";
 import { formatWholeEuro } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
-import { MANAGEMENT_ROLE, type Walk, walkLocaleOf, walkOfCode } from "@/lib/durchgang";
+import {
+  isFreeStep,
+  MANAGEMENT_ROLE,
+  type Walk,
+  walkLocaleOf,
+  walkOfCode,
+} from "@/lib/durchgang";
 import { api } from "@/lib/trpc/server";
 import { requireWalk, walkAccess } from "../gate";
 import { loadItem, loadWalk } from "./load";
@@ -37,9 +43,10 @@ export async function approvalMetadata(): Promise<Metadata> {
 }
 
 /**
- * A walk's front door, and the portal's. An account that has not paid sees it locked: the same
- * page, with the way to order and its price in place of the way in. A company not set up yet sees
- * setting it up as a step, right after the walk's `setupAfter`.
+ * A walk's front door, and the portal's. An account that has not paid walks the walk's first
+ * steps (`isFreeStep`) and sees the rest locked: the same page, with the way to order and its
+ * price once those are filled in. Setting the company up is a step, right after the walk's
+ * `setupAfter`.
  */
 export async function WalkHome({ walk }: { walk: Walk }) {
   const [{ mayWalk }, session, locale] = await Promise.all([
@@ -52,7 +59,7 @@ export async function WalkHome({ walk }: { walk: Walk }) {
       ? null
       : walkLockFor(session.accessLevel, billingFor(session.user.email).open);
   const [entries, status] = await Promise.all([
-    loadWalk({ walk, locked: lock !== null }),
+    loadWalk(walk),
     lock?.orderAt ? api.billing.status() : null,
   ]);
   // Handing the order to management invites someone into the company, and only management the
@@ -90,10 +97,10 @@ export async function WalkItem({
   screen: string | undefined;
 }) {
   if (walkOfCode(code) !== walk) notFound();
-  await requireWalk(walk, code);
+  const mayWalk = await requireWalk(walk, code);
   const [item, entries, session] = await Promise.all([
     loadItem(code),
-    loadWalk({ walk, locked: false }),
+    loadWalk(walk),
     getSession(),
   ]);
   if (!item) notFound();
@@ -101,7 +108,7 @@ export async function WalkItem({
     <DurchgangItem
       key={code}
       item={item}
-      walk={entries}
+      walk={mayWalk ? entries : entries.filter((w) => isFreeStep(w.code))}
       setup={!session?.companyActivated}
       initialScreen={Number(screen ?? 0)}
     />

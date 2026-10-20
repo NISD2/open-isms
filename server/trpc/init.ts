@@ -4,11 +4,13 @@ import { eq } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { FREE_WALK_PROCEDURES } from "@/lib/billing/access";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { browserAgent } from "@/lib/mcp/agent";
 import { keyMayCall } from "@/lib/mcp/procedures";
 import { company } from "@/schema";
+import { requireBillingAct } from "./helpers/billing-act";
 
 // ============================================================================
 // Context
@@ -109,23 +111,25 @@ export class MustOrderFirstError extends TRPCError {
  * assessment, the team list, the assessment list) and stay reachable to a free
  * account through the API, though the layout hides their pages. None of them is the journey.
  */
-const assertNotFree = (session: TRPCContext["session"]) => {
-  if (session?.accessLevel === "free") throw new MustOrderFirstError();
+const assertNotFree = (session: TRPCContext["session"], path: string) => {
+  if (session?.accessLevel === "free" && !FREE_WALK_PROCEDURES.has(path)) {
+    throw new MustOrderFirstError();
+  }
 };
 
 export const companyProcedure = setup.companyProcedure.use(({ ctx, path, next }) => {
   refuseUnlistedKeyCall(ctx.viaKey, path);
-  assertNotFree(ctx.session);
+  assertNotFree(ctx.session, path);
   return next({ ctx });
 });
 export const adminProcedure = setup.adminProcedure.use(({ ctx, path, next }) => {
   refuseUnlistedKeyCall(ctx.viaKey, path);
-  assertNotFree(ctx.session);
+  assertNotFree(ctx.session, path);
   return next({ ctx });
 });
 export const reviewerProcedure = setup.reviewerProcedure.use(({ ctx, path, next }) => {
   refuseUnlistedKeyCall(ctx.viaKey, path);
-  assertNotFree(ctx.session);
+  assertNotFree(ctx.session, path);
   return next({ ctx });
 });
 
@@ -155,6 +159,15 @@ export const accountAdminProcedure = setup.adminProcedure.use(({ ctx, path, next
  * companyProcedure still gates reads and lets a draft user browse the seeded
  * journey.
  */
+/**
+ * A company procedure that signs off (AGB B7): refused to an account that has not ordered, and to
+ * one inside its money back that has not confirmed giving it up (`billing.waiveMoneyBack`).
+ */
+export const signOffProcedure = companyProcedure.use(async ({ ctx, next }) => {
+  await requireBillingAct(ctx, "sign_off");
+  return next({ ctx });
+});
+
 export const activatedCompanyProcedure = companyProcedure.use(async ({ ctx, next }) => {
   const c = await ctx.db.query.company.findFirst({
     where: eq(company.id, ctx.companyId),

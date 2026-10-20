@@ -523,4 +523,7 @@ export const NIS2_WALK: Walk = {
   notWalked: NOT_WALKED,
   locales: ["de", "en", "cs"],
   setupAfter: "12.2",
+  // Listing what the company has, so the account sees its own data collected before it orders
+  // (Simon, 20.10.2026: "make the paywall up until 'Write down what your company has'").
+  lastFreeStep: "2.2",
 };

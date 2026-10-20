@@ -19,6 +19,8 @@ import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { mayOrderFor } from "@/lib/billing/access";
+import { billingStateFor, waiveMoneyBack } from "@/lib/billing/account-facts";
+import { verdictFor } from "@/lib/billing/account-state";
 import {
   cancelAuditDescription,
   cancelOption,
@@ -194,6 +196,46 @@ export const billingRouter = router({
           : null,
     };
   }),
+
+  /**
+   * What the open company may do about exports and sign-offs (lib/billing/account-state.ts, AGB B7
+   * and B10), so a page can warn or point to the order before the server refuses.
+   */
+  acts: accountProcedure.query(async ({ ctx }) => {
+    const state = await billingStateFor(ctx.db, ctx.session);
+    return {
+      export: verdictFor(state, "export"),
+      signOff: verdictFor(state, "sign_off"),
+    };
+  }),
+
+  /**
+   * The yes to the warning before a first export or sign-off inside the money back: it ends the
+   * money back (AGB B7), recorded on the order with who said yes. Any member of the company may say
+   * it: a policy PDF is open to every member and a sign-off to whoever holds the requirement's
+   * role, so a narrower rule would leave someone who may act unable to confirm.
+   */
+  waiveMoneyBack: accountProcedure
+    .input(z.object({ through: z.enum(["export", "sign_off"]) }))
+    .mutation(async ({ ctx, input }) => {
+      const waived = await waiveMoneyBack(ctx.db, ctx.session, {
+        userId: ctx.userId,
+        through: input.through,
+      });
+      if (waived) {
+        await logAudit({
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          action: "billing.money_back_waived",
+          entityType: "company",
+          entityId: ctx.companyId,
+          description: `Money back given up with the first ${input.through === "export" ? "export" : "sign-off"}`,
+          ipAddress: ctx.ip,
+          userAgent: ctx.userAgent,
+        });
+      }
+      return { waived };
+    }),
 
   /**
    * Cancel, for the account holder only: a full credit note inside the thirty days, otherwise no

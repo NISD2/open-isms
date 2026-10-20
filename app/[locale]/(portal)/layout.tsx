@@ -13,7 +13,7 @@ import {
   ORDER_PATHS,
 } from "@/lib/billing/access";
 import { isConsentPath } from "@/lib/mcp/consent-path";
-import { WALK_HOME_PATHS } from "@/lib/walkthrough";
+import { WALK_FREE_PATHS, WALK_HOME_PATHS } from "@/lib/walkthrough";
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
@@ -27,9 +27,10 @@ export default async function PortalLayout({ children }: { children: React.React
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
   const mustOrder = session.accessLevel === "free";
-  // The walk's home opens to an unpaid account too, locked, with the way to order (Simon,
-  // 03.10.2026). Its items stay closed (the walk's own gate).
-  const walkHome = WALK_HOME_PATHS.includes(pathname);
+  // The walk's home opens to an unpaid account too, with the way to order (Simon, 03.10.2026), and
+  // so do its free steps (Simon, 20.10.2026). Every other item stays closed (the walk's own gate).
+  const walkHome =
+    WALK_HOME_PATHS.includes(pathname) || WALK_FREE_PATHS.includes(pathname);
   // An assistant's sign-in too: its page says the walkthrough is locked, with the way there, where
   // the offer would drop the assistant's request unexplained. Allowing stays refused server side.
   const consent = isConsentPath(pathname);
@@ -60,6 +61,7 @@ export default async function PortalLayout({ children }: { children: React.React
     "/billing",
     ...ORDER_PATHS,
     ...WALK_HOME_PATHS,
+    ...WALK_FREE_PATHS,
     ...(mustOrder ? EXAMPLE_PORTAL_PATHS : []),
   ];
   const needsCompany = !ALLOWED_WITHOUT_COMPANY.some(

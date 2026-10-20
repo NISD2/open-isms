@@ -64,9 +64,9 @@
         "label": "V průvodci"
       },
       "home": {
-        "unlock": "Objednat",
+        "unlock": "Vyzkoušet, 30 dní vrácení peněz",
         "toJourney": "Pokračovat ve své cestě jako dosud",
-        "price": "{price} ročně bez DPH. Do 30 dnů vrácení peněz.",
+        "price": "{price} ročně bez DPH. Do 30 dnů vrácení peněz, do prvního exportu nebo prvního schválení.",
         "setupSection": "Začínáme",
         "setupHeadline": "Nastavte svou společnost",
         "setupLead": "Název a odvětví jsou stejné jako v registraci u NÚKIB. Vše ostatní zadáte tam, kde to bude potřeba.",
@@ -109,6 +109,25 @@
             "limit": "Z vašeho účtu už dnes odešlo několik pozvánek. Zkuste to prosím zítra.",
             "failed": "To se nepodařilo. Zkuste to prosím znovu."
           }
+        }
+      },
+      "offer": {
+        "title": "Vyzkoušejte zbytek 30 dní.",
+        "lead": "To byl příklad s údaji vaší firmy. Pokud vám zbytek nebude vyhovovat, do 30 dnů vám vrátíme peníze, pokud jste ještě nic neexportovali ani neschválili.",
+        "steps": {
+          "title": "{count, plural, one {Ještě # krok.} few {Ještě # kroky.} other {Ještě # kroků.}}",
+          "text": "Jeden po druhém, jako dosud."
+        },
+        "documents": {
+          "title": "{count, plural, one {# dokument z vašich odpovědí.} few {# dokumenty z vašich odpovědí.} other {# dokumentů z vašich odpovědí.}}"
+        },
+        "kept": {
+          "title": "Vaše údaje zůstávají.",
+          "text": "Vše, co jste dosud zadali, pokračuje dál."
+        },
+        "signs": {
+          "title": "Na konci podepíše vedení.",
+          "text": "V aplikaci, na jednom místě."
         }
       }
     }

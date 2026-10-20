@@ -21,24 +21,25 @@ import {
 import { activityFactsSchema } from "@/schema/processing-activity-validators";
 import { appendNote, durchgangItem } from "../helpers/durchgang";
 import { itemCode as code } from "../helpers/durchgang-inputs";
-import {
-  actorOf,
-  durchgangProcedure,
-  durchgangWrite,
-  logWalk,
-  recheck,
-} from "../helpers/durchgang-procedures";
+import { actorOf, logWalk, recheck } from "../helpers/durchgang-procedures";
 import {
   askedOnScreen,
   NAMESPACES,
   recordLocaleOf,
   walkItem,
 } from "../helpers/durchgang-words";
-import { router, type TRPCContext } from "../init";
+import {
+  activatedCompanyProcedure,
+  companyProcedure,
+  router,
+  type TRPCContext,
+} from "../init";
+import { gateStep } from "./durchgang-access";
 
 /**
  * The GDPR walk's own writes: the record of processing activities (G-ROP.1) and what each supplier
  * is for the company's personal data (G-DPA.1, G-DPA.2). Like the NIS 2 walk's, each write checks
+ * that the account may walk the item (`gateStep`: G-ROP.1 is free, the rest needs the order),
  * that the item's own screens ask it, takes what writing the item takes, touches only the
  * company's own rows, and leaves a line in the item's trail.
  */
@@ -185,9 +186,11 @@ export const durchgangGdprRouter = router({
    * G-DPA.1 and G-DPA.2: the company's suppliers, each with what it stated about personal data in
    * its own questionnaire, so a screen can start from the supplier's answer where the company has
    * recorded nothing. Only the company's own rows; a supplier that stopped acting as one, or never
-   * answered, states nothing.
+   * answered, states nothing. G-ROP.1 reads them too, to tick an activity's suppliers, so the list
+   * is open wherever G-ROP.1 is.
    */
-  processorRows: durchgangProcedure.query(async ({ ctx }) => {
+  processorRows: companyProcedure.query(async ({ ctx }) => {
+    gateStep(ctx.session, "G-ROP.1");
     const rows = await ctx.db.query.supplier.findMany({
       where: eq(supplier.customerCompanyId, ctx.companyId),
       columns: PROCESSOR_COLUMNS,
@@ -214,7 +217,7 @@ export const durchgangGdprRouter = router({
    * catalogue item or by name, is skipped, so a second pass adds only what is new; nothing is
    * deleted here, the register page takes an activity off.
    */
-  addActivities: durchgangWrite
+  addActivities: activatedCompanyProcedure
     .input(
       z.object({
         code,
@@ -223,6 +226,7 @@ export const durchgangGdprRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
       askedOnScreen(input.code, "activities", "records no processing activities");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await recordLocale(ctx);
@@ -284,7 +288,7 @@ export const durchgangGdprRouter = router({
    * Only the company's own rows and suppliers, only what was sent, and only where it changed; an
    * omitted fact or supplier list keeps what is stored.
    */
-  describeActivities: durchgangWrite
+  describeActivities: activatedCompanyProcedure
     .input(
       z.object({
         code,
@@ -299,6 +303,7 @@ export const durchgangGdprRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
       askedOnScreen(input.code, "describe", "records no activity facts");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const rows = [...new Map(input.rows.map((r) => [r.id, r])).values()];
@@ -384,9 +389,10 @@ export const durchgangGdprRouter = router({
    * company's own rows are written, and only the GDPR items resting on the list are sent back to
    * management.
    */
-  recordProcessors: durchgangWrite
+  recordProcessors: activatedCompanyProcedure
     .input(processorsInput)
     .mutation(async ({ ctx, input }) => {
+      gateStep(ctx.session, input.code);
       const fact = input.rows[0]?.answer.fact;
       if (
         !fact ||

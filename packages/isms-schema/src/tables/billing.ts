@@ -28,6 +28,7 @@ import {
   accessLevelEnum,
   documentSeriesEnum,
   invoiceSourceEnum,
+  moneyBackWaivedThroughEnum,
   vatTreatmentEnum,
 } from "../enums";
 import { user } from "./organization";
@@ -107,6 +108,20 @@ export const invoice = pgTable(
     replacesInvoiceId: uuid("replaces_invoice_id")
       .unique()
       .references((): AnyPgColumn => invoice.id, { onDelete: "restrict" }),
+    /**
+     * When the customer gave up the thirty days money back of this order (AGB B7), how, and who
+     * confirmed it: the first export or sign-off after being asked. Our fact, not Qonto's, and
+     * written once, on the order's first invoice (the start of a reissued chain), which is where
+     * the thirty days are counted. Null while the money back stands or never existed.
+     */
+    moneyBackWaivedAt: timestamp("money_back_waived_at"),
+    moneyBackWaivedThrough: moneyBackWaivedThroughEnum("money_back_waived_through"),
+    moneyBackWaivedByUserId: uuid("money_back_waived_by_user_id").references(
+      () => user.id,
+      {
+        onDelete: "set null",
+      },
+    ),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [
@@ -120,6 +135,15 @@ export const invoice = pgTable(
     check(
       "invoice_terms_by_only_if_accepted",
       sql`${table.termsAcceptedByUserId} IS NULL OR ${table.termsAcceptedAt} IS NOT NULL`,
+    ),
+    // A waiver always says when and how; who is named only on a waiver, and may later be deleted.
+    check(
+      "invoice_waiver_time_with_through",
+      sql`(${table.moneyBackWaivedAt} IS NULL) = (${table.moneyBackWaivedThrough} IS NULL)`,
+    ),
+    check(
+      "invoice_waiver_by_only_if_waived",
+      sql`${table.moneyBackWaivedByUserId} IS NULL OR ${table.moneyBackWaivedAt} IS NOT NULL`,
     ),
     // The VAT facts cannot contradict each other: only German VAT carries tax, and no amount is
     // negative. The row is kept for eight years, so it has to be right when it is written.

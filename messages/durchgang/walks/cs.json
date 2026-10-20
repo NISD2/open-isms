@@ -7,29 +7,30 @@
         "approvalLead": "Tyto dokumenty vznikly v průvodci NIS 2 vaší společnosti. Každý si přečtěte a schvalte. Vaše schválení se zaznamená s vaším jménem a dnešním datem.",
         "approvalLeadOthers": "Tyto dokumenty vznikly v průvodci NIS 2 vaší společnosti. Vedení je zde schvaluje, přihlášené vlastním účtem.",
         "intro": {
-          "eyebrow": "NIS 2 pro střední firmy",
-          "title": "Jste na správném místě.",
-          "lead": "Máte se postarat o NIS 2 a nevíte, kde začít? Tak to má skoro každý. Projdeme to s vámi bod po bodu.",
+          "eyebrow": "NIS 2 průvodce",
+          "title": "NIS 2 krok za krokem.",
+          "lead": "Provedeme vás tím.",
           "points": [
             {
-              "title": "Jedno po druhém",
-              "text": "Vždy vidíte jen jeden bod. Než cokoli zadáte, vysvětlíme ho."
+              "title": "Jedno po druhém.",
+              "text": "Vidíte jeden bod, vysvětlený dřív, než cokoli zadáte."
             },
             {
-              "title": "Metody, které doporučujeme",
-              "text": "Kde existuje osvědčená metoda, ukážeme vám ji. Vy rozhodnete, zda ji převezmete."
+              "title": "Standardní metody převezmete vy.",
+              "text": "Kde existuje osvědčená metoda, ukážeme ji. Rozhodnete vy."
             },
             {
-              "title": "Nechat něco otevřené je v pořádku",
-              "text": "Co zatím nejde, odložíte a pokračujete dalším bodem."
+              "title": "Něco vázne? Nechte to otevřené.",
+              "text": "Odložte bod a pokračujte dalším."
             },
             {
-              "title": "Na konci schválení",
-              "text": "Vedení vše projde a schválí."
+              "title": "Na konci podepíše vedení.",
+              "text": "Vše projde na jednom místě."
             }
           ],
           "start": "Začněme"
-        }
+        },
+        "offerDocuments": "Bezpečnostní politika, plán pro incidenty a další, napsané z toho, co zadáte."
       }
     }
   }

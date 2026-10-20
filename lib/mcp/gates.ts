@@ -76,7 +76,7 @@ export async function itemOf(holder: KeyHolder, code: string) {
 /**
  * What an assistant is told when the walkthrough is not unlocked for the account yet, as Settings
  * says it (`settings.mcp.locked`). The link is the walkthrough's own page, which shows each
- * account its next step (`walkLockFor`): the offer, the order page, or only the journey where
+ * account its next step (`walkLockFor`): the offer, the order page, or the pricing page where
  * nothing can be ordered.
  */
 const NOT_IN_PLAN: Record<WalkLocale, (link: string) => string> = {
