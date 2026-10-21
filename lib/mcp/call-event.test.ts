@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { callEvent, MCP_READ, MCP_REFUSED } from "./events";
+import { callEvent, MCP_READ, MCP_REFUSED } from "./call-event";
 
 describe("the event an assistant's call adds to the company's log", () => {
   test("a read logs a read, naming the tool", () => {
