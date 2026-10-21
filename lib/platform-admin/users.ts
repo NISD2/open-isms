@@ -208,6 +208,29 @@ const filterOf = (subject: AuditSubject, f: AuditFilter) =>
   );
 
 /**
+ * When a person did something in the app since `since`, newest first, as the instants the
+ * database holds. Operators reading the platform (entity type `platformAdmin`) and what an
+ * assistant did with the person's key are not them at their desk, so both are left out. It feeds
+ * "Good time to message or call" (./best-time); sign-ins are not in the audit log.
+ */
+export function activityTimes(db: DbOrTx, userId: string, since: Date, limit = 5000) {
+  return db
+    .select({
+      at: sql<string>`to_char(${auditLog.createdAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"')`,
+    })
+    .from(auditLog)
+    .where(
+      and(
+        filterOf({ kind: "user", id: userId }, { via: "app" }),
+        ne(auditLog.entityType, "platformAdmin"),
+        gte(auditLog.createdAt, sql`${since.toISOString()}::timestamp`),
+      ),
+    )
+    .orderBy(desc(auditLog.createdAt))
+    .limit(limit);
+}
+
+/**
  * Who or what each id is, for the ids that name a person or a company; ids that name neither are
  * left out. Two reads for the whole page, not one per row.
  */

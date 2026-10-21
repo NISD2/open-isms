@@ -8,9 +8,42 @@ import { describe, expect, test } from "bun:test";
 import { drizzle } from "drizzle-orm/node-postgres";
 import type { DbOrTx } from "@/lib/db";
 import * as schema from "@/schema";
-import { activeUsers } from "./users";
+import { activeUsers, activityTimes } from "./users";
 
 const SINCE = new Date("2026-10-01T00:00:00.000Z");
+
+describe("activityTimes", () => {
+  const db = drizzle.mock({ schema }) as unknown as DbOrTx;
+  const query = activityTimes(
+    db,
+    "22222222-2222-4222-8222-222222222222",
+    SINCE,
+    7,
+  ) as unknown as {
+    toSQL: () => { sql: string; params: unknown[] };
+  };
+  const { sql, params } = query.toSQL();
+
+  test("reads only that person's own rows since the day asked for", () => {
+    expect(sql).toContain(`"audit_log"."user_id" = $`);
+    expect(params).toContain("22222222-2222-4222-8222-222222222222");
+    expect(sql).toContain(`"audit_log"."created_at" >= `);
+    expect(params).toContain(SINCE.toISOString());
+  });
+
+  test("an operator reading the platform and an assistant's work are not them at their desk", () => {
+    expect(sql).toContain(`"audit_log"."entity_type" <> $`);
+    expect(params).toContain("platformAdmin");
+    expect(sql).toContain(`"audit_log"."user_agent" is null`);
+    expect(sql).toContain(`not "audit_log"."user_agent" like $`);
+  });
+
+  test("hands over instants with an explicit UTC marker, newest first, and no more than the limit", () => {
+    expect(sql).toContain(`to_char("created_at", 'YYYY-MM-DD"T"HH24:MI:SS"Z"')`);
+    expect(sql).toContain(`order by "audit_log"."created_at" desc`);
+    expect(sql).toContain("limit $");
+  });
+});
 
 function queryOf(since: Date) {
   const db = drizzle.mock({ schema }) as unknown as DbOrTx;

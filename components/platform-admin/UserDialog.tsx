@@ -6,13 +6,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { segments } from "@/lib/platform-admin/named-ids";
 import type { auditLogFor } from "@/lib/platform-admin/users";
 import { trpc } from "@/lib/trpc/client";
+import { CompanyName } from "./CompanyDialog";
+import { ReachLine } from "./ReachLine";
 
 const at = new Intl.DateTimeFormat("de-DE", {
   timeZone: "Europe/Berlin",
   dateStyle: "medium",
   timeStyle: "short",
 });
-const when = (date: Date | string | null) => (date ? at.format(new Date(date)) : "—");
+export const when = (date: Date | string | null) =>
+  date ? at.format(new Date(date)) : "—";
 
 /**
  * A person's name anywhere on the platform admin page: a click opens everything about them in a
@@ -138,7 +141,13 @@ function ActivityRow({ entry }: { entry: Activity }) {
         <td className="py-1.5 pr-4 font-mono text-xs text-muted-foreground">
           {entry.action}
         </td>
-        <td className="py-1.5 text-muted-foreground">{entry.companyName ?? "—"}</td>
+        <td className="py-1.5 text-muted-foreground">
+          {entry.companyId && entry.companyName ? (
+            <CompanyName id={entry.companyId}>{entry.companyName}</CompanyName>
+          ) : (
+            (entry.companyName ?? "—")
+          )}
+        </td>
       </tr>
       {open && (
         <tr id={panelId} className="border-b border-border/50">
@@ -161,6 +170,32 @@ function ActivityRow({ entry }: { entry: Activity }) {
         </tr>
       )}
     </>
+  );
+}
+
+/** An audit log as a table, newest first; a person's dialog and a company's modal share it. */
+export function ActivityTable({ rows }: { rows: readonly Activity[] }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b text-left text-muted-foreground">
+            <th className="pb-2">
+              <span className="sr-only">Show stored data</span>
+            </th>
+            <th className="pb-2 pr-4 font-medium">When (Berlin)</th>
+            <th className="pb-2 pr-4 font-medium">What</th>
+            <th className="pb-2 pr-4 font-medium">Action</th>
+            <th className="pb-2 font-medium">Company</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((a) => (
+            <ActivityRow key={a.id} entry={a} />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -193,6 +228,7 @@ function UserDialog({ id, onClose }: { id: string; onClose: () => void }) {
           <div className="space-y-6 text-sm">
             {data && (
               <>
+                <ReachLine id={id} />
                 <dl className="grid gap-x-6 gap-y-2 sm:grid-cols-[10rem_1fr]">
                   <dt className="text-muted-foreground">Email</dt>
                   <dd>{data.person.email}</dd>
@@ -222,7 +258,7 @@ function UserDialog({ id, onClose }: { id: string; onClose: () => void }) {
                     <ul className="space-y-1">
                       {data.memberships.map((m) => (
                         <li key={m.companyId}>
-                          {m.companyName}{" "}
+                          <CompanyName id={m.companyId}>{m.companyName}</CompanyName>{" "}
                           <span className="text-muted-foreground">
                             · {m.role}
                             {m.jobTitle ? ` · ${m.jobTitle}` : ""} · since {when(m.since)}
@@ -284,26 +320,7 @@ function UserDialog({ id, onClose }: { id: string; onClose: () => void }) {
                     : "Nothing in the activity log."}
                 </p>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b text-left text-muted-foreground">
-                        <th className="pb-2">
-                          <span className="sr-only">Show stored data</span>
-                        </th>
-                        <th className="pb-2 pr-4 font-medium">When (Berlin)</th>
-                        <th className="pb-2 pr-4 font-medium">What</th>
-                        <th className="pb-2 pr-4 font-medium">Action</th>
-                        <th className="pb-2 font-medium">Company</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.activity.map((a) => (
-                        <ActivityRow key={a.id} entry={a} />
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <ActivityTable rows={data.activity} />
               )}
             </section>
           </div>

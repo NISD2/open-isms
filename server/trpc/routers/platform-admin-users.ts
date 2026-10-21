@@ -7,13 +7,16 @@ import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { readRequest } from "@/lib/mcp/oauth";
 import { DEFAULT_ACTIVE_DAYS, MAX_ACTIVE_DAYS } from "@/lib/platform-admin/active-window";
+import { bestTimeToReach, REACH_DAYS } from "@/lib/platform-admin/best-time";
 import {
   activeUsers,
+  activityTimes,
   auditLogFor,
   personWithCompanies,
 } from "@/lib/platform-admin/users";
 import { testResource } from "@/lib/test-mcp/address";
 import { recordConnect } from "@/lib/test-mcp/audit";
+import { companyOverview } from "@/lib/test-mcp/company";
 import { testInstanceKey } from "@/lib/test-mcp/context";
 import { DAYS_IN_ORDER, daysInOrder } from "@/lib/test-mcp/inputs";
 import { mintTestKey, TEST_KEY_SECONDS } from "@/lib/test-mcp/key";
@@ -25,6 +28,9 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 
 /** The newest entries a person's page shows; their whole history can run to thousands. */
 export const ACTIVITY_LIMIT = 500;
+
+/** The newest entries a company's page shows. */
+export const COMPANY_ACTIVITY_LIMIT = 200;
 
 /**
  * Who used the platform lately, for the platform admin's "Active users" tab. Kept apart from
@@ -70,6 +76,49 @@ export const platformAdminUsersRouter = router({
         auditLogFor(ctx.db, { kind: "user", id }, { fromDay, toDay }, ACTIVITY_LIMIT),
       ]);
       return found ? { ...found, activity: log.rows } : null;
+    }),
+
+  /**
+   * When this person is likely at their desk, for "Good time to message or call" at the top of the
+   * user dialog: read from the past `REACH_DAYS` days of what they did in the app and their last
+   * sign-in, in Berlin time (lib/platform-admin/best-time). Apart from `detail`, so the days the
+   * admin picks for the log do not change it.
+   */
+  reach: platformAdminProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      const [rows, person] = await Promise.all([
+        activityTimes(ctx.db, input.id, new Date(Date.now() - REACH_DAYS * DAY_MS)),
+        ctx.db.query.user.findFirst({
+          where: eq(user.id, input.id),
+          columns: { lastLoginAt: true },
+        }),
+      ]);
+      const times = rows.map((r) => new Date(r.at));
+      return bestTimeToReach(
+        person?.lastLoginAt ? [...times, person.lastLoginAt] : times,
+      );
+    }),
+
+  /**
+   * One company, for the modal opened from a person's company: its profile and plan, how far the
+   * walkthrough is, every member with their courses and work, and what the company did, newest
+   * first. The overview is the one the test endpoint reads (lib/test-mcp/company). Null for an id
+   * that names no company.
+   */
+  company: platformAdminProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      const [overview, log] = await Promise.all([
+        companyOverview(ctx.db, input.id),
+        auditLogFor(
+          ctx.db,
+          { kind: "company", id: input.id },
+          {},
+          COMPANY_ACTIVITY_LIMIT,
+        ),
+      ]);
+      return overview ? { ...overview, activity: log.rows } : null;
     }),
 
   /**
