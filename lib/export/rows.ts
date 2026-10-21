@@ -73,7 +73,6 @@ export const REGISTERS: ReadonlyArray<{
   { record: "improvement", rows: (d) => d.improvements },
   { record: "internalAudit", rows: (d) => d.internalAudits },
   { record: "kpi", rows: (d) => d.kpis },
-  { record: "processingActivity", rows: (d) => d.processingActivities },
 ];
 
 /**

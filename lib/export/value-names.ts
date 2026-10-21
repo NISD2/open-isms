@@ -51,7 +51,6 @@ const FIELD_SOURCES = {
   improvement: ["improvements", ["improvements", "fields"]],
   internalAudit: ["internal-audits", ["internalAudits", "fields"]],
   kpi: ["kpis", ["kpis", "fields"]],
-  processingActivity: ["processingActivities", ["processingActivities", "fields"]],
 } as const satisfies Record<
   Exclude<ExportRecord, "company">,
   readonly [string, readonly string[]]
@@ -83,9 +82,6 @@ const REGISTER_VALUE_SOURCES = {
   },
   internalAudit: { status: ["internal-audits", ["internalAudits", "status"]] },
   kpi: { status: ["kpis", ["kpis", "status"]] },
-  processingActivity: {
-    legalBases: ["processingActivities", ["processingActivities", "bases"]],
-  },
 } as const satisfies Partial<
   Record<
     Exclude<ExportRecord, "company">,
@@ -265,7 +261,6 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     improvement,
     internalAudit,
     kpi,
-    processingActivity,
     registerValues,
     answers,
     managementTraining,
@@ -293,7 +288,6 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     named(FIELD_SOURCES.improvement),
     named(FIELD_SOURCES.internalAudit),
     named(FIELD_SOURCES.kpi),
-    named(FIELD_SOURCES.processingActivity),
     registerValuesIn(named),
     answerNames(locale),
     managementTrainingTitle(locale),
@@ -325,7 +319,6 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
       improvement,
       internalAudit,
       kpi,
-      processingActivity,
     },
     registerValues,
     answers,

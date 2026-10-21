@@ -25,7 +25,6 @@ const KPI = "E2E MCP Patchquote";
 /** More than a page, so the second page has rows. */
 const KPI_ROWS = 51;
 const TOKEN = randomBytes(32).toString("hex");
-const ACTIVITY = "E2E MCP Lohnabrechnung";
 
 type Page = {
   readonly rows: ReadonlyArray<Record<string, unknown>>;
@@ -71,28 +70,7 @@ async function seed(tenant: Tenant): Promise<Undo> {
      VALUES ($1, $2, $3)`,
     [tenant.company_id, SUPPLIER, TOKEN],
   );
-  // A processing activity that goes through that supplier, linked as the app links it.
-  await e2eQuery(
-    `WITH activity AS (
-       INSERT INTO processing_activity (company_id, name, purpose)
-       VALUES ($1, $2, 'Lohnabrechnung') RETURNING id
-     )
-     INSERT INTO processing_activity_supplier (activity_id, supplier_id)
-     SELECT activity.id, s.id FROM activity, supplier s
-      WHERE s.customer_company_id = $1 AND s.name = $3`,
-    [tenant.company_id, ACTIVITY, SUPPLIER],
-  );
   return async () => {
-    // The link first: it points at both the activity and the supplier.
-    await e2eQuery(
-      `DELETE FROM processing_activity_supplier l USING processing_activity a
-        WHERE l.activity_id = a.id AND a.company_id = $1 AND a.name = $2`,
-      [tenant.company_id, ACTIVITY],
-    );
-    await e2eQuery(
-      `DELETE FROM processing_activity WHERE company_id = $1 AND name = $2`,
-      [tenant.company_id, ACTIVITY],
-    );
     await e2eQuery(`DELETE FROM vulnerability WHERE company_id = $1 AND title = $2`, [
       tenant.company_id,
       VULNERABILITY,
@@ -193,13 +171,6 @@ test.describe("an AI assistant reads the company's records over MCP", () => {
     expect(suppliers.map((s) => s.name)).toContain(SUPPLIER);
     expect(JSON.stringify(suppliers)).not.toContain(TOKEN);
     expect(JSON.stringify(suppliers)).not.toContain("unsubscribeToken");
-
-    // A processing activity names the suppliers it goes through (Art. 30(1)(d), (e)).
-    const activities = await allPages(request, key, "processingActivities");
-    expect(activities.find((a) => a.name === ACTIVITY)).toMatchObject({
-      purpose: "Lohnabrechnung",
-      providers: [SUPPLIER],
-    });
   });
 
   test("a register longer than a page reads a page at a time, none repeated or skipped", async ({

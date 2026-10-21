@@ -156,7 +156,6 @@ const FIXTURE: CompanyExport = {
   improvements: [],
   internalAudits: [],
   kpis: [],
-  processingActivities: [],
 };
 
 const registers = (locale: PdfLocale) =>
@@ -179,7 +178,6 @@ describe("the export names fields the way the app's forms do", () => {
     "improvement",
     "internalAudit",
     "kpi",
-    "processingActivity",
   ];
   for (const locale of PDF_LOCALES) {
     test(`every exported register field has its form's label (${locale})`, () => {

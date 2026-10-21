@@ -18,8 +18,6 @@ import {
   kpiMeasurement,
   managementReview,
   patchRecord,
-  processingActivity,
-  processingActivitySupplier,
   requirement,
   requirementCategory,
   risk,
@@ -204,19 +202,6 @@ export const EXPORT_FIELDS = {
     "auditorName",
   ],
   kpi: ["kpiName", "measuredAt", "value", "target", "unit", "status", "notes"],
-  processingActivity: [
-    "name",
-    "purpose",
-    "legalBases",
-    "legitimateInterests",
-    "dataSubjects",
-    "dataCategories",
-    "specialCategories",
-    "recipients",
-    "transfersOutsideEea",
-    "transferDetails",
-    "retention",
-  ],
 } as const satisfies {
   readonly company: readonly (keyof Row<typeof company>)[];
   readonly asset: readonly (keyof Row<typeof asset>)[];
@@ -232,7 +217,6 @@ export const EXPORT_FIELDS = {
   readonly improvement: readonly (keyof Row<typeof improvementItem>)[];
   readonly internalAudit: readonly (keyof Row<typeof internalAudit>)[];
   readonly kpi: readonly (keyof Row<typeof kpiMeasurement>)[];
-  readonly processingActivity: readonly (keyof Row<typeof processingActivity>)[];
 };
 
 export type ExportRecord = keyof typeof EXPORT_FIELDS;
@@ -348,50 +332,6 @@ async function loadAssets(db: DbOrTx, companyId: string, window: PageWindow) {
   }));
 }
 
-/**
- * The record of processing activities, each with the suppliers it goes through: Art. 30(1)(d) and
- * (e) ask for them, and an activity's own `recipients` leaves them out, as the app links them
- * (`processingActivitySupplier`). Only links to the company's own suppliers are read.
- */
-async function loadProcessingActivities(
-  db: DbOrTx,
-  companyId: string,
-  window: PageWindow,
-) {
-  const activities = await db.query.processingActivity.findMany({
-    where: eq(processingActivity.companyId, companyId),
-    columns: { id: true, ...columnsOf(EXPORT_FIELDS.processingActivity) },
-    orderBy: [asc(processingActivity.name), asc(processingActivity.id)],
-    ...paged(window),
-  });
-  const links =
-    activities.length === 0
-      ? []
-      : await db
-          .select({
-            activityId: processingActivitySupplier.activityId,
-            name: supplier.name,
-          })
-          .from(processingActivitySupplier)
-          .innerJoin(supplier, eq(supplier.id, processingActivitySupplier.supplierId))
-          .where(
-            and(
-              eq(supplier.customerCompanyId, companyId),
-              inArray(
-                processingActivitySupplier.activityId,
-                activities.map((a) => a.id),
-              ),
-            ),
-          );
-  return activities.map(({ id, ...a }) => ({
-    ...a,
-    providers: links
-      .filter((l) => l.activityId === id)
-      .map((l) => l.name)
-      .toSorted(),
-  }));
-}
-
 /** The parts of the export, in the order the file holds them. */
 export const EXPORT_PART_NAMES = [
   "company",
@@ -411,7 +351,6 @@ export const EXPORT_PART_NAMES = [
   "improvements",
   "internalAudits",
   "kpis",
-  "processingActivities",
 ] as const;
 
 type PartLoader = (db: DbOrTx, companyId: string, window: PageWindow) => Promise<unknown>;
@@ -516,7 +455,6 @@ export const EXPORT_PARTS = {
       orderBy: [asc(kpiMeasurement.measuredAt), asc(kpiMeasurement.id)],
       ...paged(window),
     }),
-  processingActivities: loadProcessingActivities,
 } as const satisfies Record<(typeof EXPORT_PART_NAMES)[number], PartLoader>;
 
 export type ExportPart = keyof typeof EXPORT_PARTS;
@@ -552,7 +490,6 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
     improvements,
     internalAudits,
     kpis,
-    processingActivities,
   ] = await Promise.all([
     p.company(db, companyId, null),
     p.requirements(db, companyId, null),
@@ -571,7 +508,6 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
     p.improvements(db, companyId, null),
     p.internalAudits(db, companyId, null),
     p.kpis(db, companyId, null),
-    p.processingActivities(db, companyId, null),
   ]);
   return {
     exportedAt: new Date(),
@@ -592,7 +528,6 @@ export async function loadCompanyExport(db: DbOrTx, companyId: string) {
     improvements,
     internalAudits,
     kpis,
-    processingActivities,
   };
 }
 

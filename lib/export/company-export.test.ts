@@ -160,7 +160,6 @@ function companyColumnTable(table: string): string {
     improvementItem: "improvement_item",
     internalAudit: "internal_audit",
     kpiMeasurement: "kpi_measurement",
-    processingActivity: "processing_activity",
   };
   const name = names[table];
   if (!name) throw new Error(`no SQL name for ${table}`);
@@ -189,50 +188,6 @@ describe("the assets, with who provides them", () => {
   test("no assets, no second read", async () => {
     const { db, joins } = fakeDb([]);
     expect(await EXPORT_PARTS.assets(db, COMPANY, null)).toEqual([]);
-    expect(joins()).toHaveLength(0);
-  });
-});
-
-describe("the record of processing activities, with the suppliers each goes through", () => {
-  test("reads the company's activities, then only its own suppliers' links, and drops the id", async () => {
-    const activity = { id: "activity-1", name: "Lohnabrechnung", purpose: "Gehälter" };
-    const { db, reads, joins } = fakeDb(
-      [activity],
-      [
-        { activityId: "activity-1", name: "Steuerbüro" },
-        { activityId: "activity-1", name: "DATEV" },
-        { activityId: "activity-2", name: "Not this one" },
-      ],
-    );
-    const rows = await EXPORT_PARTS.processingActivities(db, COMPANY, {
-      offset: 50,
-      limit: 51,
-    });
-
-    const read = reads[0] ?? failed();
-    expect(read.table).toBe("processingActivity");
-    const where = rendered(read.config.where);
-    expect(where.sql).toBe(`"processing_activity"."company_id" = $1`);
-    expect(where.params).toEqual([COMPANY]);
-    expect(Object.keys(read.config.columns).toSorted()).toEqual(
-      ["id", ...EXPORT_FIELDS.processingActivity].toSorted(),
-    );
-    expect([read.config.limit, read.config.offset]).toEqual([51, 50]);
-    expect(rendered(read.config.orderBy?.at(-1) ?? failed()).sql).toMatch(/"id" asc$/);
-
-    const links = rendered(joins()[0] ?? failed());
-    expect(links.sql).toContain(`"supplier"."customer_company_id" = $1`);
-    expect(links.params).toEqual([COMPANY, "activity-1"]);
-
-    // Only this activity's suppliers, in a fixed order, and never its id.
-    expect(rows).toEqual([
-      { name: "Lohnabrechnung", purpose: "Gehälter", providers: ["DATEV", "Steuerbüro"] },
-    ]);
-  });
-
-  test("no activities, no second read", async () => {
-    const { db, joins } = fakeDb([]);
-    expect(await EXPORT_PARTS.processingActivities(db, COMPANY, null)).toEqual([]);
     expect(joins()).toHaveLength(0);
   });
 });

@@ -24,7 +24,7 @@ export const READ_PART_FIELDS = {
   part: z
     .enum(EXPORT_PART_NAMES)
     .describe(
-      "Which part of the company's records: company (master data), requirements (each NIS 2 requirement's status and sign-off), answers (what was typed per category), documents (the policies the walkthrough wrote, one per page), or a register: assets, suppliers, risks, trainings, managementReviews, incidents, vulnerabilities, patches, changes, exercises, improvements, internalAudits, kpis, processingActivities.",
+      "Which part of the company's records: company (master data), requirements (each NIS 2 requirement's status and sign-off), answers (what was typed per category), documents (the policies the walkthrough wrote, one per page), or a register: assets, suppliers, risks, trainings, managementReviews, incidents, vulnerabilities, patches, changes, exercises, improvements, internalAudits, kpis.",
     ),
   page: z
     .number()
