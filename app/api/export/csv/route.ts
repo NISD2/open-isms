@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import type { NextRequest } from "next/server";
 import { toCsv } from "@/lib/csv";
 import { db } from "@/lib/db";
-import { attachment, exportAccess } from "@/lib/export/access";
+import { attachment, exportAccess, logDownload } from "@/lib/export/access";
 import { loadReportData, type ReportRequirement } from "@/lib/pdf/load-report-data";
 import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
@@ -73,6 +73,7 @@ export async function GET(request: NextRequest) {
   // UTF-8 BOM for Excel compatibility with German umlauts
   const BOM = "\uFEFF";
   const csv = BOM + toCsv([headers, ...rows]);
+  await logDownload(request, access);
   return new Response(csv, {
     headers: attachment("text/csv; charset=utf-8", "compliance-export", "csv"),
   });

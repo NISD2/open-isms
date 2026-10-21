@@ -191,6 +191,31 @@ describe("the export names fields the way the app's forms do", () => {
       expect(unlabelled).toEqual([]);
     });
   }
+
+  // A message file that lacks a register's names parses as none (value-names.ts `NAMES`), and the
+  // file then prints raw codes, so each language is held against English, which names them all.
+  for (const locale of PDF_LOCALES) {
+    test(`every register names the same coded values as English (${locale})`, () => {
+      const unnamed = Object.entries(NAMES.en.registerValues).flatMap(
+        ([register, fields]) =>
+          Object.entries(fields ?? {}).flatMap(([field, names]) => {
+            const own = NAMES[locale].registerValues[register as Register]?.[field] ?? {};
+            return Object.keys(names)
+              .filter((code) => !Object.hasOwn(own, code))
+              .map((code) => `${register}.${field}.${code}`);
+          }),
+      );
+      expect(unnamed).toEqual([]);
+    });
+  }
+
+  test("English names every register's coded values at all", () => {
+    for (const fields of Object.values(NAMES.en.registerValues)) {
+      for (const names of Object.values(fields ?? {})) {
+        expect(Object.keys(names).length).toBeGreaterThan(0);
+      }
+    }
+  });
 });
 
 describe("the registers PDF", () => {

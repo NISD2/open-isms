@@ -2,7 +2,7 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import { eq } from "drizzle-orm";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
-import { attachment, exportAccess } from "@/lib/export/access";
+import { attachment, exportAccess, logDownload } from "@/lib/export/access";
 import { ComplianceReport } from "@/lib/pdf/compliance-report";
 import { pdfLocale } from "@/lib/pdf/format";
 import { loadReportData } from "@/lib/pdf/load-report-data";
@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
 
   const data = await loadReportData(assessmentId, locale);
   const buffer = await renderToBuffer(ComplianceReport({ data, locale }));
+  await logDownload(request, access);
   return new Response(new Uint8Array(buffer), {
     headers: attachment("application/pdf", "compliance-report", "pdf"),
   });

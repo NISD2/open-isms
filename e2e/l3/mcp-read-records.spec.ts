@@ -7,15 +7,8 @@
 import { createHash, randomBytes } from "node:crypto";
 import { type APIRequestContext, expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import {
-  e2eTenant,
-  e2eUserId,
-  payFor,
-  type Tenant,
-  type Undo,
-  undoAll,
-} from "../lib/durchgang";
-import { E2E_USER_EMAIL } from "../lib/env";
+import { e2eTenant, payFor, type Tenant, type Undo, undoAll } from "../lib/durchgang";
+import { E2E_MANAGER_EMAIL, E2E_STORAGE_STATE_MANAGER, E2E_USER_EMAIL } from "../lib/env";
 import {
   allowAssistants,
   callTool,
@@ -32,6 +25,7 @@ const KPI = "E2E MCP Patchquote";
 /** More than a page, so the second page has rows. */
 const KPI_ROWS = 51;
 const TOKEN = randomBytes(32).toString("hex");
+const ACTIVITY = "E2E MCP Lohnabrechnung";
 
 type Page = {
   readonly rows: ReadonlyArray<Record<string, unknown>>;
@@ -77,7 +71,28 @@ async function seed(tenant: Tenant): Promise<Undo> {
      VALUES ($1, $2, $3)`,
     [tenant.company_id, SUPPLIER, TOKEN],
   );
+  // A processing activity that goes through that supplier, linked as the app links it.
+  await e2eQuery(
+    `WITH activity AS (
+       INSERT INTO processing_activity (company_id, name, purpose)
+       VALUES ($1, $2, 'Lohnabrechnung') RETURNING id
+     )
+     INSERT INTO processing_activity_supplier (activity_id, supplier_id)
+     SELECT activity.id, s.id FROM activity, supplier s
+      WHERE s.customer_company_id = $1 AND s.name = $3`,
+    [tenant.company_id, ACTIVITY, SUPPLIER],
+  );
   return async () => {
+    // The link first: it points at both the activity and the supplier.
+    await e2eQuery(
+      `DELETE FROM processing_activity_supplier l USING processing_activity a
+        WHERE l.activity_id = a.id AND a.company_id = $1 AND a.name = $2`,
+      [tenant.company_id, ACTIVITY],
+    );
+    await e2eQuery(
+      `DELETE FROM processing_activity WHERE company_id = $1 AND name = $2`,
+      [tenant.company_id, ACTIVITY],
+    );
     await e2eQuery(`DELETE FROM vulnerability WHERE company_id = $1 AND title = $2`, [
       tenant.company_id,
       VULNERABILITY,
@@ -98,9 +113,13 @@ async function seed(tenant: Tenant): Promise<Undo> {
  * kind (lib/export/access.ts `logTakenOut`), counted under this hashed key (lib/rate-limit-rules.ts
  * `windowKey`), so a second run within the hour would otherwise find the window taken.
  */
-async function freshDownloadWindow(): Promise<void> {
-  const userId = await e2eUserId();
-  const key = createHash("sha256").update(`export-log:data:${userId}`).digest("hex");
+async function freshDownloadWindow(email: string): Promise<void> {
+  const [person] = await e2eQuery<{ id: string }>(
+    `SELECT id FROM "user" WHERE email = $1`,
+    [email],
+  );
+  if (!person) throw new Error(`no user ${email}`);
+  const key = createHash("sha256").update(`export-log:data:${person.id}`).digest("hex");
   await e2eQuery(`DELETE FROM rate_limit_window WHERE key = $1`, [key]);
 }
 
@@ -174,6 +193,13 @@ test.describe("an AI assistant reads the company's records over MCP", () => {
     expect(suppliers.map((s) => s.name)).toContain(SUPPLIER);
     expect(JSON.stringify(suppliers)).not.toContain(TOKEN);
     expect(JSON.stringify(suppliers)).not.toContain("unsubscribeToken");
+
+    // A processing activity names the suppliers it goes through (Art. 30(1)(d), (e)).
+    const activities = await allPages(request, key, "processingActivities");
+    expect(activities.find((a) => a.name === ACTIVITY)).toMatchObject({
+      purpose: "Lohnabrechnung",
+      providers: [SUPPLIER],
+    });
   });
 
   test("a register longer than a page reads a page at a time, none repeated or skipped", async ({
@@ -222,13 +248,23 @@ test.describe("an AI assistant reads the company's records over MCP", () => {
   });
 
   test("the export file holds what the pages hold, and the download is logged", async ({
+    browser,
     page,
     request,
   }) => {
-    await freshDownloadWindow();
-    const download = await page.request.get("/api/export/data");
+    // Downloaded by management, who may export too: a download is logged once an hour per person,
+    // and the export spec has the admin download the same file earlier in the run, which the
+    // server remembers in memory as well as in the table.
+    await freshDownloadWindow(E2E_MANAGER_EMAIL);
+    // The database's own clock, as the log row's time is, so the row found is this download's.
+    const [clock] = await e2eQuery<{ start: string }>(
+      `SELECT now()::timestamp::text AS start`,
+    );
+    const manager = await browser.newContext({ storageState: E2E_STORAGE_STATE_MANAGER });
+    const download = await manager.request.get("/api/export/data");
     expect(download.status()).toBe(200);
     const file = (await download.json()) as Record<string, unknown>;
+    await manager.close();
     for (const part of ["vulnerabilities", "kpis", "suppliers"]) {
       expect(
         JSON.parse(JSON.stringify(await allPages(request, key, part))),
@@ -237,13 +273,26 @@ test.describe("an AI assistant reads the company's records over MCP", () => {
     }
     expect(JSON.stringify(file)).not.toContain(TOKEN);
 
-    const [row] = await e2eQuery<{ via: string; description: string }>(
-      `SELECT via, description FROM audit_log
-        WHERE company_id = $1 AND action = 'export.downloaded'
-        ORDER BY created_at DESC LIMIT 1`,
-      [tenant.company_id],
+    const rows = await e2eQuery<{ via: string; description: string; has_agent: boolean }>(
+      `SELECT a.via, a.description, a.user_agent IS NOT NULL AS has_agent
+         FROM audit_log a JOIN "user" u ON u.id = a.user_id
+        WHERE a.company_id = $1 AND a.action = 'export.downloaded'
+          AND a.created_at >= $2::timestamp AND u.email = $3`,
+      [tenant.company_id, clock?.start, E2E_MANAGER_EMAIL],
     );
-    expect(row).toEqual({ via: "app", description: "data" });
+    expect(rows).toEqual([{ via: "app", description: "data", has_agent: true }]);
+
+    // A request the route refuses after the access check leaves no row: the CSV without its
+    // assessment is a 400, and logs nothing.
+    const refused = await page.request.get("/api/export/csv");
+    expect(refused.status()).toBe(400);
+    const csvRows = await e2eQuery<{ n: string }>(
+      `SELECT count(*) AS n FROM audit_log
+        WHERE company_id = $1 AND action = 'export.downloaded' AND description = 'csv'
+          AND created_at >= $2::timestamp`,
+      [tenant.company_id, clock?.start],
+    );
+    expect(csvRows).toEqual([{ n: "0" }]);
   });
 
   test("this run's many reads left one row in the log, marked MCP", async () => {

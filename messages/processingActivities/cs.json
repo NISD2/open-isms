@@ -31,6 +31,14 @@
       "transfersOutsideEea": "Zda údaje směřují do země mimo EHP nebo mezinárodní organizaci (čl. 30 odst. 1 písm. e)).",
       "transferDetails": "Třetí země a základ předání, například rozhodnutí o odpovídající ochraně nebo standardní smluvní doložky (čl. 30 odst. 1 písm. e)).",
       "retention": "Kdy budou údaje vymazány, pokud možno s lhůtou a jejím důvodem (čl. 30 odst. 1 písm. f))."
+    },
+    "bases": {
+      "consent": "Souhlas (a)",
+      "contract": "Plnění smlouvy (b)",
+      "legal_obligation": "Právní povinnost (c)",
+      "vital_interests": "Životně důležité zájmy (d)",
+      "public_task": "Úkol ve veřejném zájmu (e)",
+      "legitimate_interests": "Oprávněné zájmy (f)"
     }
   }
 }

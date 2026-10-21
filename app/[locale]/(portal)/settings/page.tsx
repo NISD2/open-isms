@@ -6,7 +6,7 @@ import { McpKeySettings } from "@/components/settings/McpKeySettings";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
-import { mayExport } from "@/lib/export/access";
+import { mayExport } from "@/lib/export/may-export";
 import { MCP_DOCS_PATH } from "@/lib/mcp/config";
 import { api } from "@/lib/trpc/server";
 

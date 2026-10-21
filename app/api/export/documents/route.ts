@@ -1,7 +1,7 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
-import { attachment, exportAccess } from "@/lib/export/access";
+import { attachment, exportAccess, logDownload } from "@/lib/export/access";
 import { loadCompanyExport } from "@/lib/export/company-export";
 import { exportNames } from "@/lib/export/value-names";
 import { DocumentsDocument } from "@/lib/pdf/company-export";
@@ -21,6 +21,7 @@ export async function GET(request: NextRequest) {
   const buffer = await renderToBuffer(
     DocumentsDocument({ data, framework: "nis2", locale, names }),
   );
+  await logDownload(request, access);
   return new Response(new Uint8Array(buffer), {
     headers: attachment(
       "application/pdf",

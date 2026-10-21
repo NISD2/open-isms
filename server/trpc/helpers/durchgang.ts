@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { addYears } from "date-fns";
-import { and, desc, eq, inArray, isNotNull, ne, notInArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNotNull, ne, notInArray, sql } from "drizzle-orm";
 import { toDateString } from "@/lib/compliance/deadlines";
 import { DONE_STATUS_LIST, isDoneStatus } from "@/lib/compliance/journey-position";
 import type { Database, DbOrTx } from "@/lib/db";
@@ -479,7 +479,10 @@ export async function walkPolicyRows(db: DbOrTx, companyId: string, walk: Walk) 
           written.map((p) => p.policy),
         ),
       ),
-    );
+    )
+    // Oldest first: two rows of one item and type keep their order, so the export pages them
+    // without repeating one, and a caller taking the first takes the same one every time.
+    .orderBy(asc(policy.createdAt), asc(policy.id));
   return written.flatMap((p) =>
     rows
       .filter((row) => row.code === p.code && row.type === p.policy)

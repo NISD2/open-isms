@@ -7,7 +7,7 @@ import { hasReviewAccess } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
-import { mayExport } from "@/lib/export/access";
+import { mayExport } from "@/lib/export/may-export";
 
 /**
  * The compliance portal's frame: its sidebar, its header, and the page beside them. Gates (the

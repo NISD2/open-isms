@@ -13,7 +13,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { ExportLink } from "@/components/export/ExportLink";
 import { getPathname } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
-import { mayExport } from "@/lib/export/access";
+import { mayExport } from "@/lib/export/may-export";
 import { pdfLocale } from "@/lib/pdf/format";
 import { api } from "@/lib/trpc/server";
 

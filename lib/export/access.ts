@@ -3,22 +3,27 @@ import "@/lib/server-guard";
 import { logAudit } from "@/lib/audit";
 import { getSession } from "@/lib/auth";
 import { billingVerdict, refusalResponse } from "@/lib/billing/act-gate";
+import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { browserAgent } from "@/lib/mcp/agent";
 import { rateLimit } from "@/lib/rate-limit";
 import { mayExport } from "./may-export";
 
 export type ExportAccess =
-  | { readonly ok: true; readonly companyId: string; readonly userId: string }
+  | {
+      readonly ok: true;
+      readonly companyId: string;
+      readonly userId: string;
+      readonly kind: string;
+    }
   | { readonly ok: false; readonly response: Response };
-
-export { mayExport };
 
 /**
  * Who may download an export (`mayExport`), a few times a minute per person and kind. Not behind
  * the paywall: a company's own records always leave with it (AGB B10). Inside an order's money back
  * the first export ends it (`billingVerdict`, AGB B7), so the page asks first and records the yes,
- * and a download that arrives unconfirmed is held back. A download let through is logged
- * (`logTakenOut`).
+ * and a download that arrives unconfirmed is held back. The route logs the file once it has
+ * built it (`logDownload`), after its own checks.
  */
 export async function exportAccess(
   kind: string,
@@ -38,19 +43,24 @@ export async function exportAccess(
   }
   const verdict = await billingVerdict(db, session, "export");
   if (verdict.kind !== "allow") return { ok: false, response: refusalResponse(verdict) };
-  await logTakenOut(session.companyId, session.user.id, kind);
-  return { ok: true, companyId: session.companyId, userId: session.user.id };
+  return { ok: true, companyId: session.companyId, userId: session.user.id, kind };
 }
 
 const HOUR_MS = 60 * 60 * 1000;
 
 /**
- * The company's records left the app: one row per person and kind of file an hour, as an
- * assistant's read leaves one (lib/mcp/events.ts), so a person clicking through the files does
- * not push sign-offs off the audit page (the last 100 rows).
+ * The company's records left the app as a file: one row per person and kind of file an hour, as an
+ * assistant's read leaves one (lib/mcp/events.ts), so a person clicking through the files does not
+ * push sign-offs off the audit page (the last 100 rows). Called right before the file is sent, so a
+ * request the route refused, or a file it failed to build, takes no row and no hour.
  */
-async function logTakenOut(companyId: string, userId: string, kind: string) {
+export async function logDownload(
+  request: Request,
+  access: Extract<ExportAccess, { ok: true }>,
+): Promise<void> {
+  const { companyId, userId, kind } = access;
   if (!(await rateLimit(`export-log:${kind}:${userId}`, 1, HOUR_MS))) return;
+  const ip = getClientIp(request.headers);
   await logAudit({
     companyId,
     userId,
@@ -59,6 +69,8 @@ async function logTakenOut(companyId: string, userId: string, kind: string) {
     entityId: null,
     description: kind,
     newValue: { kind },
+    ipAddress: ip === "unknown" ? null : ip,
+    userAgent: browserAgent(request.headers.get("user-agent")),
   });
 }
 

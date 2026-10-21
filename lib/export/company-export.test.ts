@@ -14,7 +14,7 @@ import {
   EXPORT_FIELDS,
   EXPORT_PARTS,
   type ExportPart,
-  type Window,
+  type PageWindow,
 } from "./company-export";
 
 const COMPANY = "33333333-3333-4333-8333-333333333333";
@@ -30,10 +30,16 @@ type Read = {
   };
 };
 
-/** A database that answers every read with `rows` and keeps what each asked for. */
-function fakeDb(rows: readonly unknown[] = []) {
+/** One query-builder read: its conditions and its order, as it asked for them. */
+type Joined = { readonly where: SQL[]; readonly orderBy: SQL[] };
+
+/**
+ * A database that answers every relational read with `rows`, every query-builder read with
+ * `joined`, and keeps what each asked for.
+ */
+function fakeDb(rows: readonly unknown[] = [], joined: readonly unknown[] = []) {
   const reads: Read[] = [];
-  const joins: SQL[] = [];
+  const builds: Joined[] = [];
   const query = new Proxy(
     {},
     {
@@ -49,17 +55,28 @@ function fakeDb(rows: readonly unknown[] = []) {
       }),
     },
   );
-  const select = () => ({
-    from: () => ({
-      innerJoin: () => ({
-        where: async (where: SQL) => {
-          joins.push(where);
-          return [];
-        },
-      }),
-    }),
-  });
-  return { db: { query, select } as unknown as DbOrTx, reads, joins };
+  const select = () => {
+    const build: Joined = { where: [], orderBy: [] };
+    builds.push(build);
+    const chain: unknown = new Proxy(() => {}, {
+      get: (_target, method) => {
+        if (method === "then")
+          return (resolve: (value: unknown) => void) => resolve(joined);
+        return (...args: SQL[]) => {
+          if (method === "where") build.where.push(...args);
+          if (method === "orderBy") build.orderBy.push(...args);
+          return chain;
+        };
+      },
+    });
+    return chain;
+  };
+  return {
+    db: { query, select } as unknown as DbOrTx,
+    reads,
+    builds,
+    joins: () => builds.flatMap((b) => b.where),
+  };
 }
 
 const rendered = (condition: SQL) => new PgDialect().sqlToQuery(condition);
@@ -78,7 +95,6 @@ const REGISTERS = [
   ["improvements", "improvementItem", "improvement", "company_id"],
   ["internalAudits", "internalAudit", "internalAudit", "company_id"],
   ["kpis", "kpiMeasurement", "kpi", "company_id"],
-  ["processingActivities", "processingActivity", "processingActivity", "company_id"],
 ] as const satisfies ReadonlyArray<
   readonly [ExportPart, string, keyof typeof EXPORT_FIELDS, string]
 >;
@@ -90,7 +106,7 @@ describe("each register reads only the company's rows and the export's fields", 
   for (const [part, table, record, companyColumn] of REGISTERS) {
     test(part, async () => {
       const { db, reads } = fakeDb();
-      const window: Window = { offset: 100, limit: 51 };
+      const window: PageWindow = { offset: 100, limit: 51 };
       await EXPORT_PARTS[part](db, COMPANY, window);
 
       expect(reads).toHaveLength(1);
@@ -163,7 +179,7 @@ describe("the assets, with who provides them", () => {
     expect(Object.keys(reads[0]?.config.columns ?? {})).toContain("id");
 
     // The providers' links: through suppliers of this company only, for these assets only.
-    const providers = rendered(joins[0] ?? failed());
+    const providers = rendered(joins()[0] ?? failed());
     expect(providers.sql).toContain(`"supplier"."customer_company_id" = $1`);
     expect(providers.params).toEqual([COMPANY, "asset-1"]);
 
@@ -173,7 +189,104 @@ describe("the assets, with who provides them", () => {
   test("no assets, no second read", async () => {
     const { db, joins } = fakeDb([]);
     expect(await EXPORT_PARTS.assets(db, COMPANY, null)).toEqual([]);
-    expect(joins).toHaveLength(0);
+    expect(joins()).toHaveLength(0);
+  });
+});
+
+describe("the record of processing activities, with the suppliers each goes through", () => {
+  test("reads the company's activities, then only its own suppliers' links, and drops the id", async () => {
+    const activity = { id: "activity-1", name: "Lohnabrechnung", purpose: "Gehälter" };
+    const { db, reads, joins } = fakeDb(
+      [activity],
+      [
+        { activityId: "activity-1", name: "Steuerbüro" },
+        { activityId: "activity-1", name: "DATEV" },
+        { activityId: "activity-2", name: "Not this one" },
+      ],
+    );
+    const rows = await EXPORT_PARTS.processingActivities(db, COMPANY, {
+      offset: 50,
+      limit: 51,
+    });
+
+    const read = reads[0] ?? failed();
+    expect(read.table).toBe("processingActivity");
+    const where = rendered(read.config.where);
+    expect(where.sql).toBe(`"processing_activity"."company_id" = $1`);
+    expect(where.params).toEqual([COMPANY]);
+    expect(Object.keys(read.config.columns).toSorted()).toEqual(
+      ["id", ...EXPORT_FIELDS.processingActivity].toSorted(),
+    );
+    expect([read.config.limit, read.config.offset]).toEqual([51, 50]);
+    expect(rendered(read.config.orderBy?.at(-1) ?? failed()).sql).toMatch(/"id" asc$/);
+
+    const links = rendered(joins()[0] ?? failed());
+    expect(links.sql).toContain(`"supplier"."customer_company_id" = $1`);
+    expect(links.params).toEqual([COMPANY, "activity-1"]);
+
+    // Only this activity's suppliers, in a fixed order, and never its id.
+    expect(rows).toEqual([
+      { name: "Lohnabrechnung", purpose: "Gehälter", providers: ["DATEV", "Steuerbüro"] },
+    ]);
+  });
+
+  test("no activities, no second read", async () => {
+    const { db, joins } = fakeDb([]);
+    expect(await EXPORT_PARTS.processingActivities(db, COMPANY, null)).toEqual([]);
+    expect(joins()).toHaveLength(0);
+  });
+});
+
+describe("the answers typed per category", () => {
+  test("come from the company's own NIS 2 assessment only", async () => {
+    const { db, reads, joins } = fakeDb(
+      [{ id: "assessment-1" }],
+      [{ category: "GOV", answers: { owner: "IT-Leitung" } }],
+    );
+    expect(await EXPORT_PARTS.answers(db, COMPANY, null)).toEqual({
+      GOV: { owner: "IT-Leitung" },
+    });
+    const assessment = reads.find((r) => r.table === "companyAssessment") ?? failed();
+    expect(rendered(assessment.config.where).params).toContain(COMPANY);
+    const intakes = rendered(joins()[0] ?? failed());
+    expect(intakes.sql).toContain(`"company_category_intake"."assessment_id" = $1`);
+    expect(intakes.params).toEqual(["assessment-1"]);
+  });
+
+  test("without an assessment there are none, and nothing else is read", async () => {
+    const { db, joins } = fakeDb([]);
+    expect(await EXPORT_PARTS.answers(db, COMPANY, null)).toEqual({});
+    expect(joins()).toHaveLength(0);
+  });
+});
+
+describe("the documents the walk wrote", () => {
+  const policyRow = (title: string) => ({
+    code: "2.4",
+    type: "information_security",
+    title,
+    content: "# Leitlinie",
+    status: "draft",
+    version: "1.0",
+    effectiveFrom: null,
+    approvedAt: null,
+    approverRole: null,
+    approver: null,
+  });
+
+  test("are the company's own, oldest first, and page one at a time without repeating", async () => {
+    const { db, builds } = fakeDb([], [policyRow("First"), policyRow("Second")]);
+    const second = await EXPORT_PARTS.documents(db, COMPANY, { offset: 1, limit: 1 });
+    expect(second.map((d) => d.title)).toEqual(["Second"]);
+
+    const read = builds[0] ?? failed();
+    const where = rendered(read.where[0] ?? failed());
+    expect(where.sql).toContain(`"policy"."company_id" = $1`);
+    expect(where.params[0]).toBe(COMPANY);
+    expect(read.orderBy.map((o) => rendered(o).sql)).toEqual([
+      `"policy"."created_at" asc`,
+      `"policy"."id" asc`,
+    ]);
   });
 });
 
