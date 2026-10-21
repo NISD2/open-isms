@@ -1,5 +1,6 @@
 /**
- * "Good time to message or call" is read from days, not from actions, in Berlin time.
+ * "Good time to message or call" is read from days, not from actions, in Berlin time. Any sign of
+ * life gives an answer, even a single sign-in; with little to go on it is marked as a guess.
  */
 import { describe, expect, test } from "bun:test";
 import { bestTimeToReach, formatWeekdays, formatWindow } from "./best-time";
@@ -7,28 +8,40 @@ import { bestTimeToReach, formatWeekdays, formatWindow } from "./best-time";
 const at = (iso: string) => new Date(iso);
 
 describe("bestTimeToReach", () => {
-  test("two days of activity is not a habit yet", () => {
+  test("a single sign-in is still an hour worth showing, as a guess", () => {
+    // 07:33 UTC on Wednesday 21.10.2026 is 09:33 in Berlin.
+    const reach = bestTimeToReach([at("2026-10-21T07:33:07Z")]);
+    if (reach.kind !== "known") throw new Error("expected known");
+    expect(reach.windows.map(formatWindow)).toEqual(["09:00–11:00"]);
+    expect(formatWeekdays(reach.weekdays)).toBe("Wed");
+    expect(reach.activeDays).toBe(1);
+    expect(reach.firm).toBe(false);
+  });
+
+  test("two days is still a guess", () => {
     const reach = bestTimeToReach([
       at("2026-10-20T07:00:00Z"),
       at("2026-10-21T07:00:00Z"),
     ]);
-    expect(reach.kind).toBe("unknown");
-    if (reach.kind === "unknown") expect(reach.activeDays).toBe(2);
+    if (reach.kind !== "known") throw new Error("expected known");
+    expect(reach.windows.map(formatWindow)).toEqual(["09:00–11:00"]);
+    expect(reach.windows[0]?.days).toBe(2);
+    expect(reach.firm).toBe(false);
   });
 
-  test("three days at three different hours is no repeating time yet", () => {
+  test("three days at three different hours is a guess, with the earliest busy hour first", () => {
     const reach = bestTimeToReach([
       at("2026-10-19T05:30:00Z"),
       at("2026-10-20T11:30:00Z"),
       at("2026-10-21T16:30:00Z"),
     ]);
-    expect(reach.kind).toBe("unknown");
-    if (reach.kind === "unknown") expect(reach.activeDays).toBe(3);
+    if (reach.kind !== "known") throw new Error("expected known");
+    expect(reach.windows.map(formatWindow)).toEqual(["07:00–09:00"]);
+    expect(reach.firm).toBe(false);
   });
 
-  test("nothing at all is unknown, with no last seen", () => {
-    const reach = bestTimeToReach([]);
-    expect(reach).toEqual({ kind: "unknown", activeDays: 0, lastSeen: null });
+  test("nothing at all is unknown", () => {
+    expect(bestTimeToReach([])).toEqual({ kind: "unknown" });
   });
 
   test("reads the hour in Berlin time, summer and winter", () => {
@@ -44,6 +57,7 @@ describe("bestTimeToReach", () => {
       if (reach.kind === "known") {
         expect(reach.windows.map(formatWindow)).toEqual(["07:00–09:00"]);
         expect(reach.windows[0]?.days).toBe(3);
+        expect(reach.firm).toBe(true);
       }
     }
   });

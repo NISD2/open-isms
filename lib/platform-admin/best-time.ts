@@ -6,16 +6,20 @@
  * afternoon was there once, so a long sitting cannot outvote the mornings they come back to. Read
  * in Berlin time, because that is the clock of whoever calls; the person's own time zone is not
  * stored (a company's country is mostly empty), and it is the same one in much of Europe.
+ *
+ * Any sign of life counts, even a single sign-in: the hour someone logged in is a better hour to
+ * call than none (Simon, 21.10.2026). With little to go on the answer is marked as a guess, not
+ * withheld; only a person with nothing on record gets no answer.
  */
 export const REACH_ZONE = "Europe/Berlin";
 
 /** How far back the habit is read: older work says little about this month's mornings. */
 export const REACH_DAYS = 90;
 
-/** Fewer days than this is a coincidence, not a habit. */
-export const MIN_ACTIVE_DAYS = 3;
+/** Fewer days than this is shown as a guess, not a habit. */
+const MIN_ACTIVE_DAYS = 3;
 
-/** A window backed by one day only is where they happened to be once, not a time to call. */
+/** A window backed by one day only is where they happened to be once: also a guess. */
 const MIN_WINDOW_DAYS = 2;
 
 const WINDOW_HOURS = 2;
@@ -30,11 +34,8 @@ export interface ReachWindow {
 }
 
 export type Reach =
-  | {
-      readonly kind: "unknown";
-      readonly activeDays: number;
-      readonly lastSeen: Date | null;
-    }
+  /** Nothing on record: no activity and no sign-in. */
+  | { readonly kind: "unknown" }
   | {
       readonly kind: "known";
       /** The best window first, then at most one more that is nearly as busy. */
@@ -43,6 +44,8 @@ export type Reach =
       readonly weekdays: readonly number[];
       readonly activeDays: number;
       readonly lastSeen: Date;
+      /** False while it rests on little: under three days, or a window only one day backs. */
+      readonly firm: boolean;
     };
 
 const parts = new Intl.DateTimeFormat("en-GB", {
@@ -79,9 +82,7 @@ export function bestTimeToReach(times: readonly Date[]): Reach {
     null,
   );
   const activeDays = new Set(slots.map((s) => s.day));
-  if (lastSeen === null || activeDays.size < MIN_ACTIVE_DAYS) {
-    return { kind: "unknown", activeDays: activeDays.size, lastSeen };
-  }
+  if (lastSeen === null) return { kind: "unknown" };
 
   const daysAtHour = Array.from(
     { length: 24 },
@@ -96,9 +97,7 @@ export function bestTimeToReach(times: readonly Date[]): Reach {
   })).sort((a, b) => b.days - a.days || b.firstHour - a.firstHour || a.from - b.from);
 
   const best = candidates[0];
-  if (!best || best.days < MIN_WINDOW_DAYS) {
-    return { kind: "unknown", activeDays: activeDays.size, lastSeen };
-  }
+  if (!best) return { kind: "unknown" };
   const second = candidates.find(
     (c) => !overlap(c.from, best.from) && c.days >= Math.max(2, Math.ceil(best.days / 2)),
   );
@@ -116,6 +115,7 @@ export function bestTimeToReach(times: readonly Date[]): Reach {
     weekdays: [...new Set(slots.map((s) => s.weekday))].sort((a, b) => a - b),
     activeDays: activeDays.size,
     lastSeen,
+    firm: activeDays.size >= MIN_ACTIVE_DAYS && best.days >= MIN_WINDOW_DAYS,
   };
 }
 

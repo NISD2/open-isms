@@ -4,7 +4,6 @@ import { Loader2 } from "lucide-react";
 import {
   formatWeekdays,
   formatWindow,
-  MIN_ACTIVE_DAYS,
   REACH_DAYS,
   type Reach,
 } from "@/lib/platform-admin/best-time";
@@ -23,15 +22,10 @@ const seen = new Intl.DateTimeFormat("en-GB", {
 const plural = (n: number) => (n === 1 ? "day" : "days");
 
 function Reading({ reach }: { reach: Reach }) {
-  const lastSeen = reach.lastSeen ? `Last seen ${seen.format(reach.lastSeen)}. ` : "";
   if (reach.kind === "unknown") {
-    const days = `${reach.activeDays} ${plural(reach.activeDays)} with activity in the last ${REACH_DAYS}`;
     return (
       <p className="mt-1 text-muted-foreground">
-        {reach.activeDays >= MIN_ACTIVE_DAYS
-          ? `No repeating time yet (${days}, never at the same hours).`
-          : `Not enough activity to tell yet (${days}).`}{" "}
-        {lastSeen}
+        Nothing on record yet: no activity and no sign-in.
       </p>
     );
   }
@@ -43,10 +37,11 @@ function Reading({ reach }: { reach: Reach }) {
         <span className="font-normal text-muted-foreground">Berlin time</span>
       </p>
       <p className="mt-1 text-xs text-muted-foreground">
-        Active on {reach.activeDays} {plural(reach.activeDays)} in the last {REACH_DAYS}
-        {best ? `, in the best window on ${best.days} of them` : ""}. {lastSeen}Read from
-        what they did in the app and their last sign-in. Their own time zone is not
-        stored.
+        {reach.firm
+          ? `Active on ${reach.activeDays} ${plural(reach.activeDays)} in the last ${REACH_DAYS}${best ? `, in the best window on ${best.days} of them` : ""}.`
+          : `A guess: ${reach.activeDays} ${plural(reach.activeDays)} of data so far, so this may move.`}{" "}
+        Last seen {seen.format(reach.lastSeen)}. Read from what they did in the app and
+        their last sign-in. Their own time zone is not stored.
       </p>
     </>
   );
