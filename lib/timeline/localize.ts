@@ -1,6 +1,7 @@
 import { z } from "zod";
 import czechRaw from "@/data/nis2-timeline-cs.json";
 import { pickLocalized } from "@/lib/locale";
+import type { TimelineId } from "./index";
 import type { TimelineEvent } from "./schema";
 
 const CzechTimelineSchema = z.object({
@@ -17,28 +18,34 @@ export const czechTimeline = CzechTimelineSchema.parse(czechRaw).events;
 export type TimelineView = Omit<TimelineEvent, "titleDe" | "summaryDe" | "addedAt">;
 
 type EventText = Pick<TimelineEvent, "title" | "summary">;
+type CzechTexts = Readonly<Record<string, EventText>>;
+
+/** Only the NIS2 timeline is translated into Czech; the CRA and AI Act timelines read English there. */
+export const czechTextsOf = (id: TimelineId): CzechTexts =>
+  id === "nis2" ? czechTimeline : {};
 
 const english = (event: TimelineEvent): EventText => ({
   title: event.title,
   summary: event.summary,
 });
 
-const TEXT_BY_LOCALE = {
+const textByLocale = (czech: CzechTexts) => ({
   de: (event: TimelineEvent): EventText => ({
     title: event.titleDe,
     summary: event.summaryDe,
   }),
   en: english,
-  /** English only for an event still missing its Czech text; the timeline test fails on one. */
-  cs: (event: TimelineEvent): EventText => czechTimeline[event.id] ?? english(event),
-};
+  /** English for an event without Czech text; the NIS2 timeline test fails on one. */
+  cs: (event: TimelineEvent): EventText => czech[event.id] ?? english(event),
+});
 
 /** The events in the reader's language: German, Czech, and English for every other locale. */
 export const localizeTimeline = (
   events: readonly TimelineEvent[],
   locale: string,
+  czech: CzechTexts = {},
 ): TimelineView[] => {
-  const textOf = pickLocalized(TEXT_BY_LOCALE, locale);
+  const textOf = pickLocalized(textByLocale(czech), locale);
   return events.map((event) => ({
     id: event.id,
     date: event.date,

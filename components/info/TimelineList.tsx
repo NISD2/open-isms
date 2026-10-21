@@ -13,10 +13,12 @@ import type {
 } from "@/lib/timeline/schema";
 import { cn } from "@/lib/utils";
 
-interface NIS2TimelineListProps {
+interface TimelineListProps {
   events: readonly TimelineView[];
   sources: readonly TimelineSource[];
   lastUpdated: string;
+  /** Today as a calendar day in Berlin (YYYY-MM-DD): later events are listed as coming up. */
+  today: string;
 }
 
 /** A label in each language the timeline speaks; every other locale reads English. */
@@ -43,6 +45,12 @@ const CATEGORIES: { key: TimelineCategory | "all"; label: Label }[] = [
     label: { en: "IT-Grundschutz", de: "IT-Grundschutz", cs: "IT-Grundschutz" },
   },
   { key: "enisa", label: { en: "ENISA", de: "ENISA", cs: "ENISA" } },
+  { key: "ai-office", label: { en: "AI Office", de: "AI Office", cs: "AI Office" } },
+  { key: "standards", label: { en: "Standards", de: "Normung", cs: "Normy" } },
+  {
+    key: "national",
+    label: { en: "Member States", de: "Mitgliedstaaten", cs: "Členské státy" },
+  },
   { key: "market", label: { en: "Market", de: "Markt", cs: "Trh" } },
 ];
 
@@ -53,6 +61,9 @@ const CATEGORY_COLORS: Record<TimelineCategory, string> = {
   cir: "bg-violet-500/10 text-violet-700 dark:text-violet-400",
   grundschutz: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
   enisa: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400",
+  "ai-office": "bg-indigo-500/10 text-indigo-700 dark:text-indigo-400",
+  standards: "bg-rose-500/10 text-rose-700 dark:text-rose-400",
+  national: "bg-teal-500/10 text-teal-700 dark:text-teal-400",
   market: "bg-orange-500/10 text-orange-700 dark:text-orange-400",
 };
 
@@ -63,6 +74,9 @@ const DOT_COLORS: Record<TimelineCategory, string> = {
   cir: "bg-violet-500",
   grundschutz: "bg-emerald-500",
   enisa: "bg-cyan-500",
+  "ai-office": "bg-indigo-500",
+  standards: "bg-rose-500",
+  national: "bg-teal-500",
   market: "bg-orange-500",
 };
 
@@ -77,6 +91,9 @@ const CATEGORY_LABELS: Record<TimelineCategory, Label> = {
   cir: { en: "CIR", de: "CIR", cs: "CIR" },
   grundschutz: { en: "Grundschutz", de: "Grundschutz", cs: "Grundschutz" },
   enisa: { en: "ENISA", de: "ENISA", cs: "ENISA" },
+  "ai-office": { en: "AI Office", de: "AI Office", cs: "AI Office" },
+  standards: { en: "Standards", de: "Normung", cs: "Normy" },
+  national: { en: "Member State", de: "Mitgliedstaat", cs: "Členský stát" },
   market: { en: "Market", de: "Markt", cs: "Trh" },
 };
 
@@ -116,10 +133,11 @@ const TEXT = {
   },
   updated: { de: "Aktualisiert", en: "Updated", cs: "Aktualizováno" },
   milestone: { de: "Meilenstein", en: "Milestone", cs: "Milník" },
+  ahead: { de: "Bevorstehend", en: "Coming up", cs: "Připravované" },
   more: {
-    de: (n: number) => `${n} ältere Ereignisse zeigen`,
-    en: (n: number) => `Show ${n} older events`,
-    cs: (n: number) => `Zobrazit starší události (${n})`,
+    de: (n: number) => `${n} weitere Ereignisse zeigen`,
+    en: (n: number) => `Show ${n} more events`,
+    cs: (n: number) => `Zobrazit další události (${n})`,
   },
   sources: { de: "Quellen", en: "Sources", cs: "Zdroje" },
   sourcesLead: {
@@ -155,21 +173,39 @@ function formatFullDate(dateStr: string, locale: string): string {
   });
 }
 
-function groupByYear(events: readonly TimelineView[]): Record<string, TimelineView[]> {
-  const groups: Record<string, TimelineView[]> = {};
-  for (const event of events) {
-    const year = event.date.slice(0, 4);
-    if (!groups[year]) groups[year] = [];
-    groups[year].push(event);
-  }
-  return groups;
+interface Group {
+  readonly key: string;
+  readonly heading: string;
+  readonly events: readonly TimelineView[];
 }
 
-export function NIS2TimelineList({
-  events,
-  sources,
-  lastUpdated,
-}: NIS2TimelineListProps) {
+/**
+ * What is still ahead first, the nearest date on top, then what has happened, newest first and by
+ * year. A regulation's timeline is mostly dates to come; newest-first put 2030 above next month.
+ */
+function groupEvents(
+  events: readonly TimelineView[],
+  today: string,
+  aheadHeading: string,
+): Group[] {
+  const ahead = events
+    .filter((e) => e.date > today)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const past = events
+    .filter((e) => e.date <= today)
+    .sort((a, b) => b.date.localeCompare(a.date));
+  const years = [...new Set(past.map((e) => e.date.slice(0, 4)))];
+  return [
+    ...(ahead.length > 0 ? [{ key: "ahead", heading: aheadHeading, events: ahead }] : []),
+    ...years.map((year) => ({
+      key: year,
+      heading: year,
+      events: past.filter((e) => e.date.startsWith(year)),
+    })),
+  ];
+}
+
+export function TimelineList({ events, sources, lastUpdated, today }: TimelineListProps) {
   const locale = useLocale();
   const [activeCategory, setActiveCategory] = useState<TimelineCategory | "all">("all");
   const [visible, setVisible] = useState(FIRST_PAGE);
@@ -180,14 +216,13 @@ export function NIS2TimelineList({
       ? events
       : events.filter((e) => e.category === activeCategory);
 
-  const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
-  const grouped = groupByYear(sorted);
-  const years = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
-  const shown = new Set(sorted.slice(0, visible).map((e) => e.id));
-  const lastShownInYear = new Map(
-    years.map((year) => [year, grouped[year].findLast((e) => shown.has(e.id))?.id]),
+  const groups = groupEvents(filtered, today, say(TEXT.ahead));
+  const ordered = groups.flatMap((group) => group.events);
+  const shown = new Set(ordered.slice(0, visible).map((e) => e.id));
+  const lastShownInGroup = new Map(
+    groups.map((group) => [group.key, group.events.findLast((e) => shown.has(e.id))?.id]),
   );
-  const nextPage = Math.min(PAGE, sorted.length - visible);
+  const nextPage = Math.min(PAGE, ordered.length - visible);
 
   const sourceMap = new Map(sources.map((s) => [s.id, s]));
 
@@ -195,7 +230,7 @@ export function NIS2TimelineList({
     <div className="space-y-10">
       {/* Meta bar */}
       <div className="flex items-center justify-between text-xs text-muted-foreground">
-        <span>{say(TEXT.events)(sorted.length)}</span>
+        <span>{say(TEXT.events)(ordered.length)}</span>
         <span>
           {say(TEXT.updated)}{" "}
           {new Date(lastUpdated).toLocaleDateString(pickLocalized(DATE_LOCALE, locale), {
@@ -245,18 +280,18 @@ export function NIS2TimelineList({
         })}
       </div>
 
-      {/* Timeline grouped by year */}
-      {years.map((year) => (
-        <section key={year} hidden={!lastShownInYear.get(year)}>
+      {/* What is ahead, then the past grouped by year */}
+      {groups.map((group) => (
+        <section key={group.key} hidden={!lastShownInGroup.get(group.key)}>
           <div className="sticky top-0 z-10 -mx-1 mb-4 bg-background/95 px-1 py-2 backdrop-blur-sm">
             <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-              {year}
+              {group.heading}
             </h2>
           </div>
           <div className="relative ml-3 border-l border-border/50 pl-6">
-            {grouped[year].map((event) => {
+            {group.events.map((event) => {
               const source = sourceMap.get(event.sourceId);
-              const isLast = event.id === lastShownInYear.get(year);
+              const isLast = event.id === lastShownInGroup.get(group.key);
               return (
                 <div
                   key={event.id}

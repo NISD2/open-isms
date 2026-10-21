@@ -1,0 +1,1257 @@
+{
+  "sources": [
+    {
+      "id": "eur-lex",
+      "name": "EUR-Lex",
+      "url": "https://eur-lex.europa.eu",
+      "description": "Official EU legislation database: Regulation (EU) 2024/2847 and the Commission acts adopted under it",
+      "language": "both"
+    },
+    {
+      "id": "ec-digital",
+      "name": "European Commission",
+      "url": "https://digital-strategy.ec.europa.eu",
+      "description": "Shaping Europe's digital future: CRA policy pages, guidance, FAQ and the implementation factpage",
+      "language": "en"
+    },
+    {
+      "id": "ec-presscorner",
+      "name": "European Commission Press Corner",
+      "url": "https://ec.europa.eu/commission/presscorner",
+      "description": "Commission press releases, including the 2022 CRA proposal",
+      "language": "en"
+    },
+    {
+      "id": "ec-documents-register",
+      "name": "Register of Commission Documents",
+      "url": "https://ec.europa.eu/transparency/documents-register",
+      "description": "Official register of Commission decisions, including the CRA standardisation request C(2025) 618",
+      "language": "en"
+    },
+    {
+      "id": "oeil",
+      "name": "Legislative Observatory (European Parliament)",
+      "url": "https://oeil.europarl.europa.eu",
+      "description": "Procedure file 2022/0272(COD) with the dated steps of the CRA from proposal to adoption",
+      "language": "en"
+    },
+    {
+      "id": "europarl",
+      "name": "European Parliament",
+      "url": "https://www.europarl.europa.eu/news",
+      "description": "European Parliament press room: plenary votes and committee outcomes",
+      "language": "en"
+    },
+    {
+      "id": "consilium",
+      "name": "Council of the EU",
+      "url": "https://www.consilium.europa.eu",
+      "description": "Council press releases on the negotiating position and the adoption of the CRA",
+      "language": "en"
+    },
+    {
+      "id": "enisa",
+      "name": "ENISA",
+      "url": "https://www.enisa.europa.eu",
+      "description": "EU Agency for Cybersecurity: operator of the CRA single reporting platform and author of CRA guidance",
+      "language": "en"
+    },
+    {
+      "id": "cen-cenelec",
+      "name": "CEN and CENELEC",
+      "url": "https://www.cencenelec.eu",
+      "description": "European standardisation organisations developing the harmonised standards requested for the CRA",
+      "language": "en"
+    },
+    {
+      "id": "bsi",
+      "name": "BSI",
+      "url": "https://www.bsi.bund.de",
+      "description": "Federal Office for Information Security: German CRA market surveillance and notifying authority, CERT-Bund as coordinating CSIRT",
+      "language": "de"
+    },
+    {
+      "id": "bundestag",
+      "name": "Deutscher Bundestag",
+      "url": "https://www.bundestag.de",
+      "description": "German Bundestag: debate records, committee reports and printed papers of the CRA implementation bill",
+      "language": "de"
+    },
+    {
+      "id": "dge-fr",
+      "name": "Direction generale des Entreprises (France)",
+      "url": "https://www.entreprises.gouv.fr",
+      "description": "French ministry directorate for businesses: explainer on the CRA and the French authorities",
+      "language": "en"
+    },
+    {
+      "id": "eerstekamer",
+      "name": "Eerste Kamer",
+      "url": "https://www.eerstekamer.nl",
+      "description": "Dutch Senate: status page of bill 36 875 implementing the Cyber Resilience Act",
+      "language": "en"
+    },
+    {
+      "id": "traficom",
+      "name": "Traficom",
+      "url": "https://traficom.fi",
+      "description": "Finnish Transport and Communications Agency: CRA authority through its National Cyber Security Centre",
+      "language": "en"
+    },
+    {
+      "id": "governo-it",
+      "name": "Governo italiano",
+      "url": "https://www.governo.it",
+      "description": "Italian government: agendas and communiques of the Council of Ministers",
+      "language": "en"
+    },
+    {
+      "id": "camera-it",
+      "name": "Camera dei deputati",
+      "url": "https://www.camera.it",
+      "description": "Italian Chamber of Deputies: government acts submitted for opinion, including the CRA draft decree",
+      "language": "en"
+    },
+    {
+      "id": "gov-ie",
+      "name": "gov.ie",
+      "url": "https://www.gov.ie",
+      "description": "Irish government portal: press releases of the Department of Justice, Home Affairs and Migration and the NCSC",
+      "language": "en"
+    },
+    {
+      "id": "legislation-mt",
+      "name": "legislation.mt",
+      "url": "https://legislation.mt",
+      "description": "Official Maltese legislation portal: Legal Notices published in the Government Gazette",
+      "language": "en"
+    },
+    {
+      "id": "cnmc",
+      "name": "CNMC (Spain)",
+      "url": "https://www.cnmc.es",
+      "description": "Spanish National Commission on Markets and Competition: reports on draft regulations, including the draft Royal Decree designating the CRA authorities",
+      "language": "en"
+    },
+    {
+      "id": "dsa-cy",
+      "name": "Digital Security Authority (Cyprus)",
+      "url": "https://dsa.cy",
+      "description": "Digital Security Authority within the Office of the Commissioner of Communications: national cybersecurity authority and CSIRT host",
+      "language": "en"
+    },
+    {
+      "id": "mssb-dk",
+      "name": "Ministeriet for Samfundssikkerhed og Beredskab",
+      "url": "https://mssb.dk",
+      "description": "Danish Ministry for Societal Security and Preparedness: news and draft bills for consultation, including the draft law supplementing the Cyber Resilience Act",
+      "language": "en"
+    },
+    {
+      "id": "regeringen-se",
+      "name": "Regeringen.se",
+      "url": "https://www.regeringen.se",
+      "description": "Swedish Government portal: inquiry reports (SOU), press releases and Government assignments on the CRA and the AI Act",
+      "language": "en"
+    },
+    {
+      "id": "gov-pl",
+      "name": "gov.pl (Poland)",
+      "url": "https://www.gov.pl",
+      "description": "Polish government portal: Ministry of Digitalisation guidance pages and the site of the Commission for the Development and Safety of AI (KRiBSI)",
+      "language": "en"
+    },
+    {
+      "id": "mpo-cz",
+      "name": "Ministry of Industry and Trade (Czech Republic)",
+      "url": "https://mpo.gov.cz",
+      "description": "Czech ministry responsible for the AI Act and CRA adaptation laws: press releases and draft laws",
+      "language": "en"
+    },
+    {
+      "id": "slov-lex",
+      "name": "Slov-Lex (Slovakia)",
+      "url": "https://static.slov-lex.sk",
+      "description": "Official Slovak Collection of Laws: Act No. 318/2025 Coll.",
+      "language": "en"
+    },
+    {
+      "id": "rokovania-sk",
+      "name": "Government portal rokovania.gov.sk (Slovakia)",
+      "url": "https://rokovania.gov.sk",
+      "description": "Official register of materials and resolutions of the Slovak government",
+      "language": "en"
+    },
+    {
+      "id": "magyar-kozlony",
+      "name": "Magyar Kozlony (Hungary)",
+      "url": "https://magyarkozlony.hu",
+      "description": "Official Hungarian gazette: Act LXXV of 2025 (AI Act), Government Decree 344/2025 and Act CXXXV of 2025 (CRA)",
+      "language": "en"
+    },
+    {
+      "id": "gov-si-ursiv",
+      "name": "gov.si, URSIV news",
+      "url": "https://www.gov.si/drzavni-organi/vladne-sluzbe/urad-vlade-za-informacijsko-varnost/",
+      "description": "Slovenian Government Office for Information Security (URSIV): news including the Cyber Resilience Act",
+      "language": "en"
+    },
+    {
+      "id": "cert-lv",
+      "name": "CERT.LV",
+      "url": "https://cert.lv",
+      "description": "Latvian cyber incident response institution: news and guidance, including CRA reporting",
+      "language": "en"
+    },
+    {
+      "id": "ncsc-hr",
+      "name": "NCSC-HR",
+      "url": "https://ncsc.hr",
+      "description": "Croatian National Cyber Security Centre: news and EU legal framework pages, including the CRA Single Reporting Platform",
+      "language": "en"
+    }
+  ],
+  "events": [
+    {
+      "id": "2022-09-15-eu-cra-proposal",
+      "date": "2022-09-15",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Commission proposes the Cyber Resilience Act",
+      "titleDe": "Kommission schlaegt den Cyber Resilience Act vor",
+      "summary": "The Commission presents its proposal (COM(2022) 454) for a regulation on mandatory cybersecurity requirements for products with digital elements. A proposal creates no obligations until it is adopted.",
+      "summaryDe": "Die Kommission legt ihren Vorschlag (COM(2022) 454) fuer eine Verordnung ueber verbindliche Cybersicherheitsanforderungen an Produkte mit digitalen Elementen vor. Ein Vorschlag begruendet erst mit seiner Annahme Pflichten.",
+      "sourceId": "ec-presscorner",
+      "sourceUrl": "https://ec.europa.eu/commission/presscorner/detail/en/ip_22_5374",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2023-07-19-eu-cra-itre-vote",
+      "date": "2023-07-19",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "European Parliament committee votes on its position on the Cyber Resilience Act",
+      "titleDe": "Ausschuss des Europaeischen Parlaments stimmt ueber seine Position zum Cyber Resilience Act ab",
+      "summary": "The Committee on Industry, Research and Energy (ITRE) votes on its report and decides to open negotiations with the Council. A committee vote is a step in the procedure, not an adopted law.",
+      "summaryDe": "Der Ausschuss fuer Industrie, Forschung und Energie (ITRE) stimmt ueber seinen Bericht ab und beschliesst, Verhandlungen mit dem Rat aufzunehmen. Eine Ausschussabstimmung ist ein Verfahrensschritt und kein beschlossenes Gesetz.",
+      "sourceId": "oeil",
+      "sourceUrl": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2022%2F0272%28COD%29",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2023-07-19-eu-cra-council-position",
+      "date": "2023-07-19",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Council agrees its negotiating position on the Cyber Resilience Act",
+      "titleDe": "Rat legt seine Verhandlungsposition zum Cyber Resilience Act fest",
+      "summary": "EU member states agree a common position on the proposal in the Council. It is a negotiating mandate for the talks with Parliament, not an adopted act.",
+      "summaryDe": "Die Mitgliedstaaten einigen sich im Rat auf eine gemeinsame Position zum Vorschlag. Sie ist ein Verhandlungsmandat fuer die Gespraeche mit dem Parlament und kein beschlossener Rechtsakt.",
+      "sourceId": "consilium",
+      "sourceUrl": "https://www.consilium.europa.eu/en/press/press-releases/2023/07/19/cyber-resilience-act-member-states-agree-common-position-on-security-requirements-for-digital-products/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2023-11-30-eu-cra-provisional-agreement",
+      "date": "2023-11-30",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Parliament and Council reach a provisional agreement on the Cyber Resilience Act",
+      "titleDe": "Parlament und Rat erzielen eine vorlaeufige Einigung zum Cyber Resilience Act",
+      "summary": "Negotiators of the European Parliament and the Council agree on the text on the night of 30 November 2023, as confirmed by a Commission statement of 1 December 2023. The agreement still needed formal adoption by both institutions.",
+      "summaryDe": "Die Verhandlungsfuehrer des Europaeischen Parlaments und des Rates einigen sich in der Nacht zum 30. November 2023 auf den Text, wie eine Erklaerung der Kommission vom 1. Dezember 2023 bestaetigt. Die Einigung musste noch von beiden Organen formell angenommen werden.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-welcomes-political-agreement-cyber-resilience-act",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-03-12-eu-cra-parliament-adopts",
+      "date": "2024-03-12",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "European Parliament adopts the Cyber Resilience Act at first reading",
+      "titleDe": "Europaeisches Parlament nimmt den Cyber Resilience Act in erster Lesung an",
+      "summary": "Parliament adopts its first reading position (T9-0130/2024), which reflects the agreement with the Council. Formal adoption by the Council followed on 10 October 2024.",
+      "summaryDe": "Das Parlament nimmt seinen Standpunkt in erster Lesung an (T9-0130/2024), der die Einigung mit dem Rat abbildet. Die formelle Annahme durch den Rat folgte am 10. Oktober 2024.",
+      "sourceId": "europarl",
+      "sourceUrl": "https://www.europarl.europa.eu/news/en/press-room/20240308IPR18991/cyber-resilience-act-meps-adopt-plans-to-boost-security-of-digital-products",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-09-20-eu-cra-expert-group-call",
+      "date": "2024-09-20",
+      "category": "eu",
+      "tags": [
+        "organisational"
+      ],
+      "type": "update",
+      "title": "Commission opens a call for applications to the Cyber Resilience Act Expert Group",
+      "titleDe": "Kommission ruft zur Bewerbung fuer die Expertengruppe zum Cyber Resilience Act auf",
+      "summary": "The Commission invites experts to apply to an expert group of up to 60 members on the cybersecurity of products with digital elements. The group advises the Commission and assists with delegated acts and guidance documents.",
+      "summaryDe": "Die Kommission ruft Fachleute auf, sich fuer eine Expertengruppe mit bis zu 60 Mitgliedern zur Cybersicherheit von Produkten mit digitalen Elementen zu bewerben. Die Gruppe beraet die Kommission und unterstuetzt bei delegierten Rechtsakten und Leitfaeden.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/call-applications-cyber-resilience-act-cra-expert-group",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-10-10-eu-cra-council-adoption",
+      "date": "2024-10-10",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Council adopts the Cyber Resilience Act",
+      "titleDe": "Rat nimmt den Cyber Resilience Act an",
+      "summary": "The Council adopts the Regulation after Parliament's first reading position of 12 March 2024. Signature on 23 October 2024 and publication in the Official Journal followed.",
+      "summaryDe": "Der Rat nimmt die Verordnung nach dem Standpunkt des Parlaments in erster Lesung vom 12. Maerz 2024 an. Die Unterzeichnung am 23. Oktober 2024 und die Veroeffentlichung im Amtsblatt folgten.",
+      "sourceId": "consilium",
+      "sourceUrl": "https://www.consilium.europa.eu/en/press/press-releases/2024/10/10/cyber-resilience-act-council-adopts-new-law-on-security-requirements-for-digital-products/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-11-20-eu-cra-published-oj",
+      "date": "2024-11-20",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Cyber Resilience Act published in the Official Journal",
+      "titleDe": "Cyber Resilience Act im Amtsblatt veroeffentlicht",
+      "summary": "Regulation (EU) 2024/2847, dated 23 October 2024, is published in the Official Journal on 20 November 2024. It is binding in its entirety and directly applicable in all Member States.",
+      "summaryDe": "Die Verordnung (EU) 2024/2847 vom 23. Oktober 2024 wird am 20. November 2024 im Amtsblatt veroeffentlicht. Sie ist in allen Teilen verbindlich und gilt unmittelbar in jedem Mitgliedstaat.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-12-10-eu-cra-in-force",
+      "date": "2024-12-10",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "Cyber Resilience Act enters into force",
+      "titleDe": "Cyber Resilience Act tritt in Kraft",
+      "summary": "Under Article 71(1) the Regulation enters into force on the twentieth day after publication. Its obligations apply later in stages: Chapter IV from 11 June 2026, Article 14 from 11 September 2026 and the rest from 11 December 2027.",
+      "summaryDe": "Nach Artikel 71 Absatz 1 tritt die Verordnung am zwanzigsten Tag nach der Veroeffentlichung in Kraft. Ihre Pflichten gelten spaeter in Stufen: Kapitel IV ab 11. Juni 2026, Artikel 14 ab 11. September 2026 und das Uebrige ab 11. Dezember 2027.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-02-03-standards-cra-standardisation-request",
+      "date": "2025-02-03",
+      "category": "standards",
+      "tags": [
+        "standards"
+      ],
+      "type": "update",
+      "title": "Commission adopts the standardisation request for the Cyber Resilience Act",
+      "titleDe": "Kommission erlaesst den Normungsauftrag zum Cyber Resilience Act",
+      "summary": "Implementing Decision C(2025) 618 (request M/606) asks CEN, CENELEC and ETSI to draft European standards in support of the Regulation, 41 in total according to the Commission. It is addressed to the standardisation bodies, sets no duties for manufacturers and expires on 30 November 2027.",
+      "summaryDe": "Der Durchfuehrungsbeschluss C(2025) 618 (Auftrag M/606) beauftragt CEN, CENELEC und ETSI, europaeische Normen zur Unterstuetzung der Verordnung zu erarbeiten, nach Angaben der Kommission insgesamt 41. Er richtet sich an die Normungsorganisationen, begruendet keine Pflichten fuer Hersteller und laeuft am 30. November 2027 aus.",
+      "sourceId": "ec-documents-register",
+      "sourceUrl": "https://ec.europa.eu/transparency/documents-register/api/files/C(2025)618_0/de00000001069725",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-04-03-standards-esos-accept-cra-request",
+      "date": "2025-04-03",
+      "category": "standards",
+      "tags": [
+        "standards"
+      ],
+      "type": "update",
+      "title": "CEN, CENELEC and ETSI accept the Cyber Resilience Act standardisation request",
+      "titleDe": "CEN, CENELEC und ETSI nehmen den Normungsauftrag zum Cyber Resilience Act an",
+      "summary": "The three standardisation organisations accept request M/606 and commit to deliver harmonised standards at least one year before the Regulation applies. Under Article 27(1), meeting a harmonised standard gives a presumption of conformity only once its reference is published in the Official Journal.",
+      "summaryDe": "Die drei Normungsorganisationen nehmen den Auftrag M/606 an und sagen zu, harmonisierte Normen mindestens ein Jahr vor Geltung der Verordnung zu liefern. Nach Artikel 27 Absatz 1 begruendet die Einhaltung einer harmonisierten Norm die Konformitaetsvermutung erst, wenn ihre Fundstelle im Amtsblatt veroeffentlicht ist.",
+      "sourceId": "cen-cenelec",
+      "sourceUrl": "https://www.cencenelec.eu/news-events/news/2025/newsletter/ots-62-cra/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-07-national-de-bsi-designated",
+      "date": "2025-10-07",
+      "category": "national",
+      "tags": [
+        "de",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Germany: BSI announces its designation as CRA notifying and market surveillance authority",
+      "titleDe": "Deutschland: BSI gibt seine Benennung als notifizierende und marktueberwachende Behoerde fuer den CRA bekannt",
+      "summary": "The BSI announces that the Federal Government has designated it to the European Commission as notifying authority and market surveillance authority under the Regulation. A national implementing bill followed in May 2026.",
+      "summaryDe": "Das BSI gibt bekannt, dass die Bundesregierung es gegenueber der Europaeischen Kommission als notifizierende Behoerde und als Marktueberwachungsbehoerde im Sinne der Verordnung benannt hat. Ein nationaler Durchfuehrungsgesetzentwurf folgte im Mai 2026.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2025/251007_CRA_BSI_marktueberwachende_Behoerde.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-29-eu-cra-delegated-reg-2025-1535",
+      "date": "2025-10-29",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Delegated Regulation (EU) 2025/1535 excludes L category vehicles from the Cyber Resilience Act",
+      "titleDe": "Delegierte Verordnung (EU) 2025/1535 nimmt Fahrzeuge der L Klasse vom Cyber Resilience Act aus",
+      "summary": "Adopted on 29 July 2025 under Article 2(5) and published on 29 October 2025, the delegated act excludes products with digital elements within the scope of Regulation (EU) No 168/2013, except L1e vehicles designed to pedal. It is binding and enters into force on the twentieth day after publication.",
+      "summaryDe": "Der am 29. Juli 2025 nach Artikel 2 Absatz 5 erlassene und am 29. Oktober 2025 veroeffentlichte delegierte Rechtsakt nimmt Produkte mit digitalen Elementen im Anwendungsbereich der Verordnung (EU) Nr. 168/2013 aus, ausgenommen L1e Fahrzeuge, die zum Treten ausgelegt sind. Er ist verbindlich und tritt am zwanzigsten Tag nach der Veroeffentlichung in Kraft.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg_del/2025/1535/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-11-19-eu-cra-digital-omnibus-single-entry-point",
+      "date": "2025-11-19",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "incident-reporting"
+      ],
+      "type": "update",
+      "title": "Commission proposes a single entry point for incident reporting that builds on the CRA reporting platform",
+      "titleDe": "Kommission schlaegt eine zentrale Meldestelle fuer Sicherheitsvorfaelle vor, die auf der CRA Meldeplattform aufbaut",
+      "summary": "The Digital Omnibus proposal (COM(2025) 837) would have ENISA run a single entry point for incident notifications under several EU laws, building on ENISA's experience with the CRA single reporting platform. The Commission states it would not modify existing reporting obligations; the proposal is still in the legislative process.",
+      "summaryDe": "Der Vorschlag zum Digital Omnibus (COM(2025) 837) wuerde die ENISA mit dem Betrieb einer zentralen Meldestelle fuer Meldungen nach mehreren EU Rechtsakten beauftragen, aufbauend auf ihren Erfahrungen mit der Single Reporting Platform des CRA. Nach Angaben der Kommission aendert er bestehende Meldepflichten nicht; der Vorschlag befindet sich noch im Gesetzgebungsverfahren.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/faqs/digital-package",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-12-01-eu-cra-implementing-reg-2025-2392",
+      "date": "2025-12-01",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "publication",
+        "conformity-assessment"
+      ],
+      "type": "update",
+      "title": "Implementing Regulation (EU) 2025/2392 on the technical description of important and critical product categories published",
+      "titleDe": "Durchfuehrungsverordnung (EU) 2025/2392 zur technischen Beschreibung wichtiger und kritischer Produktkategorien veroeffentlicht",
+      "summary": "Adopted on 28 November 2025 under Article 7(4) and published on 1 December 2025, it sets the technical description of the product categories in Annexes III and IV of the Regulation. It is binding and enters into force on the twentieth day after publication (21 December 2025).",
+      "summaryDe": "Die am 28. November 2025 nach Artikel 7 Absatz 4 erlassene und am 1. Dezember 2025 veroeffentlichte Verordnung legt die technische Beschreibung der Produktkategorien in den Anhaengen III und IV der Verordnung fest. Sie ist verbindlich und tritt am zwanzigsten Tag nach der Veroeffentlichung in Kraft (21. Dezember 2025).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg_impl/2025/2392/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-12-03-eu-cra-implementation-faq",
+      "date": "2025-12-03",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Commission publishes FAQ on Cyber Resilience Act implementation",
+      "titleDe": "Kommission veroeffentlicht FAQ zur Umsetzung des Cyber Resilience Act",
+      "summary": "The Commission publishes answers to frequently asked questions on applying the Regulation. The FAQ is non-binding guidance; the page shows a last update on 4 September 2026.",
+      "summaryDe": "Die Kommission veroeffentlicht Antworten auf haeufig gestellte Fragen zur Anwendung der Verordnung. Die FAQ ist unverbindliche Orientierungshilfe; die Seite nennt eine letzte Aktualisierung am 4. September 2026.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/cyber-resilience-act-implementation-frequently-asked-questions",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-12-18-national-nl-cra-bill-submitted",
+      "date": "2025-12-18",
+      "category": "national",
+      "tags": [
+        "nl",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Netherlands: government submits the bill implementing the Cyber Resilience Act to the House of Representatives",
+      "titleDe": "Niederlande: Regierung legt der Zweiten Kammer den Gesetzentwurf zur Durchfuehrung des Cyber Resilience Act vor",
+      "summary": "The Uitvoeringswet verordening cyberweerbaarheid (Kamerstuk 36 875) is submitted to the Tweede Kamer on 18 December 2025. It is a bill, not yet law.",
+      "summaryDe": "Die Uitvoeringswet verordening cyberweerbaarheid (Kamerstuk 36 875) wird am 18. Dezember 2025 bei der Tweede Kamer eingereicht. Es handelt sich um einen Gesetzentwurf, noch nicht um geltendes Recht.",
+      "sourceId": "eerstekamer",
+      "sourceUrl": "https://www.eerstekamer.nl/wetsvoorstel/36875_uitvoeringswet_verordening",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-03-eu-cra-draft-guidance",
+      "date": "2026-03-03",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "open-source"
+      ],
+      "type": "update",
+      "title": "Commission publishes draft Cyber Resilience Act guidance for feedback",
+      "titleDe": "Kommission veroeffentlicht Entwurf eines Leitfadens zum Cyber Resilience Act zur Stellungnahme",
+      "summary": "The draft covers remote data processing, free and open-source software, support periods and the link to other EU law; the news item gives 31 March 2026 as the end of the feedback period. It is a draft and non-binding.",
+      "summaryDe": "Der Entwurf behandelt die Datenverarbeitung auf Distanz, freie und quelloffene Software, Supportzeitraeume und das Verhaeltnis zu anderem EU Recht; die Mitteilung nennt den 31. Maerz 2026 als Ende der Rueckmeldefrist. Er ist ein Entwurf und unverbindlich.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-feedback-draft-guidance-assist-companies-applying-cyber-resilience-act",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-12-national-fr-cra-authorities",
+      "date": "2026-03-12",
+      "category": "national",
+      "tags": [
+        "fr",
+        "designation"
+      ],
+      "type": "update",
+      "title": "France: ministry explainer names ANSSI as notifying authority and ANFR as market surveillance authority for the CRA",
+      "titleDe": "Frankreich: Erlaeuterung des Ministeriums nennt ANSSI als notifizierende Behoerde und ANFR als Marktueberwachungsbehoerde fuer den CRA",
+      "summary": "The explainer of the Direction generale des Entreprises says ANSSI will act as notifying authority and that market surveillance will be carried out by ANFR with ANSSI technical support. It does not cite the legal act that designates them.",
+      "summaryDe": "Die Erlaeuterung der Direction generale des Entreprises nennt die ANSSI als notifizierende Behoerde und sagt, die Marktueberwachung werde von der ANFR mit technischer Unterstuetzung der ANSSI wahrgenommen. Den Rechtsakt, der sie benennt, nennt sie nicht.",
+      "sourceId": "dge-fr",
+      "sourceUrl": "https://www.entreprises.gouv.fr/decryptages-de-nos-experts/cyber-resilience-act-cra-ce-qui-change-pour-les-entreprises-et-comment",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-19-eu-cra-adco-chair-bsi",
+      "date": "2026-03-19",
+      "category": "eu",
+      "tags": [
+        "organisational"
+      ],
+      "type": "update",
+      "title": "BSI takes over the chair of the CRA Administrative Cooperation Group",
+      "titleDe": "BSI uebernimmt den Vorsitz der Administrative Cooperation Group zum CRA",
+      "summary": "At the session of the AdCo CRA in Athens on 19 March 2026 the chair passes to the BSI, with a vice-chair from the Digital Security Authority of Cyprus. The AdCo is the cooperation forum of the national market surveillance authorities.",
+      "summaryDe": "Bei der Sitzung der AdCo CRA in Athen am 19. Maerz 2026 geht der Vorsitz an das BSI, die stellvertretende Leitung liegt bei der Digital Security Authority Zyperns. Die AdCo ist das Kooperationsforum der nationalen Marktueberwachungsbehoerden.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2026/260319_Vorsitz_AdCo_CRA.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-04-20-eu-cra-delegated-reg-2026-881",
+      "date": "2026-04-20",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "publication",
+        "incident-reporting",
+        "vulnerability-reporting"
+      ],
+      "type": "update",
+      "title": "Delegated Regulation (EU) 2026/881 on delaying the dissemination of CRA notifications published",
+      "titleDe": "Delegierte Verordnung (EU) 2026/881 zur Verzoegerung der Weitergabe von CRA Meldungen veroeffentlicht",
+      "summary": "Adopted on 11 December 2025 under Article 14(9) and published on 20 April 2026, it sets the terms for the cybersecurity grounds on which a coordinating CSIRT may delay passing a notification on to other CSIRTs. It is binding and enters into force on the twentieth day after publication (10 May 2026).",
+      "summaryDe": "Die am 11. Dezember 2025 nach Artikel 14 Absatz 9 erlassene und am 20. April 2026 veroeffentlichte Verordnung regelt die Bedingungen fuer die Sicherheitsgruende, aus denen ein koordinierendes CSIRT die Weitergabe einer Meldung an andere CSIRTs verzoegern darf. Sie ist verbindlich und tritt am zwanzigsten Tag nach der Veroeffentlichung in Kraft (10. Mai 2026).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg_del/2026/881/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-05-26-national-de-cra-bill-tabled",
+      "date": "2026-05-26",
+      "category": "national",
+      "tags": [
+        "de",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Germany: Federal Government tables the bill implementing the Cyber Resilience Act in the Bundestag",
+      "titleDe": "Deutschland: Bundesregierung bringt den Gesetzentwurf zur Durchfuehrung des Cyber Resilience Act in den Bundestag ein",
+      "summary": "Bundestag paper 21/6134 designates the BSI as market surveillance and notifying authority, sets up a consumer complaints office and fine procedures, and amends the BSI Act, the Telecommunications Act and the Energy Industry Act. It is a bill, not law.",
+      "summaryDe": "Die Bundestagsdrucksache 21/6134 benennt das BSI als Marktueberwachungsbehoerde und als notifizierende Behoerde, richtet eine Beschwerdestelle fuer Verbraucher und ein Bussgeldverfahren ein und aendert das BSI Gesetz, das Telekommunikationsgesetz und das Energiewirtschaftsgesetz. Es ist ein Entwurf und kein Gesetz.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://dserver.bundestag.de/btd/21/061/2106134.pdf",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-01-national-fi-cra-act-in-force",
+      "date": "2026-06-01",
+      "category": "national",
+      "tags": [
+        "fi",
+        "in-force",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Finland: national act supplementing the Cyber Resilience Act enters into force",
+      "titleDe": "Finnland: nationales Gesetz zur Ergaenzung des Cyber Resilience Act tritt in Kraft",
+      "summary": "The act enters into force on 1 June 2026 and assigns market surveillance, vulnerability reporting and the notification of conformity assessment bodies to Traficom's National Cyber Security Centre (NCSC-FI). It is binding national law, reported by Traficom on 2 June 2026.",
+      "summaryDe": "Das Gesetz tritt am 1. Juni 2026 in Kraft und weist Marktueberwachung, Schwachstellenmeldungen und die Notifizierung von Konformitaetsbewertungsstellen dem Nationalen Cybersicherheitszentrum (NCSC-FI) bei Traficom zu. Es ist verbindliches nationales Recht, ueber das Traficom am 2. Juni 2026 berichtete.",
+      "sourceId": "traficom",
+      "sourceUrl": "https://traficom.fi/en/news/new-national-act-cyber-resilience-enters-force-1-june-vulnerabilities-must-be-reported-traficom-autumn-onwards",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-04-enisa-cra-notified-body-competence",
+      "date": "2026-06-04",
+      "category": "enisa",
+      "tags": [
+        "conformity-assessment",
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "ENISA publishes technical competence requirements for CRA notified bodies",
+      "titleDe": "ENISA veroeffentlicht Anforderungen an die fachliche Kompetenz notifizierter Stellen nach dem CRA",
+      "summary": "Version 1.0 describes the knowledge, skills and experience expected of staff at conformity assessment bodies that apply for notification under the Regulation. It is non-binding guidance.",
+      "summaryDe": "Version 1.0 beschreibt Kenntnisse, Faehigkeiten und Erfahrung, die vom Personal von Konformitaetsbewertungsstellen erwartet werden, die eine Notifizierung nach der Verordnung beantragen. Sie ist unverbindliche Orientierungshilfe.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/publications/technical-competence-requirements-for-cra-notified-bodies",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-11-eu-cra-chapter-iv-applies",
+      "date": "2026-06-11",
+      "category": "eu",
+      "tags": [
+        "conformity-assessment",
+        "deadline"
+      ],
+      "type": "milestone",
+      "title": "Provisions on the notification of conformity assessment bodies start to apply",
+      "titleDe": "Vorschriften zur Notifizierung von Konformitaetsbewertungsstellen beginnen zu gelten",
+      "summary": "Under Article 71(2), Chapter IV (Articles 35 to 51) applies from 11 June 2026. From then Member States can assess, notify and monitor the bodies that carry out third party conformity assessment.",
+      "summaryDe": "Nach Artikel 71 Absatz 2 gilt Kapitel IV (Artikel 35 bis 51) ab dem 11. Juni 2026. Ab dann koennen die Mitgliedstaaten die Stellen bewerten, notifizieren und ueberwachen, die Konformitaetsbewertungen durch Dritte durchfuehren.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-11-national-de-cra-first-reading",
+      "date": "2026-06-11",
+      "category": "national",
+      "tags": [
+        "de",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Germany: Bundestag holds the first reading of the CRA implementation bill",
+      "titleDe": "Deutschland: Bundestag beraet den Gesetzentwurf zur Durchfuehrung des CRA in erster Lesung",
+      "summary": "After a 20 minute debate the Bundestag refers bill 21/6134 to the Interior Committee, which leads the work. A first reading ends with a referral, not a vote on the law.",
+      "summaryDe": "Nach 20 Minuten Aussprache ueberweist der Bundestag den Gesetzentwurf 21/6134 an den Innenausschuss, der federfuehrend ist. Eine erste Lesung endet mit der Ueberweisung und nicht mit einer Abstimmung ueber das Gesetz.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://www.bundestag.de/dokumente/textarchiv/2026/kw24-de-cyberresilienz-1181930",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-12-national-de-cra-bundesrat",
+      "date": "2026-06-12",
+      "category": "national",
+      "tags": [
+        "de",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Germany: Bundesrat raises no objections to the CRA implementation bill",
+      "titleDe": "Deutschland: Bundesrat erhebt keine Einwaende gegen den Gesetzentwurf zur Durchfuehrung des CRA",
+      "summary": "At its 1066th session the Bundesrat decides not to raise objections to the bill under Article 76(2) of the Basic Law, as recorded in Bundestag paper 21/6512 of 15 June 2026.",
+      "summaryDe": "In seiner 1066. Sitzung beschliesst der Bundesrat, gegen den Gesetzentwurf nach Artikel 76 Absatz 2 des Grundgesetzes keine Einwendungen zu erheben, wie die Bundestagsdrucksache 21/6512 vom 15. Juni 2026 festhaelt.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://dserver.bundestag.de/btd/21/065/2106512.pdf",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-25-eu-cra-adco-berlin",
+      "date": "2026-06-25",
+      "category": "eu",
+      "tags": [
+        "organisational"
+      ],
+      "type": "update",
+      "title": "CRA market surveillance authorities hold the second AdCo meeting in Berlin",
+      "titleDe": "Marktueberwachungsbehoerden halten die zweite AdCo Sitzung zum CRA in Berlin ab",
+      "summary": "The national authorities set up technical and legal working groups, discuss monitoring of the reporting duties and cooperation with the CSIRTs, and examine machine-readable formats for documenting requirements. The BSI chairs the group.",
+      "summaryDe": "Die nationalen Behoerden richten technische und rechtliche Arbeitsgruppen ein, besprechen die Ueberwachung der Meldepflichten und die Zusammenarbeit mit den CSIRTs und pruefen maschinenlesbare Formate zur Dokumentation der Anforderungen. Den Vorsitz fuehrt das BSI.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/Treffen_CRA_Markt%C3%BCberwachungsbeh%C3%B6rden_260625.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-27-eu-cra-commission-guidance",
+      "date": "2026-07-27",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "open-source",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Commission publishes guidance on the application of the Cyber Resilience Act",
+      "titleDe": "Kommission veroeffentlicht Leitlinien zur Anwendung des Cyber Resilience Act",
+      "summary": "Communication C(2026) 5252 with an annex explains scope (including remote data processing and open-source software), substantial modification, support periods and the reporting duties. It is non-binding Commission guidance.",
+      "summaryDe": "Die Mitteilung C(2026) 5252 mit Anhang erlaeutert den Anwendungsbereich (auch Datenverarbeitung auf Distanz und quelloffene Software), wesentliche Veraenderungen, Supportzeitraeume und die Meldepflichten. Es sind unverbindliche Leitlinien der Kommission.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-new-guidance-support-timely-cyber-resilience-act-implementation",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-08-05-national-de-bsi-tr-03183-1",
+      "date": "2026-08-05",
+      "category": "national",
+      "tags": [
+        "de",
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Germany: BSI publishes Technical Guideline TR-03183 Part 1, version 1.0.0, as an entry aid to the CRA",
+      "titleDe": "Deutschland: BSI veroeffentlicht Technische Richtlinie TR-03183 Teil 1 in Version 1.0.0 als Einstiegshilfe zum CRA",
+      "summary": "The guideline on general requirements has no binding force. It targets manufacturers without mature security processes and comes with an initial selection of measures in the machine-readable OSCAL format.",
+      "summaryDe": "Die Richtlinie zu allgemeinen Anforderungen hat keine verbindliche Wirkung. Sie richtet sich an Hersteller ohne ausgereifte Sicherheitsprozesse und wird durch eine erste Auswahl von Massnahmen im maschinenlesbaren Format OSCAL ergaenzt.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/TR-03183_Einstiegshilfe_CRA_260805.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-10-national-nl-cra-bill-adopted-tk",
+      "date": "2026-09-10",
+      "category": "national",
+      "tags": [
+        "nl",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Netherlands: House of Representatives adopts the CRA implementation bill",
+      "titleDe": "Niederlande: Zweite Kammer nimmt den Gesetzentwurf zur Durchfuehrung des CRA an",
+      "summary": "The Tweede Kamer adopts bill 36 875 on 10 September 2026. The Eerste Kamer committees are now reviewing it, so it is not yet law.",
+      "summaryDe": "Die Tweede Kamer nimmt den Gesetzentwurf 36 875 am 10. September 2026 an. Die Ausschuesse der Eerste Kamer pruefen ihn derzeit, er ist daher noch kein Gesetz.",
+      "sourceId": "eerstekamer",
+      "sourceUrl": "https://www.eerstekamer.nl/wetsvoorstel/36875_uitvoeringswet_verordening",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-11-eu-cra-reporting-applies",
+      "date": "2026-09-11",
+      "category": "eu",
+      "tags": [
+        "incident-reporting",
+        "vulnerability-reporting",
+        "deadline"
+      ],
+      "type": "milestone",
+      "title": "Reporting obligations for actively exploited vulnerabilities and severe incidents start to apply",
+      "titleDe": "Meldepflichten fuer aktiv ausgenutzte Schwachstellen und schwerwiegende Sicherheitsvorfaelle beginnen zu gelten",
+      "summary": "Under Article 71(2), Article 14 applies from 11 September 2026: an early warning within 24 hours, a notification within 72 hours and a final report (14 days after a fix for vulnerabilities, one month for incidents). Under Article 69(3) it also covers products placed on the market before 11 December 2027.",
+      "summaryDe": "Nach Artikel 71 Absatz 2 gilt Artikel 14 ab dem 11. September 2026: eine Fruehwarnung binnen 24 Stunden, eine Meldung binnen 72 Stunden und ein Abschlussbericht (14 Tage nach Verfuegbarkeit einer Abhilfe bei Schwachstellen, ein Monat bei Sicherheitsvorfaellen). Nach Artikel 69 Absatz 3 erfasst er auch Produkte, die vor dem 11. Dezember 2027 in Verkehr gebracht wurden.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-11-enisa-cra-srp-launched",
+      "date": "2026-09-11",
+      "category": "enisa",
+      "tags": [
+        "incident-reporting",
+        "vulnerability-reporting"
+      ],
+      "type": "update",
+      "title": "ENISA deploys the CRA single reporting platform",
+      "titleDe": "ENISA nimmt die zentrale Meldeplattform fuer den CRA in Betrieb",
+      "summary": "ENISA announces the initial operating capability of the single reporting platform required by Article 16, through which manufacturers file their Article 14 notifications.",
+      "summaryDe": "Die ENISA gibt die erste Betriebsfaehigkeit der nach Artikel 16 vorgesehenen zentralen Meldeplattform bekannt, ueber die Hersteller ihre Meldungen nach Artikel 14 einreichen.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-11-national-de-bsi-reporting-start",
+      "date": "2026-09-11",
+      "category": "national",
+      "tags": [
+        "de",
+        "incident-reporting",
+        "vulnerability-reporting"
+      ],
+      "type": "update",
+      "title": "Germany: BSI says CERT-Bund is the coordinating CSIRT for CRA reports and publishes step by step guides",
+      "titleDe": "Deutschland: BSI nennt CERT-Bund als koordinierendes CSIRT fuer CRA Meldungen und veroeffentlicht Anleitungen",
+      "summary": "On the day the reporting duty starts, the BSI states that notifications go through the ENISA platform to the competent coordinating CSIRT (CERT-Bund in Germany) and to ENISA, and offers step by step instructions.",
+      "summaryDe": "Am Tag des Beginns der Meldepflicht erklaert das BSI, dass Meldungen ueber die ENISA Plattform an das zustaendige koordinierende CSIRT (in Deutschland CERT-Bund) und an die ENISA gehen, und bietet Anleitungen Schritt fuer Schritt an.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2026/260911_CRA_Meldepflicht_Schwachstellen.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-11-national-ie-ncsc-cra-guidelines",
+      "date": "2026-09-11",
+      "category": "national",
+      "tags": [
+        "ie",
+        "guidance",
+        "incident-reporting"
+      ],
+      "type": "update",
+      "title": "Ireland: NCSC publishes national guidelines on CRA reporting obligations",
+      "titleDe": "Irland: NCSC veroeffentlicht nationale Leitlinien zu den Meldepflichten nach dem CRA",
+      "summary": "The National Cyber Security Centre guidelines explain reporting thresholds, timelines, notification procedures and the information required when submitting a report. They are non-binding guidance, announced by the Department of Justice, Home Affairs and Migration.",
+      "summaryDe": "Die Leitlinien des Nationalen Cybersicherheitszentrums (NCSC) erklaeren Meldeschwellen, Fristen, Meldeverfahren und die bei einer Meldung erforderlichen Angaben. Sie sind unverbindliche Orientierungshilfe und wurden vom Ministerium fuer Justiz, Inneres und Migration angekuendigt.",
+      "sourceId": "gov-ie",
+      "sourceUrl": "https://www.gov.ie/en/department-of-justice-home-affairs-and-migration/press-releases/cyber-resilience-act-guidelines-published-as-reporting-obligations-come-into-effect/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-11-national-mt-ln-238-2026",
+      "date": "2026-09-11",
+      "category": "national",
+      "tags": [
+        "mt",
+        "designation",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Malta: Legal Notice 238 of 2026 designates the Malta Digital Innovation Authority and the national CSIRT for the CRA",
+      "titleDe": "Malta: Legal Notice 238 von 2026 benennt die Malta Digital Innovation Authority und das nationale CSIRT fuer den CRA",
+      "summary": "The Cyber Resilience Regulations 2026, published in Government Gazette No. 21,717, designate the Malta Digital Innovation Authority as notifying and market surveillance authority and the national CSIRT as coordinator. Regulations 3 to 7 and 9 to 12, including the market surveillance designation, come into force on 11 December 2027.",
+      "summaryDe": "Die im Government Gazette Nr. 21,717 veroeffentlichten Cyber Resilience Regulations 2026 benennen die Malta Digital Innovation Authority als notifizierende Behoerde und Marktueberwachungsbehoerde und das nationale CSIRT als koordinierendes CSIRT. Die Regelungen 3 bis 7 und 9 bis 12, darunter die Benennung als Marktueberwachungsbehoerde, treten am 11. Dezember 2027 in Kraft.",
+      "sourceId": "legislation-mt",
+      "sourceUrl": "https://legislation.mt/eli/ln/2026/238/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-02-national-it-cra-decree-cdm",
+      "date": "2026-10-02",
+      "category": "national",
+      "tags": [
+        "it",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Italy: Council of Ministers takes up the draft decree adapting national law to the CRA in preliminary examination",
+      "titleDe": "Italien: Ministerrat nimmt den Entwurf des Dekrets zur Anpassung des nationalen Rechts an den CRA in vorlaeufiger Pruefung auf",
+      "summary": "The agenda of Council of Ministers meeting no. 191 lists the legislative decree adapting national law to Regulation (EU) 2024/2847 for preliminary examination. A preliminary reading is not final adoption.",
+      "summaryDe": "Die Tagesordnung der Ministerratssitzung Nr. 191 fuehrt das Gesetzesdekret zur Anpassung des nationalen Rechts an die Verordnung (EU) 2024/2847 zur vorlaeufigen Pruefung auf. Eine vorlaeufige Pruefung ist keine endgueltige Annahme.",
+      "sourceId": "governo-it",
+      "sourceUrl": "https://www.governo.it/it/articolo/convocazione-del-consiglio-dei-ministri-n-191/32726",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-09-national-it-cra-decree-parliament",
+      "date": "2026-10-09",
+      "category": "national",
+      "tags": [
+        "it",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Italy: draft CRA decree (Atto del Governo 447) goes to Parliament and names ACN as notifying and market surveillance authority",
+      "titleDe": "Italien: Dekretentwurf zum CRA (Atto del Governo 447) geht ans Parlament und benennt die ACN als notifizierende Behoerde und Marktueberwachungsbehoerde",
+      "summary": "Transmitted on 9 October 2026, the draft designates the National Cybersecurity Agency (ACN) as notifying authority (Article 4) and market surveillance authority (Article 9(1)); the committees have until 18 November 2026 for their opinion. It is a draft, not law.",
+      "summaryDe": "Der am 9. Oktober 2026 uebermittelte Entwurf benennt die Nationale Cybersicherheitsagentur (ACN) als notifizierende Behoerde (Artikel 4) und als Marktueberwachungsbehoerde (Artikel 9 Absatz 1); die Ausschuesse haben bis zum 18. November 2026 Zeit fuer ihre Stellungnahme. Es ist ein Entwurf und kein Gesetz.",
+      "sourceId": "camera-it",
+      "sourceUrl": "https://documenti.camera.it/apps/nuovoSito/attiGoverno/schedaLavori/getTesto.ashx?leg=XIX&file=0447.pdf",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-15-national-de-cra-act-bundestag",
+      "date": "2026-10-15",
+      "category": "national",
+      "tags": [
+        "de",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Germany: Bundestag passes the law implementing the Cyber Resilience Act",
+      "titleDe": "Deutschland: Bundestag beschliesst das Gesetz zur Durchfuehrung des Cyber Resilience Act",
+      "summary": "The Bundestag adopts the act implementing Regulation (EU) 2024/2847 with votes from CDU/CSU, SPD and the Greens; it makes the BSI the market surveillance and notifying authority. The Bundesrat still has to deal with it, so it is not yet in force.",
+      "summaryDe": "Der Bundestag beschliesst das Gesetz zur Durchfuehrung der Verordnung (EU) 2024/2847 mit den Stimmen von CDU/CSU, SPD und Gruenen; es macht das BSI zur Marktueberwachungsbehoerde und notifizierenden Behoerde. Der Bundesrat muss sich noch damit befassen, das Gesetz ist daher noch nicht in Kraft.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://www.bundestag.de/dokumente/textarchiv/2026/kw42-de-cyberresilienz-1224508",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-20-enisa-cra-srp-version-1-2-1",
+      "date": "2026-10-20",
+      "category": "enisa",
+      "tags": [
+        "incident-reporting",
+        "vulnerability-reporting"
+      ],
+      "type": "update",
+      "title": "ENISA upgrades the CRA single reporting platform to version 1.2.1",
+      "titleDe": "ENISA aktualisiert die zentrale CRA Meldeplattform auf Version 1.2.1",
+      "summary": "ENISA states that on 20 October 2026 the platform was upgraded to version 1.2.1, with a different process to invite secondary Assigned Representatives; the older way stays available for a short period.",
+      "summaryDe": "Die ENISA gibt an, dass die Plattform am 20. Oktober 2026 auf Version 1.2.1 aktualisiert wurde, mit einem anderen Verfahren zur Einladung sekundaerer Assigned Representatives; das bisherige Verfahren bleibt noch kurze Zeit nutzbar.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/topics/product-security/single-reporting-platform-srp",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-12-11-eu-cra-notified-bodies-target",
+      "date": "2026-12-11",
+      "category": "eu",
+      "tags": [
+        "conformity-assessment",
+        "deadline"
+      ],
+      "type": "update",
+      "title": "Target date for a sufficient number of notified bodies in the Union",
+      "titleDe": "Zieldatum fuer eine ausreichende Zahl notifizierter Stellen in der Union",
+      "summary": "Article 35(2) asks Member States to strive to ensure by 11 December 2026 that there are enough notified bodies to avoid bottlenecks at market entry. The wording is 'shall strive', so it is a target for Member States.",
+      "summaryDe": "Artikel 35 Absatz 2 verlangt von den Mitgliedstaaten, sich zu bemuehen, bis zum 11. Dezember 2026 fuer genuegend notifizierte Stellen zu sorgen, um Engpaesse beim Markteintritt zu vermeiden. Die Formulierung lautet 'bemuehen sich', es ist also ein Ziel fuer die Mitgliedstaaten.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-10-30-standards-cra-final-report",
+      "date": "2027-10-30",
+      "category": "standards",
+      "tags": [
+        "standards",
+        "deadline"
+      ],
+      "type": "update",
+      "title": "Final joint report of the standardisation bodies on the CRA request due",
+      "titleDe": "Gemeinsamer Abschlussbericht der Normungsorganisationen zum CRA Auftrag faellig",
+      "summary": "Article 4(3) of Implementing Decision C(2025) 618 requires CEN, CENELEC and ETSI to give the Commission their final joint report by 30 October 2027. The decision itself expires on 30 November 2027.",
+      "summaryDe": "Artikel 4 Absatz 3 des Durchfuehrungsbeschlusses C(2025) 618 verlangt von CEN, CENELEC und ETSI, der Kommission bis zum 30. Oktober 2027 ihren gemeinsamen Abschlussbericht vorzulegen. Der Beschluss selbst laeuft am 30. November 2027 aus.",
+      "sourceId": "ec-documents-register",
+      "sourceUrl": "https://ec.europa.eu/transparency/documents-register/api/files/C(2025)618_0/de00000001069725",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-12-11-eu-cra-main-obligations-apply",
+      "date": "2027-12-11",
+      "category": "eu",
+      "tags": [
+        "deadline",
+        "conformity-assessment",
+        "open-source"
+      ],
+      "type": "milestone",
+      "title": "Main obligations of the Cyber Resilience Act start to apply",
+      "titleDe": "Die Hauptpflichten des Cyber Resilience Act beginnen zu gelten",
+      "summary": "Under Article 71(2) the Regulation applies from 11 December 2027. Under Article 69(2), products placed on the market earlier fall under it only after a substantial modification, while the Article 14 reporting duties already cover them. The Commission reads Article 71(2) as starting the reporting duties of open-source software stewards under Article 24(3) on this date.",
+      "summaryDe": "Nach Artikel 71 Absatz 2 gilt die Verordnung ab dem 11. Dezember 2027. Nach Artikel 69 Absatz 2 fallen frueher in Verkehr gebrachte Produkte erst nach einer wesentlichen Veraenderung darunter, waehrend die Meldepflichten nach Artikel 14 sie schon erfassen. Die Kommission liest Artikel 71 Absatz 2 so, dass die Meldepflichten der Verwalter quelloffener Software nach Artikel 24 Absatz 3 an diesem Tag beginnen.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2028-06-11-eu-cra-type-examination-certificates",
+      "date": "2028-06-11",
+      "category": "eu",
+      "tags": [
+        "certification",
+        "deadline"
+      ],
+      "type": "update",
+      "title": "EU type-examination certificates under other harmonisation law remain valid until this date at the latest",
+      "titleDe": "EU Baumusterpruefbescheinigungen nach anderem Harmonisierungsrecht bleiben hoechstens bis zu diesem Datum gueltig",
+      "summary": "Article 69(1): EU type-examination certificates and approval decisions on cybersecurity requirements issued under other Union harmonisation legislation remain valid until 11 June 2028, unless they expire earlier or that legislation provides otherwise.",
+      "summaryDe": "Artikel 69 Absatz 1: EU Baumusterpruefbescheinigungen und Genehmigungsentscheidungen zu Cybersicherheitsanforderungen nach anderen Harmonisierungsvorschriften der Union bleiben bis zum 11. Juni 2028 gueltig, sofern sie nicht frueher ablaufen oder jene Vorschriften etwas anderes bestimmen.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2028-09-11-eu-cra-srp-report",
+      "date": "2028-09-11",
+      "category": "eu",
+      "tags": [
+        "incident-reporting",
+        "deadline"
+      ],
+      "type": "update",
+      "title": "Commission report on the effectiveness of the single reporting platform due",
+      "titleDe": "Bericht der Kommission zur Wirksamkeit der zentralen Meldeplattform faellig",
+      "summary": "Article 70(2): by 11 September 2028 the Commission, after consulting ENISA and the CSIRTs network, reports to Parliament and Council on the effectiveness of the single reporting platform and on the effect of delayed dissemination of notifications.",
+      "summaryDe": "Artikel 70 Absatz 2: Bis zum 11. September 2028 berichtet die Kommission nach Anhoerung der ENISA und des CSIRTs Netzwerks dem Parlament und dem Rat ueber die Wirksamkeit der zentralen Meldeplattform und die Folgen einer verzoegerten Weitergabe von Meldungen.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2030-12-11-eu-cra-evaluation-report",
+      "date": "2030-12-11",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "deadline"
+      ],
+      "type": "update",
+      "title": "First Commission evaluation report on the Cyber Resilience Act due",
+      "titleDe": "Erster Evaluierungsbericht der Kommission zum Cyber Resilience Act faellig",
+      "summary": "Article 70(1): by 11 December 2030 and every four years after that, the Commission reports to Parliament and Council on the evaluation and review of the Regulation. The reports are made public.",
+      "summaryDe": "Artikel 70 Absatz 1: Bis zum 11. Dezember 2030 und danach alle vier Jahre legt die Kommission dem Parlament und dem Rat einen Bericht ueber die Bewertung und Ueberpruefung der Verordnung vor. Die Berichte werden veroeffentlicht.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-14-national-de-cra-interior-committee",
+      "date": "2026-10-14",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "deadline",
+        "de"
+      ],
+      "type": "update",
+      "title": "Germany: Interior Committee recommends the CRA act with a new entry into force",
+      "titleDe": "Deutschland: Innenausschuss empfiehlt das CRA Gesetz mit neuem Inkrafttreten",
+      "summary": "On 14 October 2026 the Interior Committee recommends passing the CRA bill unchanged except for entry into force: provisions whose dates of 11 June and 11 September 2026 have passed apply the day after promulgation, the rest from 11 December 2027. This is a committee recommendation on a bill, not law.",
+      "summaryDe": "Am 14. Oktober 2026 empfiehlt der Innenausschuss, den CRA Gesetzentwurf unveraendert anzunehmen, ausser beim Inkrafttreten: Regeln mit den verstrichenen Terminen 11. Juni und 11. September 2026 gelten am Tag nach der Verkuendung, der Rest ab dem 11. Dezember 2027. Es ist eine Ausschussempfehlung zu einem Entwurf, kein Gesetz.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://dserver.bundestag.de/btd/21/086/2108622.pdf",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-05-13-national-es-cra-draft-decree-cnmc-report",
+      "date": "2026-05-13",
+      "category": "national",
+      "tags": [
+        "es",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Spain: CNMC reports on the draft Royal Decree naming the CRA authorities",
+      "titleDe": "Spanien: CNMC begutachtet den Entwurf des Koeniglichen Dekrets zur Benennung der CRA Behoerden",
+      "summary": "On 13 May 2026 the competition and markets authority CNMC approved its report on the draft Royal Decree that designates the notifying and market surveillance authorities under Regulation (EU) 2024/2847. The draft names the State Secretariat for Telecommunications and Digital Infrastructure (SETID) as market surveillance authority and the National Cryptologic Centre (CCN) as notifying authority. It is a draft and the report is advisory, so none of this is enacted law yet.",
+      "summaryDe": "Am 13. Mai 2026 hat die Wettbewerbs und Marktbehoerde CNMC ihr Gutachten zum Entwurf des Koeniglichen Dekrets angenommen, das die notifizierende Behoerde und die Marktueberwachungsbehoerde nach der Verordnung (EU) 2024/2847 benennt. Der Entwurf nennt das Staatssekretariat fuer Telekommunikation und digitale Infrastruktur (SETID) als Marktueberwachungsbehoerde und das Nationale Kryptologische Zentrum (CCN) als notifizierende Behoerde. Es ist ein Entwurf und das Gutachten ist beratend, noch nichts davon ist geltendes Recht.",
+      "sourceId": "cnmc",
+      "sourceUrl": "https://www.cnmc.es/expedientes/ipncnmc00726",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-23-national-cy-cra-commissioner-roles",
+      "date": "2026-09-23",
+      "category": "national",
+      "tags": [
+        "cy",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Cyprus: Commissioner of Communications names his Office as CRA notifying and market surveillance authority",
+      "titleDe": "Zypern: Kommunikationsbeauftragter nennt sein Amt als notifizierende Behoerde und Marktueberwachungsbehoerde fuer den CRA",
+      "summary": "In an article of 23 September 2026 the Commissioner of Communications states that his Office, through the Digital Security Authority, acts as notifying authority and will act as market surveillance authority under the Cyber Resilience Act, and that the national CSIRT receives the manufacturers' notifications. This is a statement by the authority, and the article does not cite the legal act that made the designation.",
+      "summaryDe": "In einem Beitrag vom 23. September 2026 erklaert der Kommunikationsbeauftragte, dass sein Amt ueber die Behoerde fuer digitale Sicherheit als notifizierende Behoerde handelt und kuenftig Marktueberwachungsbehoerde nach dem Cyber Resilience Act ist, und dass das nationale CSIRT die Meldungen der Hersteller entgegennimmt. Das ist eine Aussage der Behoerde, der Beitrag nennt den Rechtsakt der Benennung nicht.",
+      "sourceId": "dsa-cy",
+      "sourceUrl": "https://dsa.cy/category/news/commissioner-article-3",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-05-national-dk-cra-bill-consultation",
+      "date": "2026-10-05",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "dk"
+      ],
+      "type": "update",
+      "title": "Denmark: draft law supplementing the Cyber Resilience Act goes to public consultation",
+      "titleDe": "Daenemark: Gesetzentwurf zur Ergaenzung des Cyber Resilience Act geht in die oeffentliche Anhoerung",
+      "summary": "On 5 October 2026 the Ministry for Societal Security and Preparedness published a draft bill that names the Agency for Societal Security (Styrelsen for Samfundssikkerhed) as notifying authority and market surveillance authority, with comments due by 2 November 2026. It is a draft for consultation, not law; it would apply from 1 March 2027, and its market surveillance and penalty sections from 11 December 2027.",
+      "summaryDe": "Das Ministerium fuer gesellschaftliche Sicherheit und Bereitschaft veroeffentlichte am 5. Oktober 2026 einen Gesetzentwurf, der die Agentur fuer gesellschaftliche Sicherheit (Styrelsen for Samfundssikkerhed) zur notifizierenden Behoerde und zur Marktueberwachungsbehoerde bestimmt; Stellungnahmen sind bis zum 2. November 2026 moeglich. Es ist ein Entwurf und kein Gesetz; er soll ab dem 1. Maerz 2027 gelten, die Abschnitte zu Marktueberwachung und Strafen ab dem 11. Dezember 2027.",
+      "sourceId": "mssb-dk",
+      "sourceUrl": "https://mssb.dk/nyheder/nyhedsarkiv/2026/oktober/cra-lovforslag-sendes-i-hoering/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-12-09-national-se-cra-inquiry-report",
+      "date": "2025-12-09",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "se"
+      ],
+      "type": "update",
+      "title": "Sweden: inquiry proposes a supplementary law for the Cyber Resilience Act",
+      "titleDe": "Schweden: Untersuchung schlaegt ein Ergaenzungsgesetz zum Cyber Resilience Act vor",
+      "summary": "The Cyber Resilience inquiry handed its report (SOU 2025:115) to the Government on 9 December 2025, proposing the Post and Telecom Authority (PTS) as market surveillance authority, Swedac as notifying authority and MSB as the recipient of reports. It is an inquiry proposal, sent for consultation on 26 January 2026 with replies due by 22 April 2026, not a bill or law.",
+      "summaryDe": "Die staatliche Untersuchung zur Cyberresilienz uebergab ihren Bericht (SOU 2025:115) am 9. Dezember 2025 der Regierung und schlaegt die Post und Telekommunikationsbehoerde (PTS) als Marktueberwachungsbehoerde, Swedac als notifizierende Behoerde und MSB als Empfaenger der Meldungen vor. Es ist ein Vorschlag, der am 26. Januar 2026 in die Anhoerung ging (Antworten bis 22. April 2026), kein Gesetzentwurf und kein Gesetz.",
+      "sourceId": "regeringen-se",
+      "sourceUrl": "https://www.regeringen.se/pressmeddelanden/2025/12/utredning-foreslar-atgarder-for-okad-cybersakerhet-i-digitala-produkter/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-07-national-ie-cyber-strategy-cra-law",
+      "date": "2026-10-07",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "ie"
+      ],
+      "type": "update",
+      "title": "Ireland: National Cyber Security Strategy 2030 plans a law to designate the CRA authorities by the fourth quarter of 2027",
+      "titleDe": "Irland: Nationale Cybersicherheitsstrategie 2030 sieht ein Gesetz zur Benennung der CRA Behoerden bis zum vierten Quartal 2027 vor",
+      "summary": "The Department of Justice, Home Affairs and Migration published the Strategy on 7 October 2026. It sets the fourth quarter of 2027 as the target for enacting a law that designates a notifying authority and a market surveillance authority for the Cyber Resilience Act and provides for penalties; it is a policy document, so the designation is still to come.",
+      "summaryDe": "Das Ministerium fuer Justiz, Inneres und Migration veroeffentlichte die Strategie am 7. Oktober 2026. Sie setzt das vierte Quartal 2027 als Ziel fuer ein Gesetz, das eine notifizierende Behoerde und eine Marktueberwachungsbehoerde fuer den Cyber Resilience Act bestimmt und Strafen regelt; es ist ein politisches Dokument, die Benennung steht also noch aus.",
+      "sourceId": "gov-ie",
+      "sourceUrl": "https://www.gov.ie/en/department-of-justice-home-affairs-and-migration/press-releases/minister-jim-ocallaghan-launches-the-national-cyber-security-strategy-2030/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-05-25-national-pl-cra-csirt-nask",
+      "date": "2026-05-25",
+      "category": "national",
+      "tags": [
+        "pl",
+        "guidance",
+        "vulnerability-reporting"
+      ],
+      "type": "update",
+      "title": "Poland: Ministry of Digitalisation says CERT Polska (CSIRT NASK) coordinates CRA vulnerability reports",
+      "titleDe": "Polen: Digitalisierungsministerium nennt CERT Polska (CSIRT NASK) als Koordinator fuer CRA Schwachstellenmeldungen",
+      "summary": "A guidance page on gov.pl dated 25 May 2026 says that under the Polish cybersecurity system act (consolidated text, Dz.U. 2026 poz. 20) CERT Polska, acting as CSIRT NASK, is the coordinator for CRA vulnerability reports. It names no market surveillance authority and is non-binding guidance, not a Polish CRA implementing law.",
+      "summaryDe": "Eine Hinweisseite auf gov.pl vom 25. Mai 2026 nennt CERT Polska als CSIRT NASK in der Rolle des Koordinators fuer CRA Schwachstellenmeldungen, gestuetzt auf das polnische Gesetz ueber das nationale Cybersicherheitssystem (konsolidierter Text, Dz.U. 2026 poz. 20). Eine Marktueberwachungsbehoerde wird nicht genannt; die Seite ist unverbindliche Orientierung und kein polnisches CRA Durchfuehrungsgesetz.",
+      "sourceId": "gov-pl",
+      "sourceUrl": "https://www.gov.pl/web/baza-wiedzy/cra--nowe-obowiazki-dla-producentow-oprogramowania-i-korzysci-dla-uzytkownikow",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-03-national-cz-cra-draft-law",
+      "date": "2026-07-03",
+      "category": "national",
+      "tags": [
+        "cz",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Czech Republic: draft law on cybersecurity of products with digital elements goes to inter-ministry comment",
+      "titleDe": "Tschechien: Gesetzentwurf zur Cybersicherheit von Produkten mit digitalen Elementen geht in die Ressortabstimmung",
+      "summary": "On 3 July 2026 the Ministry of Industry and Trade sent its CRA adaptation draft to inter-ministry comment. The draft makes NUKIB the notifying authority and the receiver of Art. 14 and 15 reports, and leaves market surveillance with existing bodies such as the Czech Trade Inspection Authority and the Mining Authority; it is a draft, not law, and would apply from 11 December 2027 (two sections on promulgation).",
+      "summaryDe": "Am 3. Juli 2026 hat das Industrie und Handelsministerium seinen CRA Anpassungsentwurf in die Ressortabstimmung gegeben. Der Entwurf macht NUKIB zur notifizierenden Behoerde und zur Empfaengerin der Meldungen nach Art. 14 und 15 und belaesst die Marktueberwachung bei bestehenden Stellen wie der Tschechischen Handelsinspektion und dem Bergamt; es ist ein Entwurf und kein Gesetz und soll ab dem 11. Dezember 2027 gelten (zwei Paragrafen mit der Verkuendung).",
+      "sourceId": "mpo-cz",
+      "sourceUrl": "https://mpo.gov.cz/cz/ochrana-spotrebitele/aktualni-informace/navrh-zakona-o-pozadavcich-na-kybernetickou-bezpecnost-vyrobku-s-digitalnimi-prvky--293815/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-11-21-national-sk-act-318-2025-cra",
+      "date": "2025-11-21",
+      "category": "national",
+      "tags": [
+        "sk",
+        "legislation",
+        "conformity-assessment",
+        "penalty"
+      ],
+      "type": "update",
+      "title": "Slovakia: Act 318/2025 adds fines for authorised conformity assessment bodies under the CRA",
+      "titleDe": "Slowakei: Gesetz 318/2025 fuehrt Bussgelder fuer zugelassene Konformitaetsbewertungsstellen nach dem CRA ein",
+      "summary": "Act No. 318/2025 Coll., adopted on 21 October 2025 and published on 21 November 2025, amends the conformity assessment Act 56/2018. From 1 January 2026 the standards office can fine authorised bodies at the Art. 64(3) CRA amounts for breaching Arts. 39, 41, 47 and 49; it is enacted law but does not designate the CRA market surveillance authority.",
+      "summaryDe": "Das Gesetz Nr. 318/2025 Slg., am 21. Oktober 2025 beschlossen und am 21. November 2025 verkuendet, aendert das Konformitaetsbewertungsgesetz 56/2018. Ab dem 1. Januar 2026 kann das Normungsamt zugelassene Stellen mit den Betraegen nach Art. 64 Abs. 3 CRA bestrafen, wenn sie gegen Art. 39, 41, 47 und 49 verstossen; es ist geltendes Recht, benennt aber nicht die CRA Marktueberwachungsbehoerde.",
+      "sourceId": "slov-lex",
+      "sourceUrl": "https://static.slov-lex.sk/static/SK/ZZ/2025/318/vyhlasene_znenie.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-08-26-national-sk-cra-bill-government",
+      "date": "2026-08-26",
+      "category": "national",
+      "tags": [
+        "sk",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Slovakia: Government approves the bill on cybersecurity of products with digital elements",
+      "titleDe": "Slowakei: Regierung beschliesst den Gesetzentwurf zur Cybersicherheit von Produkten mit digitalen Elementen",
+      "summary": "By resolution 356/2026 of 26 August 2026 the government approved the National Security Authority's CRA bill and sent it to parliament. The bill names the NBU as market surveillance authority and the standards office UNMS as notifying authority, and would apply from 1 January 2027 with the main duties from 11 December 2027; it is a bill, not law.",
+      "summaryDe": "Mit Beschluss 356/2026 vom 26. August 2026 hat die Regierung den CRA Gesetzentwurf des Nationalen Sicherheitsamts beschlossen und dem Parlament zugeleitet. Der Entwurf benennt das NBU als Marktueberwachungsbehoerde und das Normungsamt UNMS als notifizierende Behoerde und soll ab dem 1. Januar 2027 gelten, die Hauptpflichten ab dem 11. Dezember 2027; es ist ein Entwurf und kein Gesetz.",
+      "sourceId": "rokovania-sk",
+      "sourceUrl": "https://rokovania.gov.sk/RVL/Resolution/23222/1",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-12-29-national-hu-cra-act",
+      "date": "2025-12-29",
+      "category": "national",
+      "tags": [
+        "hu",
+        "legislation",
+        "designation",
+        "conformity-assessment"
+      ],
+      "type": "update",
+      "title": "Hungary: Act CXXXV of 2025 makes SZTFH the CRA notifying and market surveillance authority",
+      "titleDe": "Ungarn: Gesetz CXXXV von 2025 macht die SZTFH zur notifizierenden und Marktueberwachungsbehoerde fuer den CRA",
+      "summary": "Published in Magyar Kozlony on 29 December 2025, Act CXXXV of 2025 is enacted law that adds a CRA chapter to the Hungarian cybersecurity act and gives the Supervisory Authority for Regulated Activities (SZTFH) both roles. The notifying authority rules apply from 11 June 2026, the market surveillance and fine rules from 11 December 2027.",
+      "summaryDe": "Das am 29. Dezember 2025 im Magyar Kozlony verkuendete Gesetz CXXXV von 2025 ist geltendes Recht, ergaenzt das ungarische Cybersicherheitsgesetz um ein CRA Kapitel und gibt der Aufsichtsbehoerde fuer regulierte Taetigkeiten (SZTFH) beide Rollen. Die Regeln zur notifizierenden Behoerde gelten ab dem 11. Juni 2026, die Regeln zur Marktueberwachung und zu Bussgeldern ab dem 11. Dezember 2027.",
+      "sourceId": "magyar-kozlony",
+      "sourceUrl": "https://magyarkozlony.hu/dokumentumok/adbf9bdb4753d3f6e020f3486f3a3e3ff734cb9e/megtekintes",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-01-national-si-ursiv-cra-reporting",
+      "date": "2026-09-01",
+      "category": "national",
+      "tags": [
+        "si",
+        "guidance",
+        "vulnerability-reporting"
+      ],
+      "type": "update",
+      "title": "Slovenia: URSIV explains the CRA reporting duties that apply from 11 September 2026",
+      "titleDe": "Slowenien: URSIV erklaert die CRA Meldepflichten, die ab dem 11. September 2026 gelten",
+      "summary": "URSIV, the Government Office for Information Security, explains the 24 hour early warning and 72 hour notification for manufacturers and points to the ENISA Single Reporting Platform. The legal register PISRS lists a government decree implementing the Regulation, prepared by URSIV, as still in preparation, so the page is guidance and no national implementing act is listed as adopted.",
+      "summaryDe": "URSIV, das Regierungsamt fuer Informationssicherheit, erklaert die Fruehwarnung innerhalb von 24 Stunden und die Meldung innerhalb von 72 Stunden fuer Hersteller und verweist auf die zentrale Meldeplattform der ENISA. Das Rechtsregister PISRS fuehrt eine von URSIV vorbereitete Regierungsverordnung zur Durchfuehrung der Verordnung noch als in Vorbereitung, die Seite ist also Leitfaden und es ist kein nationaler Durchfuehrungsakt als beschlossen aufgefuehrt.",
+      "sourceId": "gov-si-ursiv",
+      "sourceUrl": "https://www.gov.si/novice/2026-09-01-akt-o-kibernetski-odpornosti-11-septembra-2026-se-zacnejo-uporabljati-obveznosti-porocanja/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-11-national-lv-certlv-cra-reports",
+      "date": "2026-09-11",
+      "category": "national",
+      "tags": [
+        "lv",
+        "vulnerability-reporting",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Latvia: CERT.LV states that it processes CRA reports submitted through the ENISA platform",
+      "titleDe": "Lettland: CERT.LV erklaert, dass es ueber die ENISA Plattform eingereichte CRA Meldungen bearbeitet",
+      "summary": "CERT.LV announces that manufacturers must report actively exploited vulnerabilities and serious incidents from 11 September 2026 through the ENISA Single Reporting Platform, and that CERT.LV processes the submitted reports in Latvia. The notice is authority guidance on a binding EU duty.",
+      "summaryDe": "CERT.LV teilt mit, dass Hersteller aktiv ausgenutzte Schwachstellen und schwerwiegende Vorfaelle ab dem 11. September 2026 ueber die zentrale Meldeplattform der ENISA melden muessen und dass CERT.LV die eingereichten Meldungen in Lettland bearbeitet. Die Mitteilung ist Behoerdenhinweis zu einer verbindlichen EU Pflicht.",
+      "sourceId": "cert-lv",
+      "sourceUrl": "https://cert.lv/lv/2026/09/speka-stajas-kibernoturibas-akta-noteiktas-zinosanas-prasibas-razotajiem",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-25-national-hr-ncsc-srp-live",
+      "date": "2026-09-25",
+      "category": "national",
+      "tags": [
+        "hr",
+        "vulnerability-reporting",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Croatia: NCSC-HR announces the EU Single Reporting Platform for CRA reports",
+      "titleDe": "Kroatien: NCSC-HR kuendigt die zentrale EU Meldeplattform fuer CRA Meldungen an",
+      "summary": "NCSC-HR, listed by ENISA as Croatia's coordinating CSIRT, announces that the Single Reporting Platform is live and that manufacturers must report actively exploited vulnerabilities and significant incidents there. The notice is authority guidance on a binding EU duty; no Croatian CRA implementing act was found.",
+      "summaryDe": "NCSC-HR, von der ENISA als koordinierendes CSIRT Kroatiens gelistet, kuendigt an, dass die zentrale Meldeplattform in Betrieb ist und Hersteller dort aktiv ausgenutzte Schwachstellen und erhebliche Vorfaelle melden muessen. Die Mitteilung ist Behoerdenhinweis zu einer verbindlichen EU Pflicht; ein kroatischer Durchfuehrungsakt zum CRA wurde nicht gefunden.",
+      "sourceId": "ncsc-hr",
+      "sourceUrl": "https://ncsc.hr/hr/pustena-u-rad-eu-jedinstvena-platforma-za-izvjescivanje",
+      "addedAt": "2026-10-21T12:00:00Z"
+    }
+  ],
+  "lastUpdated": "2026-10-21T20:00:00Z"
+}

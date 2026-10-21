@@ -1,0 +1,22 @@
+{
+  "timelines": {
+    "craTimeline": {
+      "meta": {
+        "title": "Cyber Resilience Act: Fristen und Meldungen zum CRA",
+        "description": "Wann welche Pflicht des Cyber Resilience Act gilt und was Kommission, ENISA, Normungsorganisationen und nationale Behörden veröffentlicht haben, jeder Eintrag mit Quelle."
+      },
+      "badge": "Verordnung (EU) 2024/2847",
+      "title": "Cyber Resilience Act: Fristen und Meldungen zum CRA",
+      "subtitle": "Der CRA regelt die Cybersicherheit von Produkten mit digitalen Elementen, die in der EU verkauft werden. Jeder Eintrag nennt seine Quelle und sagt, ob es verbindliches Recht oder eine Leitlinie ist."
+    },
+    "aiActTimeline": {
+      "meta": {
+        "title": "KI-Verordnung: Fristen und Meldungen zum AI Act",
+        "description": "Wann welche Pflicht der KI-Verordnung nach dem Digital Omnibus on AI gilt und was Kommission, AI Office, Normungsorganisationen und nationale Behörden veröffentlicht haben, jeder Eintrag mit Quelle."
+      },
+      "badge": "Verordnung (EU) 2024/1689",
+      "title": "KI-Verordnung: Fristen und Meldungen zum AI Act",
+      "subtitle": "Die KI-Verordnung regelt KI-Systeme und KI-Modelle mit allgemeinem Verwendungszweck in der EU. Die Verordnung (EU) 2026/1744, seit dem 27. Juli 2026 in Kraft, hat die Termine für Hochrisikosysteme auf den 2. Dezember 2027 und den 2. August 2028 verschoben. Jeder Eintrag nennt seine Quelle und sagt, ob es verbindliches Recht oder eine Leitlinie ist."
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { NIS2Timeline } from "@/components/info/NIS2Timeline";
+import { Timeline } from "@/components/info/Timeline";
 import { JsonLd } from "@/components/JsonLd";
 import { shotImage } from "@/components/landing/shots";
 import { Separator } from "@/components/ui/separator";
@@ -22,7 +22,6 @@ import {
 } from "@/components/wiki/WikiSection";
 import { wikiLocale } from "@/lib/content/wiki-locale";
 import { pageAlternates, pageOg } from "@/lib/seo";
-import { getTimelineData } from "@/lib/timeline";
 
 export async function generateMetadata({
   params,
@@ -58,7 +57,6 @@ export default async function NIS2TimelinePage({
     getTranslations("info.nis2Timeline"),
     getTranslations("info.wikiWalk"),
   ]);
-  const timeline = getTimelineData();
   const faq = t.raw("faq.items") as WikiQuestion[];
 
   return (
@@ -132,11 +130,7 @@ export default async function NIS2TimelinePage({
         <WikiFaq heading={t("faq.heading")} items={faq} />
 
         <WikiSection heading={t("news.heading")} paragraphs={[t("news.lead")]}>
-          <NIS2Timeline
-            events={timeline.events}
-            sources={timeline.sources}
-            lastUpdated={timeline.lastUpdated}
-          />
+          <Timeline id="nis2" />
         </WikiSection>
 
         <WikiSources

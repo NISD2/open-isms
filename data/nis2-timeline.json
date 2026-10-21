@@ -3445,7 +3445,24 @@
       "sourceId": "bcs-at",
       "sourceUrl": "https://www.bundesamt-cybersicherheit.gv.at/faq/start.html",
       "addedAt": "2026-10-20T12:00:00Z"
+    },
+    {
+      "id": "2026-10-12-de-bsi-pqc-national-guideline",
+      "date": "2026-10-12",
+      "category": "de",
+      "tags": [
+        "guidance",
+        "post-quantum"
+      ],
+      "type": "update",
+      "title": "BMI, BMDS and BSI publish the national guideline for the EU post-quantum cryptography roadmap",
+      "titleDe": "BMI, BMDS und BSI veroeffentlichen die nationale Leitlinie zur EU-Roadmap fuer Post-Quanten-Kryptografie",
+      "summary": "The Federal Ministry of the Interior, the Federal Ministry for Digital and State Modernisation and the BSI publish a guideline that applies the EU post-quantum roadmap in Germany. It confirms the roadmap timeline: high-risk use cases should move to quantum safe cryptography as early as possible and finish by the end of 2030, and the whole transition should be largely done by 2035. The guideline is addressed to public administrations and to companies, including operators of critical infrastructure. It is non-binding guidance, not law, and adds no duty under NIS 2 or the BSIG; it is a reference point for the cryptography policy under Art. 21(2)(h).",
+      "summaryDe": "Das Bundesministerium des Innern, das Bundesministerium fuer Digitales und Staatsmodernisierung und das BSI veroeffentlichen eine Leitlinie, die die EU-Roadmap fuer Post-Quanten-Kryptografie in Deutschland umsetzt. Sie bestaetigt den Zeitplan der Roadmap: Anwendungsfaelle mit hohem Risiko sollen so frueh wie moeglich auf quantensichere Kryptografie umstellen und bis Ende 2030 fertig sein, die gesamte Umstellung soll bis 2035 weitgehend abgeschlossen sein. Die Leitlinie richtet sich an Verwaltungen und an Unternehmen, auch an Betreiber kritischer Infrastrukturen. Sie ist eine unverbindliche Empfehlung, kein Gesetz, und begruendet keine Pflicht aus NIS 2 oder dem BSIG; sie ist ein Bezugspunkt fuer die Vorgaben zur Kryptografie nach Art. 21 Abs. 2 Buchstabe h.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2026/261012_Leitlinie-PQC.html",
+      "addedAt": "2026-10-21T20:00:00Z"
     }
   ],
-  "lastUpdated": "2026-10-20T12:00:00Z"
+  "lastUpdated": "2026-10-21T20:00:00Z"
 }

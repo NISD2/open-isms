@@ -1,0 +1,2019 @@
+{
+  "sources": [
+    {
+      "id": "eur-lex",
+      "name": "EUR-Lex",
+      "url": "https://eur-lex.europa.eu",
+      "description": "Official EU legislation database: the AI Act, the Digital Omnibus on AI and Commission implementing decisions",
+      "language": "both"
+    },
+    {
+      "id": "ec-digital",
+      "name": "European Commission (Digital Strategy and AI Office)",
+      "url": "https://digital-strategy.ec.europa.eu",
+      "description": "AI Act policy hub, AI Office guidelines, codes of practice, templates and news",
+      "language": "en"
+    },
+    {
+      "id": "consilium",
+      "name": "Council of the EU",
+      "url": "https://www.consilium.europa.eu",
+      "description": "Council press releases on the AI Act and the Digital Omnibus on AI",
+      "language": "en"
+    },
+    {
+      "id": "ep-press",
+      "name": "European Parliament",
+      "url": "https://www.europarl.europa.eu",
+      "description": "Parliament press room: plenary votes on the AI Act",
+      "language": "en"
+    },
+    {
+      "id": "oeil",
+      "name": "European Parliament Legislative Observatory",
+      "url": "https://oeil.europarl.europa.eu",
+      "description": "Procedure files 2021/0106(COD) (AI Act) and 2025/0359(COD) (Digital Omnibus on AI) with dated key events",
+      "language": "en"
+    },
+    {
+      "id": "ec-register",
+      "name": "European Commission Register of Documents",
+      "url": "https://ec.europa.eu/transparency/documents-register",
+      "description": "Text of Commission decisions, including the standardisation request C(2025) 3871",
+      "language": "en"
+    },
+    {
+      "id": "cen-cenelec",
+      "name": "CEN and CENELEC",
+      "url": "https://www.cencenelec.eu",
+      "description": "European standardisation organisations: Joint Technical Committee 21 on artificial intelligence",
+      "language": "en"
+    },
+    {
+      "id": "gesetze-im-internet",
+      "name": "gesetze-im-internet.de",
+      "url": "https://www.gesetze-im-internet.de",
+      "description": "Federal Ministry of Justice portal: consolidated German federal statutes, including the KI-MIG",
+      "language": "de"
+    },
+    {
+      "id": "bundestag",
+      "name": "Deutscher Bundestag",
+      "url": "https://www.bundestag.de",
+      "description": "German Bundestag: bills (Drucksachen) and plenary debates",
+      "language": "de"
+    },
+    {
+      "id": "bundesrat",
+      "name": "Bundesrat",
+      "url": "https://www.bundesrat.de",
+      "description": "German Bundesrat: plenary session reviews and decisions",
+      "language": "de"
+    },
+    {
+      "id": "gazzetta-ufficiale",
+      "name": "Gazzetta Ufficiale",
+      "url": "https://www.gazzettaufficiale.it",
+      "description": "Official journal of the Italian Republic: Law 132/2025 on artificial intelligence",
+      "language": "en"
+    },
+    {
+      "id": "retsinformation",
+      "name": "Retsinformation",
+      "url": "https://www.retsinformation.dk",
+      "description": "Official Danish legal information portal: Law No. 467 of 14 May 2025 supplementing the AI Act",
+      "language": "en"
+    },
+    {
+      "id": "gouvernement-lu",
+      "name": "Gouvernement du Grand-Duche de Luxembourg",
+      "url": "https://gouvernement.lu",
+      "description": "Luxembourg government: communiques of the Council of Government, including bills it approves",
+      "language": "en"
+    },
+    {
+      "id": "chd-lu",
+      "name": "Chambre des Deputes (Luxembourg)",
+      "url": "https://www.chd.lu",
+      "description": "Luxembourg Chamber of Deputies: parliamentary dossiers, bills and Council of State opinions",
+      "language": "en"
+    },
+    {
+      "id": "rijksoverheid",
+      "name": "Rijksoverheid (Netherlands)",
+      "url": "https://www.rijksoverheid.nl",
+      "description": "Dutch central government news: State Secretary announcements on the AI Regulation implementation act",
+      "language": "en"
+    },
+    {
+      "id": "senat-fr",
+      "name": "Senat (France)",
+      "url": "https://www.senat.fr",
+      "description": "French Senate: legislative dossiers and adopted texts, including the EU adaptation bill with AI Act provisions",
+      "language": "en"
+    },
+    {
+      "id": "bundesnetzagentur",
+      "name": "Bundesnetzagentur",
+      "url": "https://www.bundesnetzagentur.de",
+      "description": "German Federal Network Agency: AI Act market surveillance authority, KI Service Desk, AI sandbox and press releases",
+      "language": "de"
+    },
+    {
+      "id": "anacom",
+      "name": "ANACOM (Portugal)",
+      "url": "https://www.anacom.pt",
+      "description": "Portuguese communications regulator: AI Act supervisory role, consultations and the digital services and cybersecurity roles",
+      "language": "en"
+    },
+    {
+      "id": "aesia",
+      "name": "AESIA (Spain)",
+      "url": "https://aesia.digital.gob.es",
+      "description": "Spanish Agency for the Supervision of Artificial Intelligence: news, guides and sandbox results",
+      "language": "en"
+    },
+    {
+      "id": "mtdfp-es",
+      "name": "Ministerio para la Transformacion Digital y de la Funcion Publica (Spain)",
+      "url": "https://digital.gob.es",
+      "description": "Spanish digital ministry: press notes on the Council of Ministers decisions on AI",
+      "language": "en"
+    },
+    {
+      "id": "congreso-es",
+      "name": "Congreso de los Diputados (Spain)",
+      "url": "https://www.congreso.es",
+      "description": "Spanish Congress of Deputies: bill files and the Official Bulletin of the Cortes Generales",
+      "language": "en"
+    },
+    {
+      "id": "ai-gov-gr",
+      "name": "Special Secretariat for AI and Data Governance (Greece)",
+      "url": "https://ai.gov.gr",
+      "description": "Greek digital ministry secretariat for AI: announcements on Law 5321/2026 and the AI Act framework",
+      "language": "en"
+    },
+    {
+      "id": "e-consultation-cy",
+      "name": "e-Consultation (Cyprus)",
+      "url": "https://e-consultation.gov.cy",
+      "description": "Cyprus government public consultation portal: draft laws and consultation periods",
+      "language": "en"
+    },
+    {
+      "id": "finlex",
+      "name": "Finlex",
+      "url": "https://www.finlex.fi",
+      "description": "Official Finnish legal database: statutes published in the Finnish Statute Book, including Act 1377/2025 on the supervision of certain AI systems",
+      "language": "en"
+    },
+    {
+      "id": "regeringen-se",
+      "name": "Regeringen.se",
+      "url": "https://www.regeringen.se",
+      "description": "Swedish Government portal: inquiry reports (SOU), press releases and Government assignments on the CRA and the AI Act",
+      "language": "en"
+    },
+    {
+      "id": "folketingstidende",
+      "name": "Folketingstidende",
+      "url": "https://www.folketingstidende.dk",
+      "description": "Official record of the Danish Parliament: bills, readings and status, including bill L 111 on AI Act supervision",
+      "language": "en"
+    },
+    {
+      "id": "irish-statute-book",
+      "name": "Irish Statute Book",
+      "url": "https://www.irishstatutebook.ie",
+      "description": "Office of the Attorney General: Acts of the Oireachtas and statutory instruments, including the Regulation of Artificial Intelligence Act 2026",
+      "language": "en"
+    },
+    {
+      "id": "sejm-pl",
+      "name": "Sejm open data (Poland)",
+      "url": "https://api.sejm.gov.pl",
+      "description": "Official data of the Polish Sejm: legislative process records, votes and the Dziennik Ustaw act register",
+      "language": "en"
+    },
+    {
+      "id": "eli-pl",
+      "name": "Polish ELI portal",
+      "url": "https://eli.gov.pl",
+      "description": "Official publication of Dziennik Ustaw (laws) and Monitor Polski (resolutions) with European Legislation Identifiers",
+      "language": "en"
+    },
+    {
+      "id": "mpo-cz",
+      "name": "Ministry of Industry and Trade (Czech Republic)",
+      "url": "https://mpo.gov.cz",
+      "description": "Czech ministry responsible for the AI Act and CRA adaptation laws: press releases and draft laws",
+      "language": "en"
+    },
+    {
+      "id": "vlada-cz",
+      "name": "Government of the Czech Republic",
+      "url": "https://vlada.gov.cz",
+      "description": "Programmes and results of the Legislative Council of the Government and of government meetings",
+      "language": "en"
+    },
+    {
+      "id": "slov-lex",
+      "name": "Slov-Lex (Slovakia)",
+      "url": "https://static.slov-lex.sk",
+      "description": "Official Slovak Collection of Laws: Act No. 318/2025 Coll.",
+      "language": "en"
+    },
+    {
+      "id": "rokovania-sk",
+      "name": "Government portal rokovania.gov.sk (Slovakia)",
+      "url": "https://rokovania.gov.sk",
+      "description": "Official register of materials and resolutions of the Slovak government",
+      "language": "en"
+    },
+    {
+      "id": "magyar-kozlony",
+      "name": "Magyar Kozlony (Hungary)",
+      "url": "https://magyarkozlony.hu",
+      "description": "Official Hungarian gazette: Act LXXV of 2025 (AI Act), Government Decree 344/2025 and Act CXXXV of 2025 (CRA)",
+      "language": "en"
+    },
+    {
+      "id": "ancom",
+      "name": "ANCOM (Romania)",
+      "url": "https://www.ancom.ro",
+      "description": "Romanian communications regulator proposed as AI Act market surveillance authority and single point of contact",
+      "language": "en"
+    },
+    {
+      "id": "eimin-lt",
+      "name": "Ministry of Economy and Innovation (Lithuania)",
+      "url": "https://eimin.lrv.lt",
+      "description": "Lithuanian ministry: page on the national competent authorities under the AI Act and the two amending laws of January 2025",
+      "language": "en"
+    },
+    {
+      "id": "tap-lv",
+      "name": "TAP portal (Latvian Cabinet of Ministers)",
+      "url": "https://tapportals.mk.gov.lv",
+      "description": "Latvian State Chancellery portal for draft legal acts, information reports and Cabinet and State Secretaries meetings",
+      "language": "en"
+    },
+    {
+      "id": "narodne-novine",
+      "name": "Narodne novine (Croatia)",
+      "url": "https://narodne-novine.nn.hr",
+      "description": "Official gazette of the Republic of Croatia, including the annual plan for aligning Croatian law with EU law",
+      "language": "en"
+    },
+    {
+      "id": "pisrs",
+      "name": "PISRS (Slovenia)",
+      "url": "https://pisrs.si",
+      "description": "Slovenian legal information system: register of regulations and regulations in preparation",
+      "language": "en"
+    },
+    {
+      "id": "akos-si",
+      "name": "AKOS (Slovenia)",
+      "url": "https://www.akos-rs.si/umetna-inteligenca",
+      "description": "Slovenian Agency for Communication Networks and Services: AI Act page, single contact point and news",
+      "language": "en"
+    }
+  ],
+  "events": [
+    {
+      "id": "2021-04-21-eu-commission-proposal",
+      "date": "2021-04-21",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Commission proposes the Artificial Intelligence Act",
+      "titleDe": "Kommission schlaegt den AI Act vor",
+      "summary": "The Commission published proposal COM(2021) 206 for a Regulation laying down harmonised rules on artificial intelligence, opening procedure 2021/0106(COD). A proposal is not law.",
+      "summaryDe": "Die Kommission veroeffentlichte den Vorschlag COM(2021) 206 fuer eine Verordnung zur Festlegung harmonisierter Vorschriften fuer kuenstliche Intelligenz und eroeffnete damit das Verfahren 2021/0106(COD). Ein Vorschlag ist kein geltendes Recht.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52021PC0206",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2021-06-01-standards-jtc-21-established",
+      "date": "2021-06-01",
+      "category": "standards",
+      "tags": [
+        "standards",
+        "organisational"
+      ],
+      "type": "update",
+      "title": "CEN and CENELEC establish Joint Technical Committee 21 on artificial intelligence",
+      "titleDe": "CEN und CENELEC richten den Gemeinsamen Technischen Ausschuss 21 zur kuenstlichen Intelligenz ein",
+      "summary": "JTC 21 develops European standards for AI, including harmonised standards in support of the AI Act. Applying such standards is voluntary, but a standard referenced in the Official Journal gives a presumption of conformity.",
+      "summaryDe": "Der Ausschuss JTC 21 erarbeitet europaeische Normen fuer KI, auch harmonisierte Normen zur Unterstuetzung des AI Act. Die Anwendung solcher Normen ist freiwillig, eine im Amtsblatt aufgefuehrte Norm begruendet aber eine Konformitaetsvermutung.",
+      "sourceId": "cen-cenelec",
+      "sourceUrl": "https://www.cencenelec.eu/areas-of-work/cen-cenelec-topics/artificial-intelligence/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2022-12-06-eu-council-general-approach",
+      "date": "2022-12-06",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Council adopts its general approach on the AI Act proposal",
+      "titleDe": "Rat beschliesst seine allgemeine Ausrichtung zum AI Act Vorschlag",
+      "summary": "The Council adopted its position (general approach) on the proposal, which allowed it to negotiate with Parliament once Parliament had its own position. A general approach is a negotiating position, not law.",
+      "summaryDe": "Der Rat beschloss seine Position (allgemeine Ausrichtung) zum Vorschlag und konnte damit mit dem Parlament verhandeln, sobald dieses eine eigene Position hatte. Eine allgemeine Ausrichtung ist eine Verhandlungsposition und kein Recht.",
+      "sourceId": "consilium",
+      "sourceUrl": "https://www.consilium.europa.eu/en/press/press-releases/2022/12/06/artificial-intelligence-act-council-calls-for-promoting-safe-ai-that-respects-fundamental-rights/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2023-05-22-standards-standardisation-request-2023",
+      "date": "2023-05-22",
+      "category": "standards",
+      "tags": [
+        "standards"
+      ],
+      "type": "update",
+      "title": "Commission requests CEN and CENELEC to draft European standards for AI",
+      "titleDe": "Kommission beauftragt CEN und CENELEC mit der Erarbeitung europaeischer Normen fuer KI",
+      "summary": "Implementing Decision C(2023) 3215 asked CEN and CENELEC to draft European standards for the key technical areas of the AI proposal, in support of Union AI policy, and they accepted. C(2025) 3871 later repealed it.",
+      "summaryDe": "Der Durchfuehrungsbeschluss C(2023) 3215 bat CEN und CENELEC, europaeische Normen fuer die wichtigsten technischen Bereiche des KI Vorschlags zu erarbeiten, zur Unterstuetzung der Unionspolitik fuer KI, und sie nahmen an. C(2025) 3871 hob ihn spaeter auf.",
+      "sourceId": "ec-register",
+      "sourceUrl": "https://ec.europa.eu/transparency/documents-register/api/files/C(2025)3871_0/de00000001072818?rendition=false",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2023-06-14-eu-parliament-position",
+      "date": "2023-06-14",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Parliament adopts its negotiating position on the AI Act",
+      "titleDe": "Parlament beschliesst seine Verhandlungsposition zum AI Act",
+      "summary": "Parliament adopted its position by 499 votes to 28 with 93 abstentions and sent the file back for negotiations with the Council. A negotiating position is not law.",
+      "summaryDe": "Das Parlament beschloss seine Position mit 499 zu 28 Stimmen bei 93 Enthaltungen und verwies das Dossier fuer Verhandlungen mit dem Rat zurueck. Eine Verhandlungsposition ist kein Recht.",
+      "sourceId": "ep-press",
+      "sourceUrl": "https://www.europarl.europa.eu/news/en/press-room/20230609IPR96212/meps-ready-to-negotiate-first-ever-rules-for-safe-and-transparent-ai",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2023-12-09-eu-provisional-agreement",
+      "date": "2023-12-09",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Council and Parliament reach a provisional agreement on the AI Act",
+      "titleDe": "Rat und Parlament erzielen eine vorlaeufige Einigung zum AI Act",
+      "summary": "Negotiators of the Council and Parliament agreed the text of the AI Act. A provisional agreement is not law until both institutions formally adopt it.",
+      "summaryDe": "Die Verhandlungsfuehrer von Rat und Parlament einigten sich auf den Text des AI Act. Eine vorlaeufige Einigung ist erst Recht, wenn beide Organe sie foermlich annehmen.",
+      "sourceId": "consilium",
+      "sourceUrl": "https://www.consilium.europa.eu/en/press/press-releases/2023/12/09/artificial-intelligence-act-council-and-parliament-strike-a-deal-on-the-first-worldwide-rules-for-ai/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-01-24-ai-office-ai-office-established",
+      "date": "2024-01-24",
+      "category": "ai-office",
+      "tags": [
+        "organisational"
+      ],
+      "type": "update",
+      "title": "Commission decision establishes the European AI Office",
+      "titleDe": "Kommissionsbeschluss errichtet das Europaeische KI Buero",
+      "summary": "The Commission adopted a decision establishing the European AI Office within DG CONNECT. It is an internal Commission decision and does not affect the powers of national authorities.",
+      "summaryDe": "Die Kommission erliess einen Beschluss zur Errichtung des Europaeischen KI Buros innerhalb der GD CONNECT. Er ist ein interner Beschluss der Kommission und beruehrt die Befugnisse der nationalen Behoerden nicht.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-decision-establishing-european-ai-office",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-03-13-eu-parliament-adopts",
+      "date": "2024-03-13",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Parliament adopts the AI Act at first reading",
+      "titleDe": "Parlament nimmt den AI Act in erster Lesung an",
+      "summary": "Parliament endorsed the agreed text by 523 votes to 46 with 49 abstentions. The text still needed a lawyer-linguist check and formal Council approval.",
+      "summaryDe": "Das Parlament billigte den ausgehandelten Text mit 523 zu 46 Stimmen bei 49 Enthaltungen. Der Text brauchte noch die juristisch sprachliche Pruefung und die foermliche Zustimmung des Rates.",
+      "sourceId": "ep-press",
+      "sourceUrl": "https://www.europarl.europa.eu/news/en/press-room/20240308IPR19015/artificial-intelligence-act-meps-adopt-landmark-law",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-05-21-eu-council-adopts",
+      "date": "2024-05-21",
+      "category": "eu",
+      "tags": [
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Council adopts the AI Act",
+      "titleDe": "Rat nimmt den AI Act an",
+      "summary": "The Council's final approval completed the adoption of the Regulation. It was signed on 13 June 2024 and published on 12 July 2024.",
+      "summaryDe": "Die abschliessende Zustimmung des Rates schloss die Annahme der Verordnung ab. Sie wurde am 13. Juni 2024 unterzeichnet und am 12. Juli 2024 veroeffentlicht.",
+      "sourceId": "consilium",
+      "sourceUrl": "https://www.consilium.europa.eu/en/press/press-releases/2024/05/21/artificial-intelligence-ai-act-council-gives-final-green-light-to-the-first-worldwide-rules-on-ai/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-07-12-eu-ai-act-published",
+      "date": "2024-07-12",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "publication"
+      ],
+      "type": "update",
+      "title": "AI Act published in the Official Journal",
+      "titleDe": "AI Act im Amtsblatt veroeffentlicht",
+      "summary": "Regulation (EU) 2024/1689, signed on 13 June 2024, was published in the Official Journal on 12 July 2024. It is binding in its entirety and directly applicable in all Member States (Art. 113).",
+      "summaryDe": "Die Verordnung (EU) 2024/1689, unterzeichnet am 13. Juni 2024, wurde am 12. Juli 2024 im Amtsblatt veroeffentlicht. Sie ist in allen ihren Teilen verbindlich und gilt unmittelbar in jedem Mitgliedstaat (Art. 113).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-08-01-eu-ai-act-in-force",
+      "date": "2024-08-01",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "AI Act enters into force",
+      "titleDe": "AI Act tritt in Kraft",
+      "summary": "Regulation (EU) 2024/1689 entered into force on the twentieth day after publication (Art. 113, first paragraph). Its rules apply in stages, starting with Chapters I and II on 2 February 2025.",
+      "summaryDe": "Die Verordnung (EU) 2024/1689 trat am zwanzigsten Tag nach der Veroeffentlichung in Kraft (Art. 113, erster Absatz). Ihre Regeln gelten gestaffelt, beginnend mit den Kapiteln I und II am 2. Februar 2025.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-02-02-eu-prohibitions-and-literacy-apply",
+      "date": "2025-02-02",
+      "category": "eu",
+      "tags": [
+        "prohibited-practices",
+        "ai-literacy",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "Prohibited AI practices and AI literacy rules apply",
+      "titleDe": "Verbotene KI Praktiken und Regeln zur KI Kompetenz gelten",
+      "summary": "Chapters I and II of the AI Act apply (Art. 113(3), point (a)): the Article 5 prohibitions and the Article 4 AI literacy duty. Regulation (EU) 2026/1744 later rewrote Article 4 and added two prohibitions that apply from 2 December 2026.",
+      "summaryDe": "Die Kapitel I und II des AI Act gelten (Art. 113 Abs. 3 Buchst. a): die Verbote nach Artikel 5 und die Pflicht zur KI Kompetenz nach Artikel 4. Die Verordnung (EU) 2026/1744 hat Artikel 4 spaeter neu gefasst und zwei Verbote ergaenzt, die ab dem 2. Dezember 2026 gelten.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-02-04-ai-office-ai-literacy-repository",
+      "date": "2025-02-04",
+      "category": "ai-office",
+      "tags": [
+        "guidance",
+        "ai-literacy"
+      ],
+      "type": "update",
+      "title": "AI Office publishes a living repository of AI literacy practices",
+      "titleDe": "KI Buero veroeffentlicht ein laufend aktualisiertes Verzeichnis zu Praktiken der KI Kompetenz",
+      "summary": "The repository collects practices from AI Pact participants and other organisations on meeting Article 4. Copying a listed practice does not give a presumption of compliance with Article 4.",
+      "summaryDe": "Das Verzeichnis sammelt Praktiken von Teilnehmern des KI Pakts und weiteren Organisationen zur Umsetzung von Artikel 4. Wer eine genannte Praxis uebernimmt, erhaelt keine Vermutung der Konformitaet mit Artikel 4.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/living-repository-foster-learning-and-exchange-ai-literacy",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-02-04-ai-office-prohibited-practices-guidelines",
+      "date": "2025-02-04",
+      "category": "ai-office",
+      "tags": [
+        "guidance",
+        "prohibited-practices"
+      ],
+      "type": "update",
+      "title": "Commission publishes guidelines on prohibited AI practices",
+      "titleDe": "Kommission veroeffentlicht Leitlinien zu verbotenen KI Praktiken",
+      "summary": "The guidelines explain the Article 5 prohibitions with legal reasoning and practical examples. They are non-binding, and only the Court of Justice gives authoritative interpretations.",
+      "summaryDe": "Die Leitlinien erklaeren die Verbote nach Artikel 5 mit rechtlichen Erwaegungen und Praxisbeispielen. Sie sind nicht verbindlich, verbindlich auslegen kann nur der Gerichtshof.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-prohibited-artificial-intelligence-ai-practices-defined-ai-act",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-02-06-ai-office-ai-system-definition-guidelines",
+      "date": "2025-02-06",
+      "category": "ai-office",
+      "tags": [
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission publishes guidelines on the definition of an AI system",
+      "titleDe": "Kommission veroeffentlicht Leitlinien zur Definition eines KI Systems",
+      "summary": "The guidelines explain how to apply the AI system definition in Article 3(1) to decide whether the Regulation covers a software system. They are non-binding and will be updated with practical experience.",
+      "summaryDe": "Die Leitlinien erklaeren, wie die Definition des KI Systems in Artikel 3 Nr. 1 anzuwenden ist, um zu entscheiden, ob die Verordnung ein Softwaresystem erfasst. Sie sind nicht verbindlich und werden mit praktischer Erfahrung angepasst.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-03-11-ai-office-scientific-panel-implementing-act",
+      "date": "2025-03-11",
+      "category": "ai-office",
+      "tags": [
+        "organisational"
+      ],
+      "type": "update",
+      "title": "Commission adopts the implementing act for the AI scientific panel",
+      "titleDe": "Kommission erlaesst den Durchfuehrungsrechtsakt fuer das wissenschaftliche KI Gremium",
+      "summary": "The implementing act sets the rules for setting up and operating a panel of independent experts that advises the AI Office and national authorities, including alerts on risks from general-purpose AI models.",
+      "summaryDe": "Der Durchfuehrungsrechtsakt legt die Regeln fuer Einrichtung und Arbeit eines Gremiums unabhaengiger Sachverstaendiger fest, das das KI Buero und die nationalen Behoerden berat, einschliesslich Warnungen vor Risiken durch Modelle mit allgemeinem Verwendungszweck.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-adopts-implementing-act-establish-scientific-panel-under-ai-act",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-06-23-standards-standardisation-request-2025",
+      "date": "2025-06-23",
+      "category": "standards",
+      "tags": [
+        "standards",
+        "high-risk"
+      ],
+      "type": "update",
+      "title": "Commission replaces the AI standardisation request with Implementing Decision C(2025) 3871",
+      "titleDe": "Kommission ersetzt den KI Normungsauftrag durch den Durchfuehrungsbeschluss C(2025) 3871",
+      "summary": "The decision requests harmonised standards for high-risk AI systems that reflect the final AI Act, sets 31 August 2025 for drafting and expires on 28 February 2027. Regulation (EU) 2026/1744 later cites delayed preparation of standards as a reason to move the high-risk dates.",
+      "summaryDe": "Der Beschluss fordert harmonisierte Normen fuer Hochrisikosysteme entsprechend dem endgueltigen AI Act, nennt den 31. August 2025 fuer die Erarbeitung und laeuft am 28. Februar 2027 aus. Die Verordnung (EU) 2026/1744 nennt die verzoegerte Erarbeitung von Normen spaeter als Grund, die Hochrisikotermine zu verschieben.",
+      "sourceId": "ec-register",
+      "sourceUrl": "https://ec.europa.eu/transparency/documents-register/api/files/C(2025)3871_0/de00000001072818?rendition=false",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-07-10-ai-office-gpai-code-of-practice",
+      "date": "2025-07-10",
+      "category": "ai-office",
+      "tags": [
+        "gpai",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "General-Purpose AI Code of Practice published",
+      "titleDe": "Verhaltenskodex fuer KI mit allgemeinem Verwendungszweck veroeffentlicht",
+      "summary": "Independent experts delivered the voluntary code with chapters on transparency, copyright, and safety and security. It is non-binding, and signing is optional.",
+      "summaryDe": "Unabhaengige Sachverstaendige legten den freiwilligen Kodex mit Kapiteln zu Transparenz, Urheberrecht sowie Sicherheit vor. Er ist nicht verbindlich, die Unterzeichnung ist freiwillig.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-07-18-ai-office-gpai-guidelines",
+      "date": "2025-07-18",
+      "category": "ai-office",
+      "tags": [
+        "gpai",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission publishes guidelines on the scope of obligations for general-purpose AI model providers",
+      "titleDe": "Kommission veroeffentlicht Leitlinien zum Umfang der Pflichten fuer Anbieter von GPAI Modellen",
+      "summary": "The guidelines clarify who must comply with the general-purpose AI model obligations ahead of their application on 2 August 2025. They are non-binding guidance.",
+      "summaryDe": "Die Leitlinien klaeren, wer die Pflichten fuer Modelle mit allgemeinem Verwendungszweck einhalten muss, vor deren Geltung am 2. August 2025. Sie sind unverbindliche Hinweise.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/guidelines-scope-obligations-providers-general-purpose-ai-models-under-ai-act",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-07-24-ai-office-training-content-template",
+      "date": "2025-07-24",
+      "category": "ai-office",
+      "tags": [
+        "gpai",
+        "transparency",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission publishes the template for the public summary of GPAI training content",
+      "titleDe": "Kommission veroeffentlicht die Vorlage fuer die oeffentliche Zusammenfassung der Trainingsinhalte von GPAI Modellen",
+      "summary": "The template and explanatory notice set a common minimum baseline for the summary that Article 53(1), point (d), requires providers to publish. The Regulation requires use of the AI Office template.",
+      "summaryDe": "Die Vorlage und die erlaeuternden Hinweise legen eine gemeinsame Mindestbasis fuer die Zusammenfassung fest, die Anbieter nach Artikel 53 Abs. 1 Buchst. d veroeffentlichen muessen. Die Verordnung verlangt die Nutzung der Vorlage des KI Buros.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/explanatory-notice-and-template-public-summary-training-content-general-purpose-ai-models",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-08-01-ai-office-gpai-code-adequacy",
+      "date": "2025-08-01",
+      "category": "ai-office",
+      "tags": [
+        "gpai",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission and AI Board confirm the GPAI Code of Practice as adequate",
+      "titleDe": "Kommission und KI Gremium bestaetigen den GPAI Verhaltenskodex als angemessen",
+      "summary": "They confirmed that the voluntary code is an adequate tool for general-purpose AI model providers to show compliance. The Commission lists 22 signatories on its code page (checked 21 October 2026), and xAI signed only the safety and security chapter.",
+      "summaryDe": "Sie bestaetigten, dass der freiwillige Kodex fuer Anbieter von Modellen mit allgemeinem Verwendungszweck ein angemessenes Mittel zum Nachweis der Konformitaet ist. Die Kommission fuehrt auf ihrer Kodexseite 22 Unterzeichner (Stand 21. Oktober 2026), xAI unterzeichnete nur das Kapitel zu Sicherheit.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-general-purpose-ai-code-practice",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-08-02-eu-gpai-governance-penalties-apply",
+      "date": "2025-08-02",
+      "category": "eu",
+      "tags": [
+        "gpai",
+        "designation",
+        "penalty",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "General-purpose AI, governance and penalty rules apply",
+      "titleDe": "Regeln zu GPAI Modellen, Governance und Sanktionen gelten",
+      "summary": "Chapter V (general-purpose AI models), Chapter VII (governance), Chapter XII (penalties, except Article 101), Chapter III Section 4 (notified bodies) and Article 78 apply (Art. 113(3), point (b)). By this date Member States had to make the contact details of their competent authorities public (Art. 70(2)).",
+      "summaryDe": "Kapitel V (Modelle der kuenstlichen Intelligenz mit allgemeinem Verwendungszweck), Kapitel VII (Governance), Kapitel XII (Sanktionen, ausser Artikel 101), Kapitel III Abschnitt 4 (notifizierte Stellen) und Artikel 78 gelten (Art. 113 Abs. 3 Buchst. b). Bis zu diesem Tag mussten die Mitgliedstaaten die Kontaktdaten ihrer zustaendigen Behoerden veroeffentlichen (Art. 70 Abs. 2).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-08-02-national-dk-supplementary-law",
+      "date": "2025-08-02",
+      "category": "national",
+      "tags": [
+        "dk",
+        "designation",
+        "legislation",
+        "in-force"
+      ],
+      "type": "update",
+      "title": "Denmark: law supplementing the AI Act applies and designates the competent authorities",
+      "titleDe": "Daenemark: Ergaenzungsgesetz zum AI Act gilt und bestimmt die zustaendigen Behoerden",
+      "summary": "Law No. 467 of 14 May 2025 designates the Agency for Digital Government (also the notifying authority), the Data Protection Authority and the Court Administration as national competent authorities, and applies from this date (section 12). It is enacted Danish law.",
+      "summaryDe": "Das Gesetz Nr. 467 vom 14. Mai 2025 bestimmt die Digitalisierungsbehoerde (zugleich notifizierende Behoerde), die Datenschutzbehoerde und die Gerichtsverwaltung zu nationalen zustaendigen Behoerden und gilt ab diesem Tag (Paragraf 12). Es ist geltendes daenisches Recht.",
+      "sourceId": "retsinformation",
+      "sourceUrl": "https://www.retsinformation.dk/eli/lta/2025/467",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-08-ai-office-service-desk-launched",
+      "date": "2025-10-08",
+      "category": "ai-office",
+      "tags": [
+        "guidance",
+        "organisational"
+      ],
+      "type": "update",
+      "title": "Commission launches the AI Act Service Desk and Single Information Platform",
+      "titleDe": "Kommission startet den AI Act Service Desk und die zentrale Informationsplattform",
+      "summary": "The Single Information Platform offers an AI Act Explorer, a Compliance Checker and a form for questions to the Service Desk. It is an information service, not a legal instrument.",
+      "summaryDe": "Die zentrale Informationsplattform bietet einen AI Act Explorer, einen Compliance Checker und ein Formular fuer Fragen an den Service Desk. Sie ist ein Informationsangebot und kein Rechtsakt.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-launches-ai-act-service-desk-and-single-information-platform-support-ai-act",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-10-national-it-law-132-2025",
+      "date": "2025-10-10",
+      "category": "national",
+      "tags": [
+        "it",
+        "designation",
+        "legislation",
+        "in-force"
+      ],
+      "type": "update",
+      "title": "Italy: Law 132/2025 enters into force and designates AgID and ACN as national AI authorities",
+      "titleDe": "Italien: Gesetz 132/2025 tritt in Kraft und bestimmt AgID und ACN zu nationalen KI Behoerden",
+      "summary": "Law No. 132 of 23 September 2025 (Gazzetta Ufficiale n. 223 of 25 September 2025) designates the Agency for Digital Italy (AgID) and the National Cybersecurity Agency (ACN) in Article 20. It is enacted Italian law, and the financial supervisors keep their market surveillance role.",
+      "summaryDe": "Das Gesetz Nr. 132 vom 23. September 2025 (Gazzetta Ufficiale Nr. 223 vom 25. September 2025) bestimmt in Artikel 20 die Agentur fuer das digitale Italien (AgID) und die nationale Cybersicherheitsagentur (ACN). Es ist geltendes italienisches Recht, die Finanzaufseher behalten ihre Marktueberwachungsrolle.",
+      "sourceId": "gazzetta-ufficiale",
+      "sourceUrl": "https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00143/sg",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-30-standards-pren-18286-public-enquiry",
+      "date": "2025-10-30",
+      "category": "standards",
+      "tags": [
+        "standards",
+        "high-risk"
+      ],
+      "type": "update",
+      "title": "prEN 18286 on AI quality management systems enters public enquiry",
+      "titleDe": "prEN 18286 zu Qualitaetsmanagementsystemen fuer KI geht in die oeffentliche Umfrage",
+      "summary": "The Commission names prEN 18286 as the first harmonised standard for AI to enter public enquiry. It is a draft standard at this stage and gives no presumption of conformity.",
+      "summaryDe": "Die Kommission nennt prEN 18286 als erste harmonisierte Norm fuer KI, die in die oeffentliche Umfrage ging. In diesem Stadium ist sie ein Normentwurf und begruendet keine Konformitaetsvermutung.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/ai-act-standardisation",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-11-04-ai-office-gpai-incident-template",
+      "date": "2025-11-04",
+      "category": "ai-office",
+      "tags": [
+        "gpai",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission publishes a template for reporting serious incidents of systemic risk GPAI models",
+      "titleDe": "Kommission veroeffentlicht Vorlage zur Meldung schwerwiegender Vorfaelle bei GPAI Modellen mit systemischem Risiko",
+      "summary": "The template supports the Article 55 duty to report serious incidents to the AI Office and helps providers show compliance with Commitment 9 of the GPAI Code of Practice. It is a non-binding Commission document.",
+      "summaryDe": "Die Vorlage unterstuetzt die Pflicht nach Artikel 55, schwerwiegende Vorfaelle dem KI Buero zu melden, und hilft Anbietern, die Einhaltung von Verpflichtung 9 des GPAI Verhaltenskodex nachzuweisen. Sie ist ein unverbindliches Dokument der Kommission.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/ai-act-commission-publishes-reporting-template-serious-incidents-involving-general-purpose-ai",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-11-19-eu-omnibus-proposal",
+      "date": "2025-11-19",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "legislation",
+        "high-risk"
+      ],
+      "type": "update",
+      "title": "Commission proposes the Digital Omnibus on AI",
+      "titleDe": "Kommission schlaegt den Digital Omnibus zur KI vor",
+      "summary": "Proposal COM(2025) 836 would amend the AI Act and Regulation (EU) 2018/1139, including a delay of the high-risk rules tied to the availability of standards with long-stop dates of 2 December 2027 and 2 August 2028. A proposal is not law.",
+      "summaryDe": "Der Vorschlag COM(2025) 836 wuerde den AI Act und die Verordnung (EU) 2018/1139 aendern, darunter eine Verschiebung der Hochrisikoregeln, gekoppelt an die Verfuegbarkeit von Normen, mit Endterminen am 2. Dezember 2027 und 2. August 2028. Ein Vorschlag ist kein geltendes Recht.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/digital-omnibus-ai-regulation-proposal",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-11-24-ai-office-whistleblower-tool",
+      "date": "2025-11-24",
+      "category": "ai-office",
+      "tags": [
+        "enforcement"
+      ],
+      "type": "update",
+      "title": "Commission launches the AI Act whistleblower tool",
+      "titleDe": "Kommission startet das Hinweisgebersystem zum AI Act",
+      "summary": "The tool gives individuals a confidential channel to report suspected AI Act breaches to the AI Office, in any EU official language.",
+      "summaryDe": "Das System bietet Personen einen vertraulichen Kanal, um dem KI Buero vermutete Verstoesse gegen den AI Act zu melden, in jeder Amtssprache der EU.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-launches-whistleblower-tool-ai-act",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-09-national-de-ki-mig-bill",
+      "date": "2026-03-09",
+      "category": "national",
+      "tags": [
+        "de",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Germany: Federal Government submits the AI Act implementation bill to the Bundestag",
+      "titleDe": "Deutschland: Bundesregierung legt dem Bundestag den Gesetzentwurf zur Durchfuehrung des AI Act vor",
+      "summary": "Bundestag document 21/4594 of 9 March 2026 contains the government bill, with the Bundesnetzagentur as central market surveillance authority. A bill is not law.",
+      "summaryDe": "Die Bundestagsdrucksache 21/4594 vom 9. Maerz 2026 enthaelt den Regierungsentwurf, in dem die Bundesnetzagentur zentrale Marktueberwachungsbehoerde ist. Ein Entwurf ist kein Gesetz.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://dserver.bundestag.de/btd/21/045/2104594.pdf",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-13-eu-omnibus-council-mandate",
+      "date": "2026-03-13",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "legislation",
+        "high-risk"
+      ],
+      "type": "update",
+      "title": "Council agrees its position on the Digital Omnibus on AI",
+      "titleDe": "Rat einigt sich auf seine Position zum Digital Omnibus zur KI",
+      "summary": "The Council agreed its negotiating mandate: fixed high-risk dates of 2 December 2027 and 2 August 2028 instead of dates tied to standards, plus a new ban on AI generating non-consensual intimate content and child sexual abuse material. A mandate is not law.",
+      "summaryDe": "Der Rat einigte sich auf sein Verhandlungsmandat: feste Hochrisikotermine am 2. Dezember 2027 und 2. August 2028 statt an Normen gekoppelter Termine sowie ein neues Verbot von KI, die nicht einvernehmliche intime Inhalte und Darstellungen sexuellen Kindesmissbrauchs erzeugt. Ein Mandat ist kein Recht.",
+      "sourceId": "consilium",
+      "sourceUrl": "https://www.consilium.europa.eu/en/press/press-releases/2026/03/13/council-agrees-position-to-streamline-rules-on-artificial-intelligence/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-26-eu-omnibus-parliament-position",
+      "date": "2026-03-26",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Parliament adopts its position on the Digital Omnibus on AI",
+      "titleDe": "Parlament beschliesst seine Position zum Digital Omnibus zur KI",
+      "summary": "Parliament adopted its first-reading position (T10-0098/2026) after a joint IMCO and LIBE committee report of 18 March, and sent the file back for negotiations with the Council. A negotiating position is not law.",
+      "summaryDe": "Das Parlament beschloss seine Position in erster Lesung (T10-0098/2026) nach einem gemeinsamen Bericht der Ausschuesse IMCO und LIBE vom 18. Maerz und verwies das Dossier fuer Verhandlungen mit dem Rat zurueck. Eine Verhandlungsposition ist kein Recht.",
+      "sourceId": "oeil",
+      "sourceUrl": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-05-07-eu-omnibus-provisional-agreement",
+      "date": "2026-05-07",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "legislation",
+        "high-risk"
+      ],
+      "type": "update",
+      "title": "Parliament and Council reach a provisional agreement on the Digital Omnibus on AI",
+      "titleDe": "Parlament und Rat erzielen eine vorlaeufige Einigung zum Digital Omnibus zur KI",
+      "summary": "Negotiators agreed fixed high-risk dates of 2 December 2027 (Annex III) and 2 August 2028 (Annex I products) and a ban on AI generating non-consensual intimate content and child sexual abuse material. A provisional agreement is not law until both institutions formally adopt it.",
+      "summaryDe": "Die Verhandlungsfuehrer einigten sich auf feste Hochrisikotermine am 2. Dezember 2027 (Anhang III) und 2. August 2028 (Produkte nach Anhang I) sowie auf ein Verbot von KI, die nicht einvernehmliche intime Inhalte und Darstellungen sexuellen Kindesmissbrauchs erzeugt. Eine vorlaeufige Einigung ist erst Recht, wenn beide Organe sie foermlich annehmen.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/eu-agrees-simplify-ai-rules-boost-innovation-and-ban-nudification-apps-protect-citizens",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-05-19-ai-office-high-risk-classification-draft-guidelines",
+      "date": "2026-05-19",
+      "category": "ai-office",
+      "tags": [
+        "high-risk",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission publishes draft guidelines on classifying AI systems as high-risk",
+      "titleDe": "Kommission veroeffentlicht Leitlinienentwurf zur Einstufung als Hochrisikosystem",
+      "summary": "The draft explains Article 6 with practical examples and was open to a targeted consultation until 23 July 2026, after Article 6(5) had set 2 February 2026 for the guidelines. It is a non-binding draft, and the Commission page updated on 19 October 2026 still shows no final version.",
+      "summaryDe": "Der Entwurf erklaert Artikel 6 mit Praxisbeispielen und war bis zum 23. Juli 2026 in einer gezielten Konsultation, nachdem Artikel 6 Abs. 5 den 2. Februar 2026 fuer die Leitlinien vorgesehen hatte. Er ist ein unverbindlicher Entwurf, die am 19. Oktober 2026 aktualisierte Seite der Kommission zeigt noch keine Endfassung.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/draft-commission-guidelines-classification-high-risk-ai-systems",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-05-22-ai-office-annual-review-report",
+      "date": "2026-05-22",
+      "category": "ai-office",
+      "tags": [
+        "prohibited-practices",
+        "high-risk"
+      ],
+      "type": "update",
+      "title": "Commission publishes its report on the review of prohibitions and high-risk use cases",
+      "titleDe": "Kommission veroeffentlicht ihren Bericht zur Ueberpruefung der Verbote und Hochrisikoanwendungsfaelle",
+      "summary": "The annual review under Article 112(1) notes a possible gap for AI generating child sexual abuse material and non-consensual intimate content, and says a fuller assessment of Article 5 needs at least a year of application. It does not change the law by itself.",
+      "summaryDe": "Die jaehrliche Ueberpruefung nach Artikel 112 Abs. 1 stellt eine moegliche Luecke bei KI zur Erzeugung von Darstellungen sexuellen Kindesmissbrauchs und nicht einvernehmlicher intimer Inhalte fest und haelt fuer Artikel 5 eine vertiefte Bewertung erst nach mindestens einem Jahr Anwendung fuer moeglich. Sie aendert das Recht nicht selbst.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/report-review-prohibitions-and-high-risk-ai",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-01-ai-office-panel-and-forum-appointed",
+      "date": "2026-06-01",
+      "category": "ai-office",
+      "tags": [
+        "organisational",
+        "enforcement"
+      ],
+      "type": "update",
+      "title": "Commission appoints the AI Scientific Panel and the Advisory Forum",
+      "titleDe": "Kommission beruft das wissenschaftliche KI Gremium und das Beratungsforum",
+      "summary": "The Scientific Panel has 60 independent experts who advise the AI Office and national authorities, and the Advisory Forum advises on implementation and standardisation. Members serve two-year terms.",
+      "summaryDe": "Das wissenschaftliche Gremium hat 60 unabhaengige Sachverstaendige, die das KI Buero und die nationalen Behoerden beraten, das Beratungsforum berat zu Umsetzung und Normung. Die Mitglieder dienen zwei Jahre.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/ai-act-enforcement-gets-independent-expert-support",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-10-ai-office-transparency-code-published",
+      "date": "2026-06-10",
+      "category": "ai-office",
+      "tags": [
+        "transparency",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission publishes the final Code of Practice on marking and labelling AI-generated content",
+      "titleDe": "Kommission veroeffentlicht den endgueltigen Verhaltenskodex zur Kennzeichnung KI generierter Inhalte",
+      "summary": "The voluntary code helps providers and deployers of generative AI meet the Article 50 duties that apply from 2 August 2026. It is non-binding, and Article 50 itself is a legal obligation.",
+      "summaryDe": "Der freiwillige Kodex hilft Anbietern und Betreibern generativer Systeme bei den Pflichten nach Artikel 50, die ab dem 2. August 2026 gelten. Er ist nicht verbindlich, Artikel 50 selbst ist eine Rechtspflicht.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-11-national-de-ki-mig-bundestag",
+      "date": "2026-06-11",
+      "category": "national",
+      "tags": [
+        "de",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Germany: Bundestag passes the AI Act implementation law",
+      "titleDe": "Deutschland: Bundestag beschliesst das Durchfuehrungsgesetz zum AI Act",
+      "summary": "The Bundestag adopted the bill on 11 June 2026 in the version recommended by the Digital Committee. The law still needed the Bundesrat and publication.",
+      "summaryDe": "Der Bundestag beschloss den Entwurf am 11. Juni 2026 in der vom Digitalausschuss empfohlenen Fassung. Das Gesetz brauchte noch den Bundesrat und die Verkuendung.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://www.bundestag.de/dokumente/textarchiv/2026/kw24-de-ki-1183820",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-16-eu-omnibus-parliament-final-vote",
+      "date": "2026-06-16",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Parliament approves the agreed Digital Omnibus on AI at first reading",
+      "titleDe": "Parlament billigt den ausgehandelten Digital Omnibus zur KI in erster Lesung",
+      "summary": "Parliament adopted its first-reading position (T10-0198/2026) on the agreed text. The act was not yet law, because Council adoption was still missing.",
+      "summaryDe": "Das Parlament beschloss seine Position in erster Lesung (T10-0198/2026) zum ausgehandelten Text. Der Rechtsakt war noch nicht in Kraft, weil die Annahme durch den Rat noch fehlte.",
+      "sourceId": "oeil",
+      "sourceUrl": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-29-eu-omnibus-council-adopts",
+      "date": "2026-06-29",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Council adopts the Digital Omnibus on AI",
+      "titleDe": "Rat nimmt den Digital Omnibus zur KI an",
+      "summary": "The Council's decision completed adoption of the act. It was signed on 8 July 2026 and published on 24 July 2026.",
+      "summaryDe": "Der Beschluss des Rates schloss die Annahme des Rechtsakts ab. Er wurde am 8. Juli 2026 unterzeichnet und am 24. Juli 2026 veroeffentlicht.",
+      "sourceId": "consilium",
+      "sourceUrl": "https://www.consilium.europa.eu/en/press/press-releases/2026/06/29/artificial-intelligence-council-gives-final-green-light-to-simplify-and-streamline-rules/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-09-ai-office-transparency-code-adequacy",
+      "date": "2026-07-09",
+      "category": "ai-office",
+      "tags": [
+        "transparency",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission and AI Board assess the transparency code of practice as adequate",
+      "titleDe": "Kommission und KI Gremium bewerten den Transparenzkodex als angemessen",
+      "summary": "On 8 July the Commission concluded that the code adequately covers Article 50(2), (4) and (5), and the AI Board adopted its assessment on 9 July. Adherence is not conclusive evidence of compliance.",
+      "summaryDe": "Am 8. Juli stellte die Kommission fest, dass der Kodex Artikel 50 Abs. 2, 4 und 5 angemessen abdeckt, und das KI Gremium nahm seine Bewertung am 9. Juli an. Die Einhaltung ist kein abschliessender Nachweis der Konformitaet.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-10-national-de-ki-mig-bundesrat",
+      "date": "2026-07-10",
+      "category": "national",
+      "tags": [
+        "de",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Germany: Bundesrat lets the AI Act implementation law pass",
+      "titleDe": "Deutschland: Bundesrat laesst das Durchfuehrungsgesetz zum AI Act passieren",
+      "summary": "The Bundesrat did not call the mediation committee on 10 July 2026, so the law could be signed and promulgated.",
+      "summaryDe": "Der Bundesrat rief am 10. Juli 2026 den Vermittlungsausschuss nicht an, sodass das Gesetz ausgefertigt und verkuendet werden konnte.",
+      "sourceId": "bundesrat",
+      "sourceUrl": "https://www.bundesrat.de/DE/plenum/bundesrat-kompakt/26/1067/1067-pk.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-20-ai-office-transparency-guidelines",
+      "date": "2026-07-20",
+      "category": "ai-office",
+      "tags": [
+        "transparency",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Commission publishes guidelines on the Article 50 transparency obligations",
+      "titleDe": "Kommission veroeffentlicht Leitlinien zu den Transparenzpflichten nach Artikel 50",
+      "summary": "The guidelines cover scope, definitions, the transparency duties for providers and deployers, and exceptions, ahead of their application on 2 August 2026. They are non-binding guidance.",
+      "summaryDe": "Die Leitlinien behandeln Anwendungsbereich, Begriffe, die Transparenzpflichten fuer Anbieter und Betreiber sowie Ausnahmen, vor deren Geltung am 2. August 2026. Sie sind unverbindliche Hinweise.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-24-eu-omnibus-published",
+      "date": "2026-07-24",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "legislation",
+        "publication",
+        "amendment"
+      ],
+      "type": "update",
+      "title": "Digital Omnibus on AI published in the Official Journal as Regulation (EU) 2026/1744",
+      "titleDe": "Digital Omnibus zur KI als Verordnung (EU) 2026/1744 im Amtsblatt veroeffentlicht",
+      "summary": "Regulation (EU) 2026/1744 of 8 July 2026 amends Regulations (EU) 2024/1689, (EU) 2018/1139 and (EU) 2023/1230. It is binding law and entered into force on the third day after publication.",
+      "summaryDe": "Die Verordnung (EU) 2026/1744 vom 8. Juli 2026 aendert die Verordnungen (EU) 2024/1689, (EU) 2018/1139 und (EU) 2023/1230. Sie ist verbindliches Recht und trat am dritten Tag nach der Veroeffentlichung in Kraft.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-27-eu-omnibus-in-force",
+      "date": "2026-07-27",
+      "category": "eu",
+      "tags": [
+        "omnibus",
+        "amendment",
+        "high-risk",
+        "ai-literacy",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "Digital Omnibus on AI enters into force",
+      "titleDe": "Digital Omnibus zur KI tritt in Kraft",
+      "summary": "Regulation (EU) 2026/1744 is adopted law, not a proposal. It moves the high-risk application dates to 2 December 2027 and 2 August 2028, makes Article 4 a duty to support AI literacy, and applies Articles 102 to 110 of the AI Act from this day (Art. 113(3), point (d)).",
+      "summaryDe": "Die Verordnung (EU) 2026/1744 ist beschlossenes Recht und kein Vorschlag. Sie verschiebt die Hochrisikotermine auf den 2. Dezember 2027 und den 2. August 2028, macht aus Artikel 4 eine Pflicht zur Unterstuetzung der KI Kompetenz und laesst die Artikel 102 bis 110 des AI Act ab diesem Tag gelten (Art. 113 Abs. 3 Buchst. d).",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-29-national-de-ki-mig-in-force",
+      "date": "2026-07-29",
+      "category": "national",
+      "tags": [
+        "de",
+        "designation",
+        "legislation",
+        "in-force"
+      ],
+      "type": "update",
+      "title": "Germany: KI-MIG enters into force and the Bundesnetzagentur becomes the AI market surveillance authority",
+      "titleDe": "Deutschland: KI-MIG tritt in Kraft und die Bundesnetzagentur wird KI Marktueberwachungsbehoerde",
+      "summary": "The KI-Marktueberwachungs- und Innovationsfoerderungs-Gesetz of 22 July 2026 (BGBl. 2026 I Nr. 223, published 28 July) applies from 29 July 2026. It makes the Bundesnetzagentur the central market surveillance authority, contact point and complaints office, while sector authorities keep their own areas.",
+      "summaryDe": "Das KI-Marktueberwachungs- und Innovationsfoerderungs-Gesetz vom 22. Juli 2026 (BGBl. 2026 I Nr. 223, verkuendet am 28. Juli) gilt ab dem 29. Juli 2026. Es macht die Bundesnetzagentur zur zentralen Marktueberwachungsbehoerde, Anlaufstelle und Beschwerdestelle, waehrend Fachbehoerden ihre Bereiche behalten.",
+      "sourceId": "gesetze-im-internet",
+      "sourceUrl": "https://www.gesetze-im-internet.de/ki-mig/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-31-ai-office-transparency-code-signatories",
+      "date": "2026-07-31",
+      "category": "ai-office",
+      "tags": [
+        "transparency",
+        "market"
+      ],
+      "type": "update",
+      "title": "About 190 organisations sign the Code of Practice on Transparency of AI-generated Content",
+      "titleDe": "Rund 190 Organisationen unterzeichnen den Verhaltenskodex zur Transparenz KI generierter Inhalte",
+      "summary": "The Commission reported about 190 signatories by the end of July 2026. Its list, checked on 21 October 2026, shows 95 signatories of the provider section and 192 of the deployer section; signing is voluntary.",
+      "summaryDe": "Die Kommission meldete Ende Juli 2026 rund 190 Unterzeichner. Ihre am 21. Oktober 2026 gepruefte Liste zeigt 95 Unterzeichner des Abschnitts fuer Anbieter und 192 des Abschnitts fuer Betreiber, die Unterzeichnung ist freiwillig.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/strong-backing-code-practice-transparency-ai-generated-content",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-08-02-eu-general-date-of-application",
+      "date": "2026-08-02",
+      "category": "eu",
+      "tags": [
+        "transparency",
+        "enforcement",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "General date of application of the AI Act",
+      "titleDe": "Allgemeiner Geltungsbeginn des AI Act",
+      "summary": "The Regulation applies from this date unless a special date applies (Art. 113, second paragraph), including the Article 50 transparency duties and the Commission's fining power over general-purpose AI providers (Art. 101). The Chapter III high-risk rules no longer start on this date after Regulation (EU) 2026/1744.",
+      "summaryDe": "Die Verordnung gilt ab diesem Tag, soweit kein besonderes Datum vorgesehen ist (Art. 113, zweiter Absatz), darunter die Transparenzpflichten nach Artikel 50 und die Befugnis der Kommission zu Geldbussen gegenueber Anbietern von GPAI Modellen (Art. 101). Die Hochrisikoregeln des Kapitels III beginnen seit der Verordnung (EU) 2026/1744 nicht mehr an diesem Tag.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-09-ai-office-scientific-panel-special-meeting",
+      "date": "2026-10-09",
+      "category": "ai-office",
+      "tags": [
+        "gpai",
+        "enforcement"
+      ],
+      "type": "update",
+      "title": "AI Scientific Panel holds a special meeting on loss-of-control incidents",
+      "titleDe": "Wissenschaftliches KI Gremium haelt Sondersitzung zu Vorfaellen mit Kontrollverlust",
+      "summary": "The Commission reports that the AI Office has requested and received serious incident reports and sent requests for information on security practices, and that it will send further requests. The panel's recommendations are advice, not binding.",
+      "summaryDe": "Die Kommission berichtet, dass das KI Buero schwerwiegende Vorfallmeldungen angefordert und erhalten sowie Auskunftsersuchen zu Sicherheitspraktiken versandt hat und weitere Ersuchen versenden wird. Die Empfehlungen des Gremiums sind Beratung und nicht verbindlich.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-14-standards-en-18286-referenced",
+      "date": "2026-10-14",
+      "category": "standards",
+      "tags": [
+        "standards",
+        "high-risk",
+        "publication",
+        "certification"
+      ],
+      "type": "update",
+      "title": "First harmonised standard for the AI Act referenced in the Official Journal",
+      "titleDe": "Erste harmonisierte Norm zum AI Act im Amtsblatt aufgefuehrt",
+      "summary": "Implementing Decision (EU) 2026/2274 of 12 October 2026 references EN 18286:2026 on AI quality management systems, and the Commission announced it on 19 October. Providers who apply it are presumed to conform with the Article 17 requirements it covers (Art. 40), and using it is voluntary.",
+      "summaryDe": "Der Durchfuehrungsbeschluss (EU) 2026/2274 vom 12. Oktober 2026 fuehrt EN 18286:2026 zu Qualitaetsmanagementsystemen fuer KI auf, die Kommission gab dies am 19. Oktober bekannt. Anbieter, die sie anwenden, gelten als konform mit den von ihr abgedeckten Anforderungen des Artikels 17 (Art. 40), die Anwendung ist freiwillig.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/dec_impl/2026/2274/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-21-ai-office-external-evaluators-workshop-report",
+      "date": "2026-10-21",
+      "category": "ai-office",
+      "tags": [
+        "gpai",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "AI Office publishes a report on requirements for external evaluators of GPAI models",
+      "titleDe": "KI Buero veroeffentlicht Bericht zu Anforderungen an externe Evaluatoren von GPAI Modellen",
+      "summary": "The report follows a workshop on 15 July 2026 on the qualification and independence of external evaluators of general-purpose AI models with systemic risk. It states the current views of the AI Office, which may change, and is not binding.",
+      "summaryDe": "Der Bericht folgt einem Workshop vom 15. Juli 2026 zu Qualifikation und Unabhaengigkeit externer Evaluatoren von Modellen mit allgemeinem Verwendungszweck und systemischem Risiko. Er gibt die aktuelle Sicht des KI Buros wieder, die sich aendern kann, und ist nicht verbindlich.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/requirements-qualified-independent-external-evaluators-general-purpose-ai-models",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-12-02-eu-art-50-2-legacy-deadline",
+      "date": "2026-12-02",
+      "category": "eu",
+      "tags": [
+        "transparency",
+        "deadline",
+        "omnibus"
+      ],
+      "type": "milestone",
+      "title": "Deadline for Article 50(2) marking by generative AI systems already on the market",
+      "titleDe": "Frist fuer die Kennzeichnung nach Artikel 50 Abs. 2 bei bereits am Markt befindlichen generativen Systemen",
+      "summary": "Providers of AI systems, including general-purpose AI systems, that generate synthetic audio, image, video or text and were placed on the market before 2 August 2026 must take the necessary steps to comply with Article 50(2) by this date (Art. 111(4), added by Regulation (EU) 2026/1744).",
+      "summaryDe": "Anbieter von Systemen der kuenstlichen Intelligenz, auch mit allgemeinem Verwendungszweck, die synthetische Audio, Bild, Video oder Textinhalte erzeugen und vor dem 2. August 2026 in Verkehr gebracht wurden, muessen bis zu diesem Tag die noetigen Schritte zur Einhaltung von Artikel 50 Abs. 2 unternehmen (Art. 111 Abs. 4, eingefuegt durch die Verordnung (EU) 2026/1744).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-12-02-eu-new-prohibitions-apply",
+      "date": "2026-12-02",
+      "category": "eu",
+      "tags": [
+        "prohibited-practices",
+        "omnibus",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "Prohibitions on AI generating intimate images and child sexual abuse material apply",
+      "titleDe": "Verbote fuer KI zur Erzeugung intimer Bilder und von Darstellungen sexuellen Kindesmissbrauchs gelten",
+      "summary": "Article 5(1), first subparagraph, points (ba) and (bb), and Article 5(1a) and (1b), added by Regulation (EU) 2026/1744, apply from this date (Art. 113(3), point (a), as amended). They cover AI that generates or manipulates intimate or sexually explicit material of identifiable people without their explicit consent, and child sexual abuse material.",
+      "summaryDe": "Artikel 5 Abs. 1 Unterabs. 1 Buchst. ba und bb sowie Artikel 5 Abs. 1a und 1b, eingefuegt durch die Verordnung (EU) 2026/1744, gelten ab diesem Tag (Art. 113 Abs. 3 Buchst. a in der geaenderten Fassung). Sie betreffen KI, die intime oder sexuell explizite Darstellungen erkennbarer Personen ohne deren ausdrueckliche Einwilligung erzeugt oder veraendert, sowie Darstellungen sexuellen Kindesmissbrauchs.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-08-01-eu-annex-i-interplay-guidelines-deadline",
+      "date": "2027-08-01",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "deadline",
+        "omnibus"
+      ],
+      "type": "update",
+      "title": "Deadline for Commission guidelines on the AI Act and Annex I product legislation",
+      "titleDe": "Frist fuer Leitlinien der Kommission zum Zusammenspiel des AI Act mit dem Produktrecht nach Anhang I",
+      "summary": "Article 96(1), point (g), added by Regulation (EU) 2026/1744, requires the Commission to publish guidelines on applying Articles 8(2), 9(10) and 17(3) alongside Annex I Section A product legislation by this date. The guidelines will be non-binding.",
+      "summaryDe": "Artikel 96 Abs. 1 Buchst. g, eingefuegt durch die Verordnung (EU) 2026/1744, verpflichtet die Kommission, bis zu diesem Tag Leitlinien zur Anwendung der Artikel 8 Abs. 2, 9 Abs. 10 und 17 Abs. 3 neben den Produktrechtsvorschriften nach Anhang I Abschnitt A zu veroeffentlichen. Die Leitlinien werden nicht verbindlich sein.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-08-02-eu-annex-i-delegated-acts-deadline",
+      "date": "2027-08-02",
+      "category": "eu",
+      "tags": [
+        "high-risk",
+        "deadline",
+        "omnibus"
+      ],
+      "type": "update",
+      "title": "Deadline for Commission delegated acts limiting overlapping high-risk requirements",
+      "titleDe": "Frist fuer delegierte Rechtsakte der Kommission zur Begrenzung ueberschneidender Hochrisikoanforderungen",
+      "summary": "Article 2(13), added by Regulation (EU) 2026/1744, allows certain Articles 9 to 15 and 17 to 25 requirements to be limited where Annex I Section A legislation gives equal protection. The Commission must adopt delegated acts specifying the details by this date.",
+      "summaryDe": "Artikel 2 Abs. 13, eingefuegt durch die Verordnung (EU) 2026/1744, erlaubt es, bestimmte Anforderungen der Artikel 9 bis 15 und 17 bis 25 zu begrenzen, wenn Rechtsvorschriften nach Anhang I Abschnitt A gleichwertigen Schutz bieten. Die Kommission muss die Einzelheiten bis zu diesem Tag in delegierten Rechtsakten festlegen.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-08-02-eu-legacy-gpai-models-deadline",
+      "date": "2027-08-02",
+      "category": "eu",
+      "tags": [
+        "gpai",
+        "deadline"
+      ],
+      "type": "milestone",
+      "title": "Deadline for general-purpose AI models placed on the market before 2 August 2025",
+      "titleDe": "Frist fuer GPAI Modelle, die vor dem 2. August 2025 in Verkehr gebracht wurden",
+      "summary": "Providers of general-purpose AI models placed on the market before 2 August 2025 must take the necessary steps to comply with the Regulation by this date (Art. 111(3)).",
+      "summaryDe": "Anbieter von Modellen der kuenstlichen Intelligenz mit allgemeinem Verwendungszweck, die vor dem 2. August 2025 in Verkehr gebracht wurden, muessen bis zu diesem Tag die noetigen Schritte zur Einhaltung der Verordnung unternehmen (Art. 111 Abs. 3).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-08-02-eu-national-sandboxes-operational",
+      "date": "2027-08-02",
+      "category": "eu",
+      "tags": [
+        "deadline",
+        "omnibus"
+      ],
+      "type": "milestone",
+      "title": "National AI regulatory sandboxes must be operational",
+      "titleDe": "Nationale KI Reallabore muessen betriebsbereit sein",
+      "summary": "Member States must ensure that their competent authorities establish at least one national AI regulatory sandbox that is operational by this date (Art. 57(1), as amended by Regulation (EU) 2026/1744). The original date was 2 August 2026.",
+      "summaryDe": "Die Mitgliedstaaten muessen sicherstellen, dass ihre zustaendigen Behoerden mindestens ein nationales KI Reallabor einrichten, das bis zu diesem Tag betriebsbereit ist (Art. 57 Abs. 1 in der durch die Verordnung (EU) 2026/1744 geaenderten Fassung). Das urspruengliche Datum war der 2. August 2026.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-09-02-eu-post-market-monitoring-template-deadline",
+      "date": "2027-09-02",
+      "category": "eu",
+      "tags": [
+        "high-risk",
+        "guidance",
+        "deadline",
+        "omnibus"
+      ],
+      "type": "update",
+      "title": "Deadline for Commission guidance and template on post-market monitoring plans",
+      "titleDe": "Frist fuer Leitlinien und Vorlage der Kommission zu Plaenen fuer die Beobachtung nach dem Inverkehrbringen",
+      "summary": "Article 72(3), as amended by Regulation (EU) 2026/1744, no longer provides for an implementing act with a template. Instead the Commission must adopt guidance including a template on the post-market monitoring plan by this date.",
+      "summaryDe": "Artikel 72 Abs. 3 in der durch die Verordnung (EU) 2026/1744 geaenderten Fassung sieht keinen Durchfuehrungsrechtsakt mit Vorlage mehr vor. Stattdessen muss die Kommission bis zu diesem Tag Leitlinien mit einer Vorlage zum Plan fuer die Beobachtung nach dem Inverkehrbringen annehmen.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2027-12-02-eu-annex-iii-high-risk-applies",
+      "date": "2027-12-02",
+      "category": "eu",
+      "tags": [
+        "high-risk",
+        "omnibus",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "Rules for Annex III high-risk AI systems apply",
+      "titleDe": "Regeln fuer Hochrisikosysteme nach Anhang III gelten",
+      "summary": "Chapter III Sections 1, 2 and 3 apply to AI systems classified as high-risk under Article 6(2) and Annex III from this date (Art. 113(3), point (c)(i), as amended by Regulation (EU) 2026/1744). The original date was 2 August 2026, and the new date is fixed in the text.",
+      "summaryDe": "Kapitel III Abschnitte 1, 2 und 3 gelten ab diesem Tag fuer Systeme, die nach Artikel 6 Abs. 2 und Anhang III als Hochrisikosysteme eingestuft sind (Art. 113 Abs. 3 Buchst. c Ziff. i in der durch die Verordnung (EU) 2026/1744 geaenderten Fassung). Das urspruengliche Datum war der 2. August 2026, das neue Datum steht fest im Text.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2028-08-02-eu-annex-i-high-risk-applies",
+      "date": "2028-08-02",
+      "category": "eu",
+      "tags": [
+        "high-risk",
+        "omnibus",
+        "in-force"
+      ],
+      "type": "milestone",
+      "title": "Rules for high-risk AI systems in Annex I products apply",
+      "titleDe": "Regeln fuer Hochrisikosysteme in Produkten nach Anhang I gelten",
+      "summary": "Chapter III Sections 1, 2 and 3 apply to AI systems classified as high-risk under Article 6(1) and Annex I from this date (Art. 113(3), point (c)(ii), as amended by Regulation (EU) 2026/1744). Article 6(1) and its obligations were originally due to apply from 2 August 2027.",
+      "summaryDe": "Kapitel III Abschnitte 1, 2 und 3 gelten ab diesem Tag fuer Systeme, die nach Artikel 6 Abs. 1 und Anhang I als Hochrisikosysteme eingestuft sind (Art. 113 Abs. 3 Buchst. c Ziff. ii in der durch die Verordnung (EU) 2026/1744 geaenderten Fassung). Artikel 6 Abs. 1 und die zugehoerigen Pflichten sollten urspruenglich ab dem 2. August 2027 gelten.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2030-08-02-eu-public-authority-legacy-deadline",
+      "date": "2030-08-02",
+      "category": "eu",
+      "tags": [
+        "high-risk",
+        "deadline"
+      ],
+      "type": "milestone",
+      "title": "Deadline for high-risk AI systems intended for public authorities placed on the market earlier",
+      "titleDe": "Frist fuer vorher in Verkehr gebrachte Hochrisikosysteme zur Nutzung durch Behoerden",
+      "summary": "Providers and deployers of high-risk AI systems intended for use by public authorities that were placed on the market before the Chapter III date of application must take the necessary steps to comply by this date (Art. 111(2), as amended by Regulation (EU) 2026/1744).",
+      "summaryDe": "Anbieter und Betreiber von Hochrisikosystemen zur Nutzung durch Behoerden, die vor dem Geltungsbeginn des Kapitels III in Verkehr gebracht wurden, muessen bis zu diesem Tag die noetigen Schritte zur Einhaltung unternehmen (Art. 111 Abs. 2 in der durch die Verordnung (EU) 2026/1744 geaenderten Fassung).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2030-12-31-eu-large-scale-it-systems-deadline",
+      "date": "2030-12-31",
+      "category": "eu",
+      "tags": [
+        "high-risk",
+        "deadline"
+      ],
+      "type": "milestone",
+      "title": "Deadline for AI components of large-scale EU IT systems placed on the market earlier",
+      "titleDe": "Frist fuer KI Komponenten grosser EU IT Systeme, die vorher in Verkehr gebracht wurden",
+      "summary": "AI systems that are components of the large-scale IT systems listed in Annex X and were placed on the market or put into service before 2 August 2027 must be brought into compliance by this date (Art. 111(1)).",
+      "summaryDe": "Systeme der kuenstlichen Intelligenz, die Komponenten der in Anhang X genannten grossen IT Systeme sind und vor dem 2. August 2027 in Verkehr gebracht oder in Betrieb genommen wurden, muessen bis zu diesem Tag mit der Verordnung in Einklang gebracht werden (Art. 111 Abs. 1).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-11-29-national-lu-ai-bill-cabinet",
+      "date": "2024-11-29",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "lu"
+      ],
+      "type": "update",
+      "title": "Luxembourg government approves its AI Act implementation bill",
+      "titleDe": "Regierung von Luxemburg billigt Gesetzentwurf zur Durchfuehrung der KI Verordnung",
+      "summary": "On 29 November 2024 the Council of Government approves the bill implementing parts of Regulation (EU) 2024/1689 and naming the national authorities, with the data protection authority CNPD as single point of contact and default market surveillance authority. This is a bill, not law.",
+      "summaryDe": "Am 29. November 2024 billigt der Regierungsrat den Gesetzentwurf zur Durchfuehrung von Teilen der Verordnung (EU) 2024/1689, der die nationalen Behoerden benennt, mit der Datenschutzbehoerde CNPD als zentraler Anlaufstelle und allgemeiner Marktueberwachungsbehoerde. Es ist ein Entwurf, kein Gesetz.",
+      "sourceId": "gouvernement-lu",
+      "sourceUrl": "https://gouvernement.lu/fr/actualites/toutes_actualites.gouvernement2024+fr+actualites+toutes_actualites+communiques+2024+11-novembre+29-conseil-gouvernement.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2024-12-23-national-lu-ai-bill-tabled",
+      "date": "2024-12-23",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "lu"
+      ],
+      "type": "update",
+      "title": "Luxembourg tables bill 8476 on AI Act authorities and sandbox",
+      "titleDe": "Luxemburg bringt Gesetzentwurf 8476 zu KI Behoerden und Reallabor ein",
+      "summary": "Bill 8476 is deposited in the Chamber of Deputies on 23 December 2024. It names ILNAS and the data protection commissioner's office as notifying authorities, the CNPD as default market surveillance authority with sector exceptions, and requires the CNPD to run a regulatory sandbox; it is a bill, not law.",
+      "summaryDe": "Der Gesetzentwurf 8476 wird am 23. Dezember 2024 in der Abgeordnetenkammer eingereicht. Er bestimmt ILNAS und das Amt des Datenschutzbeauftragten der Regierung zu notifizierenden Behoerden, die CNPD zur allgemeinen Marktueberwachungsbehoerde mit Ausnahmen fuer Fachbereiche und verpflichtet die CNPD zu einem Reallabor; es ist ein Entwurf, kein Gesetz.",
+      "sourceId": "chd-lu",
+      "sourceUrl": "https://www.chd.lu/fr/dossier/8476",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-10-national-lu-ai-bill-council-of-state",
+      "date": "2026-07-10",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "lu"
+      ],
+      "type": "update",
+      "title": "Luxembourg Council of State gives its opinion on the AI Act bill",
+      "titleDe": "Luxemburger Staatsrat gibt Stellungnahme zum KI Gesetzentwurf ab",
+      "summary": "The Council of State adopts its opinion on bill 8476 on 10 July 2026, asking for changes to some provisions under threat of formal objection. The bill is still in committee in the Chamber of Deputies and is not law.",
+      "summaryDe": "Der Staatsrat verabschiedet am 10. Juli 2026 seine Stellungnahme zum Gesetzentwurf 8476 und verlangt Aenderungen an einzelnen Bestimmungen unter Androhung eines formellen Einspruchs. Der Entwurf liegt weiter im Ausschuss der Abgeordnetenkammer und ist kein Gesetz.",
+      "sourceId": "chd-lu",
+      "sourceUrl": "https://wdocs-pub.chd.lu/docs/Dossiers_parlementaires/8476/20260828_Avis.pdf",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-04-20-national-nl-ai-implementation-act-consultation",
+      "date": "2026-04-20",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "nl"
+      ],
+      "type": "update",
+      "title": "Netherlands opens consultation on its AI Regulation implementation act",
+      "titleDe": "Niederlande eroeffnen Konsultation zum Durchfuehrungsgesetz der KI Verordnung",
+      "summary": "On 20 April 2026 State Secretary Aerdts puts the draft implementation act for the AI Regulation into internet consultation until 1 June 2026. Existing supervisors each oversee AI in their own domain, the Autoriteit Persoonsgegevens covers areas without a supervisor and shares a coordinating role with the RDI; this is a draft, not law.",
+      "summaryDe": "Am 20. April 2026 stellt Staatssekretaer Aerdts den Entwurf des Durchfuehrungsgesetzes zur KI Verordnung bis zum 1. Juni 2026 zur Konsultation. Bestehende Aufsichtsbehoerden beaufsichtigen KI in ihrem Bereich, die Autoriteit Persoonsgegevens deckt Bereiche ohne Aufsicht ab und koordiniert gemeinsam mit der RDI; es ist ein Entwurf, kein Gesetz.",
+      "sourceId": "rijksoverheid",
+      "sourceUrl": "https://www.rijksoverheid.nl/actueel/nieuws/2026/04/20/kabinet-zet-stap-met-toezicht-op-europese-ai-regels",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-02-18-national-fr-ai-provisions-senate",
+      "date": "2026-02-18",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "fr"
+      ],
+      "type": "update",
+      "title": "French Senate adopts EU adaptation bill with first AI Act provisions",
+      "titleDe": "Franzoesischer Senat beschliesst EU Anpassungsgesetz mit ersten KI Verordnung Regeln",
+      "summary": "On 18 February 2026 the Senate adopts, at first reading, the bill adapting French law to EU law. Its Article 24 adds a title on AI systems to the 2004 digital economy law and Article 24 bis authorises an ordinance on regulatory sandboxes; the text went to the National Assembly on 20 February 2026 and is a bill, not law.",
+      "summaryDe": "Am 18. Februar 2026 beschliesst der Senat in erster Lesung das Gesetz zur Anpassung des franzoesischen Rechts an EU Recht. Artikel 24 fuegt dem Gesetz von 2004 zur digitalen Wirtschaft einen Titel zu KI Systemen hinzu, Artikel 24 bis ermaechtigt zu einer Verordnung ueber Reallabore; der Text liegt seit dem 20. Februar 2026 bei der Nationalversammlung und ist kein Gesetz.",
+      "sourceId": "senat-fr",
+      "sourceUrl": "https://www.senat.fr/dossier-legislatif/pjl25-118.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-17-national-de-ai-sandbox-pilot-report",
+      "date": "2026-03-17",
+      "category": "national",
+      "tags": [
+        "guidance",
+        "high-risk",
+        "de"
+      ],
+      "type": "update",
+      "title": "Germany: AI sandbox pilot with Hesse and the data protection commissioner ends",
+      "titleDe": "Deutschland: Pilotprojekt zum Reallabor fuer Kuenstliche Intelligenz abgeschlossen",
+      "summary": "The Bundesnetzagentur, the Hessian digital ministry and the Federal Data Protection Commissioner publish the final report of a pilot that simulated an AI regulatory sandbox with two start-up cases, including a roadmap for medical devices with high-risk AI. The report is non-binding and prepares the Bundesnetzagentur's real sandbox.",
+      "summaryDe": "Die Bundesnetzagentur, das hessische Digitalministerium und die Bundesbeauftragte fuer den Datenschutz veroeffentlichen den Abschlussbericht eines Pilotprojekts, das ein Reallabor fuer Kuenstliche Intelligenz mit zwei Start up Faellen simuliert, darunter eine Roadmap fuer Medizinprodukte mit Hochrisiko KI. Der Bericht ist nicht bindend und bereitet das echte Reallabor der Bundesnetzagentur vor.",
+      "sourceId": "bundesnetzagentur",
+      "sourceUrl": "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2026/20260317_Ki.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-09-19-national-pt-anacom-announced",
+      "date": "2025-09-19",
+      "category": "national",
+      "tags": [
+        "pt",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Portugal: Government announces ANACOM as AI Act supervisory authority",
+      "titleDe": "Portugal: Regierung kuendigt ANACOM als Aufsichtsbehoerde fuer die KI Verordnung an",
+      "summary": "ANACOM reports that at its conference on 19 September 2025 the Secretary of State for Digitalisation and the Infrastructure Minister announced that ANACOM will supervise the AI Act in Portugal. This was an announcement of intent, not a legal act: the Commission's list of single points of contact, last updated 7 September 2026, still marks the Portuguese designation as pending final adoption.",
+      "summaryDe": "ANACOM berichtet, dass der Staatssekretaer fuer Digitalisierung und der Infrastrukturminister auf der ANACOM Konferenz am 19. September 2025 angekuendigt haben, dass ANACOM die KI Verordnung in Portugal beaufsichtigen wird. Das war eine Absichtserklaerung und kein Rechtsakt: Die Liste der zentralen Anlaufstellen der Kommission, zuletzt am 7. September 2026 aktualisiert, fuehrt die portugiesische Benennung weiter als noch nicht endgueltig beschlossen.",
+      "sourceId": "anacom",
+      "sourceUrl": "https://anacom.pt/render.jsp?categoryId=434190",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-12-16-national-es-aesia-guides",
+      "date": "2025-12-16",
+      "category": "national",
+      "tags": [
+        "es",
+        "guidance",
+        "high-risk"
+      ],
+      "type": "update",
+      "title": "Spain: AESIA publishes 16 non-binding guides on complying with the AI Act",
+      "titleDe": "Spanien: AESIA veroeffentlicht 16 unverbindliche Leitfaeden zur Einhaltung der KI Verordnung",
+      "summary": "On 16 December 2025 the Spanish AI supervision agency AESIA published 16 practical guides for high-risk AI systems, the result of Spain's AI regulatory sandbox. The guides are not binding and do not replace the AI Act; AESIA said they would be updated once the Digital Omnibus on AI is approved.",
+      "summaryDe": "Am 16. Dezember 2025 hat die spanische KI Aufsichtsagentur AESIA 16 praktische Leitfaeden fuer Hochrisiko KI Systeme veroeffentlicht, das Ergebnis des spanischen Reallabors fuer KI. Die Leitfaeden sind nicht bindend und ersetzen die KI Verordnung nicht; AESIA kuendigte an, sie nach Annahme des Digital Omnibus zur KI zu aktualisieren.",
+      "sourceId": "aesia",
+      "sourceUrl": "https://aesia.digital.gob.es/es/actualidad/20251216-publicadas-las-guias-de-apoyo-al-cumplimiento-del-ria",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-05-26-national-es-ai-bill-council-of-ministers",
+      "date": "2026-05-26",
+      "category": "national",
+      "tags": [
+        "es",
+        "legislation",
+        "designation",
+        "penalty"
+      ],
+      "type": "update",
+      "title": "Spain: Council of Ministers sends the AI governance bill to Parliament",
+      "titleDe": "Spanien: Ministerrat schickt den Gesetzentwurf zur KI Governance ans Parlament",
+      "summary": "On 26 May 2026 the Council of Ministers approved the bill for an Organic Law on the good use and governance of artificial intelligence and sent it to the Congress of Deputies. The bill would make AESIA the main supervisor and single point of contact, keep the existing sector authorities for product law, set fines of up to EUR 35 million or 7 percent of turnover and give the national sandbox to AESIA. It was a bill, not law.",
+      "summaryDe": "Am 26. Mai 2026 hat der Ministerrat den Entwurf eines Organgesetzes fuer den guten Einsatz und die Governance der kuenstlichen Intelligenz beschlossen und dem Abgeordnetenhaus zugeleitet. Der Entwurf wuerde AESIA zur Hauptaufsicht und zentralen Anlaufstelle machen, die bestehenden Fachbehoerden des Produktrechts beibehalten, Bussgelder bis 35 Millionen Euro oder 7 Prozent des Umsatzes vorsehen und AESIA den nationalen Sandkasten uebertragen. Es war ein Gesetzentwurf und kein Gesetz.",
+      "sourceId": "mtdfp-es",
+      "sourceUrl": "https://digital.gob.es/content/dam/portal-mtdfp/comunicacion/comunicacion_ministro/2026/05/2026-05-26/260526%20NP%20CMin%20APL%20IA.pdf",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-12-national-es-ai-bill-congress",
+      "date": "2026-06-12",
+      "category": "national",
+      "tags": [
+        "es",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Spain: Congress publishes the AI governance bill and opens the amendment period",
+      "titleDe": "Spanien: Abgeordnetenhaus veroeffentlicht den Gesetzentwurf zur KI Governance und eroeffnet die Aenderungsfrist",
+      "summary": "The Official Bulletin of the Cortes Generales of 12 June 2026 published bill 121/000096, referred it to the Economy, Trade and Digital Transformation Committee and set 30 June 2026 as the deadline for amendments. The Congress file then lists weekly extensions up to 7 October 2026. It was a bill in committee stage, not law.",
+      "summaryDe": "Das Amtsblatt der Cortes Generales vom 12. Juni 2026 hat den Gesetzentwurf 121/000096 veroeffentlicht, dem Ausschuss fuer Wirtschaft, Handel und digitale Transformation zugewiesen und den 30. Juni 2026 als Frist fuer Aenderungsantraege gesetzt. Die Akte des Abgeordnetenhauses nennt danach woechentliche Verlaengerungen bis zum 7. Oktober 2026. Es war ein Gesetzentwurf im Ausschuss und kein Gesetz.",
+      "sourceId": "congreso-es",
+      "sourceUrl": "https://www.congreso.es/public_oficiales/L15/CONG/BOCG/A/BOCG-15-A-97-1.PDF",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-16-national-pt-anacom-art5-consultation",
+      "date": "2026-06-16",
+      "category": "national",
+      "tags": [
+        "pt",
+        "guidance",
+        "prohibited-practices"
+      ],
+      "type": "update",
+      "title": "Portugal: ANACOM consults on draft recommendations for the AI Act ban on prohibited practices",
+      "titleDe": "Portugal: ANACOM konsultiert Entwurf von Empfehlungen zum Verbot unzulaessiger KI Praktiken",
+      "summary": "On 16 June 2026 ANACOM decided to open a public consultation on draft recommendations for implementing Article 5 of the AI Act, with comments due by 16 July 2026. The draft is non-binding and sets out organisational recommendations and procedures; the legal duties come from the Regulation itself.",
+      "summaryDe": "Am 16. Juni 2026 hat ANACOM beschlossen, einen Entwurf von Empfehlungen zur Umsetzung von Artikel 5 der KI Verordnung in eine oeffentliche Konsultation zu geben, mit Stellungnahmen bis zum 16. Juli 2026. Der Entwurf ist unverbindlich und enthaelt organisatorische Empfehlungen und Verfahren; die rechtlichen Pflichten ergeben sich aus der Verordnung selbst.",
+      "sourceId": "anacom",
+      "sourceUrl": "https://www.anacom.pt/render.jsp?contentId=1850436",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-20-national-gr-law-5321-2026",
+      "date": "2026-07-20",
+      "category": "national",
+      "tags": [
+        "gr",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Greece: Law 5321/2026 sets the national framework for the AI Act",
+      "titleDe": "Griechenland: Gesetz 5321/2026 schafft den nationalen Rahmen fuer die KI Verordnung",
+      "summary": "Law 5321/2026 (Government Gazette A 114 of 20 July 2026) names the Hellenic Data Protection Authority as market surveillance authority for prohibited practices, Annex III high-risk systems and Article 50 transparency, and as single point of contact. The telecommunications regulator EETT becomes notifying authority and hosts the AI sandbox together with the data protection authority. It is enacted law; the digital ministry announced it on 22 July 2026.",
+      "summaryDe": "Das Gesetz 5321/2026 (Staatsanzeiger A 114 vom 20. Juli 2026) benennt die griechische Datenschutzbehoerde als Marktueberwachungsbehoerde fuer verbotene Praktiken, Hochrisiko Systeme nach Anhang III und die Transparenz nach Artikel 50 sowie als zentrale Anlaufstelle. Die Regulierungsbehoerde fuer Telekommunikation EETT wird notifizierende Behoerde und betreibt den KI Sandkasten gemeinsam mit der Datenschutzbehoerde. Es ist geltendes Recht; das Digitalministerium hat es am 22. Juli 2026 bekannt gemacht.",
+      "sourceId": "ai-gov-gr",
+      "sourceUrl": "https://ai.gov.gr/announcements/i-ellada-apokta-to-ethniko-plaisio-efarmogis-toy-ai-act/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-08-16-national-cy-ai-law-consultation",
+      "date": "2026-08-16",
+      "category": "national",
+      "tags": [
+        "cy",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Cyprus: public consultation opens on the draft Artificial Intelligence Law of 2026",
+      "titleDe": "Zypern: Konsultation zum Entwurf des Gesetzes ueber kuenstliche Intelligenz von 2026 beginnt",
+      "summary": "The e-Consultation portal shows a public consultation on the draft Artificial Intelligence Law of 2026, open from 16 August to 16 September 2026, to implement Regulation (EU) 2024/1689. According to the Commissioner of Communications, the draft sets the national governance, market surveillance powers, sanctions and an AI regulatory sandbox. It is a draft, not enacted law.",
+      "summaryDe": "Das Konsultationsportal der Regierung zeigt eine oeffentliche Konsultation zum Entwurf des Gesetzes ueber kuenstliche Intelligenz von 2026, offen vom 16. August bis 16. September 2026, zur Durchfuehrung der Verordnung (EU) 2024/1689. Laut dem Kommunikationsbeauftragten regelt der Entwurf die nationale Governance, die Befugnisse der Marktueberwachung, Sanktionen und einen KI Sandkasten. Es ist ein Entwurf und kein geltendes Recht.",
+      "sourceId": "e-consultation-cy",
+      "sourceUrl": "https://e-consultation.gov.cy/diavouleuseis/%CE%BF-%CF%80%CE%B5%CF%81%CE%B9-%CF%84%CE%B7%CF%83-%CF%84%CE%B5%CF%87%CE%BD%CE%B7%CF%84%CE%B7%CF%83-%CE%BD%CE%BF%CE%B7%CE%BC%CE%BF%CF%83%CF%85%CE%BD%CE%B7%CF%83-%CE%BD%CE%BF%CE%BC%CE%BF%CF%83-%CF%84",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-15-national-it-dlgs-160-2026",
+      "date": "2026-09-15",
+      "category": "national",
+      "tags": [
+        "it",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Italy: Legislative Decree 160/2026 on AI in police work and civil and criminal liability is published",
+      "titleDe": "Italien: Gesetzesdekret 160/2026 zu KI in der Polizeiarbeit sowie zur zivil und strafrechtlichen Haftung ist veroeffentlicht",
+      "summary": "Legislative Decree No. 160 of 9 September 2026, published in Gazzetta Ufficiale n. 214 of 15 September 2026, adapts Italian law to the AI Act on the use of AI systems for police activity and on civil and criminal liability, under the delegation in Article 24 of Law 132/2025. It is enacted law and entered into force on 30 September 2026.",
+      "summaryDe": "Das Gesetzesdekret Nr. 160 vom 9. September 2026, veroeffentlicht in der Gazzetta Ufficiale Nr. 214 vom 15. September 2026, passt das italienische Recht an die KI Verordnung an, was den Einsatz von KI Systemen fuer die Polizeiarbeit und die zivil und strafrechtliche Haftung betrifft, auf Grundlage der Ermaechtigung in Artikel 24 des Gesetzes 132/2025. Es ist geltendes Recht und am 30. September 2026 in Kraft getreten.",
+      "sourceId": "gazzetta-ufficiale",
+      "sourceUrl": "https://www.gazzettaufficiale.it/eli/id/2026/09/15/26G00179/sg",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-06-national-es-ai-bill-lapsed",
+      "date": "2026-10-06",
+      "category": "national",
+      "tags": [
+        "es",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Spain: the AI governance bill lapses as the Cortes are dissolved",
+      "titleDe": "Spanien: Der Gesetzentwurf zur KI Governance verfaellt mit der Aufloesung der Cortes",
+      "summary": "Royal Decree 806/2026, published in the BOE on 6 October 2026, dissolved the Congress and the Senate and called general elections for 29 November 2026. The Congress file for bill 121/000096 shows it as concluded and lapsed from 6 October 2026, so the bill cannot pass in this legislature and a new government would have to table a fresh one.",
+      "summaryDe": "Das Koenigliche Dekret 806/2026, am 6. Oktober 2026 im BOE veroeffentlicht, hat das Abgeordnetenhaus und den Senat aufgeloest und Parlamentswahlen fuer den 29. November 2026 ausgerufen. Die Akte des Abgeordnetenhauses zeigt den Gesetzentwurf 121/000096 ab dem 6. Oktober 2026 als abgeschlossen und verfallen, er kann in dieser Legislaturperiode also nicht mehr beschlossen werden und eine neue Regierung muesste einen neuen Entwurf einbringen.",
+      "sourceId": "congreso-es",
+      "sourceUrl": "https://www.congreso.es/es/proyectos-de-ley?p_p_id=iniciativas&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_iniciativas_mode=mostrarDetalle&_iniciativas_legislatura=XV&_iniciativas_id=121%2F000096",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-10-08-national-it-dlgs-179-2026",
+      "date": "2026-10-08",
+      "category": "national",
+      "tags": [
+        "it",
+        "legislation",
+        "designation",
+        "penalty"
+      ],
+      "type": "update",
+      "title": "Italy: Legislative Decree 179/2026 sets the powers of the national AI authorities and the penalties",
+      "titleDe": "Italien: Gesetzesdekret 179/2026 regelt die Befugnisse der nationalen KI Behoerden und die Sanktionen",
+      "summary": "Legislative Decree No. 179 of 7 October 2026 (Gazzetta Ufficiale n. 234 of 8 October 2026) names AgID as notifying authority and ACN as market surveillance authority and single point of contact, with the Bank of Italy, CONSOB, IVASS and the data protection authority for their areas, and sets sanctions and rules on AI in education. The Council of Ministers gave final approval on 4 August 2026. It is enacted law and enters into force on 23 October 2026.",
+      "summaryDe": "Das Gesetzesdekret Nr. 179 vom 7. Oktober 2026 (Gazzetta Ufficiale Nr. 234 vom 8. Oktober 2026) benennt AgID als notifizierende Behoerde und ACN als Marktueberwachungsbehoerde und zentrale Anlaufstelle, dazu die Banca d'Italia, CONSOB, IVASS und die Datenschutzbehoerde fuer ihre Bereiche, und regelt Sanktionen sowie KI in der Bildung. Der Ministerrat hat am 4. August 2026 endgueltig zugestimmt. Es ist geltendes Recht und tritt am 23. Oktober 2026 in Kraft.",
+      "sourceId": "gazzetta-ufficiale",
+      "sourceUrl": "https://www.gazzettaufficiale.it/eli/id/2026/10/08/26G00200/sg",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-01-01-national-fi-ai-supervision-act-in-force",
+      "date": "2026-01-01",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "in-force",
+        "designation",
+        "fi"
+      ],
+      "type": "update",
+      "title": "Finland: law on the supervision of certain AI systems enters into force",
+      "titleDe": "Finnland: Gesetz ueber die Aufsicht ueber bestimmte KI Systeme tritt in Kraft",
+      "summary": "Act 1377/2025, published on 29 December 2025, names Traficom as single point of contact and supervisor of the transparency duties, the Data Protection Ombudsman for prohibited practices, and sector authorities for high-risk systems. It is enacted Finnish law in force from 1 January 2026; the regulatory sandbox is left to a second act that went to consultation as a draft in 2025.",
+      "summaryDe": "Das am 29. Dezember 2025 veroeffentlichte Gesetz 1377/2025 bestimmt Traficom zur zentralen Anlaufstelle und zur Aufsicht ueber die Transparenzpflichten, den Datenschutzbeauftragten fuer verbotene Praktiken und Fachbehoerden fuer Hochrisiko Systeme. Es ist geltendes finnisches Recht ab dem 1. Januar 2026; die Reallabore sind einem zweiten Gesetz vorbehalten, dessen Entwurf 2025 in die Anhoerung ging.",
+      "sourceId": "finlex",
+      "sourceUrl": "https://www.finlex.fi/fi/lainsaadanto/2025/1377",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-06-national-se-ai-inquiry-report",
+      "date": "2025-10-06",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "se"
+      ],
+      "type": "update",
+      "title": "Sweden: inquiry proposes a complementary AI Act law with PTS as lead authority",
+      "titleDe": "Schweden: Untersuchung schlaegt ein Ergaenzungsgesetz zum AI Act mit der PTS als federfuehrender Behoerde vor",
+      "summary": "The inquiry report SOU 2025:101, published on 6 October 2025, proposes a new complementary law and ordinance, eleven market surveillance authorities and two notifying authorities, with the Post and Telecom Authority (PTS) as lead authority and operator of the regulatory sandbox. It is a proposal, not law; the inquiry suggested entry into force on 2 August 2026.",
+      "summaryDe": "Der am 6. Oktober 2025 veroeffentlichte Untersuchungsbericht SOU 2025:101 schlaegt ein neues Ergaenzungsgesetz mit Verordnung, elf Marktueberwachungsbehoerden und zwei notifizierende Behoerden vor, mit der Post und Telekommunikationsbehoerde (PTS) als federfuehrender Behoerde und Betreiberin des Reallabors. Es ist ein Vorschlag und kein Gesetz; die Untersuchung schlug das Inkrafttreten am 2. August 2026 vor.",
+      "sourceId": "regeringen-se",
+      "sourceUrl": "https://www.regeringen.se/rattsliga-dokument/statens-offentliga-utredningar/2025/10/sou-2025101/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-04-national-se-ai-authorities-assigned",
+      "date": "2026-06-04",
+      "category": "national",
+      "tags": [
+        "designation",
+        "se"
+      ],
+      "type": "update",
+      "title": "Sweden: Government assigns five agencies to act as national AI Act authorities until the end of 2026",
+      "titleDe": "Schweden: Regierung beauftragt fuenf Behoerden, bis Ende 2026 als nationale AI Act Behoerden zu handeln",
+      "summary": "In a decision of 4 June 2026 (published on 12 June) the Government gave PTS, the Authority for Privacy Protection (IMY), Finansinspektionen, the Medical Products Agency and Swedac the task of acting as national competent authorities, with PTS as single point of contact and operator of the sandbox. It is a Government instruction that runs to 31 December 2026 while the complementary law is pending, not a statute.",
+      "summaryDe": "Mit Beschluss vom 4. Juni 2026 (veroeffentlicht am 12. Juni) beauftragte die Regierung die PTS, die Datenschutzbehoerde IMY, die Finanzaufsicht Finansinspektionen, die Arzneimittelbehoerde und Swedac, als nationale zustaendige Behoerden zu handeln; die PTS ist zentrale Anlaufstelle und betreibt das Reallabor. Es ist eine Anweisung der Regierung bis zum 31. Dezember 2026, solange das Ergaenzungsgesetz aussteht, und kein Gesetz.",
+      "sourceId": "regeringen-se",
+      "sourceUrl": "https://www.regeringen.se/regeringsuppdrag/2026/06/uppdrag-att-vara-nationella-behoriga-myndigheter-enligt-al-forordningen",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-02-18-national-dk-ai-bill-l111-lapsed",
+      "date": "2026-02-18",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "dk"
+      ],
+      "type": "update",
+      "title": "Denmark: bill for full AI Act supervision introduced in February 2026 but lapsed",
+      "titleDe": "Daenemark: Gesetzentwurf fuer die volle AI Act Aufsicht im Februar 2026 eingebracht, aber verfallen",
+      "summary": "Bill L 111 (AI-loven), introduced on 18 February 2026 and read for the first time on 17 March 2026, would have replaced Law 467/2025 and added supervision of high-risk systems and transparency duties from 2 August 2026. Folketingstidende lists it as lapsed (bortfaldet), so Law 467/2025 on prohibited practices remains the enacted Danish law.",
+      "summaryDe": "Der Gesetzentwurf L 111 (AI-loven), am 18. Februar 2026 eingebracht und am 17. Maerz 2026 in erster Lesung beraten, haette das Gesetz 467/2025 ersetzt und die Aufsicht ueber Hochrisiko Systeme und die Transparenzpflichten ab dem 2. August 2026 geregelt. Folketingstidende fuehrt ihn als verfallen (bortfaldet), daher bleibt das Gesetz 467/2025 zu verbotenen Praktiken das geltende daenische Recht.",
+      "sourceId": "folketingstidende",
+      "sourceUrl": "https://www.folketingstidende.dk/samling/20251/lovforslag/L111/index.htm",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-21-national-ie-ai-act-signed",
+      "date": "2026-07-21",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "designation",
+        "ie"
+      ],
+      "type": "update",
+      "title": "Ireland: Regulation of Artificial Intelligence Act 2026 signed into law",
+      "titleDe": "Irland: Regulation of Artificial Intelligence Act 2026 unterzeichnet",
+      "summary": "Act No. 31 of 2026, signed on 21 July 2026 after passing both Houses, creates the AI Office of Ireland as single point of contact, provides for the regulatory sandbox, lists the Article 77 fundamental rights bodies, and amends the Central Bank, communications regulation, consumer protection and freedom of information statutes. It is enacted law and comes into operation by ministerial order.",
+      "summaryDe": "Das Gesetz Nr. 31 von 2026, am 21. Juli 2026 nach Annahme in beiden Kammern unterzeichnet, schafft das irische KI Amt (AI Office of Ireland) als zentrale Anlaufstelle, regelt das Reallabor, nennt die Grundrechtsstellen nach Artikel 77 und aendert die Gesetze zu Zentralbank, Kommunikationsregulierung, Verbraucherschutz und Informationsfreiheit. Es ist geltendes Recht und tritt per Ministerverordnung in Kraft.",
+      "sourceId": "irish-statute-book",
+      "sourceUrl": "https://www.irishstatutebook.ie/eli/2026/act/31/enacted/en/html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-31-national-ie-ai-act-commenced",
+      "date": "2026-07-31",
+      "category": "national",
+      "tags": [
+        "legislation",
+        "in-force",
+        "ie"
+      ],
+      "type": "update",
+      "title": "Ireland: Regulation of Artificial Intelligence Act 2026 comes into operation",
+      "titleDe": "Irland: Regulation of Artificial Intelligence Act 2026 tritt in Kraft",
+      "summary": "S.I. No. 403 of 2026 appoints 31 July 2026 as the day the Act comes into operation, except two paragraphs of the definition of 'applicable market surveillance authority' in section 78, which still need a separate order. The establishment day of the AI Office is appointed separately under section 7.",
+      "summaryDe": "Die Verordnung S.I. Nr. 403 von 2026 setzt den 31. Juli 2026 als Tag des Inkrafttretens des Gesetzes fest, ausgenommen zwei Buchstaben der Definition der anwendbaren Marktueberwachungsbehoerde in Abschnitt 78, fuer die noch eine eigene Verordnung noetig ist. Den Errichtungstag des KI Amts bestimmt der Minister getrennt nach Abschnitt 7.",
+      "sourceId": "irish-statute-book",
+      "sourceUrl": "https://www.irishstatutebook.ie/eli/2026/si/403/made/en/print",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-06-11-national-pl-ai-act-sejm",
+      "date": "2026-06-11",
+      "category": "national",
+      "tags": [
+        "pl",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Poland: Sejm passes the bill on artificial intelligence systems that creates the KRiBSI",
+      "titleDe": "Polen: Sejm verabschiedet den Gesetzentwurf ueber Systeme der kuenstlichen Intelligenz mit der neuen Behoerde KRiBSI",
+      "summary": "On 11 June 2026 the Sejm passed the government bill on artificial intelligence systems in third reading. The Senate proposed amendments (25 June) and the Sejm dealt with them on 3 July, the date the final Act carries; at this step it was still a bill, not law.",
+      "summaryDe": "Am 11. Juni 2026 hat der Sejm den Regierungsentwurf ueber Systeme der kuenstlichen Intelligenz in dritter Lesung angenommen. Der Senat schlug Aenderungen vor (25. Juni), der Sejm behandelte sie am 3. Juli, dem Datum, das das spaetere Gesetz traegt; in diesem Schritt war es noch ein Entwurf und kein Gesetz.",
+      "sourceId": "sejm-pl",
+      "sourceUrl": "https://api.sejm.gov.pl/sejm/term10/processes/2443",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-27-national-pl-ai-act-published",
+      "date": "2026-07-27",
+      "category": "national",
+      "tags": [
+        "pl",
+        "legislation",
+        "designation",
+        "in-force"
+      ],
+      "type": "update",
+      "title": "Poland: Act on artificial intelligence systems is published and designates the KRiBSI",
+      "titleDe": "Polen: Gesetz ueber Systeme der kuenstlichen Intelligenz wird verkuendet und benennt die KRiBSI",
+      "summary": "The Act of 3 July 2026 (Dz.U. 2026 poz. 1003) is enacted law. It makes the new Commission for the Development and Safety of AI (KRiBSI) the market surveillance authority and single point of contact, names the digitalisation minister as notifying authority and gives the KRiBSI the national regulatory sandbox. Most of it applies from 11 August 2026; inspections, proceedings, fines and related chapters follow on 28 October 2026.",
+      "summaryDe": "Das Gesetz vom 3. Juli 2026 (Dz.U. 2026 poz. 1003) ist geltendes Recht. Es macht die neue Kommission fuer Entwicklung und Sicherheit der KI (KRiBSI) zur Marktueberwachungsbehoerde und zentralen Anlaufstelle, benennt den Digitalisierungsminister als notifizierende Behoerde und uebertraegt der KRiBSI die nationale regulatorische Sandbox. Das meiste gilt ab dem 11. August 2026; Kontrollen, Verfahren, Bussgelder und verwandte Kapitel folgen am 28. Oktober 2026.",
+      "sourceId": "eli-pl",
+      "sourceUrl": "https://eli.gov.pl/eli/DU/2026/1003/ogl/pol",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-24-national-pl-kribsi-chair",
+      "date": "2026-09-24",
+      "category": "national",
+      "tags": [
+        "pl",
+        "organisational",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Poland: Sejm and Senate appoint the first chair of the KRiBSI",
+      "titleDe": "Polen: Sejm und Senat berufen die erste Vorsitzende der KRiBSI",
+      "summary": "The Sejm voted on 18 September 2026 to appoint Pamela Krzypkowska as chair of the KRiBSI (271 for, 24 against, 140 abstentions) and the Senate gave its consent on 24 September; both resolutions appeared in Monitor Polski on 25 September (M.P. 2026 poz. 945 and 946). The chair now leads the authority that the enacted AI Act made the market surveillance authority.",
+      "summaryDe": "Der Sejm stimmte am 18. September 2026 fuer die Berufung von Pamela Krzypkowska zur Vorsitzenden der KRiBSI (271 dafuer, 24 dagegen, 140 Enthaltungen), der Senat stimmte am 24. September zu; beide Beschluesse erschienen am 25. September im Monitor Polski (M.P. 2026 poz. 945 und 946). Die Vorsitzende leitet nun die Behoerde, die das geltende KI Gesetz zur Marktueberwachungsbehoerde gemacht hat.",
+      "sourceId": "eli-pl",
+      "sourceUrl": "https://eli.gov.pl/eli/MP/2026/946/ogl/pol",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-09-26-national-cz-ai-draft-law",
+      "date": "2025-09-26",
+      "category": "national",
+      "tags": [
+        "cz",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Czech Republic: Ministry of Industry and Trade publishes its draft AI Act implementing law",
+      "titleDe": "Tschechien: Industrie und Handelsministerium veroeffentlicht den Entwurf des AI Act Durchfuehrungsgesetzes",
+      "summary": "A ministry press release of 26 September 2025 says the draft, then in inter-ministry comment, would make the Czech Telecommunication Office the single point of contact, with the Czech National Bank and the Data Protection Office as further supervisors, the Office for Technical Standardisation as notifying authority, the Ombudsman for fundamental rights and a national sandbox. It is a draft, not law.",
+      "summaryDe": "Eine Pressemitteilung des Ministeriums vom 26. September 2025 sagt, der Entwurf, damals in der Ressortabstimmung, mache das Tschechische Telekommunikationsamt zur zentralen Anlaufstelle, die Tschechische Nationalbank und das Datenschutzamt zu weiteren Aufsichtsbehoerden, das Amt fuer technische Normung zur notifizierenden Behoerde, den Ombudsmann zustaendig fuer Grundrechte und sehe eine nationale Sandbox vor. Es ist ein Entwurf und kein Gesetz.",
+      "sourceId": "mpo-cz",
+      "sourceUrl": "https://mpo.gov.cz/cz/rozcestnik/pro-media/tiskove-zpravy/mpo-pripravilo-navrh-zakona-o-umele-inteligenci--cilem-je-vytvorit-co-nejlepsi-prostredi-pro-rozvoj-ai-v-cesku--289653/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-08-06-national-cz-ai-bill-lrv",
+      "date": "2026-08-06",
+      "category": "national",
+      "tags": [
+        "cz",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Czech Republic: Legislative Council interrupts discussion of the AI bill",
+      "titleDe": "Tschechien: Legislativrat der Regierung unterbricht die Beratung des KI Gesetzentwurfs",
+      "summary": "At its 336th meeting on 6 August 2026 the Legislative Council of the Government interrupted its discussion of the Minister of Industry and Trade's bill on artificial intelligence (ref. 503/26). The government has therefore not yet approved the bill and it is not law.",
+      "summaryDe": "In seiner 336. Sitzung am 6. August 2026 hat der Legislativrat der Regierung die Beratung des Gesetzentwurfs des Industrie und Handelsministers ueber kuenstliche Intelligenz (Az. 503/26) unterbrochen. Die Regierung hat den Entwurf damit noch nicht beschlossen, und er ist kein Gesetz.",
+      "sourceId": "vlada-cz",
+      "sourceUrl": "https://vlada.gov.cz/cz/ppov/lrv/programy-zasedani-a-vasledky/program-336--zasedani-lrv-06-08-2026-a-jeho-vysledky-228036",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-11-21-national-sk-act-318-2025-ai",
+      "date": "2025-11-21",
+      "category": "national",
+      "tags": [
+        "sk",
+        "legislation",
+        "conformity-assessment",
+        "penalty"
+      ],
+      "type": "update",
+      "title": "Slovakia: Act 318/2025 adds fines for authorised conformity assessment bodies under the AI Act",
+      "titleDe": "Slowakei: Gesetz 318/2025 fuehrt Bussgelder fuer zugelassene Konformitaetsbewertungsstellen nach dem AI Act ein",
+      "summary": "Act No. 318/2025 Coll., adopted on 21 October 2025 and published on 21 November 2025, amends the conformity assessment Act 56/2018. From 1 January 2026 the standards office can fine authorised bodies at the Art. 99(4) and (6) AI Act amounts for breaching the Art. 99(4)(f) duties; it is enacted law but does not designate the AI market surveillance authority.",
+      "summaryDe": "Das Gesetz Nr. 318/2025 Slg., am 21. Oktober 2025 beschlossen und am 21. November 2025 verkuendet, aendert das Konformitaetsbewertungsgesetz 56/2018. Ab dem 1. Januar 2026 kann das Normungsamt zugelassene Stellen mit den Betraegen nach Art. 99 Abs. 4 und 6 AI Act bestrafen, wenn sie gegen die Pflichten nach Art. 99 Abs. 4 Buchst. f verstossen; es ist geltendes Recht, benennt aber nicht die KI Marktueberwachungsbehoerde.",
+      "sourceId": "slov-lex",
+      "sourceUrl": "https://static.slov-lex.sk/static/SK/ZZ/2025/318/vyhlasene_znenie.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-08-26-national-sk-ai-bill-government",
+      "date": "2026-08-26",
+      "category": "national",
+      "tags": [
+        "sk",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Slovakia: Government approves the bill on state administration in artificial intelligence",
+      "titleDe": "Slowakei: Regierung beschliesst den Gesetzentwurf zur staatlichen Verwaltung im Bereich der kuenstlichen Intelligenz",
+      "summary": "By resolution 349/2026 of 26 August 2026 the government approved the MIRRI bill that implements the AI Act, with one remark adopted in the meeting, and sent it to parliament. MIRRI becomes general market surveillance authority and single point of contact, the standards office UNMS is notifying authority and the Ombudsman gets fundamental rights powers; it applies from 1 January 2027 and is a bill, not law.",
+      "summaryDe": "Mit Beschluss 349/2026 vom 26. August 2026 hat die Regierung den MIRRI Gesetzentwurf zur Umsetzung des AI Act mit einer in der Sitzung angenommenen Anmerkung beschlossen und dem Parlament zugeleitet. MIRRI wird allgemeine Marktueberwachungsbehoerde und zentrale Anlaufstelle, das Normungsamt UNMS notifizierende Behoerde, und der Ombudsmann erhaelt Grundrechtsbefugnisse; er soll ab dem 1. Januar 2027 gelten und ist ein Entwurf und kein Gesetz.",
+      "sourceId": "rokovania-sk",
+      "sourceUrl": "https://rokovania.gov.sk/RVL/Resolution/23215/1",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-31-national-hu-ai-act-law",
+      "date": "2025-10-31",
+      "category": "national",
+      "tags": [
+        "hu",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Hungary: Act LXXV of 2025 and Government Decree 344/2025 implement the AI Act",
+      "titleDe": "Ungarn: Gesetz LXXV von 2025 und Regierungsverordnung 344/2025 setzen den AI Act um",
+      "summary": "Published in Magyar Kozlony on 31 October 2025, Act LXXV of 2025 is enacted law that sets up the AI notifying and market surveillance authorities, a regulatory sandbox and a Hungarian AI Council. Government Decree 344/2025 designates the National Accreditation Authority as notifying authority and the minister responsible for enterprise development as market surveillance authority and single point of contact; both apply from 1 December 2025, the sandbox from 2 August 2026.",
+      "summaryDe": "Das am 31. Oktober 2025 im Magyar Kozlony verkuendete Gesetz LXXV von 2025 ist geltendes Recht und schafft die KI Notifizierungs und Marktueberwachungsbehoerde, eine regulatorische Sandbox und einen ungarischen KI Rat. Die Regierungsverordnung 344/2025 benennt die Nationale Akkreditierungsbehoerde als notifizierende Behoerde und den fuer Unternehmensentwicklung zustaendigen Minister als Marktueberwachungsbehoerde und zentrale Anlaufstelle; beide gelten ab dem 1. Dezember 2025, die Sandbox ab dem 2. August 2026.",
+      "sourceId": "magyar-kozlony",
+      "sourceUrl": "https://magyarkozlony.hu/dokumentumok/c19d54dc315cd8eee4294ea8fa244969bea9c3e8/megtekintes",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-24-national-ro-ai-ancom-status",
+      "date": "2026-07-24",
+      "category": "national",
+      "tags": [
+        "ro",
+        "guidance",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Romania: ANCOM sets out where AI Act implementation stands and its proposed role",
+      "titleDe": "Rumaenien: ANCOM beschreibt den Stand der AI Act Umsetzung und ihre vorgesehene Rolle",
+      "summary": "A press release of 24 July 2026 says a Government Memorandum proposes ANCOM as national market surveillance authority and single point of contact, alongside sectoral authorities, and that a national law with the authorities' powers and the sanctions procedure is still being drafted. This is an authority statement on a government memorandum, not enacted law.",
+      "summaryDe": "Eine Pressemitteilung vom 24. Juli 2026 sagt, ein Memorandum der Regierung sehe ANCOM als nationale Marktueberwachungsbehoerde und zentrale Anlaufstelle neben sektoralen Behoerden vor und ein nationales Gesetz mit den Befugnissen der Behoerden und dem Sanktionsverfahren werde noch erarbeitet. Das ist eine Stellungnahme der Behoerde zu einem Regierungsmemorandum und kein geltendes Recht.",
+      "sourceId": "ancom",
+      "sourceUrl": "https://www.ancom.ro/en/about-us/media-en/press-releases/artificial-intelligence-act-in-romania-current-state-of-the-implementation-framework/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-01-14-national-lt-ai-act-authorities-laws",
+      "date": "2025-01-14",
+      "category": "national",
+      "tags": [
+        "lt",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Lithuania: Seimas passes two laws that designate the national AI Act authorities",
+      "titleDe": "Litauen: Seimas verabschiedet zwei Gesetze zur Benennung der nationalen Behoerden fuer den AI Act",
+      "summary": "The Seimas adopted amendments to the Law on Technology and Innovation (XV-105) and the Law on Information Society Services (XV-106) on 14 January 2025, published on 22 January 2025. The Communications Regulatory Authority (RRT) is market surveillance authority and single contact point from 1 April 2025 and the Innovation Agency is notifying authority from 2 August 2025; this is enacted Lithuanian law.",
+      "summaryDe": "Der Seimas hat am 14. Januar 2025 Aenderungen des Gesetzes ueber Technologie und Innovation (XV-105) und des Gesetzes ueber Dienste der Informationsgesellschaft (XV-106) beschlossen, veroeffentlicht am 22. Januar 2025. Die Regulierungsbehoerde fuer Kommunikation (RRT) ist ab dem 1. April 2025 Marktueberwachungsbehoerde und zentrale Kontaktstelle, die Innovationsagentur ab dem 2. August 2025 notifizierende Behoerde; es ist geltendes litauisches Recht.",
+      "sourceId": "eimin-lt",
+      "sourceUrl": "https://eimin.lrv.lt/lt/veiklos-sritys/skaitmenine-politika/dirbtinis-intelektas/di-akto-igyvendinimas/nacionalines-kompetentingos-institucijos/",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-02-25-national-lv-ai-act-implementation-report",
+      "date": "2025-02-25",
+      "category": "national",
+      "tags": [
+        "lv",
+        "designation",
+        "organisational"
+      ],
+      "type": "update",
+      "title": "Latvia: Cabinet approves the report on implementing the AI Act",
+      "titleDe": "Lettland: Kabinett billigt den Bericht zur Umsetzung des AI Act",
+      "summary": "The Cabinet of Ministers approved the information report on implementing the AI Act at its meeting of 25 February 2025. The report names the Ministry of Economics as notifying authority, LATAK as accreditation body, VARAM as coordination contact point and the Ombudsman as fundamental rights authority; it is a government plan, not a law.",
+      "summaryDe": "Das Kabinett hat den Informationsbericht zur Umsetzung des AI Act in seiner Sitzung am 25. Februar 2025 gebilligt. Der Bericht nennt das Wirtschaftsministerium als notifizierende Behoerde, LATAK als Akkreditierungsstelle, VARAM als Koordinierungskontaktstelle und den Ombudsmann als Grundrechtsbehoerde; er ist ein Regierungsplan und kein Gesetz.",
+      "sourceId": "tap-lv",
+      "sourceUrl": "https://tapportals.mk.gov.lv/legal_acts/2d28c354-9baa-4aa2-ab31-fb4757687050",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-03-06-national-hr-ai-act-law-planned",
+      "date": "2026-03-06",
+      "category": "national",
+      "tags": [
+        "hr",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Croatia: parliament's 2026 alignment plan lists the AI Act implementation law",
+      "titleDe": "Kroatien: Angleichungsplan 2026 des Parlaments fuehrt das AI Act Durchfuehrungsgesetz auf",
+      "summary": "On 6 March 2026 the Sabor adopted the 2026 plan for aligning Croatian law with EU law (NN 26/2026), which schedules an act implementing Regulation (EU) 2024/1689 for the first quarter under the Ministry of Justice, Public Administration and Digital Transformation. A full text search of Narodne novine on 21 October 2026 found no such act, so it is planned and not yet law.",
+      "summaryDe": "Am 6. Maerz 2026 hat der Sabor den Plan 2026 zur Angleichung des kroatischen Rechts an das EU Recht beschlossen (NN 26/2026); er sieht fuer das erste Quartal ein Gesetz zur Durchfuehrung der Verordnung (EU) 2024/1689 vor, zustaendig ist das Ministerium fuer Justiz, Verwaltung und digitale Transformation. Eine Volltextsuche im Amtsblatt Narodne novine am 21. Oktober 2026 fand kein solches Gesetz, es ist also geplant und noch nicht geltendes Recht.",
+      "sourceId": "narodne-novine",
+      "sourceUrl": "https://narodne-novine.nn.hr/clanci/sluzbeni/2026_03_26_291.html",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-10-23-national-si-ziudhpui-adopted",
+      "date": "2025-10-23",
+      "category": "national",
+      "tags": [
+        "si",
+        "legislation",
+        "designation"
+      ],
+      "type": "update",
+      "title": "Slovenia: National Assembly adopts the act implementing the AI Act (ZIUDHPUI)",
+      "titleDe": "Slowenien: Nationalversammlung beschliesst das Durchfuehrungsgesetz zum AI Act (ZIUDHPUI)",
+      "summary": "The National Assembly adopted the act implementing the AI Regulation (ZIUDHPUI), prepared by the Ministry of Digital Transformation, on 23 October 2025, and it was published on 6 November 2025. According to AKOS, the act makes the Agency for Communication Networks and Services the single contact point and gives it most supervisory powers and the regulatory sandbox; this is enacted Slovenian law.",
+      "summaryDe": "Die Nationalversammlung hat das vom Ministerium fuer digitale Transformation vorbereitete Durchfuehrungsgesetz zur KI Verordnung (ZIUDHPUI) am 23. Oktober 2025 beschlossen, es wurde am 6. November 2025 veroeffentlicht. Laut AKOS macht das Gesetz die Agentur fuer Kommunikationsnetze und Dienste zur zentralen Kontaktstelle und uebertraegt ihr den Grossteil der Aufsicht und das Reallabor; es ist geltendes slowenisches Recht.",
+      "sourceId": "pisrs",
+      "sourceUrl": "https://pisrs.si/pregledPredpisa?id=ZAKO9225",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-08-21-national-si-akos-ai-label-icons",
+      "date": "2026-08-21",
+      "category": "national",
+      "tags": [
+        "si",
+        "guidance",
+        "transparency"
+      ],
+      "type": "update",
+      "title": "Slovenia: AKOS publishes Slovenian icons for labelling AI-generated content",
+      "titleDe": "Slowenien: AKOS veroeffentlicht slowenische Symbole zur Kennzeichnung KI erzeugter Inhalte",
+      "summary": "AKOS, the national entry point for the AI Act, publishes the Slovenian icons for AI generated and AI altered content for the labelling duties of Article 50, which apply from 2 August 2026. The duties are binding, use of the icons is voluntary, and the page is authority guidance, not law.",
+      "summaryDe": "AKOS, die nationale Anlaufstelle fuer den AI Act, veroeffentlicht slowenische Symbole fuer KI erzeugte und KI veraenderte Inhalte zu den Kennzeichnungspflichten nach Artikel 50, die seit dem 2. August 2026 gelten. Die Pflichten sind verbindlich, die Nutzung der Symbole ist freiwillig, und die Seite ist Behoerdenleitfaden und kein Gesetz.",
+      "sourceId": "akos-si",
+      "sourceUrl": "https://www.akos-rs.si/umetna-inteligenca/raziscite/novice/novica/nabor-ikon-v-slovenskem-jeziku-za-oznacevanje-vsebin-ustvarjenih-z-ui",
+      "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-09-21-national-si-akos-art-50-providers",
+      "date": "2026-09-21",
+      "category": "national",
+      "tags": [
+        "si",
+        "guidance",
+        "transparency"
+      ],
+      "type": "update",
+      "title": "Slovenia: AKOS explains the labelling duties of providers of generative AI systems",
+      "titleDe": "Slowenien: AKOS erklaert die Kennzeichnungspflichten der Anbieter generativer KI Systeme",
+      "summary": "AKOS publishes an explainer on Article 50(2): providers of AI systems that create or alter synthetic audio, image, video or text must mark the output from 2 August 2026, with a transition until 2 December 2026 for systems placed on the market earlier. It is authority guidance, not law.",
+      "summaryDe": "AKOS veroeffentlicht eine Erlaeuterung zu Artikel 50 Absatz 2: Anbieter von KI Systemen, die synthetische Audio, Bild, Video oder Textinhalte erzeugen oder veraendern, muessen die Ausgabe ab dem 2. August 2026 kennzeichnen, mit einer Uebergangsfrist bis zum 2. Dezember 2026 fuer frueher in Verkehr gebrachte Systeme. Es ist Behoerdenleitfaden und kein Gesetz.",
+      "sourceId": "akos-si",
+      "sourceUrl": "https://www.akos-rs.si/umetna-inteligenca/raziscite/novice/novica/obveznosti-ponudnikov-sistemov-ui-ki-ustvarjajo-sinteticno-zvocno-slikovno-video-ali-besedilno-vsebino",
+      "addedAt": "2026-10-21T12:00:00Z"
+    }
+  ],
+  "lastUpdated": "2026-10-21T20:00:00Z"
+}

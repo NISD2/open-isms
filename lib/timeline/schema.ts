@@ -10,6 +10,11 @@ export const timelineCategory = z.enum([
   // Country-level transposition milestones (other than DE, which keeps
   // the dedicated "de" category for historical reasons).
   "national-transposition",
+  // CRA and AI Act timelines: harmonised standards, the Commission's AI Office,
+  // and national authorities (market surveillance, designation, national laws).
+  "standards",
+  "ai-office",
+  "national",
 ]);
 
 export const timelineTag = z.enum([
@@ -32,11 +37,47 @@ export const timelineTag = z.enum([
   "in-force",
   "infringement",
   "organisational",
+  // CRA and AI Act timelines.
+  "standards",
+  "vulnerability-reporting",
+  "conformity-assessment",
+  "open-source",
+  "high-risk",
+  "gpai",
+  "prohibited-practices",
+  "ai-literacy",
+  "transparency",
+  "omnibus",
+  "designation",
   // ISO 3166-1 alpha-2 country codes (lowercase) — used as tags on
   // national-transposition events so the UI can drill down per Member State.
-  "at", "be", "bg", "cy", "cz", "de", "dk", "ee", "es", "fi", "fr",
-  "gr", "hr", "hu", "ie", "it", "lt", "lu", "lv", "mt", "nl", "pl",
-  "pt", "ro", "se", "si", "sk",
+  "at",
+  "be",
+  "bg",
+  "cy",
+  "cz",
+  "de",
+  "dk",
+  "ee",
+  "es",
+  "fi",
+  "fr",
+  "gr",
+  "hr",
+  "hu",
+  "ie",
+  "it",
+  "lt",
+  "lu",
+  "lv",
+  "mt",
+  "nl",
+  "pl",
+  "pt",
+  "ro",
+  "se",
+  "si",
+  "sk",
 ]);
 
 export const timelineEventType = z.enum(["milestone", "update"]);

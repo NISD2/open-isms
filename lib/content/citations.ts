@@ -25,6 +25,7 @@ export type LegislationKey =
   | "cir-2024-2690"
   | "bsi-kritisv"
   | "cra"
+  | "ai-act"
   | "dora"
   | "gdpr"
   | "enisa-tig"
@@ -140,6 +141,22 @@ const ENTRIES: LegislationInput[] = [
     inLanguage: "de-DE",
     url: "https://eur-lex.europa.eu/eli/reg/2024/2847/oj",
     sameAs: "http://data.europa.eu/eli/reg/2024/2847/oj",
+  },
+  {
+    key: "ai-act",
+    name: "Verordnung (EU) 2024/1689 (KI-Verordnung, AI Act)",
+    alternateNames: ["AI Act", "KI-Verordnung", "Artificial Intelligence Act"],
+    legislationIdentifier: "CELEX:32024R1689",
+    legislationType: "Regulation",
+    jurisdiction: "European Union",
+    legislationDate: "2024-06-13",
+    legislationDateOfApplicability: "2026-08-02",
+    legalForce: "PartiallyInForce",
+    passedBy: "European Parliament and Council of the European Union",
+    responsible: "European Commission, AI Office",
+    inLanguage: "de-DE",
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+    sameAs: "http://data.europa.eu/eli/reg/2024/1689/oj",
   },
   {
     key: "dora",

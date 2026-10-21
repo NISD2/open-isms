@@ -60,6 +60,7 @@ const namespaces = [
   "suppliers",
   "supplierPortal",
   "team",
+  "timelines",
   "training",
   "trainingPortal",
   "vulnerabilities",

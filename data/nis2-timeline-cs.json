@@ -823,6 +823,10 @@
     "2026-10-16-national-transposition-pl-cyber-plenipotentiary-recommendation": {
       "title": "Polsko: vládní zmocněnec pro kybernetickou bezpečnost zveřejnil doporučení základních bezpečnostních opatření pro subjekty KSC",
       "summary": "Polské ministerstvo digitalizace dne 16. října 2026 zveřejnilo doporučení vládního zmocněnce pro kybernetickou bezpečnost k organizačním a technickým opatřením, určené více než 70 000 subjektům národního systému kybernetické bezpečnosti (KSC). Uvádí základní katalog: řízení rizik, vícefaktorové ověřování, správu zranitelností, zálohování, rizika dodavatelského řetězce, monitorování a řešení incidentů a školení zaměstnanců. Jde o nezávazné doporučení bez lhůty, které nenahrazuje zákon o KSC; je to vnitrostátní dokument, nikoli pravidlo platné v celé EU."
+    },
+    "2026-10-12-de-bsi-pqc-national-guideline": {
+      "title": "Německo: BMI, BMDS a BSI zveřejnily národní směrnici k evropskému plánu přechodu na postkvantovou kryptografii",
+      "summary": "Německé spolkové ministerstvo vnitra, ministerstvo pro digitalizaci a modernizaci státu a úřad BSI zveřejnily směrnici, která uplatňuje evropský plán přechodu na postkvantovou kryptografii v Německu. Potvrzuje jeho harmonogram: případy použití s vysokým rizikem mají přejít na kvantově bezpečnou kryptografii co nejdříve a nejpozději do konce roku 2030, celý přechod má být do roku 2035 z velké části hotový. Jde o nezávazné doporučení, nikoli zákon, které nezakládá povinnost podle směrnice NIS 2 a je německým dokumentem, nikoli pravidlem platným v celé EU."
     }
   }
 }

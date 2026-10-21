@@ -1,0 +1,22 @@
+{
+  "timelines": {
+    "craTimeline": {
+      "meta": {
+        "title": "Cyber Resilience Act: CRA deadlines and news",
+        "description": "When each duty of the Cyber Resilience Act applies, and what the Commission, ENISA, the standards bodies and national authorities have published, each entry with its source."
+      },
+      "badge": "Regulation (EU) 2024/2847",
+      "title": "Cyber Resilience Act: CRA deadlines and news",
+      "subtitle": "The CRA sets cybersecurity rules for products with digital elements sold in the EU. Every entry names its source and says whether it is binding law or guidance."
+    },
+    "aiActTimeline": {
+      "meta": {
+        "title": "EU AI Act: deadlines and news",
+        "description": "When each duty of the EU AI Act applies after the Digital Omnibus on AI, and what the Commission, the AI Office, the standards bodies and national authorities have published, each entry with its source."
+      },
+      "badge": "Regulation (EU) 2024/1689",
+      "title": "EU AI Act: deadlines and news",
+      "subtitle": "The AI Act sets rules for AI systems and general-purpose AI models in the EU. Regulation (EU) 2026/1744, in force since 27 July 2026, moved the high-risk dates to 2 December 2027 and 2 August 2028. Every entry names its source and says whether it is binding law or guidance."
+    }
+  }
+}

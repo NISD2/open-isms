@@ -92,6 +92,7 @@ const CZECH: {
     "cir-2024-2690": "Prováděcí nařízení Komise (EU) 2024/2690",
     "bsi-kritisv": "Německé nařízení o určení kritické infrastruktury (BSI-KritisV)",
     cra: "Nařízení (EU) 2024/2847 (akt o kybernetické odolnosti)",
+    "ai-act": "Nařízení (EU) 2024/1689 (akt o umělé inteligenci)",
     dora: "Nařízení (EU) 2022/2554 o digitální provozní odolnosti finančního sektoru (DORA)",
     gdpr: "Nařízení (EU) 2016/679 (obecné nařízení o ochraně osobních údajů)",
     "enisa-tig": "Technické pokyny ENISA k provádění směrnice NIS 2",
