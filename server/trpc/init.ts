@@ -182,7 +182,8 @@ export const assistantExportProcedure = companyProcedure.use(async ({ ctx, next 
   if (!ctx.viaKey) {
     throw new TRPCError({
       code: "FORBIDDEN",
-      message: "The records are read by an assistant's key; in the app, the export page has them.",
+      message:
+        "The records are read by an assistant's key; in the app, the export page has them.",
     });
   }
   if (!mayExport(ctx.session)) {
