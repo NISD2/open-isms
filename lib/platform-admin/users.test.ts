@@ -34,8 +34,9 @@ describe("activityTimes", () => {
   test("an operator reading the platform and an assistant's work are not them at their desk", () => {
     expect(sql).toContain(`"audit_log"."entity_type" <> $`);
     expect(params).toContain("platformAdmin");
-    expect(sql).toContain(`"audit_log"."user_agent" is null`);
-    expect(sql).toContain(`not "audit_log"."user_agent" like $`);
+    // What a person did in the app, read off the column every assistant's row is marked in.
+    expect(sql).toContain(`"audit_log"."via" = $`);
+    expect(params).toContain("app");
   });
 
   test("hands over instants with an explicit UTC marker, newest first, and no more than the limit", () => {
