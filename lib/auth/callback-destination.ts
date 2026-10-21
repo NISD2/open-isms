@@ -9,7 +9,6 @@ export const CALLBACK_DESTINATIONS = [
   "order",
   "billing",
   "supplierQuestionnaire",
-  "assistant",
   "link",
   "other",
 ] as const;
@@ -48,6 +47,5 @@ export function callbackDestination(raw: string | undefined): CallbackDestinatio
   if (first === "sicherheitsfragebogen") return "supplierQuestionnaire";
   if (first === "portal" && second === "supplier-onboarding")
     return "supplierQuestionnaire";
-  if (first === "mcp") return "assistant";
   return "other";
 }

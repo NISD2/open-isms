@@ -15,6 +15,9 @@ export const TOKEN_ROUTE_PREFIXES = [
   "/gap-assessment/share",
   // The token in the link is the only credential for accepting a partner agreement.
   "/partner-agreement",
+  // A signed consent request for connecting an assistant, valid ten minutes (lib/mcp/oauth.ts).
+  // It was missing until 21.10.2026, so Umami stored those URLs in full.
+  "/mcp/verbinden",
 ] as const;
 
 const PREFIX_SEGMENTS = TOKEN_ROUTE_PREFIXES.map((prefix) =>

@@ -80,6 +80,8 @@ describe("isTokenRoute", () => {
       "/nl/gap-assessment/share/5f0c",
       "/partner-agreement/5f0c",
       "/de/partner-agreement/5f0c",
+      "/mcp/verbinden/eyJhbGciOi",
+      "/en/mcp/verbinden/eyJhbGciOi",
       "/invite//5f0c",
     ]) {
       expect(isTokenRoute(path)).toBe(true);
@@ -134,6 +136,18 @@ describe("analyticsBeforeSend", () => {
       analyticsBeforeSend("event", event("https://nisd2.eu/invite/5f0c")),
     ).toBeNull();
     expect(analyticsBeforeSend("event", event("/en/supplier-access/5f0c"))).toBeNull();
+  });
+
+  test("drops a view of the assistant connect page, which carries a signed request", () => {
+    expect(
+      analyticsBeforeSend("event", event("https://nisd2.eu/mcp/verbinden/eyJhbGciOi")),
+    ).toBeNull();
+    expect(
+      analyticsBeforeSend(
+        "event",
+        event("https://nisd2.eu/compliance", "https://nisd2.eu/mcp/verbinden/eyJhbGciOi"),
+      ),
+    ).toEqual(event("https://nisd2.eu/compliance", ""));
   });
 
   test("blanks a referrer that was a token page", () => {

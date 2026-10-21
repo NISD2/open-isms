@@ -50,7 +50,6 @@
         "order": "your order",
         "billing": "your invoices",
         "supplierQuestionnaire": "the security questionnaire",
-        "assistant": "your assistant's connection",
         "link": "the link you opened",
         "other": "the page you opened"
       }

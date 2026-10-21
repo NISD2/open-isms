@@ -28,13 +28,12 @@ describe("callbackDestination", () => {
     expect(callbackDestination("/fr/commander")).toBe("order");
   });
 
-  test("reads billing, the supplier questionnaire and the assistant connection", () => {
+  test("reads billing and the supplier questionnaire", () => {
     expect(callbackDestination("/billing")).toBe("billing");
     expect(callbackDestination("/sicherheitsfragebogen")).toBe("supplierQuestionnaire");
     expect(callbackDestination("/portal/supplier-onboarding")).toBe(
       "supplierQuestionnaire",
     );
-    expect(callbackDestination("/mcp/verbinden/anything")).toBe("assistant");
   });
 
   test("a credential link is only ever 'link', whatever else its path looks like", () => {
@@ -43,6 +42,9 @@ describe("callbackDestination", () => {
     expect(callbackDestination("/auth/setup?token=abc123")).toBe("link");
     expect(callbackDestination("/partner-agreement/abc123")).toBe("link");
     expect(callbackDestination("/gap-assessment/share/abc123")).toBe("link");
+    // A signed consent request for connecting an assistant: its path is the credential too.
+    expect(callbackDestination("/mcp/verbinden/eyJhbGciOi")).toBe("link");
+    expect(callbackDestination("/en/mcp/verbinden/eyJhbGciOi")).toBe("link");
   });
 
   test("anything else is 'other'", () => {
