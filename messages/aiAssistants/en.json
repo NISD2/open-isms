@@ -1936,7 +1936,7 @@
             "Behind every entry is a row in the database. If the change came through an assistant, the row's field for the program (the user agent) starts with “mcp:”, followed by the name the assistant gave when it signed in. With a pasted key it is its program's identifier, cut to the first 100 printable characters, or “key” if it sends none.",
             "A browser cannot imitate this marking. If a browser itself sends an identifier that starts that way, it is stored behind a marker. Only what came through a key or an assistant's sign-in counts as an assistant's change.",
             "Not every row has readable text yet: some still name the change by its technical name, and a few rows that only accompany a change appear without “via”. What you can rely on is the person's name, “via” with the assistant on its changes, and the time.",
-            "Reading changes nothing in the walkthrough. Every call from an assistant leaves one line in the server log with the tool and the person's ID, never the content. On a self-hosted instance that log sits with your IT."
+            "Reading changes nothing. The activity log notes it once an hour, marked MCP; the server log gets a line per call with the tool and the person's ID. Neither holds the content; self-hosted, both sit with your IT."
           ]
         },
         {
@@ -1971,7 +1971,7 @@
           },
           {
             "q": "Can we see what the assistant read?",
-            "a": "Not the content. Every call from an assistant leaves one line in the server log with the tool and the person's ID, never what was read. The activity log shows changes."
+            "a": "Not the content. The activity log shows each change, and that an assistant read (marked MCP, once an hour). The server log has a line per call, never what was read."
           },
           {
             "q": "Who is behind a change that came through an AI assistant?",

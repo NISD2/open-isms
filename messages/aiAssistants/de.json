@@ -1936,7 +1936,7 @@
             "Hinter jedem Eintrag steht eine Zeile in der Datenbank. Kam die Änderung über einen Assistenten, beginnt ihr Feld für das Programm (der User Agent) mit „mcp:“ und dem Namen, den der Assistent bei der Anmeldung angegeben hat. Bei einem eingefügten Schlüssel ist es die Kennung seines Programms, gekürzt auf die ersten 100 lesbaren Zeichen, oder „key“, wenn es keine mitschickt.",
             "Im Browser lässt sich diese Kennzeichnung nicht nachmachen. Schickt ein Browser selbst eine Kennung, die so beginnt, wird sie hinter einem Vermerk gespeichert. Als Änderung eines Assistenten gilt nur, was über einen Schlüssel oder eine Anmeldung eines Assistenten kam.",
             "Nicht jede Zeile hat schon einen lesbaren Text: Manche nennen die Änderung noch mit ihrem technischen Namen, und einzelne Zeilen, die eine Änderung nur begleiten, stehen ohne „über“. Verlässlich sind der Name der Person, „über“ mit dem Assistenten bei dessen Änderungen und die Uhrzeit.",
-            "Lesen ändert nichts im Durchgang. Jeder Aufruf eines Assistenten hinterlässt eine Zeile im Serverprotokoll mit dem Werkzeug und der Kennung der Person, nie den Inhalt. Betreiben Sie nisd2.eu auf eigenen Servern, liegt dieses Protokoll bei Ihrer IT."
+            "Lesen ändert nichts im Durchgang. Das Aktivitätsprotokoll vermerkt es stündlich mit MCP, das Serverprotokoll je Aufruf mit Werkzeug und Kennung der Person, beide nie den Inhalt. Auf eigenen Servern liegen sie bei Ihrer IT."
           ]
         },
         {
@@ -1971,7 +1971,7 @@
           },
           {
             "q": "Sieht man, was der Assistent gelesen hat?",
-            "a": "Den Inhalt nicht. Jeder Aufruf eines Assistenten hinterlässt eine Zeile im Serverprotokoll mit dem Werkzeug und der Kennung der Person, nie das Gelesene. Das Aktivitätsprotokoll zeigt Änderungen."
+            "a": "Den Inhalt nicht. Das Aktivitätsprotokoll zeigt jede Änderung und stündlich, mit MCP markiert, dass ein Assistent las. Das Serverprotokoll hat je Aufruf eine Zeile, nie das Gelesene."
           },
           {
             "q": "Wer steht hinter einer Änderung, die über einen KI Assistenten kam?",
