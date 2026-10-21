@@ -22,8 +22,12 @@ test.describe("export", () => {
     // German is the default locale and carries no prefix.
     await expect(page).toHaveURL(/\/export$/, { timeout: 30_000 });
 
+    // One section per framework: NIS 2 first, then the GDPR.
+    await expect(page.getByRole("heading", { level: 2 })).toHaveText(["NIS 2", "DSGVO"], {
+      timeout: 30_000,
+    });
     const links = page.locator("main a[download]");
-    await expect(links).toHaveCount(5, { timeout: 30_000 });
+    await expect(links).toHaveCount(8, { timeout: 30_000 });
     const hrefs = await links.evaluateAll((as) =>
       as.map((a) => a.getAttribute("href") ?? ""),
     );
@@ -37,10 +41,49 @@ test.describe("export", () => {
     );
     expect(types.toSorted()).toEqual([
       "application/json",
+      "application/json",
+      "application/pdf",
       "application/pdf",
       "application/pdf",
       "application/pdf",
       "text/csv",
+      "text/csv",
+    ]);
+  });
+
+  test("the GDPR data file holds the record and the walk's documents, and no secret", async ({
+    page,
+  }) => {
+    const res = await page.request.get("/api/export/gdpr-data?locale=de");
+    expect(res.status()).toBe(200);
+    const text = await res.text();
+    const data = JSON.parse(text);
+    expect(data.company.name).toBe(tenant.company_name);
+    for (const key of ["activities", "suppliers", "documents"]) {
+      expect(Array.isArray(data[key]), key).toBe(true);
+    }
+    expect(data.controller.dpo.kind).toMatch(/^(open|none|designated)$/);
+    expect(typeof data.answers).toBe("object");
+    const tokens = await e2eQuery<{ token: string }>(
+      `SELECT unsubscribe_token AS token FROM supplier
+        WHERE customer_company_id = $1 AND unsubscribe_token IS NOT NULL`,
+      [tenant.company_id],
+    );
+    for (const { token } of tokens) expect(text).not.toContain(token);
+  });
+
+  test("the record of processing activities downloads as a table with its controller, officer and measures", async ({
+    page,
+  }) => {
+    const res = await page.request.get("/api/export/gdpr-record?locale=de");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toContain("text/csv");
+    const lines = (await res.text()).split("\r\n");
+    expect(lines[0]).toContain("Art. 30 Abs. 1 DSGVO");
+    expect(lines.slice(1, 4).map((l) => l.split(",")[0])).toEqual([
+      '"Verantwortlicher"',
+      '"Datenschutzbeauftragte"',
+      '"Sicherheitsmaßnahmen (Art. 30 Abs. 1 Buchst. g)"',
     ]);
   });
 
@@ -112,7 +155,14 @@ test.describe("export", () => {
     const anonymous = await browser.newContext({
       storageState: { cookies: [], origins: [] },
     });
-    for (const path of ["data", "registers", "documents"]) {
+    for (const path of [
+      "data",
+      "registers",
+      "documents",
+      "gdpr-data",
+      "gdpr-record",
+      "gdpr-documents",
+    ]) {
       const res = await anonymous.request.get(`${baseURL}/api/export/${path}`);
       expect(res.status(), path).toBe(401);
     }

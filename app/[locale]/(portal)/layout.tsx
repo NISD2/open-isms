@@ -50,7 +50,8 @@ export default async function PortalLayout({ children }: { children: React.React
   // /billing and the order page are here because ordering only needs the draft:
   // someone may order before setting up their organization, and must still see
   // their invoices and be able to cancel. A free account sees the registers as
-  // examples, which need no company.
+  // examples, which need no company, and the export page, whose files are the company's own
+  // records and always leave with it (FREE_PORTAL_PATHS).
   const ALLOWED_WITHOUT_COMPANY = [
     "/journey",
     "/organization",
@@ -62,7 +63,7 @@ export default async function PortalLayout({ children }: { children: React.React
     ...ORDER_PATHS,
     ...WALK_HOME_PATHS,
     ...WALK_FREE_PATHS,
-    ...(mustOrder ? EXAMPLE_PORTAL_PATHS : []),
+    ...(mustOrder ? [...EXAMPLE_PORTAL_PATHS, "/export"] : []),
   ];
   const needsCompany = !ALLOWED_WITHOUT_COMPANY.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),

@@ -18,8 +18,14 @@ export async function GET(request: NextRequest) {
     loadCompanyExport(db, access.companyId),
     exportNames(locale),
   ]);
-  const buffer = await renderToBuffer(DocumentsDocument({ data, locale, names }));
+  const buffer = await renderToBuffer(
+    DocumentsDocument({ data, framework: "nis2", locale, names }),
+  );
   return new Response(new Uint8Array(buffer), {
-    headers: attachment("application/pdf", exportLabels(locale).documents.file, "pdf"),
+    headers: attachment(
+      "application/pdf",
+      exportLabels(locale).documents.file.nis2,
+      "pdf",
+    ),
   });
 }

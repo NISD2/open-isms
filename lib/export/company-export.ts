@@ -141,7 +141,7 @@ export type ExportRecord = keyof typeof EXPORT_FIELDS;
  * The columns a query loads, from a field list: only what the export carries ever leaves the
  * database, so a token on the same row never reaches memory.
  */
-const columnsOf = <K extends string>(keys: readonly K[]) =>
+export const columnsOf = <K extends string>(keys: readonly K[]) =>
   Object.fromEntries(keys.map((k) => [k, true])) as { [P in K]: true };
 
 /**

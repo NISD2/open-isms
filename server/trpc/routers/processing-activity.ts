@@ -1,22 +1,15 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
-import { dpoOf, GDPR_WALK, throughSupplier } from "@/lib/durchgang";
-import {
-  company,
-  processingActivity,
-  processingActivitySupplier,
-  supplier,
-} from "@/schema";
+import { processingActivity } from "@/schema";
 import {
   processingActivityCreateSchema,
   processingActivityUpdateSchema,
 } from "@/schema/processing-activity-validators";
-import { walkPolicyRows } from "../helpers/durchgang";
-import { answersOf, DPO_ITEM } from "../helpers/durchgang-policy";
+import { activitiesOf, controllerOf } from "../helpers/processing-activity-record";
 import {
   activatedCompanyProcedure,
   adminProcedure,
@@ -32,80 +25,11 @@ const MODULE = "processing_activity";
  * a change sends the requirements resting on the record back to management, as every register does.
  */
 export const processingActivityRouter = router({
-  /**
-   * What the record states beside its activities: the controller and its contact details
-   * (Art. 30(1)(a)), the data protection officer as G-DPO.1 recorded it, and the description of
-   * the security measures (30(1)(g)) as G-TOM.1 wrote it, with whether management approved it.
-   */
-  controller: companyProcedure.query(async ({ ctx }) => {
-    const [org, dpo, documents] = await Promise.all([
-      ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: {
-          name: true,
-          legalName: true,
-          registeredAddress: true,
-          contactEmail: true,
-          contactPhone: true,
-        },
-      }),
-      answersOf(ctx.db, ctx.companyId, DPO_ITEM),
-      walkPolicyRows(ctx.db, ctx.companyId, GDPR_WALK),
-    ]);
-    const measures = documents.find((d) => d.type === "gdpr_security_measures");
-    return {
-      name: org?.legalName || org?.name || null,
-      address: org?.registeredAddress ?? null,
-      email: org?.contactEmail ?? null,
-      phone: org?.contactPhone ?? null,
-      dpo: dpoOf(dpo),
-      measures: measures
-        ? { title: measures.title, approvedAt: measures.approvedAt }
-        : null,
-    };
-  }),
+  /** The controller, its data protection officer and its security measures (Art. 30(1)(a), (g)). */
+  controller: companyProcedure.query(({ ctx }) => controllerOf(ctx.db, ctx.companyId)),
 
-  /**
-   * The activities, each with the suppliers that receive its data and what each one's row says of
-   * transfers outside the EEA (Art. 30(1)(d), (e)), so the record states them without asking twice.
-   */
-  list: companyProcedure.query(async ({ ctx }) => {
-    const [activities, links] = await Promise.all([
-      ctx.db.query.processingActivity.findMany({
-        where: eq(processingActivity.companyId, ctx.companyId),
-        orderBy: [asc(processingActivity.createdAt), asc(processingActivity.name)],
-      }),
-      ctx.db
-        .select({
-          activityId: processingActivitySupplier.activityId,
-          id: supplier.id,
-          name: supplier.name,
-          internationalTransfer: supplier.internationalTransfer,
-          transferMechanism: supplier.transferMechanism,
-          transferCountries: supplier.transferCountries,
-          transferCheckedAt: supplier.transferCheckedAt,
-        })
-        .from(processingActivitySupplier)
-        .innerJoin(
-          processingActivity,
-          eq(processingActivity.id, processingActivitySupplier.activityId),
-        )
-        .innerJoin(supplier, eq(supplier.id, processingActivitySupplier.supplierId))
-        .where(
-          and(
-            eq(processingActivity.companyId, ctx.companyId),
-            eq(supplier.customerCompanyId, ctx.companyId),
-          ),
-        )
-        .orderBy(asc(supplier.name)),
-    ]);
-    return activities.map((activity) => ({
-      ...activity,
-      suppliers: links
-        .filter((l) => l.activityId === activity.id)
-        .map((l) => ({ id: l.id, name: l.name, through: throughSupplier(l) })),
-    }));
-  }),
+  /** The activities, each with the suppliers receiving its data and their transfers. */
+  list: companyProcedure.query(({ ctx }) => activitiesOf(ctx.db, ctx.companyId)),
 
   create: activatedCompanyProcedure
     .input(processingActivityCreateSchema)

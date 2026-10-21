@@ -140,7 +140,7 @@ const FIXTURE: CompanyExport = {
 const registers = (locale: PdfLocale) =>
   RegistersDocument({ data: FIXTURE, locale, names: NAMES[locale] });
 const documents = (data: CompanyExport = FIXTURE, locale: PdfLocale = "de") =>
-  DocumentsDocument({ data, locale, names: NAMES[locale] });
+  DocumentsDocument({ data, framework: "nis2", locale, names: NAMES[locale] });
 
 describe("the export names fields the way the app's forms do", () => {
   const registers: readonly Register[] = [
@@ -222,6 +222,25 @@ describe("the documents PDF", () => {
   test("without documents it says the walk has written none yet", async () => {
     const text = await textOf(documents({ ...FIXTURE, documents: [] }));
     expect(text).toContain("Der Durchgang hat noch keine Dokumente geschrieben.");
+  });
+
+  test("names its framework on the cover and on every page", async () => {
+    const gdpr = (locale: PdfLocale) =>
+      textOf(
+        DocumentsDocument({
+          data: FIXTURE,
+          framework: "gdpr",
+          locale,
+          names: NAMES[locale],
+        }),
+      );
+    // The cover letter-spaces its eyebrow, so the text is compared without spaces.
+    const bare = async (text: Promise<string>) => (await text).replaceAll(" ", "");
+    const german = await bare(gdpr("de"));
+    expect(german).toContain("DSGVODOKUMENTATION");
+    expect(german).not.toContain("NIS2");
+    expect(await bare(gdpr("en"))).toContain("GDPRRECORDS");
+    expect(await bare(textOf(documents()))).toContain("NIS2DOKUMENTATION");
   });
 });
 

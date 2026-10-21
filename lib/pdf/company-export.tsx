@@ -20,10 +20,15 @@ import {
   PageFooter,
   SectionHeading,
 } from "./chrome";
-import { exportLabels } from "./export-labels";
+import { type ExportFramework, exportLabels } from "./export-labels";
 import { formatReportDate, formatSigner, type PdfLocale } from "./format";
 import { MarkdownBlocks } from "./markdown";
 import { styles } from "./styles";
+
+/** What a cover and a page header need of an export, whichever framework it is for. */
+type Titled = Pick<CompanyExport, "exportedAt"> & {
+  readonly company: { readonly name: string };
+};
 
 function Cover({
   eyebrow,
@@ -34,7 +39,7 @@ function Cover({
 }: {
   eyebrow: string;
   title: string;
-  data: CompanyExport;
+  data: Titled;
   meta: { label: string; value: string }[];
   words: Words;
 }) {
@@ -67,19 +72,21 @@ function Sheet({
   label,
   data,
   words,
+  framework,
   children,
 }: {
   title: string;
   label: string;
-  data: CompanyExport;
+  data: Titled;
   words: Words;
+  framework: ExportFramework;
   children: React.ReactNode;
 }) {
   return (
     <Page size="A4" style={styles.page}>
       <BrandBands />
       <View fixed>
-        <DocHeader label={label} value="NIS 2" />
+        <DocHeader label={label} value={words.labels.frameworks[framework]} />
       </View>
       <SectionHeading title={title} />
       <View style={{ marginTop: 10 }}>{children}</View>
@@ -140,6 +147,7 @@ export function RegistersDocument({
         label={labels.registers.title}
         data={data}
         words={words}
+        framework="nis2"
       >
         <RecordBlock
           title={data.company.name}
@@ -153,6 +161,7 @@ export function RegistersDocument({
           label={labels.registers.title}
           data={data}
           words={words}
+          framework="nis2"
         >
           {rows(data).length === 0 ? (
             <Text style={styles.sectionNote}>{labels.none}</Text>
@@ -177,10 +186,12 @@ export function RegistersDocument({
  */
 export function DocumentsDocument({
   data,
+  framework,
   locale,
   names,
 }: {
-  data: CompanyExport;
+  data: Titled & Pick<CompanyExport, "documents">;
+  framework: ExportFramework;
   locale: PdfLocale;
   names: ExportNames;
 }) {
@@ -189,7 +200,7 @@ export function DocumentsDocument({
   return (
     <Document title={`${t.title}: ${data.company.name}`} author={data.company.name}>
       <Cover
-        eyebrow={t.eyebrow}
+        eyebrow={t.eyebrow[framework]}
         title={t.title}
         data={data}
         words={words}
@@ -199,12 +210,25 @@ export function DocumentsDocument({
         }))}
       />
       {data.documents.length === 0 ? (
-        <Sheet title={t.title} label={t.title} data={data} words={words}>
+        <Sheet
+          title={t.title}
+          label={t.title}
+          data={data}
+          words={words}
+          framework={framework}
+        >
           <Text style={styles.sectionNote}>{t.empty}</Text>
         </Sheet>
       ) : (
         data.documents.map((d) => (
-          <Sheet key={d.type} title={d.title} label={t.title} data={data} words={words}>
+          <Sheet
+            key={d.type}
+            title={d.title}
+            label={t.title}
+            data={data}
+            words={words}
+            framework={framework}
+          >
             <RecordBlock
               title={d.status === "approved" ? t.approved : t.draft}
               rows={[

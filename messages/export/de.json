@@ -4,6 +4,16 @@
     "lead": "Alles, was Sie im Durchgang und in den Registern festgehalten haben, als Datei zum Weitergeben: an die Geschäftsführung, an Prüfer oder an Ihren IT-Dienstleister.",
     "noAccess": "Exportieren können Admins, Prüfer und die Geschäftsführung Ihres Unternehmens.",
     "noAssessment": "Für Ihr Unternehmen gibt es noch keine NIS 2 Bewertung.",
+    "sections": {
+      "nis2": {
+        "title": "NIS 2",
+        "lead": "Anforderungen, Dokumente und Register aus dem NIS 2 Durchgang."
+      },
+      "gdpr": {
+        "title": "DSGVO",
+        "lead": "Das Verzeichnis der Verarbeitungstätigkeiten, der Datenschutzbeauftragte und die Dokumente aus dem DSGVO Durchgang."
+      }
+    },
     "complete": {
       "card": {
         "title": "Alles in einem Dokument",
@@ -68,6 +78,18 @@
       "data": {
         "title": "Alle Daten",
         "text": "Alles in einer Datei, für Ihre eigenen Werkzeuge oder zum Mitnehmen. Ihre Daten gehören Ihnen."
+      },
+      "gdprDocuments": {
+        "title": "DSGVO Dokumente",
+        "text": "Die Dokumente aus dem DSGVO Durchgang, etwa Sicherheitsmaßnahmen und Verfahren bei Datenpannen und Anfragen, jeweils mit Freigabe durch die Geschäftsführung."
+      },
+      "gdprRecord": {
+        "title": "Verzeichnis der Verarbeitungstätigkeiten",
+        "text": "Das Verzeichnis nach Art. 30 DSGVO mit Verantwortlichem, Datenschutzbeauftragtem und Sicherheitsmaßnahmen, zum Öffnen in Excel oder zum Vorlegen bei der Aufsichtsbehörde."
+      },
+      "gdprData": {
+        "title": "Alle DSGVO Daten",
+        "text": "Verarbeitungstätigkeiten, Rolle, Vertrag und Drittlandübermittlung je Lieferant, Angaben und Dokumente in einer Datei."
       }
     }
   }

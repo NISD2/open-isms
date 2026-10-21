@@ -66,7 +66,9 @@ async function main(): Promise<readonly string[]> {
     ],
     [
       "pruefordner-3-dokumente.pdf",
-      await renderToBuffer(DocumentsDocument({ data, locale: "de", names })),
+      await renderToBuffer(
+        DocumentsDocument({ data, framework: "nis2", locale: "de", names }),
+      ),
     ],
     ["pruefordner-4-daten.json", JSON.stringify(data, null, 2)],
   ];

@@ -6,8 +6,14 @@ import type { PdfLocale } from "./format";
  * forms and screens use (`exportNames`); only the company's master data is labelled here, since
  * the organization form names those fields differently.
  */
+export type ExportFramework = "nis2" | "gdpr";
+
 export interface ExportLabels {
   readonly company: Readonly<Record<(typeof EXPORT_FIELDS)["company"][number], string>>;
+  /** What each framework is called in the document's language. */
+  readonly frameworks: Readonly<Record<ExportFramework, string>>;
+  /** The GDPR's two files that are not documents; `file` names, without date or extension. */
+  readonly gdprFiles: { readonly record: string; readonly data: string };
   readonly records: Readonly<Record<ExportRecord, string>>;
   readonly providers: string;
   readonly none: string;
@@ -25,8 +31,8 @@ export interface ExportLabels {
   };
   readonly documents: {
     readonly title: string;
-    readonly eyebrow: string;
-    readonly file: string;
+    readonly eyebrow: Readonly<Record<ExportFramework, string>>;
+    readonly file: Readonly<Record<ExportFramework, string>>;
     readonly empty: string;
     readonly approvedBy: string;
     readonly approvedAt: string;
@@ -71,11 +77,13 @@ const DE: ExportLabels = {
   issuedBy: "Erstellt mit",
   confidential: "Vertraulich",
   page: (page, total) => `Seite ${page} von ${total}`,
+  frameworks: { nis2: "NIS 2", gdpr: "DSGVO" },
+  gdprFiles: { record: "dsgvo-verarbeitungsverzeichnis", data: "dsgvo-daten" },
   registers: { title: "Register", eyebrow: "NIS 2 Dokumentation", file: "nis2-register" },
   documents: {
     title: "Dokumente",
-    eyebrow: "NIS 2 Dokumentation",
-    file: "nis2-dokumente",
+    eyebrow: { nis2: "NIS 2 Dokumentation", gdpr: "DSGVO Dokumentation" },
+    file: { nis2: "nis2-dokumente", gdpr: "dsgvo-dokumente" },
     empty: "Der Durchgang hat noch keine Dokumente geschrieben.",
     approvedBy: "Freigegeben von",
     approvedAt: "Freigegeben am",
@@ -120,11 +128,13 @@ const EN: ExportLabels = {
   issuedBy: "Made with",
   confidential: "Confidential",
   page: (page, total) => `Page ${page} of ${total}`,
+  frameworks: { nis2: "NIS 2", gdpr: "GDPR" },
+  gdprFiles: { record: "gdpr-record-of-processing", data: "gdpr-data" },
   registers: { title: "Registers", eyebrow: "NIS 2 records", file: "nis2-registers" },
   documents: {
     title: "Documents",
-    eyebrow: "NIS 2 records",
-    file: "nis2-documents",
+    eyebrow: { nis2: "NIS 2 records", gdpr: "GDPR records" },
+    file: { nis2: "nis2-documents", gdpr: "gdpr-documents" },
     empty: "The walkthrough has not written any documents yet.",
     approvedBy: "Approved by",
     approvedAt: "Approved on",
@@ -170,11 +180,13 @@ const CS: ExportLabels = {
   issuedBy: "Vytvořeno pomocí",
   confidential: "Důvěrné",
   page: (page, total) => `Strana ${page} z ${total}`,
+  frameworks: { nis2: "NIS 2", gdpr: "GDPR" },
+  gdprFiles: { record: "gdpr-zaznamy-o-cinnostech-zpracovani", data: "gdpr-data" },
   registers: { title: "Registry", eyebrow: "Dokumentace NIS 2", file: "nis2-registry" },
   documents: {
     title: "Dokumenty",
-    eyebrow: "Dokumentace NIS 2",
-    file: "nis2-dokumenty",
+    eyebrow: { nis2: "Dokumentace NIS 2", gdpr: "Dokumentace GDPR" },
+    file: { nis2: "nis2-dokumenty", gdpr: "gdpr-dokumenty" },
     empty: "Průvodce zatím nevytvořil žádné dokumenty.",
     approvedBy: "Schválil",
     approvedAt: "Datum schválení",

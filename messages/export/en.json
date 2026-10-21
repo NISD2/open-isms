@@ -4,6 +4,16 @@
     "lead": "Everything you recorded in the walkthrough and the registers, as a file to pass on: to management, to an auditor or to your IT service provider.",
     "noAccess": "Admins, reviewers and management of your company can export.",
     "noAssessment": "Your company has no NIS 2 assessment yet.",
+    "sections": {
+      "nis2": {
+        "title": "NIS 2",
+        "lead": "Requirements, documents and registers from the NIS 2 walkthrough."
+      },
+      "gdpr": {
+        "title": "GDPR",
+        "lead": "The record of processing activities, the data protection officer and the documents from the GDPR walkthrough."
+      }
+    },
     "complete": {
       "card": {
         "title": "Everything in one document",
@@ -68,6 +78,18 @@
       "data": {
         "title": "All data",
         "text": "Everything in one file, for your own tools or to take with you. Your data is yours."
+      },
+      "gdprDocuments": {
+        "title": "GDPR documents",
+        "text": "The documents from the GDPR walkthrough, such as the security measures and the procedures for breaches and requests, each with management's approval."
+      },
+      "gdprRecord": {
+        "title": "Record of processing activities",
+        "text": "The record under Art. 30 GDPR with the controller, the data protection officer and the security measures, to open in Excel or to show the supervisory authority."
+      },
+      "gdprData": {
+        "title": "All GDPR data",
+        "text": "Processing activities, each supplier's role, contract and transfers outside the EEA, answers and documents in one file."
       }
     }
   }
