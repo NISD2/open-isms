@@ -1,17 +1,13 @@
 /**
- * The one place that decides what an account holder pays. Every price the customer or a platform
- * admin sees, and every invoice, comes from here: the order page's status and quote, the order
- * itself, and the demo close.
- *
- * Grandfathering belongs to the person (./access), so a grandfathered holder pays 2.400 net on every
- * order, renewal and re-order, even once their account is full. Everyone else pays 4.800.
+ * Whether the account holder is grandfathered. Grandfathering belongs to the person (./access) and
+ * decides what the account falls back to when unpaid. It does not change the price: everyone pays
+ * ANNUAL_NET_CENTS (./order).
  */
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { user } from "@/schema";
 import { isGrandfatheredPerson } from "./access";
-import { netCentsFor } from "./order";
 
 /** Whether the holder is grandfathered. No holder (deleted, or nobody yet) is not. */
 export const isGrandfatheredHolder = async (
@@ -26,9 +22,3 @@ export const isGrandfatheredHolder = async (
     .limit(1);
   return person ? isGrandfatheredPerson(person) : false;
 };
-
-/** The yearly net for an account held by this person. */
-export const holderNetCents = async (
-  db: DbOrTx,
-  holderUserId: string | null,
-): Promise<number> => netCentsFor(await isGrandfatheredHolder(db, holderUserId));

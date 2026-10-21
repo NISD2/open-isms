@@ -77,7 +77,6 @@
           },
           "note": "Gilt nicht für Verlängerungen und endet mit dem ersten Export oder der ersten Freigabe. Die Einzelheiten stehen in den AGB, Abschnitt B7."
         },
-        "grandfatheredBadge": "Ihr Bestandspreis",
         "cta": "30 Tage testen, Geld zurück",
         "terms": "Auf Rechnung, 30 Tage Zahlungsziel. Kündigung in den ersten 30 Tagen, vor dem ersten Export oder der ersten Freigabe: Rechnung storniert oder Geld zurück.",
         "termsLink": "AGB",
@@ -100,8 +99,7 @@
             "payment": "Alle mit einer Zahlung"
           },
           "note": "Nicht für IT-Dienstleister, Berater oder externe Beauftragte, die Kunden betreuen. Dort braucht jede betreute Organisation eine eigene Lizenz (AGB, Abschnitt B1)."
-        },
-        "grandfatheredNote": "Vor dem Start angemeldet? Dann zahlen Sie {price} netto im Jahr, auch bei Verlängerung."
+        }
       },
       "selfHost": {
         "name": "Selbstbetrieb",

@@ -77,7 +77,6 @@
           },
           "note": "Geldt niet voor verlengingen en eindigt met de eerste export of goedkeuring. De details staan in de voorwaarden, artikel B7."
         },
-        "grandfatheredBadge": "Uw prijs als bestaande gebruiker",
         "cta": "30 dagen proberen, geld terug",
         "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen, vóór de eerste export of goedkeuring: factuur geannuleerd of geld terug.",
         "termsLink": "Voorwaarden",
@@ -100,8 +99,7 @@
             "payment": "Allemaal met één betaling"
           },
           "note": "Niet voor IT-dienstverleners, adviseurs of externe functionarissen die klanten begeleiden. Daar heeft elke begeleide organisatie een eigen licentie nodig (voorwaarden, artikel B1)."
-        },
-        "grandfatheredNote": "Aangemeld voordat de betaalde toegang begon? U betaalt {price} netto per jaar, ook bij verlenging."
+        }
       },
       "selfHost": {
         "name": "Eigen beheer",

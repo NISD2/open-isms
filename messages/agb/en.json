@@ -127,7 +127,6 @@
         "heading": "B4. Price",
         "paragraphs": [
           "The annual licence costs 4,800 euros net per licence year plus VAT where it applies.",
-          "Anyone who used the Platform before prices were introduced and is therefore recorded as an existing user pays 2,400 euros net per licence year, including every renewal. What counts is whether the person who holds the account is an existing user.",
           "VAT follows the VAT number: customers in Germany pay German VAT. For customers in another EU member state whose VAT number is confirmed in the EU register, the customer owes the tax (reverse charge). The customer sees the amount including tax before the click.",
           "If a different price was agreed on a call, that price applies. The invoice states it."
         ]
@@ -144,7 +143,7 @@
         "paragraphs": [
           "The first licence year starts on the day of the order and ends on the day before the same calendar day of the following year.",
           "The annual licence renews for one further licence year at a time unless the customer cancels by the last day of the running licence year. It can cancel under Billing with the button, or in text form by email to contact@nisd2.eu.",
-          "The Provider issues the invoice for a new licence year when that year starts. 14 days before, it reminds the customer by email of the renewal, the price and how to cancel. The licence renews at the previous price; for existing users it stays at 2,400 euros net. B5 applies to every renewal."
+          "The Provider issues the invoice for a new licence year when that year starts. 14 days before, it reminds the customer by email of the renewal, the price and how to cancel. The licence renews at the previous price. B5 applies to every renewal."
         ]
       },
       "moneyBack": {

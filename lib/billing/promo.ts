@@ -1,7 +1,7 @@
 /**
  * The grandfathering promo link: a public code (`?promo=2400`) that gives whoever
- * signs in or signs up with it what people had who were here before the paywall,
- * the free journey and 2.400 a year for the Durchgang, renewals included.
+ * signs in or signs up with it what people had who were here before the paywall:
+ * the free journey. The Durchgang costs everyone the same (ANNUAL_NET_CENTS).
  *
  * Any page opened with the code remembers it in a cookie (proxy.ts), so it
  * survives the trip through Google or the email code; the next sign-in applies it

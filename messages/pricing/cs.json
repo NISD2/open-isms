@@ -77,7 +77,6 @@
           },
           "note": "Neplatí pro prodloužení a končí prvním exportem nebo prvním schválením. Podrobnosti jsou v podmínkách, oddíl B7."
         },
-        "grandfatheredBadge": "Vaše cena pro stávající uživatele",
         "cta": "Vyzkoušet 30 dní, peníze zpět",
         "terms": "Na fakturu, splatnost 30 dní. Zrušení do 30 dnů od první objednávky, před prvním exportem nebo schválením: faktura se stornuje nebo se peníze vrátí.",
         "termsLink": "Podmínky",
@@ -100,8 +99,7 @@
             "payment": "Vše jednou platbou"
           },
           "note": "Neplatí pro poskytovatele IT služeb, poradce ani externí pověřence, kteří spravují klienty. Tam potřebuje každá klientská organizace vlastní licenci (podmínky, oddíl B1)."
-        },
-        "grandfatheredNote": "Přihlásili jste se před zavedením placených plánů? Platíte {price} bez DPH ročně, včetně prodloužení."
+        }
       },
       "selfHost": {
         "name": "Vlastní provoz",

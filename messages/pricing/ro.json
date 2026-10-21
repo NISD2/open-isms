@@ -77,7 +77,6 @@
           },
           "note": "Nu se aplică la reînnoiri. Detaliile se găsesc în termeni, secțiunea B7."
         },
-        "grandfatheredBadge": "Prețul dumneavoastră de utilizator existent",
         "cta": "Încercați 30 de zile, banii înapoi",
         "terms": "Pe bază de factură, scadentă în 30 de zile. Anulare în primele 30 de zile: factura se anulează sau banii se returnează.",
         "termsLink": "Termeni",
@@ -100,8 +99,7 @@
             "payment": "Toate cu o singură plată"
           },
           "note": "Nu pentru furnizori de servicii IT, consultanți sau responsabili externi care îngrijesc clienți. Acolo, fiecare organizație client are nevoie de propria licență (termeni, secțiunea B1)."
-        },
-        "grandfatheredNote": "V-ați autentificat înainte de începerea planurilor plătite? Plătiți {price} net pe an, inclusiv la reînnoiri."
+        }
       },
       "selfHost": {
         "name": "Auto-găzduire",

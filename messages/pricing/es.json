@@ -77,7 +77,6 @@
           },
           "note": "No se aplica a las renovaciones. Los detalles están en las condiciones, apartado B7."
         },
-        "grandfatheredBadge": "Su precio de usuario existente",
         "cta": "Probar 30 días, dinero de vuelta",
         "terms": "Con factura, a pagar en 30 días. Cancelación dentro de los primeros 30 días: factura anulada o devolución del dinero.",
         "termsLink": "Condiciones",
@@ -100,8 +99,7 @@
             "payment": "Todo con un solo pago"
           },
           "note": "No para proveedores de servicios de TI, consultores ni responsables externos que atienden a clientes. En ese caso, cada organización cliente necesita su propia licencia (condiciones, apartado B1)."
-        },
-        "grandfatheredNote": "¿Inició sesión antes de que existieran los planes de pago? Usted paga {price} sin IVA al año, renovaciones incluidas."
+        }
       },
       "selfHost": {
         "name": "Autoalojamiento",

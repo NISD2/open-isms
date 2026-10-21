@@ -1,15 +1,11 @@
 import { cookies } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
-import {
-  ANNUAL_NET_CENTS,
-  formatWholeEuro,
-  GRANDFATHERED_NET_CENTS,
-} from "@/lib/billing/order";
+import { ANNUAL_NET_CENTS, formatWholeEuro } from "@/lib/billing/order";
 import { PROMO_COOKIE, type PromoState, promoState } from "@/lib/billing/promo";
 import { env } from "@/lib/env";
 
 /**
- * What the promo link means for someone on a sign-in page: the price and its last
+ * What the promo link means for someone on a sign-in page: what it keeps free and its last
  * day while it runs, or that it has ended once the day is past, so a late click
  * reads as an ended offer rather than a broken link. Says nothing without a
  * promo. The link's own code decides, or the cookie the proxy set on an earlier
@@ -38,10 +34,7 @@ export async function PromoNotice({ fromLink }: { fromLink: string | undefined }
       <p className="font-medium text-foreground">{heading}</p>
       <p className="mt-1 text-muted-foreground">
         {active
-          ? t("promo.body", {
-              price: formatWholeEuro(GRANDFATHERED_NET_CENTS, locale),
-              fullPrice: formatWholeEuro(ANNUAL_NET_CENTS, locale),
-            })
+          ? t("promo.body", { price: formatWholeEuro(ANNUAL_NET_CENTS, locale) })
           : t("promo.expiredBody", { date })}
       </p>
       {active && (

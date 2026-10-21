@@ -236,7 +236,7 @@ If a copy choice fails one of these, fix it before shipping.
 
 The rules, each learned from a real defect, are in [docs/billing.md](docs/billing.md); read it before touching anything under `lib/billing/`, an export route or a sign-off procedure. In one line each:
 
-- One order service (`placeOrder`), one price (`holderNetCents`), one cancel service (`cancelSubscription`, money back from `money-back.ts`).
+- One order service (`placeOrder`), one price (`order.ts`), one cancel service (`cancelSubscription`, money back from `money-back.ts`).
 - The access gate is on by default; exemptions are the account tiers and, by name, `FREE_WALK_PROCEDURES` for the walk's free steps.
 - Exports and sign-offs ask one state machine (`lib/billing/account-state.ts`); inside the money back the first one asks first and records the waiver.
 - Nothing may fail after Qonto issued a document; Qonto is the source of truth for status; tax follows the VAT number; VIES never blocks.

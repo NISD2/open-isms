@@ -13,7 +13,6 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import type { ComponentProps, ReactNode } from "react";
 import { SignInLink } from "@/components/auth/SignInLink";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -431,20 +430,14 @@ export function PaidPricingCards({
   orderOpen,
   price,
   monthlyPrice,
-  monthlyListPrice,
-  grandfathered,
   signedIn,
 }: {
   /** Whether /bestellen exists for this visitor (lib/billing/ordering-access.ts). */
   readonly orderOpen: boolean;
-  /** The yearly net price this visitor would be invoiced. */
+  /** The yearly net price, the same for everyone. */
   readonly price: string;
   /** `price` per month (lib/billing/order.ts monthlyNetCents), the large figure on the card. */
   readonly monthlyPrice: string;
-  /** The public price per month, struck through when the visitor pays less. */
-  readonly monthlyListPrice: string;
-  /** Whether this visitor is a grandfathered account holder (AGB B4). */
-  readonly grandfathered: boolean;
   /** Whether the visitor is signed in: the order button registers first without it. */
   readonly signedIn: boolean;
 }) {
@@ -497,11 +490,6 @@ export function PaidPricingCards({
             </CardTitle>
             <CardDescription>{t("paid.description")}</CardDescription>
             <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-              {grandfathered ? (
-                <span className="text-lg text-muted-foreground line-through decoration-2">
-                  {monthlyListPrice}
-                </span>
-              ) : null}
               <span className="text-3xl font-semibold tracking-tight">
                 {monthlyPrice}
               </span>
@@ -511,17 +499,11 @@ export function PaidPricingCards({
             <p className="text-sm text-muted-foreground">
               {t("paid.billedYearly", { price })}
             </p>
-            {/* Half the list price is no longer "the price of a gap analysis". */}
-            {grandfathered ? null : <PriceAnchor />}
+            <PriceAnchor />
             <div className="mt-3 flex flex-wrap gap-2">
               {/* Its details are in the tooltip; the order page repeats the terms before anyone
                   orders, so the card carries no terms line of its own (Simon, 19.10.2026). */}
               <MoneyBackBadge />
-              {grandfathered ? (
-                <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">
-                  {t("paid.grandfatheredBadge")}
-                </Badge>
-              ) : null}
             </div>
           </CardHeader>
           <CardContent className="space-y-5">

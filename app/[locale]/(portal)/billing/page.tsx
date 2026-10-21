@@ -19,12 +19,7 @@ import {
 } from "@/components/ui/table";
 import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
-import {
-  ANNUAL_NET_CENTS,
-  formatWholeEuro,
-  GRANDFATHERED_NET_CENTS,
-  monthlyNetCents,
-} from "@/lib/billing/order";
+import { formatWholeEuro, monthlyNetCents } from "@/lib/billing/order";
 import { termsVersionLabel } from "@/lib/billing/terms";
 import { api } from "@/lib/trpc/server";
 
@@ -70,7 +65,7 @@ export default async function BillingPage({
   );
 
   // Nothing invoiced yet and no licence: there is nothing to account for, so the page is the
-  // offer, the pricing page's three tiers with this account's own price (Simon, 04.10.2026).
+  // offer, the pricing page's tiers (Simon, 04.10.2026).
   if (status.accessLevel !== "full" && invoices?.length === 0) {
     return (
       <div className="space-y-8">
@@ -79,8 +74,6 @@ export default async function BillingPage({
           orderOpen={status.canOrder}
           price={formatWholeEuro(status.netCents, locale)}
           monthlyPrice={formatWholeEuro(monthlyNetCents(status.netCents), locale)}
-          monthlyListPrice={formatWholeEuro(monthlyNetCents(ANNUAL_NET_CENTS), locale)}
-          grandfathered={status.netCents === GRANDFATHERED_NET_CENTS}
           signedIn
         />
       </div>

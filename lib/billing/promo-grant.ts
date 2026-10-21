@@ -2,8 +2,7 @@
  * Grandfathering a person who signed in through the promo link (./promo): what the
  * billing launch did for everyone who got in before it, narrowed to this one
  * person. Their grandfatheredAt is stamped, which gives them the free journey in
- * every company and prices a Durchgang they hold at 2.400; and the free billing
- * accounts they own become grandfathered.
+ * every company; and the free billing accounts they own become grandfathered.
  *
  * Only accounts they own: unlike the launch, which moved an account with any
  * stamped member, a public code must not let a member (a colleague, an outside

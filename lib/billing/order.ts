@@ -11,21 +11,12 @@ import { paysOnUse, termsVersionLabel } from "./terms";
 import { checkStructure } from "./vat-checksum";
 import { type VatCheck, type VatTreatment, vatTreatment } from "./vies";
 
-/** 4.800 net a year, the single offer. Cents, because money is never a float. */
+/**
+ * 4.800 net a year, the single offer, for every account including grandfathered ones (Simon,
+ * 21.10.2026; grandfathering keeps the free journey, not a lower price). Cents, because money is
+ * never a float. A server-side constant: the browser never sends a price.
+ */
 export const ANNUAL_NET_CENTS = 480_000;
-
-/**
- * What a grandfathered person pays: half, on every order, renewal and re-order, including after
- * their account became full. Grandfathering belongs to the person (./access), so the price does too.
- */
-export const GRANDFATHERED_NET_CENTS = 240_000;
-
-/**
- * The yearly net price for whoever holds the account, decided on the server and never taken from a
- * browser. Whether the holder is grandfathered is decided by `holderNetCents` (./holder-price).
- */
-export const netCentsFor = (holderGrandfathered: boolean): number =>
-  holderGrandfathered ? GRANDFATHERED_NET_CENTS : ANNUAL_NET_CENTS;
 
 /**
  * What a yearly price comes to per month, for the pricing card's "400 € im Monat". Display only:

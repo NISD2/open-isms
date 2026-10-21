@@ -77,7 +77,6 @@
           },
           "note": "Não se aplica às renovações. Os pormenores constam das condições, secção B7."
         },
-        "grandfatheredBadge": "O seu preço de utilizador existente",
         "cta": "Experimentar 30 dias, reembolso",
         "terms": "Por fatura, com vencimento a 30 dias. Cancelamento nos primeiros 30 dias: fatura anulada ou reembolso.",
         "termsLink": "Condições",
@@ -100,8 +99,7 @@
             "payment": "Tudo num único pagamento"
           },
           "note": "Não se destina a prestadores de serviços informáticos, consultores nem responsáveis externos que acompanham clientes. Nesses casos, cada organização cliente precisa da sua própria licença (condições, secção B1)."
-        },
-        "grandfatheredNote": "Iniciou sessão antes de os planos pagos começarem? Paga {price} sem IVA por ano, renovações incluídas."
+        }
       },
       "selfHost": {
         "name": "Autoalojamento",

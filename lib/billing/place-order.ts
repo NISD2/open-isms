@@ -2,8 +2,8 @@
  * Placing an order: the one function that issues an invoice. The order page calls it; the admin
  * demo close (not built yet) must call it too, never Qonto directly.
  *
- *   1. The price comes from the account holder (./holder-price), on the server. No amount is ever
- *      taken from a browser.
+ *   1. The price is ANNUAL_NET_CENTS (./order), set on the server. No amount is ever taken from a
+ *      browser.
  *   2. The customer is found in Qonto by VAT number, or created, and remembered on the account.
  *   3. The invoice number is taken and committed on its own, before Qonto is called (see
  *      document_number_counter): a failed call then leaves a gap, never a duplicate.
@@ -22,10 +22,10 @@ import { billingAccount, creditNote, invoice } from "@/schema";
 import { AlreadyAlerted, alertOperators } from "./alert";
 import { deliverInvoice } from "./deliver-invoice";
 import { takeDocumentNumber } from "./document-number";
-import { holderNetCents } from "./holder-price";
 import { pickPayableAccount } from "./iban";
 import { sandboxInvoiceNumber } from "./invoice-number";
 import {
+  ANNUAL_NET_CENTS,
   invoiceDates,
   invoiceToday,
   invoiceWording,
@@ -274,7 +274,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       const money = priceFor(
         vat.countryCode,
         registry,
-        input.netCentsOverride ?? (await holderNetCents(tx, account.ownerUserId)),
+        input.netCentsOverride ?? ANNUAL_NET_CENTS,
       );
       if (
         input.expectedGrossCents !== null &&

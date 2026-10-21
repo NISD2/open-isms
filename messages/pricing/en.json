@@ -77,7 +77,6 @@
           },
           "note": "Does not apply to renewals, and ends with the first export or sign-off. The details are in the terms, section B7."
         },
-        "grandfatheredBadge": "Your existing-user price",
         "cta": "Try 30 days, money back",
         "terms": "By invoice, due in 30 days. Cancel within the first 30 days, before the first export or sign-off: invoice cancelled or money back.",
         "termsLink": "Terms",
@@ -100,8 +99,7 @@
             "payment": "All on one payment"
           },
           "note": "Not for IT service providers, consultants or external officers who look after clients. There, each client organization needs its own license (terms, section B1)."
-        },
-        "grandfatheredNote": "Signed in before paid plans started? You pay {price} net a year, renewals included."
+        }
       },
       "selfHost": {
         "name": "Self-hosting",

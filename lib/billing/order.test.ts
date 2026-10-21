@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test";
 import {
+  ANNUAL_NET_CENTS,
   formatWholeEuro,
   invoiceDates,
   invoiceEmailWording,
   invoiceWording,
-  netCentsFor,
   periodProblem,
   priceFor,
 } from "./order";
@@ -16,10 +16,9 @@ describe("formatWholeEuro", () => {
   });
 });
 
-describe("netCentsFor", () => {
-  test("charges a grandfathered holder half, everyone else the full price", () => {
-    expect(netCentsFor(true)).toBe(240_000);
-    expect(netCentsFor(false)).toBe(480_000);
+describe("ANNUAL_NET_CENTS", () => {
+  test("is the one price, 4.800 net, for grandfathered accounts too", () => {
+    expect(ANNUAL_NET_CENTS).toBe(480_000);
   });
 });
 

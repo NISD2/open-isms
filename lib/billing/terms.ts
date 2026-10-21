@@ -5,7 +5,7 @@
  * Change it in the same commit that changes the text of either page: every order stores the version
  * it was placed under (invoice.terms_version), and the pages print it as "Fassung vom".
  */
-export const TERMS_VERSION = "2026-10-20";
+export const TERMS_VERSION = "2026-10-21";
 
 /**
  * The first version under which the first export or sign-off ends the thirty days money back (B7).

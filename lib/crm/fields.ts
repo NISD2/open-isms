@@ -25,7 +25,7 @@ export interface CloseFacts {
   readonly signedUpAt: Date;
   readonly lastLoginAt: Date | null;
   readonly loginCount: number;
-  /** Pays 2.400 instead of 4.800 (lib/billing/access isGrandfatheredPerson). */
+  /** Keeps the free journey (lib/billing/access isGrandfatheredPerson); the price is the same. */
   readonly grandfathered: boolean;
   /** The platform's own consent gate: follow-ups not switched off, no "all" opt-out. */
   readonly mayEmail: boolean;

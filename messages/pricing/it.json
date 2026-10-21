@@ -77,7 +77,6 @@
           },
           "note": "Non vale per i rinnovi. I dettagli sono nelle condizioni, sezione B7."
         },
-        "grandfatheredBadge": "Il tuo prezzo da utente esistente",
         "cta": "Prova 30 giorni, rimborso",
         "terms": "Con fattura, da pagare entro 30 giorni. Annullamento entro i primi 30 giorni: fattura annullata o rimborso.",
         "termsLink": "Condizioni",
@@ -100,8 +99,7 @@
             "payment": "Tutto con un solo pagamento"
           },
           "note": "Non per fornitori di servizi IT, consulenti o responsabili esterni che seguono dei clienti. In quel caso ogni organizzazione cliente ha bisogno della propria licenza (condizioni, sezione B1)."
-        },
-        "grandfatheredNote": "Hai effettuato l'accesso prima dell'avvio dei piani a pagamento? Paghi {price} netti all'anno, rinnovi compresi."
+        }
       },
       "selfHost": {
         "name": "Self-hosting",

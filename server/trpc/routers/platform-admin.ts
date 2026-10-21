@@ -488,12 +488,12 @@ export const platformAdminRouter = router({
         netCents: z.number().int().positive().max(10_000_000).nullable(),
       }),
     )
-    .mutation(async ({ ctx, input }) =>
+    .mutation(async ({ input }) =>
       quoteFor({
         vatNumber: input.vatNumber,
         countryCode: input.countryCode,
         // The same function closeDeal prices with, so the quote is the invoice.
-        netCents: await closeNetCents(ctx.db, input.customerEmail, input.netCents),
+        netCents: closeNetCents(input.netCents),
         vies: viesConfigFromEnv(env),
       }),
     ),

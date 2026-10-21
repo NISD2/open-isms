@@ -26,8 +26,7 @@ import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 import { hasGotIn } from "./access";
 import { alertOperators } from "./alert";
 import { closeLocale } from "./close-locale";
-import { holderNetCents } from "./holder-price";
-import type { OrderInput } from "./order";
+import { ANNUAL_NET_CENTS, type OrderInput } from "./order";
 import { type OrderOutcome, type PlaceOrderInput, placeOrder } from "./place-order";
 import { TERMS_VERSION } from "./terms";
 
@@ -130,25 +129,11 @@ export const heldAccount = async (db: DbOrTx, userId: string) => {
 };
 
 /**
- * The net a close invoices, decided once for the quote and the order. An agreed amount wins.
- * Otherwise the customer is priced as the holder they will be (./holder-price): a grandfathered
- * person pays 2.400, and anyone else (someone new, or someone a failed earlier close created and
- * who never got in) pays the list price. Deciding by the person rather than by the account keeps a
- * retry at the same price as the first attempt.
+ * The net a close invoices, decided once for the quote and the order: an agreed amount, else the
+ * list price. Deciding it here keeps a retry at the same price as the first attempt.
  */
-export const closeNetCents = async (
-  db: DbOrTx,
-  customerEmail: string,
-  override: number | null,
-): Promise<number> => {
-  if (override !== null) return override;
-  const [existing] = await db
-    .select({ id: user.id })
-    .from(user)
-    .where(eq(user.email, customerEmail.toLowerCase().trim()))
-    .limit(1);
-  return holderNetCents(db, existing?.id ?? null);
-};
+export const closeNetCents = (override: number | null): number =>
+  override ?? ANNUAL_NET_CENTS;
 
 const sendSetupLink = async (
   input: CloseDealInput,
@@ -186,8 +171,7 @@ export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
   const email = input.customerEmail.toLowerCase().trim();
   const locale = closeLocale(input.order.vatNumber, input.locale);
 
-  // Priced before the customer is created, so a new customer is priced as new.
-  const netCents = await closeNetCents(input.db, email, input.netCentsOverride);
+  const netCents = closeNetCents(input.netCentsOverride);
   const customer = await customerFor(input.db, email, input.customerName.trim(), locale);
   const account = await heldAccount(input.db, customer.id);
   if (!account) {

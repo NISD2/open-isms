@@ -6,16 +6,13 @@ import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { PaidPricingCards } from "@/components/pricing/PaidPricingCards";
 import { PricingFaq } from "@/components/pricing/PricingFaq";
 import { getSession } from "@/lib/auth";
-import { holderNetCents } from "@/lib/billing/holder-price";
 import {
   ANNUAL_NET_CENTS,
   formatEuro,
   formatWholeEuro,
-  GRANDFATHERED_NET_CENTS,
   monthlyNetCents,
 } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
-import { db } from "@/lib/db";
 import { isLocaleCode } from "@/lib/locale";
 import {
   buildSoftwareApplicationJsonLd,
@@ -54,19 +51,10 @@ export async function generateMetadata({
   };
 }
 
-/**
- * Whether this visitor may order, and at what yearly price. The price is the visitor's own holder
- * price, the one the order's quote and invoice use (billing.quote), so the card shows what the
- * invoice will say. A public page must not fail on the database: an error reads as the public
- * price.
- */
+/** Whether this visitor may order. The price is the same for everyone (ANNUAL_NET_CENTS). */
 const visitorOffer = async () => {
   const session = await visitorSession();
-  const orderOpen = billingFor(session?.user.email).open;
-  const netCents = await holderNetCents(db, session?.user.id ?? null).catch(
-    () => ANNUAL_NET_CENTS,
-  );
-  return { orderOpen, netCents, signedIn: session !== null };
+  return { orderOpen: billingFor(session?.user.email).open, signedIn: session !== null };
 };
 
 export default async function PricingPage({
@@ -114,10 +102,8 @@ export default async function PricingPage({
 
       <PaidPricingCards
         orderOpen={offer.orderOpen}
-        price={formatWholeEuro(offer.netCents, rawLocale)}
-        monthlyPrice={formatWholeEuro(monthlyNetCents(offer.netCents), rawLocale)}
-        monthlyListPrice={formatWholeEuro(monthlyNetCents(ANNUAL_NET_CENTS), rawLocale)}
-        grandfathered={offer.netCents === GRANDFATHERED_NET_CENTS}
+        price={formatWholeEuro(ANNUAL_NET_CENTS, rawLocale)}
+        monthlyPrice={formatWholeEuro(monthlyNetCents(ANNUAL_NET_CENTS), rawLocale)}
         signedIn={offer.signedIn}
       />
 

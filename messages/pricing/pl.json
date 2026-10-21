@@ -77,7 +77,6 @@
           },
           "note": "Nie dotyczy odnowień. Szczegóły są w regulaminie, sekcja B7."
         },
-        "grandfatheredBadge": "Twoja cena dla obecnych użytkowników",
         "cta": "Wypróbuj 30 dni, zwrot pieniędzy",
         "terms": "Na fakturę, płatną w 30 dni. Rezygnacja w ciągu pierwszych 30 dni: faktura zostaje anulowana albo zwracamy pieniądze.",
         "termsLink": "Regulamin",
@@ -100,8 +99,7 @@
             "payment": "Wszystko w jednej płatności"
           },
           "note": "Nie dla dostawców usług IT, doradców ani zewnętrznych pełnomocników, którzy obsługują klientów. Tam każda organizacja klienta potrzebuje własnej licencji (regulamin, sekcja B1)."
-        },
-        "grandfatheredNote": "Logowałeś się przed startem płatnych planów? Płacisz {price} netto rocznie, także przy odnowieniach."
+        }
       },
       "selfHost": {
         "name": "Hosting własny",

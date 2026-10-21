@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { formatWholeEuro, GRANDFATHERED_NET_CENTS } from "@/lib/billing/order";
+import { formatWholeEuro } from "@/lib/billing/order";
 import { api } from "@/lib/trpc/server";
 
 /**
@@ -107,8 +107,7 @@ export async function PortalOffer() {
                 {tiers("paid.priceSub")}
               </span>
             </p>
-            {/* As on /pricing: half the list price is no longer "the price of a gap analysis". */}
-            {status.netCents === GRANDFATHERED_NET_CENTS ? null : <PriceAnchor />}
+            <PriceAnchor />
             <div>
               <MoneyBackBadge />
             </div>

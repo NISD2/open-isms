@@ -77,7 +77,6 @@
           },
           "note": "Ne s'applique pas aux renouvellements. Le détail figure dans les conditions, section B7."
         },
-        "grandfatheredBadge": "Votre tarif d'utilisateur existant",
         "cta": "Essayer 30 jours, remboursé",
         "terms": "Sur facture, payable sous 30 jours. Résiliation dans les 30 premiers jours : facture annulée ou remboursement.",
         "termsLink": "Conditions",
@@ -100,8 +99,7 @@
             "payment": "Le tout pour un seul paiement"
           },
           "note": "Pas pour les prestataires de services informatiques, les consultants ou les responsables externes qui suivent des clients. Dans ce cas, chaque organisation cliente a besoin de sa propre licence (conditions, section B1)."
-        },
-        "grandfatheredNote": "Vous vous étiez connecté avant le début des offres payantes ? Vous payez {price} HT par an, renouvellements inclus."
+        }
       },
       "selfHost": {
         "name": "Auto-hébergement",

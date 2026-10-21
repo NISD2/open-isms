@@ -26,9 +26,12 @@ import {
   cancelOption,
   cancelSubscription,
 } from "@/lib/billing/cancel";
-import { holderNetCents } from "@/lib/billing/holder-price";
 import { nonPaymentNoticeOf } from "@/lib/billing/non-payment-schedule";
-import { formatReaderEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
+import {
+  ANNUAL_NET_CENTS,
+  formatReaderEuro,
+  orderSchemaWithVatCheck,
+} from "@/lib/billing/order";
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
 import { billingFor } from "@/lib/billing/ordering-access";
@@ -174,8 +177,7 @@ export const billingRouter = router({
       account.ownerUserId,
     );
     const pending = await hasOrderCheck(ctx.db, account.id);
-    // The holder's price: what this account pays, whoever is looking.
-    const netCents = await holderNetCents(ctx.db, account.ownerUserId);
+    const netCents = ANNUAL_NET_CENTS;
     return {
       mode: mode.kind,
       open,
@@ -318,8 +320,8 @@ export const billingRouter = router({
       await limited(`billing:quote:${ctx.userId}`, 10);
       return quoteFor({
         ...input,
-        // The holder's price, as `place` charges it, whoever orders.
-        netCents: await holderNetCents(ctx.db, ctx.account.ownerUserId),
+        // As `place` charges it.
+        netCents: ANNUAL_NET_CENTS,
         vies: viesConfigFromEnv(env),
       });
     }),
