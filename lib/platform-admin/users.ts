@@ -5,6 +5,7 @@ import {
   eq,
   gte,
   ilike,
+  inArray,
   isNotNull,
   isNull,
   like,
@@ -17,6 +18,7 @@ import {
 import type { DbOrTx } from "@/lib/db";
 import { assistantOf } from "@/lib/mcp/agent";
 import { auditLog, company, companyMembership, user } from "@/schema";
+import { idsIn, type NamedId } from "./named-ids";
 
 /**
  * The platform operator's reads of people: who signed in lately, one person's account and
@@ -206,6 +208,32 @@ const filterOf = (subject: AuditSubject, f: AuditFilter) =>
   );
 
 /**
+ * Who or what each id is, for the ids that name a person or a company; ids that name neither are
+ * left out. Two reads for the whole page, not one per row.
+ */
+async function namesOf(
+  db: DbOrTx,
+  ids: readonly string[],
+): Promise<Map<string, NamedId>> {
+  const wanted = [...new Set(ids)];
+  if (wanted.length === 0) return new Map();
+  const [people, companies] = await Promise.all([
+    db
+      .select({ id: user.id, name: user.name })
+      .from(user)
+      .where(inArray(user.id, wanted)),
+    db
+      .select({ id: company.id, name: company.name })
+      .from(company)
+      .where(inArray(company.id, wanted)),
+  ]);
+  return new Map<string, NamedId>([
+    ...companies.map((c) => [c.id, { kind: "company", name: c.name }] as const),
+    ...people.map((p) => [p.id, { kind: "user", name: p.name }] as const),
+  ]);
+}
+
+/**
  * An audit log, newest first: what each entry says happened, who did it, the values it stored, and
  * the assistant that did it when one did. The values are as stored. The tRPC audit step redacts a
  * short list of keys (packages/isms-trpc/src/init.ts), but the direct `logAudit` callers redact
@@ -242,6 +270,10 @@ export async function auditLogFor(
     .orderBy(desc(auditLog.createdAt), desc(auditLog.id))
     .limit(limit);
   const last = rows.at(-1);
+  const names = await namesOf(
+    db,
+    rows.flatMap((r) => idsIn(r.entityId, r.previousValue, r.newValue)),
+  );
   return {
     // Each row carries the cursor that reads on from it, so a caller that cannot show the whole
     // page can stop at any row and still continue exactly after it.
@@ -249,6 +281,13 @@ export async function auditLogFor(
       ...row,
       assistant: assistantOf(userAgent),
       cursor: { at: exactAt, id: row.id } satisfies AuditCursor,
+      // Only the ids this row mentions, so a caller that shows part of a page carries no more.
+      named: Object.fromEntries(
+        idsIn(row.entityId, row.previousValue, row.newValue).flatMap((id) => {
+          const found = names.get(id);
+          return found ? [[id, found] as const] : [];
+        }),
+      ),
     })),
     nextCursor: last && rows.length === limit ? { at: last.exactAt, id: last.id } : null,
   };

@@ -23,6 +23,7 @@ const row = (n: number): Row => ({
   companyId: id(901),
   companyName: "Muster GmbH",
   assistant: null,
+  named: { [id(900)]: { kind: "user", name: "Anna Muster" } },
   cursor: {
     at: `2026-10-20T12:00:00.${String(1_000_000 - n).padStart(6, "0")}`,
     id: id(n),
@@ -91,5 +92,11 @@ describe("a page of the event log", () => {
     const first = eventPage(database(3)(null, 100), false).entries[0];
     expect(first).not.toHaveProperty("before");
     expect(first).not.toHaveProperty("saved");
+    expect(first).not.toHaveProperty("named");
+  });
+
+  test("names the people and companies in the stored values when they are shown", () => {
+    const first = eventPage(database(3)(null, 100), true).entries[0];
+    expect(first?.named).toEqual({ [id(900)]: { kind: "user", name: "Anna Muster" } });
   });
 });

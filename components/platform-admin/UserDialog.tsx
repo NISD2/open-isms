@@ -3,6 +3,7 @@
 import { ChevronRight, Loader2 } from "lucide-react";
 import { type ReactNode, useId, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { segments } from "@/lib/platform-admin/named-ids";
 import type { auditLogFor } from "@/lib/platform-admin/users";
 import { trpc } from "@/lib/trpc/client";
 
@@ -34,16 +35,50 @@ export function UserName({ id, children }: { id: string; children: ReactNode }) 
 }
 
 type Activity = Awaited<ReturnType<typeof auditLogFor>>["rows"][number];
+type Named = Activity["named"];
 
 const hasValue = (value: unknown) => value !== null && value !== undefined;
 
+/**
+ * Text from the log with every id that names a person or a company shown as that name: a
+ * person opens their own dialog, a company (which has none yet) is the name alone.
+ */
+function WithNames({ text, named }: { text: string; named: Named }) {
+  return segments(text, Object.keys(named)).map((part) => {
+    if ("text" in part) return <span key={part.at}>{part.text}</span>;
+    const found = named[part.id];
+    if (!found) return <span key={part.at}>{part.id}</span>;
+    return found.kind === "user" ? (
+      <UserName key={part.at} id={part.id}>
+        {found.name}
+      </UserName>
+    ) : (
+      <span key={part.at}>
+        {found.name} <span className="text-muted-foreground">(company)</span>
+      </span>
+    );
+  });
+}
+
 /** A stored value as the log holds it, indented so a nested change can be read. */
-function Stored({ label, value }: { label: string; value: unknown }) {
+function Stored({
+  label,
+  value,
+  named,
+}: {
+  label: string;
+  value: unknown;
+  named: Named;
+}) {
   return (
     <div className="min-w-0 space-y-1">
       <p className="text-xs font-medium text-muted-foreground">{label}</p>
       <pre className="max-h-80 overflow-auto rounded-md bg-muted p-3 font-mono text-xs leading-relaxed">
-        {hasValue(value) ? JSON.stringify(value, null, 2) : "—"}
+        {hasValue(value) ? (
+          <WithNames text={JSON.stringify(value, null, 2)} named={named} />
+        ) : (
+          "—"
+        )}
       </pre>
     </div>
   );
@@ -110,12 +145,17 @@ function ActivityRow({ entry }: { entry: Activity }) {
           <td />
           <td colSpan={4} className="pb-3">
             <p className="mb-2 font-mono text-xs text-muted-foreground">
-              {entry.entityType}
-              {entry.entityId ? ` ${entry.entityId}` : ""}
+              {entry.entityType}{" "}
+              {entry.entityId &&
+                (entry.named[entry.entityId] ? (
+                  <WithNames text={`"${entry.entityId}"`} named={entry.named} />
+                ) : (
+                  entry.entityId
+                ))}
             </p>
             <div className="grid gap-3 md:grid-cols-2">
-              <Stored label="Before" value={entry.previousValue} />
-              <Stored label="Saved" value={entry.newValue} />
+              <Stored label="Before" value={entry.previousValue} named={entry.named} />
+              <Stored label="Saved" value={entry.newValue} named={entry.named} />
             </div>
           </td>
         </tr>

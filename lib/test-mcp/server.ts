@@ -148,7 +148,7 @@ function buildServer(holder: TestHolder): McpServer {
     "event_log",
     {
       title: "Event log",
-      description: `The event log of one person or one company, newest first, optionally between two days and narrowed by action prefix, text, or whether an assistant or the app did it. Each entry: when, who, company, action, what it says happened, and with includeValues what it stored before and after (a long value as a cut preview with its length). A page holds as many whole entries as fit the answer; pass nextCursor back as cursor to read on, and no entry is skipped. ${DATA}.`,
+      description: `The event log of one person or one company, newest first, optionally between two days and narrowed by action prefix, text, or whether an assistant or the app did it. Each entry: when, who, company, action, what it says happened, and with includeValues what it stored before and after (a long value as a cut preview with its length) plus \`named\`, who or what each person or company id in those values is. A page holds as many whole entries as fit the answer; pass nextCursor back as cursor to read on, and no entry is skipped. ${DATA}.`,
       inputSchema: EventLogInput.refine((i) => i.userId || i.companyId || i.fromDay, {
         message: "Give a userId, a companyId or a fromDay.",
       }).refine(daysInOrder, DAYS_IN_ORDER),

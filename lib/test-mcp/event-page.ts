@@ -16,13 +16,14 @@ const CURSOR_ROOM = "x".repeat(70);
  */
 export function eventPage(log: Log, includeValues: boolean) {
   const shown = log.rows.map(
-    ({ previousValue, newValue, description, cursor, ...row }) => ({
+    ({ previousValue, newValue, description, cursor, named, ...row }) => ({
       cursor,
       entry: {
         ...row,
         description: shownDescription(description),
+        // The ids in the values are only worth a name where the values are shown.
         ...(includeValues
-          ? { before: shownValue(previousValue), saved: shownValue(newValue) }
+          ? { before: shownValue(previousValue), saved: shownValue(newValue), named }
           : {}),
       },
     }),
