@@ -7,6 +7,7 @@ import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { FREE_WALK_PROCEDURES } from "@/lib/billing/access";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { mayExport } from "@/lib/export/may-export";
 import { browserAgent } from "@/lib/mcp/agent";
 import { keyMayCall } from "@/lib/mcp/procedures";
 import { company } from "@/schema";
@@ -165,6 +166,32 @@ export const accountAdminProcedure = setup.adminProcedure.use(({ ctx, path, next
  */
 export const signOffProcedure = companyProcedure.use(async ({ ctx, next }) => {
   await requireBillingAct(ctx, "sign_off");
+  return next({ ctx });
+});
+
+/**
+ * An AI assistant reading the company's records (records.readPart, for lib/mcp/records.ts). On top
+ * of companyProcedure (the key's own company, the access gate, the key's list of procedures):
+ * - only a call with an assistant's key: in the app the export page has the same records, and logs
+ *   their download;
+ * - only for whoever may export them (`mayExport`), read from the live membership on every call;
+ * - inside an order's money back, held back as an export is (AGB B7) until the person confirms
+ *   giving it up on the export page.
+ */
+export const assistantExportProcedure = companyProcedure.use(async ({ ctx, next }) => {
+  if (!ctx.viaKey) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "The records are read by an assistant's key; in the app, the export page has them.",
+    });
+  }
+  if (!mayExport(ctx.session)) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Only whoever may export the company's records may read them.",
+    });
+  }
+  await requireBillingAct(ctx, "export");
   return next({ ctx });
 });
 

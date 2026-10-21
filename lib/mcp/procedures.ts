@@ -32,6 +32,7 @@ export const KEY_PROCEDURES = {
   intake: ["getRequirementAnswers", "saveRequirementAnswers"],
   managementReview: ["list", "create"],
   policyConfig: ["update"],
+  records: ["readPart"],
   requirement: ["getByCode"],
   risk: ["listWithAssets", "listWithSuppliers"],
   supplier: ["list", "create", "update"],

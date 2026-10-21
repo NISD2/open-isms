@@ -1,51 +1,61 @@
 /**
- * Who an assistant may read the company's records for, and how much one answer holds. The
- * plan gate (`notInPlan`) and the wiring are the e2e's (e2e/l3/mcp-read-records.spec.ts).
+ * What read_records tells the assistant: why it reads nothing, in its language, and a page with
+ * the way to the next. Who may read is the procedure's (server/trpc/routers/records.test.ts).
  */
 import { describe, expect, test } from "bun:test";
 import { WALK_LOCALES } from "@/lib/durchgang/types";
-import { EXPORT_PART_NAMES } from "@/lib/export/company-export";
-import { PAGE_ROWS, pageSizeOf, readRefusal } from "./records-rules";
+import { confirmFirst, notExporter, toolAnswer } from "./records-rules";
 
 const LINK = "https://example.test/de/export";
-const ALLOW = { kind: "allow" } as const;
-const CONFIRM = { kind: "confirm", lastDay: "20.11.2026" } as const;
 
-describe("who an assistant may read the records for", () => {
-  test("whoever may export reads, once the money back is no question", () => {
+describe("why an assistant reads nothing", () => {
+  test("someone who may not export: who may, and what the assistant can do instead", () => {
     for (const language of WALK_LOCALES) {
-      expect(readRefusal(true, ALLOW, language, LINK)).toBeNull();
+      expect(notExporter(language)).toContain("get_walkthrough");
     }
   });
 
-  test("whoever may not export reads nothing, in every language", () => {
+  test("inside the money back: the export page, where the person confirms, never the assistant", () => {
     for (const language of WALK_LOCALES) {
-      expect(readRefusal(false, ALLOW, language, LINK)).toContain("get_walkthrough");
-    }
-  });
-
-  test("inside the money back the person confirms on the export page first", () => {
-    for (const language of WALK_LOCALES) {
-      const refusal = readRefusal(true, CONFIRM, language, LINK);
-      expect(refusal).toContain("20.11.2026");
+      const refusal = confirmFirst(language, LINK);
       expect(refusal).toContain(LINK);
       expect(refusal).toContain("B7");
     }
   });
 
-  test("someone who may not export learns nothing about the company's money back", () => {
-    const refusal = readRefusal(false, CONFIRM, "en", LINK);
-    expect(refusal).not.toContain("20.11.2026");
-    expect(refusal).not.toContain(LINK);
+  test("each language says it in its own words", () => {
+    const texts = WALK_LOCALES.map((language) => notExporter(language));
+    expect(new Set(texts).size).toBe(WALK_LOCALES.length);
   });
 });
 
-describe("how much one answer holds", () => {
-  test("a register page holds 50 rows; a document, being a whole policy, one", () => {
-    expect(PAGE_ROWS).toBe(50);
-    expect(pageSizeOf("documents")).toBe(1);
-    for (const part of EXPORT_PART_NAMES.filter((p) => p !== "documents")) {
-      expect(pageSizeOf(part)).toBe(PAGE_ROWS);
-    }
+describe("what the assistant gets back", () => {
+  test("a page with more after it names the next page", () => {
+    expect(toolAnswer("kpis", 2, { kind: "rows", rows: [{ n: 1 }], more: true })).toEqual(
+      {
+        ok: true,
+        data: {
+          part: "kpis",
+          page: 2,
+          rows: [{ n: 1 }],
+          more: true,
+          next: 'More rows follow: call read_records with part "kpis" and page 3.',
+        },
+      },
+    );
+  });
+
+  test("the last page says nothing follows", () => {
+    expect(toolAnswer("kpis", 1, { kind: "rows", rows: [], more: false })).toMatchObject({
+      ok: true,
+      data: { more: false, next: null },
+    });
+  });
+
+  test("a one-record part comes back as the record", () => {
+    expect(toolAnswer("company", 1, { kind: "record", record: { name: "X" } })).toEqual({
+      ok: true,
+      data: { part: "company", record: { name: "X" } },
+    });
   });
 });

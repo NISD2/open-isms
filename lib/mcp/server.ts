@@ -8,6 +8,7 @@ import {
   type ToolAnnotations,
   type ToolCallback,
 } from "@modelcontextprotocol/server";
+import { PAGE_ROWS } from "@/lib/export/read-part";
 import { rateLimit } from "@/lib/rate-limit";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import type { KeyHolder } from "./context";
@@ -16,7 +17,6 @@ import { recordCall } from "./events";
 import type { ToolOutcome } from "./gates";
 import { SendQuestionnaireInput, sendQuestionnaire } from "./questionnaire";
 import { ReadRecordsInput, readRecords } from "./records";
-import { PAGE_ROWS } from "./records-rules";
 import {
   FillItemInput,
   fillItem,

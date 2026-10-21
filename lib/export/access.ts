@@ -1,24 +1,17 @@
 import "@/lib/server-guard";
 
 import { logAudit } from "@/lib/audit";
-import { getSession, hasReviewAccess } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { billingVerdict, refusalResponse } from "@/lib/billing/act-gate";
 import { db } from "@/lib/db";
-import { MANAGEMENT_ROLE } from "@/lib/durchgang";
 import { rateLimit } from "@/lib/rate-limit";
+import { mayExport } from "./may-export";
 
 export type ExportAccess =
   | { readonly ok: true; readonly companyId: string; readonly userId: string }
   | { readonly ok: false; readonly response: Response };
 
-/**
- * Who may export the company's records: whoever may read its audit trail, and management, who
- * approved what the files hold and passes them on.
- */
-export const mayExport = (session: {
-  readonly role: string;
-  readonly jobTitle?: string | null;
-}): boolean => hasReviewAccess(session.role) || session.jobTitle === MANAGEMENT_ROLE;
+export { mayExport };
 
 /**
  * Who may download an export (`mayExport`), a few times a minute per person and kind. Not behind

@@ -32,6 +32,7 @@ import { platformAdminUsersRouter } from "./routers/platform-admin-users";
 import { policyRouter } from "./routers/policy";
 import { policyConfigRouter } from "./routers/policy-config";
 import { processingActivityRouter } from "./routers/processing-activity";
+import { recordsRouter } from "./routers/records";
 import { requirementRouter } from "./routers/requirement";
 import { reviewRouter } from "./routers/review";
 import { riskRouter } from "./routers/risk";
@@ -62,6 +63,7 @@ export const appRouter = router({
   ...(isDev ? { dev: devRouter } : {}),
   asset: assetRouter,
   risk: riskRouter,
+  records: recordsRouter,
   incident: incidentRouter,
   supplier: supplierRouter,
   policy: policyRouter,
