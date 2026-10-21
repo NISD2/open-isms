@@ -4,8 +4,8 @@
  * Opportunistic bottom-of-funnel email to existing signups. Subscribers ARE
  * the `user` table; there is no separate subscriber model and no separate
  * unsubscribe flow. Eligible recipients are users who have not opted out of
- * follow-up email, whose address is not flagged disposable, and whose email
- * is verified.
+ * follow-up email, whose address is not flagged disposable, whose email is
+ * verified, and who are not part of a paying customer (lib/newsletter/audience.ts).
  *
  * Reuses existing infra end to end:
  *   - lib/email/unsubscribe.ts   — per-user HMAC one-click unsubscribe URL
@@ -24,6 +24,7 @@ import { logAudit } from "@/lib/audit";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { newsletterEmail, replyAddress, sendMail } from "@/lib/mail";
 import { renderNewsletterMarkdown } from "@/lib/mail/markdown";
+import { newsletterAudience } from "@/lib/newsletter/audience";
 import { getNewsletterCta, NEWSLETTER_CTA_KEYS } from "@/lib/newsletter/cta";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -58,13 +59,6 @@ const BURST_INTERVAL_MS = Math.max(
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-/** Drizzle WHERE for the eligible-recipient audience. */
-const eligibleWhere = and(
-  eq(user.emailFollowupsDisabled, false),
-  eq(user.isDisposableEmail, false),
-  isNotNull(user.emailVerifiedAt),
-);
 
 interface Recipient {
   id: string;
@@ -301,7 +295,7 @@ export const newsletterRouter = router({
   recipientStats: platformAdminProcedure.query(async ({ ctx }) => {
     const [total, eligible, optedOut, disposable, unverified] = await Promise.all([
       ctx.db.select({ count: count() }).from(user),
-      ctx.db.select({ count: count() }).from(user).where(eligibleWhere),
+      ctx.db.select({ count: count() }).from(user).where(newsletterAudience),
       ctx.db
         .select({ count: count() })
         .from(user)
@@ -363,17 +357,17 @@ export const newsletterRouter = router({
 
       // Recipients = eligible users, optionally narrowed to group members.
       // The eligibility gate always applies, so group membership never
-      // overrides an unsubscribe / disposable / unverified exclusion.
+      // overrides an unsubscribe / disposable / unverified / customer exclusion.
       const recipients = groupId
         ? await ctx.db
             .select({ id: user.id, email: user.email, companyId: user.companyId })
             .from(user)
             .innerJoin(newsletterGroupMember, eq(newsletterGroupMember.userId, user.id))
-            .where(and(eligibleWhere, eq(newsletterGroupMember.groupId, groupId)))
+            .where(and(newsletterAudience, eq(newsletterGroupMember.groupId, groupId)))
         : await ctx.db
             .select({ id: user.id, email: user.email, companyId: user.companyId })
             .from(user)
-            .where(eligibleWhere);
+            .where(newsletterAudience);
 
       if (recipients.length === 0) {
         throw new TRPCError({
@@ -613,7 +607,7 @@ export const newsletterRouter = router({
   /**
    * All groups with member and eligible counts. `eligibleCount` is what a
    * send to that group actually reaches (members minus opt-outs / disposable
-   * / unverified); it drives the send confirmation.
+   * / unverified / customers); it drives the send confirmation.
    */
   listGroups: platformAdminProcedure.query(async ({ ctx }) => {
     return ctx.db
@@ -623,7 +617,7 @@ export const newsletterRouter = router({
         description: newsletterGroup.description,
         createdAt: newsletterGroup.createdAt,
         memberCount: sql<number>`count(${newsletterGroupMember.id})::int`,
-        eligibleCount: sql<number>`(count(${newsletterGroupMember.id}) filter (where ${user.emailFollowupsDisabled} = false and ${user.isDisposableEmail} = false and ${user.emailVerifiedAt} is not null))::int`,
+        eligibleCount: sql<number>`(count(${newsletterGroupMember.id}) filter (where ${newsletterAudience}))::int`,
       })
       .from(newsletterGroup)
       .leftJoin(
