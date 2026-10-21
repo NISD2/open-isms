@@ -129,11 +129,12 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     await removeOurFills(tenant);
     const kept = await keepSignOffs(tenant);
     // Open for an assistant: set aside, unsigned, whatever the seed or earlier specs left, every
-    // item the asset and risk registers are cited by, as a signed one refuses the writes below.
-    // In the whole suite earlier specs happen to leave them open; run alone, the seed has 4.3,
-    // 4.4 and 10.2 signed. keepSignOffs puts every status back afterwards.
+    // item cited by a register this spec writes (assets on 2.2; risks, and suppliers' ratings, on
+    // 2.3), as a signed one refuses those writes. In the whole suite earlier specs happen to leave
+    // them open; run alone, the seed has 4.3, 4.4, 10.2, 5.1 and 5.2 signed. keepSignOffs puts
+    // every status back afterwards.
     const opened: Undo[] = [];
-    for (const { code } of await registerRequirements(["asset", "risk"])) {
+    for (const { code } of await registerRequirements(["asset", "risk", "supplier"])) {
       opened.push(await setAsideWalkItem(tenant, code));
     }
     undos = [
