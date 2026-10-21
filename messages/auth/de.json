@@ -42,6 +42,19 @@
     "verifyHaveAccount": "Schon ein Konto?",
     "verifyToSignIn": "Anmelden",
     "verifyBack": "Andere E-Mail verwenden",
+    "continueTo": {
+      "heading": "Nach der Anmeldung weiter zu",
+      "destination": {
+        "course": "Ihrem Kurs",
+        "walkthrough": "Ihrem Durchgang",
+        "order": "Ihrer Bestellung",
+        "billing": "Ihren Rechnungen",
+        "supplierQuestionnaire": "dem Sicherheitsfragebogen",
+        "assistant": "der Verbindung Ihres Assistenten",
+        "link": "dem Link, den Sie geöffnet haben",
+        "other": "der Seite, die Sie geöffnet haben"
+      }
+    },
     "forgotPasswordLink": "Passwort vergessen?",
     "forgotPassword": {
       "title": "Passwort zurücksetzen",

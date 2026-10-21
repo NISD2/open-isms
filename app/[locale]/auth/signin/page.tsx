@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { ContinueNotice } from "@/components/auth/ContinueNotice";
 import { PromoNotice } from "@/components/auth/PromoNotice";
 import { SignInCard } from "@/components/auth/SignInCard";
 import { Link } from "@/i18n/navigation";
+import { callbackDestination } from "@/lib/auth/callback-destination";
 import { applyPromoToSession } from "@/lib/billing/promo-session";
 import { mailSupportEmail } from "@/lib/env";
 import { pageAlternates } from "@/lib/seo";
@@ -26,11 +28,14 @@ export async function generateMetadata({
 export default async function SignInPage({
   searchParams,
 }: {
-  searchParams: Promise<{ promo?: string | string[] }>;
+  searchParams: Promise<{ promo?: string | string[]; callbackUrl?: string | string[] }>;
 }) {
   const t = await getTranslations("auth");
-  const { promo } = await searchParams;
+  const { promo, callbackUrl } = await searchParams;
   const fromLink = typeof promo === "string" ? promo : undefined;
+  const destination = callbackDestination(
+    typeof callbackUrl === "string" ? callbackUrl : undefined,
+  );
   // Someone already signed in gets it now, not at a sign-in that may come too late.
   await applyPromoToSession(fromLink);
 
@@ -38,6 +43,7 @@ export default async function SignInPage({
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
       <h1 className="sr-only">{t("title")}</h1>
       <PromoNotice fromLink={fromLink} />
+      <ContinueNotice destination={destination} />
       <SignInCard supportEmail={mailSupportEmail()} />
       <p className="mt-6 text-sm text-muted-foreground">
         <Link href="/" className="underline hover:text-foreground">

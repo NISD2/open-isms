@@ -42,6 +42,19 @@
     "verifyHaveAccount": "Already have an account?",
     "verifyToSignIn": "Sign in",
     "verifyBack": "Use a different email",
+    "continueTo": {
+      "heading": "After sign-in, continue to",
+      "destination": {
+        "course": "your course",
+        "walkthrough": "your walkthrough",
+        "order": "your order",
+        "billing": "your invoices",
+        "supplierQuestionnaire": "the security questionnaire",
+        "assistant": "your assistant's connection",
+        "link": "the link you opened",
+        "other": "the page you opened"
+      }
+    },
     "forgotPasswordLink": "Forgot password?",
     "forgotPassword": {
       "title": "Reset your password",
