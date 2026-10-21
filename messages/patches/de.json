@@ -28,7 +28,8 @@
       "status": "Status",
       "releaseDate": "Veröffentlichungsdatum",
       "appliedAt": "Angewandt am",
-      "exceptionReason": "Ausnahmegrund"
+      "exceptionReason": "Ausnahmegrund",
+      "exceptionExpiresAt": "Ausnahme gültig bis"
     },
     "fieldDescriptions": {
       "patchIdentifier": "Geben Sie die eindeutige Kennung des Patches an (z. B. CVE-Nummer, KB-Nummer oder Herstellerreferenz).",

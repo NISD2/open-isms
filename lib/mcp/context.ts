@@ -4,8 +4,10 @@ import { companySession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { epochSeconds } from "@/lib/auth/session-age";
 import { mayWalkDurchgang } from "@/lib/billing/access";
+import type { BillingSession } from "@/lib/billing/account-facts";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { mayExport } from "@/lib/export/access";
 import { NO_HINTS } from "@/lib/onboarding/hints";
 import { user } from "@/schema";
 import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
@@ -93,6 +95,10 @@ export interface KeyHolder {
    * tools can say so in the assistant's language, with the way to unlock it.
    */
   readonly mayWalk: boolean;
+  /** Whether the person may export the company's records, which is who may read them (`mayExport`). */
+  readonly mayExport: boolean;
+  /** What the billing state machine reads to say whether an export ends the money back. */
+  readonly billing: BillingSession;
   /** As the procedures' own audit rows carry them: the assistant's user agent and the caller's IP. */
   readonly agent: string | null;
   readonly ip: string | null;
@@ -114,6 +120,8 @@ export async function keyHolder(
       context.session.accessLevel,
       isPlatformAdmin(context.session.user.email),
     ),
+    mayExport: mayExport(context.session),
+    billing: { companyId: context.companyId, accessLevel: context.session.accessLevel },
     agent: context.userAgent,
     ip: context.ip === "unknown" ? null : context.ip,
   };

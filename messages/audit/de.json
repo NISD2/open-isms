@@ -63,6 +63,9 @@
         "read": "Unternehmensdaten von einem Assistenten gelesen",
         "refused": "Anfrage eines Assistenten abgelehnt"
       },
+      "export": {
+        "downloaded": "Aufzeichnungen exportiert"
+      },
       "notification": {
         "scheduled": "Erinnerungen an Fristen geplant"
       },

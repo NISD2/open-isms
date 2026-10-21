@@ -34,6 +34,7 @@ export function ConnectAssistant({
   allowed,
   isAdmin,
   signedInRecently,
+  readsRecords,
 }: {
   request: string;
   /** The name the assistant gave itself when it registered; null when it gave none. */
@@ -50,6 +51,8 @@ export function ConnectAssistant({
   /** An admin turns assistants on right on the card. */
   isAdmin: boolean;
   signedInRecently: boolean;
+  /** Whether the assistant may read the records too: whoever may export them. */
+  readsRecords: boolean;
 }) {
   const t = useTranslations("settings.mcp.connect");
   const tm = useTranslations("settings.mcp");
@@ -90,6 +93,7 @@ export function ConnectAssistant({
           </p>
           <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
             <li>{t("may", { person })}</li>
+            {readsRecords && <li>{tm("readsRecords")}</li>}
             <li>{t("mayNot")}</li>
           </ul>
           {needsSignIn && (

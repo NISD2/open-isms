@@ -17,7 +17,9 @@
       "recipients": "Příjemci",
       "transfersOutsideEea": "Předání mimo EHP",
       "transferDetails": "Třetí země a právní základ",
-      "retention": "Lhůta pro výmaz"
+      "retention": "Lhůta pro výmaz",
+      "legalBases": "Právní základ",
+      "legitimateInterests": "Oprávněný zájem"
     },
     "fieldDescriptions": {
       "name": "Krátký název činnosti, například mzdové účetnictví nebo newsletter.",

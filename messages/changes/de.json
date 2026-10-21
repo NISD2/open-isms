@@ -35,7 +35,12 @@
       "createdAt": "Erstellt am",
       "businessJustification": "Geschäftliche Begründung",
       "securityImpactAssessment": "Sicherheitsfolgenabschätzung",
-      "rollbackPlan": "Rückfallplan"
+      "rollbackPlan": "Rückfallplan",
+      "approvedAt": "Genehmigt am",
+      "implementedAt": "Umgesetzt am",
+      "testedAt": "Getestet am",
+      "rolledBackAt": "Zurückgerollt am",
+      "closedAt": "Abgeschlossen am"
     },
     "fieldDescriptions": {
       "title": "Geben Sie eine prägnante Bezeichnung für die geplante Änderung an (z. B. 'Firewall-Regelwerk-Update Standort Berlin').",

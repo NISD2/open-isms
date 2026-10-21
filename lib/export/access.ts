@@ -1,5 +1,6 @@
 import "@/lib/server-guard";
 
+import { logAudit } from "@/lib/audit";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { billingVerdict, refusalResponse } from "@/lib/billing/act-gate";
 import { db } from "@/lib/db";
@@ -23,7 +24,8 @@ export const mayExport = (session: {
  * Who may download an export (`mayExport`), a few times a minute per person and kind. Not behind
  * the paywall: a company's own records always leave with it (AGB B10). Inside an order's money back
  * the first export ends it (`billingVerdict`, AGB B7), so the page asks first and records the yes,
- * and a download that arrives unconfirmed is held back.
+ * and a download that arrives unconfirmed is held back. A download let through is logged
+ * (`logTakenOut`).
  */
 export async function exportAccess(
   kind: string,
@@ -43,7 +45,28 @@ export async function exportAccess(
   }
   const verdict = await billingVerdict(db, session, "export");
   if (verdict.kind !== "allow") return { ok: false, response: refusalResponse(verdict) };
+  await logTakenOut(session.companyId, session.user.id, kind);
   return { ok: true, companyId: session.companyId, userId: session.user.id };
+}
+
+const HOUR_MS = 60 * 60 * 1000;
+
+/**
+ * The company's records left the app: one row per person and kind of file an hour, as an
+ * assistant's read leaves one (lib/mcp/events.ts), so a person clicking through the files does
+ * not push sign-offs off the audit page (the last 100 rows).
+ */
+async function logTakenOut(companyId: string, userId: string, kind: string) {
+  if (!(await rateLimit(`export-log:${kind}:${userId}`, 1, HOUR_MS))) return;
+  await logAudit({
+    companyId,
+    userId,
+    action: "export.downloaded",
+    entityType: "export",
+    entityId: null,
+    description: kind,
+    newValue: { kind },
+  });
 }
 
 /** The download headers for a file named after what it holds and today's date. */

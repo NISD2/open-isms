@@ -35,7 +35,12 @@
       "createdAt": "Created At",
       "businessJustification": "Business Justification",
       "securityImpactAssessment": "Security Impact Assessment",
-      "rollbackPlan": "Rollback Plan"
+      "rollbackPlan": "Rollback Plan",
+      "approvedAt": "Approved On",
+      "implementedAt": "Implemented On",
+      "testedAt": "Tested On",
+      "rolledBackAt": "Rolled Back On",
+      "closedAt": "Closed On"
     },
     "fieldDescriptions": {
       "title": "Short descriptive title for this change request (e.g., 'Upgrade firewall firmware to v4.2').",

@@ -24,23 +24,36 @@ export type Row = readonly [string, string | null];
 const isCoded = (field: string, names: ExportNames): field is CodedField =>
   Object.hasOwn(names.values, field);
 
-/** A stored value as printed, or null when there is nothing to print. */
+export type Listed = Exclude<ExportRecord, "company">;
+
+/** The names of a field's coded values: the register's own first, then the shared ones. */
+const codesOf = (
+  field: string,
+  names: ExportNames,
+  register: Listed | undefined,
+): Readonly<Record<string, string>> | undefined =>
+  (register && names.registerValues[register]?.[field]) ||
+  (isCoded(field, names) ? names.values[field] : undefined);
+
+/**
+ * A stored value as printed, or null when there is nothing to print. `register` names the record
+ * the value belongs to, for the codes it names its own way.
+ */
 export function shown(
   field: string,
   value: unknown,
   { labels, names, locale }: Words,
+  register?: Listed,
 ): string | null {
   if (value === null || value === undefined || value === "") return null;
-  if (Array.isArray(value)) return value.length > 0 ? value.join(", ") : null;
+  const codes = codesOf(field, names, register);
+  const named = (v: unknown) => (typeof v === "string" ? (codes?.[v] ?? v) : String(v));
+  if (Array.isArray(value)) return value.length > 0 ? value.map(named).join(", ") : null;
   if (value instanceof Date) return formatReportDate(value, locale);
   if (typeof value === "boolean") return value ? labels.yes : labels.no;
-  if (typeof value === "string" && isCoded(field, names)) {
-    return names.values[field][value] ?? value;
-  }
+  if (typeof value === "string" && codes) return named(value);
   return formatFieldValue(value, "text", locale);
 }
-
-export type Listed = Exclude<ExportRecord, "company">;
 
 /** The registers the walk writes into, in the order the exports print them. */
 export const REGISTERS: ReadonlyArray<{
@@ -53,6 +66,14 @@ export const REGISTERS: ReadonlyArray<{
   { record: "training", rows: (d) => d.trainings },
   { record: "managementReview", rows: (d) => d.managementReviews },
   { record: "incident", rows: (d) => d.incidents },
+  { record: "vulnerability", rows: (d) => d.vulnerabilities },
+  { record: "patch", rows: (d) => d.patches },
+  { record: "change", rows: (d) => d.changes },
+  { record: "exercise", rows: (d) => d.exercises },
+  { record: "improvement", rows: (d) => d.improvements },
+  { record: "internalAudit", rows: (d) => d.internalAudits },
+  { record: "kpi", rows: (d) => d.kpis },
+  { record: "processingActivity", rows: (d) => d.processingActivities },
 ];
 
 /**
@@ -66,12 +87,18 @@ export function fieldRows(
   omit: readonly string[] = [],
 ): Row[] {
   const values = new Map(Object.entries(row));
-  const names: Readonly<Record<string, string>> =
-    record === "company" ? words.labels.company : words.names.fields[record];
+  const register = record === "company" ? undefined : record;
+  const names: Readonly<Record<string, string>> = register
+    ? words.names.fields[register]
+    : words.labels.company;
   return EXPORT_FIELDS[record]
     .filter((field) => !omit.includes(field))
     .map(
-      (field) => [names[field] ?? field, shown(field, values.get(field), words)] as const,
+      (field) =>
+        [
+          names[field] ?? humanize(field),
+          shown(field, values.get(field), words, register),
+        ] as const,
     );
 }
 

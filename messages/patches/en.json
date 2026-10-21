@@ -28,7 +28,8 @@
       "status": "Status",
       "releaseDate": "Release Date",
       "appliedAt": "Applied At",
-      "exceptionReason": "Exception Reason"
+      "exceptionReason": "Exception Reason",
+      "exceptionExpiresAt": "Exception Expires"
     },
     "fieldDescriptions": {
       "patchIdentifier": "Vendor patch identifier or CVE number (e.g., 'KB5034441', 'CVE-2024-1234').",

@@ -28,7 +28,9 @@
       "completedAt": "Abgeschlossen am",
       "scenarioDescription": "Szenario",
       "facilitator": "Moderator",
-      "lessonsLearned": "Erkenntnisse"
+      "lessonsLearned": "Erkenntnisse",
+      "participants": "Teilnehmende",
+      "identifiedGaps": "Erkannte Lücken"
     },
     "fieldDescriptions": {
       "title": "Geben Sie eine aussagekräftige Bezeichnung für die Übung an (z. B. 'Ransomware-Planspiel Q2 2025').",

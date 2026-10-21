@@ -39,7 +39,8 @@
       "status": "Stav",
       "targetDate": "Cílové datum",
       "deferralReason": "Důvod odložení",
-      "verificationNotes": "Poznámky k ověření"
+      "verificationNotes": "Poznámky k ověření",
+      "completedAt": "Dokončeno dne"
     },
     "fieldDescriptions": {
       "title": "Stručný výstižný název tohoto opatření ke zlepšení (např. „Zavést MFA pro přístup přes VPN“).",

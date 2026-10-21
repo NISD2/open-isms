@@ -28,7 +28,8 @@
       "status": "Stav",
       "releaseDate": "Datum vydání",
       "appliedAt": "Nasazeno dne",
-      "exceptionReason": "Důvod výjimky"
+      "exceptionReason": "Důvod výjimky",
+      "exceptionExpiresAt": "Výjimka platí do"
     },
     "fieldDescriptions": {
       "patchIdentifier": "Identifikátor aktualizace od dodavatele nebo číslo CVE (např. 'KB5034441', 'CVE-2024-1234').",

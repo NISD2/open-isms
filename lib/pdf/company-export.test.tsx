@@ -135,6 +135,28 @@ const FIXTURE: CompanyExport = {
   trainings: [],
   managementReviews: [],
   incidents: [],
+  vulnerabilities: [
+    {
+      cveId: "CVE-2026-0001",
+      title: "Veraltetes WordPress Plugin",
+      description: null,
+      severity: "high",
+      cvssScore: "7.5",
+      source: "vulnerability_scan",
+      status: "treating",
+      discoveredAt: "2026-09-30",
+      treatmentNote: null,
+      acceptanceReason: null,
+      resolvedAt: null,
+    },
+  ],
+  patches: [],
+  changes: [],
+  exercises: [],
+  improvements: [],
+  internalAudits: [],
+  kpis: [],
+  processingActivities: [],
 };
 
 const registers = (locale: PdfLocale) =>
@@ -150,6 +172,14 @@ describe("the export names fields the way the app's forms do", () => {
     "training",
     "managementReview",
     "incident",
+    "vulnerability",
+    "patch",
+    "change",
+    "exercise",
+    "improvement",
+    "internalAudit",
+    "kpi",
+    "processingActivity",
   ];
   for (const locale of PDF_LOCALES) {
     test(`every exported register field has its form's label (${locale})`, () => {
@@ -182,6 +212,17 @@ describe("the registers PDF", () => {
     expect(text).toContain("Backup-Häufigkeit täglich");
     expect(text).toContain("Risikostufe Hoch");
     for (const code of ["important", "manufacturing", "application", "security_key"]) {
+      expect(text).not.toContain(code);
+    }
+  });
+
+  test("a register names its own codes: a vulnerability's status is not an incident's", async () => {
+    const text = await textOf(registers("de"));
+    expect(text).toContain("Schwachstellen");
+    expect(text).toContain("Status In Behandlung");
+    expect(text).toContain("Quelle Schwachstellenscan");
+    expect(text).toContain("Schweregrad Hoch");
+    for (const code of ["treating", "vulnerability_scan"]) {
       expect(text).not.toContain(code);
     }
   });

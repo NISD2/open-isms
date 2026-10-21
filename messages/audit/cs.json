@@ -58,6 +58,9 @@
         "read": "Data firmy přečtena asistentem",
         "refused": "Požadavek asistenta odmítnut"
       },
+      "export": {
+        "downloaded": "Záznamy exportovány"
+      },
       "notification": {
         "scheduled": "Připomínky termínů naplánovány"
       },

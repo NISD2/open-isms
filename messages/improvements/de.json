@@ -39,7 +39,8 @@
       "status": "Status",
       "targetDate": "Zieldatum",
       "deferralReason": "Zurückstellungsgrund",
-      "verificationNotes": "Verifizierungshinweise"
+      "verificationNotes": "Verifizierungshinweise",
+      "completedAt": "Erledigt am"
     },
     "fieldDescriptions": {
       "title": "Geben Sie eine prägnante Bezeichnung für die Verbesserungsmaßnahme an.",

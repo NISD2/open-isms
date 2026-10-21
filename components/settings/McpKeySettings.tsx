@@ -25,6 +25,7 @@ export function McpKeySettings({
   companyId,
   allowed,
   isAdmin,
+  readsRecords,
 }: {
   docsUrl: string;
   mayWalk: boolean;
@@ -33,6 +34,8 @@ export function McpKeySettings({
   /** Whether the company's admin lets its people connect assistants. */
   allowed: boolean;
   isAdmin: boolean;
+  /** Whether this person's assistant may read the records too: whoever may export them. */
+  readsRecords: boolean;
 }) {
   const t = useTranslations("settings.mcp");
   const usable = mayWalk && allowed;
@@ -82,6 +85,9 @@ export function McpKeySettings({
     <div>
       <h2 className="mb-1 text-lg font-semibold">{t("title")}</h2>
       <p className="mb-2 text-sm text-muted-foreground">{t("description")}</p>
+      {readsRecords && (
+        <p className="mb-2 text-sm text-muted-foreground">{t("readsRecords")}</p>
+      )}
       <p className="mb-4 text-sm text-muted-foreground">
         {t("signIn")}{" "}
         <a href={docsUrl} className="underline underline-offset-2">

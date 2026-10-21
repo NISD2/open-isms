@@ -15,6 +15,8 @@ import { describeError } from "./errors";
 import { recordCall } from "./events";
 import type { ToolOutcome } from "./gates";
 import { SendQuestionnaireInput, sendQuestionnaire } from "./questionnaire";
+import { ReadRecordsInput, readRecords } from "./records";
+import { PAGE_ROWS } from "./records-rules";
 import {
   FillItemInput,
   fillItem,
@@ -41,6 +43,7 @@ const INSTRUCTIONS = [
   "fill_walkthrough_item saves answers to an item's fields, adds rows to its register and corrects rows already there, fills its other screens (assets, their details, risk ratings, supplier agreements, sign-ins, backups, critical processes, policies, the crypto list) and attaches uploaded files, checked the way the app checks them.",
   "upload_file gives an upload request for a document (an item's evidence) or a training certificate; send the bytes with it, then attach the file with fill_walkthrough_item.",
   `send_supplier_questionnaire emails suppliers on the company's list the link to the security questionnaire, at the contact email on each supplier's row, as the button on each supplier in the app does. ${OUTSIDE}.`,
+  "read_records reads the company's records as its export holds them, one part a page at a time: master data, each requirement's status, the answers, the documents, and every register. Only for someone who may export them.",
   "Fill in only what the company's own documents and systems show, and leave a field out rather than guess.",
   "Nothing here finishes, decides or signs an item: the person finishes each item in the app, and management signs it there. Each item carries its link.",
   "Only items still open or waiting take input; a finished, declined or signed item is changed in the app.",
@@ -207,6 +210,19 @@ function buildServer(holder: KeyHolder): McpServer {
       },
     },
     sendQuestionnaire,
+  );
+
+  addTool(
+    server,
+    holder,
+    "read_records",
+    {
+      title: "Read the company's records",
+      description: `Reads one part of the company's records a page at a time, exactly as the export file holds them: the company's master data, each NIS 2 requirement's status and sign-off, the answers typed per category, the documents the walkthrough wrote (one per page), and every register (assets, suppliers, risks, trainings, management reviews, incidents, vulnerabilities, patches, changes, exercises, improvements, internal audits, KPIs, processing activities). A page holds ${PAGE_ROWS} rows; "more" says whether another follows. Only someone who may export the records (an admin, a reviewer or management) may read them; within the money back of a new order, the person first confirms on the export page that the export ends it. Changes nothing. ${UNTRUSTED}.`,
+      inputSchema: ReadRecordsInput,
+      annotations: { readOnlyHint: true, openWorldHint: false },
+    },
+    readRecords,
   );
 
   return server;

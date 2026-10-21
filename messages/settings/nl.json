@@ -9,6 +9,7 @@
       "description": "Een gekoppelde assistent leest uw NIS 2 stappenplan en vult velden en registers in, met uw rechten in dit bedrijf. Een onderdeel wordt alleen hier in de app afgerond, en alleen door het management ondertekend.",
       "signIn": "Assistenten die zich via de browser aanmelden, hebben geen sleutel nodig: u meldt zich aan en geeft toegang. De sleutel is voor alle andere.",
       "howTo": "Zo stelt u Claude Code, Claude Desktop en Copilot Studio in",
+      "readsRecords": "Omdat u de gegevens van het bedrijf mag exporteren, kan de assistent ze ook lezen, zoals de export ze bevat.",
       "create": "Sleutel aanmaken",
       "createAgain": "Nieuwe sleutel aanmaken",
       "created": "Uw sleutel, 90 dagen geldig. Hij wordt alleen nu getoond.",

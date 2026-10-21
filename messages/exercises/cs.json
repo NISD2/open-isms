@@ -28,7 +28,9 @@
       "completedAt": "Dokončeno dne",
       "scenarioDescription": "Scénář",
       "facilitator": "Vedoucí cvičení",
-      "lessonsLearned": "Poučení"
+      "lessonsLearned": "Poučení",
+      "participants": "Účastníci",
+      "identifiedGaps": "Zjištěné nedostatky"
     },
     "fieldDescriptions": {
       "title": "Název cvičení nebo nácviku (např. „Stolní cvičení ransomware Q1“, „Test přepnutí při obnově po havárii“).",

@@ -6,6 +6,7 @@ import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
 import { mayWalkDurchgang } from "@/lib/billing/access";
+import { mayExport } from "@/lib/export/access";
 import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { type ConsentRequest, deny, readRequest } from "@/lib/mcp/oauth";
@@ -89,6 +90,7 @@ export default async function ConnectAssistantPage({
             mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email))
           }
           signedInRecently={isRecentSignIn(session?.authTime ?? null, now)}
+          readsRecords={session !== null && mayExport(session)}
         />
       ) : (
         <p className="text-sm text-muted-foreground">{t("expired")}</p>

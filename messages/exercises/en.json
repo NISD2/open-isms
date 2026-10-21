@@ -28,7 +28,9 @@
       "completedAt": "Completed At",
       "scenarioDescription": "Scenario",
       "facilitator": "Facilitator",
-      "lessonsLearned": "Lessons Learned"
+      "lessonsLearned": "Lessons Learned",
+      "participants": "Participants",
+      "identifiedGaps": "Identified Gaps"
     },
     "fieldDescriptions": {
       "title": "Name of the exercise or drill (e.g., 'Q1 Ransomware Tabletop', 'DR Failover Test').",

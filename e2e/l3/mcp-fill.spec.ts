@@ -19,6 +19,7 @@ import {
   undoAll,
 } from "../lib/durchgang";
 import { E2E_USER_EMAIL } from "../lib/env";
+import { allowAssistants, callTool as callAs, mcpHeaders } from "../lib/mcp";
 
 const ASSET = "E2E MCP Buchhaltung";
 const FILE_NAME = "e2e-mcp-inventar.pdf";
@@ -31,53 +32,13 @@ const FILE_SHA256 = createHash("sha256").update(FILE_BODY).digest("hex");
  */
 const AGENT = `E2E Agent ${Date.now()}`;
 
-type ToolResult =
-  | { readonly ok: true; readonly data: Record<string, unknown> }
-  | { readonly ok: false; readonly message: string };
-
-/** The JSON-RPC answer, sent as one JSON body or as one server-sent event. */
-const rpcBody = (text: string): unknown => {
-  if (text.trimStart().startsWith("{")) return JSON.parse(text);
-  const line = text.split("\n").find((l) => l.startsWith("data:"));
-  if (!line) throw new Error(`no JSON-RPC answer in: ${text.slice(0, 200)}`);
-  return JSON.parse(line.slice("data:".length));
-};
-
-/** One tool call over HTTP, as an assistant makes it with a pasted key. */
-async function callTool(
+/** One tool call as this run's assistant. */
+const callTool = (
   request: APIRequestContext,
   key: string,
   name: string,
   args: Record<string, unknown>,
-): Promise<ToolResult> {
-  const response = await request.post("/api/mcp", {
-    headers: {
-      authorization: `Bearer ${key}`,
-      accept: "application/json, text/event-stream",
-      "content-type": "application/json",
-      "mcp-protocol-version": "2025-06-18",
-      "user-agent": AGENT,
-    },
-    data: {
-      jsonrpc: "2.0",
-      id: 1,
-      method: "tools/call",
-      params: { name, arguments: args },
-    },
-  });
-  const text = await response.text();
-  expect(response.status(), text).toBe(200);
-  const body = rpcBody(text) as {
-    readonly result?: {
-      readonly content?: ReadonlyArray<{ readonly text?: string }>;
-      readonly isError?: boolean;
-    };
-  };
-  const out = body.result?.content?.[0]?.text ?? "";
-  return body.result?.isError
-    ? { ok: false, message: out }
-    : { ok: true, data: JSON.parse(out) as Record<string, unknown> };
-}
+) => callAs(request, key, AGENT, name, args);
 
 /** The tenant's assets this spec added, by name. */
 const ourAssets = (tenant: Tenant) =>
@@ -145,31 +106,15 @@ async function signInAssistant(tenant: Tenant): Promise<{ id: string; undo: Undo
   };
 }
 
-/** Lets the tenant's people connect assistants, as its admin does in Settings, and undoes it. */
-async function allowAssistants(tenant: Tenant): Promise<Undo> {
-  const [before] = await e2eQuery<{ assistants_allowed: boolean }>(
-    `SELECT assistants_allowed FROM company WHERE id = $1`,
-    [tenant.company_id],
-  );
-  await e2eQuery(`UPDATE company SET assistants_allowed = true WHERE id = $1`, [
-    tenant.company_id,
-  ]);
-  return async () => {
-    await e2eQuery(`UPDATE company SET assistants_allowed = $2 WHERE id = $1`, [
-      tenant.company_id,
-      before?.assistants_allowed ?? false,
-    ]);
-  };
-}
-
-/** The NIS 2 requirements whose sign-off relies on the risk register. */
-const riskRequirements = () =>
+/** The NIS 2 requirements whose sign-off relies on these registers. */
+const registerRequirements = (modules: readonly string[]) =>
   e2eQuery<{ code: string }>(
     `SELECT r.code FROM requirement r
        JOIN requirement_category c ON c.id = r.category_id
        JOIN compliance_framework f ON f.id = c.framework_id
-      WHERE f.code = 'nis2' AND r.module_ref = 'risk'
+      WHERE f.code = 'nis2' AND r.module_ref = ANY($1::text[])
       ORDER BY r.code`,
+    [modules],
   );
 
 test.describe("an AI assistant fills the walkthrough over MCP", () => {
@@ -182,13 +127,20 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     tenant = await e2eTenant();
     await removeOurAssets(tenant);
     await removeOurFills(tenant);
+    const kept = await keepSignOffs(tenant);
+    // Open for an assistant: set aside, unsigned, whatever the seed or earlier specs left, every
+    // item the asset and risk registers are cited by, as a signed one refuses the writes below.
+    // In the whole suite earlier specs happen to leave them open; run alone, the seed has 4.3,
+    // 4.4 and 10.2 signed. keepSignOffs puts every status back afterwards.
+    const opened: Undo[] = [];
+    for (const { code } of await registerRequirements(["asset", "risk"])) {
+      opened.push(await setAsideWalkItem(tenant, code));
+    }
     undos = [
-      await keepSignOffs(tenant),
+      kept,
       await payFor(tenant),
       await allowAssistants(tenant),
-      // Open for an assistant: set aside, unsigned, whatever earlier specs left.
-      await setAsideWalkItem(tenant, "2.2"),
-      await setAsideWalkItem(tenant, "2.3"),
+      ...opened,
       () => removeOurAssets(tenant),
       () => removeOurFiles(tenant).then(() => {}),
       () => removeOurFills(tenant).then(() => {}),
@@ -355,7 +307,7 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
   test("once management has signed on the risks, the assistant's change is refused", async ({
     request,
   }) => {
-    const codes = (await riskRequirements()).map((r) => r.code);
+    const codes = (await registerRequirements(["risk"])).map((r) => r.code);
     expect(codes.length).toBeGreaterThan(0);
     await e2eQuery(
       `UPDATE company_requirement_status s SET status = 'completed'
@@ -433,12 +385,7 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     await expect(row).toHaveCount(0, { timeout: 20_000 });
 
     const response = await request.post("/api/mcp", {
-      headers: {
-        authorization: `Bearer ${key}`,
-        accept: "application/json, text/event-stream",
-        "content-type": "application/json",
-        "mcp-protocol-version": "2025-06-18",
-      },
+      headers: mcpHeaders(key, AGENT),
       data: { jsonrpc: "2.0", id: 1, method: "tools/list" },
     });
     expect(response.status()).toBe(401);

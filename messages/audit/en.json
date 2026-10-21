@@ -63,6 +63,9 @@
         "read": "Company data read by an assistant",
         "refused": "Assistant's request refused"
       },
+      "export": {
+        "downloaded": "Records exported"
+      },
       "notification": {
         "scheduled": "Deadline reminders scheduled"
       },

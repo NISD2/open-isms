@@ -9,6 +9,7 @@
       "description": "Připojený asistent čte váš průvodce NIS 2 a vyplňuje pole, registry, aktiva a hodnocení rizik, s vašimi oprávněními v této společnosti. Na vaši žádost pošle dodavatelům z vašeho seznamu bezpečnostní dotazník. Krok se dokončuje jen zde v aplikaci a podepisuje ho jen vedení.",
       "signIn": "Asistenti, kteří se přihlašují přes prohlížeč, klíč nepotřebují: přihlásíte se a přístup povolíte. Klíč je pro všechny ostatní.",
       "howTo": "Jak nastavit Claude Code, Claude Desktop a Copilot Studio",
+      "readsRecords": "Protože smíte exportovat záznamy firmy, může je asistent také číst, tak jak je obsahuje export.",
       "create": "Vytvořit klíč",
       "createAgain": "Vytvořit nový klíč",
       "created": "Váš klíč, platný 90 dní. Zobrazí se jen teď.",

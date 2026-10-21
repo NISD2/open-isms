@@ -9,6 +9,7 @@
       "description": "Ein verbundener Assistent liest Ihren NIS 2 Durchgang und füllt Felder und Register aus, mit Ihren Rechten in dieser Firma. Auf Ihre Bitte schickt er Lieferanten auf Ihrer Liste den Sicherheitsfragebogen. Abgeschlossen wird ein Punkt nur hier in der App, und unterschrieben nur von der Geschäftsführung.",
       "signIn": "Assistenten, die sich im Browser anmelden, brauchen keinen Schlüssel: Sie melden sich an und erlauben den Zugriff. Für alle anderen gibt es den Schlüssel.",
       "howTo": "So richten Sie Claude Code, Claude Desktop und Copilot Studio ein",
+      "readsRecords": "Da Sie die Aufzeichnungen des Unternehmens exportieren dürfen, kann der Assistent sie auch lesen, so wie der Export sie enthält.",
       "create": "Schlüssel erzeugen",
       "createAgain": "Neuen Schlüssel erzeugen",
       "created": "Ihr Schlüssel, 90 Tage gültig. Er wird nur jetzt angezeigt.",

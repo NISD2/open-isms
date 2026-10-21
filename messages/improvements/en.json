@@ -39,7 +39,8 @@
       "status": "Status",
       "targetDate": "Target Date",
       "deferralReason": "Deferral Reason",
-      "verificationNotes": "Verification Notes"
+      "verificationNotes": "Verification Notes",
+      "completedAt": "Completed On"
     },
     "fieldDescriptions": {
       "title": "Short descriptive title for this improvement action (e.g., 'Implement MFA for VPN access').",

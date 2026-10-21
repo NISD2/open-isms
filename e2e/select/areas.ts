@@ -72,6 +72,7 @@ export const SPEC_AREAS: Readonly<Record<string, readonly Area[] | "full">> = {
   "e2e/l3/cross-tenant.spec.ts": ["security"],
   "e2e/l3/durchgang-link.spec.ts": ["walk", "signoff"],
   "e2e/l3/mcp-fill.spec.ts": ["mcp", "walk"],
+  "e2e/l3/mcp-read-records.spec.ts": ["mcp", "export"],
   "e2e/l3/sign-off-after-save.spec.ts": ["signoff"],
   "e2e/l3/signoff.spec.ts": ["signoff"],
   "e2e/l3/supplier-portal.spec.ts": ["supplier"],

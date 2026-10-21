@@ -35,7 +35,12 @@
       "createdAt": "Vytvořeno dne",
       "businessJustification": "Obchodní odůvodnění",
       "securityImpactAssessment": "Posouzení dopadu na bezpečnost",
-      "rollbackPlan": "Plán vrácení změny"
+      "rollbackPlan": "Plán vrácení změny",
+      "approvedAt": "Schváleno dne",
+      "implementedAt": "Provedeno dne",
+      "testedAt": "Otestováno dne",
+      "rolledBackAt": "Vráceno dne",
+      "closedAt": "Uzavřeno dne"
     },
     "fieldDescriptions": {
       "title": "Krátký výstižný název této žádosti o změnu (např. „Upgrade firmwaru firewallu na verzi v4.2“).",
