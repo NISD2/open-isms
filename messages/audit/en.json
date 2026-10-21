@@ -59,7 +59,9 @@
       },
       "mcp": {
         "connected": "Assistant connected",
-        "item_filled": "Walkthrough item filled in by an assistant"
+        "item_filled": "Walkthrough item filled in by an assistant",
+        "read": "Company data read by an assistant",
+        "refused": "Assistant's request refused"
       },
       "notification": {
         "scheduled": "Deadline reminders scheduled"

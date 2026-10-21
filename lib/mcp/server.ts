@@ -4,11 +4,15 @@ import {
   type CallToolResult,
   createMcpHandler,
   McpServer,
+  type StandardSchemaWithJSON,
+  type ToolAnnotations,
+  type ToolCallback,
 } from "@modelcontextprotocol/server";
 import { rateLimit } from "@/lib/rate-limit";
 import { loggableFailure } from "@/lib/trpc/loggable-failure";
 import type { KeyHolder } from "./context";
 import { describeError } from "./errors";
+import { recordCall } from "./events";
 import type { ToolOutcome } from "./gates";
 import { SendQuestionnaireInput, sendQuestionnaire } from "./questionnaire";
 import {
@@ -55,38 +59,76 @@ const toResult = (outcome: ToolOutcome): CallToolResult =>
     : { content: [{ type: "text", text: outcome.message }], isError: true };
 
 /**
- * Every tool call: the hourly limit, a log line naming the tool and the person (never what was
- * sent), and a refusal the assistant can read. An unexpected error stays in our log.
+ * One call's outcome: the hourly limit, then the tool, and a refusal the assistant can read. An
+ * unexpected error stays in our log.
+ */
+async function outcomeOf<I>(
+  tool: string,
+  holder: KeyHolder,
+  run: (holder: KeyHolder, input: I) => Promise<ToolOutcome>,
+  input: I,
+): Promise<ToolOutcome> {
+  try {
+    if (!(await rateLimit(`mcp:${holder.userId}`, CALLS_PER_HOUR, HOUR_MS))) {
+      return { ok: false, message: "Too many calls in the last hour. Try again later." };
+    }
+    return await run(holder, input);
+  } catch (error) {
+    const message = describeError(error);
+    if (message) return { ok: false, message };
+    // As the tRPC route logs an unexpected error: the stack, never the input or a query's values.
+    console.error(
+      `[mcp] ${tool} failed:`,
+      error instanceof Error ? loggableFailure(error) : error,
+    );
+    return {
+      ok: false,
+      message: "Something went wrong on the server. Try again in a moment.",
+    };
+  }
+}
+
+/**
+ * Every tool call: a log line naming the tool and the person (never what was sent), its outcome,
+ * and its event in the company's log (events.ts).
  */
 function guarded<I>(
   tool: string,
   holder: KeyHolder,
   run: (holder: KeyHolder, input: I) => Promise<ToolOutcome>,
+  readOnly: boolean,
 ): (input: I) => Promise<CallToolResult> {
   return async (input) => {
     console.info(JSON.stringify({ event: "mcp_tool", tool, userId: holder.userId }));
-    try {
-      if (!(await rateLimit(`mcp:${holder.userId}`, CALLS_PER_HOUR, HOUR_MS))) {
-        return toResult({
-          ok: false,
-          message: "Too many calls in the last hour. Try again later.",
-        });
-      }
-      return toResult(await run(holder, input));
-    } catch (error) {
-      const message = describeError(error);
-      if (message) return toResult({ ok: false, message });
-      // As the tRPC route logs an unexpected error: the stack, never the input or a query's values.
-      console.error(
-        `[mcp] ${tool} failed:`,
-        error instanceof Error ? loggableFailure(error) : error,
-      );
-      return toResult({
-        ok: false,
-        message: "Something went wrong on the server. Try again in a moment.",
-      });
-    }
+    const outcome = await outcomeOf(tool, holder, run, input);
+    await recordCall(holder, tool, outcome, readOnly);
+    return toResult(outcome);
   };
+}
+
+/**
+ * Registers a tool behind `guarded`. Whether a call is a read comes from the tool's own
+ * `readOnlyHint`, so the annotation clients see and the event the log records cannot disagree.
+ */
+function addTool<S extends StandardSchemaWithJSON>(
+  server: McpServer,
+  holder: KeyHolder,
+  name: string,
+  config: {
+    readonly title: string;
+    readonly description: string;
+    readonly inputSchema: S;
+    readonly annotations: ToolAnnotations;
+  },
+  run: (
+    holder: KeyHolder,
+    input: StandardSchemaWithJSON.InferOutput<S>,
+  ) => Promise<ToolOutcome>,
+): void {
+  // The SDK cannot resolve its argument type for a still generic schema; with the schema known it
+  // is exactly what `guarded` takes, so the cast only restates it.
+  const callback = guarded(name, holder, run, config.annotations.readOnlyHint === true);
+  server.registerTool(name, config, callback as ToolCallback<S>);
 }
 
 /** One server per request, bound to the key's holder; nothing outlives the request. */
@@ -96,7 +138,9 @@ function buildServer(holder: KeyHolder): McpServer {
     { instructions: INSTRUCTIONS },
   );
 
-  server.registerTool(
+  addTool(
+    server,
+    holder,
     "get_walkthrough",
     {
       title: "Read the NIS2 walkthrough",
@@ -104,10 +148,12 @@ function buildServer(holder: KeyHolder): McpServer {
       inputSchema: GetWalkthroughInput,
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
-    guarded("get_walkthrough", holder, getWalkthrough),
+    getWalkthrough,
   );
 
-  server.registerTool(
+  addTool(
+    server,
+    holder,
     "fill_walkthrough_item",
     {
       title: "Fill in a walkthrough item",
@@ -122,10 +168,12 @@ function buildServer(holder: KeyHolder): McpServer {
         openWorldHint: false,
       },
     },
-    guarded("fill_walkthrough_item", holder, fillItem),
+    fillItem,
   );
 
-  server.registerTool(
+  addTool(
+    server,
+    holder,
     "upload_file",
     {
       title: "Upload a file for a walkthrough item",
@@ -139,10 +187,12 @@ function buildServer(holder: KeyHolder): McpServer {
         openWorldHint: false,
       },
     },
-    guarded("upload_file", holder, uploadFile),
+    uploadFile,
   );
 
-  server.registerTool(
+  addTool(
+    server,
+    holder,
     "send_supplier_questionnaire",
     {
       title: "Send suppliers the security questionnaire",
@@ -156,7 +206,7 @@ function buildServer(holder: KeyHolder): McpServer {
         openWorldHint: true,
       },
     },
-    guarded("send_supplier_questionnaire", holder, sendQuestionnaire),
+    sendQuestionnaire,
   );
 
   return server;

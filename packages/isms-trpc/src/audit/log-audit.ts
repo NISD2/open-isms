@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { auditLog } from "@nisd2/isms-schema/tables/audit-log";
+import { type AuditVia, auditLog } from "@nisd2/isms-schema/tables/audit-log";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 
 export interface AuditEntry {
@@ -13,6 +13,8 @@ export interface AuditEntry {
   newValue?: unknown;
   ipAddress?: string | null;
   userAgent?: string | null;
+  /** Through the app or through an assistant's MCP key; the app decides it from the user agent. */
+  via?: AuditVia;
 }
 
 export type AuditDb = NodePgDatabase<Record<string, never>>;
@@ -51,6 +53,7 @@ export function createLogAudit(db: AuditDb) {
         newValue: entry.newValue ?? null,
         ipAddress: entry.ipAddress ?? null,
         userAgent: entry.userAgent ?? null,
+        via: entry.via ?? "app",
         checksum,
       });
     } catch (err) {
@@ -100,6 +103,7 @@ function computeChecksum(entry: AuditEntry): string {
     newValue: entry.newValue,
     ipAddress: entry.ipAddress ?? null,
     userAgent: entry.userAgent ?? null,
+    via: entry.via ?? "app",
     ts: new Date().toISOString(),
   });
   return createHash("sha256").update(payload).digest("hex");

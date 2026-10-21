@@ -54,7 +54,9 @@
       },
       "mcp": {
         "connected": "Asistent připojen",
-        "item_filled": "Bod průvodce vyplněn asistentem"
+        "item_filled": "Bod průvodce vyplněn asistentem",
+        "read": "Data firmy přečtena asistentem",
+        "refused": "Požadavek asistenta odmítnut"
       },
       "notification": {
         "scheduled": "Připomínky termínů naplánovány"

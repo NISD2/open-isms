@@ -59,7 +59,9 @@
       },
       "mcp": {
         "connected": "Assistent verbunden",
-        "item_filled": "Punkt im Durchgang von einem Assistenten ausgefüllt"
+        "item_filled": "Punkt im Durchgang von einem Assistenten ausgefüllt",
+        "read": "Unternehmensdaten von einem Assistenten gelesen",
+        "refused": "Anfrage eines Assistenten abgelehnt"
       },
       "notification": {
         "scheduled": "Erinnerungen an Fristen geplant"

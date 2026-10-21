@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { assistantAgent, assistantOf, browserAgent } from "./agent";
+import { assistantAgent, assistantOf, browserAgent, viaOf } from "./agent";
 
 describe("assistantOf", () => {
   test("names the assistant behind the user agent it was given", () => {
@@ -34,5 +34,13 @@ describe("assistantOf", () => {
     expect(assistantOf(browserAgent("mcp: mcp: Claude"))).toBeNull();
     expect(browserAgent("Mozilla/5.0")).toBe("Mozilla/5.0");
     expect(browserAgent(null)).toBeNull();
+  });
+
+  test("a row is marked MCP exactly when a key made it", () => {
+    expect(viaOf(assistantAgent("Claude", "anything"))).toBe("mcp");
+    expect(viaOf(assistantAgent(undefined, null))).toBe("mcp");
+    expect(viaOf("Mozilla/5.0")).toBe("app");
+    expect(viaOf(null)).toBe("app");
+    expect(viaOf(browserAgent("mcp: Claude"))).toBe("app");
   });
 });

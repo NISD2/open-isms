@@ -24,6 +24,12 @@ const ASSET = "E2E MCP Buchhaltung";
 const FILE_NAME = "e2e-mcp-inventar.pdf";
 const FILE_BODY = Buffer.from("%PDF-1.4\n% e2e assistant evidence\n");
 const FILE_SHA256 = createHash("sha256").update(FILE_BODY).digest("hex");
+/**
+ * The name this run's assistant goes by: a pasted key carries none, so its user agent names it.
+ * New every run, so the company's log has rows from this run alone under it, and the once an hour
+ * a read or refusal is logged starts fresh.
+ */
+const AGENT = `E2E Agent ${Date.now()}`;
 
 type ToolResult =
   | { readonly ok: true; readonly data: Record<string, unknown> }
@@ -50,6 +56,7 @@ async function callTool(
       accept: "application/json, text/event-stream",
       "content-type": "application/json",
       "mcp-protocol-version": "2025-06-18",
+      "user-agent": AGENT,
     },
     data: {
       jsonrpc: "2.0",
@@ -372,6 +379,50 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     expect(refused.ok).toBe(false);
     expect(refused.ok ? "" : refused.message).toMatch(/signed|signature/);
     expect(await risksOn([assetId])).toEqual(before);
+  });
+
+  test("the company's log marks every row this assistant wrote as MCP, reads and refusals too", async ({
+    page,
+  }) => {
+    const rows = await e2eQuery<{ action: string; via: string; description: string }>(
+      `SELECT action, via, description FROM audit_log
+        WHERE company_id = $1 AND user_agent = $2 ORDER BY created_at`,
+      [tenant.company_id, `mcp: ${AGENT}`],
+    );
+    const actions = rows.map((r) => r.action);
+    expect(
+      rows.every((r) => r.via === "mcp"),
+      JSON.stringify(rows),
+    ).toBe(true);
+    // The app's own procedures logged the saves, marked as the assistant's.
+    expect(actions).toContain("evidence.createUploadUrl");
+    expect(actions).toContain("mcp.item_filled");
+    // get_walkthrough ran twice in this run, and logged once.
+    expect(actions.filter((a) => a === "mcp.read")).toHaveLength(1);
+    // The refusal on the signed risks, with its reason.
+    const refused = rows.filter((r) => r.action === "mcp.refused");
+    expect(refused).toHaveLength(1);
+    expect(refused[0]?.description).toMatch(
+      /^fill_walkthrough_item: .*(signed|signature)/,
+    );
+
+    // The person's own key, made in Settings, is theirs, not the assistant's.
+    const [made] = await e2eQuery<{ via: string }>(
+      `SELECT via FROM audit_log WHERE company_id = $1 AND action = 'user.createMcpKey'
+        ORDER BY created_at DESC LIMIT 1`,
+      [tenant.company_id],
+    );
+    expect(made).toEqual({ via: "app" });
+
+    // The activity log shows the mark on the assistant's rows: the refusal is this run's newest.
+    await page.goto("/de/audit");
+    const shown = page
+      .getByRole("listitem")
+      .filter({ hasText: "Anfrage eines Assistenten abgelehnt" })
+      .filter({ hasText: AGENT })
+      .first();
+    await expect(shown).toBeVisible({ timeout: 20_000 });
+    await expect(shown.getByText("MCP", { exact: true })).toBeVisible();
   });
 
   test("the key ended in Settings stops at its next call", async ({ page, request }) => {

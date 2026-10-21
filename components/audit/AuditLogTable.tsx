@@ -25,6 +25,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { recordDay } from "@/lib/durchgang";
 import { assistantOf } from "@/lib/mcp/agent";
+import type { AuditVia } from "@/schema";
 import { AuditDiffView } from "./AuditDiffView";
 
 interface AuditRow {
@@ -37,6 +38,7 @@ interface AuditRow {
   newValue: unknown;
   userName: string | null;
   userAgent: string | null;
+  via: AuditVia;
   createdAt: Date;
 }
 
@@ -151,7 +153,14 @@ export function AuditLogTable({ rows }: AuditLogTableProps) {
                     <Icon className="size-4" />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-medium">{labelOf(row)}</span>
+                    <span className="block font-medium">
+                      {row.via === "mcp" && (
+                        <span className="mr-1.5 rounded bg-primary/10 px-1.5 py-0.5 align-middle text-[10px] font-semibold tracking-wide text-primary">
+                          MCP
+                        </span>
+                      )}
+                      {labelOf(row)}
+                    </span>
                     {detail && (
                       <span className="block truncate text-muted-foreground">
                         {detail}

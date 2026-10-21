@@ -7,11 +7,9 @@ import {
   ilike,
   inArray,
   isNotNull,
-  isNull,
   like,
   lt,
   ne,
-  not,
   or,
   sql,
 } from "drizzle-orm";
@@ -153,8 +151,6 @@ export interface AuditCursor {
 /** As LIKE reads it literally: its wildcards and its escape character escaped. */
 export const literal = (text: string): string => text.replace(/[\\%_]/g, "\\$&");
 
-const ASSISTANT_AGENT = "mcp: %";
-
 /**
  * Midnight starting a Berlin calendar day, as the bare UTC timestamps of audit_log store it.
  * Computed in the database, so summer and winter time come out right and the index on
@@ -200,10 +196,7 @@ const filterOf = (subject: AuditSubject, f: AuditFilter) =>
           ilike(auditLog.description, `%${literal(f.text)}%`),
         )
       : undefined,
-    f.via === "assistant" ? like(auditLog.userAgent, ASSISTANT_AGENT) : undefined,
-    f.via === "app"
-      ? or(isNull(auditLog.userAgent), not(like(auditLog.userAgent, ASSISTANT_AGENT)))
-      : undefined,
+    f.via ? eq(auditLog.via, f.via === "assistant" ? "mcp" : "app") : undefined,
     f.peopleOnly ? isNotNull(auditLog.userId) : undefined,
   );
 
@@ -285,6 +278,7 @@ export async function auditLogFor(
       companyId: auditLog.companyId,
       companyName: company.name,
       userAgent: auditLog.userAgent,
+      via: auditLog.via,
     })
     .from(auditLog)
     .leftJoin(company, eq(company.id, auditLog.companyId))

@@ -1,3 +1,5 @@
+import type { AuditVia } from "@/schema";
+
 /**
  * How an audit row says an AI assistant made the change: its user agent is a fixed prefix, then
  * the name the assistant gave or its own user agent. Written by lib/mcp/context.ts, read by the
@@ -35,6 +37,10 @@ export const assistantAgent = (
 /** The assistant that made an audited change, or null when a person made it in the app. */
 export const assistantOf = (userAgent: string | null): string | null =>
   userAgent?.startsWith(PREFIX) ? userAgent.slice(PREFIX.length) : null;
+
+/** How an audited action reached the app, as `audit_log.via` stores it. */
+export const viaOf = (userAgent: string | null): AuditVia =>
+  assistantOf(userAgent) === null ? "app" : "mcp";
 
 /**
  * A user agent a signed-in browser sent, as its audit rows store it. One that starts like an
