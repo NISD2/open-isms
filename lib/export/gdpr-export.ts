@@ -38,6 +38,19 @@ export const GDPR_SUPPLIER_FIELDS = [
 /** What a company writes of each processing activity (Art. 30(1)), as the table's insert shape. */
 const ACTIVITY_FIELDS = Object.keys(processingActivityCreateSchema.shape);
 
+/** The documents the GDPR walk wrote with their approval, for the documents PDF. Only those. */
+export async function loadGdprDocuments(db: Database, companyId: string) {
+  const [co, documents] = await Promise.all([
+    db.query.company.findFirst({
+      where: eq(company.id, companyId),
+      columns: { name: true },
+    }),
+    walkPolicyRows(db, companyId, GDPR_WALK),
+  ]);
+  if (!co) throw new Error(`No company ${companyId}.`);
+  return { exportedAt: new Date(), company: co, documents };
+}
+
 /**
  * Everything the company recorded under the GDPR, for its export: the record of processing
  * activities with its controller, officer and security measures (Art. 30(1)), each supplier's
@@ -55,7 +68,7 @@ export async function loadGdprExport(db: Database, companyId: string) {
       activitiesOf(db, companyId),
       db.query.supplier.findMany({
         where: eq(supplier.customerCompanyId, companyId),
-        columns: { name: true, ...columnsOf(GDPR_SUPPLIER_FIELDS) },
+        columns: { id: true, name: true, ...columnsOf(GDPR_SUPPLIER_FIELDS) },
         orderBy: asc(supplier.name),
       }),
       walkPolicyRows(db, companyId, GDPR_WALK),
@@ -81,11 +94,14 @@ export async function loadGdprExport(db: Database, companyId: string) {
     exportedAt: new Date(),
     company: co,
     controller,
+    // Ids are kept so an activity's suppliers match the rows of `suppliers`: two suppliers can
+    // share a name.
     activities: activities.map(({ suppliers: receivers, ...activity }) => ({
+      id: activity.id,
       ...Object.fromEntries(
         ACTIVITY_FIELDS.map((field) => [field, Reflect.get(activity, field)]),
       ),
-      suppliers: receivers.map(({ name, through }) => ({ name, through })),
+      suppliers: receivers.map(({ id, name, through }) => ({ id, name, through })),
     })),
     suppliers,
     /** What was typed in each GDPR area's fields, in the walk or on the requirement pages. */

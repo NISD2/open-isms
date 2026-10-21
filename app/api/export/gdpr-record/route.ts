@@ -13,7 +13,8 @@ import {
 
 /**
  * The record of processing activities as a table, for the supervisory authority (Art. 30(4)
- * GDPR): the same file as the register page's download, in the language the export page is in.
+ * GDPR): the same lines as the register page's download (`recordLines`), in the language the
+ * export page is in. The day it is dated is the Berlin day, not the server's.
  */
 export async function GET(request: NextRequest) {
   const access = await exportAccess("gdpr-record", 5);
@@ -37,7 +38,11 @@ export async function GET(request: NextRequest) {
     recordLines(
       {
         say,
-        day: (date) => format.dateTime(new Date(date), { dateStyle: "long" }),
+        day: (date) =>
+          format.dateTime(new Date(date), {
+            dateStyle: "long",
+            timeZone: "Europe/Berlin",
+          }),
       },
       controller,
       activities,

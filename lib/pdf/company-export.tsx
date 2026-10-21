@@ -198,7 +198,10 @@ export function DocumentsDocument({
   const words: Words = { labels: exportLabels(locale), names, locale };
   const t = words.labels.documents;
   return (
-    <Document title={`${t.title}: ${data.company.name}`} author={data.company.name}>
+    <Document
+      title={`${words.labels.frameworks[framework]} ${t.title}: ${data.company.name}`}
+      author={data.company.name}
+    >
       <Cover
         eyebrow={t.eyebrow[framework]}
         title={t.title}

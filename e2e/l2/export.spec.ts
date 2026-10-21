@@ -81,9 +81,9 @@ test.describe("export", () => {
     const lines = (await res.text()).split("\r\n");
     expect(lines[0]).toContain("Art. 30 Abs. 1 DSGVO");
     expect(lines.slice(1, 4).map((l) => l.split(",")[0])).toEqual([
-      '"Verantwortlicher"',
-      '"Datenschutzbeauftragte"',
-      '"Sicherheitsmaßnahmen (Art. 30 Abs. 1 Buchst. g)"',
+      "Verantwortlicher",
+      "Datenschutzbeauftragte",
+      "Sicherheitsmaßnahmen (Art. 30 Abs. 1 Buchst. g)",
     ]);
   });
 

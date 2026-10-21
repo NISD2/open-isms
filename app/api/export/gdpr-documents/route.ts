@@ -2,7 +2,7 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { attachment, exportAccess } from "@/lib/export/access";
-import { loadGdprExport } from "@/lib/export/gdpr-export";
+import { loadGdprDocuments } from "@/lib/export/gdpr-export";
 import { exportNames } from "@/lib/export/value-names";
 import { DocumentsDocument } from "@/lib/pdf/company-export";
 import { exportLabels } from "@/lib/pdf/export-labels";
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 
   const locale = pdfLocale(request.nextUrl.searchParams.get("locale"));
   const [data, names] = await Promise.all([
-    loadGdprExport(db, access.companyId),
+    loadGdprDocuments(db, access.companyId),
     exportNames(locale),
   ]);
   const buffer = await renderToBuffer(
