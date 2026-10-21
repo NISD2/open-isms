@@ -20,6 +20,7 @@ mock.module("../env", () => ({
 }));
 
 const t = await import("./templates");
+const { entityInvitesSupplierEmail } = await import("./supplier-invite-email");
 
 /** Optional mail renders the shared preference footer; the subject ignores it. */
 const FOOTER = {
@@ -194,9 +195,10 @@ const SUBJECTS: Array<[string, string]> = [
   [
     "entityInvitesSupplier",
     (
-      await t.entityInvitesSupplierEmail({
+      await entityInvitesSupplierEmail({
         entityName: "Stadtwerke",
         inviteUrl: "https://nisd2.eu/i",
+        senderEmail: "it@stadtwerke.example",
         hasMessage: false,
       })
     ).subject,

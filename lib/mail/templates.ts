@@ -50,11 +50,7 @@ import OperatorAlertEmail from "./emails/operator-alert";
 import { AdvisoryRequestEmail, NewSignupEmail } from "./emails/operator-notices";
 import RegistrationAttemptEmail from "./emails/registration-attempt";
 import ReviewDecisionEmail, { REVIEW_DECISION_COPY } from "./emails/review-decision";
-import {
-  SupplierAddedYouEmail,
-  SupplierIncidentEmail,
-  SupplierInviteEmail,
-} from "./emails/supplier-mails";
+import { SupplierAddedYouEmail, SupplierIncidentEmail } from "./emails/supplier-mails";
 import WeeklyDigestEmail, { WEEKLY_DIGEST_COPY } from "./emails/weekly-digest";
 import WelcomeEmail, { WELCOME_COPY, welcomeText } from "./emails/welcome";
 import {
@@ -801,43 +797,6 @@ export async function supplierIncidentBroadcastEmail(opts: {
 // ---------------------------------------------------------------------------
 // Supplier Portal: added by supplier (you've been added as a customer)
 // ---------------------------------------------------------------------------
-
-/**
- * Direction-B invite email: sent when a NIS2 entity invites a supplier to
- * fill out their security profile via magic-link.
- */
-export async function entityInvitesSupplierEmail(opts: {
-  entityName: string | null;
-  inviteUrl: string;
-  /** Whether the invite carries a personal message; its text is read on the invite page. */
-  hasMessage: boolean;
-}): Promise<EmailContent> {
-  const { inviteUrl, hasMessage } = opts;
-  const name = companyNameForMail(opts.entityName, "A NIS2 entity");
-
-  return {
-    subject: `${name} requests your NIS2 supplier profile on NISD2`,
-    html: await renderEmail(SupplierInviteEmail, { name, inviteUrl, hasMessage }),
-    text: [
-      `${name} would like to see your security profile`,
-      ``,
-      `${name} is a NIS2-regulated entity required to assess their suppliers' cybersecurity practices.`,
-      ``,
-      `Instead of a 200-question PDF, they are using nisd2.eu: a single unified supplier questionnaire`,
-      `anchored to ENISA's NIS2 Technical Implementation Guidance and CIR 2024/2690. Fill it once,`,
-      `share it with every customer who asks. Free.`,
-      ``,
-      hasMessage
-        ? `${name} added a personal message, which you can read on the invitation page after signing in.\n`
-        : "",
-      `Accept and create your profile: ${inviteUrl}`,
-      ``,
-      `This link expires in 30 days. You do not need to be NIS2-regulated yourself to use the supplier portal.`,
-    ]
-      .filter(Boolean)
-      .join("\n"),
-  };
-}
 
 // ---------------------------------------------------------------------------
 // Platform Admin: new user signup notification

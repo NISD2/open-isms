@@ -21,7 +21,7 @@ import { z } from "zod";
 import { entityInvitesSupplierEmail, sendMail } from "@/lib/mail";
 import { canRequestAnswers } from "@/lib/supplier-portal/register-row";
 import { getAppUrl } from "@/lib/utils";
-import { company, supplier, supplierInvite } from "@/schema";
+import { company, supplier, supplierInvite, user } from "@/schema";
 import { supplierInviteCreateSchema } from "@/schema/validators";
 import {
   requireInboxBudget,
@@ -90,6 +90,13 @@ export const supplierInviteRouter = router({
       }
       const supplierId = listed?.id ?? null;
       await requireSupplierMailBudget("supplierInvites", ctx.companyId);
+      // Read before anything is written: the mail must name the person who sent it, so no
+      // sender address means no invite row and no mail.
+      const sender = await ctx.db.query.user.findFirst({
+        where: eq(user.id, ctx.userId),
+        columns: { email: true },
+      });
+      if (!sender) throw new TRPCError({ code: "NOT_FOUND" });
       const email = input.toEmail.toLowerCase();
       const now = new Date();
       const token = generateInviteToken();
@@ -164,6 +171,7 @@ export const supplierInviteRouter = router({
       entityInvitesSupplierEmail({
         entityName: entity?.name ?? null,
         inviteUrl,
+        senderEmail: sender.email,
         hasMessage: message !== null && message.trim() !== "",
       })
         .then((content) =>

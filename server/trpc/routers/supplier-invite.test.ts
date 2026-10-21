@@ -11,13 +11,15 @@ mock.module("@/lib/audit", () => ({ logAudit: async () => {} }));
 // left supplier-mail-budget.test.ts without SUPPLIER_MAIL_BUDGET whenever this file ran first.
 mock.module("@/lib/rate-limit", () => ({ rateLimit: async () => true }));
 const sent: string[] = [];
+const sentBodies: { html: string; text: string }[] = [];
 const mail = await import("@/lib/mail");
 // The real templates: a dummy one here reached supplier-mail-budget.test.ts, which reads the
 // invite's wording. Only sending is replaced, with the full result shape other files read.
 mock.module("@/lib/mail", () => ({
   ...mail,
-  sendMail: async ({ to }: { to: string }) => {
+  sendMail: async ({ to, html, text }: { to: string; html: string; text: string }) => {
     sent.push(to);
+    sentBodies.push({ html, text });
     return { success: true, id: "sent-1" };
   },
 }));
@@ -31,16 +33,19 @@ const COMPANY = "44444444-4444-4444-8444-444444444444";
 const USER = "11111111-1111-4111-8111-111111111111";
 const LISTED = "5e5e5e5e-0000-4000-8000-000000000001";
 const FOREIGN = "f0f0f0f0-0000-4000-8000-000000000009";
+const SENDER = "a@muster.example";
 
 type Row = { readonly supplierCompanyId: string | null; readonly source: string | null };
 const UNLINKED: Row = { supplierCompanyId: null, source: null };
 
 /** A database whose supplier lookup finds only the sender's own rows, as given. */
-function setup(own: Readonly<Record<string, Row>>) {
+function setup(own: Readonly<Record<string, Row>>, senderEmail: string | null = SENDER) {
   const inserted: Record<string, unknown>[] = [];
   sent.length = 0;
+  sentBodies.length = 0;
   const db = {
     query: {
+      user: { findFirst: async () => (senderEmail ? { email: senderEmail } : undefined) },
       // The lookup's id is one of its conditions; the fake answers by the id the test names.
       supplier: {
         findFirst: async () => {
@@ -109,5 +114,26 @@ describe("supplierInvite.create for a listed supplier", () => {
     const { caller, inserted } = setup({});
     await caller.create({ toEmail: "security@lieferant.example" });
     expect(inserted).toEqual([expect.objectContaining({ supplierId: null })]);
+  });
+});
+
+describe("supplierInvite.create names who sent it", () => {
+  test("the mail carries the sender's own address, in the page and the plain text", async () => {
+    const { caller } = setup({});
+    await caller.create({ toEmail: "security@lieferant.example" });
+    // The mail is rendered and sent after the response, so give it a moment to arrive.
+    await Bun.sleep(100);
+    expect(sentBodies).toHaveLength(1);
+    expect(sentBodies[0]?.html).toContain(SENDER);
+    expect(sentBodies[0]?.text).toContain(`${SENDER} at Muster GmbH invited you`);
+  });
+
+  test("a sender with no address writes no invite and sends no mail", async () => {
+    const { caller, inserted } = setup({}, null);
+    await expect(
+      caller.create({ toEmail: "security@lieferant.example" }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(inserted).toEqual([]);
+    expect(sent).toEqual([]);
   });
 });

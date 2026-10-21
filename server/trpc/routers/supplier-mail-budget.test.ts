@@ -92,6 +92,7 @@ const db = {
           : state.relationship,
     },
     supplierInvite: { findFirst: async () => state.invite },
+    user: { findFirst: async () => ({ email: "sender@muster.example" }) },
   },
   insert: (table: unknown) => ({
     values: (values: Record<string, unknown>) => {

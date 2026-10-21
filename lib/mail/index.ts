@@ -5,6 +5,7 @@ export {
   sendMail,
   sendWelcomeEmail,
 } from "./send";
+export { entityInvitesSupplierEmail } from "./supplier-invite-email";
 export {
   accountSetupEmail,
   assistantConnectedEmail,
@@ -20,7 +21,6 @@ export {
   dailyDigestEmail,
   documentEmail,
   emailVerificationCodeEmail,
-  entityInvitesSupplierEmail,
   gdprAlertEmail,
   inviteEmail,
   managementHandoffEmail,

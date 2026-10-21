@@ -77,6 +77,8 @@ export function SupplierIncidentEmail(props: SupplierIncidentProps) {
 export interface SupplierInviteProps {
   readonly name: string;
   readonly inviteUrl: string;
+  /** The person at the entity who typed the reader's address: who to ask why they got this. */
+  readonly senderEmail: string;
   readonly hasMessage: boolean;
 }
 
@@ -84,11 +86,16 @@ export interface SupplierInviteProps {
 export function SupplierInviteEmail({
   name,
   inviteUrl,
+  senderEmail,
   hasMessage,
 }: SupplierInviteProps) {
   return (
     <EmailFrame chrome={ENGLISH_ONLY}>
       <Title>You're invited to share your security profile</Title>
+      <Para style={{ margin: "0 0 16px" }}>
+        <strong>{senderEmail}</strong> at {name} invited you to this and entered your
+        address.
+      </Para>
       <Para style={{ margin: "0 0 16px" }}>
         <strong>{name}</strong> is a NIS2-regulated entity. Under the EU NIS2 Directive
         (and its German transposition BSIG §30) they are required to assess the
