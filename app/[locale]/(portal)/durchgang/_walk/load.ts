@@ -356,14 +356,17 @@ const PREVIEW_SKIPS: ReadonlySet<AnyScreen["kind"]> = new Set([
 
 /**
  * A locked item as an account that has not ordered sees it from a direct link (a course lesson
- * leads here): the walk's own words and the duty, read from the copy and the framework data only.
- * Nothing of the company is read or written, so it needs neither an order nor a company set up.
- * Null for a code in no walk.
+ * leads here): the walk's own words and the duty, read from the copy and the framework data. Of
+ * the company only its profile is read, to open just the items its walk holds (as `loadItem`
+ * does); nothing is written, so it needs neither an order nor a company set up. Null for a code
+ * in no walk or not in the company's.
  */
 export async function loadItemPreview(code: string): Promise<ItemPreviewView | null> {
   const walk = walkOfCode(code);
-  const item = ALL_ITEMS.find((i) => i.code === code);
-  if (!walk || !item) return null;
+  if (!walk) return null;
+  const { items } = await callerWalk(walk);
+  const item = items.find((i) => i.code === code);
+  if (!item) return null;
   const [req, localeTag, words, tc] = await Promise.all([
     api.requirement.getByCode({ code }),
     getLocale(),

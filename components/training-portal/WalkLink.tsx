@@ -29,7 +29,7 @@ interface WalkLinkProps {
  * locked item opens read only (its preview), so the link never ends on the order page.
  *
  * Umami counts the click as `course-walk-link` with the lesson and the item, nothing about the
- * person (the tag is cookieless and the before-send hook strips the query).
+ * person (the tag is cookieless, and the before-send hook keeps only utm_* tags of the query).
  */
 export function WalkLink({ code, headline, image, lessonId, locale }: WalkLinkProps) {
   return (

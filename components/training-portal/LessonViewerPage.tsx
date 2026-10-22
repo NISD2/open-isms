@@ -4,6 +4,7 @@ import { BookOpen, Check, ChevronLeft, ChevronRight, Video } from "lucide-react"
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { Art } from "@/components/durchgang/Art";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -145,21 +146,20 @@ export function LessonViewerPage({
 
   const defaultTab = lesson.videoUrl ? "video" : "text";
 
-  // The page scrolls the window, not the portal's main area, and Next only scrolls far enough to
-  // show the new segment, which left a reader halfway down the next lesson. Every lesson opens at
-  // its top.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: the lesson id is the trigger, not a value read inside
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  }, [lesson.id]);
-
   async function handleComplete() {
     await onCompleteLesson();
     setCompleted(true);
     router.refresh();
   }
 
+  /**
+   * Previous and Next open the other lesson at its top. The page scrolls the window, not the
+   * portal's main area, and Next.js only scrolls far enough to show the new segment, which left a
+   * reader halfway down. Scrolling here, at the click, rather than on every mount keeps a link
+   * to an anchor and the back button's restored position working.
+   */
   function openLesson(lessonId: string) {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     router.push(
       {
         pathname: "/training/courses/[courseId]/[lessonId]",
@@ -176,9 +176,14 @@ export function LessonViewerPage({
    */
   async function handleNext(nextId: string) {
     if (!quiz && !completed) {
-      // A failed save is not worth stopping the reader for: the lesson stays open on the server
-      // and is recorded the next time they move on from it.
-      await onCompleteLesson().catch(() => undefined);
+      try {
+        await onCompleteLesson();
+      } catch {
+        // A lesson that is not recorded keeps the certificate closed, so the reader hears it here
+        // and can try again, rather than finding 46 of 47 at the end.
+        toast.error(t("lessonSaveFailed"));
+        return;
+      }
     }
     openLesson(nextId);
     router.refresh();
@@ -300,9 +305,16 @@ export function LessonViewerPage({
               return result;
             }}
           />
-        ) : !quiz && !completed && !lesson.nextLessonId ? (
-          // The last lesson has no Next to record it, so it keeps its own button.
-          <Button onClick={handleComplete} size="lg" className="gap-2">
+        ) : !quiz && !completed ? (
+          // Next records a lesson without a quiz, so the button is quiet where there is a Next; it
+          // stays for whoever leaves through the sidebar instead. The last lesson has no Next, so
+          // there it is the one action.
+          <Button
+            onClick={handleComplete}
+            size={lesson.nextLessonId ? "default" : "lg"}
+            variant={lesson.nextLessonId ? "outline" : "default"}
+            className="gap-2"
+          >
             <Check className="h-4 w-4" />
             {t("completeLesson")}
           </Button>

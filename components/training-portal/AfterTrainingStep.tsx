@@ -7,6 +7,7 @@ import { getPathname, Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
 import { czechCitations } from "@/lib/compliance/czech-law";
 import { pickLocalized } from "@/lib/locale";
+import { api } from "@/lib/trpc/server";
 import { AfterTrainingHandOver } from "./AfterTrainingHandOver";
 
 const BSIG_38 = "https://www.gesetze-im-internet.de/bsig_2025/__38.html";
@@ -35,13 +36,21 @@ const WALK_HOME = "/durchgang/nis2";
  * (training.managementCourse reads it off the lesson progress), so the page says so.
  */
 export async function AfterTrainingStep() {
-  const [t, session, locale] = await Promise.all([
+  const [t, tTrust, session, locale, company] = await Promise.all([
     getTranslations("trainingPortal.coursePage.afterTraining"),
+    // The money-back line the billing pages print, word for word: it holds for a first order and
+    // ends with the first export or sign-off (terms B7), which a shorter line here left out.
+    getTranslations("billing.trust"),
     getSession(),
     getLocale(),
+    api.assessment.getCompany(),
   ]);
   const activated = session?.companyActivated === true;
   const admin = session?.role === "admin";
+  // Only the draft's owner may set it up (assessment.createCompanyAndAssessment refuses any other
+  // member), so the form shows to the owner alone.
+  const mayActivate =
+    !activated && company !== null && company.ownerId === session?.user.id;
   return (
     <section className="rounded-3xl bg-primary/[0.06] px-6 py-10 sm:px-10">
       <h2 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
@@ -82,7 +91,7 @@ export async function AfterTrainingStep() {
             <Button asChild size="lg" className="mt-6 h-11 rounded-lg px-5">
               <Link href={WALK_HOME}>{t("self.start")}</Link>
             </Button>
-          ) : (
+          ) : mayActivate ? (
             <div className="mt-5 space-y-3">
               <p className="text-sm font-medium">{t("self.setup")}</p>
               <CompanyEssentials
@@ -91,8 +100,10 @@ export async function AfterTrainingStep() {
                 submitLabel={t("self.start")}
               />
             </div>
+          ) : (
+            <p className="mt-5 text-sm text-muted-foreground">{t("self.ownerSetsUp")}</p>
           )}
-          <p className="mt-4 text-xs text-muted-foreground">{t("moneyBack")}</p>
+          <p className="mt-4 text-xs text-muted-foreground">{tTrust("moneyBack")}</p>
         </div>
 
         <div className="rounded-2xl border bg-card p-6 shadow-sm">
