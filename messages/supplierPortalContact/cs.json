@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "E-mail můžete vynechat a lidi přidat později na stránce Přístup u zákazníka. Bez e-mailu se nic neodesílá.",
+    "needNameOrEmail": "Zadejte název firmy zákazníka nebo e-mailovou adresu.",
+    "cancel": "Zrušit",
+    "emailPlaceholder": "it@zakaznik.example",
+    "addPersonLabel": "Přidat osobu",
+    "contactsEmpty": "Odkaz na váš bezpečnostní profil zatím nikdo nemá. Zadejte níže e-mail a odkaz se odešle.",
+    "sendLink": "Odeslat odkaz",
+    "linkSent": "Odkaz na váš bezpečnostní profil byl odeslán na adresu {email}.",
+    "linkNotSent": "Odkaz se nepodařilo odeslat na adresu {email}.",
+    "removeAccess": "Odebrat přístup",
+    "removeAccessFor": "Odebrat přístup pro {email}",
+    "removeAccessTitle": "Odebrat přístup pro {email}?",
+    "removeAccessBody": "Odkaz této osoby na váš bezpečnostní profil přestane fungovat a na tuto adresu se už nic neodesílá. Zákazník a ostatní osoby zůstanou.",
+    "accessRemoved": "Přístup odebrán. Zákazník zůstává ve vašem seznamu.",
+    "deleteCustomer": "Smazat zákazníka",
+    "deleteCustomerTitle": "Smazat {name}?",
+    "deleteCustomerBody": "Zákazník bude nadobro smazán, včetně systémů, které jste pro něj zaznamenali, a oznámení o incidentech, která jste mu poslali. Jeho odkaz na váš bezpečnostní profil přestane fungovat. Tento krok nelze vrátit zpět.",
+    "deleteCustomerBodyOwnAccount": "Tento zákazník má vlastní účet. Opustí váš seznam a jeho přístup k vašemu bezpečnostnímu profilu skončí, ale zachová si vlastní záznam o vás. Tento krok nelze vrátit zpět.",
+    "ownAccountNote": "Tento zákazník má vlastní účet a je kontaktován na adrese, kterou si tam uložil."
+  }
+}

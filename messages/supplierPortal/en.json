@@ -264,8 +264,6 @@
       }
     },
     "access": {
-      "contactMissing": "No email yet",
-      "revokeConfirm": "They will no longer be able to see your security profile, and the customer leaves your list.",
       "status": {
         "active": "Active",
         "revoked": "Ended",

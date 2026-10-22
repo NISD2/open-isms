@@ -28,7 +28,7 @@
       "serviceTypeEmptyLink": "Przejdź do profilu",
       "certificationsIntro": "Proszę wgrać swoje poświadczenia bezpieczeństwa (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Pliki PDF i ich dane widzą klienci, których Państwo zaprosili.",
       "customersTitle": "Dodaj klienta",
-      "customersIntro": "Proszę zaprosić klienta e-mailem. Otrzyma prywatny link do Państwa profilu bezpieczeństwa i nie potrzebuje do tego konta. Gdy zaakceptuje, wpisują Państwo systemy, które dla niego prowadzą, i zgłaszają incydenty dotyczące tych systemów.",
+      "customersIntro": "Proszę dodać klienta według nazwy firmy, adresu e-mail lub obu. Z adresem e-mail otrzyma prywatny link do Państwa profilu bezpieczeństwa i nie potrzebuje do tego konta. Następnie wpisują Państwo systemy, które dla niego prowadzą, i zgłaszają incydenty dotyczące tych systemów.",
       "customer": "Klient",
       "unknownCustomer": "(nieznany klient)"
     },
@@ -152,6 +152,13 @@
           "why": "Jak długo dostarcza aktualizacje bezpieczeństwa do swojego oprogramowania i po czym poznają Państwo, że oprogramowanie i jego aktualizacje są godne zaufania."
         }
       }
+    },
+    "customers": {
+      "emailLabel": "Adres e-mail osoby ds. bezpieczeństwa u klienta",
+      "emailPlaceholder": "it@klient.example",
+      "orgNameLabel": "Nazwa firmy klienta",
+      "orgNamePlaceholder": "Przykład sp. z o.o.",
+      "submit": "Dodaj klienta"
     },
     "customerView": {
       "securityProfile": "Profil bezpieczeństwa",

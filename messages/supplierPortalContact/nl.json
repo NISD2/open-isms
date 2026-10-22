@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "U kunt het e-mailadres weglaten en later personen toevoegen op de pagina Toegang van de klant. Zonder e-mailadres wordt er niets verstuurd.",
+    "needNameOrEmail": "Geef de bedrijfsnaam van de klant of een e-mailadres op.",
+    "cancel": "Annuleren",
+    "emailPlaceholder": "it@klant.example",
+    "addPersonLabel": "Persoon toevoegen",
+    "contactsEmpty": "Nog niemand heeft de link naar uw beveiligingsprofiel. Voeg hieronder een e-mailadres toe en de link wordt verstuurd.",
+    "sendLink": "Link versturen",
+    "linkSent": "De link naar uw beveiligingsprofiel is verstuurd naar {email}.",
+    "linkNotSent": "De link kon niet worden verstuurd naar {email}.",
+    "removeAccess": "Toegang intrekken",
+    "removeAccessFor": "Toegang van {email} intrekken",
+    "removeAccessTitle": "Toegang van {email} intrekken?",
+    "removeAccessBody": "De link van deze persoon naar uw beveiligingsprofiel werkt daarna niet meer en naar dit adres wordt niets meer verstuurd. De klant en de andere personen blijven bestaan.",
+    "accessRemoved": "Toegang ingetrokken. De klant staat nog in uw lijst.",
+    "deleteCustomer": "Klant verwijderen",
+    "deleteCustomerTitle": "{name} verwijderen?",
+    "deleteCustomerBody": "De klant wordt definitief verwijderd, samen met de systemen die u voor hem hebt vastgelegd en de incidentmeldingen die u hem hebt gestuurd. Zijn link naar uw beveiligingsprofiel werkt daarna niet meer. Dit kan niet ongedaan worden gemaakt.",
+    "deleteCustomerBodyOwnAccount": "Deze klant heeft een eigen account. Hij verdwijnt uit uw lijst en zijn toegang tot uw beveiligingsprofiel eindigt, maar hij houdt zijn eigen vastlegging van u. Dit kan niet ongedaan worden gemaakt.",
+    "ownAccountNote": "Deze klant heeft een eigen account en wordt bereikt op het adres dat hij daar heeft opgeslagen."
+  }
+}

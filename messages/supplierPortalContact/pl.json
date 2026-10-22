@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "Mogą Państwo pominąć adres e-mail i dodać osoby później na stronie Dostęp klienta. Bez adresu e-mail nic nie jest wysyłane.",
+    "needNameOrEmail": "Proszę podać nazwę firmy klienta lub adres e-mail.",
+    "cancel": "Anuluj",
+    "emailPlaceholder": "it@klient.example",
+    "addPersonLabel": "Dodaj osobę",
+    "contactsEmpty": "Nikt nie ma jeszcze linku do Państwa profilu bezpieczeństwa. Proszę dodać poniżej adres e-mail, a link zostanie wysłany.",
+    "sendLink": "Wyślij link",
+    "linkSent": "Link do Państwa profilu bezpieczeństwa został wysłany na adres {email}.",
+    "linkNotSent": "Nie udało się wysłać linku na adres {email}.",
+    "removeAccess": "Odbierz dostęp",
+    "removeAccessFor": "Odbierz dostęp dla {email}",
+    "removeAccessTitle": "Odebrać dostęp dla {email}?",
+    "removeAccessBody": "Link tej osoby do Państwa profilu bezpieczeństwa przestanie działać, a na ten adres nic już nie będzie wysyłane. Klient i pozostałe osoby zostają.",
+    "accessRemoved": "Dostęp odebrany. Klient nadal jest na Państwa liście.",
+    "deleteCustomer": "Usuń klienta",
+    "deleteCustomerTitle": "Usunąć {name}?",
+    "deleteCustomerBody": "Klient zostanie usunięty na stałe wraz z systemami, które Państwo dla niego zapisali, i powiadomieniami o incydentach, które Państwo mu wysłali. Jego link do Państwa profilu bezpieczeństwa przestanie działać. Tej operacji nie można cofnąć.",
+    "deleteCustomerBodyOwnAccount": "Ten klient ma własne konto. Znika z Państwa listy, a jego dostęp do Państwa profilu bezpieczeństwa się kończy, ale zachowuje własny zapis dotyczący Państwa. Tej operacji nie można cofnąć.",
+    "ownAccountNote": "Ten klient ma własne konto i jest osiągalny pod adresem, który tam zapisał."
+  }
+}
