@@ -28,8 +28,10 @@ import {
   incident,
   incidentBroadcast,
   supplier,
+  supplierContact,
 } from "@/schema";
 import { publicProcedure, router } from "../../init";
+import { accessByToken } from "./contacts";
 import { customerAddressOf } from "./customer-contact";
 
 export const supplierPublicRouter = router({
@@ -62,10 +64,9 @@ export const supplierPublicRouter = router({
         });
       }
 
-      const rel = await ctx.db.query.supplier.findFirst({
-        where: eq(supplier.unsubscribeToken, input.token),
-      });
-      if (!rel) return null;
+      const access = await accessByToken(ctx.db, input.token);
+      if (!access) return null;
+      const { rel } = access;
       if (rel.status === "revoked") return null;
       if (!rel.supplierCompanyId) return null;
 
@@ -164,7 +165,11 @@ export const supplierPublicRouter = router({
       return {
         relationship: {
           id: rel.id,
-          customerEmail: await customerAddressOf(ctx.db, rel),
+          // The address this link was sent to: the person's own for a link of theirs.
+          customerEmail:
+            access.via.kind === "contact"
+              ? access.via.email
+              : await customerAddressOf(ctx.db, rel),
           customerOrgName: rel.customerOrgName,
           status: rel.status,
           createdAt: rel.createdAt,
@@ -209,13 +214,30 @@ export const supplierPublicRouter = router({
         });
       }
 
-      const rel = await ctx.db.query.supplier.findFirst({
-        where: eq(supplier.unsubscribeToken, input.token),
-      });
-      if (!rel) throw new TRPCError({ code: "NOT_FOUND" });
+      const access = await accessByToken(ctx.db, input.token);
+      if (!access) throw new TRPCError({ code: "NOT_FOUND" });
+      const { rel } = access;
       // Defense-in-depth: a row with a token but no supplier company is
       // malformed and should not be revokable via this path.
       if (!rel.supplierCompanyId) throw new TRPCError({ code: "NOT_FOUND" });
+
+      if (access.via.kind === "contact") {
+        // One person ends their own link. The others at this customer keep theirs, and the
+        // customer stays in the supplier's list.
+        await ctx.db
+          .delete(supplierContact)
+          .where(eq(supplierContact.id, access.via.contactId));
+        logAudit({
+          companyId: rel.supplierCompanyId,
+          userId: null,
+          action: "supplierPortal.public.revoke",
+          entityType: "supplier",
+          entityId: rel.id,
+          description: `${access.via.email} ended their own access via token from ${ctx.ip}`,
+          newValue: { contactEnded: true, actorIp: ctx.ip },
+        }).catch((err) => console.error("[audit] revoke log failed:", err));
+        return { ok: true };
+      }
 
       if (rel.status !== "revoked") {
         await ctx.db

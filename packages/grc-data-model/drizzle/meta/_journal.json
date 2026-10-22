@@ -92,6 +92,13 @@
       "when": 1792510808381,
       "tag": "0012_activity_suppliers",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1792692579930,
+      "tag": "0013_supplier_contact",
+      "breakpoints": true
     }
   ]
 }

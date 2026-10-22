@@ -10,3 +10,4 @@ export * from "./requirement-control";
 export * from "./requirement-satisfaction";
 export * from "./risk";
 export * from "./supplier";
+export * from "./supplier-contact";

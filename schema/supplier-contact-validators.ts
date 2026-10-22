@@ -14,8 +14,14 @@ export const supplierInviteCustomerSchema = z.object({
   customerOrgName: z.string().max(500).optional(),
 });
 
-/** The address a customer's security contact is reached at (add, or replace). */
-export const supplierSetContactSchema = z.object({
+/** A person to send a customer's link to. */
+export const supplierAddContactSchema = z.object({
   id: z.string().uuid(),
   customerEmail: z.string().email().max(255),
+});
+
+/** One person's access to take away: `contactId` names an added person, none means the row's own. */
+export const supplierRemoveContactSchema = z.object({
+  id: z.string().uuid(),
+  contactId: z.string().uuid().optional(),
 });

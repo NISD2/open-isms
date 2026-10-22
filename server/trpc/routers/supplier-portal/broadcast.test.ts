@@ -22,12 +22,18 @@ type Company = {
 const fixture: {
   rel: Relationship | undefined;
   companies: readonly Company[];
+  /** People added to the customer after its first address, each with a link of their own. */
+  contacts: readonly { id: string; email: string; token: string }[];
   supplierName: string;
 } = {
   rel: undefined,
   companies: [],
+  contacts: [],
   supplierName: "Lieferant GmbH",
 };
+
+/** Addresses the mail transport refuses in the current test. */
+const refused = new Set<string>();
 
 /** The supplier's own words on the incident row, which no mail may carry. */
 const INCIDENT_TEXT = {
@@ -81,6 +87,8 @@ const db = {
   select: () => ({
     from: () => ({
       leftJoin: () => ({ where: async () => fixture.companies }),
+      // The people added to an unlinked customer, oldest first.
+      where: () => ({ orderBy: async () => fixture.contacts }),
     }),
   }),
 };
@@ -99,6 +107,7 @@ mock.module("@/lib/db", () => ({ db }));
 // Full export shape, as lib/lifecycle/dispatch.test.ts mocks the same module.
 mock.module("@/lib/mail/send", () => ({
   sendMail: async (opts: Mail) => {
+    if (refused.has(opts.to)) return { success: false };
     sentTo.push(opts.to);
     mails.push(opts);
     return { success: true, id: "sent-1" };
@@ -116,6 +125,8 @@ beforeEach(() => {
   sentTo.splice(0);
   mails.splice(0);
   closed.splice(0);
+  refused.clear();
+  fixture.contacts = [];
   fixture.supplierName = "Lieferant GmbH";
 });
 
@@ -161,6 +172,94 @@ describe("broadcastIncidentBroadcast", () => {
     expect(closed).toEqual([
       expect.objectContaining({ status: "sent", deliveryCount: 0 }),
     ]);
+  });
+});
+
+describe("a customer with several people", () => {
+  const ADDED_A = "a".repeat(64);
+  const ADDED_B = "b".repeat(64);
+
+  test("each person is mailed, with the link that is theirs", async () => {
+    fixture.rel = {
+      customerCompanyId: null,
+      customerEmail: "isb@kunde-b.test",
+      unsubscribeToken: TOKEN,
+    };
+    fixture.contacts = [
+      { id: "c-1", email: "ciso@kunde-b.test", token: ADDED_A },
+      { id: "c-2", email: "it@kunde-b.test", token: ADDED_B },
+    ];
+
+    expect(await broadcastIncidentBroadcast("broadcast-1")).toBe(true);
+    expect(sentTo).toEqual(["isb@kunde-b.test", "ciso@kunde-b.test", "it@kunde-b.test"]);
+    expect(mails[0]?.text).toContain(`/supplier-access/${TOKEN}#`);
+    expect(mails[1]?.text).toContain(`/supplier-access/${ADDED_A}#`);
+    expect(mails[2]?.text).toContain(`/supplier-access/${ADDED_B}#`);
+    // No one is sent another person's link.
+    expect(mails[1]?.text).not.toContain(TOKEN);
+    expect(closed).toEqual([
+      expect.objectContaining({ status: "sent", deliveryCount: 3 }),
+    ]);
+  });
+
+  test("a customer with no first address is mailed at the people added", async () => {
+    fixture.rel = {
+      customerCompanyId: null,
+      customerEmail: null,
+      unsubscribeToken: TOKEN,
+    };
+    fixture.contacts = [{ id: "c-1", email: "ciso@kunde-b.test", token: ADDED_A }];
+
+    expect(await broadcastIncidentBroadcast("broadcast-1")).toBe(true);
+    expect(sentTo).toEqual(["ciso@kunde-b.test"]);
+  });
+
+  test("one refused address does not stop the others, and the notice counts as sent", async () => {
+    fixture.rel = {
+      customerCompanyId: null,
+      customerEmail: "isb@kunde-b.test",
+      unsubscribeToken: TOKEN,
+    };
+    fixture.contacts = [{ id: "c-1", email: "ciso@kunde-b.test", token: ADDED_A }];
+    refused.add("isb@kunde-b.test");
+
+    expect(await broadcastIncidentBroadcast("broadcast-1")).toBe(true);
+    expect(sentTo).toEqual(["ciso@kunde-b.test"]);
+    // Not marked failed: the drain would retry a failed row and mail the second person twice.
+    expect(closed).toEqual([
+      expect.objectContaining({ status: "sent", deliveryCount: 1 }),
+    ]);
+  });
+
+  test("when nobody could be mailed the notice is failed, to be retried", async () => {
+    fixture.rel = {
+      customerCompanyId: null,
+      customerEmail: "isb@kunde-b.test",
+      unsubscribeToken: TOKEN,
+    };
+    fixture.contacts = [{ id: "c-1", email: "ciso@kunde-b.test", token: ADDED_A }];
+    refused.add("isb@kunde-b.test");
+    refused.add("ciso@kunde-b.test");
+
+    expect(await broadcastIncidentBroadcast("broadcast-1")).toBe(false);
+    expect(closed).toEqual([
+      expect.objectContaining({ status: "failed", deliveryCount: 0 }),
+    ]);
+  });
+
+  test("a customer with an account of its own has no added people, only its own address", async () => {
+    fixture.rel = {
+      customerCompanyId: "kunde-a",
+      customerEmail: null,
+      unsubscribeToken: TOKEN,
+    };
+    fixture.companies = [
+      { id: "kunde-a", contactEmail: "neu@kunde-a.test", ownerEmail: null },
+    ];
+    fixture.contacts = [{ id: "c-1", email: "stale@kunde-a.test", token: ADDED_A }];
+
+    expect(await broadcastIncidentBroadcast("broadcast-1")).toBe(true);
+    expect(sentTo).toEqual(["neu@kunde-a.test"]);
   });
 });
 

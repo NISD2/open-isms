@@ -19,8 +19,14 @@ import {
   supplierIncidentBroadcastEmail,
 } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
-import { company, incident, incidentBroadcast, supplier } from "@/schema";
-import { customerAddressOf } from "./customer-contact";
+import {
+  company,
+  incident,
+  incidentBroadcast,
+  supplier,
+  supplierContact,
+} from "@/schema";
+import { recipientsOf } from "./contacts";
 
 /** Raw as registered; the mail templates clean it and supply the fallback. */
 async function getSupplierName(supplierCompanyId: string): Promise<string | null> {
@@ -87,11 +93,16 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
       eq(supplier.id, broadcast.customerRelationshipId),
       eq(supplier.status, "active"),
     ),
-    columns: { customerCompanyId: true, customerEmail: true, unsubscribeToken: true },
+    columns: {
+      id: true,
+      customerCompanyId: true,
+      customerEmail: true,
+      unsubscribeToken: true,
+    },
   });
-  const to = rel ? await customerAddressOf(db, rel) : null;
+  const recipients = rel ? await recipientsOf(db, rel) : [];
 
-  if (!rel || !to || !rel.unsubscribeToken) {
+  if (!rel || recipients.length === 0) {
     await db
       .update(incidentBroadcast)
       .set({ status: "sent", sentAt: new Date(), deliveryCount: 0 })
@@ -100,40 +111,66 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
   }
 
   const supplierName = await getSupplierName(evt.companyId);
-  const link = accessUrl(rel.unsubscribeToken);
 
-  // A failed render counts as a failed send: the row is marked failed and the drain retries it.
-  const result = await supplierIncidentBroadcastEmail({
-    supplierName,
-    severity: severityForEmail(evt.severity),
-    publishedAt: evt.createdAt,
-    // The anchor SharedIncidentsSection gives each notice on the access page.
-    incidentUrl: `${link}#incident-${evt.id}`,
-    unsubscribeUrl: link,
-  })
-    .then((content) =>
-      sendMail({
-        // External recipient: consent lives with the portal's own token
-        // (supplier.unsubscribedAt), checked when the relationship is selected.
-        emailType: "supplier.incident_broadcast",
-        to,
-        ...content,
-      }),
-    )
-    .catch(() => ({ success: false }) as const);
+  // One mail per person, each with that person's own link. A failed render counts as a failed
+  // send for that person.
+  const sent = await Promise.all(
+    recipients.map((recipient) => {
+      const link = accessUrl(recipient.token);
+      return supplierIncidentBroadcastEmail({
+        supplierName,
+        severity: severityForEmail(evt.severity),
+        publishedAt: evt.createdAt,
+        // The anchor SharedIncidentsSection gives each notice on the access page.
+        incidentUrl: `${link}#incident-${evt.id}`,
+        unsubscribeUrl: link,
+      })
+        .then((content) =>
+          sendMail({
+            // External recipient: consent lives with the portal's own token
+            // (supplier.unsubscribedAt), checked when the relationship is selected.
+            emailType: "supplier.incident_broadcast",
+            to: recipient.email,
+            ...content,
+          }),
+        )
+        .then((result) => result.success)
+        .catch(() => false);
+    }),
+  );
+  // Failed only when nobody got it: the drain retries a failed row, and a retry after a partial
+  // success would send the notice twice to the people it already reached.
+  const delivered = sent.filter(Boolean).length;
 
   await db
     .update(incidentBroadcast)
     .set({
-      status: result.success ? "sent" : "failed",
+      status: delivered > 0 ? "sent" : "failed",
       sentAt: new Date(),
-      deliveryCount: result.success ? 1 : 0,
+      deliveryCount: delivered,
     })
     .where(eq(incidentBroadcast.id, broadcast.id));
 
-  return result.success;
+  return delivered > 0;
 }
 
+/** The "added you" mail: who the supplier is and the link this person holds. */
+async function sendAddedYouMail(
+  supplierCompanyId: string,
+  to: string,
+  token: string,
+): Promise<void> {
+  const supplierName = await getSupplierName(supplierCompanyId);
+  const link = accessUrl(token);
+  const email = await supplierAddedYouEmail({
+    supplierName,
+    profileUrl: link,
+    unsubscribeUrl: link,
+  });
+  await sendMail({ emailType: "supplier.added_you", to, ...email });
+}
+
+/** The customer's first contact, the address on the row, is told it was added. */
 export async function notifyCustomerAdded(
   supplierCompanyId: string,
   customerEmail: string,
@@ -146,16 +183,22 @@ export async function notifyCustomerAdded(
     columns: { unsubscribeToken: true },
   });
   if (!rel?.unsubscribeToken) return;
+  await sendAddedYouMail(supplierCompanyId, customerEmail, rel.unsubscribeToken);
+}
 
-  const supplierName = await getSupplierName(supplierCompanyId);
-  const link = accessUrl(rel.unsubscribeToken);
-
-  const email = await supplierAddedYouEmail({
-    supplierName,
-    profileUrl: link,
-    unsubscribeUrl: link,
+/** One more person at a customer is sent their own link. */
+export async function notifyContactAdded(contactId: string): Promise<void> {
+  const contact = await db.query.supplierContact.findFirst({
+    where: eq(supplierContact.id, contactId),
+    columns: { email: true, accessToken: true, relationshipId: true },
   });
-  await sendMail({ emailType: "supplier.added_you", to: customerEmail, ...email });
+  if (!contact) return;
+  const rel = await db.query.supplier.findFirst({
+    where: eq(supplier.id, contact.relationshipId),
+    columns: { supplierCompanyId: true },
+  });
+  if (!rel?.supplierCompanyId) return;
+  await sendAddedYouMail(rel.supplierCompanyId, contact.email, contact.accessToken);
 }
 
 export async function drainQueuedBroadcasts(): Promise<{

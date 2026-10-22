@@ -15,13 +15,14 @@
  * infrastructure.
  */
 import { router } from "../../init";
-import { supplierProfileRouter } from "./profile";
-import { supplierRelationshipRouter } from "./relationship";
-import { supplierManagedAssetRouter } from "./managed-asset";
 import { companyCertificationRouter } from "./certification";
+import { supplierContactRouter } from "./contact-router";
 import { supplierIncidentRouter } from "./incident";
-import { supplierPublicRouter } from "./public";
+import { supplierManagedAssetRouter } from "./managed-asset";
 import { supplierOnboardingRouter } from "./onboarding";
+import { supplierProfileRouter } from "./profile";
+import { supplierPublicRouter } from "./public";
+import { supplierRelationshipRouter } from "./relationship";
 
 export const supplierPortalRouter = router({
   // Supplier-only signup path (creates company with actsAsSupplier=true)
@@ -30,6 +31,8 @@ export const supplierPortalRouter = router({
   // Supplier-side (the supplier managing their own profile + questionnaire)
   profile: supplierProfileRouter,
   relationship: supplierRelationshipRouter,
+  // The people at a customer who hold a link: list, add, remove
+  contact: supplierContactRouter,
   managedAsset: supplierManagedAssetRouter,
   // Cert table is generic (company_certification) but the supplier portal is
   // currently the only consumer — keep the namespace stable for the client.

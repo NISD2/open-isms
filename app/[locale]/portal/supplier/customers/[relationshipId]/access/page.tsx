@@ -15,11 +15,17 @@ export default async function CustomerAccessPage({
 }) {
   const { relationshipId } = await params;
   const rel = await api.supplierPortal.relationship.get({ id: relationshipId });
+  // A customer with an account of its own is shown at the address it keeps there, read only.
+  const contacts = rel.customerHasAccount
+    ? rel.customerEmail
+      ? [{ contactId: null, email: rel.customerEmail }]
+      : []
+    : await api.supplierPortal.contact.list({ id: relationshipId });
 
   return (
     <CustomerAccessSection
       relationshipId={relationshipId}
-      customerEmail={rel.customerEmail}
+      contacts={contacts}
       customerOrgName={rel.customerOrgName}
       customerHasAccount={rel.customerHasAccount}
       status={rel.status}

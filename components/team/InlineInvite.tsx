@@ -1,15 +1,10 @@
 "use client";
 
-import { Check, Copy, Loader2, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useId, useState } from "react";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { InviteField } from "@/components/shared/InviteField";
 import { useRouter } from "@/i18n/navigation";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import { trpc } from "@/lib/trpc/client";
-import { userFacingError } from "@/lib/trpc/error-message";
 
 interface InlineInviteProps {
   /** Called after a successful invite (e.g. to close a popover) */
@@ -35,13 +30,14 @@ interface InlineInviteProps {
 }
 
 /**
- * The one invite form: email input + send button. Shows a copyable invite link on success, the
- * only way the person hears of it on an instance without mail.
+ * The team invite form: the shared email form (components/shared/InviteField.tsx) sending an
+ * invite to join the company. Shows a copyable invite link on success, the only way the person
+ * hears of it on an instance without mail.
  */
 export function InlineInvite({
   onInvited,
-  placeholder = "colleague@company.com",
-  compact = false,
+  placeholder,
+  compact,
   label,
   sendLabel,
   sentText,
@@ -52,102 +48,34 @@ export function InlineInvite({
   const t = useTranslations("team");
   const tc = useTranslations("common");
   const router = useRouter();
-  const id = useId();
-  const [email, setEmail] = useState("");
-  const [inviteUrl, setInviteUrl] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
-
-  const invite = trpc.team.invite.useMutation({
-    onSuccess: (data) => {
-      setInviteUrl(data.inviteUrl);
-      const invited = email.trim();
-      setEmail("");
-      router.refresh();
-      // The invite is real either way; only the delivery differs. On an
-      // instance with no mail transport the link below is the only way the
-      // person hears about it, so say that instead of claiming a send.
-      if (data.emailed) {
-        toast.success(sentText?.(invited) ?? t("inline.sent", { email: invited }));
-      } else {
-        toast.warning(t("inline.notEmailed", { email: invited }));
-      }
-      onInvited?.(invited);
-    },
-    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
-  });
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setInviteUrl(null);
-    invite.mutate({
-      email: email.trim(),
-      redirectPath,
-      complianceRole,
-      assignmentContext,
-    });
-  }
-
-  function handleCopy() {
-    if (!inviteUrl) return;
-    navigator.clipboard.writeText(inviteUrl);
-    setCopied(true);
-    toast.success(t("inline.linkCopied"));
-    setTimeout(() => setCopied(false), 2000);
-  }
+  const invite = trpc.team.invite.useMutation();
 
   return (
-    <div className="space-y-2">
-      {label && (
-        <label htmlFor={id} className="text-sm font-medium">
-          {label}
-        </label>
-      )}
-      <form onSubmit={handleSubmit} className="flex max-w-md gap-1.5">
-        <Input
-          id={id}
-          type="email"
-          placeholder={placeholder}
-          aria-label={label ? undefined : placeholder}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          // The input's own size: 16 px on a phone, so iOS Safari does not zoom in, 14 px from md.
-          className={compact ? "h-8" : undefined}
-        />
-        <Button
-          type="submit"
-          size={compact ? "sm" : "default"}
-          disabled={invite.isPending}
-          aria-label={sendLabel ? undefined : t("inline.send")}
-        >
-          {invite.isPending ? (
-            <Loader2 className="h-3.5 w-3.5 animate-spin" />
-          ) : (
-            <Send className="h-3.5 w-3.5" />
-          )}
-          {sendLabel}
-        </Button>
-      </form>
-
-      {inviteUrl && (
-        <div className="flex max-w-md items-center gap-1.5 rounded-md border bg-muted/50 px-2 py-1.5">
-          <code className="flex-1 truncate text-xs">{inviteUrl}</code>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-6 w-6 p-0"
-            aria-label={t("inline.copyLink")}
-            onClick={handleCopy}
-          >
-            {copied ? (
-              <Check className="h-3 w-3 text-green-600" />
-            ) : (
-              <Copy className="h-3 w-3" />
-            )}
-          </Button>
-        </div>
-      )}
-    </div>
+    <InviteField
+      send={async (email) => {
+        const data = await invite.mutateAsync({
+          email,
+          redirectPath,
+          complianceRole,
+          assignmentContext,
+        });
+        router.refresh();
+        return { emailed: data.emailed, link: data.inviteUrl };
+      }}
+      onSent={onInvited}
+      text={{
+        send: t("inline.send"),
+        sent: (email) => t("inline.sent", { email }),
+        notEmailed: (email) => t("inline.notEmailed", { email }),
+        failed: tc("actionFailed"),
+        copyLink: t("inline.copyLink"),
+        linkCopied: t("inline.linkCopied"),
+      }}
+      placeholder={placeholder}
+      compact={compact}
+      label={label}
+      sendLabel={sendLabel}
+      sentText={sentText}
+    />
   );
 }

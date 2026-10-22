@@ -25,7 +25,7 @@ import {
 import { accountProcedure, router } from "../../init";
 import { insertRow } from "../../typed";
 import { broadcastIncidentBroadcast } from "./broadcast";
-import { customerAddressOf } from "./customer-contact";
+import { recipientsOf } from "./contacts";
 
 const severityEnum = z.enum(["info", "warning", "critical"]);
 
@@ -75,7 +75,12 @@ export const supplierIncidentRouter = router({
           eq(supplier.id, input.relationshipId),
           eq(supplier.supplierCompanyId, ctx.companyId),
         ),
-        columns: { id: true, customerCompanyId: true, customerEmail: true },
+        columns: {
+          id: true,
+          customerCompanyId: true,
+          customerEmail: true,
+          unsubscribeToken: true,
+        },
       });
       if (!rel) {
         throw new TRPCError({
@@ -88,10 +93,11 @@ export const supplierIncidentRouter = router({
         "incidentNoticesPerCustomer",
         `${ctx.companyId}:${rel.id}`,
       );
-      // Counted at the address the notice will go to, as broadcast.ts resolves it.
+      // Counted at every address the notice will go to, as broadcast.ts resolves them.
       // None means no mail goes out, so there is nothing to count.
-      const to = await customerAddressOf(ctx.db, rel);
-      if (to) await requireInboxBudget(ctx.companyId, to);
+      for (const recipient of await recipientsOf(ctx.db, rel)) {
+        await requireInboxBudget(ctx.companyId, recipient.email);
+      }
 
       // Affected assets must be the supplier's own AND offered to THIS customer.
       if (input.affectedAssetIds && input.affectedAssetIds.length > 0) {

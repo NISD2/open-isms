@@ -52,11 +52,13 @@ type Relationship = {
   readonly id: string;
   readonly customerCompanyId: null;
   readonly customerEmail: string;
+  readonly unsubscribeToken: string;
 };
 const relationshipTo = (customerEmail: string, id = randomUUID()): Relationship => ({
   id,
   customerCompanyId: null,
   customerEmail,
+  unsubscribeToken: ACCESS_TOKEN,
 });
 
 /** What the current test put in the database; beforeEach resets it. */
@@ -86,14 +88,17 @@ const db = {
       findFirst: async () => ({ actsAsSupplier: true, name: SENDER_NAME }),
     },
     supplier: {
+      // notifyCustomerAdded asks for the token alone; the procedures ask for the row.
       findFirst: async (opts: { columns: Record<string, boolean> }) =>
-        opts.columns.unsubscribeToken
+        opts.columns.unsubscribeToken && !opts.columns.id
           ? { unsubscribeToken: ACCESS_TOKEN }
           : state.relationship,
     },
     supplierInvite: { findFirst: async () => state.invite },
     user: { findFirst: async () => ({ email: "sender@muster.example" }) },
   },
+  // The people added to a customer after its first address: none in this suite.
+  select: () => ({ from: () => ({ where: () => ({ orderBy: async () => [] }) }) }),
   insert: (table: unknown) => ({
     values: (values: Record<string, unknown>) => {
       writes.push({ op: "insert", table, values });

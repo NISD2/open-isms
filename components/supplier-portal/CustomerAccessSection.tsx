@@ -19,7 +19,10 @@
  */
 import { useTranslations } from "next-intl";
 import type { z } from "zod";
-import { CustomerContactCard } from "@/components/supplier-portal/CustomerContactCard";
+import {
+  type Contact,
+  CustomerContactsCard,
+} from "@/components/supplier-portal/CustomerContactsCard";
 import { useRouter } from "@/i18n/navigation";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { SchemaForm } from "@/lib/forms/schema-form";
@@ -44,14 +47,14 @@ const fieldOverrides: Record<string, FieldOverride> = {
 
 export function CustomerAccessSection({
   relationshipId,
-  customerEmail,
+  contacts,
   customerOrgName,
   customerHasAccount,
   status,
   initialClauses,
 }: {
   relationshipId: string;
-  customerEmail: string | null;
+  contacts: readonly Contact[];
   customerOrgName: string | null;
   customerHasAccount: boolean;
   status: RelationshipStatus | null;
@@ -85,9 +88,9 @@ export function CustomerAccessSection({
       {/* Access: the customer's contact, to add, change or remove */}
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">{tNav("access")}</h2>
-        <CustomerContactCard
+        <CustomerContactsCard
           relationshipId={relationshipId}
-          customerEmail={customerEmail}
+          contacts={contacts}
           customerOrgName={customerOrgName}
           customerHasAccount={customerHasAccount}
           status={status}
