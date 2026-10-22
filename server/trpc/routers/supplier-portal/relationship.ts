@@ -12,7 +12,7 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { company, supplier } from "@/schema";
+import { company, supplier, user } from "@/schema";
 import {
   relationshipClausesUpdateSchema,
   supplierFacingRelationshipSchema,
@@ -27,6 +27,7 @@ import { insertRow, pickColumns, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
 import { withCustomerAddress } from "./customer-contact";
 import { generateOpaqueToken } from "./helpers";
+import { bindInvites, pendingInvitesTo } from "./invite-binding";
 
 /**
  * The only shape a supplier row leaves this router in. The same row is the
@@ -58,6 +59,18 @@ async function requireSupplierRole(
   }
 }
 
+/** The address the caller signed in with, lowercased; null if the account has none. */
+async function signedInEmail(
+  db: typeof import("@/lib/db").db,
+  userId: string,
+): Promise<string | null> {
+  const row = await db.query.user.findFirst({
+    where: eq(user.id, userId),
+    columns: { email: true },
+  });
+  return row?.email?.toLowerCase() ?? null;
+}
+
 async function findRelationshipId(
   db: typeof import("@/lib/db").db,
   supplierCompanyId: string,
@@ -81,6 +94,47 @@ export const supplierRelationshipRouter = router({
       .where(eq(supplier.supplierCompanyId, ctx.companyId))
       .orderBy(desc(supplier.createdAt));
     return withCustomerAddress(ctx.db, rows);
+  }),
+
+  /**
+   * How many customers have invited the signed-in address and are not bound to this company yet.
+   * A query, so the portal layout can ask on every page without writing an audit row; it only
+   * calls `bindInvitedCustomers` when this is above zero.
+   */
+  pendingInvitedCount: accountProcedure.query(async ({ ctx }) => {
+    const email = await signedInEmail(ctx.db, ctx.userId);
+    if (!email) return 0;
+    return (await pendingInvitesTo(ctx.db, email, ctx.companyId)).length;
+  }),
+
+  /**
+   * Bind the customers that invited the signed-in address to this company, so they appear in
+   * "Customers" without the supplier having to invite them back. A customer's invite exists from the
+   * moment it sends it; before this, only a brand-new account could claim one (onboarding.acceptInvite),
+   * so a company that already existed under the invited address never saw its customer.
+   *
+   * The credential is the signed-in address, as in acceptInvite. Safe to call repeatedly.
+   */
+  bindInvitedCustomers: accountProcedure.mutation(async ({ ctx }) => {
+    const [email, me] = await Promise.all([
+      signedInEmail(ctx.db, ctx.userId),
+      ctx.db.query.company.findFirst({
+        where: eq(company.id, ctx.companyId),
+        columns: { name: true },
+      }),
+    ]);
+    if (!email) return { bound: 0, left: 0 };
+    const invites = await pendingInvitesTo(ctx.db, email, ctx.companyId);
+    if (invites.length === 0) return { bound: 0, left: 0 };
+    const outcomes = await ctx.db.transaction((tx) =>
+      bindInvites(tx, {
+        invites,
+        supplierCompanyId: ctx.companyId,
+        supplierName: me?.name ?? "Supplier",
+      }),
+    );
+    const bound = outcomes.filter((o) => o.bound).length;
+    return { bound, left: outcomes.length - bound };
   }),
 
   /** Add a single customer subscription. Idempotent on (supplier, email). */

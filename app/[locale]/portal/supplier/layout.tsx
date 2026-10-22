@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
+import { PortalHeader } from "@/components/portal/PortalHeader";
+import { SupplierAppSidebar } from "@/components/supplier-portal/SupplierAppSidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
-import { SupplierAppSidebar } from "@/components/supplier-portal/SupplierAppSidebar";
-import { PortalHeader } from "@/components/portal/PortalHeader";
 import { api } from "@/lib/trpc/server";
 
 /**
@@ -35,6 +35,13 @@ export default async function SupplierPortalLayout({
   // company — funnel it through supplier onboarding, which creates one and
   // discards the draft.
   if (!session.companyActivated) redirect("/portal/supplier-onboarding");
+
+  // Customers that invited this address become this company's customers before the list is read,
+  // so a company that existed before the invite still sees them. The count is a query because a
+  // mutation is audited on every call; the bind runs only when an invite is waiting.
+  if ((await api.supplierPortal.relationship.pendingInvitedCount()) > 0) {
+    await api.supplierPortal.relationship.bindInvitedCustomers();
+  }
 
   // Fetch the customer list once at layout level so the sidebar always knows
   // which customer entries to render. The query is filtered by the caller's
