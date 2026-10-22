@@ -1,5 +1,5 @@
-import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { api } from "@/lib/trpc/server";
 
 /**
@@ -19,20 +19,14 @@ export default async function PerCustomerLayout({
     getTranslations("supplierPortal.pages"),
   ]);
 
-  let rel;
-  try {
-    rel = await api.supplierPortal.relationship.get({ id: relationshipId });
-  } catch {
-    notFound();
-  }
+  const rel = await api.supplierPortal.relationship
+    .get({ id: relationshipId })
+    .catch(() => notFound());
 
+  // The company name, else the full address; never the part after the @, which for a customer on
+  // a mail provider reads as "gmail.com".
   const label =
-    rel.customerOrgName?.trim() ||
-    (rel.customerEmail
-      ? rel.customerEmail.includes("@")
-        ? rel.customerEmail.slice(rel.customerEmail.indexOf("@") + 1)
-        : rel.customerEmail
-      : pages("unknownCustomer"));
+    rel.customerOrgName?.trim() || rel.customerEmail || pages("unknownCustomer");
 
   return (
     <div className="space-y-6 max-w-5xl">
@@ -41,7 +35,7 @@ export default async function PerCustomerLayout({
           {`${nav("portalName")} · ${pages("customer")}`}
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">{label}</h1>
-        {rel.customerEmail && (
+        {rel.customerEmail && rel.customerEmail !== label && (
           <p className="text-sm text-muted-foreground">{rel.customerEmail}</p>
         )}
       </header>

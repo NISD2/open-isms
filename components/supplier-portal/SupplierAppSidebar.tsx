@@ -1,5 +1,37 @@
 "use client";
 
+import type { LucideIcon } from "lucide-react";
+import {
+  AlertCircle,
+  Building2,
+  KeyRound,
+  Layers,
+  ListChecks,
+  Plus,
+  Server,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { PortalSwitcher } from "@/components/portal/PortalSwitcher";
+import { UserNav } from "@/components/portal/UserNav";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarRail,
+} from "@/components/ui/sidebar";
 /**
  * Supplier portal sidebar — same shadcn primitives as the entity portal
  * AppSidebar, but a much simpler structure: two groups (General + Customers).
@@ -22,38 +54,6 @@
  *   list also creates a new relationship row via the existing invite flow.
  */
 import { Link, usePathname } from "@/i18n/navigation";
-import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
-import {
-  Building2,
-  ListChecks,
-  ShieldCheck,
-  Users,
-  Plus,
-  Server,
-  AlertCircle,
-  KeyRound,
-  Layers,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarRail,
-} from "@/components/ui/sidebar";
-import { UserNav } from "@/components/portal/UserNav";
-import { PortalSwitcher } from "@/components/portal/PortalSwitcher";
 
 interface NavItem {
   href: string;
@@ -89,28 +89,26 @@ interface CustomerEntry {
 }
 
 interface SupplierAppSidebarProps {
-  user: { name?: string | null; email?: string | null; image?: string | null; isPlatformAdmin?: boolean };
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    isPlatformAdmin?: boolean;
+  };
   customers: CustomerEntry[];
 }
 
-/** Extract a stable display label for a customer row — domain first, then full email. */
-function customerLabel(c: CustomerEntry): string {
-  if (c.customerOrgName?.trim()) return c.customerOrgName.trim();
-  if (c.customerEmail) {
-    const at = c.customerEmail.indexOf("@");
-    if (at >= 0 && at < c.customerEmail.length - 1) {
-      return c.customerEmail.slice(at + 1);
-    }
-    return c.customerEmail;
-  }
-  return "(unknown)";
+/**
+ * The name to show for a customer row: its company name, else the full address. Never the part
+ * after the @: for a customer on a mail provider that reads as "gmail.com".
+ */
+function customerLabel(c: CustomerEntry, unknown: string): string {
+  return c.customerOrgName?.trim() || c.customerEmail || unknown;
 }
 
-export function SupplierAppSidebar({
-  user,
-  customers,
-}: SupplierAppSidebarProps) {
+export function SupplierAppSidebar({ user, customers }: SupplierAppSidebarProps) {
   const t = useTranslations("supplierPortal.nav");
+  const unknownCustomer = useTranslations("supplierPortal.pages")("unknownCustomer");
   const pathname = usePathname();
   // `usePathname()` returns the route template (e.g.
   // `/portal/supplier/customers/[relationshipId]/assets`), so per-customer
@@ -140,11 +138,7 @@ export function SupplierAppSidebar({
                   pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={active}
-                      tooltip={label}
-                    >
+                    <SidebarMenuButton asChild isActive={active} tooltip={label}>
                       <Link href={item.href as never} prefetch={false}>
                         <Icon className="h-4 w-4" />
                         <span>{label}</span>
@@ -180,17 +174,20 @@ export function SupplierAppSidebar({
                         <SidebarMenuButton
                           asChild
                           isActive={isActive}
-                          tooltip={customerLabel(c)}
+                          tooltip={customerLabel(c, unknownCustomer)}
                         >
                           <Link
                             href={{
-                              pathname: "/portal/supplier/customers/[relationshipId]/assets",
+                              pathname:
+                                "/portal/supplier/customers/[relationshipId]/assets",
                               params: { relationshipId: c.id },
                             }}
                             prefetch={false}
                           >
                             <Users className="h-4 w-4" />
-                            <span className="truncate">{customerLabel(c)}</span>
+                            <span className="truncate">
+                              {customerLabel(c, unknownCustomer)}
+                            </span>
                           </Link>
                         </SidebarMenuButton>
                         {isActive && (
@@ -198,11 +195,15 @@ export function SupplierAppSidebar({
                             <SidebarMenuSubItem>
                               <SidebarMenuSubButton
                                 asChild
-                                isActive={pathname === "/portal/supplier/customers/[relationshipId]/assets"}
+                                isActive={
+                                  pathname ===
+                                  "/portal/supplier/customers/[relationshipId]/assets"
+                                }
                               >
                                 <Link
                                   href={{
-                                    pathname: "/portal/supplier/customers/[relationshipId]/assets",
+                                    pathname:
+                                      "/portal/supplier/customers/[relationshipId]/assets",
                                     params: { relationshipId: c.id },
                                   }}
                                   prefetch={false}
@@ -215,11 +216,15 @@ export function SupplierAppSidebar({
                             <SidebarMenuSubItem>
                               <SidebarMenuSubButton
                                 asChild
-                                isActive={pathname === "/portal/supplier/customers/[relationshipId]/incidents"}
+                                isActive={
+                                  pathname ===
+                                  "/portal/supplier/customers/[relationshipId]/incidents"
+                                }
                               >
                                 <Link
                                   href={{
-                                    pathname: "/portal/supplier/customers/[relationshipId]/incidents",
+                                    pathname:
+                                      "/portal/supplier/customers/[relationshipId]/incidents",
                                     params: { relationshipId: c.id },
                                   }}
                                   prefetch={false}
@@ -232,11 +237,15 @@ export function SupplierAppSidebar({
                             <SidebarMenuSubItem>
                               <SidebarMenuSubButton
                                 asChild
-                                isActive={pathname === "/portal/supplier/customers/[relationshipId]/access"}
+                                isActive={
+                                  pathname ===
+                                  "/portal/supplier/customers/[relationshipId]/access"
+                                }
                               >
                                 <Link
                                   href={{
-                                    pathname: "/portal/supplier/customers/[relationshipId]/access",
+                                    pathname:
+                                      "/portal/supplier/customers/[relationshipId]/access",
                                     params: { relationshipId: c.id },
                                   }}
                                   prefetch={false}

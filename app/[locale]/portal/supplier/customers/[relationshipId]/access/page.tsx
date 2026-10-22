@@ -1,5 +1,5 @@
-import { api } from "@/lib/trpc/server";
 import { CustomerAccessSection } from "@/components/supplier-portal/CustomerAccessSection";
+import { api } from "@/lib/trpc/server";
 
 /**
  * Per-customer access management — invite/revoke + per-customer contract
@@ -21,6 +21,7 @@ export default async function CustomerAccessPage({
       relationshipId={relationshipId}
       customerEmail={rel.customerEmail}
       customerOrgName={rel.customerOrgName}
+      customerHasAccount={rel.customerHasAccount}
       status={rel.status}
       initialClauses={{
         acceptRightToAudit: rel.acceptRightToAudit,

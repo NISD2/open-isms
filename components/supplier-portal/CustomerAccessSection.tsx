@@ -17,11 +17,9 @@
  * `translationNamespace`. The `group` names only decide where a separator
  * goes; they are not shown.
  */
-import { Mail, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { z } from "zod";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { CustomerContactCard } from "@/components/supplier-portal/CustomerContactCard";
 import { useRouter } from "@/i18n/navigation";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { SchemaForm } from "@/lib/forms/schema-form";
@@ -48,29 +46,23 @@ export function CustomerAccessSection({
   relationshipId,
   customerEmail,
   customerOrgName,
+  customerHasAccount,
   status,
   initialClauses,
 }: {
   relationshipId: string;
   customerEmail: string | null;
   customerOrgName: string | null;
+  customerHasAccount: boolean;
   status: RelationshipStatus | null;
   initialClauses: ClauseValues;
 }) {
   const t = useTranslations("supplierPortal.access");
   const tNav = useTranslations("supplierPortal.nav");
-  const tView = useTranslations("supplierPortal.customerView");
   const router = useRouter();
 
   const updateClauses = trpc.supplierPortal.relationship.updateClauses.useMutation({
     onSuccess: () => {
-      router.refresh();
-    },
-  });
-
-  const remove = trpc.supplierPortal.relationship.remove.useMutation({
-    onSuccess: () => {
-      router.push("/portal/supplier/customers");
       router.refresh();
     },
   });
@@ -90,40 +82,16 @@ export function CustomerAccessSection({
 
   return (
     <div className="space-y-8">
-      {/* Access — invited contact + revoke */}
+      {/* Access: the customer's contact, to add, change or remove */}
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">{tNav("access")}</h2>
-        <div className="rounded-md border bg-card p-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 min-w-0">
-            <Mail className="h-4 w-4 text-muted-foreground shrink-0" />
-            <div className="min-w-0">
-              <div className="font-medium text-sm truncate">
-                {customerEmail ?? t("contactMissing")}
-              </div>
-              {customerOrgName && (
-                <div className="text-xs text-muted-foreground truncate">
-                  {customerOrgName}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            {status && <StatusBadge status={status} />}
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => {
-                if (confirm(t("revokeConfirm"))) {
-                  remove.mutate({ id: relationshipId });
-                }
-              }}
-              disabled={remove.isPending || status === "revoked"}
-              aria-label={tView("revoke")}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
+        <CustomerContactCard
+          relationshipId={relationshipId}
+          customerEmail={customerEmail}
+          customerOrgName={customerOrgName}
+          customerHasAccount={customerHasAccount}
+          status={status}
+        />
       </section>
 
       {/* Per-customer contract clauses */}
@@ -152,22 +120,5 @@ export function CustomerAccessSection({
         )}
       </section>
     </div>
-  );
-}
-
-function StatusBadge({ status }: { status: RelationshipStatus }) {
-  const t = useTranslations("supplierPortal.access.status");
-  const variants: Record<
-    RelationshipStatus,
-    "default" | "secondary" | "outline" | "destructive"
-  > = {
-    active: "default",
-    revoked: "outline",
-    bounced: "destructive",
-  };
-  return (
-    <Badge variant={variants[status]} className="text-xs">
-      {t(status)}
-    </Badge>
   );
 }

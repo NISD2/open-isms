@@ -803,12 +803,6 @@ export const supplierAcceptInviteSchema = z.object({
   country: isoCountrySchema.optional(),
 });
 
-/** Supplier-side: invite a customer to view your security profile. */
-export const supplierInviteCustomerSchema = z.object({
-  customerEmail: z.string().email().max(255),
-  customerOrgName: z.string().max(500).optional(),
-});
-
 /** Entity-side: request a security profile from a supplier (magic-link invite). */
 export const supplierInviteRequestSchema = z.object({
   toEmail: z.string().email().max(255),

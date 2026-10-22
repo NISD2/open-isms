@@ -43,7 +43,7 @@
       "serviceTypeEmptyLink": "Go to the profile",
       "certificationsIntro": "Upload your security attestations (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). The PDFs and their details are visible to the customers you have invited.",
       "customersTitle": "Add a customer",
-      "customersIntro": "Invite a customer by email. They get a private link to your security profile and need no account for it. Once they accept, you enter the systems you run for them and report incidents that affect those systems.",
+      "customersIntro": "Add a customer by company name, email or both. With an email they get a private link to your security profile and need no account for it. Then you enter the systems you run for them and report incidents that affect those systems.",
       "customer": "Customer",
       "unknownCustomer": "(unknown customer)"
     },
@@ -215,7 +215,7 @@
       "emailPlaceholder": "it@customer.example",
       "orgNameLabel": "Customer's company name",
       "orgNamePlaceholder": "Example Ltd",
-      "submit": "Invite customer"
+      "submit": "Add customer"
     },
     "assets": {
       "add": "Add asset",
@@ -264,8 +264,8 @@
       }
     },
     "access": {
-      "contactMissing": "(no email)",
-      "revokeConfirm": "End access for this customer? They will no longer be able to see your security profile.",
+      "contactMissing": "No email yet",
+      "revokeConfirm": "They will no longer be able to see your security profile, and the customer leaves your list.",
       "status": {
         "active": "Active",
         "revoked": "Ended",

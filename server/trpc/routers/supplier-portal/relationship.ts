@@ -10,13 +10,16 @@
  */
 
 import { TRPCError } from "@trpc/server";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
 import { company, supplier, user } from "@/schema";
 import {
+  supplierInviteCustomerSchema,
+  supplierSetContactSchema,
+} from "@/schema/supplier-contact-validators";
+import {
   relationshipClausesUpdateSchema,
   supplierFacingRelationshipSchema,
-  supplierInviteCustomerSchema,
 } from "@/schema/validators";
 import {
   requireInboxBudget,
@@ -85,6 +88,45 @@ async function findRelationshipId(
   });
 }
 
+/** A customer added without an email, found again by the company name it was added under. */
+async function findUnaddressedRelationshipId(
+  db: typeof import("@/lib/db").db,
+  supplierCompanyId: string,
+  orgName: string | null,
+): Promise<{ id: string } | undefined> {
+  if (!orgName) return undefined;
+  return db.query.supplier.findFirst({
+    where: and(
+      eq(supplier.supplierCompanyId, supplierCompanyId),
+      isNull(supplier.customerEmail),
+      isNull(supplier.customerCompanyId),
+      eq(supplier.customerOrgName, orgName),
+    ),
+    columns: { id: true },
+  });
+}
+
+/**
+ * A customer linked to an account of its own is reached at the address it keeps there and cannot
+ * be given another by its supplier.
+ */
+function requireUnlinked(rel: { readonly customerCompanyId: string | null }): void {
+  if (rel.customerCompanyId) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message:
+        "This customer has its own account and is reached at the address it keeps there.",
+    });
+  }
+}
+
+/** The mail with the link to the security profile; best effort, the row is what counts. */
+function mailAccessLink(supplierCompanyId: string, email: string): void {
+  notifyCustomerAdded(supplierCompanyId, email).catch((err) => {
+    console.error("[supplier-portal] customer added email failed:", err);
+  });
+}
+
 export const supplierRelationshipRouter = router({
   /** List all customers (supplier rows) where I'm the supplier-side party. */
   listMyCustomers: accountProcedure.query(async ({ ctx }) => {
@@ -137,20 +179,34 @@ export const supplierRelationshipRouter = router({
     return { bound, left: outcomes.length - bound };
   }),
 
-  /** Add a single customer subscription. Idempotent on (supplier, email). */
+  /**
+   * Add a customer. Idempotent on (supplier, email), or on (supplier, company name) when no email
+   * is given: then nothing is mailed and the supplier adds the email later (`setContact`).
+   */
   invite: accountProcedure
     .input(supplierInviteCustomerSchema)
     .mutation(async ({ ctx, input }) => {
       await requireSupplierRole(ctx.db, ctx.companyId);
       await requireSupplierMailBudget("customerInvites", ctx.companyId);
-      const email = input.customerEmail.toLowerCase();
+      const email = input.customerEmail?.toLowerCase() ?? null;
+      const orgName = input.customerOrgName?.trim() || null;
+      if (!email && !orgName) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Give the customer's company name or an email address.",
+        });
+      }
 
-      const existing = await findRelationshipId(ctx.db, ctx.companyId, email);
+      const existing = email
+        ? await findRelationshipId(ctx.db, ctx.companyId, email)
+        : await findUnaddressedRelationshipId(ctx.db, ctx.companyId, orgName);
       if (existing) return existing;
-      // Checked before the row exists: a row added past the cap would still
-      // receive every incident notice this supplier publishes.
-      await requireInboxBudget(ctx.companyId, email);
-      await requireSupplierMailBudget("newRecipients", ctx.companyId);
+      if (email) {
+        // Checked before the row exists: a row added past the cap would still
+        // receive every incident notice this supplier publishes.
+        await requireInboxBudget(ctx.companyId, email);
+        await requireSupplierMailBudget("newRecipients", ctx.companyId);
+      }
 
       // Look up the supplier's own company name to use as the row's display name
       const me = await ctx.db.query.company.findFirst({
@@ -170,7 +226,7 @@ export const supplierRelationshipRouter = router({
             customerCompanyId: null,
             customerEmail: email,
             name: me?.name ?? "Supplier",
-            customerOrgName: input.customerOrgName ?? null,
+            customerOrgName: orgName,
             status: "active" as const,
             unsubscribeToken: generateOpaqueToken(),
             // A supplier's own invite, always: the other sources are set by their own flows.
@@ -185,7 +241,9 @@ export const supplierRelationshipRouter = router({
 
       if (!inserted) {
         // A concurrent call added the same address first: return its row, do NOT re-notify.
-        const raced = await findRelationshipId(ctx.db, ctx.companyId, email);
+        const raced = email
+          ? await findRelationshipId(ctx.db, ctx.companyId, email)
+          : undefined;
         if (!raced) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
@@ -196,12 +254,120 @@ export const supplierRelationshipRouter = router({
       }
 
       // Fire-and-forget "you've been added" notification — only on first insert
-      notifyCustomerAdded(ctx.companyId, email).catch((err) => {
-        console.error("[supplier-portal] customer added email failed:", err);
-      });
+      if (email) mailAccessLink(ctx.companyId, email);
       // Only the id: the row carries the customer's access token, which is their credential and
       // never the supplier's to see (as in `get`).
       return { id: inserted.id };
+    }),
+
+  /**
+   * Set the address a customer's security contact is reached at: add it to a customer that has
+   * none, or replace the one it has. The access link goes to the new address and the old link
+   * stops working, so the previous person loses access. The same address again sends the link once
+   * more. A customer with an account of its own is reached at the address it keeps there, so its
+   * row is not edited here.
+   */
+  setContact: accountProcedure
+    .input(supplierSetContactSchema)
+    .mutation(async ({ ctx, input }) => {
+      const email = input.customerEmail.toLowerCase();
+      const rel = await ctx.db.query.supplier.findFirst({
+        where: and(
+          eq(supplier.id, input.id),
+          eq(supplier.supplierCompanyId, ctx.companyId),
+        ),
+        columns: { id: true, customerCompanyId: true, customerEmail: true, status: true },
+      });
+      if (!rel || rel.status === "revoked") throw new TRPCError({ code: "NOT_FOUND" });
+      requireUnlinked(rel);
+
+      const resend = rel.customerEmail === email;
+      if (!resend && (await findRelationshipId(ctx.db, ctx.companyId, email))) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "You already have a customer with this email address.",
+        });
+      }
+      await requireSupplierMailBudget("customerInvites", ctx.companyId);
+      await requireInboxBudget(ctx.companyId, email);
+      if (!resend) await requireSupplierMailBudget("newRecipients", ctx.companyId);
+
+      if (!resend) {
+        const [row] = await ctx.db
+          .update(supplier)
+          .set(
+            updateRow(supplier, {
+              customerEmail: email,
+              // A new token: the link the previous contact holds stops working.
+              unsubscribeToken: generateOpaqueToken(),
+              status: "active" as const,
+              unsubscribedAt: null,
+              confirmedAt: new Date(),
+              updatedAt: new Date(),
+            }),
+          )
+          .where(
+            and(
+              eq(supplier.id, rel.id),
+              eq(supplier.supplierCompanyId, ctx.companyId),
+              isNull(supplier.customerCompanyId),
+            ),
+          )
+          .returning({ id: supplier.id });
+        if (!row) throw new TRPCError({ code: "NOT_FOUND" });
+      }
+      mailAccessLink(ctx.companyId, email);
+      return { id: rel.id };
+    }),
+
+  /**
+   * Take the contact's access away but keep the customer: the address is cleared and the link
+   * stops working, so nothing is mailed to it any more. Needs a company name on the row, or the
+   * customer would be left with no name at all.
+   */
+  removeContact: accountProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const rel = await ctx.db.query.supplier.findFirst({
+        where: and(
+          eq(supplier.id, input.id),
+          eq(supplier.supplierCompanyId, ctx.companyId),
+        ),
+        columns: {
+          id: true,
+          customerCompanyId: true,
+          customerOrgName: true,
+          status: true,
+        },
+      });
+      if (!rel || rel.status === "revoked") throw new TRPCError({ code: "NOT_FOUND" });
+      requireUnlinked(rel);
+      if (!rel.customerOrgName?.trim()) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message:
+            "Give this customer a company name before removing its email, or remove the customer.",
+        });
+      }
+      const [row] = await ctx.db
+        .update(supplier)
+        .set(
+          updateRow(supplier, {
+            customerEmail: null,
+            unsubscribeToken: generateOpaqueToken(),
+            updatedAt: new Date(),
+          }),
+        )
+        .where(
+          and(
+            eq(supplier.id, rel.id),
+            eq(supplier.supplierCompanyId, ctx.companyId),
+            isNull(supplier.customerCompanyId),
+          ),
+        )
+        .returning({ id: supplier.id });
+      if (!row) throw new TRPCError({ code: "NOT_FOUND" });
+      return row;
     }),
 
   /** Get a single relationship, with the per-customer contract clauses. */

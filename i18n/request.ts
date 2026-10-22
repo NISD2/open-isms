@@ -60,6 +60,7 @@ const namespaces = [
   "sicherheitsfragebogen",
   "suppliers",
   "supplierPortal",
+  "supplierPortalContact",
   "team",
   "timelines",
   "training",
