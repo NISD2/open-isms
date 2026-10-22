@@ -3,7 +3,7 @@ import { courseSchema } from "@/lib/training/schemas";
 const course = courseSchema.parse({
   id: "nis2-ceo",
   title: {
-    en: "NIS2 Management Training",
+    en: "NIS2 CEO and Management Training",
     de: "NIS2 Schulung für die Geschäftsleitung",
     nl: "NIS2 Managementtraining",
     fr: "Formation NIS2 pour la direction",

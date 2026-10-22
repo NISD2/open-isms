@@ -41,7 +41,7 @@ export function PortalHeader({
   guide?: { hints: Record<Hint, boolean> };
   /**
    * The courses' names in the reader's language, by course id. Only the training portal passes
-   * them, so its trail can read "Training / NIS2 Management Training / Lesson 0.1" instead of
+   * them, so its trail can read "Training / <course> / Lesson 0.1" instead of
    * stopping at "Training" on every page.
    */
   courseTitles?: Readonly<Record<string, string>>;
