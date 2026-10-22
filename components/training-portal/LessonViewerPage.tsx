@@ -46,7 +46,7 @@ interface LessonViewerPageProps {
    */
   certificateSample: string | null;
   /** The walk item this lesson leads to, with its headline, or null (decided server-side). */
-  walkLink: { code: string; headline: string } | null;
+  walkLink: { code: string; headline: string; image: string | null } | null;
   onSubmitQuiz: (answers: number[]) => Promise<{
     score: number;
     passed: boolean;
@@ -235,6 +235,9 @@ export function LessonViewerPage({
             <h1 className="mb-6 text-2xl font-semibold tracking-tight sm:text-3xl">
               {lesson.title[locale] ?? lesson.title.en}
             </h1>
+            {walkLink ? (
+              <WalkLink {...walkLink} lessonId={lesson.id} locale={locale} />
+            ) : null}
             <Tabs defaultValue={defaultTab}>
               {lesson.videoUrl && (
                 <TabsList className="mb-4">
@@ -267,7 +270,6 @@ export function LessonViewerPage({
                 <LessonArticle html={html} />
               </TabsContent>
             </Tabs>
-            {walkLink ? <WalkLink {...walkLink} locale={locale} /> : null}
           </div>
 
           {/* Right: Dictionary sidebar (1/3) */}

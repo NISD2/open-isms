@@ -76,12 +76,16 @@ test.describe("the GDPR walkthrough's paywall", () => {
       /\/durchgang\/dsgvo\/G-ROP\.1$/,
     );
 
-    // A free step opens; a locked one, and the approval, lead to the offer, as in NIS 2 (the
-    // portal sends every page past the free ones there).
+    // A free step opens; a locked one opens read only, as its preview with the way to order, as
+    // in NIS 2; the approval leads to the offer.
     await page.goto("/de/durchgang/dsgvo/G-ROP.1");
     await expect(page).toHaveURL(/\/durchgang\/dsgvo\/G-ROP\.1$/);
     await page.goto("/de/durchgang/dsgvo/G-DPA.1");
-    await expect(page).toHaveURL(/\/billing\/offer$/);
+    await expect(page).toHaveURL(/\/durchgang\/dsgvo\/G-DPA\.1$/);
+    await expect(
+      page.getByText("You fill this in once the company has ordered"),
+    ).toBeVisible();
+    await expect(page.locator("main input, main textarea")).toHaveCount(0);
     await page.goto("/de/durchgang/dsgvo/freigabe");
     await expect(page).toHaveURL(/\/billing\/offer$/);
 

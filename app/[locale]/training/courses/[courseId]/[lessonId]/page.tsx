@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { headlinesOf } from "@/app/[locale]/(portal)/durchgang/_walk/load";
+import { imageFor } from "@/app/[locale]/(portal)/durchgang/_walk/steps";
 import { GetStarted } from "@/components/GetStarted";
 import { StuckLink } from "@/components/help/StuckLink";
 import { AfterTrainingStep } from "@/components/training-portal/AfterTrainingStep";
@@ -43,15 +44,15 @@ export async function generateMetadata({
 }
 
 /**
- * The walk item a lesson leads to, named by the walk's own headline. The NIS2 course only: the
- * other courses reuse its lesson IDs, so its map must not leak into them. The walk's gates take it
- * from there (not set up, not paid).
+ * The walk item a lesson leads to, named by the walk's own headline and shown with its picture.
+ * The NIS2 course only: the other courses reuse its lesson IDs, so its map must not leak into
+ * them. The walk takes it from there: a locked item opens read only.
  */
 async function walkLinkFor(courseId: string, lessonId: string) {
   const code = courseId === MANAGEMENT_TRAINING ? walkItemForLesson(lessonId) : null;
   if (!code) return null;
   const headline = (await headlinesOf([code])).get(code);
-  return headline ? { code, headline } : null;
+  return headline ? { code, headline, image: imageFor(code) } : null;
 }
 
 export default async function LessonRoute({

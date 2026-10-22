@@ -4,7 +4,7 @@
  * open without an order.
  */
 import { describe, expect, test } from "bun:test";
-import { WALK_FREE_PATHS, WALK_HOME_PATHS } from "@/lib/walkthrough";
+import { WALK_HOME_PATHS, WALK_ITEM_PATHS } from "@/lib/walkthrough";
 import { GDPR_WALK, isFreeStep, NIS2_WALK, SETUP_STEP, WALKS } from "./index";
 
 describe("the free steps of each walk", () => {
@@ -38,13 +38,16 @@ describe("the free steps of each walk", () => {
     expect(isFreeStep("not-a-step")).toBe(false);
   });
 
-  test("the portal opens each walk's home and free steps without an order, and nothing past them", () => {
+  test("the portal opens each walk's home and items without an order, not the approval", () => {
     expect(WALK_HOME_PATHS).toContain("/durchgang/nis2");
     expect(WALK_HOME_PATHS).toContain("/durchgang/dsgvo");
     expect(WALK_HOME_PATHS).toContain("/walkthrough/gdpr");
-    expect(WALK_FREE_PATHS).toContain("/durchgang/dsgvo/G-ROP.1");
-    expect(WALK_FREE_PATHS).toContain("/walkthrough/nis2/2.2");
-    expect(WALK_FREE_PATHS).not.toContain("/durchgang/dsgvo/G-DPA.1");
-    expect(WALK_FREE_PATHS).not.toContain("/durchgang/nis2/2.3");
+    // Free steps are walked; the others open read only (the item page decides).
+    expect(WALK_ITEM_PATHS).toContain("/durchgang/dsgvo/G-ROP.1");
+    expect(WALK_ITEM_PATHS).toContain("/walkthrough/nis2/2.2");
+    expect(WALK_ITEM_PATHS).toContain("/durchgang/dsgvo/G-DPA.1");
+    expect(WALK_ITEM_PATHS).toContain("/durchgang/nis2/2.3");
+    expect(WALK_ITEM_PATHS).not.toContain("/durchgang/nis2/freigabe");
+    expect(WALK_ITEM_PATHS).not.toContain("/durchgang/dsgvo/freigabe");
   });
 });

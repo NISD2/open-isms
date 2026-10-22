@@ -1,6 +1,13 @@
 {
   "durchgang": {
     "ui": {
+      "preview": {
+        "stepsTitle": "What this step asks",
+        "lockedTitle": "You fill this in once the company has ordered",
+        "lockedBody": "You can read what this step covers now. Entering your answers, and management's sign-off at the end, open with the order.",
+        "order": "See the order",
+        "back": "Back to the walkthrough"
+      },
       "kinds": {
         "activities": "Your record",
         "describe": "Describe",

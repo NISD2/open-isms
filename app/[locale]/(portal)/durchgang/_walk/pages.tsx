@@ -6,6 +6,7 @@ import { ApprovalPage } from "@/components/durchgang/ApprovalPage";
 import { DurchgangHome } from "@/components/durchgang/DurchgangHome";
 import { DurchgangItem } from "@/components/durchgang/DurchgangItem";
 import { ForwardToManagement } from "@/components/durchgang/ForwardToManagement";
+import { ItemPreview } from "@/components/durchgang/ItemPreview";
 import { TalkFirst } from "@/components/pricing/PaidPricingCards";
 import { getSession } from "@/lib/auth";
 import { walkLockFor } from "@/lib/billing/access";
@@ -20,7 +21,7 @@ import {
 } from "@/lib/durchgang";
 import { api } from "@/lib/trpc/server";
 import { requireWalk, walkAccess } from "../gate";
-import { loadItem, loadWalk } from "./load";
+import { loadItem, loadItemPreview, loadWalk } from "./load";
 
 /**
  * Every walk's three pages, rendered from its `Walk`: the route files under durchgang/<framework>
@@ -97,6 +98,16 @@ export async function WalkItem({
   screen: string | undefined;
 }) {
   if (walkOfCode(code) !== walk) notFound();
+  // A locked item opened from a link (a course lesson leads to its item) shows what it is and
+  // what it asks, read only, instead of sending the person to the walk's home. Filling it in still
+  // takes the order, which `requireWalk` holds for every item page below.
+  const [access, viewer] = await Promise.all([walkAccess(), getSession()]);
+  if (!access.mayWalk && !isFreeStep(code) && viewer) {
+    const preview = await loadItemPreview(code);
+    if (!preview) notFound();
+    const lock = walkLockFor(viewer.accessLevel, billingFor(viewer.user.email).open);
+    return <ItemPreview preview={preview} orderHref={lock.orderAt ?? "/pricing"} />;
+  }
   const mayWalk = await requireWalk(walk, code);
   const [item, entries, session] = await Promise.all([
     loadItem(code),
