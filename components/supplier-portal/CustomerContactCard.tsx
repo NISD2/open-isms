@@ -41,7 +41,7 @@ import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 
 type RelationshipStatus = "active" | "revoked" | "bounced";
-type Confirm = "contact" | "customer" | null;
+type Confirm = "contact" | null;
 
 export function CustomerContactCard({
   relationshipId,
@@ -73,17 +73,6 @@ export function CustomerContactCard({
     onSuccess: () => {
       toast.success(t("accessRemoved"));
       setConfirm(null);
-      router.refresh();
-    },
-    onError: (e) => {
-      toast.error(e.message);
-      setConfirm(null);
-    },
-  });
-  const removeCustomer = trpc.supplierPortal.relationship.remove.useMutation({
-    onSuccess: () => {
-      setConfirm(null);
-      router.push("/portal/supplier/customers");
       router.refresh();
     },
     onError: (e) => {
@@ -141,17 +130,6 @@ export function CustomerContactCard({
         <p className="text-xs text-muted-foreground">{t("ownAccountNote")}</p>
       )}
 
-      {!ended && (
-        <Button
-          size="sm"
-          variant="ghost"
-          className="text-destructive hover:text-destructive"
-          onClick={() => setConfirm("customer")}
-        >
-          {t("removeCustomer")}
-        </Button>
-      )}
-
       <EmailDialog
         open={emailOpen}
         onOpenChange={setEmailOpen}
@@ -188,33 +166,6 @@ export function CustomerContactCard({
               }}
             >
               {t("removeAccess")}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      <AlertDialog
-        open={confirm === "customer"}
-        onOpenChange={(open) => !open && setConfirm(null)}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t("removeCustomerTitle")}</AlertDialogTitle>
-            <AlertDialogDescription>{tAccess("revokeConfirm")}</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={removeCustomer.isPending}>
-              {t("cancel")}
-            </AlertDialogCancel>
-            <AlertDialogAction
-              variant="destructive"
-              disabled={removeCustomer.isPending}
-              onClick={(e) => {
-                e.preventDefault();
-                removeCustomer.mutate({ id: relationshipId });
-              }}
-            >
-              {t("removeCustomer")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

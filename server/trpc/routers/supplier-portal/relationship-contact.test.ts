@@ -204,6 +204,73 @@ describe("setContact", () => {
   });
 });
 
+/**
+ * The two statements `remove` makes. The conditions are opaque to a fake, so `outcome` says what
+ * the database would answer: the row is the supplier's own and is deleted, it is linked to the
+ * customer's own account (the delete matches nothing, the update ends it), or it is not there.
+ */
+function setupRemove(outcome: "deleted" | "linked" | "missing") {
+  const deletes: unknown[] = [];
+  const updated: Record<string, unknown>[] = [];
+  const db = {
+    delete: (table: unknown) => ({
+      where: () => ({
+        returning: async () => {
+          if (table !== supplier) throw new Error("unexpected delete");
+          deletes.push(table);
+          return outcome === "deleted" ? [{ id: REL }] : [];
+        },
+      }),
+    }),
+    update: (table: unknown) => ({
+      set: (values: Record<string, unknown>) => ({
+        where: () => ({
+          returning: async () => {
+            if (table !== supplier) throw new Error("unexpected update");
+            updated.push(values);
+            return outcome === "linked" ? [{ id: REL }] : [];
+          },
+        }),
+      }),
+    }),
+  };
+  const caller = createCallerFactory(supplierRelationshipRouter)({
+    db: db as unknown as TRPCContext["db"],
+    session: { user: { id: USER, email: "me@lieferant.test" } } as TRPCContext["session"],
+    userId: USER,
+    companyId: MY_CO,
+    ip: "test",
+    userAgent: null,
+  } as TRPCContext);
+  return { caller, deletes, updated };
+}
+
+describe("remove (delete customer)", () => {
+  test("a customer the supplier added itself is deleted, not just hidden", async () => {
+    const { caller, deletes, updated } = setupRemove("deleted");
+
+    expect(await caller.remove({ id: REL })).toEqual({ id: REL, deleted: true });
+    expect(deletes).toHaveLength(1);
+    expect(updated).toEqual([]);
+  });
+
+  test("a customer with its own account is not deleted: its access ends and it leaves the list", async () => {
+    const { caller, updated } = setupRemove("linked");
+
+    expect(await caller.remove({ id: REL })).toEqual({ id: REL, deleted: false });
+    expect(updated).toHaveLength(1);
+    expect(updated[0]).toMatchObject({ status: "revoked" });
+  });
+
+  test("a customer that is not the caller's is not found", async () => {
+    const { caller, deletes } = setupRemove("missing");
+
+    await expect(caller.remove({ id: REL })).rejects.toMatchObject({ code: "NOT_FOUND" });
+    // Both statements run and match no row; nothing is reported as deleted.
+    expect(deletes).toHaveLength(1);
+  });
+});
+
 describe("removeContact", () => {
   test("clears the address and the link, and keeps the customer", async () => {
     const { caller, updated } = setup([rel()]);

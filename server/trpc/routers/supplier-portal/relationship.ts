@@ -410,11 +410,29 @@ export const supplierRelationshipRouter = router({
       return row;
     }),
 
-  /** Remove (soft-revoke) a customer relationship. */
+  /**
+   * Delete a customer. A row that is only this supplier's own (a customer it added by name or
+   * email) is deleted, with the systems it declared for it and the notices it sent it; the
+   * customer's link stops working because the row is gone. A customer with an account of its own
+   * is different: the same row is that company's register entry, with its risks, assets and
+   * processing activities attached, so it is not the supplier's to delete. Its access ends and it
+   * leaves the supplier's list; the customer keeps its record of the supplier.
+   */
   remove: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      const [row] = await ctx.db
+      const mine = and(
+        eq(supplier.id, input.id),
+        eq(supplier.supplierCompanyId, ctx.companyId),
+      );
+      const [deleted] = await ctx.db
+        .delete(supplier)
+        .where(and(mine, isNull(supplier.customerCompanyId)))
+        .returning({ id: supplier.id });
+      if (deleted) return { id: deleted.id, deleted: true };
+
+      // Not deleted: not found, not the caller's, or linked to the customer's own account.
+      const [ended] = await ctx.db
         .update(supplier)
         .set(
           updateRow(supplier, {
@@ -422,11 +440,9 @@ export const supplierRelationshipRouter = router({
             unsubscribedAt: new Date(),
           }),
         )
-        .where(
-          and(eq(supplier.id, input.id), eq(supplier.supplierCompanyId, ctx.companyId)),
-        )
+        .where(mine)
         .returning({ id: supplier.id });
-      if (!row) throw new TRPCError({ code: "NOT_FOUND" });
-      return row;
+      if (!ended) throw new TRPCError({ code: "NOT_FOUND" });
+      return { id: ended.id, deleted: false };
     }),
 });

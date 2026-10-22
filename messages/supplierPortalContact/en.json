@@ -17,8 +17,10 @@
     "removeAccessTitle": "Remove access for {email}?",
     "removeAccessBody": "Their link to your security profile stops working and nothing is sent to this address any more. The customer stays in your list, and you can add another email later.",
     "accessRemoved": "Access removed. The customer is still in your list.",
-    "removeCustomer": "Remove customer",
-    "removeCustomerTitle": "Remove this customer?",
+    "deleteCustomer": "Delete customer",
+    "deleteCustomerTitle": "Delete {name}?",
+    "deleteCustomerBody": "The customer is deleted for good, with the systems you recorded for it and the incident notices you sent it. Its link to your security profile stops working. This cannot be undone.",
+    "deleteCustomerBodyOwnAccount": "This customer has its own account. It leaves your list and its access to your security profile ends, but it keeps its own record of you. This cannot be undone.",
     "ownAccountNote": "This customer has its own account and is reached at the address it keeps there."
   }
 }
