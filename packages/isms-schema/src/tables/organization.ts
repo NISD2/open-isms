@@ -119,12 +119,12 @@ export const company = pgTable("company", {
   // AI settings
   aiDataSharing: aiDataSharingEnum("ai_data_sharing").default("none").notNull(),
   /**
-   * Whether the company's people may connect their own AI assistants (lib/mcp), which then read
-   * and fill the walkthrough with the company's data. The company's decision, so only an admin
-   * sets it, and off until one does: checked when a key is made or an assistant allowed, and on
-   * every call, so turning it off stops every connected assistant at once.
+   * What an admin lets the company's people's AI assistants do (lib/mcp/allowed.ts), checked on
+   * every call: connect and fill the walkthrough, and also read the records as the export holds
+   * them, a wider scope with its own switch. Both off until an admin turns them on.
    */
   assistantsAllowed: boolean("assistants_allowed").default(false).notNull(),
+  assistantsReadRecords: boolean("assistants_read_records").default(false).notNull(),
 
   /**
    * Journey layout. Nullable on purpose: NULL means nobody has answered yet,

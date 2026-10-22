@@ -24,7 +24,7 @@ type Read = { readonly part: string; readonly page: number };
 /** A key holder whose only procedure is records.readPart, answering with `answer`. */
 function holderWith(
   answer: () => Promise<unknown>,
-  { mayWalk = true, mayExport = true } = {},
+  { mayWalk = true, mayExport = true, readRecords = true } = {},
 ) {
   const reads: Read[] = [];
   const holder = {
@@ -41,6 +41,7 @@ function holderWith(
     role: "admin",
     mayWalk,
     mayExport,
+    readRecords,
     agent: "mcp: Claude",
     ip: null,
   } as unknown as KeyHolder;
@@ -76,6 +77,22 @@ describe("read_records", () => {
     expect(outcome.ok).toBe(false);
     expect(outcome.ok ? "" : outcome.message).toContain("not unlocked");
     expect(reads).toEqual([]);
+  });
+
+  test("the admin has not let assistants read the records: told where to turn it on, nothing read", async () => {
+    for (const mayExport of [true, false]) {
+      const { holder, reads } = holderWith(PAGE, { readRecords: false, mayExport });
+      const outcome = await readRecords(
+        holder,
+        input({ part: "assets", language: "de" }),
+      );
+      expect(outcome.ok).toBe(false);
+      const message = outcome.ok ? "" : outcome.message;
+      expect(message).toContain("Admin");
+      // German is the default locale, so its Settings page carries no locale prefix.
+      expect(message).toMatch(/ https:\/\/\S+\/settings$/);
+      expect(reads).toEqual([]);
+    }
   });
 
   test("someone who may not export: told who may, in the assistant's language, nothing read", async () => {

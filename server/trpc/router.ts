@@ -4,6 +4,7 @@ import { applicabilityRouter } from "./routers/applicability";
 import { assessmentRouter } from "./routers/assessment";
 import { assetRouter } from "./routers/asset";
 import { assignmentRouter } from "./routers/assignment";
+import { assistantsRouter } from "./routers/assistants";
 import { auditRouter } from "./routers/audit";
 import { billingRouter } from "./routers/billing";
 import { changeRouter } from "./routers/change";
@@ -52,6 +53,7 @@ const isDev = process.env.NODE_ENV === "development";
 export const appRouter = router({
   requirement: requirementRouter,
   assessment: assessmentRouter,
+  assistants: assistantsRouter,
   llm: llmRouter,
   evidence: evidenceRouter,
   audit: auditRouter,

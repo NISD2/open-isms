@@ -1021,7 +1021,7 @@
         {
           "heading": "Mit einem KI Assistenten: was er für das Verzeichnis vorbereiten kann",
           "paragraphs": [
-            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihren eigenen Unterlagen Entwürfe anlegen: aus der Liste Ihrer Abläufe und Programme, Ihrer Lieferantenliste und Ihren Verträgen. Über MCP (Model Context Protocol), einen offenen Standard, liest er auch die Listen aus dem NIS 2 Durchgang. Das gilt für die Bereiche, die der Person zugewiesen sind, die ihn verbunden hat.",
+            "Ein KI Assistent wie Claude, ChatGPT oder Copilot kann aus Ihren Unterlagen Entwürfe anlegen: aus Listen der Abläufe, Programme, Lieferanten und Verträge. Über MCP (Model Context Protocol), einen offenen Standard, liest er auch den NIS 2 Durchgang, in den Bereichen der Person, die ihn verbunden hat, und alle Aufzeichnungen, wenn ein Admin es erlaubt und sie exportieren darf.",
             "Was nicht in Ihren Unterlagen steht, etwa eine Rechtsgrundlage oder eine Löschfrist, ist im Entwurf ein Vorschlag. Ob ein Eintrag stimmt und welche Frist gilt, entscheidet Ihr Unternehmen als Verantwortlicher, mit Ihrem Datenschutzbeauftragten, wenn einer benannt ist.",
             "Was Sie dem Assistenten geben, etwa Lohnlisten, verarbeitet sein Anbieter mit. Handelt er dabei als Auftragsverarbeiter, braucht es einen Vertrag nach Art. 28 Abs. 3 DSGVO. Ein DSGVO Durchgang auf nisd2.eu ist in Arbeit, mit demselben MCP Server wie der NIS 2 Durchgang.",
             "Ein Auftrag an den Assistenten kann so lauten:"

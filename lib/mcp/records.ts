@@ -7,13 +7,12 @@ import { READ_PART_FIELDS } from "@/lib/export/read-part";
 import { getAppUrl } from "@/lib/utils";
 import type { KeyHolder } from "./context";
 import { language, notInPlan, refuse, type ToolOutcome } from "./gates";
-import { confirmFirst, notExporter, toolAnswer } from "./records-rules";
+import { confirmFirst, notAllowed, notExporter, toolAnswer } from "./records-rules";
 
 export const ReadRecordsInput = z.object({ ...READ_PART_FIELDS, language });
 
-/** The export page in the app, where the person confirms giving the money back up. */
-const exportLinkOf = (locale: WalkLocale): string =>
-  `${getAppUrl()}${getPathname({ href: "/export", locale })}`;
+const appLinkOf = (href: "/export" | "/settings", locale: WalkLocale): string =>
+  `${getAppUrl()}${getPathname({ href, locale })}`;
 
 /** The money back's hold (AGB B7), as `assistantExportProcedure` raises it through `requireBillingAct`. */
 const isMoneyBackHold = (error: unknown): boolean =>
@@ -22,9 +21,9 @@ const isMoneyBackHold = (error: unknown): boolean =>
 /**
  * One part of the company's records, a page at a time, through the procedure every other read
  * of the assistant goes through: `records.readPart`, on the key's list (procedures.ts), behind
- * `assistantExportProcedure` (the key's company, the access gate, `mayExport`, the money back).
- * The plan and `mayExport` are checked here first only to answer in the assistant's language; the
- * procedure is what refuses.
+ * `assistantExportProcedure` (the key's company, the access gate, the admin's switch, `mayExport`,
+ * the money back). The plan, the switch and `mayExport` are checked here first only to answer in
+ * the assistant's language; the procedure is what refuses.
  */
 export async function readRecords(
   holder: KeyHolder,
@@ -33,6 +32,8 @@ export async function readRecords(
   const { part, page } = input;
   const locked = notInPlan(holder, input.language);
   if (locked) return locked;
+  if (!holder.readRecords)
+    return refuse(notAllowed(input.language, appLinkOf("/settings", input.language)));
   if (!holder.mayExport) return refuse(notExporter(input.language));
   const answer = await holder.caller.records
     .readPart({ part, page })
@@ -41,6 +42,6 @@ export async function readRecords(
       throw error;
     });
   if (answer === null)
-    return refuse(confirmFirst(input.language, exportLinkOf(input.language)));
+    return refuse(confirmFirst(input.language, appLinkOf("/export", input.language)));
   return toolAnswer(part, page, answer);
 }

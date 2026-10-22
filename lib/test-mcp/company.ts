@@ -23,6 +23,7 @@ export async function companyOverview(db: DbOrTx, companyId: string) {
       createdAt: company.createdAt,
       activatedAt: company.activatedAt,
       assistantsAllowed: company.assistantsAllowed,
+      assistantsReadRecords: company.assistantsReadRecords,
       actsAsSupplier: company.actsAsSupplier,
       actsAsNis2Entity: company.actsAsNis2Entity,
     })

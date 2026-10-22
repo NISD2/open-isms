@@ -9,7 +9,7 @@
       "description": "A connected assistant reads your NIS 2 walkthrough and fills in fields and registers, with your rights in this company. When you ask, it sends suppliers on your list the security questionnaire. An item is finished only here in the app, and signed only by management.",
       "signIn": "Assistants that sign in through the browser need no key: you sign in and allow access. The key is for all others.",
       "howTo": "How to set up Claude Code, Claude Desktop and Copilot Studio",
-      "readsRecords": "Because you may export the company's records, the assistant can also read them, exactly as the export holds them.",
+      "readsRecords": "Because you may export the company's records and your admin lets assistants read them, the assistant can also read them, exactly as the export holds them.",
       "create": "Create key",
       "createAgain": "Create a new key",
       "created": "Your key, valid for 90 days. It is shown only now.",
@@ -41,6 +41,13 @@
         "description": "When on, people in this company may connect their own assistant, which then reads and fills in the walkthrough with the company's data and can send suppliers on the list the security questionnaire. Turning it off ends every connected assistant.",
         "turnedOn": "AI assistants are allowed.",
         "turnedOff": "AI assistants are off. Every connection has ended."
+      },
+      "recordsSwitch": {
+        "label": "Let assistants read the company's records",
+        "description": "When on, the assistant of someone who may export (admins, reviewers, legal reviewers, management) can read all of the company's records as the export holds them: registers, incidents, training participants and contact persons. Everyone else's assistant reads only the walkthrough. Turning it off stops the next read.",
+        "needsAssistants": "Allow AI assistants above first.",
+        "turnedOn": "Assistants of people who may export can read the records.",
+        "turnedOff": "Assistants no longer read the records."
       },
       "locked": "An assistant works in the NIS 2 walkthrough, which is not unlocked for your account yet. Until it is, an assistant can read and fill in nothing.",
       "toWalk": "Go to the walkthrough",

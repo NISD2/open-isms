@@ -25,6 +25,8 @@ describe("what an assistant's key may reach", () => {
     expect(keyMayCall("records.readPart")).toBe(true);
     expect(KEY_PROCEDURES.records).toEqual(["readPart"]);
     expect(keyMayCall("billing.waiveMoneyBack")).toBe(false);
+    // An assistant never lets itself read them: that is the admin's switch, in the app.
+    expect(keyMayCall("assistants.setReadRecords")).toBe(false);
   });
 
   test("of the supplier invites, only sending one: never listing or revoking them", () => {
@@ -44,7 +46,7 @@ describe("what an assistant's key may reach", () => {
       "team.invite",
       "user.createMcpKey",
       "user.disconnectMcp",
-      "assessment.setAssistantsAllowed",
+      "assistants.setAllowed",
     ]) {
       expect(keyMayCall(path)).toBe(false);
     }

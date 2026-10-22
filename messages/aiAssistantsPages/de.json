@@ -1,0 +1,109 @@
+{
+  "aiAssistantsPages": {
+    "allowAssistants": {
+      "meta": {
+        "title": "MCP Server aktivieren: so erlaubt ein Admin KI Assistenten",
+        "description": "Den MCP Server für den NIS2 Durchgang aktivieren: Ein Admin erlaubt KI Assistenten in den Einstellungen. Wo der Schalter ist und was Ausschalten beendet."
+      },
+      "badge": "MCP · Einrichtung",
+      "title": "Wie aktiviere ich den MCP Server und erlaube KI Assistenten?",
+      "subtitle": "Ein Admin schaltet in den Einstellungen „Assistenten für dieses Unternehmen erlauben“ ein; die Einstellungen öffnen Sie über das Profilmenü unten links. Danach verbindet jede Person ihren eigenen Assistenten mit dem NIS 2 Durchgang. Bis dahin ist der Schalter aus, und schaltet ein Admin ihn wieder aus, endet jede bestehende Verbindung.",
+      "sections": [
+        {
+          "heading": "Wo aktiviere ich den MCP Server?",
+          "paragraphs": [
+            "Der MCP Server selbst läuft auf jeder Instanz unter /api/mcp. Aktivieren heißt, ihn für Ihr Unternehmen zu erlauben.",
+            "Öffnen Sie unten links das Profilmenü mit Ihrem Namen und wählen Sie „Einstellungen“. Ganz oben steht der Schalter „Assistenten für dieses Unternehmen erlauben“. Er gilt für das Unternehmen, das gerade geöffnet ist.",
+            "Eingeschaltet darf jede Person dort ihren eigenen Assistenten verbinden, etwa Claude Code, Claude oder Copilot Studio. Der Assistent liest dann den Durchgang und füllt aus, was die Punkte fragen.",
+            "Er arbeitet als die Person, die ihn verbunden hat, und mit ihren Rechten: in ihren Bereichen, als Admin in allen. Der Assistent einer Person, die den Durchgang nur prüft, kann lesen, füllt aber nichts aus."
+          ]
+        },
+        {
+          "heading": "Was bringt der zweite Schalter?",
+          "paragraphs": [
+            "Darunter steht ein zweiter Schalter, „Assistenten die Aufzeichnungen lesen lassen“. Auch er ist anfangs aus, und ein Admin kann ihn nur einschalten, solange Assistenten erlaubt sind.",
+            "Eingeschaltet kann der Assistent einer Person, die exportieren darf (Admins, Prüfer, rechtliche Prüfer, Geschäftsleitung), mit read_records auch alle Aufzeichnungen des Unternehmens lesen, so wie der Export sie enthält: die Register, Vorfälle, Schulungsteilnehmer und Ansprechpartner. Die Assistenten aller anderen lesen weiter nur den Durchgang.",
+            "In den 30 Tagen Geld zurück einer neuen Bestellung liest der Assistent die Aufzeichnungen erst, wenn diese Zeit vorbei ist. Sie endet mit dem ersten Export, den die Person auf der Exportseite bestätigt (AGB B7)."
+          ]
+        },
+        {
+          "heading": "Wer darf die Schalter umlegen?",
+          "paragraphs": [
+            "Nur ein Admin des Unternehmens. Alle anderen sehen die Schalter gesperrt und darunter den Satz „Nur Admins können Einstellungen ändern.“",
+            "Ein Assistent kann keinen der beiden umlegen. Die Liste der Funktionen, die ein Assistent aufrufen darf, enthält weder einen Schalter noch das Erzeugen eines Schlüssels.",
+            "Fragt ein Assistent um Zugang, solange Assistenten aus sind, zeigt die Seite zum Erlauben einem Admin den Schalter gleich dort. Wer kein Admin ist, liest auf dieser Seite, dass der Admin Assistenten nicht freigegeben hat, und kann nur ablehnen."
+          ]
+        },
+        {
+          "heading": "Welche Konten können danach einen Assistenten verbinden?",
+          "paragraphs": [
+            "Nur wer den NIS 2 Durchgang öffnen darf, denn dort arbeitet der Assistent. Auf nisd2.eu ist das ein Konto, dessen Bestellung den Durchgang enthält, auf einer selbst gehosteten Instanz ein Konto mit einer Adresse in PLATFORM_ADMIN_EMAILS.",
+            "Wer den Durchgang nicht öffnen darf, sieht in den Einstellungen und auf der Seite zum Erlauben weder einen Schlüssel noch „Erlauben“, dafür den Weg „Zum Durchgang“. Ein Assistent, der es trotzdem versucht, bekommt bei jedem Aufruf eine Absage."
+          ]
+        },
+        {
+          "heading": "Was passiert, wenn ein Admin den Schalter ausschaltet?",
+          "paragraphs": [
+            "Die App prüft beide Schalter beim Verbinden und danach bei jedem einzelnen Aufruf eines Assistenten. Schaltet ein Admin Assistenten aus, enden deshalb die Verbindungen aller Mitglieder, und der nächste Aufruf wird abgelehnt. Schaltet er nur den zweiten Schalter aus, wird der nächste Lesezugriff auf die Aufzeichnungen abgelehnt; der Durchgang bleibt verbunden.",
+            "Schaltet er Assistenten später wieder ein, verbindet jede Person ihren Assistenten neu, und das Lesen der Aufzeichnungen bleibt aus, bis ein Admin es wieder einschaltet. Was Assistenten schon eingetragen haben, bleibt mit seiner Markierung im Durchgang.",
+            "Wie Sie einzelne Verbindungen trennen und was eine Verbindung sonst beendet, steht in unserem Artikel zum Trennen einer MCP Verbindung."
+          ]
+        },
+        {
+          "heading": "Warum sind die Schalter anfangs aus?",
+          "paragraphs": [
+            "Was ein Assistent liest, geht an den Anbieter dieses Assistenten, unter dem Vertrag Ihres Unternehmens mit ihm. Welchem Anbieter die Daten aus Ihrem Durchgang zugehen, entscheidet das Unternehmen. Deshalb legt ein Admin den Schalter um, und bis dahin bleibt er aus.",
+            "Die Aufzeichnungen enthalten mehr personenbezogene Daten als der Durchgang, etwa wer an einer Schulung teilgenommen hat oder wen man bei einem Lieferanten anruft. Deshalb ist das Lesen eine eigene Entscheidung, mit eigenem Schalter.",
+            "Der Schalter gilt für jeden Assistenten; welchen eine Person verbindet, wählt sie selbst. Legen Sie deshalb vorher fest, welche Assistenten Ihr Unternehmen zulässt, und führen Sie diese in 2.2 als Programme, wie unten beschrieben."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "So geht das im Durchgang",
+        "lead": "Erlauben Sie Assistenten, gehört der Assistent selbst in Ihren Durchgang.",
+        "points": [
+          "2.2 „Aufschreiben, was Ihr Unternehmen hat“: Tragen Sie den Assistenten auf „Programme, die alle nutzen“ ein, und auf „Welches Programm genau, und von wem?“ seinen Anbieter.",
+          "5.1 „Aufschreiben, wer für Sie arbeitet“: Ein Anbieter, den Sie in 2.2 nennen, steht dort schon. Ergänzen Sie, was er für Sie tut, etwa dass er die Daten aus dem Durchgang verarbeitet, die der Assistent liest.",
+          "Jeder Bildschirm, den ein Assistent geschrieben hat, zeigt seinen Namen und den Tag, etwa „Am 16. Oktober 2026 vom Assistenten claude-code/2.1.287 eingetragen“. Die Person prüft das, bevor sie den Punkt abschließt.",
+          "Abschließen, entscheiden und unterschreiben bleibt in der App, auch wenn der Schalter an ist."
+        ],
+        "seeItAlt": "Einstellungen von nisd2.eu: oben der eingeschaltete Schalter „Assistenten für dieses Unternehmen erlauben“, darunter die Karte „Assistenten wie Claude oder Copilot verbinden“ mit dem Knopf „Schlüssel erzeugen“",
+        "next": "Zum Durchgang und Assistenten erlauben"
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": [
+          {
+            "q": "Muss ich Admin sein, um MCP zu nutzen?",
+            "a": "Nur zum Einschalten. Danach verbindet jede Person, die den Durchgang öffnen darf, ihren eigenen Assistenten. Was er darf, hängt an ihren Bereichen und ihrer Rolle."
+          },
+          {
+            "q": "Kann ich Assistenten nur für einzelne Personen erlauben?",
+            "a": "Nein, der Schalter gilt für das ganze Unternehmen. Was ein Assistent darf, hängt aber an der Person, die ihn verbindet. Jede Person sieht ihre Verbindungen in den Einstellungen unter „Verbunden“ und trennt sie dort."
+          },
+          {
+            "q": "Merkt jemand, wenn in seinem Namen ein Assistent verbunden wird?",
+            "a": "Ja. Wird ein Schlüssel erzeugt oder ein Assistent im Browser erlaubt, bekommt die Person eine E-Mail. Bei einer Anmeldung im Browser stehen darin der Name des Assistenten und die Adresse, zu der er zurückkehrt. Dazu steht darin, was zu tun ist, wenn sie es nicht war: alle Assistenten trennen und das Passwort ändern."
+          },
+          {
+            "q": "Gibt es den Schalter auch auf einer selbst gehosteten Instanz?",
+            "a": "Ja. Jede Instanz hat dieselben Schalter und dieselbe Adresse für Assistenten, /api/mcp, und Sie müssen dafür nichts einrichten. Verbinden können dort die Konten, deren Adressen in PLATFORM_ADMIN_EMAILS stehen."
+          },
+          {
+            "q": "Wird festgehalten, wer den MCP Server aktiviert hat?",
+            "a": "Ja. Jedes Umlegen eines der beiden Schalter steht im Aktivitätsprotokoll, unter dem Namen des Admins. Beim Ausschalten der Assistenten vermerkt der Eintrag, dass jede Verbindung beendet wurde."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "open-isms, server/trpc/routers/assistants.ts (setAllowed, setReadRecords) und lib/mcp/allowed.ts, github.com/NISD2/open-isms",
+          "open-isms, server/trpc/routers/user.ts und lib/mail/emails/assistant-connected.tsx (E-Mail beim Verbinden), github.com/NISD2/open-isms",
+          "open-isms, lib/mcp/procedures.ts (was ein Assistent aufrufen darf), github.com/NISD2/open-isms",
+          "open-isms, Dokumentation zum MCP Server, content/docs/self-hosting/mcp.md, github.com/NISD2/open-isms"
+        ]
+      }
+    }
+  }
+}

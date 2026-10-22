@@ -9,7 +9,7 @@
       "description": "Ein verbundener Assistent liest Ihren NIS 2 Durchgang und füllt Felder und Register aus, mit Ihren Rechten in dieser Firma. Auf Ihre Bitte schickt er Lieferanten auf Ihrer Liste den Sicherheitsfragebogen. Abgeschlossen wird ein Punkt nur hier in der App, und unterschrieben nur von der Geschäftsführung.",
       "signIn": "Assistenten, die sich im Browser anmelden, brauchen keinen Schlüssel: Sie melden sich an und erlauben den Zugriff. Für alle anderen gibt es den Schlüssel.",
       "howTo": "So richten Sie Claude Code, Claude Desktop und Copilot Studio ein",
-      "readsRecords": "Da Sie die Aufzeichnungen des Unternehmens exportieren dürfen, kann der Assistent sie auch lesen, so wie der Export sie enthält.",
+      "readsRecords": "Da Sie die Aufzeichnungen des Unternehmens exportieren dürfen und Ihr Admin Assistenten das Lesen erlaubt, kann der Assistent sie auch lesen, so wie der Export sie enthält.",
       "create": "Schlüssel erzeugen",
       "createAgain": "Neuen Schlüssel erzeugen",
       "created": "Ihr Schlüssel, 90 Tage gültig. Er wird nur jetzt angezeigt.",
@@ -41,6 +41,13 @@
         "description": "Eingeschaltet dürfen Personen in diesem Unternehmen ihren eigenen Assistenten verbinden, der dann den Durchgang mit den Daten des Unternehmens liest und ausfüllt und Lieferanten auf der Liste den Sicherheitsfragebogen schicken kann. Ausschalten beendet jede bestehende Verbindung.",
         "turnedOn": "Assistenten sind erlaubt.",
         "turnedOff": "Assistenten sind ausgeschaltet. Jede Verbindung ist beendet."
+      },
+      "recordsSwitch": {
+        "label": "Assistenten die Aufzeichnungen lesen lassen",
+        "description": "Eingeschaltet kann der Assistent einer Person, die exportieren darf (Admins, Prüfer, rechtliche Prüfer, Geschäftsleitung), alle Aufzeichnungen des Unternehmens lesen, so wie der Export sie enthält: Register, Vorfälle, Schulungsteilnehmer und Ansprechpartner. Die Assistenten aller anderen lesen nur den Durchgang. Ausschalten stoppt den nächsten Lesezugriff.",
+        "needsAssistants": "Erlauben Sie zuerst oben die Assistenten.",
+        "turnedOn": "Assistenten von Personen, die exportieren dürfen, können die Aufzeichnungen lesen.",
+        "turnedOff": "Assistenten lesen die Aufzeichnungen nicht mehr."
       },
       "locked": "Ein Assistent arbeitet im NIS 2 Durchgang. Der ist für Ihr Konto noch nicht freigeschaltet, deshalb kann ein Assistent bis dahin nichts lesen und nichts ausfüllen.",
       "toWalk": "Zum Durchgang",

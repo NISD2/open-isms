@@ -9,6 +9,7 @@ import { routing } from "./routing";
 const namespaces = [
   "agb",
   "aiAssistants",
+  "aiAssistantsPages",
   "applicability",
   "assets",
   "auth",

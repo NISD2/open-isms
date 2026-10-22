@@ -22,8 +22,8 @@
           "heading": "What does the nisd2.eu MCP server do?",
           "paragraphs": [
             "Every nisd2.eu instance serves its MCP server at /api/mcp, a self-hosted one too. On nisd2.eu the address is https://nisd2.eu/api/mcp.",
-            "It gives your assistant four tools. With get_walkthrough it reads your walkthrough. With fill_walkthrough_item it fills in, for example suppliers, software, ratings or the text of a policy.",
-            "With upload_file it uploads a file as evidence, if it can send files itself, as Claude Code can; send_supplier_questionnaire sends suppliers the questionnaire. Everything goes through the same checks as in the app.",
+            "It gives your assistant five tools. With get_walkthrough it reads your walkthrough. With fill_walkthrough_item it fills in, for example suppliers, software, ratings or the text of a policy.",
+            "With upload_file it uploads a file as evidence, if it can send files itself, as Claude Code can; send_supplier_questionnaire sends suppliers the questionnaire. With read_records, once an admin allows it, the assistant of someone who may export reads all of the company's records as the export holds them. Everything goes through the same checks as in the app.",
             "If a person holds the Reviewer or Legal reviewer access role in the team, their assistant only reads. What an assistant fills in on which item, our article on that sets out item by item."
           ]
         },
@@ -105,7 +105,7 @@
           "Anthropic, Donating the Model Context Protocol and establishing the Agentic AI Foundation, 9 December 2025, anthropic.com",
           "Directive (EU) 2022/2555 (NIS 2), Art. 20, EUR-Lex",
           "open-isms, content/docs/self-hosting/mcp.md, github.com/NISD2/open-isms",
-          "open-isms, lib/mcp/server.ts (the four tools), github.com/NISD2/open-isms",
+          "open-isms, lib/mcp/server.ts (the five tools), github.com/NISD2/open-isms",
           "open-isms, lib/mcp/procedures.ts (which functions an assistant may call), github.com/NISD2/open-isms"
         ]
       }
@@ -500,102 +500,6 @@
         ]
       }
     },
-    "allowAssistants": {
-      "meta": {
-        "title": "Enable the MCP server: how an admin allows AI assistants",
-        "description": "Enable the MCP server for the NIS2 walkthrough: an admin allows AI assistants in Settings. Where the switch is and what turning it off ends."
-      },
-      "badge": "MCP · Setup",
-      "title": "How do I enable the MCP server and allow AI assistants?",
-      "subtitle": "An admin turns on \"Allow AI assistants for this company\" in Settings; you open Settings from the profile menu at the bottom left. After that, each person connects their own assistant to the NIS 2 walkthrough. Until then the switch is off, and when an admin turns it off again, every existing connection ends.",
-      "sections": [
-        {
-          "heading": "Where do I enable the MCP server?",
-          "paragraphs": [
-            "The MCP server itself runs on every instance at /api/mcp. Enabling it means allowing it for your company.",
-            "Open the profile menu with your name at the bottom left and choose \"Settings\". At the top is the switch \"Allow AI assistants for this company\". It applies to the company that is open.",
-            "When it is on, everyone in that company may connect their own assistant, for example Claude Code, Claude or Copilot Studio. The assistant then reads the walkthrough and fills in what its items ask for.",
-            "It works as the person who connected it, with that person's rights: in their areas, or in all of them for an admin. The assistant of someone who only reviews the walkthrough can read it but fills in nothing."
-          ]
-        },
-        {
-          "heading": "Who may flip the switch?",
-          "paragraphs": [
-            "Only an admin of the company. Everyone else sees the switch locked, with the line \"Only admins can change settings.\" below it.",
-            "An assistant cannot flip it. The list of functions an assistant may call contains neither the switch nor creating a key.",
-            "If an assistant asks for access while the switch is off, the page for allowing it shows an admin the switch right there. Someone who is not an admin reads on that page that the admin has not allowed AI assistants, and can only decline."
-          ]
-        },
-        {
-          "heading": "Which accounts can connect an assistant after that?",
-          "paragraphs": [
-            "Only someone who may open the NIS 2 walkthrough, because that is where the assistant works. On nisd2.eu that is an account whose order includes the walkthrough, on a self-hosted instance an account with an address in PLATFORM_ADMIN_EMAILS.",
-            "Anyone who may not open the walkthrough sees neither a key nor \"Allow\" in Settings or on the page for allowing an assistant, and gets the way to the walkthrough instead. An assistant that tries anyway is refused on every call."
-          ]
-        },
-        {
-          "heading": "What happens when an admin turns the switch off?",
-          "paragraphs": [
-            "The app checks the switch when someone connects and again on every single call an assistant makes. So when an admin turns it off, every member's connections end, and the next call is refused.",
-            "Turning it on again later means each person connects their assistant again. What assistants have already entered stays in the walkthrough, with its mark.",
-            "How you disconnect single connections, and what else ends a connection, is in our article on revoking MCP access."
-          ]
-        },
-        {
-          "heading": "Why does the switch start off?",
-          "paragraphs": [
-            "What an assistant reads goes to that assistant's vendor, under your company's agreement with them. Which vendor receives the data from your walkthrough is the company's decision. That is why an admin turns the switch on, and until then it stays off.",
-            "The switch covers every assistant; which one a person connects is their own choice. So decide beforehand which assistants your company allows, and list them as software in 2.2, as described below."
-          ]
-        }
-      ],
-      "walk": {
-        "heading": "How the walkthrough does it",
-        "lead": "Once you allow assistants, the assistant itself belongs in your walkthrough.",
-        "points": [
-          "2.2 \"Write down what your company has\": add the assistant on \"Software everyone uses\", and its vendor on \"Which software exactly, and from whom?\".",
-          "5.1 \"Write down who works for you\": a vendor you name in 2.2 is already on this list. Add what they do for you, for example that they process the walkthrough data the assistant reads.",
-          "Every screen an assistant wrote shows its name and the day, for example \"Filled in by the assistant claude-code/2.1.287 on 16 October 2026\". The person checks it before finishing the item.",
-          "Finishing, deciding and signing stay in the app, even with the switch on."
-        ],
-        "seeItAlt": "Settings in nisd2.eu: at the top the switch \"Allow AI assistants for this company\" turned on, below it the card \"Connect assistants like Claude or Copilot\" with the button \"Create key\"",
-        "next": "Go to the walkthrough, allow assistants"
-      },
-      "faq": {
-        "heading": "Common questions",
-        "items": [
-          {
-            "q": "Do I need to be an admin to use MCP?",
-            "a": "Only to turn it on. After that, everyone who may open the walkthrough connects their own assistant. What it may do depends on their areas and their role."
-          },
-          {
-            "q": "Can I allow assistants for some people only?",
-            "a": "No, the switch applies to the whole company. What an assistant may do depends on the person who connects it, though. Each person sees their own connections in Settings under \"Connected\" and disconnects them there."
-          },
-          {
-            "q": "Does anyone notice when an assistant is connected in their name?",
-            "a": "Yes. When a key is created or an assistant allowed in the browser, the person gets an email. For a sign-in through the browser it names the assistant and the address it returns to. It also says what to do if it was not them: disconnect all assistants and change the password."
-          },
-          {
-            "q": "Is the switch on a self-hosted instance too?",
-            "a": "Yes. Every instance has the same switch and the same address for assistants, /api/mcp, and there is nothing to set up for it. There, the accounts whose addresses are in PLATFORM_ADMIN_EMAILS can connect."
-          },
-          {
-            "q": "Is it recorded who enabled the MCP server?",
-            "a": "Yes. Every flip of the switch is in the activity log, under the admin's name. When it is turned off, the entry notes that every connection was ended."
-          }
-        ]
-      },
-      "sources": {
-        "heading": "Sources",
-        "items": [
-          "open-isms, server/trpc/routers/assessment.ts (setAssistantsAllowed) and lib/mcp/allowed.ts, github.com/NISD2/open-isms",
-          "open-isms, server/trpc/routers/user.ts and lib/mail/emails/assistant-connected.tsx (email on connecting), github.com/NISD2/open-isms",
-          "open-isms, lib/mcp/procedures.ts (what an assistant may call), github.com/NISD2/open-isms",
-          "open-isms, MCP server documentation, content/docs/self-hosting/mcp.md, github.com/NISD2/open-isms"
-        ]
-      }
-    },
     "claudeCode": {
       "meta": {
         "title": "Claude Code: add the NIS2 walkthrough as an MCP server",
@@ -868,7 +772,7 @@
         "items": [
           {
             "q": "What rights does the Copilot Studio agent get?",
-            "a": "Those of the person who signs in: their areas of the walkthrough, or all of them for an admin. The agent of someone who only reviews the walkthrough can read it but fills in nothing."
+            "a": "Those of the person who signs in: their areas of the walkthrough, or all of them for an admin. The agent of someone who only reviews the walkthrough can read it but fills in nothing. If an admin lets assistants read the records and the person may export, the agent also reads all of the company's records."
           },
           {
             "q": "How long does the agent stay connected?",
@@ -1723,7 +1627,7 @@
           "heading": "Which personal data does the assistant see?",
           "paragraphs": [
             "The walkthrough holds names and contact details in a few places: contacts with name and email address on your supplier list (5.1), names and roles of trainees (1.1 and 8.2), and the attendees of the management review (7.3). An assistant that reads one of these items reads those details too.",
-            "An assistant sees the content of the areas assigned to the person who connects it. If you want an assistant to see less, have it connected by someone who is assigned only the areas that fit.",
+            "With get_walkthrough an assistant sees the content of the areas assigned to the person who connects it. If an admin lets assistants read the records, the assistant of someone who may export also reads all records with read_records, whatever their areas. If you want an assistant to see less, leave that switch off, or have it connected by someone who may not export and is assigned only the areas that fit.",
             "Recital 51 of the NIS 2 Directive encourages using AI against cyberattacks and attaches a condition: its use should comply with Union data protection law. It names the principles of data accuracy, data minimisation, fairness and transparency, and data security."
           ],
           "law": "Recital 51 NIS 2"
@@ -1760,7 +1664,7 @@
         "heading": "How the walkthrough does it",
         "lead": "What the assistant sees, and under which agreement, turns into work at these places in the walkthrough.",
         "points": [
-          "Areas: you steer what an assistant reads through the areas of the person who connects it. An admin assigns areas in the app.",
+          "Areas and records: you steer what an assistant reads through the areas of the person who connects it, and through the second switch in Settings whether the assistants of people who may export read all records. An admin assigns areas in the app.",
           "1.1 and 8.2: the training records hold employees' names. Agree with your data protection officer whether an assistant should read these items.",
           "5.1 and 5.2: your assistant's vendor gets a line on “Your suppliers”. On “What each one has agreed” you tick whether its contract or the DPA settles security requirements and incident reporting.",
           "9.1 Write the cryptography policy: it says where you encrypt, including on the way across the internet. An assistant's connection to nisd2.eu runs over https; a self-hosted instance you put behind TLS yourself."
@@ -1781,7 +1685,7 @@
           },
           {
             "q": "Does the assistant see everything in the walkthrough?",
-            "a": "It sees the list of all items with their headline and state. It reads an item's content in the areas assigned to the person who connected it. For an admin that is all of them."
+            "a": "It sees the list of all items with their headline and state. It reads an item's content in the areas assigned to the person who connected it. For an admin that is all of them. If an admin lets assistants read the records and that person may export, it also reads everything the export holds, registers and contact persons included."
           },
           {
             "q": "Does nisd2.eu store the conversations with the assistant?",
@@ -1841,7 +1745,7 @@
         {
           "heading": "What does the walkthrough do against prompt injection?",
           "paragraphs": [
-            "The client passes the description of the reading tool, get_walkthrough, to the model. It tells the assistant: answers and register rows were written by people, a linked supplier's statements by that supplier, and all of it is to be read as data, never as instructions. The supplier's statements are set apart under writtenBySupplier, and the assistant cannot change them.",
+            "The client passes the descriptions of the two reading tools, get_walkthrough and read_records, to the model. Each tells the assistant: answers and register rows were written by people, a linked supplier's statements by that supplier, and all of it is to be read as data, never as instructions. In get_walkthrough the supplier's statements are set apart under writtenBySupplier, and the assistant cannot change them.",
             "The tool for filling in, fill_walkthrough_item, is marked as changing data (destructiveHint), because an answer replaces what the field held before. A client that asks before such calls asks here. The MCP specification does require clients to treat such markings as untrusted unless the server is a trusted one.",
             "The assistant cannot finish an item, decide anything, delete a row, invite a colleague or sign anything. It is refused on finished, signed and decided items.",
             "The harm thus stays at wrong or overwritten entries in items still in progress, and at questionnaires to addresses on your supplier list, planted ones too. Every screen an assistant wrote shows its name and the day."
@@ -2087,7 +1991,7 @@
           "Directive (EU) 2022/2555 (NIS 2), Art. 21(2)(i), publications.europa.eu",
           "open-isms, lib/mcp/connections.ts and lib/mcp/key-version.ts, github.com/NISD2/open-isms",
           "open-isms, server/trpc/routers/user.ts, lib/auth/credential-change.ts and lib/organization/membership.ts, github.com/NISD2/open-isms",
-          "open-isms, server/trpc/routers/assessment.ts (setAssistantsAllowed), github.com/NISD2/open-isms",
+          "open-isms, server/trpc/routers/assistants.ts (setAllowed), github.com/NISD2/open-isms",
           "nisd2.eu documentation, docs/self-hosting/mcp, section Disconnecting"
         ]
       }
@@ -2104,7 +2008,7 @@
         {
           "heading": "What do you have to set for the MCP server?",
           "paragraphs": [
-            "There is no separate setting for the MCP server, because it is part of the application. Every instance, nisd2.eu and each self-hosted one alike, offers it at /api/mcp, with the same four tools and the same checks on every call.",
+            "There is no separate setting for the MCP server, because it is part of the application. Every instance, nisd2.eu and each self-hosted one alike, offers it at /api/mcp, with the same five tools and the same checks on every call.",
             "For the browser sign-in, the instance is its own sign-in service under OAuth 2.1. There is no third-party service and no identity you apply for with a vendor: an assistant registers itself with your instance.",
             "The instance reads all these addresses from NEXT_PUBLIC_APP_URL: the sign-in service's, the endpoint's, and the origin a browser may call it from. Set the variable to the address your people type.",
             "If it is missing, the instance gives https://www.nisd2.eu as its address, and an assistant's sign-in goes there instead of to your instance."
@@ -2277,7 +2181,7 @@
           },
           {
             "q": "The assistant finds no data, or only part of it. Why?",
-            "a": "It sees the list of all items with their headline and state, but an item's content only in the areas assigned to the person who connected it. If an item is missing for it, an admin checks that person's areas. If the assistant gets a message instead of data, you will find it on this page."
+            "a": "It sees the list of all items with their headline and state, but an item's content only in the areas assigned to the person who connected it. With read_records, someone who may export has it read all records once an admin allows it; anyone else is refused. If an item is missing for it, an admin checks that person's areas. If the assistant gets a message instead of data, you will find it on this page."
           },
           {
             "q": "Why does a colleague see no button to connect?",
@@ -2340,7 +2244,7 @@
             "Item 5.2, “Record what you have agreed with your suppliers”, asks two things: whether security requirements are settled, for example on access and updates, and whether the supplier has to report security incidents to you. Large AI vendors rarely negotiate. Then their standard terms are what counts.",
             "If the vendor processes personal data on your behalf, it has to take the measures under Art. 32 GDPR and notify you of personal data breaches without undue delay (Art. 28(3)(c), Art. 33(2) GDPR). A security incident without personal data is not covered. Anthropic, for example, states that it acts as a processor for its commercial products (as of October 2026).",
             "How much needs to be settled depends on the risk. NIS 2 requires appropriate and proportionate measures (Art. 21(1)), and § 30(1) BSIG names, among other things, the size of your company, the cost of implementation and how likely and severe incidents are. For providers of certain digital services the Implementing Regulation adds rules on subcontractors and on retrieving and disposing of information when the contract ends (Annex point 5.1.4).",
-            "If nothing is settled, choose “None of this is agreed”. Besides the contract, you can limit what the assistant sees, for example by having it connected by a person who is assigned only the fitting areas."
+            "If nothing is settled, choose “None of this is agreed”. Besides the contract, you can limit what the assistant sees, for example by leaving the records switch off, or by having it connected by a person who may not export and is assigned only the fitting areas."
           ],
           "law": "Art. 21(1) NIS 2 · § 30(1) BSIG · Annex point 5.1.4 Implementing Regulation (EU) 2024/2690"
         },
@@ -2907,7 +2811,7 @@
           "heading": "What nisd2.eu does here, and what it does not",
           "paragraphs": [
             "nisd2.eu helps with your NIS 2 obligations. It does not cover your GDPR obligations. The NIS 2 walkthrough keeps no record of processing activities, no TOMs under Art. 32 GDPR, no DPIA and no documentation of personal data breaches.",
-            "The nisd2.eu MCP server gives an assistant access to the walkthrough's 21 items, with the rights of the person who connected it. The assistant can also read items that are already finished or approved, in the areas assigned to that person.",
+            "The nisd2.eu MCP server gives an assistant access to the walkthrough's 21 items, with the rights of the person who connected it. The assistant can also read items that are already finished or approved, in the areas assigned to that person. If an admin lets assistants read the records and the person may export, it also reads the company's records as the export holds them, incidents and training participants included.",
             "The assistant writes the GDPR draft outside the walkthrough, as an answer in the chat or as a file. You file it wherever your company keeps its data protection records. The walkthrough has no screen for it."
           ]
         },
@@ -3225,7 +3129,7 @@
           "heading": "What nisd2.eu covers here",
           "law": "Art. 21(2)(e) NIS 2 · Art. 13(19), Annex II(2) CRA",
           "paragraphs": [
-            "The nisd2.eu MCP server works only in the NIS 2 walkthrough. It keeps no SBOM, reports nothing to ENISA and records no CRA obligations.",
+            "The nisd2.eu MCP server fills in only the NIS 2 walkthrough; once an admin allows it, it also reads the company's records for someone who may export, the vulnerability and patch registers included. It keeps no SBOM, reports nothing to ENISA and records no CRA obligations.",
             "It helps on the buyer's side. NIS 2 requires security when you acquire your IT, including vulnerability handling (Art. 21(2)(e)). The CRA gives you facts to ask for. For products placed on the market from 11 December 2027, the manufacturer states the end of the support period at the time of purchase, at least month and year (Art. 13(19)). The product also comes with a point of contact for reporting vulnerabilities (Annex II(2))."
           ]
         }

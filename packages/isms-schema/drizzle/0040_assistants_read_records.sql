@@ -1,0 +1,1 @@
+ALTER TABLE "company" ADD COLUMN "assistants_read_records" boolean DEFAULT false NOT NULL;

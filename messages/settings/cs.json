@@ -9,7 +9,7 @@
       "description": "Připojený asistent čte váš průvodce NIS 2 a vyplňuje pole, registry, aktiva a hodnocení rizik, s vašimi oprávněními v této společnosti. Na vaši žádost pošle dodavatelům z vašeho seznamu bezpečnostní dotazník. Krok se dokončuje jen zde v aplikaci a podepisuje ho jen vedení.",
       "signIn": "Asistenti, kteří se přihlašují přes prohlížeč, klíč nepotřebují: přihlásíte se a přístup povolíte. Klíč je pro všechny ostatní.",
       "howTo": "Jak nastavit Claude Code, Claude Desktop a Copilot Studio",
-      "readsRecords": "Protože smíte exportovat záznamy firmy, může je asistent také číst, tak jak je obsahuje export.",
+      "readsRecords": "Protože smíte exportovat záznamy firmy a váš správce asistentům čtení povolil, může je asistent také číst, tak jak je obsahuje export.",
       "create": "Vytvořit klíč",
       "createAgain": "Vytvořit nový klíč",
       "created": "Váš klíč, platný 90 dní. Zobrazí se jen teď.",
@@ -41,6 +41,13 @@
         "description": "Když je zapnuto, mohou lidé v této společnosti připojit vlastního asistenta, který pak čte a vyplňuje průvodce daty společnosti a může dodavatelům ze seznamu poslat bezpečnostní dotazník. Vypnutí ukončí všechna připojení.",
         "turnedOn": "Asistenti jsou povoleni.",
         "turnedOff": "Asistenti jsou vypnutí. Všechna připojení skončila."
+      },
+      "recordsSwitch": {
+        "label": "Nechat asistenty číst záznamy firmy",
+        "description": "Když je zapnuto, může asistent osoby, která smí exportovat (správci, revizoři, právní revizoři, vedení), číst všechny záznamy firmy tak, jak je obsahuje export: registry, incidenty, účastníky školení a kontaktní osoby. Asistenti všech ostatních čtou jen průvodce. Vypnutí zastaví další čtení.",
+        "needsAssistants": "Nejprve výše povolte asistenty.",
+        "turnedOn": "Asistenti osob, které smějí exportovat, mohou číst záznamy.",
+        "turnedOff": "Asistenti už záznamy nečtou."
       },
       "locked": "Asistent pracuje v průvodci NIS 2, který pro váš účet zatím není odemčen. Do té doby asistent nemůže nic číst ani vyplňovat.",
       "toWalk": "Přejít do průvodce",

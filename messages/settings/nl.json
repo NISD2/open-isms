@@ -9,7 +9,7 @@
       "description": "Een gekoppelde assistent leest uw NIS 2 stappenplan en vult velden en registers in, met uw rechten in dit bedrijf. Een onderdeel wordt alleen hier in de app afgerond, en alleen door het management ondertekend.",
       "signIn": "Assistenten die zich via de browser aanmelden, hebben geen sleutel nodig: u meldt zich aan en geeft toegang. De sleutel is voor alle andere.",
       "howTo": "Zo stelt u Claude Code, Claude Desktop en Copilot Studio in",
-      "readsRecords": "Omdat u de gegevens van het bedrijf mag exporteren, kan de assistent ze ook lezen, zoals de export ze bevat.",
+      "readsRecords": "Omdat u de gegevens van het bedrijf mag exporteren en uw admin assistenten het lezen toestaat, kan de assistent ze ook lezen, zoals de export ze bevat.",
       "create": "Sleutel aanmaken",
       "createAgain": "Nieuwe sleutel aanmaken",
       "created": "Uw sleutel, 90 dagen geldig. Hij wordt alleen nu getoond.",
@@ -41,6 +41,13 @@
         "description": "Als dit aan staat, mogen mensen in dit bedrijf hun eigen assistent koppelen, die dan het stappenplan leest en invult met de gegevens van het bedrijf. Uitzetten beëindigt elke koppeling.",
         "turnedOn": "Assistenten zijn toegestaan.",
         "turnedOff": "Assistenten staan uit. Elke koppeling is beëindigd."
+      },
+      "recordsSwitch": {
+        "label": "Assistenten de gegevens van het bedrijf laten lezen",
+        "description": "Als dit aan staat, kan de assistent van iemand die mag exporteren (admins, reviewers, juridische reviewers, directie) alle gegevens van het bedrijf lezen zoals de export ze bevat: registers, incidenten, deelnemers aan trainingen en contactpersonen. De assistenten van alle anderen lezen alleen het stappenplan. Uitzetten stopt de volgende leesactie.",
+        "needsAssistants": "Sta eerst hierboven assistenten toe.",
+        "turnedOn": "Assistenten van mensen die mogen exporteren kunnen de gegevens lezen.",
+        "turnedOff": "Assistenten lezen de gegevens niet meer."
       },
       "locked": "Een assistent werkt in het NIS 2 stappenplan. Dat is voor uw account nog niet vrijgegeven, dus tot dan kan een assistent niets lezen en niets invullen.",
       "toWalk": "Naar het stappenplan",

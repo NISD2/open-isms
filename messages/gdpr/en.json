@@ -1021,7 +1021,7 @@
         {
           "heading": "With an AI assistant: what it can prepare for the record",
           "paragraphs": [
-            "An AI assistant such as Claude, ChatGPT or Copilot can draft entries from your own documents: the list of your processes and software, your supplier list and your contracts. Through MCP (Model Context Protocol), an open standard, it also reads the lists in the NIS 2 walkthrough. That covers the areas assigned to the person who connected it.",
+            "An AI assistant such as Claude, ChatGPT or Copilot can draft entries from your documents: your list of processes and software, suppliers and contracts. Through MCP (Model Context Protocol), an open standard, it also reads the NIS 2 walkthrough's lists. It covers the person's areas, and all records if an admin allows it and they may export.",
             "Anything your documents do not state, such as a legal basis or an erasure time limit, is a suggestion in the draft. Whether an entry is correct and which time limit applies is for your company to decide as controller, with your data protection officer where one is designated.",
             "Whatever you hand the assistant, such as payroll lists, its vendor processes too. Where the vendor acts as a processor, a contract under Art. 28(3) GDPR is required. A GDPR walkthrough on nisd2.eu is in the works, with the same MCP server as the NIS 2 walkthrough.",
             "A request to the assistant can read like this:"

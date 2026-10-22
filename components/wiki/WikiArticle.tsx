@@ -52,8 +52,13 @@ export interface ArticleCategory {
  */
 export interface ArticlePage {
   readonly slug: string;
-  /** The page's messages, under the category's namespace. */
+  /** The page's messages, under the category's namespace or the page's own. */
   readonly messages: string;
+  /**
+   * The namespace holding the page's messages when it is not the category's: a page moved out of
+   * a category file that outgrew the size limit (scripts/file-size). The shared words stay there.
+   */
+  readonly namespace?: string;
   /** The walkthrough step whose picture heads the page, as its file name under `/images/durchgang`. */
   readonly art: string;
   /** The app screen beside the page's `walk` points, where its messages have them. */
@@ -87,7 +92,7 @@ const publishedRelated = (slugs: readonly string[]) =>
 export function articlePage(category: ArticleCategory, page: ArticlePage) {
   const toc = WIKI_TOC[category.topLevel];
   const path = `wiki/${category.topLevel}/${page.slug}`;
-  const namespace = `${category.namespace}.${page.messages}`;
+  const namespace = `${page.namespace ?? category.namespace}.${page.messages}`;
   const own = toc.entries.find((entry) => entry.slug === page.slug);
 
   const metadata = async ({ params }: Params): Promise<Metadata> => {

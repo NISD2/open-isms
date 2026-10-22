@@ -90,7 +90,9 @@ export default async function ConnectAssistantPage({
             mayWalkDurchgang(session.accessLevel, isPlatformAdmin(session.user.email))
           }
           signedInRecently={isRecentSignIn(session?.authTime ?? null, now)}
-          readsRecords={session !== null && mayExport(session)}
+          readsRecords={
+            company.assistantsReadRecords && session !== null && mayExport(session)
+          }
         />
       ) : (
         <p className="text-sm text-muted-foreground">{t("expired")}</p>

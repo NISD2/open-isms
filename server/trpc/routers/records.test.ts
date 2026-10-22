@@ -1,6 +1,7 @@
 /**
  * Who reaches the company's records through records.readPart (assistantExportProcedure): only an
- * assistant's key, only for someone who may export, only on a paid account, and inside an order's
+ * assistant's key, only once the company's admin lets assistants read the records, only for
+ * someone who may export, only on a paid account, and inside an order's
  * money back not before the person has confirmed giving it up. Every refusal comes before any
  * record is read.
  *
@@ -74,18 +75,33 @@ const MONEY_BACK_GIVEN_UP: readonly unknown[][] = [
 /** No billing account: a full account with no running order reads as licensed. */
 const LICENSED: readonly unknown[][] = [[]];
 
+/** The company's two switches as its row holds them; both on unless a test says otherwise. */
+type Switches = { assistantsAllowed: boolean; assistantsReadRecords: boolean };
+const BOTH_ON: Switches = { assistantsAllowed: true, assistantsReadRecords: true };
+
+/** Whether a findFirst asks for the switches (lib/mcp/allowed.ts) rather than a record. */
+const asksSwitches = (args: unknown): boolean =>
+  typeof args === "object" &&
+  args !== null &&
+  "columns" in args &&
+  typeof args.columns === "object" &&
+  args.columns !== null &&
+  "assistantsReadRecords" in args.columns;
+
 function harness({
   viaKey = true,
   role = "admin",
   jobTitle = null,
   accessLevel = "full",
   billing = LICENSED,
+  switches = BOTH_ON,
 }: {
   viaKey?: boolean;
   role?: string;
   jobTitle?: string | null;
   accessLevel?: string;
   billing?: readonly unknown[][];
+  switches?: Switches;
 } = {}) {
   const reads: string[] = [];
   const billingReads = sequenced(billing);
@@ -97,7 +113,8 @@ function harness({
           reads.push(table);
           return [{ title: "Veraltetes Plugin" }];
         },
-        findFirst: async () => {
+        findFirst: async (args: unknown) => {
+          if (table === "company" && asksSwitches(args)) return switches;
           reads.push(table);
           return { name: "Beispielwerke GmbH" };
         },
@@ -152,6 +169,31 @@ describe("who reads the records", () => {
       expect(await caller.readPart({ part: "company" })).toMatchObject({
         kind: "record",
       });
+    }
+  });
+
+  test("until the admin lets assistants read the records, nobody's assistant reads them", async () => {
+    for (const switches of [
+      { assistantsAllowed: true, assistantsReadRecords: false },
+      // Turning assistants off turns reading off too; a row that held both apart still reads nothing.
+      { assistantsAllowed: false, assistantsReadRecords: true },
+      { assistantsAllowed: false, assistantsReadRecords: false },
+    ]) {
+      const { caller, reads, unasked } = harness({
+        switches,
+        billing: INSIDE_MONEY_BACK,
+      });
+      const error = await caller.readPart({ part: "suppliers" }).then(
+        () => null,
+        (e: unknown) => e,
+      );
+      expect(error instanceof TRPCError ? error.code : null).toBe("FORBIDDEN");
+      expect(error instanceof TRPCError ? error.message : null).toBe(
+        "The company's admin has not let assistants read the records.",
+      );
+      expect(reads).toEqual([]);
+      // Refused before the billing state is read at all.
+      expect(unasked()).toBe(INSIDE_MONEY_BACK.length);
     }
   });
 

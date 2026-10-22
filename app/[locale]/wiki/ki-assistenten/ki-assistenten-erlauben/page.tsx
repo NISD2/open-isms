@@ -2,6 +2,7 @@ import { assistantPage } from "@/components/wiki/AssistantArticle";
 
 const page = assistantPage({
   slug: "ki-assistenten-erlauben",
+  namespace: "aiAssistantsPages",
   messages: "allowAssistants",
   art: "unternehmen",
   shot: "assistants",

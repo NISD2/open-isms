@@ -3,8 +3,8 @@
  * the way to the next. Who may read is the procedure's (server/trpc/routers/records.test.ts).
  */
 import { describe, expect, test } from "bun:test";
-import { WALK_LOCALES } from "@/lib/durchgang/types";
-import { confirmFirst, notExporter, toolAnswer } from "./records-rules";
+import { WALK_LOCALES, type WalkLocale } from "@/lib/durchgang/types";
+import { confirmFirst, notAllowed, notExporter, toolAnswer } from "./records-rules";
 
 const LINK = "https://example.test/de/export";
 
@@ -23,9 +23,21 @@ describe("why an assistant reads nothing", () => {
     }
   });
 
+  test("the admin has not let assistants read: Settings, where an admin turns it on", () => {
+    const settings = "https://example.test/de/einstellungen";
+    for (const language of WALK_LOCALES) {
+      expect(notAllowed(language, settings)).toEndWith(settings);
+    }
+  });
+
   test("each language says it in its own words", () => {
-    const texts = WALK_LOCALES.map((language) => notExporter(language));
-    expect(new Set(texts).size).toBe(WALK_LOCALES.length);
+    for (const say of [
+      notExporter,
+      (language: WalkLocale) => notAllowed(language, LINK),
+      (language: WalkLocale) => confirmFirst(language, LINK),
+    ]) {
+      expect(new Set(WALK_LOCALES.map(say)).size).toBe(WALK_LOCALES.length);
+    }
   });
 });
 

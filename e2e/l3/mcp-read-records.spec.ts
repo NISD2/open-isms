@@ -1,7 +1,7 @@
 /**
  * L3 MCP: an assistant reads the company's records with read_records, one part a page at a time,
- * exactly as the export file holds them. Only someone who may export reads them, only on a paid
- * plan; a column the export leaves out (a supplier's access token) never reaches the assistant;
+ * exactly as the export file holds them. Only once the admin lets assistants read them, only
+ * someone who may export, only on a paid plan; a column the export leaves out (a supplier's access token) never reaches the assistant;
  * the pages joined are the file's rows; a read and a download each leave one row in the log.
  */
 import { createHash, randomBytes } from "node:crypto";
@@ -101,6 +101,23 @@ async function freshDownloadWindow(email: string): Promise<void> {
   await e2eQuery(`DELETE FROM rate_limit_window WHERE key = $1`, [key]);
 }
 
+/** Starts with reading the records off, as every company does, and puts back what it was. */
+async function recordsSwitchBack(tenant: Tenant): Promise<Undo> {
+  const [before] = await e2eQuery<{ assistants_read_records: boolean }>(
+    `SELECT assistants_read_records FROM company WHERE id = $1`,
+    [tenant.company_id],
+  );
+  const set = (on: boolean) =>
+    e2eQuery(`UPDATE company SET assistants_read_records = $2 WHERE id = $1`, [
+      tenant.company_id,
+      on,
+    ]);
+  await set(false);
+  return async () => {
+    await set(before?.assistants_read_records ?? false);
+  };
+}
+
 /** The person's role and job title in the tenant, set for a step and put back. */
 async function actAs(
   tenant: Tenant,
@@ -133,19 +150,42 @@ test.describe("an AI assistant reads the company's records over MCP", () => {
 
   test.beforeAll(async () => {
     tenant = await e2eTenant();
-    undos = [await payFor(tenant), await allowAssistants(tenant), await seed(tenant)];
+    undos = [
+      await payFor(tenant),
+      await allowAssistants(tenant),
+      await recordsSwitchBack(tenant),
+      await seed(tenant),
+    ];
   });
 
   test.afterAll(() => undoAll(undos));
 
-  test("the person's key lists read_records, and Settings says what it reads", async ({
+  test("nothing is read until the admin lets assistants read the records in Settings", async ({
     page,
     request,
   }) => {
     key = await keyFromSettings(page);
-    await expect(
-      page.getByText("Da Sie die Aufzeichnungen des Unternehmens exportieren dürfen"),
-    ).toBeVisible();
+    const readsLine = page.getByText(
+      "Da Sie die Aufzeichnungen des Unternehmens exportieren dürfen",
+    );
+    // Assistants are allowed, reading the records is not: off for every company until an admin says.
+    await expect(readsLine).toBeHidden();
+    const refused = await callTool(request, key, AGENT, "read_records", {
+      part: "assets",
+      language: "en",
+    });
+    expect(refused.ok).toBe(false);
+    expect(refused.ok ? "" : refused.message).toContain("has not let assistants read");
+
+    const recordsSwitch = page.getByRole("switch", {
+      name: "Assistenten die Aufzeichnungen lesen lassen",
+    });
+    await expect(recordsSwitch).not.toBeChecked();
+    await recordsSwitch.click();
+    await expect(page.getByText("können die Aufzeichnungen lesen.")).toBeVisible();
+    await page.reload();
+    await expect(recordsSwitch).toBeChecked();
+    await expect(readsLine).toBeVisible();
     expect(await listTools(request, key, AGENT)).toContain("read_records");
   });
 

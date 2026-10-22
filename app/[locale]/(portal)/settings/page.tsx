@@ -1,7 +1,10 @@
 import { Settings } from "lucide-react";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { AssistantsAllowedSwitch } from "@/components/settings/AssistantsAllowedSwitch";
+import {
+  AssistantsAllowedSwitch,
+  AssistantsReadRecordsSwitch,
+} from "@/components/settings/AssistantsAllowedSwitch";
 import { McpKeySettings } from "@/components/settings/McpKeySettings";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -34,6 +37,11 @@ export default async function SettingsPage() {
         allowed={companyData.assistantsAllowed}
         isAdmin={isAdmin}
       />
+      <AssistantsReadRecordsSwitch
+        readRecords={companyData.assistantsReadRecords}
+        assistantsAllowed={companyData.assistantsAllowed}
+        isAdmin={isAdmin}
+      />
       <McpKeySettings
         docsUrl={MCP_DOCS_PATH}
         companyId={companyData.id}
@@ -43,7 +51,7 @@ export default async function SettingsPage() {
           session.accessLevel,
           isPlatformAdmin(session.user.email),
         )}
-        readsRecords={mayExport(session)}
+        readsRecords={companyData.assistantsReadRecords && mayExport(session)}
       />
     </div>
   );

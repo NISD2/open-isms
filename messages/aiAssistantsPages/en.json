@@ -1,0 +1,109 @@
+{
+  "aiAssistantsPages": {
+    "allowAssistants": {
+      "meta": {
+        "title": "Enable the MCP server: how an admin allows AI assistants",
+        "description": "Enable the MCP server for the NIS2 walkthrough: an admin allows AI assistants in Settings. Where the switch is and what turning it off ends."
+      },
+      "badge": "MCP · Setup",
+      "title": "How do I enable the MCP server and allow AI assistants?",
+      "subtitle": "An admin turns on \"Allow AI assistants for this company\" in Settings; you open Settings from the profile menu at the bottom left. After that, each person connects their own assistant to the NIS 2 walkthrough. Until then the switch is off, and when an admin turns it off again, every existing connection ends.",
+      "sections": [
+        {
+          "heading": "Where do I enable the MCP server?",
+          "paragraphs": [
+            "The MCP server itself runs on every instance at /api/mcp. Enabling it means allowing it for your company.",
+            "Open the profile menu with your name at the bottom left and choose \"Settings\". At the top is the switch \"Allow AI assistants for this company\". It applies to the company that is open.",
+            "When it is on, everyone in that company may connect their own assistant, for example Claude Code, Claude or Copilot Studio. The assistant then reads the walkthrough and fills in what its items ask for.",
+            "It works as the person who connected it, with that person's rights: in their areas, or in all of them for an admin. The assistant of someone who only reviews the walkthrough can read it but fills in nothing."
+          ]
+        },
+        {
+          "heading": "What does the second switch add?",
+          "paragraphs": [
+            "Below it is a second switch, \"Let assistants read the company's records\". It starts off too, and an admin can turn it on only while assistants are allowed.",
+            "When it is on, the assistant of someone who may export (admins, reviewers, legal reviewers, management) can also read all of the company's records with read_records, exactly as the export holds them: the registers, incidents, training participants and contact persons. Everyone else's assistant still reads only the walkthrough.",
+            "Inside the 30 days of money back of a new order, the assistant reads the records only once that time is over. It ends with the first export, which the person confirms on the export page (terms B7)."
+          ]
+        },
+        {
+          "heading": "Who may flip the switches?",
+          "paragraphs": [
+            "Only an admin of the company. Everyone else sees the switches locked, with the line \"Only admins can change settings.\" below them.",
+            "An assistant cannot flip either of them. The list of functions an assistant may call contains neither switch nor creating a key.",
+            "If an assistant asks for access while assistants are off, the page for allowing it shows an admin the switch right there. Someone who is not an admin reads on that page that the admin has not allowed AI assistants, and can only decline."
+          ]
+        },
+        {
+          "heading": "Which accounts can connect an assistant after that?",
+          "paragraphs": [
+            "Only someone who may open the NIS 2 walkthrough, because that is where the assistant works. On nisd2.eu that is an account whose order includes the walkthrough, on a self-hosted instance an account with an address in PLATFORM_ADMIN_EMAILS.",
+            "Anyone who may not open the walkthrough sees neither a key nor \"Allow\" in Settings or on the page for allowing an assistant, and gets the way to the walkthrough instead. An assistant that tries anyway is refused on every call."
+          ]
+        },
+        {
+          "heading": "What happens when an admin turns the switch off?",
+          "paragraphs": [
+            "The app checks both switches when someone connects and again on every single call an assistant makes. So when an admin turns assistants off, every member's connections end, and the next call is refused. Turning off only the second switch stops the next read of the records; the walkthrough stays connected.",
+            "Turning assistants on again later means each person connects their assistant again, and reading the records stays off until an admin turns it on again. What assistants have already entered stays in the walkthrough, with its mark.",
+            "How you disconnect single connections, and what else ends a connection, is in our article on revoking MCP access."
+          ]
+        },
+        {
+          "heading": "Why do the switches start off?",
+          "paragraphs": [
+            "What an assistant reads goes to that assistant's vendor, under your company's agreement with them. Which vendor receives the data from your walkthrough is the company's decision. That is why an admin turns the switch on, and until then it stays off.",
+            "The records hold more personal data than the walkthrough, for example who took part in a training or who to call at a supplier. So letting assistants read them is a decision of its own, with its own switch.",
+            "The switch covers every assistant; which one a person connects is their own choice. So decide beforehand which assistants your company allows, and list them as software in 2.2, as described below."
+          ]
+        }
+      ],
+      "walk": {
+        "heading": "How the walkthrough does it",
+        "lead": "Once you allow assistants, the assistant itself belongs in your walkthrough.",
+        "points": [
+          "2.2 \"Write down what your company has\": add the assistant on \"Software everyone uses\", and its vendor on \"Which software exactly, and from whom?\".",
+          "5.1 \"Write down who works for you\": a vendor you name in 2.2 is already on this list. Add what they do for you, for example that they process the walkthrough data the assistant reads.",
+          "Every screen an assistant wrote shows its name and the day, for example \"Filled in by the assistant claude-code/2.1.287 on 16 October 2026\". The person checks it before finishing the item.",
+          "Finishing, deciding and signing stay in the app, even with the switch on."
+        ],
+        "seeItAlt": "Settings in nisd2.eu: at the top the switch \"Allow AI assistants for this company\" turned on, below it the card \"Connect assistants like Claude or Copilot\" with the button \"Create key\"",
+        "next": "Go to the walkthrough, allow assistants"
+      },
+      "faq": {
+        "heading": "Common questions",
+        "items": [
+          {
+            "q": "Do I need to be an admin to use MCP?",
+            "a": "Only to turn it on. After that, everyone who may open the walkthrough connects their own assistant. What it may do depends on their areas and their role."
+          },
+          {
+            "q": "Can I allow assistants for some people only?",
+            "a": "No, the switch applies to the whole company. What an assistant may do depends on the person who connects it, though. Each person sees their own connections in Settings under \"Connected\" and disconnects them there."
+          },
+          {
+            "q": "Does anyone notice when an assistant is connected in their name?",
+            "a": "Yes. When a key is created or an assistant allowed in the browser, the person gets an email. For a sign-in through the browser it names the assistant and the address it returns to. It also says what to do if it was not them: disconnect all assistants and change the password."
+          },
+          {
+            "q": "Is the switch on a self-hosted instance too?",
+            "a": "Yes. Every instance has the same switches and the same address for assistants, /api/mcp, and there is nothing to set up for it. There, the accounts whose addresses are in PLATFORM_ADMIN_EMAILS can connect."
+          },
+          {
+            "q": "Is it recorded who enabled the MCP server?",
+            "a": "Yes. Every flip of either switch is in the activity log, under the admin's name. When assistants are turned off, the entry notes that every connection was ended."
+          }
+        ]
+      },
+      "sources": {
+        "heading": "Sources",
+        "items": [
+          "open-isms, server/trpc/routers/assistants.ts (setAllowed, setReadRecords) and lib/mcp/allowed.ts, github.com/NISD2/open-isms",
+          "open-isms, server/trpc/routers/user.ts and lib/mail/emails/assistant-connected.tsx (email on connecting), github.com/NISD2/open-isms",
+          "open-isms, lib/mcp/procedures.ts (what an assistant may call), github.com/NISD2/open-isms",
+          "open-isms, MCP server documentation, content/docs/self-hosting/mcp.md, github.com/NISD2/open-isms"
+        ]
+      }
+    }
+  }
+}

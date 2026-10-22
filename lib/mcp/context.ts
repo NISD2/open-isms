@@ -12,7 +12,7 @@ import { user } from "@/schema";
 import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
 import { assistantAgent } from "./agent";
-import { assistantsAllowed } from "./allowed";
+import { assistantRights } from "./allowed";
 import { admitConnection } from "./connections";
 import { instanceKey } from "./instance-key";
 import { type KeyClaims, readKey } from "./key";
@@ -44,12 +44,13 @@ async function holderOf(claims: KeyClaims) {
   });
   if (!row || row.mcpKeyVersion !== claims.ver) return null;
   const company = await companySession(row.id, claims.cid, row.grandfatheredAt !== null);
-  if (!company.companyId || !(await assistantsAllowed(db, company.companyId)))
-    return null;
+  if (!company.companyId) return null;
+  const rights = await assistantRights(db, company.companyId);
+  if (!rights.allowed) return null;
   // Last, as it records the call as the connection's last use: a refused call is no use.
   const owner = { userId: row.id, companyId: claims.cid };
   if (!(await admitConnection(db, claims.con, owner, new Date()))) return null;
-  return { row, company, companyId: company.companyId };
+  return { row, company, companyId: company.companyId, readRecords: rights.readRecords };
 }
 
 /**
@@ -58,12 +59,15 @@ async function holderOf(claims: KeyClaims) {
  * gates. There is no sign-in time, so nothing that asks for a fresh sign-in (deleting the
  * account) passes; `viaKey` keeps the platform operator's procedures out of reach.
  */
-async function keyContext(token: string, request: Request): Promise<TRPCContext | null> {
+async function keyContext(
+  token: string,
+  request: Request,
+): Promise<{ context: TRPCContext; readRecords: boolean } | null> {
   const claims = readKey(instanceKey(), token, "mcp", epochSeconds(new Date()));
   const holder = claims && (await holderOf(claims));
   if (!claims || !holder) return null;
-  const { row, company, companyId } = holder;
-  return {
+  const { row, company, companyId, readRecords } = holder;
+  const context: TRPCContext = {
     db,
     session: {
       user: { id: row.id, email: row.email, name: row.name },
@@ -81,6 +85,7 @@ async function keyContext(token: string, request: Request): Promise<TRPCContext 
     userAgent: assistantAgent(claims.client, request.headers.get("user-agent")),
     viaKey: true,
   };
+  return { context, readRecords };
 }
 
 /** Who holds a key, and the app's procedures as them. */
@@ -96,6 +101,8 @@ export interface KeyHolder {
   readonly mayWalk: boolean;
   /** Whether the person may export the company's records, which is who may read them (`mayExport`). */
   readonly mayExport: boolean;
+  /** Whether the company's admin lets assistants read the records (`company.assistants_read_records`). */
+  readonly readRecords: boolean;
   /** As the procedures' own audit rows carry them: the assistant's user agent and the caller's IP. */
   readonly agent: string | null;
   readonly ip: string | null;
@@ -106,8 +113,10 @@ export async function keyHolder(
   token: string,
   request: Request,
 ): Promise<KeyHolder | null> {
-  const context = await keyContext(token, request);
-  if (!context?.session || !context.userId || !context.companyId) return null;
+  const opened = await keyContext(token, request);
+  if (!opened) return null;
+  const { context, readRecords } = opened;
+  if (!context.session || !context.userId || !context.companyId) return null;
   return {
     caller: createCaller(context),
     userId: context.userId,
@@ -118,6 +127,7 @@ export async function keyHolder(
       isPlatformAdmin(context.session.user.email),
     ),
     mayExport: mayExport(context.session),
+    readRecords,
     agent: context.userAgent,
     ip: context.ip === "unknown" ? null : context.ip,
   };
