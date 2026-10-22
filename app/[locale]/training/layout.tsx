@@ -47,7 +47,14 @@ export default async function TrainingPortalLayout({
           }))}
         />
         <SidebarInset>
-          <PortalHeader />
+          <PortalHeader
+            courseTitles={Object.fromEntries(
+              courses.map(({ course }) => [
+                course.id,
+                course.title[locale] ?? course.title.en,
+              ]),
+            )}
+          />
           <div className="flex-1 px-6 py-6">{children}</div>
         </SidebarInset>
       </SidebarProvider>

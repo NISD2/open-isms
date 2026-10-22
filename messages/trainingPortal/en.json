@@ -23,6 +23,11 @@
     "dictionary": "Terms",
     "definedTerms": "Key Terms",
     "vocabularyWords": "Vocabulary",
+    "certificatePreview": {
+      "title": "At the end: your certificate",
+      "body": "Finish every lesson and you get this certificate in your name. The course and the certificate cost nothing.",
+      "alt": "A sample certificate of completion, made out to Alex Example"
+    },
     "quiz": {
       "title": "Quiz",
       "question": "Question",

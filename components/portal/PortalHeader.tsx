@@ -36,8 +36,15 @@ function titleCase(slug: string) {
 export function PortalHeader({
   guide,
   home,
+  courseTitles,
 }: {
   guide?: { hints: Record<Hint, boolean> };
+  /**
+   * The courses' names in the reader's language, by course id. Only the training portal passes
+   * them, so its trail can read "Training / NIS2 Management Training / Lesson 0.1" instead of
+   * stopping at "Training" on every page.
+   */
+  courseTitles?: Readonly<Record<string, string>>;
   /**
    * Root the trail at the portal's home, the NIS 2 walkthrough. Only the entity
    * portal has one. The supplier portal's visitors are external and have no
@@ -48,6 +55,7 @@ export function PortalHeader({
 }) {
   const t = useTranslations("portal");
   const tCompliance = useTranslations("compliance");
+  const tTraining = useTranslations("trainingPortal");
   const params = useParams() as {
     locale?: string;
     categorySlug?: string;
@@ -100,6 +108,26 @@ export function PortalHeader({
       ? [{ label: root.label, href: root.href }]
       : [];
 
+    // /training/courses/<course>/<lesson>: the course by its name, then the lesson by its number.
+    const [, coursesSegment, courseId, lessonId] = segments;
+    if (
+      segments[0] === "training" &&
+      courseTitles &&
+      coursesSegment === "courses" &&
+      courseId
+    ) {
+      return [
+        { label: t(SEGMENT_LABELS.training), href: "/training/courses" },
+        {
+          label: courseTitles[courseId] ?? titleCase(courseId),
+          href: lessonId ? `/training/courses/${courseId}` : undefined,
+        },
+        ...(lessonId
+          ? [{ label: `${tTraining("lesson")} ${lessonId}`, href: undefined }]
+          : []),
+      ];
+    }
+
     if (segments[0] === "compliance") {
       crumbs.push({ label: tCompliance("title"), href: "/compliance" });
       const categorySlug = params.categorySlug;
@@ -133,20 +161,38 @@ export function PortalHeader({
     <header className="sticky top-0 z-20 flex h-12 shrink-0 items-center gap-2 border-b border-border/60 bg-background/80 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 !h-4" />
-      <Breadcrumb>
-        <BreadcrumbList>
+      <Breadcrumb className="min-w-0">
+        <BreadcrumbList className="flex-nowrap">
           {crumbs.map((crumb, i) => {
             const isLast = i === crumbs.length - 1;
+            // A phone keeps the last two crumbs on one line; the header is one row high and a
+            // three-part trail wrapped out of it.
+            // The last crumb (where you are) never truncates; the one before it gives way.
+            const phone =
+              i < crumbs.length - 2
+                ? "hidden sm:inline-flex"
+                : isLast
+                  ? "shrink-0"
+                  : "min-w-0";
             return (
               // Keyed by label: a trail never repeats one, and the position a
               // crumb sits at changes whenever the root does.
               <Fragment key={crumb.label}>
-                {i > 0 && <BreadcrumbSeparator />}
-                <BreadcrumbItem>
+                {i > 0 && (
+                  // The separator after a hidden crumb goes with it.
+                  <BreadcrumbSeparator
+                    className={
+                      i <= crumbs.length - 2 ? "hidden sm:inline-flex" : undefined
+                    }
+                  />
+                )}
+                <BreadcrumbItem className={phone}>
                   {isLast || !crumb.href ? (
-                    <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                    <BreadcrumbPage className="truncate">{crumb.label}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
+                    <BreadcrumbLink href={crumb.href} className="truncate">
+                      {crumb.label}
+                    </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
               </Fragment>
