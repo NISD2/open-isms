@@ -111,14 +111,10 @@ function categoryHref(categorySlug: string) {
 export function SoloPath({
   reqNodes,
   locale,
-  tourAnchored = true,
 }: {
   reqNodes: FlowNode[];
   /** The page language; the disclaimer has more languages than the rest of the journey. */
   locale: string;
-  /** Advertise this path to the guided tour. False while the mode question is
-   *  open, so the walkthrough cannot start underneath the dialog. */
-  tourAnchored?: boolean;
 }) {
   const lang = journeyLocaleOf(locale);
   const sections = useMemo(() => buildSoloSections(reqNodes, lang), [reqNodes, lang]);
@@ -171,7 +167,7 @@ export function SoloPath({
   if (!active) return null;
 
   return (
-    <div data-tour={tourAnchored ? "journey-path-guided" : undefined}>
+    <div data-tour="journey-path-guided">
       {/* Full content width, while the path itself stays a narrow column: the
           bar is page chrome and needs the room to hold both halves on one
           line. */}

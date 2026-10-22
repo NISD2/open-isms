@@ -127,11 +127,10 @@ export const company = pgTable("company", {
   assistantsReadRecords: boolean("assistants_read_records").default(false).notNull(),
 
   /**
-   * Journey layout. Nullable on purpose: NULL means nobody has answered yet,
-   * which is what makes the journey ask the one-question interstitial instead
-   * of guessing. Company-level rather than per-user because the answer states
-   * a fact about the company (how many people implement), not a personal
-   * preference, and a second per-user copy would be the same fact stored twice.
+   * Journey layout. NULL means nobody has chosen: the journey shows the default (the team view,
+   * see server/trpc/routers/journey.ts) and no guess is stored. Company-level, not per user: it
+   * states a fact about the company (how many people implement), and a per-user copy would
+   * store the same fact twice.
    */
   journeyMode: journeyModeEnum("journey_mode"),
 

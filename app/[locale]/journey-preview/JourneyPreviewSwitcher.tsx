@@ -36,11 +36,11 @@ const TABS: { key: JourneyMode; label: Localized }[] = [
 
 /**
  * Design route only. Renders both journey layouts against the full 49-step
- * sample, with the fork question over them exactly as the real page shows it.
+ * sample, with the fork question over them. The real page no longer asks it: a company that
+ * never chose gets the team view and switches with the toggle in the journey's header.
  *
  * The layout switcher and the button that re-opens the question exist only
- * here: on the real page the answer is written to the company row and the
- * layout follows from it. Answering here just moves the layout.
+ * here. Answering here just moves the layout.
  */
 export function JourneyPreviewSwitcher({
   reqNodes,
