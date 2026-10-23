@@ -37,6 +37,7 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { LOCALES, type LocaleCode } from "@/lib/locale";
 import { trpc } from "@/lib/trpc/client";
 import { getInitials } from "@/lib/utils";
+import { AddOrganizationDialog } from "./AddOrganizationDialog";
 import { DeleteAccountDialog } from "./DeleteAccountDialog";
 import { OrganizationSubmenu } from "./OrganizationSubmenu";
 
@@ -61,6 +62,7 @@ export function UserNav({ user, showSettings = false }: UserNavProps) {
   const tCancel = useTranslations("billing.cancel");
   const [cancelOpen, setCancelOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
   // Only the holder of a full account gets an option back. Without an open company (training or
   // supplier portal) the query fails quietly and there is simply no item.
   const billing = trpc.billing.status.useQuery(undefined, { retry: false });
@@ -143,7 +145,7 @@ export function UserNav({ user, showSettings = false }: UserNavProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <OrganizationSubmenu />
+            <OrganizationSubmenu onAdd={() => setAddOpen(true)} />
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
                 <Globe className="mr-2 h-4 w-4" />
@@ -205,6 +207,7 @@ export function UserNav({ user, showSettings = false }: UserNavProps) {
             onOpenChange={setCancelOpen}
           />
         )}
+        <AddOrganizationDialog open={addOpen} onOpenChange={setAddOpen} />
         {user.email && (
           <DeleteAccountDialog
             email={user.email}

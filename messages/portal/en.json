@@ -46,6 +46,15 @@
     "organizations": "Organizations",
     "addOrganization": "Add another organization",
     "untitledOrganization": "New organization (not set up yet)",
+    "addDialog": {
+      "description": "Choose the billing account that pays for it. The new organization gets that account's access.",
+      "paid": "Paid: the new organization has the full walkthrough",
+      "unpaid": "Not paid yet: it opens with the order",
+      "newAccount": "A new billing account",
+      "newAccountNote": "Starts unpaid, with its own order and invoices.",
+      "cancel": "Cancel",
+      "submit": "Add organization"
+    },
     "language": "Language",
     "english": "English",
     "german": "Deutsch",
