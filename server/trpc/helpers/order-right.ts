@@ -40,14 +40,16 @@ export const orderFactsHere = async (
   db: DbOrTx,
   ctx: { readonly companyId: string; readonly userId: string },
   account: Account,
-) => ({
-  invoiced: await hasInvoice(db, account.id),
-  adminOfAccount: await adminOfEvery(db, ctx.userId, account.id),
-  invite:
+) => {
+  const [invoiced, adminOfAccount, invite] = await Promise.all([
+    hasInvoice(db, account.id),
+    adminOfEvery(db, ctx.userId, account.id),
     account.ownerUserId === ctx.userId
       ? null
-      : await acceptedInviteOf(db, { companyId: ctx.companyId, userId: ctx.userId }),
-});
+      : acceptedInviteOf(db, { companyId: ctx.companyId, userId: ctx.userId }),
+  ]);
+  return { invoiced, adminOfAccount, invite };
+};
 
 /** Whether the caller may order for the open company's account. */
 export const orderRightHere = (
