@@ -240,7 +240,11 @@ export default async function BillingPage({
                 </li>
               ))}
             </ul>
-            <p className="text-muted-foreground text-sm">{t("companiesNote")}</p>
+            <p className="text-muted-foreground text-sm">
+              {t.rich("companiesNote", {
+                terms: (chunks) => legalLink("/terms", chunks),
+              })}
+            </p>
           </CardContent>
         </Card>
       ) : null}

@@ -162,11 +162,12 @@ describe("orderRightFor", () => {
   const keeps = { may: true, becomesPayer: false } as const;
   const takesOver = { may: true, becomesPayer: true } as const;
   const refused = { may: false } as const;
-  // A member of a paid account who holds nothing: each test changes what it is about.
+  // Someone on a paid account who holds nothing and administers none of its organizations: each
+  // test changes what it is about.
   const base = {
     userId: "gf-id",
     holderUserId: holder,
-    role: "member",
+    adminOfAccount: false,
     jobTitle: null,
     invite: null,
     unpaid: false,
@@ -207,21 +208,22 @@ describe("orderRightFor", () => {
     }
   });
 
-  test("while nobody has paid, any admin orders and becomes the payer", () => {
-    expect(orderRightFor({ ...base, role: "admin", unpaid: true })).toEqual(takesOver);
+  test("while nobody has paid, an admin of every organization on it orders and becomes the payer", () => {
+    expect(orderRightFor({ ...base, adminOfAccount: true, unpaid: true })).toEqual(
+      takesOver,
+    );
     expect(
-      orderRightFor({ ...base, role: "admin", unpaid: true, holderUserId: null }),
+      orderRightFor({ ...base, adminOfAccount: true, unpaid: true, holderUserId: null }),
     ).toEqual(takesOver);
   });
 
   test("once paid, an admin who is not the payer does not order", () => {
-    expect(orderRightFor({ ...base, role: "admin" })).toEqual(refused);
+    expect(orderRightFor({ ...base, adminOfAccount: true })).toEqual(refused);
   });
 
-  test("an unpaid account takes no order from anyone but an admin", () => {
-    for (const role of ["member", "reviewer", "legal_reviewer"]) {
-      expect(orderRightFor({ ...base, role, unpaid: true })).toEqual(refused);
-    }
+  test("an unpaid account takes no order from someone who is not an admin of all its organizations", () => {
+    // A member, a reviewer, or an admin of only one of a consultant's client organizations.
+    expect(orderRightFor({ ...base, unpaid: true })).toEqual(refused);
   });
 
   test("an account without a holder takes no order from management", () => {

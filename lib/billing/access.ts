@@ -69,18 +69,21 @@ export type OrderRight =
  *   (team.forwardToManagement). The holder stays the payer. Holding the management role is not
  *   enough on its own, since any company admin can give it: the accepted invite has to come from
  *   the holder and be for management, and the person has to hold the role still.
- * - Any admin of the company while nobody has paid for the account: never invoiced, and not on the
- *   full level some other way. The admin becomes its payer (Simon, 23.10.2026: "If it's unpaid then
- *   anybody can pay but if it's paid only the payer, the person who paid, can change"). Admins
- *   only, because the order binds the company to the AGB. An account invoiced before stays with its
- *   payer: its next invoice goes to the Qonto client of the first one (place-order.ts
- *   `qontoClientFor`), and its invoices name that customer.
+ * - An admin of every organization on the account while nobody has paid for it: never invoiced,
+ *   and not on the full level some other way. The admin becomes its payer (Simon, 23.10.2026: "If
+ *   it's unpaid then anybody can pay but if it's paid only the payer, the person who paid, can
+ *   change"). Admins only, because the order binds the company to the AGB. Of every organization
+ *   on the account, because the payer controls the licence of all of them: an account a consultant
+ *   holds for two clients must not pass to one client's admin, whose licence covers only its own
+ *   group (AGB B1). An account invoiced before stays with its payer: its next invoice goes to the
+ *   Qonto client of the first one (place-order.ts `qontoClientFor`), and its invoices name that
+ *   customer.
  */
 export const orderRightFor = (person: {
   readonly userId: string;
   readonly holderUserId: string | null;
-  /** The person's role in the open company. */
-  readonly role: string;
+  /** The person is an admin of every organization on the account, the open one included. */
+  readonly adminOfAccount: boolean;
   /** The compliance role the person holds in the open company. */
   readonly jobTitle: string | null;
   /** The invite the person accepted into the open company: who sent it, and for which role. */
@@ -98,7 +101,7 @@ export const orderRightFor = (person: {
   ) {
     return { may: true, becomesPayer: false };
   }
-  if (person.unpaid && person.role === "admin") return { may: true, becomesPayer: true };
+  if (person.unpaid && person.adminOfAccount) return { may: true, becomesPayer: true };
   return { may: false };
 };
 
