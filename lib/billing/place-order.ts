@@ -16,9 +16,10 @@
  * The whole order runs under a lock on the account row, so a double click, or two people ordering
  * for the same account, produces one invoice: the second waits, then finds the first.
  */
-import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
+import { eq, inArray, sql } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
-import { billingAccount, creditNote, invoice } from "@/schema";
+import { billingAccount, invoice } from "@/schema";
+import { findActiveInvoice, hasInvoice } from "./account-invoices";
 import { AlreadyAlerted, alertOperators } from "./alert";
 import { deliverInvoice } from "./deliver-invoice";
 import { takeDocumentNumber } from "./document-number";
@@ -27,7 +28,6 @@ import { sandboxInvoiceNumber } from "./invoice-number";
 import {
   ANNUAL_NET_CENTS,
   invoiceDates,
-  invoiceToday,
   invoiceWording,
   type OrderInput,
   priceFor,
@@ -98,6 +98,12 @@ export interface PlaceOrderInput {
    * acceptance on the call, or null when the admin did not record one.
    */
   readonly terms: TermsAcceptance | null;
+  /**
+   * The person who becomes the account's payer with this order: an admin ordering for an account
+   * nobody has paid for (`orderRightFor` in ./access). Null keeps the payer. Only an account never
+   * invoiced changes payer, checked again under the lock.
+   */
+  readonly newPayerUserId: string | null;
   readonly now?: Date;
 }
 
@@ -110,46 +116,6 @@ const failure = (
   reason: Extract<OrderOutcome, { ok: false }>["reason"],
   message: string,
 ) => ({ ok: false, reason, message }) as const;
-
-/** Whether the account was ever invoiced, credited or not: the next invoice is then not its first. */
-const hasInvoice = async (db: DbOrTx, billingAccountId: string): Promise<boolean> => {
-  const [any] = await db
-    .select({ id: invoice.id })
-    .from(invoice)
-    .where(eq(invoice.billingAccountId, billingAccountId))
-    .limit(1);
-  return any !== undefined;
-};
-
-/**
- * The invoice that pays for the account right now: its year has not ended and it was not credited.
- * One definition for the order's refusal and the billing page, so they cannot disagree.
- */
-export const findActiveInvoice = async (
-  db: DbOrTx,
-  billingAccountId: string,
-  now: Date,
-) => {
-  const [active] = await db
-    .select({
-      id: invoice.id,
-      number: invoice.number,
-      issueDate: invoice.issueDate,
-      periodEnd: invoice.periodEnd,
-    })
-    .from(invoice)
-    .leftJoin(creditNote, eq(creditNote.invoiceId, invoice.id))
-    .where(
-      and(
-        eq(invoice.billingAccountId, billingAccountId),
-        gte(invoice.periodEnd, invoiceToday(now)),
-        isNull(creditNote.id),
-      ),
-    )
-    .orderBy(desc(invoice.periodEnd))
-    .limit(1);
-  return active ?? null;
-};
 
 /**
  * A Qonto client with this VAT number that no other billing account holds. A client belongs to one
@@ -269,6 +235,11 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
           "already_ordered",
           `This account is already paid for, invoice ${active.number}.`,
         );
+      }
+      // The payer changes only on an account nobody has paid for. An invoice that appeared since
+      // the order page was opened means someone paid: they stay the payer.
+      if (input.newPayerUserId !== null && (await hasInvoice(tx, account.id))) {
+        return failure("already_ordered", "This account has been ordered for since.");
       }
 
       const money = priceFor(
@@ -400,6 +371,9 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
             accessLevel: "full",
             qontoClientId: client.id,
             renewalCanceledAt: null,
+            ...(input.newPayerUserId !== null
+              ? { ownerUserId: input.newPayerUserId }
+              : {}),
             updatedAt: now,
           })
           .where(eq(billingAccount.id, account.id));

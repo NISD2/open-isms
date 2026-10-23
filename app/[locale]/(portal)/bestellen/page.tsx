@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { OrderForm } from "@/components/billing/OrderForm";
+import { whoOrders } from "@/components/billing/whoOrders";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { getPathname, Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
@@ -39,12 +40,15 @@ export default async function BestellenPage({
   // Already paid: what they have, their invoices and how to cancel are on the billing page.
   if (status.activeInvoice) redirect(getPathname({ href: "/billing", locale }));
 
-  const t = await getTranslations("billing.order");
+  const [t, payer] = await Promise.all([
+    getTranslations("billing.order"),
+    getTranslations("billing.payer"),
+  ]);
   const blocked = status.orderPending
     ? t("pendingCheck")
     : status.mayOrder
       ? null
-      : t("payerOnly");
+      : await whoOrders(status);
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
@@ -63,13 +67,24 @@ export default async function BestellenPage({
         <Alert>
           <AlertDescription className="space-y-2">
             <p>{blocked}</p>
-            <Link href="/billing" className="font-medium underline underline-offset-4">
-              {t("toInvoices")}
-            </Link>
+            {/* Only someone who sees the invoices is sent to them. */}
+            {status.isPayer ? (
+              <Link href="/billing" className="font-medium underline underline-offset-4">
+                {t("toInvoices")}
+              </Link>
+            ) : null}
           </AlertDescription>
         </Alert>
       ) : (
-        <OrderForm netPrice={status.netPrice} />
+        <>
+          {/* Said before the form, not after it: the order changes who pays for the account. */}
+          {status.becomesPayer ? (
+            <Alert>
+              <AlertDescription>{payer("becomes")}</AlertDescription>
+            </Alert>
+          ) : null}
+          <OrderForm netPrice={status.netPrice} />
+        </>
       )}
     </div>
   );
