@@ -107,7 +107,7 @@ export function WalkPath({
     <aside
       ref={panel}
       className={cn(
-        "relative self-start rounded-3xl bg-primary/[0.06] p-3 sm:p-4",
+        "self-start rounded-3xl bg-primary/[0.06] p-3 sm:p-4",
         current &&
           "lg:sticky lg:top-18 lg:max-h-[calc(100svh-6rem)] lg:overflow-y-auto lg:overscroll-contain",
       )}
