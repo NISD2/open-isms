@@ -103,10 +103,17 @@ export async function WalkItem({
   // takes the order, which `requireWalk` holds for every item page below.
   const [access, viewer] = await Promise.all([walkAccess(), getSession()]);
   if (!access.mayWalk && !isFreeStep(code) && viewer) {
-    const preview = await loadItemPreview(code);
+    const [preview, entries] = await Promise.all([loadItemPreview(code), loadWalk(walk)]);
     if (!preview) notFound();
     const lock = walkLockFor(viewer.accessLevel, billingFor(viewer.user.email).open);
-    return <ItemPreview preview={preview} orderHref={lock.orderAt ?? "/pricing"} />;
+    return (
+      <ItemPreview
+        preview={preview}
+        walk={entries}
+        setup={!viewer.companyActivated}
+        lock={lock}
+      />
+    );
   }
   const mayWalk = await requireWalk(walk, code);
   const [item, entries, session] = await Promise.all([

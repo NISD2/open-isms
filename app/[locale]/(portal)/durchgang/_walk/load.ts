@@ -377,6 +377,7 @@ export async function loadItemPreview(code: string): Promise<ItemPreviewView | n
   const learn = words.screens.find((s) => s.kind === "learn");
   return {
     framework: walk.framework,
+    code,
     section: tc(`categories.${item.category}.name`),
     title: words.headline,
     image: imageFor(code),
