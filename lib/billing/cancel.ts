@@ -1,5 +1,5 @@
 /**
- * Cancel: the one function that ends a paid year, for the account holder only (billing.cancel).
+ * Cancel: the one function that ends a paid year, for the holder only (billing.cancel).
  *
  *   - Inside the thirty days of the account's first invoice (cancelWindowFor): a full credit
  *     note in Qonto, which cancels the
@@ -28,6 +28,7 @@ import type { Database, DbOrTx } from "@/lib/db";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { billingAccount, creditNote, invoice, user } from "@/schema";
 import { unpaidAccessLevel } from "./access";
+import { findActiveInvoice } from "./account-invoices";
 import type { AccessLevel } from "./accounts";
 import { AlreadyAlerted, alertOperators } from "./alert";
 import { type CancelNotice, type HolderContact, sendCancelNotice } from "./cancel-notice";
@@ -40,7 +41,6 @@ import type { CancelWindow } from "./money-back-window";
 import { formatEuro, formatInvoiceDay, invoiceToday } from "./order";
 import { clearOrderCheck, hasOrderCheck, markOrderCheck } from "./order-check";
 import type { OrderingMode } from "./ordering";
-import { findActiveInvoice } from "./place-order";
 import { createCreditNote, getInvoice } from "./qonto";
 
 /** Gutschrift. Its own series in document_number_counter, so credit notes count on their own. */

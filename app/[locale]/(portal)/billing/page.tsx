@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { CancelButton } from "@/components/billing/CancelButton";
 import { InvoicePdfButton } from "@/components/billing/InvoicePdfButton";
 import { NonPaymentNotice } from "@/components/billing/NonPaymentNotice";
+import { whoOrders } from "@/components/billing/whoOrders";
 import { PaidPricingCards } from "@/components/pricing/PaidPricingCards";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -46,11 +47,22 @@ export default async function BillingPage({
   if (!session) redirect("/auth/signin");
   if (!session.companyId) redirect("/onboarding");
 
-  const t = await getTranslations("billing.page");
+  const [t, payer, order] = await Promise.all([
+    getTranslations("billing.page"),
+    getTranslations("billing.payer"),
+    getTranslations("billing.order"),
+  ]);
   const status = await api.billing.status({ locale });
   // Ordering is not open here (no live keys, or a sandbox and not an admin): no billing page.
   if (!status.open) notFound();
   const invoices = status.isPayer ? await api.billing.invoices({ locale }) : null;
+  // Without access and without the order button, the page says why and whom to ask.
+  const noOrderNote =
+    status.accessLevel === "full" || status.canOrder
+      ? null
+      : status.orderPending
+        ? order("pendingCheck")
+        : await whoOrders(status);
 
   const days = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
   const noon = (iso: string) => new Date(`${iso}T12:00:00Z`);
@@ -64,9 +76,10 @@ export default async function BillingPage({
     </div>
   );
 
-  // Nothing invoiced yet and no licence: there is nothing to account for, so the page is the
-  // offer, the pricing page's tiers (Simon, 04.10.2026).
-  if (status.accessLevel !== "full" && invoices?.length === 0) {
+  // Nothing invoiced yet and no licence: there is nothing to account for, so for whoever may order
+  // the page is the offer, the pricing page's tiers (Simon, 04.10.2026). Anyone else gets the
+  // account card below, which says whom to ask, rather than an order button that cannot work.
+  if (status.accessLevel !== "full" && !status.invoiced && status.canOrder) {
     return (
       <div className="space-y-8">
         <div className="mx-auto max-w-6xl">{header}</div>
@@ -96,6 +109,9 @@ export default async function BillingPage({
               <p className="text-muted-foreground text-sm">
                 {t("price", { price: status.netPrice })}
               </p>
+            ) : null}
+            {noOrderNote ? (
+              <p className="max-w-[56ch] text-muted-foreground text-sm">{noOrderNote}</p>
             ) : null}
             {status.cancel?.kind === "money_back" ? (
               <p className="text-muted-foreground text-sm">
@@ -153,7 +169,11 @@ export default async function BillingPage({
         </CardHeader>
         <CardContent>
           {invoices === null ? (
-            <p className="text-muted-foreground text-sm">{t("payerOnly")}</p>
+            <p className="text-muted-foreground text-sm">
+              {status.payerName
+                ? payer("invoicesNamed", { name: status.payerName })
+                : payer("invoicesUnnamed")}
+            </p>
           ) : invoices.length === 0 ? (
             <p className="text-muted-foreground text-sm">{t("empty")}</p>
           ) : (
@@ -204,6 +224,26 @@ export default async function BillingPage({
           )}
         </CardContent>
       </Card>
+
+      {status.companies ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{t("companiesTitle")}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <ul className="divide-y rounded-lg border">
+              {status.companies.map((c) => (
+                <li key={c.id} className="px-4 py-2.5 text-sm">
+                  {c.name || (
+                    <span className="text-muted-foreground">{t("companyUnnamed")}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <p className="text-muted-foreground text-sm">{t("companiesNote")}</p>
+          </CardContent>
+        </Card>
+      ) : null}
     </div>
   );
 }

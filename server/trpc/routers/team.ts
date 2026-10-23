@@ -238,7 +238,7 @@ export const teamRouter = router({
    * The hand-off at the walk's lock: the account holder invites management into this company to
    * decide on the order. The same invite as above, for the management role, landing on the
    * decision page; once accepted, management orders for this company's account (billing.place,
-   * `mayOrderFor`), not for a new one.
+   * `orderRightFor`), not a new one.
    *
    * Account tier rather than the paid ones: the company has not ordered yet, which is the point.
    * Holder only, because only management the holder invited may order. Capped per company, since

@@ -6,10 +6,10 @@ import "@/lib/server-guard";
 import { and, eq, isNull } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { billingAccount, company, invoice } from "@/schema";
+import { findActiveInvoice } from "./account-invoices";
 import { type BillingFacts, type BillingState, billingStateOf } from "./account-state";
 import type { AccessLevel } from "./accounts";
 import { cancelWindowFor, originalInvoice } from "./money-back";
-import { findActiveInvoice } from "./place-order";
 import { paysOnUse } from "./terms";
 
 export interface BillingSession {
