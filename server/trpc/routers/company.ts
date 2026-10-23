@@ -84,9 +84,10 @@ export const companyRouter = router({
   /** The companies the caller belongs to, for the company switcher. */
   listMine: protectedProcedure.query(async ({ ctx }) => {
     const companies = await listUserCompanies(ctx.db, ctx.userId);
-    // The same role test as adminProcedure on createAnother, so the menu only offers what succeeds.
+    // The same tests as adminProcedure on createAnother and billingChoices (the role, and the
+    // access gate that refuses a free account), so the menu only offers what succeeds.
     const canAddCompany =
-      ctx.companyId && ctx.session.role === "admin"
+      ctx.companyId && ctx.session.role === "admin" && ctx.session.accessLevel !== "free"
         ? (await accountOfSetUpCompany(ctx.db, ctx.companyId)) !== null
         : false;
     return {
