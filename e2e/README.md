@@ -28,8 +28,9 @@ specs from PRs merged after the tag (#119, #128, #136). Read a failure here as
 out — `git diff --name-only <tag>..HEAD -- e2e/` tells you which specs moved,
 and `git merge-base --is-ancestor <commit> <tag>` settles whether the spec
 predates the image. The version-matched way to run it is from the tag:
-`git checkout v0.2.8 && bun run e2e:image 0.2.8`. Nothing in CI runs it
-either way.
+`git checkout v0.2.8 && bun run e2e:image 0.2.8`. In CI, `release.yml` runs
+this suite against the published candidate image before promoting it to
+`:stable`, and `e2e.yml` can be dispatched with an `image_tag`.
 
 ## What a pull request runs
 

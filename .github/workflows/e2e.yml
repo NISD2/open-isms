@@ -14,6 +14,11 @@ on:
   schedule:
     - cron: "23 2 * * *"
   workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Published image tag to test (e.g. stable, 0.2.11) instead of local build"
+        type: string
+        default: ""
 
 # Superseded runs are cancelled. Pushing three times to a PR used to run three
 # full suites to completion; only the newest tells you anything. Runs on main
@@ -22,9 +27,10 @@ concurrency:
   group: e2e-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
-# The suite runs the pull request's own code: its token reads the repository and nothing more.
+# The suite runs the pull request's own code: its token reads the repository and packages.
 permissions:
   contents: read
+  packages: read
 
 jobs:
   e2e:
@@ -60,13 +66,22 @@ jobs:
 
       # e2e/start-server.sh brings up the docker stack (postgres + MinIO),
       # migrates via scripts/runtime-migrate.mjs, seeds, builds and serves.
-      # No secrets: the whole stack is throwaway localhost dummies.
+      # If image_tag is provided via workflow_dispatch, e2e:image runs against
+      # the published container image in compose.self-host.yml instead.
       # E2E_SPECS is a list of fixed paths from e2e/select/areas.ts, split on
       # purpose; empty runs everything.
-      - run: bun run e2e $E2E_SPECS
+      - name: run e2e suite
+        run: |
+          if [ -n "${E2E_IMAGE}" ]; then
+            echo "Running E2E against published container image: ${E2E_IMAGE}"
+            bash scripts/e2e-against-image.sh "${E2E_IMAGE}"
+          else
+            bun run e2e $E2E_SPECS
+          fi
         env:
           CI: "1"
           E2E_SPECS: ${{ steps.select.outputs.specs }}
+          E2E_IMAGE: ${{ inputs.image_tag }}
 
       - uses: actions/upload-artifact@v7
         if: failure()

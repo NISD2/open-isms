@@ -20,7 +20,7 @@ set -euo pipefail
 
 VERSION="${1:-stable}"
 KEEP="${2:-}"
-IMAGE="ghcr.io/nisd2/open-isms"
+IMAGE="${IMAGE:-ghcr.io/nisd2/open-isms}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 STACK="$(mktemp -d)"
 PROJECT="e2e-image-$$"
@@ -66,6 +66,7 @@ cp "$ROOT/Caddyfile.self-host.example" "$STACK/Caddyfile"
 
 # Every value here is a throwaway localhost dummy, same as e2e/app-env.sh.
 cat > "$STACK/.env" <<ENVEOF
+OPEN_ISMS_IMAGE=${IMAGE}
 OPEN_ISMS_VERSION=${VERSION}
 COMPOSE_PROFILES=minio
 POSTGRES_USER=e2e
@@ -113,10 +114,29 @@ NODE_ENV=development \
 
 log "running the suite against the container"
 cd "$ROOT"
-E2E_BASE_URL="http://localhost:${APP_PORT}" \
-E2E_DATABASE_URL="postgres://e2e:e2e@localhost:${PG_PORT}/openisms_e2e" \
-E2E_S3_ENDPOINT="http://localhost:${MINIO_PORT}" \
-E2E_S3_BUCKET="e2e-evidence" \
-E2E_S3_ACCESS_KEY_ID="minioadmin" \
-E2E_S3_SECRET_ACCESS_KEY="minioadmin" \
-  bun run e2e -- "${@:3}"
+if [ "$#" -ge 3 ]; then
+  E2E_BASE_URL="http://localhost:${APP_PORT}" \
+  E2E_DATABASE_URL="postgres://e2e:e2e@localhost:${PG_PORT}/openisms_e2e" \
+  E2E_S3_ENDPOINT="http://localhost:${MINIO_PORT}" \
+  E2E_S3_BUCKET="e2e-evidence" \
+  E2E_S3_ACCESS_KEY_ID="minioadmin" \
+  E2E_S3_SECRET_ACCESS_KEY="minioadmin" \
+    bun run e2e -- "${@:3}"
+elif [ -n "${E2E_SPECS:-}" ]; then
+  # shellcheck disable=SC2086
+  E2E_BASE_URL="http://localhost:${APP_PORT}" \
+  E2E_DATABASE_URL="postgres://e2e:e2e@localhost:${PG_PORT}/openisms_e2e" \
+  E2E_S3_ENDPOINT="http://localhost:${MINIO_PORT}" \
+  E2E_S3_BUCKET="e2e-evidence" \
+  E2E_S3_ACCESS_KEY_ID="minioadmin" \
+  E2E_S3_SECRET_ACCESS_KEY="minioadmin" \
+    bun run e2e -- $E2E_SPECS
+else
+  E2E_BASE_URL="http://localhost:${APP_PORT}" \
+  E2E_DATABASE_URL="postgres://e2e:e2e@localhost:${PG_PORT}/openisms_e2e" \
+  E2E_S3_ENDPOINT="http://localhost:${MINIO_PORT}" \
+  E2E_S3_BUCKET="e2e-evidence" \
+  E2E_S3_ACCESS_KEY_ID="minioadmin" \
+  E2E_S3_SECRET_ACCESS_KEY="minioadmin" \
+    bun run e2e
+fi
