@@ -195,7 +195,6 @@ export function PathFlow({
   aggregate,
   locale,
   focusCategory = null,
-  tourAnchored = true,
 }: {
   reqNodes: FlowNode[];
   aggregate: Aggregate;
@@ -203,9 +202,6 @@ export function PathFlow({
   locale: string;
   /** Category code (e.g. "SUP") to scroll to and highlight, from ?focus=. */
   focusCategory?: string | null;
-  /** Advertise this path to the guided tour. False while the mode question is
-   *  open, so the walkthrough cannot start underneath the dialog. */
-  tourAnchored?: boolean;
 }) {
   const lang = journeyLocaleOf(locale);
   const copy = COPY[lang];
@@ -264,7 +260,7 @@ export function PathFlow({
       </div>
 
       <div
-        data-tour={tourAnchored ? "journey-path-team" : undefined}
+        data-tour="journey-path-team"
         className="overflow-x-auto rounded-lg border bg-card"
       >
         <div className={cn(swimlane ? "min-w-[820px]" : "min-w-[460px]")}>
