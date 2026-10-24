@@ -1,7 +1,24 @@
 "use client";
 
+import type { Frequency } from "@nisd2/grc-data-model/frameworks";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+
+// Requirements where the built-in CEO management training course satisfies
+// the §38(3) BSIG / Art. 20(2) NIS2 training obligation.
+export const CEO_COURSE_REQUIREMENT_CODES = new Set(["1.1", "8.3"]);
+
+/** Each frequency's name, under `intake` in the compliance messages of every locale. */
+export const FREQUENCY_LABEL: Readonly<Record<Frequency, string>> = {
+  "one-time": "frequencyOneTime",
+  monthly: "frequencyMonthly",
+  quarterly: "frequencyQuarterly",
+  "semi-annual": "frequencySemiAnnual",
+  annual: "frequencyAnnual",
+  "every-3-years": "frequencyEvery3Years",
+  "on-change": "frequencyOnChange",
+  ongoing: "frequencyOngoing",
+};
 
 // ---------------------------------------------------------------------------
 // Shared status/priority display constants
