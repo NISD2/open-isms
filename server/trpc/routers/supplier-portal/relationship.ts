@@ -28,7 +28,7 @@ import { mailAccessLink } from "./contact-mail";
 import { findRelationshipId } from "./contacts";
 import { withCustomerAddress } from "./customer-contact";
 import { generateOpaqueToken } from "./helpers";
-import { bindInvites, pendingInvitesTo } from "./invite-binding";
+import { bindableInvitesTo, bindInvites } from "./invite-binding";
 
 /**
  * The only shape a supplier row leaves this router in. The same row is the
@@ -102,14 +102,15 @@ export const supplierRelationshipRouter = router({
   }),
 
   /**
-   * How many customers have invited the signed-in address and are not bound to this company yet.
+   * How many customers have invited the signed-in address and can be bound to this company now
+   * (not those whose address the supplier already holds as a customer: see `bindableInvitesTo`).
    * A query, so the portal layout can ask on every page without writing an audit row; it only
    * calls `bindInvitedCustomers` when this is above zero.
    */
   pendingInvitedCount: accountProcedure.query(async ({ ctx }) => {
     const email = await signedInEmail(ctx.db, ctx.userId);
     if (!email) return 0;
-    return (await pendingInvitesTo(ctx.db, email, ctx.companyId)).length;
+    return (await bindableInvitesTo(ctx.db, email, ctx.companyId)).length;
   }),
 
   /**
@@ -129,7 +130,7 @@ export const supplierRelationshipRouter = router({
       }),
     ]);
     if (!email) return { bound: 0, left: 0 };
-    const invites = await pendingInvitesTo(ctx.db, email, ctx.companyId);
+    const invites = await bindableInvitesTo(ctx.db, email, ctx.companyId);
     if (invites.length === 0) return { bound: 0, left: 0 };
     const outcomes = await ctx.db.transaction((tx) =>
       bindInvites(tx, {

@@ -6,7 +6,7 @@
  * (relationship.bindInvitedCustomers). Both bind the same way, so a customer sees one row however
  * its supplier arrived.
  */
-import { and, eq, gt, isNull, ne } from "drizzle-orm";
+import { and, eq, gt, inArray, isNull, ne } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { supplier, supplierInvite } from "@/schema";
 import { customerContactEmails } from "./customer-contact";
@@ -30,6 +30,44 @@ export const pendingInvitesTo = (db: DbOrTx, email: string, skipCompanyId?: stri
       skipCompanyId ? ne(supplierInvite.fromCompanyId, skipCompanyId) : undefined,
     ),
   });
+
+/**
+ * The open invites to one email that can be bound to `supplierCompanyId` now. Left out, besides
+ * the company's own: an invite whose customer is reached at an address the supplier already holds
+ * as a customer. That pair would collide on uq_supplier_portal_share, so the invite stays pending
+ * (as acceptInvite leaves it) and must not count as work to do, or the portal would try to bind it
+ * on every page and write an audit row each time. The supplier already lists that customer.
+ */
+export const bindableInvitesTo = async (
+  db: DbOrTx,
+  email: string,
+  supplierCompanyId: string,
+): Promise<readonly PendingInvite[]> => {
+  const invites = await pendingInvitesTo(db, email, supplierCompanyId);
+  if (invites.length === 0) return invites;
+  const reachedAt = await customerContactEmails(
+    db,
+    invites.map((pending) => pending.fromCompanyId),
+  );
+  const addresses = [
+    ...new Set(invites.flatMap((pending) => reachedAt.get(pending.fromCompanyId) ?? [])),
+  ];
+  if (addresses.length === 0) return invites;
+  const held = await db
+    .select({ email: supplier.customerEmail })
+    .from(supplier)
+    .where(
+      and(
+        eq(supplier.supplierCompanyId, supplierCompanyId),
+        inArray(supplier.customerEmail, addresses),
+      ),
+    );
+  const heldAddresses = new Set(held.map((row) => row.email));
+  return invites.filter((pending) => {
+    const address = reachedAt.get(pending.fromCompanyId);
+    return address === undefined || !heldAddresses.has(address);
+  });
+};
 
 /** Links the customer's own listed row, unless the pair is held already; the rows it updated. */
 const linkListed = async (

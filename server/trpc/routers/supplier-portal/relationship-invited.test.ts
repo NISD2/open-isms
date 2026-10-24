@@ -34,10 +34,15 @@ type Write =
   | { readonly op: "relationship"; readonly values: Record<string, unknown> }
   | { readonly op: "accept"; readonly values: Record<string, unknown> };
 
-/** The calls the two procedures make. `taken` is a customer address this company already holds. */
+/**
+ * The calls the two procedures make. `held` is the customer addresses this company already holds
+ * when the procedure looks; `racing` is addresses another request takes between that look and the
+ * insert, so the insert finds them taken.
+ */
 function setup(
   invites: readonly ReturnType<typeof inviteFrom>[],
-  taken: ReadonlySet<string>,
+  held: ReadonlySet<string> = new Set(),
+  racing: ReadonlySet<string> = new Set(),
 ) {
   const writes: Write[] = [];
   const db = {
@@ -49,6 +54,8 @@ function setup(
     },
     select: () => ({
       from: () => ({
+        // The customer addresses this company already holds.
+        where: async () => [...held].map((email) => ({ email })),
         leftJoin: () => ({
           where: async () =>
             invites.map((i) => ({
@@ -64,7 +71,7 @@ function setup(
         onConflictDoNothing: () => ({
           returning: async () => {
             if (table !== supplier) throw new Error("unexpected insert");
-            if (taken.has(String(values.customerEmail))) return [];
+            if (racing.has(String(values.customerEmail))) return [];
             writes.push({ op: "relationship", values });
             return [{ id: `relationship-${writes.length}` }];
           },
@@ -113,14 +120,41 @@ describe("bindInvitedCustomers", () => {
     expect(accepted.every((a) => a.acceptedByCompanyId === MY_CO)).toBe(true);
   });
 
-  test("an address this company already holds leaves that invite pending and is counted", async () => {
+  test("an address this company already holds is not tried: that invite stays pending, quietly", async () => {
     const { caller, writes } = setup(
       [inviteFrom("kunde-a"), inviteFrom("kunde-b")],
       new Set(["kontakt@kunde-b.test"]),
     );
 
+    expect(await caller.bindInvitedCustomers()).toEqual({ bound: 1, left: 0 });
+    expect(writes.filter((w) => w.op === "accept")).toHaveLength(1);
+    // Only the one that could bind was written.
+    expect(
+      writes.flatMap((w) =>
+        w.op === "relationship" ? [w.values.customerCompanyId] : [],
+      ),
+    ).toEqual(["kunde-a"]);
+  });
+
+  test("an address another request takes first leaves that invite pending and is counted", async () => {
+    const { caller, writes } = setup(
+      [inviteFrom("kunde-a"), inviteFrom("kunde-b")],
+      new Set(),
+      new Set(["kontakt@kunde-b.test"]),
+    );
+
     expect(await caller.bindInvitedCustomers()).toEqual({ bound: 1, left: 1 });
     expect(writes.filter((w) => w.op === "accept")).toHaveLength(1);
+  });
+
+  test("when every invite collides there is nothing to bind and nothing is written", async () => {
+    const { caller, writes } = setup(
+      [inviteFrom("kunde-a")],
+      new Set(["kontakt@kunde-a.test"]),
+    );
+
+    expect(await caller.bindInvitedCustomers()).toEqual({ bound: 0, left: 0 });
+    expect(writes).toEqual([]);
   });
 
   test("nothing pending writes nothing", async () => {
@@ -133,7 +167,20 @@ describe("bindInvitedCustomers", () => {
 
 describe("pendingInvitedCount", () => {
   test("counts the open invites to the signed-in address", async () => {
-    const { caller } = setup([inviteFrom("kunde-a"), inviteFrom("kunde-b")], new Set());
+    const { caller } = setup([inviteFrom("kunde-a"), inviteFrom("kunde-b")]);
     expect(await caller.pendingInvitedCount()).toBe(2);
+  });
+
+  // The loop this fixes: the portal layout runs the binding whenever this is above zero, so an
+  // invite that can never bind must not be counted, or every page load writes an audit row.
+  test("does not count an invite whose customer address the supplier already holds", async () => {
+    const { caller } = setup(
+      [inviteFrom("kunde-a"), inviteFrom("kunde-b")],
+      new Set(["kontakt@kunde-b.test"]),
+    );
+    expect(await caller.pendingInvitedCount()).toBe(1);
+
+    const allHeld = setup([inviteFrom("kunde-a")], new Set(["kontakt@kunde-a.test"]));
+    expect(await allHeld.caller.pendingInvitedCount()).toBe(0);
   });
 });
