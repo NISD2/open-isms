@@ -88,6 +88,7 @@ These are read by the stack rather than by the application, and several have no 
 | `POSTGRES_PASSWORD`, `POSTGRES_USER`, `POSTGRES_DB` | The bundled database. Only the password has no default. |
 | `APP_DOMAIN`, `STORAGE_DOMAIN` | `proxy` profile. Both must resolve to this server before first start or the certificate order fails. |
 | `BACKUP_*` | `backup` profile. Target bucket, schedule, retention, and the GPG passphrase. See [Backup and restore](/docs/self-hosting/backup-and-restore). |
+| `UPDATE_MODE` | Update notification mode: `off` (default) or `notify`. See [Updating](/docs/self-hosting/updating). |
 | `UPDATE_API_TOKEN` | `updater` profile. Authenticates a request to the updater over the internal network. |
 | `APP_BIND`, `APP_PORT`, `POSTGRES_BIND`, `POSTGRES_PORT`, `MINIO_BIND`, `MINIO_PORT` | Host bindings. Loopback by default. |
 
@@ -100,10 +101,6 @@ Rarely touched, and set on the app container. The migrator takes a Postgres advi
 | `MIGRATE_LOCK_WAIT` | `300s` | How long to wait for another instance to finish migrating before giving up. |
 | `MIGRATE_LOCK_TIMEOUT` | `10s` | Ceiling on how long a single statement waits for its lock. A DDL statement blocked by a long-running query fails the migration instead of blocking startup forever. |
 | `MIGRATE_STATEMENT_TIMEOUT` | `600s` | Ceiling on a single statement inside a migration. |
-
-### Declared but not implemented
-
-`UPDATE_MODE` is carried through `.env` and the compose file, and **no application code reads it**. Setting it to `notify` does nothing: the instance makes no outbound update request and nothing appears in the admin area. It is documented here because the variable exists and would otherwise look broken rather than unbuilt. See [Updating](/docs/self-hosting/updating) for how to check for new versions today.
 
 ## Development-only switches
 

@@ -19,6 +19,7 @@ export const ADMIN_TAB_SLUGS = {
   close: "close",
   flags: "feature-flags",
   dev: "dev",
+  updates: "updates",
 } as const;
 
 export type Tab = keyof typeof ADMIN_TAB_SLUGS;
