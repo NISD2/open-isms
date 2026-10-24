@@ -28,7 +28,7 @@
       "serviceTypeEmptyLink": "Ir para o perfil",
       "certificationsIntro": "Carregue os seus comprovativos de segurança (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Os PDF e os respetivos dados são visíveis para os clientes que convidou.",
       "customersTitle": "Adicionar um cliente",
-      "customersIntro": "Convide um cliente por e-mail. Recebe uma ligação privada para o seu perfil de segurança e não precisa de conta para isso. Assim que aceitar, introduza os sistemas que gere para ele e comunique os incidentes que os afetem.",
+      "customersIntro": "Adicione um cliente pelo nome da empresa, pelo e-mail ou por ambos. Com um e-mail, recebe uma ligação privada para o seu perfil de segurança e não precisa de conta para isso. Depois, introduza os sistemas que gere para ele e comunique os incidentes que os afetem.",
       "customer": "Cliente",
       "unknownCustomer": "(cliente desconhecido)"
     },
@@ -152,6 +152,13 @@
           "why": "Durante quanto tempo fornece atualizações de segurança para o software dele, e como pode verificar que o software e as suas atualizações são de confiança."
         }
       }
+    },
+    "customers": {
+      "emailLabel": "E-mail do contacto de segurança do cliente",
+      "emailPlaceholder": "ti@cliente.example",
+      "orgNameLabel": "Nome da empresa do cliente",
+      "orgNamePlaceholder": "Exemplo, Lda.",
+      "submit": "Adicionar cliente"
     },
     "customerView": {
       "securityProfile": "Perfil de segurança",

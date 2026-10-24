@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "Potete lasciare vuota l'e-mail e aggiungere le persone più tardi nella pagina Accesso del cliente. Senza e-mail non viene inviato nulla.",
+    "needNameOrEmail": "Indicate il nome dell'azienda del cliente o un indirizzo e-mail.",
+    "cancel": "Annulla",
+    "emailPlaceholder": "ti@cliente.example",
+    "addPersonLabel": "Aggiungi una persona",
+    "contactsEmpty": "Nessuno ha ancora il link al vostro profilo di sicurezza. Aggiungete qui sotto un indirizzo e-mail e gli verrà inviato.",
+    "sendLink": "Invia il link",
+    "linkSent": "Il link al vostro profilo di sicurezza è stato inviato a {email}.",
+    "linkNotSent": "Non è stato possibile inviare il link a {email}.",
+    "removeAccess": "Revoca l'accesso",
+    "removeAccessFor": "Revoca l'accesso di {email}",
+    "removeAccessTitle": "Revocare l'accesso di {email}?",
+    "removeAccessBody": "Il link di questa persona al vostro profilo di sicurezza smette di funzionare e a questo indirizzo non viene più inviato nulla. Il cliente e le altre persone restano.",
+    "accessRemoved": "Accesso revocato. Il cliente resta nel vostro elenco.",
+    "deleteCustomer": "Elimina cliente",
+    "deleteCustomerTitle": "Eliminare {name}?",
+    "deleteCustomerBody": "Il cliente viene eliminato definitivamente, insieme ai sistemi che avete registrato per lui e alle segnalazioni di incidente che gli avete inviato. Il suo link al vostro profilo di sicurezza smette di funzionare. L'operazione non può essere annullata.",
+    "deleteCustomerBodyOwnAccount": "Questo cliente ha un proprio account. Esce dal vostro elenco e il suo accesso al vostro profilo di sicurezza termina, ma conserva la propria registrazione su di voi. L'operazione non può essere annullata.",
+    "ownAccountNote": "Questo cliente ha un proprio account e viene raggiunto all'indirizzo che vi ha salvato."
+  }
+}

@@ -28,7 +28,7 @@
       "serviceTypeEmptyLink": "Mergeți la profil",
       "certificationsIntro": "Încărcați atestatele dumneavoastră de securitate (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). PDF-urile și datele lor sunt vizibile clienților pe care i-ați invitat.",
       "customersTitle": "Adăugați un client",
-      "customersIntro": "Invitați un client prin e-mail. Primește un link privat către profilul dumneavoastră de securitate și nu are nevoie de niciun cont. După ce acceptă, introduceți sistemele pe care le administrați pentru el și raportați incidentele care le afectează.",
+      "customersIntro": "Adăugați un client după numele firmei, după adresa de e-mail sau după ambele. Cu o adresă de e-mail, primește un link privat către profilul dumneavoastră de securitate și nu are nevoie de niciun cont. Apoi introduceți sistemele pe care le administrați pentru el și raportați incidentele care le afectează.",
       "customer": "Client",
       "unknownCustomer": "(client necunoscut)"
     },
@@ -152,6 +152,13 @@
           "why": "Cât timp furnizează actualizări de securitate pentru software-ul său și după ce vă puteți da seama că software-ul și actualizările lui sunt de încredere."
         }
       }
+    },
+    "customers": {
+      "emailLabel": "Adresa de e-mail a persoanei de contact pentru securitate de la client",
+      "emailPlaceholder": "it@client.example",
+      "orgNameLabel": "Numele firmei clientului",
+      "orgNamePlaceholder": "Exemplu SRL",
+      "submit": "Adăugați clientul"
     },
     "customerView": {
       "securityProfile": "Profil de securitate",

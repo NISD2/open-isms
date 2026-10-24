@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "Puede dejar el correo electrónico en blanco y añadir personas más tarde en la página Acceso del cliente. Sin correo electrónico no se envía nada.",
+    "needNameOrEmail": "Indique el nombre de la empresa del cliente o una dirección de correo electrónico.",
+    "cancel": "Cancelar",
+    "emailPlaceholder": "ti@cliente.example",
+    "addPersonLabel": "Añadir una persona",
+    "contactsEmpty": "Todavía nadie tiene el enlace a su perfil de seguridad. Añada abajo un correo electrónico y se lo enviaremos.",
+    "sendLink": "Enviar enlace",
+    "linkSent": "El enlace a su perfil de seguridad se ha enviado a {email}.",
+    "linkNotSent": "No se pudo enviar el enlace a {email}.",
+    "removeAccess": "Retirar el acceso",
+    "removeAccessFor": "Retirar el acceso de {email}",
+    "removeAccessTitle": "¿Retirar el acceso de {email}?",
+    "removeAccessBody": "El enlace de esta persona a su perfil de seguridad deja de funcionar y ya no se envía nada a esta dirección. El cliente y las demás personas se mantienen.",
+    "accessRemoved": "Acceso retirado. El cliente sigue en su lista.",
+    "deleteCustomer": "Eliminar cliente",
+    "deleteCustomerTitle": "¿Eliminar {name}?",
+    "deleteCustomerBody": "El cliente se elimina definitivamente, junto con los sistemas que registró para él y los avisos de incidentes que le envió. Su enlace a su perfil de seguridad deja de funcionar. Esta acción no se puede deshacer.",
+    "deleteCustomerBodyOwnAccount": "Este cliente tiene su propia cuenta. Sale de su lista y termina su acceso a su perfil de seguridad, pero conserva su propio registro sobre usted. Esta acción no se puede deshacer.",
+    "ownAccountNote": "Este cliente tiene su propia cuenta y se le contacta en la dirección que guarda allí."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "Puteți lăsa adresa de e-mail necompletată și adăuga persoane mai târziu, pe pagina Acces a clientului. Fără adresă de e-mail nu se trimite nimic.",
+    "needNameOrEmail": "Indicați numele firmei clientului sau o adresă de e-mail.",
+    "cancel": "Anulați",
+    "emailPlaceholder": "it@client.example",
+    "addPersonLabel": "Adăugați o persoană",
+    "contactsEmpty": "Nimeni nu are încă linkul către profilul dumneavoastră de securitate. Adăugați mai jos o adresă de e-mail și linkul se trimite.",
+    "sendLink": "Trimiteți linkul",
+    "linkSent": "Linkul către profilul dumneavoastră de securitate a fost trimis la {email}.",
+    "linkNotSent": "Linkul nu a putut fi trimis la {email}.",
+    "removeAccess": "Retrageți accesul",
+    "removeAccessFor": "Retrageți accesul pentru {email}",
+    "removeAccessTitle": "Retrageți accesul pentru {email}?",
+    "removeAccessBody": "Linkul acestei persoane către profilul dumneavoastră de securitate nu mai funcționează, iar la această adresă nu se mai trimite nimic. Clientul și celelalte persoane rămân.",
+    "accessRemoved": "Acces retras. Clientul rămâne în lista dumneavoastră.",
+    "deleteCustomer": "Ștergeți clientul",
+    "deleteCustomerTitle": "Ștergeți {name}?",
+    "deleteCustomerBody": "Clientul este șters definitiv, împreună cu sistemele pe care le-ați înregistrat pentru el și cu notificările de incident pe care i le-ați trimis. Linkul lui către profilul dumneavoastră de securitate nu mai funcționează. Această acțiune nu poate fi anulată.",
+    "deleteCustomerBodyOwnAccount": "Acest client are propriul cont. Iese din lista dumneavoastră și accesul lui la profilul dumneavoastră de securitate se încheie, dar își păstrează propria înregistrare despre dumneavoastră. Această acțiune nu poate fi anulată.",
+    "ownAccountNote": "Acest client are propriul cont și este contactat la adresa pe care a salvat-o acolo."
+  }
+}
