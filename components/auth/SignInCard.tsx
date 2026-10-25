@@ -34,9 +34,15 @@ const GOOGLE_ERROR_MESSAGE_KEYS = {
 
 export function SignInCard({
   supportEmail,
+  independentInstall,
 }: {
   /** Where GOOGLE_EMAIL_CHANGED sends people: the same address outbound mail replies to. */
   supportEmail: string;
+  /**
+   * A copy run by someone else: its users have no contract with nisd2.eu, so the sign-in does not
+   * say they accept our terms (the page's LegalNotice says whose installation it is).
+   */
+  independentInstall: boolean;
 }) {
   const t = useTranslations("auth");
   const locale = useLocale();
@@ -455,30 +461,32 @@ export function SignInCard({
             register mode, and nothing stored it. The terms are agreed and recorded at the order
             (invoice.terms_accepted_at); an account runs on the contract, not on consent
             (Simon, 05.10.2026). */}
-        <p className="text-center text-xs text-muted-foreground">
-          {t.rich("termsNotice", {
-            terms: (chunks) => (
-              <a
-                href="/terms"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-foreground"
-              >
-                {chunks}
-              </a>
-            ),
-            privacy: (chunks) => (
-              <a
-                href="/datenschutz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-foreground"
-              >
-                {chunks}
-              </a>
-            ),
-          })}
-        </p>
+        {independentInstall ? null : (
+          <p className="text-center text-xs text-muted-foreground">
+            {t.rich("termsNotice", {
+              terms: (chunks) => (
+                <a
+                  href="/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  {chunks}
+                </a>
+              ),
+              privacy: (chunks) => (
+                <a
+                  href="/datenschutz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
+          </p>
+        )}
       </CardContent>
     </Card>
   );

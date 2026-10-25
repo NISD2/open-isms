@@ -1,4 +1,5 @@
 import type { Session } from "next-auth";
+import { LegalNotice } from "@/components/legal/LegalNotice";
 import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { AppSidebar } from "@/components/portal/AppSidebar";
 import { PortalHeader } from "@/components/portal/PortalHeader";
@@ -44,6 +45,7 @@ export function PortalShell({
       <SidebarInset>
         <PortalHeader home="walkthrough" guide={{ hints: session.hints }} />
         <div className="flex-1 px-6 py-6">{children}</div>
+        <LegalNotice className="border-t px-6 py-3" />
       </SidebarInset>
       <AdminTestPanel />
     </SidebarProvider>

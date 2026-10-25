@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PromoNotice } from "@/components/auth/PromoNotice";
 import { SignInCard } from "@/components/auth/SignInCard";
+import { LegalNotice } from "@/components/legal/LegalNotice";
 import { Link } from "@/i18n/navigation";
 import { applyPromoToSession } from "@/lib/billing/promo-session";
+import { isSellerInstance } from "@/lib/billing/seller";
 import { mailSupportEmail } from "@/lib/env";
 
 /**
@@ -36,7 +38,11 @@ export default async function PromoSignInPage({
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
       <h1 className="sr-only">{t("title")}</h1>
       <PromoNotice fromLink={fromLink} />
-      <SignInCard supportEmail={mailSupportEmail()} />
+      <SignInCard
+        supportEmail={mailSupportEmail()}
+        independentInstall={!isSellerInstance()}
+      />
+      <LegalNotice className="mt-6 max-w-sm" />
       <p className="mt-6 text-sm text-muted-foreground">
         <Link href="/" className="underline hover:text-foreground">
           {t("backToHome")}
