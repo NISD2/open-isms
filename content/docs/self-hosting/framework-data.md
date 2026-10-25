@@ -1,10 +1,10 @@
 The frameworks, their categories, the 165 requirements a seeded instance holds and the cross-framework satisfaction pairs are reference data: the same rows on every instance, shipped with the software rather than created by you.
 
-Since version 0.2.9 this happens by itself. The container applies its migrations at startup, then checks whether the requirement catalogue is empty, and fills it from `db/framework-seed.sql` inside the image if it is:
+Since version 0.2.9 this happens by itself. The container applies its migrations at startup, then checks whether NIS 2 is in the requirement catalogue, and fills it from `db/framework-seed.sql` inside the image if it is not:
 
 ```text
 [migrate] all chains complete
-[seed] empty catalogue — loading db/framework-seed.sql
+[seed] no NIS 2 in the catalogue — loading db/framework-seed.sql
 [seed] loaded 165 requirements
 ```
 
@@ -14,7 +14,7 @@ On every later start the check finds the data and does nothing:
 [seed] framework data present (165 requirements)
 ```
 
-That guard is what makes it safe. It runs only against an empty catalogue, so it can never overwrite an instance in use, and the file is upsert-only in any case: no deletes, and nothing that touches company data.
+That guard is what makes it safe. It runs only while NIS 2 is missing, which on an instance in use it never is, and the file is upsert-only in any case: no deletes, and nothing that touches company data.
 
 ## What you get
 
