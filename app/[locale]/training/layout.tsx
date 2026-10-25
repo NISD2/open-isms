@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
 import { AllMessagesProvider } from "@/components/AllMessagesProvider";
+import { LegalNotice } from "@/components/legal/LegalNotice";
 import { PortalHeader } from "@/components/portal/PortalHeader";
 import { TrainingAppSidebar } from "@/components/training-portal/TrainingAppSidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -56,6 +57,7 @@ export default async function TrainingPortalLayout({
             )}
           />
           <div className="flex-1 px-6 py-6">{children}</div>
+          <LegalNotice className="border-t px-6 py-3" />
         </SidebarInset>
       </SidebarProvider>
     </AllMessagesProvider>
