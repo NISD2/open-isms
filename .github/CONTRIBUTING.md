@@ -9,6 +9,7 @@ Particularly valuable:
 - **New / corrected framework data** — articles in `packages/grc-data-model/src/frameworks/`. NIS 2, GDPR, EU AI Act, CRA, ISO 27001 mappings.
 - **Schema improvements** — `packages/isms-schema/src/tables/`. Especially around process tracking edge cases (sign-off chains, evidence types, audit-log retention).
 - **Translation** — DE/EN/NL catalogs in `messages/`.
+- **Course corrections and new lessons** — lessons in `courses/<course>/content/<lesson>.<locale>.md`, quizzes in `courses/<course>/quizzes/`, glossary in `courses/<course>/dictionary.ts`. English is the source text: fix the `.en.md`, and change the German too or say in the PR that it needs the same fix. Other languages are refreshed from English with `scripts/i18n/translate-course.ts`, so a hand edit there may be overwritten. Every changed legal claim names its primary source (article, section, standard clause) in the PR.
 - **Documentation** — `content/docs/` for everything published on nisd2.eu/docs (installation, self-hosting, contributing); `docs/` for migration policy, deployment notes and legal references.
 - **Bug reports** — open a GitHub issue with a minimal reproduction, the affected file paths, and the relevant version (commit SHA or release tag).
 
@@ -51,10 +52,18 @@ It does not fire on merge. A version here is something a stranger installs onto 
 
 npm packages are separate and also on demand: run the **Publish npm packages** workflow with the version you want.
 
+## Running your own copy
+
+You are welcome to, and the code in your copy is yours to change. If you change the code and let others use your copy over a network, section 13 of the AGPL requires you to offer those users your source.
+
+We would rather have your fix in this repository. A pull request means your change ships to everyone, and you stop carrying a patch that has to be merged by hand with every release. If Git is not your workflow, a patch file or a zip by email to contact@nisd2.eu works too, and your name goes on the commit.
+
 ## Code of conduct
 
 See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md). Be kind. We assume good faith.
 
 ## License
 
-By contributing, you agree your contributions are licensed under [AGPL-3.0-or-later](../LICENSE) for the app and workspace-only packages, and under each package's individual license (MIT for `grc-data-model`, dual-AGPL for `incident-notification-schema`).
+By contributing to `courses/`, you agree your contribution is licensed under [CC BY 4.0](../courses/LICENSE), like the courses themselves. Your credit stays in the commit history.
+
+By contributing anything else, you agree your contributions are licensed under [AGPL-3.0-or-later](../LICENSE) for the app and workspace-only packages, and under each package's individual license (MIT for `grc-data-model`, dual-AGPL for `incident-notification-schema`).
