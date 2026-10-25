@@ -81,6 +81,16 @@ COPY . .
 # keeps the standalone tracer focused on the SaaS app only.
 RUN rm -rf apps
 
+# The self-hosted image is the compliance app alone (lib/edition): the release
+# and self-host workflows build with EDITION=self-host, which leaves out
+# nisd2.eu's public site, wiki, docs, courses and supplier portal, and makes
+# every link to them lead to nisd2.eu. Coolify builds nisd2.eu itself and
+# passes nothing. NEXT_PUBLIC_ is inlined at build time, so an install's own
+# variables cannot change the edition afterwards.
+ARG EDITION=nisd2
+ENV NEXT_PUBLIC_EDITION=$EDITION
+RUN if [ "$EDITION" = "self-host" ]; then node scripts/self-host-strip.mjs; fi
+
 ENV NODE_ENV=production
 ENV SKIP_ENV_VALIDATION=1
 ENV NEXT_TELEMETRY_DISABLED=1

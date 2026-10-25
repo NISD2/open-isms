@@ -54,7 +54,11 @@ jobs:
           context: .
           load: true
           tags: ${{ env.IMAGE }}:ci-a
-          build-args: APP_VERSION=${{ env.VERSION_A }}
+          # The edition self-hosters pull (lib/edition). Building it on every PR is
+          # also what catches kept code that imports a page the image leaves out.
+          build-args: |
+            APP_VERSION=${{ env.VERSION_A }}
+            EDITION=self-host
           cache-from: type=gha,scope=ci-amd64
           cache-to: type=gha,mode=max,scope=ci-amd64
 
@@ -64,7 +68,9 @@ jobs:
           context: .
           load: true
           tags: ${{ env.IMAGE }}:ci-b
-          build-args: APP_VERSION=${{ env.VERSION_B }}
+          build-args: |
+            APP_VERSION=${{ env.VERSION_B }}
+            EDITION=self-host
           cache-from: type=gha,scope=ci-amd64
 
       # The published compose file is used as-is. The only addition is a label
@@ -298,6 +304,8 @@ jobs:
           context: .
           load: true
           tags: openisms:current
+          # The edition that is published, which also reuses the lifecycle job's cache.
+          build-args: EDITION=self-host
           cache-from: type=gha,scope=ci-amd64
 
       - name: Migrate with the previous version

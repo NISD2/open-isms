@@ -68,7 +68,7 @@
     "description": "NIS2/BSIG 2025 Compliance Management"
   },
   "legalNotice": {
-    "software": "open-isms is free software under the <license>AGPL-3.0</license>. The licence gives no warranty for the software itself; any warranty comes from the operator's own contract. <source>Source code</source>",
+    "software": "Software: <product>open-isms by nisd2.eu</product>, © 2026 the open-isms authors. open-isms is free software under the <license>AGPL-3.0</license>. The licence gives no warranty for the software itself; any warranty comes from the operator's own contract. <source>Source code</source>",
     "independent": "This installation is run independently of nisd2.eu. Its operator, not nisd2.eu, runs it and decides how data is handled here."
   }
 }

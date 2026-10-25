@@ -1,5 +1,11 @@
 This is the production version of the [Quickstart](/docs/getting-started/quickstart): the same stack, with the profiles, the domain and the object store set up properly.
 
+## What the image contains
+
+The published image is the compliance app. nisd2.eu's public site, the wiki, these docs, the courses and the supplier portal are not in it. Links to them lead to nisd2.eu, and a request for one of those pages is redirected there. Management takes the course at nisd2.eu and you add the certificate on the training page; suppliers answer the security questionnaire at nisd2.eu, where it is free for them. The install itself asks search engines not to index it.
+
+The source of all of it is in the repository, under the same licence.
+
 ## The short way
 
 The installer handles the whole of the next section, including a public hostname with automatic certificates:

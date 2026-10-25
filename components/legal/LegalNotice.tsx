@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { isSellerInstance } from "@/lib/billing/seller";
+import { NISD2_ORIGIN } from "@/lib/edition";
 import { LICENSE_URL, SOURCE_URL } from "@/lib/legal-notice";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,12 @@ export async function LegalNotice({ className }: { className?: string }) {
     <div className={cn("space-y-1 text-center text-xs text-muted-foreground", className)}>
       <p>
         {t.rich("software", {
+          // The attribution NOTICE's section 7(b) term asks every copy to keep, with its link.
+          product: (chunks) => (
+            <a href={NISD2_ORIGIN} className={linkClass}>
+              {chunks}
+            </a>
+          ),
           license: (chunks) => (
             <a
               href={LICENSE_URL}

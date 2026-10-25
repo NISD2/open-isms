@@ -65,6 +65,10 @@ Rather read the script first, or set it up by hand? The
 [installation guide](https://www.nisd2.eu/docs/self-hosting/installation) covers both, plus TLS,
 email, storage, backups and updates.
 
+The published image is the compliance app. The public site, the wiki, the docs, the courses and
+the supplier portal run at nisd2.eu, and the app links to them there. Their source is in this
+repository too.
+
 ## For developers
 
 The framework data is on npm, so you can build on it without running the platform:
@@ -105,7 +109,9 @@ with [CONTRIBUTING.md](./.github/CONTRIBUTING.md). To report a security issue, s
 
 ## License
 
-The platform is [AGPL-3.0-or-later](./LICENSE). The NIS 2 management course in `courses/` is
+The platform is [AGPL-3.0-or-later](./LICENSE), with one additional term under section 7(b), set
+out in [NOTICE](./NOTICE): a work based on it keeps the attribution "open-isms by nisd2.eu" in the
+legal notices its interface displays. The NIS 2 management course in `courses/` is
 [CC BY 4.0](./courses/LICENSE): reuse it, adapt it and publish it under your own name, commercially
 too, with attribution. The npm packages carry their own licenses (MIT for
 `@nisd2/grc-data-model`; see each package). What the repository holds of laws and standards such

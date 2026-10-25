@@ -9,6 +9,7 @@ import { Body, Container, Head, Html, Img, Link, Preview } from "@react-email/co
 import { type CSSProperties, Fragment, type ReactNode } from "react";
 import { getPathname } from "@/i18n/navigation";
 import { isSellerInstance, SELLER } from "@/lib/billing/seller";
+import { nisd2Url } from "@/lib/edition";
 import { getAppUrl } from "@/lib/utils";
 import {
   BRAND,
@@ -124,7 +125,7 @@ function LegalFooter({ locale }: { locale: EmailLocale }) {
     return (
       <>
         <Link
-          href="https://nisd2.eu"
+          href={nisd2Url("/", getAppUrl())}
           style={{ color: BRAND.primary, textDecoration: "none", fontWeight: 600 }}
         >
           nisd2.eu

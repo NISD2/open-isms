@@ -103,8 +103,11 @@ jobs:
         with:
           context: .
           platforms: ${{ matrix.platform }}
+          # The published image is the self-hosted edition: the compliance app,
+          # with nisd2.eu's own pages left out (lib/edition).
           build-args: |
             APP_VERSION=${{ needs.version.outputs.version }}
+            EDITION=self-host
           outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=${{ !inputs.dry_run }}
           # An SBOM and full provenance travel with the image. We sell supply
           # chain compliance and teach the CRA's SBOM obligations; shipping
