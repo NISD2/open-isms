@@ -10,8 +10,8 @@ const linkClass = "underline hover:text-foreground";
  * the warranty position, and where the source is. Shown on every install, ours included, so a
  * copy that keeps this component keeps showing them (section 5(d)). A copy also says it is not
  * nisd2.eu: its users have no contract with us, and the operator, not nisd2.eu, runs it.
- * Judged on the server, from the address the install was configured with (isSellerInstance), so
- * the shared image answers per install and not per build.
+ * Judged on the server, from the address the install is configured with: the same check the
+ * email footer uses (isSellerInstance).
  */
 export async function LegalNotice({ className }: { className?: string }) {
   const t = await getTranslations("legalNotice");
