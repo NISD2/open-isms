@@ -158,6 +158,19 @@ jobs:
             fi
           done
 
+      # /api/health answers on an empty portal too. A fresh install must come up
+      # with NIS 2 in it, which the image's first-boot seed provides.
+      - name: NIS 2 is seeded
+        run: |
+          count=$(docker compose exec -T postgres \
+            psql -U openisms -d openisms -tAc \
+            "SELECT count(*) FROM requirement r JOIN requirement_category c ON c.id = r.category_id JOIN compliance_framework f ON f.id = c.framework_id WHERE f.code = 'nis2'")
+          echo "NIS 2 requirements: ${count}"
+          if [ "${count}" -lt 1 ]; then
+            echo "::error::A fresh install has no NIS 2 requirements."
+            exit 1
+          fi
+
       # Every restart re-runs the migrator. If it is not a no-op, each restart
       # would re-apply DDL and a container that restarts under load would
       # eventually break itself.
