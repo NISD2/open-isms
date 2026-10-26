@@ -223,10 +223,7 @@
       "id": "2022-09-15-eu-cra-proposal",
       "date": "2022-09-15",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "publication"
-      ],
+      "tags": ["legislation", "publication"],
       "type": "update",
       "title": "Commission proposes the Cyber Resilience Act",
       "titleDe": "Kommission schlaegt den Cyber Resilience Act vor",
@@ -240,9 +237,7 @@
       "id": "2023-07-19-eu-cra-itre-vote",
       "date": "2023-07-19",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "European Parliament committee votes on its position on the Cyber Resilience Act",
       "titleDe": "Ausschuss des Europaeischen Parlaments stimmt ueber seine Position zum Cyber Resilience Act ab",
@@ -256,9 +251,7 @@
       "id": "2023-07-19-eu-cra-council-position",
       "date": "2023-07-19",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Council agrees its negotiating position on the Cyber Resilience Act",
       "titleDe": "Rat legt seine Verhandlungsposition zum Cyber Resilience Act fest",
@@ -272,9 +265,7 @@
       "id": "2023-11-30-eu-cra-provisional-agreement",
       "date": "2023-11-30",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Parliament and Council reach a provisional agreement on the Cyber Resilience Act",
       "titleDe": "Parlament und Rat erzielen eine vorlaeufige Einigung zum Cyber Resilience Act",
@@ -288,9 +279,7 @@
       "id": "2024-03-12-eu-cra-parliament-adopts",
       "date": "2024-03-12",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "European Parliament adopts the Cyber Resilience Act at first reading",
       "titleDe": "Europaeisches Parlament nimmt den Cyber Resilience Act in erster Lesung an",
@@ -304,9 +293,7 @@
       "id": "2024-09-20-eu-cra-expert-group-call",
       "date": "2024-09-20",
       "category": "eu",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "Commission opens a call for applications to the Cyber Resilience Act Expert Group",
       "titleDe": "Kommission ruft zur Bewerbung fuer die Expertengruppe zum Cyber Resilience Act auf",
@@ -320,9 +307,7 @@
       "id": "2024-10-10-eu-cra-council-adoption",
       "date": "2024-10-10",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Council adopts the Cyber Resilience Act",
       "titleDe": "Rat nimmt den Cyber Resilience Act an",
@@ -336,10 +321,7 @@
       "id": "2024-11-20-eu-cra-published-oj",
       "date": "2024-11-20",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "publication"
-      ],
+      "tags": ["legislation", "publication"],
       "type": "update",
       "title": "Cyber Resilience Act published in the Official Journal",
       "titleDe": "Cyber Resilience Act im Amtsblatt veroeffentlicht",
@@ -353,10 +335,7 @@
       "id": "2024-12-10-eu-cra-in-force",
       "date": "2024-12-10",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "in-force"
-      ],
+      "tags": ["legislation", "in-force"],
       "type": "milestone",
       "title": "Cyber Resilience Act enters into force",
       "titleDe": "Cyber Resilience Act tritt in Kraft",
@@ -370,9 +349,7 @@
       "id": "2025-02-03-standards-cra-standardisation-request",
       "date": "2025-02-03",
       "category": "standards",
-      "tags": [
-        "standards"
-      ],
+      "tags": ["standards"],
       "type": "update",
       "title": "Commission adopts the standardisation request for the Cyber Resilience Act",
       "titleDe": "Kommission erlaesst den Normungsauftrag zum Cyber Resilience Act",
@@ -386,9 +363,7 @@
       "id": "2025-04-03-standards-esos-accept-cra-request",
       "date": "2025-04-03",
       "category": "standards",
-      "tags": [
-        "standards"
-      ],
+      "tags": ["standards"],
       "type": "update",
       "title": "CEN, CENELEC and ETSI accept the Cyber Resilience Act standardisation request",
       "titleDe": "CEN, CENELEC und ETSI nehmen den Normungsauftrag zum Cyber Resilience Act an",
@@ -402,10 +377,7 @@
       "id": "2025-10-07-national-de-bsi-designated",
       "date": "2025-10-07",
       "category": "national",
-      "tags": [
-        "de",
-        "designation"
-      ],
+      "tags": ["de", "designation"],
       "type": "update",
       "title": "Germany: BSI announces its designation as CRA notifying and market surveillance authority",
       "titleDe": "Deutschland: BSI gibt seine Benennung als notifizierende und marktueberwachende Behoerde fuer den CRA bekannt",
@@ -419,10 +391,7 @@
       "id": "2025-10-29-eu-cra-delegated-reg-2025-1535",
       "date": "2025-10-29",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "publication"
-      ],
+      "tags": ["legislation", "publication"],
       "type": "update",
       "title": "Delegated Regulation (EU) 2025/1535 excludes L category vehicles from the Cyber Resilience Act",
       "titleDe": "Delegierte Verordnung (EU) 2025/1535 nimmt Fahrzeuge der L Klasse vom Cyber Resilience Act aus",
@@ -436,10 +405,7 @@
       "id": "2025-11-19-eu-cra-digital-omnibus-single-entry-point",
       "date": "2025-11-19",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "incident-reporting"
-      ],
+      "tags": ["omnibus", "incident-reporting"],
       "type": "update",
       "title": "Commission proposes a single entry point for incident reporting that builds on the CRA reporting platform",
       "titleDe": "Kommission schlaegt eine zentrale Meldestelle fuer Sicherheitsvorfaelle vor, die auf der CRA Meldeplattform aufbaut",
@@ -453,11 +419,7 @@
       "id": "2025-12-01-eu-cra-implementing-reg-2025-2392",
       "date": "2025-12-01",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "publication",
-        "conformity-assessment"
-      ],
+      "tags": ["legislation", "publication", "conformity-assessment"],
       "type": "update",
       "title": "Implementing Regulation (EU) 2025/2392 on the technical description of important and critical product categories published",
       "titleDe": "Durchfuehrungsverordnung (EU) 2025/2392 zur technischen Beschreibung wichtiger und kritischer Produktkategorien veroeffentlicht",
@@ -471,10 +433,7 @@
       "id": "2025-12-03-eu-cra-implementation-faq",
       "date": "2025-12-03",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "Commission publishes FAQ on Cyber Resilience Act implementation",
       "titleDe": "Kommission veroeffentlicht FAQ zur Umsetzung des Cyber Resilience Act",
@@ -488,10 +447,7 @@
       "id": "2025-12-18-national-nl-cra-bill-submitted",
       "date": "2025-12-18",
       "category": "national",
-      "tags": [
-        "nl",
-        "legislation"
-      ],
+      "tags": ["nl", "legislation"],
       "type": "update",
       "title": "Netherlands: government submits the bill implementing the Cyber Resilience Act to the House of Representatives",
       "titleDe": "Niederlande: Regierung legt der Zweiten Kammer den Gesetzentwurf zur Durchfuehrung des Cyber Resilience Act vor",
@@ -505,10 +461,7 @@
       "id": "2026-03-03-eu-cra-draft-guidance",
       "date": "2026-03-03",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "open-source"
-      ],
+      "tags": ["guidance", "open-source"],
       "type": "update",
       "title": "Commission publishes draft Cyber Resilience Act guidance for feedback",
       "titleDe": "Kommission veroeffentlicht Entwurf eines Leitfadens zum Cyber Resilience Act zur Stellungnahme",
@@ -522,10 +475,7 @@
       "id": "2026-03-12-national-fr-cra-authorities",
       "date": "2026-03-12",
       "category": "national",
-      "tags": [
-        "fr",
-        "designation"
-      ],
+      "tags": ["fr", "designation"],
       "type": "update",
       "title": "France: ministry explainer names ANSSI as notifying authority and ANFR as market surveillance authority for the CRA",
       "titleDe": "Frankreich: Erlaeuterung des Ministeriums nennt ANSSI als notifizierende Behoerde und ANFR als Marktueberwachungsbehoerde fuer den CRA",
@@ -539,9 +489,7 @@
       "id": "2026-03-19-eu-cra-adco-chair-bsi",
       "date": "2026-03-19",
       "category": "eu",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "BSI takes over the chair of the CRA Administrative Cooperation Group",
       "titleDe": "BSI uebernimmt den Vorsitz der Administrative Cooperation Group zum CRA",
@@ -574,11 +522,7 @@
       "id": "2026-05-26-national-de-cra-bill-tabled",
       "date": "2026-05-26",
       "category": "national",
-      "tags": [
-        "de",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["de", "legislation", "designation"],
       "type": "update",
       "title": "Germany: Federal Government tables the bill implementing the Cyber Resilience Act in the Bundestag",
       "titleDe": "Deutschland: Bundesregierung bringt den Gesetzentwurf zur Durchfuehrung des Cyber Resilience Act in den Bundestag ein",
@@ -592,11 +536,7 @@
       "id": "2026-06-01-national-fi-cra-act-in-force",
       "date": "2026-06-01",
       "category": "national",
-      "tags": [
-        "fi",
-        "in-force",
-        "designation"
-      ],
+      "tags": ["fi", "in-force", "designation"],
       "type": "update",
       "title": "Finland: national act supplementing the Cyber Resilience Act enters into force",
       "titleDe": "Finnland: nationales Gesetz zur Ergaenzung des Cyber Resilience Act tritt in Kraft",
@@ -610,11 +550,7 @@
       "id": "2026-06-04-enisa-cra-notified-body-competence",
       "date": "2026-06-04",
       "category": "enisa",
-      "tags": [
-        "conformity-assessment",
-        "guidance",
-        "publication"
-      ],
+      "tags": ["conformity-assessment", "guidance", "publication"],
       "type": "update",
       "title": "ENISA publishes technical competence requirements for CRA notified bodies",
       "titleDe": "ENISA veroeffentlicht Anforderungen an die fachliche Kompetenz notifizierter Stellen nach dem CRA",
@@ -628,10 +564,7 @@
       "id": "2026-06-11-eu-cra-chapter-iv-applies",
       "date": "2026-06-11",
       "category": "eu",
-      "tags": [
-        "conformity-assessment",
-        "deadline"
-      ],
+      "tags": ["conformity-assessment", "deadline"],
       "type": "milestone",
       "title": "Provisions on the notification of conformity assessment bodies start to apply",
       "titleDe": "Vorschriften zur Notifizierung von Konformitaetsbewertungsstellen beginnen zu gelten",
@@ -645,10 +578,7 @@
       "id": "2026-06-11-national-de-cra-first-reading",
       "date": "2026-06-11",
       "category": "national",
-      "tags": [
-        "de",
-        "legislation"
-      ],
+      "tags": ["de", "legislation"],
       "type": "update",
       "title": "Germany: Bundestag holds the first reading of the CRA implementation bill",
       "titleDe": "Deutschland: Bundestag beraet den Gesetzentwurf zur Durchfuehrung des CRA in erster Lesung",
@@ -662,10 +592,7 @@
       "id": "2026-06-12-national-de-cra-bundesrat",
       "date": "2026-06-12",
       "category": "national",
-      "tags": [
-        "de",
-        "legislation"
-      ],
+      "tags": ["de", "legislation"],
       "type": "update",
       "title": "Germany: Bundesrat raises no objections to the CRA implementation bill",
       "titleDe": "Deutschland: Bundesrat erhebt keine Einwaende gegen den Gesetzentwurf zur Durchfuehrung des CRA",
@@ -679,9 +606,7 @@
       "id": "2026-06-25-eu-cra-adco-berlin",
       "date": "2026-06-25",
       "category": "eu",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "CRA market surveillance authorities hold the second AdCo meeting in Berlin",
       "titleDe": "Marktueberwachungsbehoerden halten die zweite AdCo Sitzung zum CRA in Berlin ab",
@@ -695,11 +620,7 @@
       "id": "2026-07-27-eu-cra-commission-guidance",
       "date": "2026-07-27",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "open-source",
-        "publication"
-      ],
+      "tags": ["guidance", "open-source", "publication"],
       "type": "update",
       "title": "Commission publishes guidance on the application of the Cyber Resilience Act",
       "titleDe": "Kommission veroeffentlicht Leitlinien zur Anwendung des Cyber Resilience Act",
@@ -713,11 +634,7 @@
       "id": "2026-08-05-national-de-bsi-tr-03183-1",
       "date": "2026-08-05",
       "category": "national",
-      "tags": [
-        "de",
-        "guidance",
-        "publication"
-      ],
+      "tags": ["de", "guidance", "publication"],
       "type": "update",
       "title": "Germany: BSI publishes Technical Guideline TR-03183 Part 1, version 1.0.0, as an entry aid to the CRA",
       "titleDe": "Deutschland: BSI veroeffentlicht Technische Richtlinie TR-03183 Teil 1 in Version 1.0.0 als Einstiegshilfe zum CRA",
@@ -731,10 +648,7 @@
       "id": "2026-09-10-national-nl-cra-bill-adopted-tk",
       "date": "2026-09-10",
       "category": "national",
-      "tags": [
-        "nl",
-        "legislation"
-      ],
+      "tags": ["nl", "legislation"],
       "type": "update",
       "title": "Netherlands: House of Representatives adopts the CRA implementation bill",
       "titleDe": "Niederlande: Zweite Kammer nimmt den Gesetzentwurf zur Durchfuehrung des CRA an",
@@ -748,11 +662,7 @@
       "id": "2026-09-11-eu-cra-reporting-applies",
       "date": "2026-09-11",
       "category": "eu",
-      "tags": [
-        "incident-reporting",
-        "vulnerability-reporting",
-        "deadline"
-      ],
+      "tags": ["incident-reporting", "vulnerability-reporting", "deadline"],
       "type": "milestone",
       "title": "Reporting obligations for actively exploited vulnerabilities and severe incidents start to apply",
       "titleDe": "Meldepflichten fuer aktiv ausgenutzte Schwachstellen und schwerwiegende Sicherheitsvorfaelle beginnen zu gelten",
@@ -766,10 +676,7 @@
       "id": "2026-09-11-enisa-cra-srp-launched",
       "date": "2026-09-11",
       "category": "enisa",
-      "tags": [
-        "incident-reporting",
-        "vulnerability-reporting"
-      ],
+      "tags": ["incident-reporting", "vulnerability-reporting"],
       "type": "update",
       "title": "ENISA deploys the CRA single reporting platform",
       "titleDe": "ENISA nimmt die zentrale Meldeplattform fuer den CRA in Betrieb",
@@ -783,11 +690,7 @@
       "id": "2026-09-11-national-de-bsi-reporting-start",
       "date": "2026-09-11",
       "category": "national",
-      "tags": [
-        "de",
-        "incident-reporting",
-        "vulnerability-reporting"
-      ],
+      "tags": ["de", "incident-reporting", "vulnerability-reporting"],
       "type": "update",
       "title": "Germany: BSI says CERT-Bund is the coordinating CSIRT for CRA reports and publishes step by step guides",
       "titleDe": "Deutschland: BSI nennt CERT-Bund als koordinierendes CSIRT fuer CRA Meldungen und veroeffentlicht Anleitungen",
@@ -801,11 +704,7 @@
       "id": "2026-09-11-national-ie-ncsc-cra-guidelines",
       "date": "2026-09-11",
       "category": "national",
-      "tags": [
-        "ie",
-        "guidance",
-        "incident-reporting"
-      ],
+      "tags": ["ie", "guidance", "incident-reporting"],
       "type": "update",
       "title": "Ireland: NCSC publishes national guidelines on CRA reporting obligations",
       "titleDe": "Irland: NCSC veroeffentlicht nationale Leitlinien zu den Meldepflichten nach dem CRA",
@@ -819,11 +718,7 @@
       "id": "2026-09-11-national-mt-ln-238-2026",
       "date": "2026-09-11",
       "category": "national",
-      "tags": [
-        "mt",
-        "designation",
-        "legislation"
-      ],
+      "tags": ["mt", "designation", "legislation"],
       "type": "update",
       "title": "Malta: Legal Notice 238 of 2026 designates the Malta Digital Innovation Authority and the national CSIRT for the CRA",
       "titleDe": "Malta: Legal Notice 238 von 2026 benennt die Malta Digital Innovation Authority und das nationale CSIRT fuer den CRA",
@@ -837,10 +732,7 @@
       "id": "2026-10-02-national-it-cra-decree-cdm",
       "date": "2026-10-02",
       "category": "national",
-      "tags": [
-        "it",
-        "legislation"
-      ],
+      "tags": ["it", "legislation"],
       "type": "update",
       "title": "Italy: Council of Ministers takes up the draft decree adapting national law to the CRA in preliminary examination",
       "titleDe": "Italien: Ministerrat nimmt den Entwurf des Dekrets zur Anpassung des nationalen Rechts an den CRA in vorlaeufiger Pruefung auf",
@@ -854,11 +746,7 @@
       "id": "2026-10-09-national-it-cra-decree-parliament",
       "date": "2026-10-09",
       "category": "national",
-      "tags": [
-        "it",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["it", "legislation", "designation"],
       "type": "update",
       "title": "Italy: draft CRA decree (Atto del Governo 447) goes to Parliament and names ACN as notifying and market surveillance authority",
       "titleDe": "Italien: Dekretentwurf zum CRA (Atto del Governo 447) geht ans Parlament und benennt die ACN als notifizierende Behoerde und Marktueberwachungsbehoerde",
@@ -872,11 +760,7 @@
       "id": "2026-10-15-national-de-cra-act-bundestag",
       "date": "2026-10-15",
       "category": "national",
-      "tags": [
-        "de",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["de", "legislation", "designation"],
       "type": "update",
       "title": "Germany: Bundestag passes the law implementing the Cyber Resilience Act",
       "titleDe": "Deutschland: Bundestag beschliesst das Gesetz zur Durchfuehrung des Cyber Resilience Act",
@@ -890,10 +774,7 @@
       "id": "2026-10-20-enisa-cra-srp-version-1-2-1",
       "date": "2026-10-20",
       "category": "enisa",
-      "tags": [
-        "incident-reporting",
-        "vulnerability-reporting"
-      ],
+      "tags": ["incident-reporting", "vulnerability-reporting"],
       "type": "update",
       "title": "ENISA upgrades the CRA single reporting platform to version 1.2.1",
       "titleDe": "ENISA aktualisiert die zentrale CRA Meldeplattform auf Version 1.2.1",
@@ -907,10 +788,7 @@
       "id": "2026-12-11-eu-cra-notified-bodies-target",
       "date": "2026-12-11",
       "category": "eu",
-      "tags": [
-        "conformity-assessment",
-        "deadline"
-      ],
+      "tags": ["conformity-assessment", "deadline"],
       "type": "update",
       "title": "Target date for a sufficient number of notified bodies in the Union",
       "titleDe": "Zieldatum fuer eine ausreichende Zahl notifizierter Stellen in der Union",
@@ -924,10 +802,7 @@
       "id": "2027-10-30-standards-cra-final-report",
       "date": "2027-10-30",
       "category": "standards",
-      "tags": [
-        "standards",
-        "deadline"
-      ],
+      "tags": ["standards", "deadline"],
       "type": "update",
       "title": "Final joint report of the standardisation bodies on the CRA request due",
       "titleDe": "Gemeinsamer Abschlussbericht der Normungsorganisationen zum CRA Auftrag faellig",
@@ -941,11 +816,7 @@
       "id": "2027-12-11-eu-cra-main-obligations-apply",
       "date": "2027-12-11",
       "category": "eu",
-      "tags": [
-        "deadline",
-        "conformity-assessment",
-        "open-source"
-      ],
+      "tags": ["deadline", "conformity-assessment", "open-source"],
       "type": "milestone",
       "title": "Main obligations of the Cyber Resilience Act start to apply",
       "titleDe": "Die Hauptpflichten des Cyber Resilience Act beginnen zu gelten",
@@ -959,10 +830,7 @@
       "id": "2028-06-11-eu-cra-type-examination-certificates",
       "date": "2028-06-11",
       "category": "eu",
-      "tags": [
-        "certification",
-        "deadline"
-      ],
+      "tags": ["certification", "deadline"],
       "type": "update",
       "title": "EU type-examination certificates under other harmonisation law remain valid until this date at the latest",
       "titleDe": "EU Baumusterpruefbescheinigungen nach anderem Harmonisierungsrecht bleiben hoechstens bis zu diesem Datum gueltig",
@@ -976,10 +844,7 @@
       "id": "2028-09-11-eu-cra-srp-report",
       "date": "2028-09-11",
       "category": "eu",
-      "tags": [
-        "incident-reporting",
-        "deadline"
-      ],
+      "tags": ["incident-reporting", "deadline"],
       "type": "update",
       "title": "Commission report on the effectiveness of the single reporting platform due",
       "titleDe": "Bericht der Kommission zur Wirksamkeit der zentralen Meldeplattform faellig",
@@ -993,10 +858,7 @@
       "id": "2030-12-11-eu-cra-evaluation-report",
       "date": "2030-12-11",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "deadline"
-      ],
+      "tags": ["legislation", "deadline"],
       "type": "update",
       "title": "First Commission evaluation report on the Cyber Resilience Act due",
       "titleDe": "Erster Evaluierungsbericht der Kommission zum Cyber Resilience Act faellig",
@@ -1010,11 +872,7 @@
       "id": "2026-10-14-national-de-cra-interior-committee",
       "date": "2026-10-14",
       "category": "national",
-      "tags": [
-        "legislation",
-        "deadline",
-        "de"
-      ],
+      "tags": ["legislation", "deadline", "de"],
       "type": "update",
       "title": "Germany: Interior Committee recommends the CRA act with a new entry into force",
       "titleDe": "Deutschland: Innenausschuss empfiehlt das CRA Gesetz mit neuem Inkrafttreten",
@@ -1028,11 +886,7 @@
       "id": "2026-05-13-national-es-cra-draft-decree-cnmc-report",
       "date": "2026-05-13",
       "category": "national",
-      "tags": [
-        "es",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["es", "legislation", "designation"],
       "type": "update",
       "title": "Spain: CNMC reports on the draft Royal Decree naming the CRA authorities",
       "titleDe": "Spanien: CNMC begutachtet den Entwurf des Koeniglichen Dekrets zur Benennung der CRA Behoerden",
@@ -1046,10 +900,7 @@
       "id": "2026-09-23-national-cy-cra-commissioner-roles",
       "date": "2026-09-23",
       "category": "national",
-      "tags": [
-        "cy",
-        "designation"
-      ],
+      "tags": ["cy", "designation"],
       "type": "update",
       "title": "Cyprus: Commissioner of Communications names his Office as CRA notifying and market surveillance authority",
       "titleDe": "Zypern: Kommunikationsbeauftragter nennt sein Amt als notifizierende Behoerde und Marktueberwachungsbehoerde fuer den CRA",
@@ -1063,11 +914,7 @@
       "id": "2026-10-05-national-dk-cra-bill-consultation",
       "date": "2026-10-05",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "dk"
-      ],
+      "tags": ["legislation", "designation", "dk"],
       "type": "update",
       "title": "Denmark: draft law supplementing the Cyber Resilience Act goes to public consultation",
       "titleDe": "Daenemark: Gesetzentwurf zur Ergaenzung des Cyber Resilience Act geht in die oeffentliche Anhoerung",
@@ -1081,11 +928,7 @@
       "id": "2025-12-09-national-se-cra-inquiry-report",
       "date": "2025-12-09",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "se"
-      ],
+      "tags": ["legislation", "designation", "se"],
       "type": "update",
       "title": "Sweden: inquiry proposes a supplementary law for the Cyber Resilience Act",
       "titleDe": "Schweden: Untersuchung schlaegt ein Ergaenzungsgesetz zum Cyber Resilience Act vor",
@@ -1099,11 +942,7 @@
       "id": "2026-10-07-national-ie-cyber-strategy-cra-law",
       "date": "2026-10-07",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "ie"
-      ],
+      "tags": ["legislation", "designation", "ie"],
       "type": "update",
       "title": "Ireland: National Cyber Security Strategy 2030 plans a law to designate the CRA authorities by the fourth quarter of 2027",
       "titleDe": "Irland: Nationale Cybersicherheitsstrategie 2030 sieht ein Gesetz zur Benennung der CRA Behoerden bis zum vierten Quartal 2027 vor",
@@ -1117,11 +956,7 @@
       "id": "2026-05-25-national-pl-cra-csirt-nask",
       "date": "2026-05-25",
       "category": "national",
-      "tags": [
-        "pl",
-        "guidance",
-        "vulnerability-reporting"
-      ],
+      "tags": ["pl", "guidance", "vulnerability-reporting"],
       "type": "update",
       "title": "Poland: Ministry of Digitalisation says CERT Polska (CSIRT NASK) coordinates CRA vulnerability reports",
       "titleDe": "Polen: Digitalisierungsministerium nennt CERT Polska (CSIRT NASK) als Koordinator fuer CRA Schwachstellenmeldungen",
@@ -1135,11 +970,7 @@
       "id": "2026-07-03-national-cz-cra-draft-law",
       "date": "2026-07-03",
       "category": "national",
-      "tags": [
-        "cz",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["cz", "legislation", "designation"],
       "type": "update",
       "title": "Czech Republic: draft law on cybersecurity of products with digital elements goes to inter-ministry comment",
       "titleDe": "Tschechien: Gesetzentwurf zur Cybersicherheit von Produkten mit digitalen Elementen geht in die Ressortabstimmung",
@@ -1153,12 +984,7 @@
       "id": "2025-11-21-national-sk-act-318-2025-cra",
       "date": "2025-11-21",
       "category": "national",
-      "tags": [
-        "sk",
-        "legislation",
-        "conformity-assessment",
-        "penalty"
-      ],
+      "tags": ["sk", "legislation", "conformity-assessment", "penalty"],
       "type": "update",
       "title": "Slovakia: Act 318/2025 adds fines for authorised conformity assessment bodies under the CRA",
       "titleDe": "Slowakei: Gesetz 318/2025 fuehrt Bussgelder fuer zugelassene Konformitaetsbewertungsstellen nach dem CRA ein",
@@ -1172,11 +998,7 @@
       "id": "2026-08-26-national-sk-cra-bill-government",
       "date": "2026-08-26",
       "category": "national",
-      "tags": [
-        "sk",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["sk", "legislation", "designation"],
       "type": "update",
       "title": "Slovakia: Government approves the bill on cybersecurity of products with digital elements",
       "titleDe": "Slowakei: Regierung beschliesst den Gesetzentwurf zur Cybersicherheit von Produkten mit digitalen Elementen",
@@ -1190,12 +1012,7 @@
       "id": "2025-12-29-national-hu-cra-act",
       "date": "2025-12-29",
       "category": "national",
-      "tags": [
-        "hu",
-        "legislation",
-        "designation",
-        "conformity-assessment"
-      ],
+      "tags": ["hu", "legislation", "designation", "conformity-assessment"],
       "type": "update",
       "title": "Hungary: Act CXXXV of 2025 makes SZTFH the CRA notifying and market surveillance authority",
       "titleDe": "Ungarn: Gesetz CXXXV von 2025 macht die SZTFH zur notifizierenden und Marktueberwachungsbehoerde fuer den CRA",
@@ -1209,11 +1026,7 @@
       "id": "2026-09-01-national-si-ursiv-cra-reporting",
       "date": "2026-09-01",
       "category": "national",
-      "tags": [
-        "si",
-        "guidance",
-        "vulnerability-reporting"
-      ],
+      "tags": ["si", "guidance", "vulnerability-reporting"],
       "type": "update",
       "title": "Slovenia: URSIV explains the CRA reporting duties that apply from 11 September 2026",
       "titleDe": "Slowenien: URSIV erklaert die CRA Meldepflichten, die ab dem 11. September 2026 gelten",
@@ -1227,11 +1040,7 @@
       "id": "2026-09-11-national-lv-certlv-cra-reports",
       "date": "2026-09-11",
       "category": "national",
-      "tags": [
-        "lv",
-        "vulnerability-reporting",
-        "guidance"
-      ],
+      "tags": ["lv", "vulnerability-reporting", "guidance"],
       "type": "update",
       "title": "Latvia: CERT.LV states that it processes CRA reports submitted through the ENISA platform",
       "titleDe": "Lettland: CERT.LV erklaert, dass es ueber die ENISA Plattform eingereichte CRA Meldungen bearbeitet",
@@ -1245,11 +1054,7 @@
       "id": "2026-09-25-national-hr-ncsc-srp-live",
       "date": "2026-09-25",
       "category": "national",
-      "tags": [
-        "hr",
-        "vulnerability-reporting",
-        "guidance"
-      ],
+      "tags": ["hr", "vulnerability-reporting", "guidance"],
       "type": "update",
       "title": "Croatia: NCSC-HR announces the EU Single Reporting Platform for CRA reports",
       "titleDe": "Kroatien: NCSC-HR kuendigt die zentrale EU Meldeplattform fuer CRA Meldungen an",
@@ -1263,12 +1068,7 @@
       "id": "2025-03-05-eu-cra-amended-by-ehds-regulation",
       "date": "2025-03-05",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "amendment",
-        "publication",
-        "conformity-assessment"
-      ],
+      "tags": ["legislation", "amendment", "publication", "conformity-assessment"],
       "type": "update",
       "title": "Regulation (EU) 2025/327 on the European Health Data Space is published and amends the CRA",
       "titleDe": "Verordnung (EU) 2025/327 zum Europaeischen Gesundheitsdatenraum veroeffentlicht und aendert den CRA",
@@ -1282,11 +1082,7 @@
       "id": "2026-09-25-national-de-bsi-dakks-agreement",
       "date": "2026-09-25",
       "category": "national",
-      "tags": [
-        "de",
-        "conformity-assessment",
-        "organisational"
-      ],
+      "tags": ["de", "conformity-assessment", "organisational"],
       "type": "update",
       "title": "Germany: BSI and DAkkS update their agreement on accrediting CRA conformity assessment bodies",
       "titleDe": "Deutschland: BSI und DAkkS aktualisieren ihre Vereinbarung zur Akkreditierung von CRA Konformitaetsbewertungsstellen",
@@ -1300,10 +1096,7 @@
       "id": "2026-10-15-eu-cra-eucc-delegated-act-planned",
       "date": "2026-10-15",
       "category": "eu",
-      "tags": [
-        "conformity-assessment",
-        "certification"
-      ],
+      "tags": ["conformity-assessment", "certification"],
       "type": "update",
       "title": "Commission lists a delegated act on EUCC certificates as proof of conformity with the CRA",
       "titleDe": "Kommission fuehrt einen delegierten Rechtsakt zu EUCC Zertifikaten als Konformitaetsnachweis fuer den CRA auf",

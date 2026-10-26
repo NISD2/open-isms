@@ -3450,10 +3450,7 @@
       "id": "2026-10-12-de-bsi-pqc-national-guideline",
       "date": "2026-10-12",
       "category": "de",
-      "tags": [
-        "guidance",
-        "post-quantum"
-      ],
+      "tags": ["guidance", "post-quantum"],
       "type": "update",
       "title": "BMI, BMDS and BSI publish the national guideline for the EU post-quantum cryptography roadmap",
       "titleDe": "BMI, BMDS und BSI veroeffentlichen die nationale Leitlinie zur EU-Roadmap fuer Post-Quanten-Kryptografie",
@@ -3467,10 +3464,7 @@
       "id": "2026-10-26-grundschutz-bsi-standard-300-1",
       "date": "2026-10-26",
       "category": "grundschutz",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "BSI publishes the Grundschutz++ methodology as the new BSI Standard 300-1",
       "titleDe": "BSI veroeffentlicht die Methodik zum Grundschutz++ als neuen BSI-Standard 300-1",
@@ -3484,11 +3478,7 @@
       "id": "2026-10-22-enisa-sbom-technical-advisory",
       "date": "2026-10-22",
       "category": "enisa",
-      "tags": [
-        "supply-chain",
-        "publication",
-        "guidance"
-      ],
+      "tags": ["supply-chain", "publication", "guidance"],
       "type": "update",
       "title": "ENISA publishes a Technical Advisory for Software Bill of Materials",
       "titleDe": "ENISA veroeffentlicht eine Technical Advisory zu Software Bill of Materials",
@@ -3502,10 +3492,7 @@
       "id": "2026-10-26-national-transposition-pl-isp-ddos-recommendation",
       "date": "2026-10-26",
       "category": "national-transposition",
-      "tags": [
-        "pl",
-        "guidance"
-      ],
+      "tags": ["pl", "guidance"],
       "type": "update",
       "title": "Poland: Government Plenipotentiary for Cybersecurity updates the recommendation on protecting internet service providers against DDoS attacks",
       "titleDe": "Polen: Regierungsbeauftragter fuer Cybersicherheit aktualisiert die Empfehlung zum Schutz von Internetdiensteanbietern vor DDoS-Angriffen",
@@ -3519,10 +3506,7 @@
       "id": "2026-10-20-national-transposition-cz-nukib-asset-risk-guide",
       "date": "2026-10-20",
       "category": "national-transposition",
-      "tags": [
-        "cz",
-        "guidance"
-      ],
+      "tags": ["cz", "guidance"],
       "type": "update",
       "title": "Czech Republic: NUKIB publishes a guide to asset and risk management for the higher regime of obligations",
       "titleDe": "Tschechien: NUKIB veroeffentlicht einen Leitfaden zum Asset- und Risikomanagement fuer das hoehere Pflichtenregime",
@@ -3536,11 +3520,7 @@
       "id": "2026-10-22-national-transposition-hr-zks-q3-2026",
       "date": "2026-10-22",
       "category": "national-transposition",
-      "tags": [
-        "hr",
-        "transposition",
-        "incident-reporting"
-      ],
+      "tags": ["hr", "transposition", "incident-reporting"],
       "type": "update",
       "title": "Croatia: NCSC-HR quarterly review reports 799 categorised entities and 125 incidents in the third quarter",
       "titleDe": "Kroatien: Quartalsbericht des NCSC-HR nennt 799 eingestufte Einrichtungen und 125 Vorfaelle im dritten Quartal",
@@ -3554,11 +3534,7 @@
       "id": "2026-10-19-national-transposition-hu-audit-detailed-results",
       "date": "2026-10-19",
       "category": "national-transposition",
-      "tags": [
-        "hu",
-        "enforcement",
-        "publication"
-      ],
+      "tags": ["hu", "enforcement", "publication"],
       "type": "update",
       "title": "Hungary: SZTFH publishes detailed results of the first cybersecurity audits, 2,220 reports received by 30 September",
       "titleDe": "Ungarn: SZTFH veroeffentlicht detaillierte Ergebnisse der ersten Cybersicherheitsaudits, 2.220 Berichte bis 30. September",
@@ -3572,11 +3548,7 @@
       "id": "2026-10-16-national-transposition-it-acn-commission-country-visit",
       "date": "2026-10-16",
       "category": "national-transposition",
-      "tags": [
-        "it",
-        "transposition",
-        "registration"
-      ],
+      "tags": ["it", "transposition", "registration"],
       "type": "update",
       "title": "Italy: ACN reports a Commission country visit on NIS 2 implementation and the tenth meeting of the NIS Table",
       "titleDe": "Italien: ACN berichtet ueber einen Laenderbesuch der Kommission zur NIS-2-Umsetzung und die zehnte Sitzung des NIS-Tischs",
@@ -3590,10 +3562,7 @@
       "id": "2026-10-13-eu-itre-amendments-nis2-simplification",
       "date": "2026-10-13",
       "category": "eu",
-      "tags": [
-        "amendment",
-        "legislation"
-      ],
+      "tags": ["amendment", "legislation"],
       "type": "update",
       "title": "European Parliament: committee amendments to the NIS 2 targeted amendments proposal are tabled in ITRE",
       "titleDe": "Europaeisches Parlament: Aenderungsantraege zum Vorschlag fuer gezielte NIS-2-Aenderungen im ITRE-Ausschuss eingereicht",

@@ -293,9 +293,7 @@
       "id": "2021-04-21-eu-commission-proposal",
       "date": "2021-04-21",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Commission proposes the Artificial Intelligence Act",
       "titleDe": "Kommission schlaegt den AI Act vor",
@@ -309,10 +307,7 @@
       "id": "2021-06-01-standards-jtc-21-established",
       "date": "2021-06-01",
       "category": "standards",
-      "tags": [
-        "standards",
-        "organisational"
-      ],
+      "tags": ["standards", "organisational"],
       "type": "update",
       "title": "CEN and CENELEC establish Joint Technical Committee 21 on artificial intelligence",
       "titleDe": "CEN und CENELEC richten den Gemeinsamen Technischen Ausschuss 21 zur kuenstlichen Intelligenz ein",
@@ -326,9 +321,7 @@
       "id": "2022-12-06-eu-council-general-approach",
       "date": "2022-12-06",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Council adopts its general approach on the AI Act proposal",
       "titleDe": "Rat beschliesst seine allgemeine Ausrichtung zum AI Act Vorschlag",
@@ -342,9 +335,7 @@
       "id": "2023-05-22-standards-standardisation-request-2023",
       "date": "2023-05-22",
       "category": "standards",
-      "tags": [
-        "standards"
-      ],
+      "tags": ["standards"],
       "type": "update",
       "title": "Commission requests CEN and CENELEC to draft European standards for AI",
       "titleDe": "Kommission beauftragt CEN und CENELEC mit der Erarbeitung europaeischer Normen fuer KI",
@@ -358,9 +349,7 @@
       "id": "2023-06-14-eu-parliament-position",
       "date": "2023-06-14",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Parliament adopts its negotiating position on the AI Act",
       "titleDe": "Parlament beschliesst seine Verhandlungsposition zum AI Act",
@@ -374,9 +363,7 @@
       "id": "2023-12-09-eu-provisional-agreement",
       "date": "2023-12-09",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Council and Parliament reach a provisional agreement on the AI Act",
       "titleDe": "Rat und Parlament erzielen eine vorlaeufige Einigung zum AI Act",
@@ -390,9 +377,7 @@
       "id": "2024-01-24-ai-office-ai-office-established",
       "date": "2024-01-24",
       "category": "ai-office",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "Commission decision establishes the European AI Office",
       "titleDe": "Kommissionsbeschluss errichtet das Europaeische KI Buero",
@@ -406,9 +391,7 @@
       "id": "2024-03-13-eu-parliament-adopts",
       "date": "2024-03-13",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Parliament adopts the AI Act at first reading",
       "titleDe": "Parlament nimmt den AI Act in erster Lesung an",
@@ -422,9 +405,7 @@
       "id": "2024-05-21-eu-council-adopts",
       "date": "2024-05-21",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "update",
       "title": "Council adopts the AI Act",
       "titleDe": "Rat nimmt den AI Act an",
@@ -438,10 +419,7 @@
       "id": "2024-07-12-eu-ai-act-published",
       "date": "2024-07-12",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "publication"
-      ],
+      "tags": ["legislation", "publication"],
       "type": "update",
       "title": "AI Act published in the Official Journal",
       "titleDe": "AI Act im Amtsblatt veroeffentlicht",
@@ -455,10 +433,7 @@
       "id": "2024-08-01-eu-ai-act-in-force",
       "date": "2024-08-01",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "in-force"
-      ],
+      "tags": ["legislation", "in-force"],
       "type": "milestone",
       "title": "AI Act enters into force",
       "titleDe": "AI Act tritt in Kraft",
@@ -472,11 +447,7 @@
       "id": "2025-02-02-eu-prohibitions-and-literacy-apply",
       "date": "2025-02-02",
       "category": "eu",
-      "tags": [
-        "prohibited-practices",
-        "ai-literacy",
-        "in-force"
-      ],
+      "tags": ["prohibited-practices", "ai-literacy", "in-force"],
       "type": "milestone",
       "title": "Prohibited AI practices and AI literacy rules apply",
       "titleDe": "Verbotene KI Praktiken und Regeln zur KI Kompetenz gelten",
@@ -490,10 +461,7 @@
       "id": "2025-02-04-ai-office-ai-literacy-repository",
       "date": "2025-02-04",
       "category": "ai-office",
-      "tags": [
-        "guidance",
-        "ai-literacy"
-      ],
+      "tags": ["guidance", "ai-literacy"],
       "type": "update",
       "title": "AI Office publishes a living repository of AI literacy practices",
       "titleDe": "KI Buero veroeffentlicht ein laufend aktualisiertes Verzeichnis zu Praktiken der KI Kompetenz",
@@ -507,10 +475,7 @@
       "id": "2025-02-04-ai-office-prohibited-practices-guidelines",
       "date": "2025-02-04",
       "category": "ai-office",
-      "tags": [
-        "guidance",
-        "prohibited-practices"
-      ],
+      "tags": ["guidance", "prohibited-practices"],
       "type": "update",
       "title": "Commission publishes guidelines on prohibited AI practices",
       "titleDe": "Kommission veroeffentlicht Leitlinien zu verbotenen KI Praktiken",
@@ -524,9 +489,7 @@
       "id": "2025-02-06-ai-office-ai-system-definition-guidelines",
       "date": "2025-02-06",
       "category": "ai-office",
-      "tags": [
-        "guidance"
-      ],
+      "tags": ["guidance"],
       "type": "update",
       "title": "Commission publishes guidelines on the definition of an AI system",
       "titleDe": "Kommission veroeffentlicht Leitlinien zur Definition eines KI Systems",
@@ -540,9 +503,7 @@
       "id": "2025-03-11-ai-office-scientific-panel-implementing-act",
       "date": "2025-03-11",
       "category": "ai-office",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "Commission adopts the implementing act for the AI scientific panel",
       "titleDe": "Kommission erlaesst den Durchfuehrungsrechtsakt fuer das wissenschaftliche KI Gremium",
@@ -556,10 +517,7 @@
       "id": "2025-06-23-standards-standardisation-request-2025",
       "date": "2025-06-23",
       "category": "standards",
-      "tags": [
-        "standards",
-        "high-risk"
-      ],
+      "tags": ["standards", "high-risk"],
       "type": "update",
       "title": "Commission replaces the AI standardisation request with Implementing Decision C(2025) 3871",
       "titleDe": "Kommission ersetzt den KI Normungsauftrag durch den Durchfuehrungsbeschluss C(2025) 3871",
@@ -573,10 +531,7 @@
       "id": "2025-07-10-ai-office-gpai-code-of-practice",
       "date": "2025-07-10",
       "category": "ai-office",
-      "tags": [
-        "gpai",
-        "guidance"
-      ],
+      "tags": ["gpai", "guidance"],
       "type": "update",
       "title": "General-Purpose AI Code of Practice published",
       "titleDe": "Verhaltenskodex fuer KI mit allgemeinem Verwendungszweck veroeffentlicht",
@@ -590,10 +545,7 @@
       "id": "2025-07-18-ai-office-gpai-guidelines",
       "date": "2025-07-18",
       "category": "ai-office",
-      "tags": [
-        "gpai",
-        "guidance"
-      ],
+      "tags": ["gpai", "guidance"],
       "type": "update",
       "title": "Commission publishes guidelines on the scope of obligations for general-purpose AI model providers",
       "titleDe": "Kommission veroeffentlicht Leitlinien zum Umfang der Pflichten fuer Anbieter von GPAI Modellen",
@@ -607,11 +559,7 @@
       "id": "2025-07-24-ai-office-training-content-template",
       "date": "2025-07-24",
       "category": "ai-office",
-      "tags": [
-        "gpai",
-        "transparency",
-        "guidance"
-      ],
+      "tags": ["gpai", "transparency", "guidance"],
       "type": "update",
       "title": "Commission publishes the template for the public summary of GPAI training content",
       "titleDe": "Kommission veroeffentlicht die Vorlage fuer die oeffentliche Zusammenfassung der Trainingsinhalte von GPAI Modellen",
@@ -625,10 +573,7 @@
       "id": "2025-08-01-ai-office-gpai-code-adequacy",
       "date": "2025-08-01",
       "category": "ai-office",
-      "tags": [
-        "gpai",
-        "guidance"
-      ],
+      "tags": ["gpai", "guidance"],
       "type": "update",
       "title": "Commission and AI Board confirm the GPAI Code of Practice as adequate",
       "titleDe": "Kommission und KI Gremium bestaetigen den GPAI Verhaltenskodex als angemessen",
@@ -642,12 +587,7 @@
       "id": "2025-08-02-eu-gpai-governance-penalties-apply",
       "date": "2025-08-02",
       "category": "eu",
-      "tags": [
-        "gpai",
-        "designation",
-        "penalty",
-        "in-force"
-      ],
+      "tags": ["gpai", "designation", "penalty", "in-force"],
       "type": "milestone",
       "title": "General-purpose AI, governance and penalty rules apply",
       "titleDe": "Regeln zu GPAI Modellen, Governance und Sanktionen gelten",
@@ -661,12 +601,7 @@
       "id": "2025-08-02-national-dk-supplementary-law",
       "date": "2025-08-02",
       "category": "national",
-      "tags": [
-        "dk",
-        "designation",
-        "legislation",
-        "in-force"
-      ],
+      "tags": ["dk", "designation", "legislation", "in-force"],
       "type": "update",
       "title": "Denmark: law supplementing the AI Act applies and designates the competent authorities",
       "titleDe": "Daenemark: Ergaenzungsgesetz zum AI Act gilt und bestimmt die zustaendigen Behoerden",
@@ -680,10 +615,7 @@
       "id": "2025-10-08-ai-office-service-desk-launched",
       "date": "2025-10-08",
       "category": "ai-office",
-      "tags": [
-        "guidance",
-        "organisational"
-      ],
+      "tags": ["guidance", "organisational"],
       "type": "update",
       "title": "Commission launches the AI Act Service Desk and Single Information Platform",
       "titleDe": "Kommission startet den AI Act Service Desk und die zentrale Informationsplattform",
@@ -697,12 +629,7 @@
       "id": "2025-10-10-national-it-law-132-2025",
       "date": "2025-10-10",
       "category": "national",
-      "tags": [
-        "it",
-        "designation",
-        "legislation",
-        "in-force"
-      ],
+      "tags": ["it", "designation", "legislation", "in-force"],
       "type": "update",
       "title": "Italy: Law 132/2025 enters into force and designates AgID and ACN as national AI authorities",
       "titleDe": "Italien: Gesetz 132/2025 tritt in Kraft und bestimmt AgID und ACN zu nationalen KI Behoerden",
@@ -716,10 +643,7 @@
       "id": "2025-10-30-standards-pren-18286-public-enquiry",
       "date": "2025-10-30",
       "category": "standards",
-      "tags": [
-        "standards",
-        "high-risk"
-      ],
+      "tags": ["standards", "high-risk"],
       "type": "update",
       "title": "prEN 18286 on AI quality management systems enters public enquiry",
       "titleDe": "prEN 18286 zu Qualitaetsmanagementsystemen fuer KI geht in die oeffentliche Umfrage",
@@ -733,10 +657,7 @@
       "id": "2025-11-04-ai-office-gpai-incident-template",
       "date": "2025-11-04",
       "category": "ai-office",
-      "tags": [
-        "gpai",
-        "guidance"
-      ],
+      "tags": ["gpai", "guidance"],
       "type": "update",
       "title": "Commission publishes a template for reporting serious incidents of systemic risk GPAI models",
       "titleDe": "Kommission veroeffentlicht Vorlage zur Meldung schwerwiegender Vorfaelle bei GPAI Modellen mit systemischem Risiko",
@@ -750,11 +671,7 @@
       "id": "2025-11-19-eu-omnibus-proposal",
       "date": "2025-11-19",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "legislation",
-        "high-risk"
-      ],
+      "tags": ["omnibus", "legislation", "high-risk"],
       "type": "update",
       "title": "Commission proposes the Digital Omnibus on AI",
       "titleDe": "Kommission schlaegt den Digital Omnibus zur KI vor",
@@ -768,9 +685,7 @@
       "id": "2025-11-24-ai-office-whistleblower-tool",
       "date": "2025-11-24",
       "category": "ai-office",
-      "tags": [
-        "enforcement"
-      ],
+      "tags": ["enforcement"],
       "type": "update",
       "title": "Commission launches the AI Act whistleblower tool",
       "titleDe": "Kommission startet das Hinweisgebersystem zum AI Act",
@@ -784,10 +699,7 @@
       "id": "2026-03-09-national-de-ki-mig-bill",
       "date": "2026-03-09",
       "category": "national",
-      "tags": [
-        "de",
-        "legislation"
-      ],
+      "tags": ["de", "legislation"],
       "type": "update",
       "title": "Germany: Federal Government submits the AI Act implementation bill to the Bundestag",
       "titleDe": "Deutschland: Bundesregierung legt dem Bundestag den Gesetzentwurf zur Durchfuehrung des AI Act vor",
@@ -801,11 +713,7 @@
       "id": "2026-03-13-eu-omnibus-council-mandate",
       "date": "2026-03-13",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "legislation",
-        "high-risk"
-      ],
+      "tags": ["omnibus", "legislation", "high-risk"],
       "type": "update",
       "title": "Council agrees its position on the Digital Omnibus on AI",
       "titleDe": "Rat einigt sich auf seine Position zum Digital Omnibus zur KI",
@@ -819,10 +727,7 @@
       "id": "2026-03-26-eu-omnibus-parliament-position",
       "date": "2026-03-26",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "legislation"
-      ],
+      "tags": ["omnibus", "legislation"],
       "type": "update",
       "title": "Parliament adopts its position on the Digital Omnibus on AI",
       "titleDe": "Parlament beschliesst seine Position zum Digital Omnibus zur KI",
@@ -836,11 +741,7 @@
       "id": "2026-05-07-eu-omnibus-provisional-agreement",
       "date": "2026-05-07",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "legislation",
-        "high-risk"
-      ],
+      "tags": ["omnibus", "legislation", "high-risk"],
       "type": "update",
       "title": "Parliament and Council reach a provisional agreement on the Digital Omnibus on AI",
       "titleDe": "Parlament und Rat erzielen eine vorlaeufige Einigung zum Digital Omnibus zur KI",
@@ -854,10 +755,7 @@
       "id": "2026-05-19-ai-office-high-risk-classification-draft-guidelines",
       "date": "2026-05-19",
       "category": "ai-office",
-      "tags": [
-        "high-risk",
-        "guidance"
-      ],
+      "tags": ["high-risk", "guidance"],
       "type": "update",
       "title": "Commission publishes draft guidelines on classifying AI systems as high-risk",
       "titleDe": "Kommission veroeffentlicht Leitlinienentwurf zur Einstufung als Hochrisikosystem",
@@ -871,10 +769,7 @@
       "id": "2026-05-22-ai-office-annual-review-report",
       "date": "2026-05-22",
       "category": "ai-office",
-      "tags": [
-        "prohibited-practices",
-        "high-risk"
-      ],
+      "tags": ["prohibited-practices", "high-risk"],
       "type": "update",
       "title": "Commission publishes its report on the review of prohibitions and high-risk use cases",
       "titleDe": "Kommission veroeffentlicht ihren Bericht zur Ueberpruefung der Verbote und Hochrisikoanwendungsfaelle",
@@ -888,10 +783,7 @@
       "id": "2026-06-01-ai-office-panel-and-forum-appointed",
       "date": "2026-06-01",
       "category": "ai-office",
-      "tags": [
-        "organisational",
-        "enforcement"
-      ],
+      "tags": ["organisational", "enforcement"],
       "type": "update",
       "title": "Commission appoints the AI Scientific Panel and the Advisory Forum",
       "titleDe": "Kommission beruft das wissenschaftliche KI Gremium und das Beratungsforum",
@@ -905,10 +797,7 @@
       "id": "2026-06-10-ai-office-transparency-code-published",
       "date": "2026-06-10",
       "category": "ai-office",
-      "tags": [
-        "transparency",
-        "guidance"
-      ],
+      "tags": ["transparency", "guidance"],
       "type": "update",
       "title": "Commission publishes the final Code of Practice on marking and labelling AI-generated content",
       "titleDe": "Kommission veroeffentlicht den endgueltigen Verhaltenskodex zur Kennzeichnung KI generierter Inhalte",
@@ -922,10 +811,7 @@
       "id": "2026-06-11-national-de-ki-mig-bundestag",
       "date": "2026-06-11",
       "category": "national",
-      "tags": [
-        "de",
-        "legislation"
-      ],
+      "tags": ["de", "legislation"],
       "type": "update",
       "title": "Germany: Bundestag passes the AI Act implementation law",
       "titleDe": "Deutschland: Bundestag beschliesst das Durchfuehrungsgesetz zum AI Act",
@@ -939,10 +825,7 @@
       "id": "2026-06-16-eu-omnibus-parliament-final-vote",
       "date": "2026-06-16",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "legislation"
-      ],
+      "tags": ["omnibus", "legislation"],
       "type": "update",
       "title": "Parliament approves the agreed Digital Omnibus on AI at first reading",
       "titleDe": "Parlament billigt den ausgehandelten Digital Omnibus zur KI in erster Lesung",
@@ -956,10 +839,7 @@
       "id": "2026-06-29-eu-omnibus-council-adopts",
       "date": "2026-06-29",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "legislation"
-      ],
+      "tags": ["omnibus", "legislation"],
       "type": "update",
       "title": "Council adopts the Digital Omnibus on AI",
       "titleDe": "Rat nimmt den Digital Omnibus zur KI an",
@@ -973,10 +853,7 @@
       "id": "2026-07-09-ai-office-transparency-code-adequacy",
       "date": "2026-07-09",
       "category": "ai-office",
-      "tags": [
-        "transparency",
-        "guidance"
-      ],
+      "tags": ["transparency", "guidance"],
       "type": "update",
       "title": "Commission and AI Board assess the transparency code of practice as adequate",
       "titleDe": "Kommission und KI Gremium bewerten den Transparenzkodex als angemessen",
@@ -990,10 +867,7 @@
       "id": "2026-07-10-national-de-ki-mig-bundesrat",
       "date": "2026-07-10",
       "category": "national",
-      "tags": [
-        "de",
-        "legislation"
-      ],
+      "tags": ["de", "legislation"],
       "type": "update",
       "title": "Germany: Bundesrat lets the AI Act implementation law pass",
       "titleDe": "Deutschland: Bundesrat laesst das Durchfuehrungsgesetz zum AI Act passieren",
@@ -1007,10 +881,7 @@
       "id": "2026-07-20-ai-office-transparency-guidelines",
       "date": "2026-07-20",
       "category": "ai-office",
-      "tags": [
-        "transparency",
-        "guidance"
-      ],
+      "tags": ["transparency", "guidance"],
       "type": "update",
       "title": "Commission publishes guidelines on the Article 50 transparency obligations",
       "titleDe": "Kommission veroeffentlicht Leitlinien zu den Transparenzpflichten nach Artikel 50",
@@ -1024,12 +895,7 @@
       "id": "2026-07-24-eu-omnibus-published",
       "date": "2026-07-24",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "legislation",
-        "publication",
-        "amendment"
-      ],
+      "tags": ["omnibus", "legislation", "publication", "amendment"],
       "type": "update",
       "title": "Digital Omnibus on AI published in the Official Journal as Regulation (EU) 2026/1744",
       "titleDe": "Digital Omnibus zur KI als Verordnung (EU) 2026/1744 im Amtsblatt veroeffentlicht",
@@ -1043,13 +909,7 @@
       "id": "2026-07-27-eu-omnibus-in-force",
       "date": "2026-07-27",
       "category": "eu",
-      "tags": [
-        "omnibus",
-        "amendment",
-        "high-risk",
-        "ai-literacy",
-        "in-force"
-      ],
+      "tags": ["omnibus", "amendment", "high-risk", "ai-literacy", "in-force"],
       "type": "milestone",
       "title": "Digital Omnibus on AI enters into force",
       "titleDe": "Digital Omnibus zur KI tritt in Kraft",
@@ -1063,12 +923,7 @@
       "id": "2026-07-29-national-de-ki-mig-in-force",
       "date": "2026-07-29",
       "category": "national",
-      "tags": [
-        "de",
-        "designation",
-        "legislation",
-        "in-force"
-      ],
+      "tags": ["de", "designation", "legislation", "in-force"],
       "type": "update",
       "title": "Germany: KI-MIG enters into force and the Bundesnetzagentur becomes the AI market surveillance authority",
       "titleDe": "Deutschland: KI-MIG tritt in Kraft und die Bundesnetzagentur wird KI Marktueberwachungsbehoerde",
@@ -1082,10 +937,7 @@
       "id": "2026-07-31-ai-office-transparency-code-signatories",
       "date": "2026-07-31",
       "category": "ai-office",
-      "tags": [
-        "transparency",
-        "market"
-      ],
+      "tags": ["transparency", "market"],
       "type": "update",
       "title": "About 190 organisations sign the Code of Practice on Transparency of AI-generated Content",
       "titleDe": "Rund 190 Organisationen unterzeichnen den Verhaltenskodex zur Transparenz KI generierter Inhalte",
@@ -1099,11 +951,7 @@
       "id": "2026-08-02-eu-general-date-of-application",
       "date": "2026-08-02",
       "category": "eu",
-      "tags": [
-        "transparency",
-        "enforcement",
-        "in-force"
-      ],
+      "tags": ["transparency", "enforcement", "in-force"],
       "type": "milestone",
       "title": "General date of application of the AI Act",
       "titleDe": "Allgemeiner Geltungsbeginn des AI Act",
@@ -1117,10 +965,7 @@
       "id": "2026-10-09-ai-office-scientific-panel-special-meeting",
       "date": "2026-10-09",
       "category": "ai-office",
-      "tags": [
-        "gpai",
-        "enforcement"
-      ],
+      "tags": ["gpai", "enforcement"],
       "type": "update",
       "title": "AI Scientific Panel holds a special meeting on loss-of-control incidents",
       "titleDe": "Wissenschaftliches KI Gremium haelt Sondersitzung zu Vorfaellen mit Kontrollverlust",
@@ -1134,12 +979,7 @@
       "id": "2026-10-14-standards-en-18286-referenced",
       "date": "2026-10-14",
       "category": "standards",
-      "tags": [
-        "standards",
-        "high-risk",
-        "publication",
-        "certification"
-      ],
+      "tags": ["standards", "high-risk", "publication", "certification"],
       "type": "update",
       "title": "First harmonised standard for the AI Act referenced in the Official Journal",
       "titleDe": "Erste harmonisierte Norm zum AI Act im Amtsblatt aufgefuehrt",
@@ -1153,10 +993,7 @@
       "id": "2026-10-21-ai-office-external-evaluators-workshop-report",
       "date": "2026-10-21",
       "category": "ai-office",
-      "tags": [
-        "gpai",
-        "guidance"
-      ],
+      "tags": ["gpai", "guidance"],
       "type": "update",
       "title": "AI Office publishes a report on requirements for external evaluators of GPAI models",
       "titleDe": "KI Buero veroeffentlicht Bericht zu Anforderungen an externe Evaluatoren von GPAI Modellen",
@@ -1170,11 +1007,7 @@
       "id": "2026-12-02-eu-art-50-2-legacy-deadline",
       "date": "2026-12-02",
       "category": "eu",
-      "tags": [
-        "transparency",
-        "deadline",
-        "omnibus"
-      ],
+      "tags": ["transparency", "deadline", "omnibus"],
       "type": "milestone",
       "title": "Deadline for Article 50(2) marking by generative AI systems already on the market",
       "titleDe": "Frist fuer die Kennzeichnung nach Artikel 50 Abs. 2 bei bereits am Markt befindlichen generativen Systemen",
@@ -1188,11 +1021,7 @@
       "id": "2026-12-02-eu-new-prohibitions-apply",
       "date": "2026-12-02",
       "category": "eu",
-      "tags": [
-        "prohibited-practices",
-        "omnibus",
-        "in-force"
-      ],
+      "tags": ["prohibited-practices", "omnibus", "in-force"],
       "type": "milestone",
       "title": "Prohibitions on AI generating intimate images and child sexual abuse material apply",
       "titleDe": "Verbote fuer KI zur Erzeugung intimer Bilder und von Darstellungen sexuellen Kindesmissbrauchs gelten",
@@ -1206,11 +1035,7 @@
       "id": "2027-08-01-eu-annex-i-interplay-guidelines-deadline",
       "date": "2027-08-01",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "deadline",
-        "omnibus"
-      ],
+      "tags": ["guidance", "deadline", "omnibus"],
       "type": "update",
       "title": "Deadline for Commission guidelines on the AI Act and Annex I product legislation",
       "titleDe": "Frist fuer Leitlinien der Kommission zum Zusammenspiel des AI Act mit dem Produktrecht nach Anhang I",
@@ -1224,11 +1049,7 @@
       "id": "2027-08-02-eu-annex-i-delegated-acts-deadline",
       "date": "2027-08-02",
       "category": "eu",
-      "tags": [
-        "high-risk",
-        "deadline",
-        "omnibus"
-      ],
+      "tags": ["high-risk", "deadline", "omnibus"],
       "type": "update",
       "title": "Deadline for Commission delegated acts limiting overlapping high-risk requirements",
       "titleDe": "Frist fuer delegierte Rechtsakte der Kommission zur Begrenzung ueberschneidender Hochrisikoanforderungen",
@@ -1242,10 +1063,7 @@
       "id": "2027-08-02-eu-legacy-gpai-models-deadline",
       "date": "2027-08-02",
       "category": "eu",
-      "tags": [
-        "gpai",
-        "deadline"
-      ],
+      "tags": ["gpai", "deadline"],
       "type": "milestone",
       "title": "Deadline for general-purpose AI models placed on the market before 2 August 2025",
       "titleDe": "Frist fuer GPAI Modelle, die vor dem 2. August 2025 in Verkehr gebracht wurden",
@@ -1259,10 +1077,7 @@
       "id": "2027-08-02-eu-national-sandboxes-operational",
       "date": "2027-08-02",
       "category": "eu",
-      "tags": [
-        "deadline",
-        "omnibus"
-      ],
+      "tags": ["deadline", "omnibus"],
       "type": "milestone",
       "title": "National AI regulatory sandboxes must be operational",
       "titleDe": "Nationale KI Reallabore muessen betriebsbereit sein",
@@ -1276,12 +1091,7 @@
       "id": "2027-09-02-eu-post-market-monitoring-template-deadline",
       "date": "2027-09-02",
       "category": "eu",
-      "tags": [
-        "high-risk",
-        "guidance",
-        "deadline",
-        "omnibus"
-      ],
+      "tags": ["high-risk", "guidance", "deadline", "omnibus"],
       "type": "update",
       "title": "Deadline for Commission guidance and template on post-market monitoring plans",
       "titleDe": "Frist fuer Leitlinien und Vorlage der Kommission zu Plaenen fuer die Beobachtung nach dem Inverkehrbringen",
@@ -1295,11 +1105,7 @@
       "id": "2027-12-02-eu-annex-iii-high-risk-applies",
       "date": "2027-12-02",
       "category": "eu",
-      "tags": [
-        "high-risk",
-        "omnibus",
-        "in-force"
-      ],
+      "tags": ["high-risk", "omnibus", "in-force"],
       "type": "milestone",
       "title": "Rules for Annex III high-risk AI systems apply",
       "titleDe": "Regeln fuer Hochrisikosysteme nach Anhang III gelten",
@@ -1313,11 +1119,7 @@
       "id": "2028-08-02-eu-annex-i-high-risk-applies",
       "date": "2028-08-02",
       "category": "eu",
-      "tags": [
-        "high-risk",
-        "omnibus",
-        "in-force"
-      ],
+      "tags": ["high-risk", "omnibus", "in-force"],
       "type": "milestone",
       "title": "Rules for high-risk AI systems in Annex I products apply",
       "titleDe": "Regeln fuer Hochrisikosysteme in Produkten nach Anhang I gelten",
@@ -1331,10 +1133,7 @@
       "id": "2030-08-02-eu-public-authority-legacy-deadline",
       "date": "2030-08-02",
       "category": "eu",
-      "tags": [
-        "high-risk",
-        "deadline"
-      ],
+      "tags": ["high-risk", "deadline"],
       "type": "milestone",
       "title": "Deadline for high-risk AI systems intended for public authorities placed on the market earlier",
       "titleDe": "Frist fuer vorher in Verkehr gebrachte Hochrisikosysteme zur Nutzung durch Behoerden",
@@ -1348,10 +1147,7 @@
       "id": "2030-12-31-eu-large-scale-it-systems-deadline",
       "date": "2030-12-31",
       "category": "eu",
-      "tags": [
-        "high-risk",
-        "deadline"
-      ],
+      "tags": ["high-risk", "deadline"],
       "type": "milestone",
       "title": "Deadline for AI components of large-scale EU IT systems placed on the market earlier",
       "titleDe": "Frist fuer KI Komponenten grosser EU IT Systeme, die vorher in Verkehr gebracht wurden",
@@ -1365,11 +1161,7 @@
       "id": "2024-11-29-national-lu-ai-bill-cabinet",
       "date": "2024-11-29",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "lu"
-      ],
+      "tags": ["legislation", "designation", "lu"],
       "type": "update",
       "title": "Luxembourg government approves its AI Act implementation bill",
       "titleDe": "Regierung von Luxemburg billigt Gesetzentwurf zur Durchfuehrung der KI Verordnung",
@@ -1383,11 +1175,7 @@
       "id": "2024-12-23-national-lu-ai-bill-tabled",
       "date": "2024-12-23",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "lu"
-      ],
+      "tags": ["legislation", "designation", "lu"],
       "type": "update",
       "title": "Luxembourg tables bill 8476 on AI Act authorities and sandbox",
       "titleDe": "Luxemburg bringt Gesetzentwurf 8476 zu KI Behoerden und Reallabor ein",
@@ -1401,10 +1189,7 @@
       "id": "2026-07-10-national-lu-ai-bill-council-of-state",
       "date": "2026-07-10",
       "category": "national",
-      "tags": [
-        "legislation",
-        "lu"
-      ],
+      "tags": ["legislation", "lu"],
       "type": "update",
       "title": "Luxembourg Council of State gives its opinion on the AI Act bill",
       "titleDe": "Luxemburger Staatsrat gibt Stellungnahme zum KI Gesetzentwurf ab",
@@ -1418,11 +1203,7 @@
       "id": "2026-04-20-national-nl-ai-implementation-act-consultation",
       "date": "2026-04-20",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "nl"
-      ],
+      "tags": ["legislation", "designation", "nl"],
       "type": "update",
       "title": "Netherlands opens consultation on its AI Regulation implementation act",
       "titleDe": "Niederlande eroeffnen Konsultation zum Durchfuehrungsgesetz der KI Verordnung",
@@ -1436,10 +1217,7 @@
       "id": "2026-02-18-national-fr-ai-provisions-senate",
       "date": "2026-02-18",
       "category": "national",
-      "tags": [
-        "legislation",
-        "fr"
-      ],
+      "tags": ["legislation", "fr"],
       "type": "update",
       "title": "French Senate adopts EU adaptation bill with first AI Act provisions",
       "titleDe": "Franzoesischer Senat beschliesst EU Anpassungsgesetz mit ersten KI Verordnung Regeln",
@@ -1453,11 +1231,7 @@
       "id": "2026-03-17-national-de-ai-sandbox-pilot-report",
       "date": "2026-03-17",
       "category": "national",
-      "tags": [
-        "guidance",
-        "high-risk",
-        "de"
-      ],
+      "tags": ["guidance", "high-risk", "de"],
       "type": "update",
       "title": "Germany: AI sandbox pilot with Hesse and the data protection commissioner ends",
       "titleDe": "Deutschland: Pilotprojekt zum Reallabor fuer Kuenstliche Intelligenz abgeschlossen",
@@ -1471,10 +1245,7 @@
       "id": "2025-09-19-national-pt-anacom-announced",
       "date": "2025-09-19",
       "category": "national",
-      "tags": [
-        "pt",
-        "designation"
-      ],
+      "tags": ["pt", "designation"],
       "type": "update",
       "title": "Portugal: Government announces ANACOM as AI Act supervisory authority",
       "titleDe": "Portugal: Regierung kuendigt ANACOM als Aufsichtsbehoerde fuer die KI Verordnung an",
@@ -1488,11 +1259,7 @@
       "id": "2025-12-16-national-es-aesia-guides",
       "date": "2025-12-16",
       "category": "national",
-      "tags": [
-        "es",
-        "guidance",
-        "high-risk"
-      ],
+      "tags": ["es", "guidance", "high-risk"],
       "type": "update",
       "title": "Spain: AESIA publishes 16 non-binding guides on complying with the AI Act",
       "titleDe": "Spanien: AESIA veroeffentlicht 16 unverbindliche Leitfaeden zur Einhaltung der KI Verordnung",
@@ -1506,12 +1273,7 @@
       "id": "2026-05-26-national-es-ai-bill-council-of-ministers",
       "date": "2026-05-26",
       "category": "national",
-      "tags": [
-        "es",
-        "legislation",
-        "designation",
-        "penalty"
-      ],
+      "tags": ["es", "legislation", "designation", "penalty"],
       "type": "update",
       "title": "Spain: Council of Ministers sends the AI governance bill to Parliament",
       "titleDe": "Spanien: Ministerrat schickt den Gesetzentwurf zur KI Governance ans Parlament",
@@ -1525,10 +1287,7 @@
       "id": "2026-06-12-national-es-ai-bill-congress",
       "date": "2026-06-12",
       "category": "national",
-      "tags": [
-        "es",
-        "legislation"
-      ],
+      "tags": ["es", "legislation"],
       "type": "update",
       "title": "Spain: Congress publishes the AI governance bill and opens the amendment period",
       "titleDe": "Spanien: Abgeordnetenhaus veroeffentlicht den Gesetzentwurf zur KI Governance und eroeffnet die Aenderungsfrist",
@@ -1542,11 +1301,7 @@
       "id": "2026-06-16-national-pt-anacom-art5-consultation",
       "date": "2026-06-16",
       "category": "national",
-      "tags": [
-        "pt",
-        "guidance",
-        "prohibited-practices"
-      ],
+      "tags": ["pt", "guidance", "prohibited-practices"],
       "type": "update",
       "title": "Portugal: ANACOM consults on draft recommendations for the AI Act ban on prohibited practices",
       "titleDe": "Portugal: ANACOM konsultiert Entwurf von Empfehlungen zum Verbot unzulaessiger KI Praktiken",
@@ -1560,11 +1315,7 @@
       "id": "2026-07-20-national-gr-law-5321-2026",
       "date": "2026-07-20",
       "category": "national",
-      "tags": [
-        "gr",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["gr", "legislation", "designation"],
       "type": "update",
       "title": "Greece: Law 5321/2026 sets the national framework for the AI Act",
       "titleDe": "Griechenland: Gesetz 5321/2026 schafft den nationalen Rahmen fuer die KI Verordnung",
@@ -1578,10 +1329,7 @@
       "id": "2026-08-16-national-cy-ai-law-consultation",
       "date": "2026-08-16",
       "category": "national",
-      "tags": [
-        "cy",
-        "legislation"
-      ],
+      "tags": ["cy", "legislation"],
       "type": "update",
       "title": "Cyprus: public consultation opens on the draft Artificial Intelligence Law of 2026",
       "titleDe": "Zypern: Konsultation zum Entwurf des Gesetzes ueber kuenstliche Intelligenz von 2026 beginnt",
@@ -1595,10 +1343,7 @@
       "id": "2026-09-15-national-it-dlgs-160-2026",
       "date": "2026-09-15",
       "category": "national",
-      "tags": [
-        "it",
-        "legislation"
-      ],
+      "tags": ["it", "legislation"],
       "type": "update",
       "title": "Italy: Legislative Decree 160/2026 on AI in police work and civil and criminal liability is published",
       "titleDe": "Italien: Gesetzesdekret 160/2026 zu KI in der Polizeiarbeit sowie zur zivil und strafrechtlichen Haftung ist veroeffentlicht",
@@ -1612,10 +1357,7 @@
       "id": "2026-10-06-national-es-ai-bill-lapsed",
       "date": "2026-10-06",
       "category": "national",
-      "tags": [
-        "es",
-        "legislation"
-      ],
+      "tags": ["es", "legislation"],
       "type": "update",
       "title": "Spain: the AI governance bill lapses as the Cortes are dissolved",
       "titleDe": "Spanien: Der Gesetzentwurf zur KI Governance verfaellt mit der Aufloesung der Cortes",
@@ -1629,12 +1371,7 @@
       "id": "2026-10-08-national-it-dlgs-179-2026",
       "date": "2026-10-08",
       "category": "national",
-      "tags": [
-        "it",
-        "legislation",
-        "designation",
-        "penalty"
-      ],
+      "tags": ["it", "legislation", "designation", "penalty"],
       "type": "update",
       "title": "Italy: Legislative Decree 179/2026 sets the powers of the national AI authorities and the penalties",
       "titleDe": "Italien: Gesetzesdekret 179/2026 regelt die Befugnisse der nationalen KI Behoerden und die Sanktionen",
@@ -1648,12 +1385,7 @@
       "id": "2026-01-01-national-fi-ai-supervision-act-in-force",
       "date": "2026-01-01",
       "category": "national",
-      "tags": [
-        "legislation",
-        "in-force",
-        "designation",
-        "fi"
-      ],
+      "tags": ["legislation", "in-force", "designation", "fi"],
       "type": "update",
       "title": "Finland: law on the supervision of certain AI systems enters into force",
       "titleDe": "Finnland: Gesetz ueber die Aufsicht ueber bestimmte KI Systeme tritt in Kraft",
@@ -1667,11 +1399,7 @@
       "id": "2025-10-06-national-se-ai-inquiry-report",
       "date": "2025-10-06",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "se"
-      ],
+      "tags": ["legislation", "designation", "se"],
       "type": "update",
       "title": "Sweden: inquiry proposes a complementary AI Act law with PTS as lead authority",
       "titleDe": "Schweden: Untersuchung schlaegt ein Ergaenzungsgesetz zum AI Act mit der PTS als federfuehrender Behoerde vor",
@@ -1685,10 +1413,7 @@
       "id": "2026-06-04-national-se-ai-authorities-assigned",
       "date": "2026-06-04",
       "category": "national",
-      "tags": [
-        "designation",
-        "se"
-      ],
+      "tags": ["designation", "se"],
       "type": "update",
       "title": "Sweden: Government assigns five agencies to act as national AI Act authorities until the end of 2026",
       "titleDe": "Schweden: Regierung beauftragt fuenf Behoerden, bis Ende 2026 als nationale AI Act Behoerden zu handeln",
@@ -1702,11 +1427,7 @@
       "id": "2026-02-18-national-dk-ai-bill-l111-lapsed",
       "date": "2026-02-18",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "dk"
-      ],
+      "tags": ["legislation", "designation", "dk"],
       "type": "update",
       "title": "Denmark: bill for full AI Act supervision introduced in February 2026 but lapsed",
       "titleDe": "Daenemark: Gesetzentwurf fuer die volle AI Act Aufsicht im Februar 2026 eingebracht, aber verfallen",
@@ -1720,11 +1441,7 @@
       "id": "2026-07-21-national-ie-ai-act-signed",
       "date": "2026-07-21",
       "category": "national",
-      "tags": [
-        "legislation",
-        "designation",
-        "ie"
-      ],
+      "tags": ["legislation", "designation", "ie"],
       "type": "update",
       "title": "Ireland: Regulation of Artificial Intelligence Act 2026 signed into law",
       "titleDe": "Irland: Regulation of Artificial Intelligence Act 2026 unterzeichnet",
@@ -1738,11 +1455,7 @@
       "id": "2026-07-31-national-ie-ai-act-commenced",
       "date": "2026-07-31",
       "category": "national",
-      "tags": [
-        "legislation",
-        "in-force",
-        "ie"
-      ],
+      "tags": ["legislation", "in-force", "ie"],
       "type": "update",
       "title": "Ireland: Regulation of Artificial Intelligence Act 2026 comes into operation",
       "titleDe": "Irland: Regulation of Artificial Intelligence Act 2026 tritt in Kraft",
@@ -1756,10 +1469,7 @@
       "id": "2026-06-11-national-pl-ai-act-sejm",
       "date": "2026-06-11",
       "category": "national",
-      "tags": [
-        "pl",
-        "legislation"
-      ],
+      "tags": ["pl", "legislation"],
       "type": "update",
       "title": "Poland: Sejm passes the bill on artificial intelligence systems that creates the KRiBSI",
       "titleDe": "Polen: Sejm verabschiedet den Gesetzentwurf ueber Systeme der kuenstlichen Intelligenz mit der neuen Behoerde KRiBSI",
@@ -1773,12 +1483,7 @@
       "id": "2026-07-27-national-pl-ai-act-published",
       "date": "2026-07-27",
       "category": "national",
-      "tags": [
-        "pl",
-        "legislation",
-        "designation",
-        "in-force"
-      ],
+      "tags": ["pl", "legislation", "designation", "in-force"],
       "type": "update",
       "title": "Poland: Act on artificial intelligence systems is published and designates the KRiBSI",
       "titleDe": "Polen: Gesetz ueber Systeme der kuenstlichen Intelligenz wird verkuendet und benennt die KRiBSI",
@@ -1792,11 +1497,7 @@
       "id": "2026-09-24-national-pl-kribsi-chair",
       "date": "2026-09-24",
       "category": "national",
-      "tags": [
-        "pl",
-        "organisational",
-        "designation"
-      ],
+      "tags": ["pl", "organisational", "designation"],
       "type": "update",
       "title": "Poland: Sejm and Senate appoint the first chair of the KRiBSI",
       "titleDe": "Polen: Sejm und Senat berufen die erste Vorsitzende der KRiBSI",
@@ -1810,11 +1511,7 @@
       "id": "2025-09-26-national-cz-ai-draft-law",
       "date": "2025-09-26",
       "category": "national",
-      "tags": [
-        "cz",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["cz", "legislation", "designation"],
       "type": "update",
       "title": "Czech Republic: Ministry of Industry and Trade publishes its draft AI Act implementing law",
       "titleDe": "Tschechien: Industrie und Handelsministerium veroeffentlicht den Entwurf des AI Act Durchfuehrungsgesetzes",
@@ -1828,10 +1525,7 @@
       "id": "2026-08-06-national-cz-ai-bill-lrv",
       "date": "2026-08-06",
       "category": "national",
-      "tags": [
-        "cz",
-        "legislation"
-      ],
+      "tags": ["cz", "legislation"],
       "type": "update",
       "title": "Czech Republic: Legislative Council interrupts discussion of the AI bill",
       "titleDe": "Tschechien: Legislativrat der Regierung unterbricht die Beratung des KI Gesetzentwurfs",
@@ -1845,12 +1539,7 @@
       "id": "2025-11-21-national-sk-act-318-2025-ai",
       "date": "2025-11-21",
       "category": "national",
-      "tags": [
-        "sk",
-        "legislation",
-        "conformity-assessment",
-        "penalty"
-      ],
+      "tags": ["sk", "legislation", "conformity-assessment", "penalty"],
       "type": "update",
       "title": "Slovakia: Act 318/2025 adds fines for authorised conformity assessment bodies under the AI Act",
       "titleDe": "Slowakei: Gesetz 318/2025 fuehrt Bussgelder fuer zugelassene Konformitaetsbewertungsstellen nach dem AI Act ein",
@@ -1864,11 +1553,7 @@
       "id": "2026-08-26-national-sk-ai-bill-government",
       "date": "2026-08-26",
       "category": "national",
-      "tags": [
-        "sk",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["sk", "legislation", "designation"],
       "type": "update",
       "title": "Slovakia: Government approves the bill on state administration in artificial intelligence",
       "titleDe": "Slowakei: Regierung beschliesst den Gesetzentwurf zur staatlichen Verwaltung im Bereich der kuenstlichen Intelligenz",
@@ -1882,11 +1567,7 @@
       "id": "2025-10-31-national-hu-ai-act-law",
       "date": "2025-10-31",
       "category": "national",
-      "tags": [
-        "hu",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["hu", "legislation", "designation"],
       "type": "update",
       "title": "Hungary: Act LXXV of 2025 and Government Decree 344/2025 implement the AI Act",
       "titleDe": "Ungarn: Gesetz LXXV von 2025 und Regierungsverordnung 344/2025 setzen den AI Act um",
@@ -1900,11 +1581,7 @@
       "id": "2026-07-24-national-ro-ai-ancom-status",
       "date": "2026-07-24",
       "category": "national",
-      "tags": [
-        "ro",
-        "guidance",
-        "designation"
-      ],
+      "tags": ["ro", "guidance", "designation"],
       "type": "update",
       "title": "Romania: ANCOM sets out where AI Act implementation stands and its proposed role",
       "titleDe": "Rumaenien: ANCOM beschreibt den Stand der AI Act Umsetzung und ihre vorgesehene Rolle",
@@ -1918,11 +1595,7 @@
       "id": "2025-01-14-national-lt-ai-act-authorities-laws",
       "date": "2025-01-14",
       "category": "national",
-      "tags": [
-        "lt",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["lt", "legislation", "designation"],
       "type": "update",
       "title": "Lithuania: Seimas passes two laws that designate the national AI Act authorities",
       "titleDe": "Litauen: Seimas verabschiedet zwei Gesetze zur Benennung der nationalen Behoerden fuer den AI Act",
@@ -1936,11 +1609,7 @@
       "id": "2025-02-25-national-lv-ai-act-implementation-report",
       "date": "2025-02-25",
       "category": "national",
-      "tags": [
-        "lv",
-        "designation",
-        "organisational"
-      ],
+      "tags": ["lv", "designation", "organisational"],
       "type": "update",
       "title": "Latvia: Cabinet approves the report on implementing the AI Act",
       "titleDe": "Lettland: Kabinett billigt den Bericht zur Umsetzung des AI Act",
@@ -1954,10 +1623,7 @@
       "id": "2026-03-06-national-hr-ai-act-law-planned",
       "date": "2026-03-06",
       "category": "national",
-      "tags": [
-        "hr",
-        "legislation"
-      ],
+      "tags": ["hr", "legislation"],
       "type": "update",
       "title": "Croatia: parliament's 2026 alignment plan lists the AI Act implementation law",
       "titleDe": "Kroatien: Angleichungsplan 2026 des Parlaments fuehrt das AI Act Durchfuehrungsgesetz auf",
@@ -1971,11 +1637,7 @@
       "id": "2025-10-23-national-si-ziudhpui-adopted",
       "date": "2025-10-23",
       "category": "national",
-      "tags": [
-        "si",
-        "legislation",
-        "designation"
-      ],
+      "tags": ["si", "legislation", "designation"],
       "type": "update",
       "title": "Slovenia: National Assembly adopts the act implementing the AI Act (ZIUDHPUI)",
       "titleDe": "Slowenien: Nationalversammlung beschliesst das Durchfuehrungsgesetz zum AI Act (ZIUDHPUI)",
@@ -1989,11 +1651,7 @@
       "id": "2026-08-21-national-si-akos-ai-label-icons",
       "date": "2026-08-21",
       "category": "national",
-      "tags": [
-        "si",
-        "guidance",
-        "transparency"
-      ],
+      "tags": ["si", "guidance", "transparency"],
       "type": "update",
       "title": "Slovenia: AKOS publishes Slovenian icons for labelling AI-generated content",
       "titleDe": "Slowenien: AKOS veroeffentlicht slowenische Symbole zur Kennzeichnung KI erzeugter Inhalte",
@@ -2007,11 +1665,7 @@
       "id": "2026-09-21-national-si-akos-art-50-providers",
       "date": "2026-09-21",
       "category": "national",
-      "tags": [
-        "si",
-        "guidance",
-        "transparency"
-      ],
+      "tags": ["si", "guidance", "transparency"],
       "type": "update",
       "title": "Slovenia: AKOS explains the labelling duties of providers of generative AI systems",
       "titleDe": "Slowenien: AKOS erklaert die Kennzeichnungspflichten der Anbieter generativer KI Systeme",
@@ -2025,11 +1679,7 @@
       "id": "2026-07-21-eu-impl-reg-2026-1755-gpai-proceedings",
       "date": "2026-07-21",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "enforcement",
-        "gpai"
-      ],
+      "tags": ["legislation", "enforcement", "gpai"],
       "type": "update",
       "title": "Implementing Regulation (EU) 2026/1755 sets the procedures for evaluations of general-purpose AI models and for fines",
       "titleDe": "Durchfuehrungsverordnung (EU) 2026/1755 regelt die Verfahren fuer Bewertungen von KI Modellen mit allgemeinem Verwendungszweck und fuer Geldbussen",
@@ -2043,10 +1693,7 @@
       "id": "2026-10-06-standards-commission-proposal-standardisation-regulation",
       "date": "2026-10-06",
       "category": "standards",
-      "tags": [
-        "standards",
-        "legislation"
-      ],
+      "tags": ["standards", "legislation"],
       "type": "update",
       "title": "Commission proposes a Regulation on European standardisation to replace Regulation (EU) No 1025/2012",
       "titleDe": "Kommission schlaegt eine Verordnung ueber die europaeische Normung als Ersatz fuer die Verordnung (EU) Nr. 1025/2012 vor",
@@ -2060,10 +1707,7 @@
       "id": "2026-10-12-eu-draft-impl-reg-ai-office-file-access",
       "date": "2026-10-12",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "enforcement"
-      ],
+      "tags": ["legislation", "enforcement"],
       "type": "update",
       "title": "Commission publishes a draft implementing regulation on access to the file and limitation periods in AI Office proceedings",
       "titleDe": "Kommission veroeffentlicht Entwurf einer Durchfuehrungsverordnung zu Akteneinsicht und Verjaehrungsfristen in Verfahren des KI Bueros",
