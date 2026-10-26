@@ -827,6 +827,38 @@
     "2026-10-12-de-bsi-pqc-national-guideline": {
       "title": "Německo: BMI, BMDS a BSI zveřejnily národní směrnici k evropskému plánu přechodu na postkvantovou kryptografii",
       "summary": "Německé spolkové ministerstvo vnitra, ministerstvo pro digitalizaci a modernizaci státu a úřad BSI zveřejnily směrnici, která uplatňuje evropský plán přechodu na postkvantovou kryptografii v Německu. Potvrzuje jeho harmonogram: případy použití s vysokým rizikem mají přejít na kvantově bezpečnou kryptografii co nejdříve a nejpozději do konce roku 2030, celý přechod má být do roku 2035 z velké části hotový. Jde o nezávazné doporučení, nikoli zákon, které nezakládá povinnost podle směrnice NIS 2 a je německým dokumentem, nikoli pravidlem platným v celé EU."
+    },
+    "2026-10-26-grundschutz-bsi-standard-300-1": {
+      "title": "Německo: BSI zveřejnil metodiku Grundschutz++ jako nový standard BSI 300-1",
+      "summary": "Německý úřad BSI vydal metodiku Grundschutz++ jako standard BSI 300-1, tedy rozvinutí IT-Grundschutz. Popisuje nepřetržitý bezpečnostní proces, který nejdříve zajišťuje klíčové podnikové procesy, nechává organizaci zvolit si vlastní metodu řízení rizik v rámci stanovených minimálních kritérií a poskytuje všechny požadavky ve strojově čitelném formátu. Následuje fáze prvních uživatelů a ISMS postavený na Grundschutz++ půjde certifikovat od roku 2027 a je slučitelný s ISO/IEC 27001. Standard BSI je doporučení, nikoli zákon: nezakládá povinnost podle směrnice NIS 2 ani německého zákona BSIG. Je to německý dokument, nikoli pravidlo platné v celé EU."
+    },
+    "2026-10-22-enisa-sbom-technical-advisory": {
+      "title": "ENISA zveřejnila technické doporučení k softwarovému seznamu komponent (SBOM)",
+      "summary": "ENISA zveřejnila praktický návod k zavedení SBOM, určený mikropodnikům, malým a středním podnikům a správcům open-source projektů, kteří chtějí vybudovat první schopnosti pro transparentnost dodavatelského řetězce softwaru. Popisuje architekturu zavedení SBOM a datové toky, orientační model hrozeb a opatření proti rizikům a navazuje na příručku ENISA Secure by Design and Default. Je to nezávazné doporučení k bezpečnosti produktů, vycházející z nařízení o kybernetické odolnosti (CRA), které nezakládá povinnost podle směrnice NIS 2; transparentnost dodavatelského řetězce, kterou podporuje, souvisí s opatřeními vůči dodavatelům podle čl. 21 odst. 2 písm. d)."
+    },
+    "2026-10-26-national-transposition-pl-isp-ddos-recommendation": {
+      "title": "Polsko: vládní zmocněnec pro kybernetickou bezpečnost aktualizoval doporučení k ochraně poskytovatelů internetu před útoky DDoS",
+      "summary": "Polské ministerstvo digitalizace dne 26. října 2026 zveřejnilo aktualizované doporučení vládního zmocněnce pro kybernetickou bezpečnost k ochraně poskytovatelů internetového připojení (ISP) před útoky DDoS. Ministerstvo je připravilo spolu s Úřadem pro elektronické komunikace (UKE) a týmem CSIRT NASK, protože útoky DDoS na ISP trvají a techniky útočníků se vyvíjejí. Jde o doporučení, které mají poskytovatelé uplatnit, nikoli o právní povinnost, a o vnitrostátní dokument, nikoli pravidlo platné v celé EU; obsah PDF zde nebyl posuzován."
+    },
+    "2026-10-20-national-transposition-cz-nukib-asset-risk-guide": {
+      "title": "Česko: NÚKIB vydal průvodce řízením aktiv a rizik pro vyšší režim povinností",
+      "summary": "NÚKIB dne 20. října 2026 vydal podpůrný materiál k řízení aktiv a rizik pro organizace ve vyšším režimu povinností podle zákona č. 264/2025 Sb., o kybernetické bezpečnosti, a související vyhlášky o bezpečnostních opatřeních. Provází procesem od stanovení rozsahu a primárních a podpůrných aktiv přes katalog hrozeb a zranitelností až po výpočet rizik a návrh opatření, s modelovými příklady a čtrnácti přílohami se vzorovou dokumentací. Spolu s ním vyšel i stručný metodický postup pro hodnocení aktiv a rizik. Průvodce ukazuje jednu z možných cest a vzory je třeba přizpůsobit; jde o vnitrostátní doporučení, nikoli zákon."
+    },
+    "2026-10-22-national-transposition-hr-zks-q3-2026": {
+      "title": "Chorvatsko: čtvrtletní přehled NCSC-HR uvádí 799 zařazených subjektů a 125 incidentů ve třetím čtvrtletí",
+      "summary": "NCSC-HR dne 22. října 2026 zveřejnilo čtvrtletní přehled provádění zákona Zakon o kibernetičkoj sigurnosti. Eviduje 799 právnických osob zařazených mezi povinné subjekty, z toho 162 podstatných a 637 důležitých, a uvádí, že určování povinných subjektů pokračuje. Za třetí čtvrtletí hlásí 125 incidentů, z toho 23 významných a 102 ostatních, a sedm útoků ransomwarem, z nichž šest bylo zastaveno dříve, než útočníci zablokovali infrastrukturu. NCSC-HR zdůrazňuje povinné dvoufázové ověřování a bezpečnostní testování individuálně vyvinutých webových aplikací. Chorvatsko určuje subjekty úřední cestou, nikoli samoregistrací, jde tedy o čísla zařazení, nikoli registrací."
+    },
+    "2026-10-19-national-transposition-hu-audit-detailed-results": {
+      "title": "Maďarsko: SZTFH zveřejnil podrobné výsledky prvních kybernetických auditů, do 30. září přišlo 2 220 zpráv",
+      "summary": "SZTFH uvádí, že do 30. září 2026 mu 2 220 organizací zaslalo zprávu z prvního kybernetického auditu. Téměř 90 procent splnilo zákonné požadavky; jen asi 10 procent skončilo pod hranicí 70 na indexu odolnosti, který úřad používá. 81,1 procenta (1 804 organizací) zařadilo své systémy do základní bezpečnostní třídy a organizace ve vyšších třídách dosahovaly v průměru vyšších hodnot. Zpracovatelský průmysl tvoří 44 procent auditů a 61 procent neúspěšných; nejlépe vycházejí voda a odpadní voda, digitální infrastruktura a outsourcované služby ICT, další práci potřebují potraviny, nakládání s odpady a zdravotnictví. Audit je vnitrostátní povinnost podle maďarského práva, nikoli povinnost platná v celé EU."
+    },
+    "2026-10-16-national-transposition-it-acn-commission-country-visit": {
+      "title": "Itálie: ACN informuje o návštěvě Evropské komise k provádění NIS 2 a o desátém zasedání stolu NIS",
+      "summary": "ACN dne 16. října 2026 informovala o dvoudenní návštěvě delegace Evropské komise ve dnech 14. a 15. října, zaměřené na provádění NIS 2 v Itálii ze strany ACN jako příslušného orgánu a týmu CSIRT. Návštěva začala desátým zasedáním národního stolu NIS. ACN nařídila další aktualizaci seznamu subjektů NIS, oznámila úpravy před registrací v roce 2027 a představila první výsledky sektorových stolů k posíleným bezpečnostním opatřením podle článků 23, 24 a 31 italského dekretu o NIS i výsledek kategorizace činností a služeb podle článku 30. V nadcházejících týdnech bude osloveno asi 10 procent subjektů NIS, aby upřesnily analýzu dopadů. Jde o vlastní popis návštěvy ze strany ACN; Komise žádné závěry nezveřejnila."
+    },
+    "2026-10-13-eu-itre-amendments-nis2-simplification": {
+      "title": "Evropský parlament: k návrhu cílených změn NIS 2 byly ve výboru ITRE podány pozměňovací návrhy",
+      "summary": "Legislativní observatoř uvádí pozměňovací návrhy podané ve výboru pro průmysl, výzkum a energetiku (ITRE) k návrhu, kterým se mění směrnice (EU) 2022/2555, pokud jde o zjednodušující opatření a sladění s aktem o kybernetické bezpečnosti 2, postup 2026/0012(COD), jako dokument PE796.471 z 13. října 2026, tedy z termínu výboru. Spis postupu stále uvádí fázi čekání na rozhodnutí výboru, takže zatím neexistuje hlasování ve výboru ani postoj Parlamentu. Pozměňovací návrhy jsou návrhy jednotlivých poslanců, nikoli postoj výboru či Parlamentu; jejich obsah zde nebyl čten. Směrnice NIS 2 platí beze změny, dokud není pozměňující směrnice přijata, vyhlášena a provedena."
     }
   }
 }
