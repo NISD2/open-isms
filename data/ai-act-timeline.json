@@ -279,6 +279,13 @@
       "url": "https://www.akos-rs.si/umetna-inteligenca",
       "description": "Slovenian Agency for Communication Networks and Services: AI Act page, single contact point and news",
       "language": "en"
+    },
+    {
+      "id": "have-your-say",
+      "name": "European Commission: Have your say",
+      "url": "https://ec.europa.eu/info/law/better-regulation/have-your-say",
+      "description": "Better Regulation portal: draft delegated and implementing acts with feedback periods",
+      "language": "en"
     }
   ],
   "events": [
@@ -2013,7 +2020,59 @@
       "sourceId": "akos-si",
       "sourceUrl": "https://www.akos-rs.si/umetna-inteligenca/raziscite/novice/novica/obveznosti-ponudnikov-sistemov-ui-ki-ustvarjajo-sinteticno-zvocno-slikovno-video-ali-besedilno-vsebino",
       "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2026-07-21-eu-impl-reg-2026-1755-gpai-proceedings",
+      "date": "2026-07-21",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "enforcement",
+        "gpai"
+      ],
+      "type": "update",
+      "title": "Implementing Regulation (EU) 2026/1755 sets the procedures for evaluations of general-purpose AI models and for fines",
+      "titleDe": "Durchfuehrungsverordnung (EU) 2026/1755 regelt die Verfahren fuer Bewertungen von KI Modellen mit allgemeinem Verwendungszweck und fuer Geldbussen",
+      "summary": "Adopted on 20 July 2026 and published in the Official Journal on 21 July 2026 under Articles 92(6) and 101(6), it sets how the Commission runs evaluations of general-purpose AI models, including the use of independent experts, and the proceedings that can end in a fine under Article 101(1), with a five year limitation period for imposing and for enforcing fines. It is binding and enters into force on the twentieth day after publication (10 August 2026).",
+      "summaryDe": "Die am 20. Juli 2026 erlassene und am 21. Juli 2026 im Amtsblatt veroeffentlichte Verordnung regelt auf Grundlage der Artikel 92 Absatz 6 und 101 Absatz 6, wie die Kommission Bewertungen von KI Modellen mit allgemeinem Verwendungszweck durchfuehrt, auch mit unabhaengigen Sachverstaendigen, sowie die Verfahren, die zu einer Geldbusse nach Artikel 101 Absatz 1 fuehren koennen, mit einer Verjaehrungsfrist von fuenf Jahren fuer die Verhaengung und fuer die Vollstreckung von Geldbussen. Sie ist verbindlich und tritt am zwanzigsten Tag nach der Veroeffentlichung in Kraft (10. August 2026).",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg_impl/2026/1755/oj/eng",
+      "addedAt": "2026-10-26T10:40:00Z"
+    },
+    {
+      "id": "2026-10-06-standards-commission-proposal-standardisation-regulation",
+      "date": "2026-10-06",
+      "category": "standards",
+      "tags": [
+        "standards",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Commission proposes a Regulation on European standardisation to replace Regulation (EU) No 1025/2012",
+      "titleDe": "Kommission schlaegt eine Verordnung ueber die europaeische Normung als Ersatz fuer die Verordnung (EU) Nr. 1025/2012 vor",
+      "summary": "Proposal COM(2026) 780 (procedure 2026/0307(COD)) would repeal Regulation (EU) No 1025/2012, on which the AI Act's harmonised standards and common specifications rely (Articles 3, 40 and 41), and would have references to it read as references to the new Regulation. It would apply six months after entry into force. It is a proposal, not law, and it does not amend the AI Act.",
+      "summaryDe": "Der Vorschlag COM(2026) 780 (Verfahren 2026/0307(COD)) wuerde die Verordnung (EU) Nr. 1025/2012 aufheben, auf der die harmonisierten Normen und gemeinsamen Spezifikationen des AI Act beruhen (Artikel 3, 40 und 41), und Verweise darauf als Verweise auf die neue Verordnung lesen. Sie wuerde sechs Monate nach Inkrafttreten gelten. Es ist ein Vorschlag und kein Gesetz, und er aendert den AI Act nicht.",
+      "sourceId": "oeil",
+      "sourceUrl": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026/0307(COD)",
+      "addedAt": "2026-10-26T10:40:00Z"
+    },
+    {
+      "id": "2026-10-12-eu-draft-impl-reg-ai-office-file-access",
+      "date": "2026-10-12",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "enforcement"
+      ],
+      "type": "update",
+      "title": "Commission publishes a draft implementing regulation on access to the file and limitation periods in AI Office proceedings",
+      "titleDe": "Kommission veroeffentlicht Entwurf einer Durchfuehrungsverordnung zu Akteneinsicht und Verjaehrungsfristen in Verfahren des KI Bueros",
+      "summary": "The draft under Articles 75c and 75d, which Regulation (EU) 2026/1744 added to the AI Act, sets practical arrangements for access to the file and negotiated disclosure and the limitation periods for fines and periodic penalty payments imposed on operators under the AI Office's competence (Article 75(1)). Feedback is open until 9 November 2026. It is a draft, not adopted law.",
+      "summaryDe": "Der Entwurf auf Grundlage der Artikel 75c und 75d, die die Verordnung (EU) 2026/1744 in den AI Act eingefuegt hat, regelt die praktischen Einzelheiten der Akteneinsicht und der verhandelten Offenlegung sowie die Verjaehrungsfristen fuer Geldbussen und Zwangsgelder gegenueber Akteuren, fuer die das KI Buero zustaendig ist (Artikel 75 Absatz 1). Stellungnahmen sind bis zum 9. November 2026 moeglich. Es ist ein Entwurf und kein geltendes Recht.",
+      "sourceId": "have-your-say",
+      "sourceUrl": "https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/19292_en",
+      "addedAt": "2026-10-26T10:40:00Z"
     }
   ],
-  "lastUpdated": "2026-10-21T20:00:00Z"
+  "lastUpdated": "2026-10-26T10:40:00Z"
 }

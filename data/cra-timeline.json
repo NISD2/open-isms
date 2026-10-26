@@ -209,6 +209,13 @@
       "url": "https://ncsc.hr",
       "description": "Croatian National Cyber Security Centre: news and EU legal framework pages, including the CRA Single Reporting Platform",
       "language": "en"
+    },
+    {
+      "id": "ec-have-your-say",
+      "name": "European Commission, Have your say",
+      "url": "https://ec.europa.eu/info/law/better-regulation/have-your-say",
+      "description": "The Commission's portal for planned and draft acts, with stage, planned adoption quarter and feedback periods",
+      "language": "en"
     }
   ],
   "events": [
@@ -1251,7 +1258,61 @@
       "sourceId": "ncsc-hr",
       "sourceUrl": "https://ncsc.hr/hr/pustena-u-rad-eu-jedinstvena-platforma-za-izvjescivanje",
       "addedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "2025-03-05-eu-cra-amended-by-ehds-regulation",
+      "date": "2025-03-05",
+      "category": "eu",
+      "tags": [
+        "legislation",
+        "amendment",
+        "publication",
+        "conformity-assessment"
+      ],
+      "type": "update",
+      "title": "Regulation (EU) 2025/327 on the European Health Data Space is published and amends the CRA",
+      "titleDe": "Verordnung (EU) 2025/327 zum Europaeischen Gesundheitsdatenraum veroeffentlicht und aendert den CRA",
+      "summary": "Signed on 11 February 2025 and published on 5 March 2025, it enters into force on the twentieth day after publication (25 March 2025, computed). Article 104 amends Articles 13(4) and 31(3) of the CRA, on the risk assessment and technical documentation of products that other Union acts also cover, and inserts Article 32(5a): manufacturers of electronic health record systems show conformity with Annex I of the CRA through the conformity assessment in Chapter III of Regulation (EU) 2025/327. Binding. Article 105 applies the Regulation from 26 March 2027 and names no earlier date for Article 104 (reading of the text). The CRA's own application dates do not change.",
+      "summaryDe": "Die am 11. Februar 2025 unterzeichnete und am 5. Maerz 2025 veroeffentlichte Verordnung tritt am zwanzigsten Tag nach der Veroeffentlichung in Kraft (25. Maerz 2025, berechnet). Artikel 104 aendert Artikel 13 Absatz 4 und Artikel 31 Absatz 3 des CRA zu Risikobewertung und technischer Dokumentation von Produkten, die auch andere Rechtsakte der Union erfassen, und fuegt Artikel 32 Absatz 5a ein: Hersteller von Systemen fuer elektronische Gesundheitsakten weisen die Konformitaet mit Anhang I des CRA ueber die Konformitaetsbewertung nach Kapitel III der Verordnung (EU) 2025/327 nach. Verbindlich. Artikel 105 laesst die Verordnung ab dem 26. Maerz 2027 gelten und nennt fuer Artikel 104 keinen frueheren Termin (Lesart des Textes). Die Anwendungstermine des CRA selbst bleiben unveraendert.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2025/327/oj/eng",
+      "addedAt": "2026-10-26T10:45:00Z"
+    },
+    {
+      "id": "2026-09-25-national-de-bsi-dakks-agreement",
+      "date": "2026-09-25",
+      "category": "national",
+      "tags": [
+        "de",
+        "conformity-assessment",
+        "organisational"
+      ],
+      "type": "update",
+      "title": "Germany: BSI and DAkkS update their agreement on accrediting CRA conformity assessment bodies",
+      "titleDe": "Deutschland: BSI und DAkkS aktualisieren ihre Vereinbarung zur Akkreditierung von CRA Konformitaetsbewertungsstellen",
+      "summary": "The BSI says the administrative agreement now covers further scopes in which the BSI is the authorising authority, with BSI experts supporting DAkkS accreditation procedures in information security. Conformity assessment bodies need a DAkkS accreditation and then a BSI notification. The BSI states that its CRA notification procedure started on 11 June 2026, before the German implementing act, which on that date was still in the legislative procedure, and that DAkkS already accepts applications for the CRA scope. Authority statement, not law.",
+      "summaryDe": "Das BSI gibt an, dass die Verwaltungsvereinbarung nun weitere Geltungsbereiche umfasst, in denen das BSI Befugnis erteilende Behoerde ist, und dass BSI Fachbegutachter DAkkS Akkreditierungsverfahren im Bereich der Informationssicherheit unterstuetzen. Konformitaetsbewertungsstellen brauchen eine DAkkS Akkreditierung und danach eine Notifizierung durch das BSI. Nach Angabe des BSI lief das Notifizierungsverfahren fuer den CRA am 11. Juni 2026 an, vor dem deutschen Durchfuehrungsgesetz, das zu diesem Zeitpunkt noch im Gesetzgebungsverfahren war; die DAkkS nimmt schon Antraege fuer den Geltungsbereich CRA an. Behoerdenangabe, kein Gesetz.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/CRA-Konformitaet_BSI_DAkkS_260925.html",
+      "addedAt": "2026-10-26T10:45:00Z"
+    },
+    {
+      "id": "2026-10-15-eu-cra-eucc-delegated-act-planned",
+      "date": "2026-10-15",
+      "category": "eu",
+      "tags": [
+        "conformity-assessment",
+        "certification"
+      ],
+      "type": "update",
+      "title": "Commission lists a delegated act on EUCC certificates as proof of conformity with the CRA",
+      "titleDe": "Kommission fuehrt einen delegierten Rechtsakt zu EUCC Zertifikaten als Konformitaetsnachweis fuer den CRA auf",
+      "summary": "The Commission's Have your say portal published a planned initiative (Ares(2026)9552544, created 9 October 2026) for a delegated act under Article 27(9) of the CRA that would specify the EUCC scheme as usable to show conformity with the essential requirements. The entry has no draft text and no feedback period yet; adoption is planned for the first quarter of 2027, while the Commission's implementation page (last updated 27 July 2026) still shows the fourth quarter of 2026. A planned act, not law.",
+      "summaryDe": "Das Beteiligungsportal der Kommission (Have your say) hat eine geplante Initiative veroeffentlicht (Ares(2026)9552544, angelegt am 9. Oktober 2026) fuer einen delegierten Rechtsakt nach Artikel 27 Absatz 9 des CRA, der das EUCC Schema als Nachweis der Konformitaet mit den grundlegenden Anforderungen festlegen soll. Der Eintrag enthaelt noch keinen Entwurfstext und keine Rueckmeldefrist; der Erlass ist fuer das erste Quartal 2027 geplant, waehrend die Umsetzungsseite der Kommission (zuletzt am 27. Juli 2026 aktualisiert) noch das vierte Quartal 2026 nennt. Geplanter Rechtsakt, kein geltendes Recht.",
+      "sourceId": "ec-have-your-say",
+      "sourceUrl": "https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/19480-Presumption-of-conformity-with-the-Cyber-Resilience-Act-via-the-EUCC_en",
+      "addedAt": "2026-10-26T10:45:00Z"
     }
   ],
-  "lastUpdated": "2026-10-21T20:00:00Z"
+  "lastUpdated": "2026-10-26T10:45:00Z"
 }
