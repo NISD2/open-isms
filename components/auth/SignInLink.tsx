@@ -7,6 +7,11 @@ import { campaignTags, FROM_PATH_KEY, originPath } from "@/lib/analytics/token-r
 
 type Query = Readonly<Record<string, string>>;
 
+/** Heard only by the Google Ads tag, and only when the visitor agreed to it. */
+const announceRegistration = (): void => {
+  window.dispatchEvent(new Event(REGISTRATION_STARTED_EVENT));
+};
+
 /**
  * A link to sign-in that hands on the page's own campaign tags and its own path, so a signup keeps
  * the campaign it came from and the page it clicked "register" on (the only source an organic
@@ -16,6 +21,7 @@ type Query = Readonly<Record<string, string>>;
 export function SignInLink({
   query,
   onClick,
+  onAuxClick,
   ...props
 }: Omit<ComponentProps<typeof Link>, "href"> & { readonly query?: Query }) {
   const [tags, setTags] = useState<Query>({});
@@ -32,9 +38,12 @@ export function SignInLink({
       href={{ pathname: "/auth/signin", query: { ...query, ...tags } }}
       onClick={(event) => {
         onClick?.(event);
-        // Heard only by the Google Ads tag, and only when the visitor agreed to it.
-        if (query?.mode === "register")
-          window.dispatchEvent(new Event(REGISTRATION_STARTED_EVENT));
+        if (query?.mode === "register") announceRegistration();
+      }}
+      // A middle click opens registration in a new tab and fires no click event.
+      onAuxClick={(event) => {
+        onAuxClick?.(event);
+        if (query?.mode === "register" && event.button === 1) announceRegistration();
       }}
     />
   );

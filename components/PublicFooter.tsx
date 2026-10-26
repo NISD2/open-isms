@@ -148,7 +148,8 @@ export async function PublicFooter({
                   {t("footer.datenschutz")}
                 </Link>
               </li>
-              {googleAdsConfig(process.env) && (
+              {/* /docs is outside the layout that mounts the tag, so nothing there could answer a click. */}
+              {variant === "site" && googleAdsConfig(process.env) && (
                 <li>
                   <AdsConsentSettingsLink label={t("footer.adsSettings")} />
                 </li>

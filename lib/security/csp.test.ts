@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { googleAdsTag } from "../analytics/google-ads-tag";
 import { buildCsp, storageOrigin } from "./csp";
 
 describe("storageOrigin", () => {
@@ -65,7 +66,30 @@ describe("buildCsp", () => {
       { GOOGLE_ADS_TAG_ID: "AW-1234567890" },
       { GOOGLE_ADS_TAG_ID: "x" },
     ]) {
-      expect(buildCsp(unset)).not.toContain("googletagmanager");
+      const csp = buildCsp(unset);
+      for (const origin of [
+        "googletagmanager",
+        "googleadservices",
+        "doubleclick",
+        "www.google.com",
+      ]) {
+        expect(csp).not.toContain(origin);
+      }
+    }
+  });
+
+  // The layout renders the tag from googleAdsConfig; the CSP opens Google from the same check, so a
+  // value one of them rejects can never leave the other open.
+  test("the CSP opens Google for exactly the values that render the tag", () => {
+    const cases = [
+      { GOOGLE_ADS_TAG_ID: "AW-123\n", GOOGLE_ADS_CONVERSION_LABEL: "aB3" },
+      { GOOGLE_ADS_TAG_ID: "AW-abc", GOOGLE_ADS_CONVERSION_LABEL: "aB3" },
+      { GOOGLE_ADS_TAG_ID: "AW-123", GOOGLE_ADS_CONVERSION_LABEL: "a b" },
+      { GOOGLE_ADS_TAG_ID: "AW-123", GOOGLE_ADS_CONVERSION_LABEL: "" },
+      { GOOGLE_ADS_TAG_ID: "AW-123", GOOGLE_ADS_CONVERSION_LABEL: "aB3" },
+    ];
+    for (const env of cases) {
+      expect(buildCsp(env).includes("googletagmanager")).toBe(googleAdsTag(env) !== null);
     }
   });
 

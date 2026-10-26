@@ -16,6 +16,8 @@
  * callers share this module so the two policies cannot drift.
  */
 
+import { googleAdsTag } from "../analytics/google-ads-tag";
+
 /** Index-signature shaped so `process.env` satisfies it directly. */
 export type CspEnv = { readonly [key: string]: string | undefined };
 
@@ -65,12 +67,8 @@ export const buildCsp = (env: CspEnv): string => {
   const httpsHardened = env.CSP_UPGRADE_INSECURE === "1";
   const analytics = env.ANALYTICS_SCRIPT_URL ? originOf(env.ANALYTICS_SCRIPT_URL) : "";
   const storage = storageOrigin(env);
-  // Google's measurement tag, named only where the operator set one (lib/analytics/google-ads-config.ts
-  // does the full check; this file stays free of imports because next.config.ts loads it too).
-  const googleAdsOn = Boolean(
-    env.GOOGLE_ADS_TAG_ID?.trim().startsWith("AW-") &&
-      env.GOOGLE_ADS_CONVERSION_LABEL?.trim(),
-  );
+  // Google's measurement tag, named only where the layout would render it: the same check decides both.
+  const googleAdsOn = googleAdsTag(env) !== null;
   const googleAdsScript = googleAdsOn ? GOOGLE_ADS_SCRIPT : "";
   const googleAdsConnect = googleAdsOn ? GOOGLE_ADS_CONNECT : [];
   // The booking calendar (components/pricing/BookingDialog.tsx) is cal.com's page in a plain

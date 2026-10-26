@@ -9,10 +9,12 @@ import {
   bannerVisible,
   CONSENT_STORAGE_KEY,
   type Consent,
+  hasAdClickId,
   OPEN_SETTINGS_EVENT,
   parseConsent,
   REGISTRATION_STARTED_EVENT,
 } from "@/lib/analytics/ads-consent";
+import { isTokenRoute } from "@/lib/analytics/token-routes";
 
 declare global {
   interface Window {
@@ -22,6 +24,8 @@ declare global {
 }
 
 const GTAG_SRC = "https://www.googletagmanager.com/gtag/js";
+/** gtag.js may still be loading when the visitor withdraws, and writes its cookies on arrival. */
+const WITHDRAW_RECHECK_MS = 3000;
 
 const readConsent = (): Consent | null => {
   try {
@@ -39,7 +43,18 @@ const writeConsent = (value: Consent): void => {
   }
 };
 
-/** Google's measurement cookies on this site, named by prefix; withdrawing consent removes them. */
+/** A page whose URL is a credential never reaches Google, even for a visitor who said yes. */
+const tagAllowedHere = (): boolean => !isTokenRoute(window.location.pathname);
+
+const expireCookie = (setter: string): void => {
+  // biome-ignore lint/suspicious/noDocumentCookie: expiring a cookie by name; there is nothing to read back
+  document.cookie = setter;
+};
+
+/**
+ * Google's measurement cookies on this site, named by prefix. Cookies Google keeps on its own
+ * domains are out of reach from here.
+ */
 const clearGoogleCookies = (): void => {
   const names = document.cookie
     .split(";")
@@ -55,14 +70,16 @@ const clearGoogleCookies = (): void => {
   }
 };
 
-const expireCookie = (setter: string): void => {
-  // biome-ignore lint/suspicious/noDocumentCookie: expiring a cookie by name; there is nothing to read back
-  document.cookie = setter;
+const withdraw = (): void => {
+  window.gtag?.("consent", "update", { ad_storage: "denied", ad_user_data: "denied" });
+  clearGoogleCookies();
+  window.setTimeout(clearGoogleCookies, WITHDRAW_RECHECK_MS);
 };
 
 /**
- * Loads Google's tag, once, and only after a yes. The two Google consent signals this measurement
- * needs are granted; personalised ads and analytics storage stay denied, since we run neither.
+ * Loads Google's tag, once, and only for a visitor who said yes. The two Google consent signals this
+ * measurement needs are granted; personalised ads and analytics storage stay denied, since we run
+ * neither.
  */
 function loadTag(tagId: string): void {
   if (window.gtag) {
@@ -93,10 +110,11 @@ function loadTag(tagId: string): void {
 /**
  * Google Ads conversion measurement behind a consent question.
  *
- * Renders nothing and loads nothing unless the operator set a tag (lib/analytics/google-ads-config.ts).
+ * Renders nothing and loads nothing unless the operator set a tag (lib/analytics/google-ads-tag.ts).
  * The banner shows only to a visitor who arrives with a Google click ID, or who opens the settings
- * from the footer. A link that starts registration reports it through REGISTRATION_STARTED_EVENT;
- * it becomes a conversion only when consent is granted.
+ * from the footer. The tag loads in two cases and no other: on the page where a visitor who said yes
+ * arrives from an ad (it has to read the click ID from the address), and when that visitor clicks a
+ * link to registration, which is then reported as the conversion.
  */
 export function GoogleAdsTag({
   tagId,
@@ -113,11 +131,17 @@ export function GoogleAdsTag({
   const pathname = usePathname();
 
   useEffect(() => {
+    const stored = readConsent();
     setSearch(window.location.search);
     setLandingPath(window.location.pathname);
-    const stored = readConsent();
     setConsent(stored);
-    if (stored === "granted") loadTag(tagId);
+    if (
+      stored === "granted" &&
+      hasAdClickId(window.location.search) &&
+      tagAllowedHere()
+    ) {
+      loadTag(tagId);
+    }
   }, [tagId]);
 
   useEffect(() => {
@@ -126,10 +150,25 @@ export function GoogleAdsTag({
     return () => window.removeEventListener(OPEN_SETTINGS_EVENT, open);
   }, []);
 
+  // Another tab answered: this one follows, so a withdrawal there stops conversions here too.
+  useEffect(() => {
+    const follow = (event: StorageEvent) => {
+      if (event.key !== CONSENT_STORAGE_KEY) return;
+      const next = parseConsent(event.newValue);
+      setConsent(next);
+      if (next !== "granted") withdraw();
+    };
+    window.addEventListener("storage", follow);
+    return () => window.removeEventListener("storage", follow);
+  }, []);
+
   useEffect(() => {
     if (consent !== "granted") return;
-    const report = () =>
+    const report = () => {
+      if (!tagAllowedHere()) return;
+      loadTag(tagId);
       window.gtag?.("event", "conversion", { send_to: `${tagId}/${conversionLabel}` });
+    };
     window.addEventListener(REGISTRATION_STARTED_EVENT, report);
     return () => window.removeEventListener(REGISTRATION_STARTED_EVENT, report);
   }, [consent, tagId, conversionLabel]);
@@ -139,15 +178,11 @@ export function GoogleAdsTag({
       writeConsent(value);
       setConsent(value);
       setReopened(false);
-      if (value === "granted") {
-        loadTag(tagId);
+      if (value === "denied") {
+        withdraw();
         return;
       }
-      window.gtag?.("consent", "update", {
-        ad_storage: "denied",
-        ad_user_data: "denied",
-      });
-      clearGoogleCookies();
+      if (tagAllowedHere()) loadTag(tagId);
     },
     [tagId],
   );
@@ -155,6 +190,7 @@ export function GoogleAdsTag({
   // Ignoring the question and reading on is an answer: it counts as no, and the banner does not
   // follow the visitor to the next page.
   const movedOn = landingPath !== null && pathname !== landingPath;
+  if (isTokenRoute(pathname)) return null;
   if (!bannerVisible({ consent, search, reopened }) || (movedOn && !reopened))
     return null;
 
@@ -165,8 +201,11 @@ export function GoogleAdsTag({
     >
       <p className="text-sm text-muted-foreground">
         {t("adsConsent.body")}{" "}
+        {/* A new tab, so reading the explanation does not close the question. */}
         <Link
           href={{ pathname: "/datenschutz", hash: "cookies" }}
+          target="_blank"
+          rel="noopener noreferrer"
           className="underline underline-offset-2"
         >
           {t("adsConsent.more")}

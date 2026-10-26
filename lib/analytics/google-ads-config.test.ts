@@ -11,6 +11,15 @@ describe("googleAdsConfig", () => {
     ).toEqual({ tagId: "AW-1234567890", conversionLabel: "aB3_-xYz" });
   });
 
+  test("a value pasted with a trailing newline still counts, as the CSP also sees it", () => {
+    expect(
+      googleAdsConfig({
+        GOOGLE_ADS_TAG_ID: "AW-1234567890\n",
+        GOOGLE_ADS_CONVERSION_LABEL: " aB3 ",
+      }),
+    ).toEqual({ tagId: "AW-1234567890", conversionLabel: "aB3" });
+  });
+
   test("a copied-over self-hosted environment has neither, so no tag", () => {
     expect(googleAdsConfig({})).toBeNull();
     expect(googleAdsConfig({ GOOGLE_ADS_TAG_ID: "AW-1234567890" })).toBeNull();
