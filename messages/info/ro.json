@@ -927,11 +927,8 @@
       },
       "cookies": {
         "heading": "Cookie-uri",
-        "p1": "Acest site folosește doar cookie-uri strict necesare din punct de vedere tehnic:",
         "session": "Cookie de sesiune (NextAuth): necesar pentru autentificare, expiră la deconectare sau după expirarea sesiunii",
-        "locale": "Cookie de localizare (next-intl): stochează preferința dumneavoastră de limbă (EN/DE)",
-        "p2": "Nu folosim cookie-uri de urmărire, cookie-uri publicitare sau cookie-uri terțe. Nu este nevoie de un banner de consimțământ pentru cookie-uri, deoarece sunt setate doar cookie-uri strict necesare din punct de vedere tehnic."
-      },
+        "locale": "Cookie de localizare (next-intl): stochează preferința dumneavoastră de limbă (EN/DE)"      },
       "rights": {
         "heading": "Drepturile dumneavoastră (Art. 15-21 GDPR)",
         "p1": "Aveți următoarele drepturi cu privire la datele dumneavoastră cu caracter personal:",

@@ -788,6 +788,7 @@
       "terms": "Terms of Service",
       "impressum": "Legal Notice",
       "datenschutz": "Privacy Policy",
+      "adsSettings": "Cookie settings",
       "avv": "Data Processing Agreement (DPA)",
       "toms": "TOMs (Art. 32 GDPR)",
       "changelog": "Changelog",
@@ -927,14 +928,14 @@
       "analytics": {
         "heading": "Analytics",
         "p1": "We use Umami for website analytics. Umami is self-hosted on our own infrastructure. It does not collect personal data, does not use cookies, and does not track individual users. All data is aggregated and anonymous. No consent is required for this type of analytics.",
-        "p2": "Separately: if you sign up through a link that carries campaign tags (parameters starting with utm_, for example from an ad), we store those tags with your account, so we can see which ad or link an account came from. Likewise, every registration stores the path of the page on which you clicked \"register\" (for example /wiki/nis2-timeline), so we can see which content leads to accounts. Nothing else from the link, such as click IDs, is stored. The legal basis is Art. 6(1)(f) GDPR, our legitimate interest in measuring what our advertising does."
+        "p2": "Separately: if you sign up through a link that carries campaign tags (parameters starting with utm_, for example from an ad), we store those tags with your account, so we can see which ad or link an account came from. Likewise, every registration stores the path of the page on which you clicked \"register\" (for example /wiki/nis2-timeline), so we can see which content leads to accounts. We do not store click IDs with your account. The legal basis is Art. 6(1)(f) GDPR, our legitimate interest in measuring what our advertising does."
       },
       "cookies": {
         "heading": "Cookies",
-        "p1": "This website only uses technically necessary cookies:",
+        "p1": "Without your consent, we only set technically necessary cookies:",
         "session": "Session cookie (NextAuth): required for authentication - expires when you sign out or after the session timeout",
         "locale": "Locale cookie (next-intl): stores your language preference (EN/DE)",
-        "p2": "We do not use tracking cookies, advertising cookies, or any third-party cookies. No cookie consent banner is needed because only technically necessary cookies are set."
+        "p2": "We set tracking, advertising and third-party cookies only with your consent, see ad measurement below."
       },
       "rights": {
         "heading": "Your Rights (Art. 15-21 GDPR)",

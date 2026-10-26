@@ -788,6 +788,7 @@
       "terms": "Nutzungsbedingungen",
       "impressum": "Impressum",
       "datenschutz": "Datenschutzerklärung",
+      "adsSettings": "Cookie-Einstellungen",
       "avv": "Auftragsverarbeitung (AVV)",
       "toms": "TOMs (Art. 32 DSGVO)",
       "changelog": "Aktuelles",
@@ -927,14 +928,14 @@
       "analytics": {
         "heading": "Analyse",
         "p1": "Wir verwenden Umami für Website-Analysen. Umami ist selbst gehostet auf unserer eigenen Infrastruktur. Es werden keine personenbezogenen Daten erhoben, keine Cookies gesetzt und keine einzelnen Nutzer verfolgt. Alle Daten sind aggregiert und anonym. Für diese Art der Analyse ist keine Einwilligung erforderlich.",
-        "p2": "Unabhängig davon: Wenn Sie sich über einen Link mit Kampagnenangaben registrieren (Parameter, die mit utm_ beginnen, zum Beispiel aus einer Anzeige), speichern wir diese Angaben zu Ihrem Konto. So sehen wir, über welche Anzeige oder welchen Link ein Konto entstanden ist. Ebenso speichern wir bei jeder Registrierung den Pfad der Seite, auf der Sie „Registrieren“ angeklickt haben (zum Beispiel /wiki/nis2-timeline), damit wir sehen, welche Inhalte zu Konten führen. Andere Angaben aus dem Link, etwa Klick-IDs, speichern wir nicht. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser berechtigtes Interesse, die Wirkung unserer Werbung zu messen."
+        "p2": "Unabhängig davon: Wenn Sie sich über einen Link mit Kampagnenangaben registrieren (Parameter, die mit utm_ beginnen, zum Beispiel aus einer Anzeige), speichern wir diese Angaben zu Ihrem Konto. So sehen wir, über welche Anzeige oder welchen Link ein Konto entstanden ist. Ebenso speichern wir bei jeder Registrierung den Pfad der Seite, auf der Sie „Registrieren“ angeklickt haben (zum Beispiel /wiki/nis2-timeline), damit wir sehen, welche Inhalte zu Konten führen. Klick-IDs speichern wir nicht in Ihrem Konto. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser berechtigtes Interesse, die Wirkung unserer Werbung zu messen."
       },
       "cookies": {
         "heading": "Cookies",
-        "p1": "Diese Website verwendet ausschließlich technisch notwendige Cookies:",
+        "p1": "Ohne Ihre Zustimmung setzen wir nur technisch notwendige Cookies:",
         "session": "Session-Cookie (NextAuth): für die Authentifizierung erforderlich - läuft bei Abmeldung oder nach dem Session-Timeout ab",
         "locale": "Sprach-Cookie (next-intl): speichert Ihre Spracheinstellung (EN/DE)",
-        "p2": "Wir verwenden keine Tracking-Cookies, Werbe-Cookies oder Drittanbieter-Cookies. Ein Cookie-Consent-Banner ist nicht erforderlich, da ausschließlich technisch notwendige Cookies gesetzt werden."
+        "p2": "Tracking-, Werbe- und Drittanbieter-Cookies setzen wir nur mit Ihrer Zustimmung, siehe Werbemessung unten."
       },
       "rights": {
         "heading": "Ihre Rechte (Art. 15-21 DSGVO)",

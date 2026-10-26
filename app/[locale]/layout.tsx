@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { Analytics } from "@/components/Analytics";
+import { GoogleAdsTag } from "@/components/analytics/GoogleAdsTag";
 import { JsonLd } from "@/components/JsonLd";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
+import { googleAdsConfig } from "@/lib/analytics/google-ads-config";
 import { clientMessages, PUBLIC_CLIENT_NAMESPACES } from "@/lib/client-messages";
 import { ogImages } from "@/lib/og-card";
 import { buildSiteGraphJsonLd, buildSiteNavGraphJsonLd, type Locale } from "@/lib/seo";
@@ -45,6 +47,7 @@ export default async function LocaleLayout({
 
   // Anything added to the public set ships to every page.
   const messages = clientMessages(await getMessages(), PUBLIC_CLIENT_NAMESPACES);
+  const ads = googleAdsConfig(process.env);
 
   return (
     <html lang={locale}>
@@ -65,6 +68,10 @@ export default async function LocaleLayout({
       <body className="min-h-screen bg-background font-sans antialiased">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <TRPCProvider>{children}</TRPCProvider>
+          {/* Google Ads measurement: unset on a self-hosted copy, so it renders nothing there. */}
+          {ads && (
+            <GoogleAdsTag tagId={ads.tagId} conversionLabel={ads.conversionLabel} />
+          )}
         </NextIntlClientProvider>
         <Toaster />
         {/*

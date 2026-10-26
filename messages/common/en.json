@@ -1,5 +1,12 @@
 {
   "common": {
+    "adsConsent": {
+      "label": "Ad measurement",
+      "body": "With your yes we measure whether a Google ad leads to a registration. For that, Google stores cookies and receives your IP address.",
+      "more": "Learn more",
+      "decline": "Decline",
+      "accept": "Accept"
+    },
     "save": "Save",
     "saving": "Saving...",
     "cancel": "Cancel",

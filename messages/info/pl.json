@@ -927,11 +927,8 @@
       },
       "cookies": {
         "heading": "Pliki cookie",
-        "p1": "Ta witryna używa wyłącznie technicznie niezbędnych plików cookie:",
         "session": "Plik cookie sesji (NextAuth): wymagany do uwierzytelniania - wygasa po wylogowaniu lub po upływie czasu sesji",
-        "locale": "Plik cookie języka (next-intl): przechowuje Twoje preferencje językowe (EN/DE)",
-        "p2": "Nie używamy plików cookie śledzących, reklamowych ani żadnych plików cookie podmiotów trzecich. Baner zgody na pliki cookie nie jest potrzebny, ponieważ ustawiane są wyłącznie technicznie niezbędne pliki cookie."
-      },
+        "locale": "Plik cookie języka (next-intl): przechowuje Twoje preferencje językowe (EN/DE)"      },
       "rights": {
         "heading": "Twoje prawa (Art. 15-21 GDPR)",
         "p1": "W odniesieniu do swoich danych osobowych przysługują Ci następujące prawa:",

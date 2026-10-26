@@ -2,9 +2,15 @@
 
 import { type ComponentProps, useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { REGISTRATION_STARTED_EVENT } from "@/lib/analytics/ads-consent";
 import { campaignTags, FROM_PATH_KEY, originPath } from "@/lib/analytics/token-routes";
 
 type Query = Readonly<Record<string, string>>;
+
+/** Heard only by the Google Ads tag, and only when the visitor agreed to it. */
+const announceRegistration = (): void => {
+  window.dispatchEvent(new Event(REGISTRATION_STARTED_EVENT));
+};
 
 /**
  * A link to sign-in that hands on the page's own campaign tags and its own path, so a signup keeps
@@ -14,6 +20,8 @@ type Query = Readonly<Record<string, string>>;
  */
 export function SignInLink({
   query,
+  onClick,
+  onAuxClick,
   ...props
 }: Omit<ComponentProps<typeof Link>, "href"> & { readonly query?: Query }) {
   const [tags, setTags] = useState<Query>({});
@@ -25,6 +33,18 @@ export function SignInLink({
     });
   }, []);
   return (
-    <Link {...props} href={{ pathname: "/auth/signin", query: { ...query, ...tags } }} />
+    <Link
+      {...props}
+      href={{ pathname: "/auth/signin", query: { ...query, ...tags } }}
+      onClick={(event) => {
+        onClick?.(event);
+        if (query?.mode === "register") announceRegistration();
+      }}
+      // A middle click opens registration in a new tab and fires no click event.
+      onAuxClick={(event) => {
+        onAuxClick?.(event);
+        if (query?.mode === "register" && event.button === 1) announceRegistration();
+      }}
+    />
   );
 }
