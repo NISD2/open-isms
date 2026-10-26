@@ -341,8 +341,8 @@ export const assessmentRouter = router({
         return { firstAssessmentId, companyId, frameworkAssessmentMap, teamInvites };
       });
 
-      // After the commit, so nobody is mailed a link to an invite that was rolled back.
-      await mailTeamRoleInvites(result.teamInvites, {
+      // Mailed after the commit, without waiting: no link to a rolled-back invite.
+      void mailTeamRoleInvites(result.teamInvites, {
         companyId: result.companyId,
         companyName: input.name,
         actorId: ctx.userId,

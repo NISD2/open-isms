@@ -1,3 +1,4 @@
+import teamEn from "@/messages/team/en.json";
 import { EmailFrame } from "../components/frame";
 import { CtaButton, Note, Para, Title } from "../components/parts";
 import type { WorkflowMailLocale } from "../locale";
@@ -11,19 +12,12 @@ export interface InviteProps {
 }
 
 /**
- * The labels the English team page shows for each role (messages/team/en.json, team.roles); a
- * plain member reads "as a member". Without them the sentence printed the key ("as hr_director").
+ * The labels the English team page shows for each role, read from its messages so the two cannot
+ * drift; a plain member reads "as a member". Without them the sentence printed the key ("as dpo").
  */
 const ENGLISH_ROLE: Readonly<Record<string, string>> = {
   member: "a member",
-  ceo: "CEO / Managing Director",
-  ciso: "CISO / IT Security Officer",
-  cto: "CTO / Head of Engineering",
-  coo: "COO / Operations Director",
-  cpo: "CPO / Procurement Lead",
-  hr_director: "HR Director",
-  legal: "Legal / Compliance Officer",
-  dpo: "Data Protection Officer",
+  ...teamEn.team.roles,
 };
 
 /**

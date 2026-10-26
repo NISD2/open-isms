@@ -1,4 +1,4 @@
-import { eq, inArray } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import {
   createBillingAccount,
@@ -10,7 +10,7 @@ import {
   type RoleKey,
 } from "@/lib/compliance/role-mapping";
 import type { Database, DbOrTx } from "@/lib/db";
-import { joinCompany } from "@/lib/organization/membership";
+import { isMemberOf, joinCompany } from "@/lib/organization/membership";
 import {
   categoryAssignment,
   company,
@@ -27,6 +27,7 @@ import {
   inviteUrlOf,
   newInviteToken,
 } from "./company-invite";
+import { withinSetupInviteCap } from "./invite-limits";
 import { type InviteSender, mailTeamInvite } from "./invite-mail";
 
 /** What `assessment.createCompanyAndAssessment` takes: the company's identity and its named team. */
@@ -45,7 +46,8 @@ export const companySetupInput = z.object({
   bsiRegistrationId: z.string().max(100).optional(),
   annualSecurityBudget: z.string().optional(),
   primaryLocations: z.string().max(1000).optional(),
-  // Each named person is invited and mailed, so only the known roles, one person each at most.
+  // Each named person is invited and mailed, so only the known roles, each naming one person: a
+  // role's categories have one assignee, so a second name for it would only overwrite the first.
   teamRoles: z
     .array(
       z.object({
@@ -54,7 +56,9 @@ export const companySetupInput = z.object({
         email: z.string().email(),
       }),
     )
-    .max(ALL_ROLE_KEYS.length)
+    .refine((roles) => new Set(roles.map((r) => r.roleKey)).size === roles.length, {
+      message: "Each role names one person.",
+    })
     .optional(),
 });
 
@@ -301,6 +305,14 @@ export async function processTeamRoleAssignments(
           });
       }
     } else {
+      // Someone already in the company is not invited again: the upsert below would reset the
+      // accepted invite that records who brought them in (`acceptedInviteOf`).
+      const member = await db.query.user.findFirst({
+        where: and(eq(user.email, email), isMemberOf(db, opts.companyId)),
+        columns: { id: true },
+      });
+      if (member) continue;
+
       // Invited even when the role owns no category (the DPO owns none in NIS 2): accepting gives
       // the person the role itself, as an invite from the team page does (`issueInvite`).
       const token = newInviteToken();
@@ -352,14 +364,16 @@ export async function mailTeamRoleInvites(
   sender: InviteSender,
 ): Promise<void> {
   await Promise.all(
-    invites.map((invite) =>
-      mailTeamInvite(sender, {
+    invites.map(async (invite) => {
+      // Past the cap the invite stands and its link is on the team page; only the mail is held.
+      if (!(await withinSetupInviteCap(sender.actorId))) return false;
+      return mailTeamInvite(sender, {
         to: invite.email,
         inviteUrl: invite.inviteUrl,
         // The one role the person was named for, as the team page's invite says it.
         role: invitedRoleOf({ roleKeys: invite.roleKeys, categoryIds: [] }) ?? "member",
         sentDescription: `Team role invite sent to ${invite.email} (${invite.roleKeys.join(", ")})`,
-      }),
-    ),
+      });
+    }),
   );
 }

@@ -24,7 +24,6 @@ import {
   setMembershipRole,
   signupDraftOf,
 } from "@/lib/organization/membership";
-import { rateLimit } from "@/lib/rate-limit";
 import {
   categoryAssignment,
   company,
@@ -45,6 +44,12 @@ import {
   renewInvite,
 } from "../helpers/company-invite";
 import {
+  authorizeResend,
+  enforceDailyInviteCap,
+  FORWARD_LIMIT,
+  INVITE_LIMIT,
+} from "../helpers/invite-limits";
+import {
   inviteSenderOf,
   mailManagementHandoff,
   mailRenewedInvite,
@@ -61,27 +66,6 @@ import {
   protectedProcedure,
   router,
 } from "../init";
-
-/** Hand-offs to management one company may send per day: a few retries above honest use. */
-const FORWARD_LIMIT = 5;
-/** Team invites one company may send per day: room to onboard a whole department in one sitting. */
-const INVITE_LIMIT = 50;
-const DAY_MS = 24 * 60 * 60 * 1000;
-
-/** Every invite mails an address someone typed in, so each kind is capped per company per day. */
-async function enforceDailyInviteCap(
-  kind: "invite" | "forward",
-  companyId: string,
-  limit: number,
-): Promise<void> {
-  if (!(await rateLimit(`team:${kind}:${companyId}`, limit, DAY_MS))) {
-    throw new TRPCError({
-      code: "TOO_MANY_REQUESTS",
-      message:
-        "Your organization has sent many of these today. Please try again tomorrow.",
-    });
-  }
-}
 
 export const teamRouter = router({
   /** List members of the current company with their category assignments */
@@ -222,11 +206,11 @@ export const teamRouter = router({
   resendInvite: adminProcedure
     .input(z.object({ inviteId: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
-      await enforceDailyInviteCap("invite", ctx.companyId, INVITE_LIMIT);
-      const renewed = await renewInvite(ctx.db, {
-        inviteId: input.inviteId,
-        companyId: ctx.companyId,
-      });
+      const renewed = await renewInvite(
+        ctx.db,
+        { inviteId: input.inviteId, companyId: ctx.companyId },
+        (invite) => authorizeResend(ctx.db, ctx, invite),
+      );
       if (!renewed) {
         throw new TRPCError({
           code: "NOT_FOUND",
@@ -357,6 +341,22 @@ export const teamRouter = router({
       });
 
       await ctx.db.transaction(async (tx) => {
+        // Claimed first, and only while still open: a withdrawal that lands after the read above
+        // wins, and nobody joins on a withdrawn invite.
+        const [claimed] = await tx
+          .update(companyInvite)
+          .set({ status: "accepted", acceptedBy: ctx.userId, acceptedAt: new Date() })
+          .where(
+            and(eq(companyInvite.id, invite.id), eq(companyInvite.status, "pending")),
+          )
+          .returning({ id: companyInvite.id });
+        if (!claimed) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Invite not found or already used.",
+          });
+        }
+
         // An existing member keeps their role; the invite does not change it. Otherwise the invite
         // row's free-text role falls back to the least privileged one a membership can hold, and
         // an invite for a compliance role (management, asked to approve the walk's documents)
@@ -378,15 +378,6 @@ export const teamRouter = router({
             });
           }
         }
-
-        await tx
-          .update(companyInvite)
-          .set({
-            status: "accepted",
-            acceptedBy: ctx.userId,
-            acceptedAt: new Date(),
-          })
-          .where(eq(companyInvite.id, invite.id));
       });
 
       // Discard the now-abandoned draft shell when nobody else is in it (best-effort, post-commit,

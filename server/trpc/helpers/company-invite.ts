@@ -111,17 +111,21 @@ export async function issueInvite(
       }
     : (input.assignmentContext ?? null);
 
-  // One row per company and address. Inviting the address again keeps a still-working link, so
-  // the mail the person already has is not silently replaced by the new one.
+  // One row per company and address. Inviting the address again to the same place keeps a
+  // still-working link, so the mail the person already has keeps working and keeps meaning what it
+  // said. An invite to somewhere else (a hand-off, then a plain team invite) gets a new link.
   const now = new Date();
   const existing = await db.query.companyInvite.findFirst({
     where: and(
       eq(companyInvite.companyId, input.companyId),
       eq(companyInvite.email, email),
     ),
-    columns: { token: true, status: true, expiresAt: true },
+    columns: { token: true, status: true, expiresAt: true, redirectPath: true },
   });
-  const kept = reusableInviteToken(existing, now);
+  const kept =
+    existing?.redirectPath === input.redirectPath
+      ? reusableInviteToken(existing, now)
+      : null;
   const fresh = newInviteToken();
   const expiresAt = inviteExpiryFrom(now);
 
@@ -156,7 +160,11 @@ export async function issueInvite(
     .returning({ id: companyInvite.id, token: companyInvite.token });
   if (!invite) throw new Error("company invite upsert returned no row");
 
-  return { inviteId: invite.id, token: invite.token, inviteUrl: inviteUrlOf(invite.token) };
+  return {
+    inviteId: invite.id,
+    token: invite.token,
+    inviteUrl: inviteUrlOf(invite.token),
+  };
 }
 
 /** An open invite renewed for sending again. */
@@ -172,11 +180,13 @@ export interface RenewedInvite {
  * Send an open invite of this company again: seven more days from now, the same link while it
  * still works and a new one once it has expired. Who sent it first stays recorded, because that
  * decides who may order for the company (`acceptedInviteOf`). Null for an invite that is not this
- * company's or no longer open; refused for someone who has joined meanwhile.
+ * company's or no longer open; refused for someone who has joined meanwhile. `authorize` sees the
+ * invite before anything is written, so the caller can apply the rules of the kind it is.
  */
 export async function renewInvite(
   db: Database,
   input: { readonly inviteId: string; readonly companyId: string },
+  authorize: (invite: { readonly redirectPath: string | null }) => Promise<void>,
 ): Promise<RenewedInvite | null> {
   const open = and(
     eq(companyInvite.id, input.inviteId),
@@ -196,14 +206,16 @@ export async function renewInvite(
   });
   if (!invite) return null;
   await assertNotMember(db, input.companyId, invite.email);
+  await authorize(invite);
 
   const now = new Date();
   const token = reusableInviteToken(invite, now) ?? newInviteToken();
   const [renewed] = await db
     .update(companyInvite)
     .set({ token, expiresAt: inviteExpiryFrom(now) })
-    // Re-checked in the write: withdrawn or accepted since it was read means there is nothing to send.
-    .where(open)
+    // Re-checked in the write: withdrawn, accepted or invited again with another link since it was
+    // read means this send is no longer the latest, and nothing is sent.
+    .where(and(open, eq(companyInvite.token, invite.token)))
     .returning({ id: companyInvite.id });
   if (!renewed) return null;
 
