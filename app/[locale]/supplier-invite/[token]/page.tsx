@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { InviteNotHere } from "@/components/supplier-portal/InviteNotHere";
 import { SupplierInviteAcceptForm } from "@/components/supplier-portal/SupplierInviteAcceptForm";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -19,10 +20,14 @@ import { api } from "@/lib/trpc/server";
  *      call supplierPortal.onboarding.acceptInvite which bootstraps the
  *      supplier company AND auto-binds it to the inviting entity
  *
+ * A token no invite here carries mostly comes from a self-hosted install, whose
+ * invite link forwards to this page while the invite stays in its database.
+ * Instead of a 404, the supplier learns why and how to share its answers anyway.
+ *
  * The token is the credential. Token expiry is 30 days.
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("supplierPortal.acceptInvite");
+  const t = await getTranslations("supplierInvite");
   return {
     title: t("metaTitle"),
     robots: { index: false, follow: false },
@@ -42,10 +47,9 @@ export default async function SupplierInvitePage({ params }: PageProps) {
 
   // Look up the invite to display the inviting entity name + pre-filled email.
   const invite = await api.supplierPortal.onboarding.getInviteByToken({ token });
-  if (!invite) notFound();
+  if (invite.state === "closed") notFound();
 
   const userEmail = session.user.email?.toLowerCase() ?? "";
-  const emailMatch = userEmail === invite.toEmail.toLowerCase();
 
   // If the user already has an ACTIVATED company, whichever one is open, they
   // can't accept this invite under their current account. A draft shell
@@ -58,15 +62,19 @@ export default async function SupplierInvitePage({ params }: PageProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/20 px-4 py-10">
       <div className="w-full max-w-md">
-        <SupplierInviteAcceptForm
-          token={token}
-          fromCompanyName={invite.fromCompanyName}
-          toEmail={invite.toEmail}
-          message={invite.message}
-          emailMatch={emailMatch}
-          alreadyHasCompany={alreadyHasCompany}
-          signedInAs={userEmail}
-        />
+        {invite.state === "unknown" ? (
+          <InviteNotHere />
+        ) : (
+          <SupplierInviteAcceptForm
+            token={token}
+            fromCompanyName={invite.fromCompanyName}
+            toEmail={invite.toEmail}
+            message={invite.message}
+            emailMatch={userEmail === invite.toEmail.toLowerCase()}
+            alreadyHasCompany={alreadyHasCompany}
+            signedInAs={userEmail}
+          />
+        )}
       </div>
     </div>
   );

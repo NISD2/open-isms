@@ -59,6 +59,7 @@ const namespaces = [
   "settings",
   "sicherheitsfragebogen",
   "suppliers",
+  "supplierInvite",
   "supplierPortal",
   "supplierPortalContact",
   "team",

@@ -2,7 +2,7 @@ This is the production version of the [Quickstart](/docs/getting-started/quickst
 
 ## What the image contains
 
-The published image is the compliance app. nisd2.eu's public site, the wiki, these docs, the courses and the supplier portal are not in it. Links to them lead to nisd2.eu, and a request for one of those pages is redirected there. Management takes the course at nisd2.eu and you add the certificate on the training page; suppliers answer the security questionnaire at nisd2.eu, where it is free for them. The install itself asks search engines not to index it.
+The published image is the compliance app. nisd2.eu's public site, the wiki, these docs, the courses and the supplier portal are not in it. Links to them lead to nisd2.eu, and a request for one of those pages is redirected there. Management takes the course at nisd2.eu and you add the certificate on the training page; suppliers answer the security questionnaire at nisd2.eu, where it is free for them, and can share their answers with you from there: you then get an email with a link to read them. The install itself asks search engines not to index it.
 
 The source of all of it is in the repository, under the same licence.
 
