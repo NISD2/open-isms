@@ -13,6 +13,9 @@ interface Props {
   params: Promise<{ token: string }>;
 }
 
+// Open without a session, and the token in its address is the credential: never a search result.
+export const metadata = { robots: { index: false, follow: false } };
+
 export default async function InvitePage({ params }: Props) {
   const { token } = await params;
   const t = await getTranslations("team");
