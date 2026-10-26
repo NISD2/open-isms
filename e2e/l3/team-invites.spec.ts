@@ -11,8 +11,9 @@
  * page has to say so.
  */
 import { expect, type Page, test } from "@playwright/test";
+import bcrypt from "bcryptjs";
 import { e2eQuery } from "../lib/db";
-import { E2E_USER_EMAIL } from "../lib/env";
+import { assertE2eTargets, E2E_USER_EMAIL } from "../lib/env";
 
 const RUN = Date.now().toString(36);
 
@@ -195,4 +196,97 @@ test.describe("invites", () => {
       await visitor.close();
     }
   });
+
+  /**
+   * The step that makes someone a member, end to end: a colleague with no account opens the
+   * mail's link, creates an account with the invited address, confirms the code, comes back to
+   * the invite and accepts. The harness has no mail, so the code is planted the way signup.spec.ts
+   * does it.
+   */
+  test("a colleague without an account joins from the invite link", async ({
+    page,
+    browser,
+  }) => {
+    const email = `e2e-joiner-${RUN}@e2e.local`;
+    await openTeam(page);
+    await inviteViaForm(page, email);
+    const invite = await inviteRow(email);
+    const company = await companyId();
+
+    const visitor = await browser.newContext({
+      storageState: { cookies: [], origins: [] },
+    });
+    const joiner = await visitor.newPage();
+    try {
+      await joiner.goto(`/en/invite/${invite?.token}`);
+      await joiner.getByRole("link", { name: "Create account" }).click();
+      await expect(joiner.locator("#email")).toHaveValue(email);
+      await joiner.locator("#password").fill("JoinerPassword1!");
+
+      const codesBefore = await codesFor(email);
+      await joiner.getByRole("button", { name: "Create account" }).click();
+      await expect(joiner.locator("#code")).toBeVisible({ timeout: 30_000 });
+      // The code is issued after the response, so wait for it before planting a known one.
+      await expect
+        .poll(() => codesFor(email), { timeout: 30_000 })
+        .toBeGreaterThan(codesBefore);
+      await plantCode(email, "246810");
+      await joiner.locator("#code").fill("246810");
+      await joiner.getByRole("button", { name: "Verify and sign in" }).click();
+
+      // Signed in, the person is back on the invite and accepts it.
+      await joiner.waitForURL(/\/invite\//, { timeout: 30_000 });
+      await joiner.getByRole("button", { name: "Accept Invite" }).click();
+      await joiner.waitForURL((url) => !url.pathname.includes("/invite/"), {
+        timeout: 30_000,
+      });
+
+      const joined = await e2eQuery(
+        `SELECT 1 FROM company_membership m JOIN "user" u ON u.id = m.user_id
+          WHERE u.email = $1 AND m.company_id = $2`,
+        [email, company],
+      );
+      expect(joined, "the colleague is a member of the inviting company").toHaveLength(1);
+      expect((await inviteRow(email))?.status).toBe("accepted");
+
+      // The inviting company's activity log says who joined (fire-and-forget, so poll).
+      await expect
+        .poll(
+          async () =>
+            (
+              await e2eQuery(
+                `SELECT 1 FROM audit_log
+                WHERE company_id = $1 AND action = 'team.invite_accepted' AND description = $2`,
+                [company, `Invite accepted by ${email}`],
+              )
+            ).length,
+        )
+        .toBe(1);
+    } finally {
+      await visitor.close();
+    }
+  });
 });
+
+async function codesFor(email: string): Promise<number> {
+  const [row] = await e2eQuery<{ n: number }>(
+    `SELECT count(*)::int AS n FROM email_otp WHERE email = $1 AND purpose = 'email_verify'`,
+    [email],
+  );
+  return row?.n ?? 0;
+}
+
+/** One known live code for `email`, consuming the ones issued before, as a resend does. */
+async function plantCode(email: string, code: string): Promise<void> {
+  assertE2eTargets();
+  await e2eQuery(
+    `UPDATE email_otp SET consumed_at = now()
+      WHERE email = $1 AND purpose = 'email_verify' AND consumed_at IS NULL`,
+    [email],
+  );
+  await e2eQuery(
+    `INSERT INTO email_otp (email, code_hash, purpose, expires_at)
+     VALUES ($1, $2, 'email_verify', now() + interval '10 minutes')`,
+    [email, await bcrypt.hash(code, 10)],
+  );
+}

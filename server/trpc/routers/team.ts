@@ -9,9 +9,6 @@ import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { LOCALE_CODES } from "@/lib/locale";
-import { memberRemovedEmail, sendMail } from "@/lib/mail";
-import { wasDelivered } from "@/lib/mail/delivery";
-import { resolveEmailLocale } from "@/lib/mail/locale";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
 import { isInviteExpired } from "@/lib/organization/invite-state";
 import {
@@ -54,6 +51,7 @@ import {
   mailTeamInvite,
   managementHandoffPath,
 } from "../helpers/invite-mail";
+import { mailMemberRemoved } from "../helpers/member-removed-mail";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
 import { discardDraftCompany } from "../helpers/setup-helpers";
@@ -402,6 +400,17 @@ export const teamRouter = router({
         }
       }
 
+      // Filed under the company joined. The automatic row goes under the session's company, which
+      // for a new account is the draft just discarded: that write fails, and no joining was logged.
+      logAudit({
+        companyId: invite.companyId,
+        userId: ctx.userId,
+        action: "team.invite_accepted",
+        entityType: "team",
+        entityId: invite.id,
+        description: `Invite accepted by ${invite.email}`,
+      });
+
       // Auto-assign based on the invite's assignment context
       if (invite.assignmentContext) {
         await applyAssignmentContext(
@@ -562,35 +571,12 @@ export const teamRouter = router({
         await leaveCompany(tx, { userId: input.userId, companyId: ctx.companyId });
       });
 
-      // Notify removed member (fire-and-forget)
-      const companyRow = await ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: { name: true },
+      await mailMemberRemoved({
+        db: ctx.db,
+        companyId: ctx.companyId,
+        actorId: ctx.userId,
+        member,
       });
-
-      memberRemovedEmail({
-        companyName: companyRow?.name ?? "your company",
-        memberName: member.name,
-        locale: resolveEmailLocale(member.locale, null),
-      })
-        .then((content) =>
-          sendMail({ emailType: "account.member_removed", to: member.email, ...content }),
-        )
-        .then((r) => {
-          // Only a mail that left: a suppressed send also reports success. `r.success` is there to
-          // narrow the type for `r.id`; `wasDelivered` decides.
-          if (r.success && wasDelivered(r)) {
-            logAudit({
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-              action: "email.member_removed",
-              entityType: "email",
-              entityId: r.id ?? null,
-              description: `Removal email sent to ${member.email}`,
-            });
-          }
-        })
-        .catch((err) => console.error("[team] removal email not sent", err));
 
       // Losing a member changes who holds which role, which is the evidence
       // behind requirement 1.2. Every other module reverts its requirements
