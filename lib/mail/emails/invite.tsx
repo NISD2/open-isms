@@ -1,3 +1,4 @@
+import teamEn from "@/messages/team/en.json";
 import { EmailFrame } from "../components/frame";
 import { CtaButton, Note, Para, Title } from "../components/parts";
 import type { WorkflowMailLocale } from "../locale";
@@ -9,6 +10,15 @@ export interface InviteProps {
   readonly inviteUrl: string;
   readonly role: string;
 }
+
+/**
+ * The labels the English team page shows for each role, read from its messages so the two cannot
+ * drift; a plain member reads "as a member". Without them the sentence printed the key ("as dpo").
+ */
+const ENGLISH_ROLE: Readonly<Record<string, string>> = {
+  member: "a member",
+  ...teamEn.team.roles,
+};
 
 /**
  * The labels the Czech team page shows for each role (messages/team/cs.json, team.roles and
@@ -56,7 +66,7 @@ export const INVITE_COPY: Record<
       lead: `${inviterName} has invited you to join `,
       company: companyName,
       as: " as ",
-      role,
+      role: ENGLISH_ROLE[role] ?? role,
       end: " on the NIS2 Compliance Platform.",
     }),
     click: "Click the button below to accept and get started.",

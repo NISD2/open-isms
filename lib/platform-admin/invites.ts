@@ -2,6 +2,7 @@ import "@/lib/server-guard";
 import { desc, eq, inArray, sql } from "drizzle-orm";
 import { alias } from "drizzle-orm/pg-core";
 import type { DbOrTx } from "@/lib/db";
+import { isInviteExpired } from "@/lib/organization/invite-state";
 import { company, companyInvite, supplierInvite, user } from "@/schema";
 
 /**
@@ -25,7 +26,7 @@ export const inviteStatus = (facts: InviteFacts, now: Date): InviteStatus =>
     ? "joined"
     : facts.revoked
       ? "revoked"
-      : facts.expiresAt <= now
+      : isInviteExpired(facts.expiresAt, now)
         ? "expired"
         : "pending";
 

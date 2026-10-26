@@ -65,7 +65,9 @@ export function SignInCard({
   const [mode, setMode] = useState<"login" | "register">(() =>
     searchParams.get("mode") === "register" ? "register" : "login",
   );
-  const [email, setEmail] = useState("");
+  // An invite link hands on the address it was sent to (AcceptInviteCard): an account under any
+  // other address could not accept it. Only a starting value; the field stays editable.
+  const [email, setEmail] = useState(() => searchParams.get("email")?.trim() ?? "");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState(() => {

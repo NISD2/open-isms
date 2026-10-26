@@ -268,6 +268,7 @@ async function storedRedirectPath(redirectPath: string) {
     query: {
       user: { findFirst: async () => undefined },
       company: { findFirst: async () => ({ name: "Acme" }) },
+      companyInvite: { findFirst: async () => undefined },
     },
     // isMemberOf builds a subquery from this; nothing reads it.
     select: () => ({ from: () => ({ where: () => ({}) }) }),
@@ -277,7 +278,7 @@ async function storedRedirectPath(redirectPath: string) {
         return {
           onConflictDoUpdate: ({ set }: { set: unknown }) => {
             stored.set = set;
-            return { returning: async () => [{ id: "invite-1" }] };
+            return { returning: async () => [{ id: "invite-1", token: "t" }] };
           },
         };
       },

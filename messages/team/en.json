@@ -6,6 +6,7 @@
       "title": "Members",
       "description": "{count, plural, one {# member} other {# members}} in your company",
       "name": "Name",
+      "member": "Member",
       "email": "Email",
       "role": "Role",
       "you": "you",
@@ -17,6 +18,13 @@
       "description": "{count, plural, one {# pending invitation} other {# pending invitations}}",
       "email": "Email",
       "expires": "Expires",
+      "validUntil": "The link works until {date}.",
+      "expiredOn": "The link expired on {date}. Send it again for a new one.",
+      "copyLink": "Copy link",
+      "sendAgain": "Send again",
+      "withdraw": "Withdraw",
+      "resent": "Invite sent again to {email}. The link works for {days} more days.",
+      "resentNotEmailed": "The email to {email} did not go out. Copy the link and send it to them yourself.",
       "linkCopied": "Link copied"
     },
     "invite": {
@@ -27,7 +35,9 @@
       "complianceRole": "Compliance Role",
       "complianceRolePlaceholder": "Select role (optional)",
       "submit": "Invite",
-      "submitting": "Inviting..."
+      "submitting": "Inviting...",
+      "sent": "Invite sent to {email}. If it does not arrive, copy the link below and send it yourself.",
+      "notEmailed": "The email to {email} did not go out. Copy the link below and send it to them yourself."
     },
     "assignRole": {
       "label": "Assign Role",
@@ -36,28 +46,39 @@
       "noCategories": "No categories for this role"
     },
     "remove": {
+      "action": "Remove",
+      "title": "Remove {name} from the team?",
+      "description": "{name} can no longer open this organization. Their categories are unassigned, sign-offs still waiting for them are dropped, and open invites they sent are withdrawn. Sign-offs they already gave stay on record. They get an email saying they were removed.",
+      "confirm": "Remove",
       "success": "Member removed"
     },
     "revoke": {
-      "success": "Invite revoked"
+      "success": "Invite withdrawn"
     },
     "inline": {
       "sent": "Invite sent to {email}",
-      "notEmailed": "Invite created for {email}. This instance has no mail transport, so send them the link yourself.",
+      "notEmailed": "Invite created for {email}, but the email did not go out. Copy the link and send it to them yourself.",
       "linkCopied": "Link copied",
       "send": "Send invite",
       "copyLink": "Copy the invite link"
     },
-    "invalidTitle": "Invalid Invite",
-    "invalidDescription": "This invite link is invalid or has already been used.",
+    "invalidTitle": "Invite link no longer works",
+    "invalidDescription": "If you were invited again, use the link in the most recent email. Otherwise ask the person who invited you to send it again.",
     "usedTitle": "Invite Already Used",
     "usedDescription": "This invite has already been accepted or revoked.",
+    "acceptedTitle": "Invite already accepted",
+    "acceptedDescription": "This invite has been accepted. Sign in with the invited address to continue.",
+    "revokedTitle": "Invite withdrawn",
+    "revokedDescription": "This invite was withdrawn. Ask the person who invited you to send a new one.",
     "expiredTitle": "Invite Expired",
-    "expiredDescription": "This invite link has expired. Ask your admin for a new one.",
+    "expiredDescription": "This invite link has expired. Ask the person who invited you to send it again.",
     "accept": {
       "joinTitle": "Join {company}",
       "joinDescription": "You've been invited to join as {role}.",
-      "signInDescription": "You've been invited to join as {role}. Sign in or register to continue.",
+      "signInDescription": "You've been invited to join as {role}.",
+      "forAddress": "This invite is for {email}. Use that address to create your account or to sign in.",
+      "createAccount": "Create account",
+      "haveAccount": "I already have an account",
       "signInToAccept": "Sign in to accept",
       "wrongAccountTitle": "Wrong Account",
       "wrongAccountDescription": "This invite was sent to {inviteEmail}. You're signed in as {userEmail}.",
