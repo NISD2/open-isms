@@ -4,8 +4,22 @@
  * send itself worked.
  */
 import { describe, expect, test } from "bun:test";
+import { LOCALE_CODES } from "@/lib/locale";
 import type { SendOutcome } from "@/lib/mail/delivery";
-import { mailInvite } from "./invite-mail";
+import { handoffLocaleOf, mailInvite, managementHandoffPath } from "./invite-mail";
+
+describe("handoffLocaleOf", () => {
+  test("reads a hand-off's language back from where it lands, for every language", () => {
+    for (const locale of LOCALE_CODES) {
+      expect(handoffLocaleOf(managementHandoffPath(locale))).toBe(locale);
+    }
+  });
+
+  test("a team invite is no hand-off, so sending it again sends the team mail", () => {
+    expect(handoffLocaleOf(null)).toBeNull();
+    expect(handoffLocaleOf("/compliance/governance")).toBeNull();
+  });
+});
 
 const content = async () => ({ subject: "Join", html: "<p>Join</p>", text: "Join" });
 

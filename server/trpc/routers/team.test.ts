@@ -342,8 +342,12 @@ const adminCaller = (db: unknown) =>
 type ExistingInvite = { token: string; status: string; expiresAt: Date };
 
 /** `invite` to an address that already has a row in this company. */
+/**
+ * `invite` to an address that already has a row in this company. The fake returns the token the
+ * database would keep: the old one while the row is still the open invite that was read.
+ */
 async function reinvite(existing: ExistingInvite) {
-  const stored: { values?: { token?: string }; set?: { token?: string } } = {};
+  const stored: { values?: { token: string }; set?: { token: string | SQL } } = {};
   const db = {
     query: {
       user: { findFirst: async () => undefined },
@@ -352,12 +356,13 @@ async function reinvite(existing: ExistingInvite) {
     },
     select: () => ({ from: () => ({ where: () => ({}) }) }),
     insert: () => ({
-      values: (values: { token?: string }) => {
+      values: (values: { token: string }) => {
         stored.values = values;
         return {
-          onConflictDoUpdate: ({ set }: { set: { token?: string } }) => {
+          onConflictDoUpdate: ({ set }: { set: { token: string | SQL } }) => {
             stored.set = set;
-            return { returning: async () => [{ id: "invite-1" }] };
+            const token = typeof set.token === "string" ? set.token : existing.token;
+            return { returning: async () => [{ id: "invite-1", token }] };
           },
         };
       },
@@ -374,19 +379,25 @@ describe("team.invite to an address invited before", () => {
       status: "pending",
       expiresAt: new Date(Date.now() + DAY_MS),
     });
-    expect(stored.values?.token).toBe("first-mail");
-    expect(stored.set?.token).toBe("first-mail");
+    // Kept only if the row is still that open invite when the write runs; else the new link.
+    const kept = stored.set?.token;
+    expect(typeof kept).not.toBe("string");
+    expect(new PgDialect().sqlToQuery(kept as SQL).params).toEqual([
+      "first-mail",
+      stored.values?.token,
+    ]);
     expect(result.inviteUrl.endsWith("/invite/first-mail")).toBe(true);
   });
 
   test("issues a new link once the old one has expired", async () => {
-    const { stored } = await reinvite({
+    const { stored, result } = await reinvite({
       token: "first-mail",
       status: "pending",
       expiresAt: new Date(Date.now() - DAY_MS),
     });
-    expect(stored.set?.token).not.toBe("first-mail");
+    expect(stored.set?.token).toBe(stored.values?.token);
     expect(stored.set?.token).toHaveLength(64);
+    expect(result.inviteUrl.endsWith("/invite/first-mail")).toBe(false);
   });
 
   test("issues a new link after a withdrawal, so the withdrawn one stays dead", async () => {
@@ -395,24 +406,32 @@ describe("team.invite to an address invited before", () => {
       status: "revoked",
       expiresAt: new Date(Date.now() + DAY_MS),
     });
+    expect(stored.set?.token).toBe(stored.values?.token);
     expect(stored.set?.token).not.toBe("first-mail");
   });
 });
 
 /** `resendInvite` over one stored invite, or none. */
-async function resend(stored: (ExistingInvite & { email: string }) | undefined) {
+async function resend(
+  stored: (ExistingInvite & { email: string }) | undefined,
+  joinedMeanwhile = false,
+) {
   const writes: { set: { token: string; expiresAt: Date }; params: unknown[] }[] = [];
   const db = {
     query: {
+      user: { findFirst: async () => (joinedMeanwhile ? { id: MEMBER } : undefined) },
       company: { findFirst: async () => ({ name: "Acme" }) },
       companyInvite: {
         findFirst: async () =>
           stored && {
             ...stored,
             assignmentContext: { roleKeys: ["ceo"], categoryIds: [] },
+            redirectPath: null,
           },
       },
     },
+    // isMemberOf builds a subquery from this; nothing reads it.
+    select: () => ({ from: () => ({ where: () => ({}) }) }),
     update: () => ({
       set: (set: { token: string; expiresAt: Date }) => ({
         where: (where: SQL) => ({
@@ -470,6 +489,19 @@ describe("team.resendInvite", () => {
   test("refuses an invite that is not open in this company", async () => {
     await expect(resend(undefined)).rejects.toThrow("no longer open");
   });
+
+  test("mails nobody who has joined the company meanwhile", async () => {
+    const attempt = resend(
+      {
+        token: "first-mail",
+        status: "pending",
+        expiresAt: new Date(Date.now() + DAY_MS),
+        email: "anna@example.test",
+      },
+      true,
+    );
+    await expect(attempt).rejects.toThrow("already a member");
+  });
 });
 
 describe("team.listInvites", () => {
@@ -514,7 +546,8 @@ describe("team.listInvites", () => {
       ["assignmentContext", "email", "expiresAt", "id", "token"].sort(),
     );
     expect(Object.keys(listed[0] ?? {}).sort()).toEqual(
-      ["email", "expired", "expiresAt", "id", "role", "token"].sort(),
+      ["email", "expired", "expiresAt", "id", "inviteUrl", "role"].sort(),
     );
+    expect(listed[0]?.inviteUrl.endsWith("/invite/t-open")).toBe(true);
   });
 });

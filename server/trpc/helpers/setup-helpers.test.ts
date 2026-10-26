@@ -5,7 +5,26 @@
  */
 import { describe, expect, test } from "bun:test";
 import type { DbOrTx } from "@/lib/db";
-import { processTeamRoleAssignments } from "./setup-helpers";
+import { companySetupInput, processTeamRoleAssignments } from "./setup-helpers";
+
+describe("companySetupInput", () => {
+  const company = { name: "Acme", sector: "energy", entityType: "important" } as const;
+  const withTeam = (teamRoles: unknown) => companySetupInput.safeParse({ ...company, teamRoles });
+
+  test("takes only the known roles, since everyone named is mailed", () => {
+    expect(withTeam([{ roleKey: "dpo", email: "dana@example.test" }]).success).toBe(true);
+    expect(withTeam([{ roleKey: "intern", email: "x@example.test" }]).success).toBe(false);
+  });
+
+  test("names at most one person per role", () => {
+    const many = Array.from({ length: 9 }, (_, i) => ({
+      roleKey: "ceo",
+      email: `p${i}@example.test`,
+    }));
+    expect(withTeam(many.slice(0, 8)).success).toBe(true);
+    expect(withTeam(many).success).toBe(false);
+  });
+});
 
 function fakeDb() {
   const invites: { email: string; token: string; assignmentContext: unknown }[] = [];
@@ -27,10 +46,8 @@ const setup = (db: DbOrTx, teamRoles: { roleKey: string; email: string }[]) =>
   processTeamRoleAssignments(db, {
     teamRoles,
     companyId: "company-1",
-    companyName: "Acme",
     userId: "user-1",
     userEmail: "owner@example.test",
-    userName: "Olga Owner",
     frameworkAssessmentMap: new Map(),
   });
 

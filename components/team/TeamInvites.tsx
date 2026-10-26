@@ -27,13 +27,14 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "@/i18n/navigation";
 import { ALL_ROLE_KEYS, type RoleKey } from "@/lib/compliance/role-keys";
+import { INVITE_EXPIRY_DAYS } from "@/lib/organization/invite-state";
 import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
 
 export interface Invite {
   id: string;
   email: string;
-  token: string;
+  inviteUrl: string;
   expiresAt: Date;
   expired: boolean;
   role: RoleKey | null;
@@ -66,7 +67,9 @@ export function InvitesCard({ invites }: { invites: Invite[] }) {
       {
         onSuccess: (data) => {
           if (data.emailed) {
-            toast.success(t("invites.resent", { email: invite.email }));
+            toast.success(
+              t("invites.resent", { email: invite.email, days: INVITE_EXPIRY_DAYS }),
+            );
           } else {
             toast.warning(t("invites.resentNotEmailed", { email: invite.email }));
           }
@@ -76,7 +79,7 @@ export function InvitesCard({ invites }: { invites: Invite[] }) {
     );
 
   const copyLink = (invite: Invite) => {
-    navigator.clipboard.writeText(`${window.location.origin}/invite/${invite.token}`);
+    navigator.clipboard.writeText(invite.inviteUrl);
     toast.success(t("invites.linkCopied"));
   };
 

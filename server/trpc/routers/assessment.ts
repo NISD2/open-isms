@@ -332,10 +332,8 @@ export const assessmentRouter = router({
             ? await processTeamRoleAssignments(tx, {
                 teamRoles: input.teamRoles,
                 companyId,
-                companyName: input.name,
                 userId: ctx.userId,
                 userEmail: ctx.session.user.email ?? undefined,
-                userName: ctx.session.user.name ?? undefined,
                 frameworkAssessmentMap,
               })
             : [];
@@ -347,9 +345,9 @@ export const assessmentRouter = router({
       await mailTeamRoleInvites(result.teamInvites, {
         companyId: result.companyId,
         companyName: input.name,
-        userId: ctx.userId,
-        userEmail: ctx.session.user.email ?? undefined,
-        userName: ctx.session.user.name ?? undefined,
+        actorId: ctx.userId,
+        name: ctx.session.user.name,
+        email: ctx.session.user.email,
       });
 
       for (const [, assessmentId] of result.frameworkAssessmentMap) {

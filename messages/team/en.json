@@ -23,7 +23,7 @@
       "copyLink": "Copy link",
       "sendAgain": "Send again",
       "withdraw": "Withdraw",
-      "resent": "Invite sent again to {email}. The link works for 7 more days.",
+      "resent": "Invite sent again to {email}. The link works for {days} more days.",
       "resentNotEmailed": "The email to {email} did not go out. Copy the link and send it to them yourself.",
       "linkCopied": "Link copied"
     },
@@ -67,7 +67,7 @@
     "usedTitle": "Invite Already Used",
     "usedDescription": "This invite has already been accepted or revoked.",
     "acceptedTitle": "Invite already accepted",
-    "acceptedDescription": "This invite has been accepted. Sign in to open {company}.",
+    "acceptedDescription": "This invite has been accepted. Sign in with the invited address to continue.",
     "revokedTitle": "Invite withdrawn",
     "revokedDescription": "This invite was withdrawn. Ask the person who invited you to send a new one.",
     "expiredTitle": "Invite Expired",

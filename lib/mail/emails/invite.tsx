@@ -11,6 +11,22 @@ export interface InviteProps {
 }
 
 /**
+ * The labels the English team page shows for each role (messages/team/en.json, team.roles); a
+ * plain member reads "as a member". Without them the sentence printed the key ("as hr_director").
+ */
+const ENGLISH_ROLE: Readonly<Record<string, string>> = {
+  member: "a member",
+  ceo: "CEO / Managing Director",
+  ciso: "CISO / IT Security Officer",
+  cto: "CTO / Head of Engineering",
+  coo: "COO / Operations Director",
+  cpo: "CPO / Procurement Lead",
+  hr_director: "HR Director",
+  legal: "Legal / Compliance Officer",
+  dpo: "Data Protection Officer",
+};
+
+/**
  * The labels the Czech team page shows for each role (messages/team/cs.json, team.roles and
  * team.memberRole.member).
  */
@@ -56,7 +72,7 @@ export const INVITE_COPY: Record<
       lead: `${inviterName} has invited you to join `,
       company: companyName,
       as: " as ",
-      role,
+      role: ENGLISH_ROLE[role] ?? role,
       end: " on the NIS2 Compliance Platform.",
     }),
     click: "Click the button below to accept and get started.",

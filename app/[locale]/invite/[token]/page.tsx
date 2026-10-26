@@ -32,10 +32,8 @@ export default async function InvitePage({ params }: Props) {
   if (!invite || state !== "open") {
     const [title, description] =
       state === "accepted"
-        ? [
-            t("acceptedTitle"),
-            t("acceptedDescription", { company: invite?.company.name ?? "" }),
-          ]
+        ? // No company name: a used link stays readable long after, by whoever holds it.
+          [t("acceptedTitle"), t("acceptedDescription")]
         : state === "revoked"
           ? [t("revokedTitle"), t("revokedDescription")]
           : state === "expired"

@@ -3,6 +3,9 @@
  * pending list, the procedures that send and renew invites, and the platform admin's list.
  */
 
+/** How long an invite link works, from the moment it is sent or sent again. */
+export const INVITE_EXPIRY_DAYS = 7;
+
 /** An invite stops working at the instant it expires. */
 export const isInviteExpired = (expiresAt: Date, now: Date): boolean => expiresAt <= now;
 

@@ -1,16 +1,15 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray, ne, or, sql } from "drizzle-orm";
 import { z } from "zod";
-import { getPathname } from "@/i18n/navigation";
 import { logAudit } from "@/lib/audit";
 import { holderOf } from "@/lib/billing/accounts";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
-import { MANAGEMENT_ROLE, walkLocaleOf } from "@/lib/durchgang/types";
+import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { LOCALE_CODES } from "@/lib/locale";
-import { managementHandoffEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
+import { memberRemovedEmail, sendMail } from "@/lib/mail";
 import { wasDelivered } from "@/lib/mail/delivery";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
@@ -43,12 +42,18 @@ import {
   user,
 } from "@/schema";
 import {
-  INVITE_EXPIRY_DAYS,
   invitedRoleOf,
+  inviteUrlOf,
   issueInvite,
   renewInvite,
 } from "../helpers/company-invite";
-import { mailInvite, mailTeamInvite } from "../helpers/invite-mail";
+import {
+  inviteSenderOf,
+  mailManagementHandoff,
+  mailRenewedInvite,
+  mailTeamInvite,
+  managementHandoffPath,
+} from "../helpers/invite-mail";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
 import { discardDraftCompany } from "../helpers/setup-helpers";
@@ -156,7 +161,8 @@ export const teamRouter = router({
     return rows.map((row) => ({
       id: row.id,
       email: row.email,
-      token: row.token,
+      // The link as the mail carries it, so a copied link is the same one.
+      inviteUrl: inviteUrlOf(row.token),
       expiresAt: row.expiresAt,
       expired: isInviteExpired(row.expiresAt, now),
       role: invitedRoleOf(row.assignmentContext),
@@ -201,8 +207,8 @@ export const teamRouter = router({
       // Awaited: the row and the token are real either way, but only the send says whether the
       // person will hear of it. Where it did not leave (no transport on a self-hosted instance, a
       // failed send) the UI says so and hands over the link instead of reporting a send.
-      const emailed = await mailTeamInvite(ctx, {
-        email,
+      const emailed = await mailTeamInvite(await inviteSenderOf(ctx), {
+        to: email,
         inviteUrl,
         role: input.complianceRole ?? "member",
       });
@@ -230,11 +236,7 @@ export const teamRouter = router({
         });
       }
 
-      const emailed = await mailTeamInvite(ctx, {
-        email: renewed.email,
-        inviteUrl: renewed.inviteUrl,
-        role: renewed.role ?? "member",
-      });
+      const emailed = await mailRenewedInvite(await inviteSenderOf(ctx), renewed);
       return { inviteUrl: renewed.inviteUrl, emailed };
     }),
 
@@ -270,31 +272,15 @@ export const teamRouter = router({
         companyId: ctx.companyId,
         invitedBy: ctx.userId,
         email,
-        redirectPath: inviteRedirectPath(
-          getPathname({ href: "/pricing/approval", locale: input.locale }),
-        ),
+        redirectPath: managementHandoffPath(input.locale),
         complianceRole: MANAGEMENT_ROLE,
       });
 
-      const companyRow = await ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: { name: true },
-      });
-
-      const emailed = await mailInvite({
-        companyId: ctx.companyId,
-        actorId: ctx.userId,
+      const emailed = await mailManagementHandoff(await inviteSenderOf(ctx), {
         to: email,
-        content: () =>
-          managementHandoffEmail({
-            locale: walkLocaleOf(input.locale),
-            name: input.name,
-            inviterName: ctx.session.user.name ?? null,
-            companyName: companyRow?.name ?? null,
-            inviteUrl,
-            days: INVITE_EXPIRY_DAYS,
-          }),
-        sentDescription: `Management invite email sent to ${email}`,
+        inviteUrl,
+        name: input.name,
+        locale: input.locale,
       });
 
       return { emailed };
@@ -591,7 +577,8 @@ export const teamRouter = router({
           sendMail({ emailType: "account.member_removed", to: member.email, ...content }),
         )
         .then((r) => {
-          // Only a mail that left: a suppressed send also reports success.
+          // Only a mail that left: a suppressed send also reports success. `r.success` is there to
+          // narrow the type for `r.id`; `wasDelivered` decides.
           if (r.success && wasDelivered(r)) {
             logAudit({
               companyId: ctx.companyId,

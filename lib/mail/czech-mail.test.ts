@@ -231,7 +231,17 @@ describe("other readers keep the mail they had", () => {
       role: "member",
     });
     expect(mail.text).toContain(
-      "Anna Schmidt has invited you to join Stadtwerke as member on the NIS2 Compliance Platform.",
+      "Anna Schmidt has invited you to join Stadtwerke as a member on the NIS2 Compliance Platform.",
     );
+  });
+
+  test("the English invitation names a compliance role by its label, not its key", async () => {
+    const mail = await t.inviteEmail({
+      companyName: "Stadtwerke",
+      inviterName: "Anna Schmidt",
+      inviteUrl: "https://nisd2.eu/invite/x",
+      role: "hr_director",
+    });
+    expect(mail.text).toContain("as HR Director on the NIS2 Compliance Platform.");
   });
 });

@@ -10,7 +10,6 @@ import {
   type RoleKey,
 } from "@/lib/compliance/role-mapping";
 import type { Database, DbOrTx } from "@/lib/db";
-import { accountEmailLocale, inviteEmail } from "@/lib/mail";
 import { joinCompany } from "@/lib/organization/membership";
 import {
   categoryAssignment,
@@ -28,7 +27,7 @@ import {
   inviteUrlOf,
   newInviteToken,
 } from "./company-invite";
-import { mailInvite } from "./invite-mail";
+import { type InviteSender, mailTeamInvite } from "./invite-mail";
 
 /** What `assessment.createCompanyAndAssessment` takes: the company's identity and its named team. */
 export const companySetupInput = z.object({
@@ -46,14 +45,16 @@ export const companySetupInput = z.object({
   bsiRegistrationId: z.string().max(100).optional(),
   annualSecurityBudget: z.string().optional(),
   primaryLocations: z.string().max(1000).optional(),
+  // Each named person is invited and mailed, so only the known roles, one person each at most.
   teamRoles: z
     .array(
       z.object({
-        roleKey: z.string(),
+        roleKey: z.enum(ALL_ROLE_KEYS),
         name: z.string().max(255).optional(),
         email: z.string().email(),
       }),
     )
+    .max(ALL_ROLE_KEYS.length)
     .optional(),
 });
 
@@ -220,10 +221,8 @@ export async function processTeamRoleAssignments(
   opts: {
     teamRoles: { roleKey: string; name?: string; email: string }[];
     companyId: string;
-    companyName: string;
     userId: string;
     userEmail: string | undefined;
-    userName: string | undefined;
     frameworkAssessmentMap: Map<string, string>;
   },
 ): Promise<TeamRoleInvite[]> {
@@ -350,35 +349,15 @@ export interface TeamRoleInvite {
  */
 export async function mailTeamRoleInvites(
   invites: readonly TeamRoleInvite[],
-  sender: {
-    readonly companyId: string;
-    readonly companyName: string;
-    readonly userId: string;
-    readonly userEmail: string | undefined;
-    readonly userName: string | undefined;
-  },
+  sender: InviteSender,
 ): Promise<void> {
-  if (invites.length === 0) return;
-  const locale = sender.userEmail
-    ? await accountEmailLocale(sender.userEmail).catch(() => undefined)
-    : undefined;
-
   await Promise.all(
     invites.map((invite) =>
-      mailInvite({
-        companyId: sender.companyId,
-        actorId: sender.userId,
+      mailTeamInvite(sender, {
         to: invite.email,
-        content: () =>
-          inviteEmail({
-            companyName: sender.companyName,
-            inviterName: sender.userName ?? "Your team admin",
-            inviteUrl: invite.inviteUrl,
-            // The one role the person was named for, as the team page's invite says it.
-            role:
-              invitedRoleOf({ roleKeys: invite.roleKeys, categoryIds: [] }) ?? "member",
-            locale,
-          }),
+        inviteUrl: invite.inviteUrl,
+        // The one role the person was named for, as the team page's invite says it.
+        role: invitedRoleOf({ roleKeys: invite.roleKeys, categoryIds: [] }) ?? "member",
         sentDescription: `Team role invite sent to ${invite.email} (${invite.roleKeys.join(", ")})`,
       }),
     ),
