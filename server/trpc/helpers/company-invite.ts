@@ -9,6 +9,7 @@ import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { ALL_ROLE_KEYS, type RoleKey } from "@/lib/compliance/role-keys";
 import type { Database, DbOrTx } from "@/lib/db";
+import { reusableInviteToken } from "@/lib/organization/invite-state";
 import { isMemberOf } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import { companyInvite, user } from "@/schema";
@@ -16,6 +17,13 @@ import { verifyAssessmentOwnership } from "../guards";
 import { resolveRoleAssignments } from "./resolve-role-assignments";
 
 export const INVITE_EXPIRY_DAYS = 7;
+
+export const newInviteToken = (): string => randomBytes(32).toString("hex");
+
+export const inviteExpiryFrom = (now: Date): Date =>
+  new Date(now.getTime() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+
+export const inviteUrlOf = (token: string): string => `${getAppUrl()}/invite/${token}`;
 
 const batchAssignmentSchema = z.object({
   roleKeys: z.array(z.string()),
@@ -100,10 +108,19 @@ export async function issueInvite(
       }
     : (input.assignmentContext ?? null);
 
-  const token = randomBytes(32).toString("hex");
-  const expiresAt = new Date(Date.now() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+  // One row per company and address. Inviting the address again keeps a still-working link, so
+  // the mail the person already has is not silently replaced by the new one.
+  const now = new Date();
+  const existing = await db.query.companyInvite.findFirst({
+    where: and(
+      eq(companyInvite.companyId, input.companyId),
+      eq(companyInvite.email, email),
+    ),
+    columns: { token: true, status: true, expiresAt: true },
+  });
+  const token = reusableInviteToken(existing, now) ?? newInviteToken();
+  const expiresAt = inviteExpiryFrom(now);
 
-  // Upsert: if a pending invite exists for this email+company, reset it
   const [invite] = await db
     .insert(companyInvite)
     .values({
@@ -131,7 +148,55 @@ export async function issueInvite(
     .returning({ id: companyInvite.id });
   if (!invite) throw new Error("company invite upsert returned no row");
 
-  return { inviteId: invite.id, token, inviteUrl: `${getAppUrl()}/invite/${token}` };
+  return { inviteId: invite.id, token, inviteUrl: inviteUrlOf(token) };
+}
+
+/**
+ * Send an open invite of this company again: seven more days from now, the same link while it
+ * still works and a new one once it has expired. Who sent it first stays recorded, because that
+ * decides who may order for the company (`acceptedInviteOf`). Null for an invite that is not this
+ * company's or no longer open.
+ */
+export async function renewInvite(
+  db: Database,
+  input: { readonly inviteId: string; readonly companyId: string },
+): Promise<{
+  readonly email: string;
+  readonly inviteUrl: string;
+  readonly role: RoleKey | null;
+} | null> {
+  const open = and(
+    eq(companyInvite.id, input.inviteId),
+    eq(companyInvite.companyId, input.companyId),
+    eq(companyInvite.status, "pending"),
+  );
+  const invite = await db.query.companyInvite.findFirst({
+    where: open,
+    columns: {
+      token: true,
+      status: true,
+      expiresAt: true,
+      email: true,
+      assignmentContext: true,
+    },
+  });
+  if (!invite) return null;
+
+  const now = new Date();
+  const token = reusableInviteToken(invite, now) ?? newInviteToken();
+  const [renewed] = await db
+    .update(companyInvite)
+    .set({ token, expiresAt: inviteExpiryFrom(now) })
+    // Re-checked in the write: withdrawn or accepted since it was read means there is nothing to send.
+    .where(open)
+    .returning({ id: companyInvite.id });
+  if (!renewed) return null;
+
+  return {
+    email: invite.email,
+    inviteUrl: inviteUrlOf(token),
+    role: invitedRoleOf(invite.assignmentContext),
+  };
 }
 
 /**

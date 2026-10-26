@@ -268,6 +268,7 @@ async function storedRedirectPath(redirectPath: string) {
     query: {
       user: { findFirst: async () => undefined },
       company: { findFirst: async () => ({ name: "Acme" }) },
+      companyInvite: { findFirst: async () => undefined },
     },
     // isMemberOf builds a subquery from this; nothing reads it.
     select: () => ({ from: () => ({ where: () => ({}) }) }),
@@ -318,5 +319,202 @@ describe("team.invite", () => {
       expect(stored.values).toMatchObject({ redirectPath: "/" });
       expect(stored.set).toMatchObject({ redirectPath: "/" });
     }
+  });
+});
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+const INVITE_ID = "44444444-4444-4444-8444-444444444444";
+
+const adminCaller = (db: unknown) =>
+  createCallerFactory(teamRouter)({
+    db: db as TRPCContext["db"],
+    session: {
+      role: "admin",
+      accessLevel: "full",
+      user: { name: "Olga Owner" },
+    } as TRPCContext["session"],
+    userId: OWNER,
+    companyId: COMPANY,
+    ip: "test",
+    userAgent: null,
+  } as TRPCContext);
+
+type ExistingInvite = { token: string; status: string; expiresAt: Date };
+
+/** `invite` to an address that already has a row in this company. */
+async function reinvite(existing: ExistingInvite) {
+  const stored: { values?: { token?: string }; set?: { token?: string } } = {};
+  const db = {
+    query: {
+      user: { findFirst: async () => undefined },
+      company: { findFirst: async () => ({ name: "Acme" }) },
+      companyInvite: { findFirst: async () => existing },
+    },
+    select: () => ({ from: () => ({ where: () => ({}) }) }),
+    insert: () => ({
+      values: (values: { token?: string }) => {
+        stored.values = values;
+        return {
+          onConflictDoUpdate: ({ set }: { set: { token?: string } }) => {
+            stored.set = set;
+            return { returning: async () => [{ id: "invite-1" }] };
+          },
+        };
+      },
+    }),
+  };
+  const result = await adminCaller(db).invite({ email: "anna@example.test" });
+  return { stored, result };
+}
+
+describe("team.invite to an address invited before", () => {
+  test("keeps the link of the invite still open, so the first mail keeps working", async () => {
+    const { stored, result } = await reinvite({
+      token: "first-mail",
+      status: "pending",
+      expiresAt: new Date(Date.now() + DAY_MS),
+    });
+    expect(stored.values?.token).toBe("first-mail");
+    expect(stored.set?.token).toBe("first-mail");
+    expect(result.inviteUrl.endsWith("/invite/first-mail")).toBe(true);
+  });
+
+  test("issues a new link once the old one has expired", async () => {
+    const { stored } = await reinvite({
+      token: "first-mail",
+      status: "pending",
+      expiresAt: new Date(Date.now() - DAY_MS),
+    });
+    expect(stored.set?.token).not.toBe("first-mail");
+    expect(stored.set?.token).toHaveLength(64);
+  });
+
+  test("issues a new link after a withdrawal, so the withdrawn one stays dead", async () => {
+    const { stored } = await reinvite({
+      token: "first-mail",
+      status: "revoked",
+      expiresAt: new Date(Date.now() + DAY_MS),
+    });
+    expect(stored.set?.token).not.toBe("first-mail");
+  });
+});
+
+/** `resendInvite` over one stored invite, or none. */
+async function resend(stored: (ExistingInvite & { email: string }) | undefined) {
+  const writes: { set: { token: string; expiresAt: Date }; params: unknown[] }[] = [];
+  const db = {
+    query: {
+      company: { findFirst: async () => ({ name: "Acme" }) },
+      companyInvite: {
+        findFirst: async () =>
+          stored && {
+            ...stored,
+            assignmentContext: { roleKeys: ["ceo"], categoryIds: [] },
+          },
+      },
+    },
+    update: () => ({
+      set: (set: { token: string; expiresAt: Date }) => ({
+        where: (where: SQL) => ({
+          returning: async () => {
+            writes.push({ set, params: new PgDialect().sqlToQuery(where).params });
+            return [{ id: INVITE_ID }];
+          },
+        }),
+      }),
+    }),
+  };
+  const result = await adminCaller(db).resendInvite({ inviteId: INVITE_ID });
+  return { result, writes };
+}
+
+describe("team.resendInvite", () => {
+  test("an open invite keeps its link and gets seven more days", async () => {
+    const before = Date.now();
+    const { result, writes } = await resend({
+      token: "first-mail",
+      status: "pending",
+      expiresAt: new Date(before + DAY_MS),
+      email: "anna@example.test",
+    });
+    expect(result.inviteUrl.endsWith("/invite/first-mail")).toBe(true);
+    expect(writes[0]?.set.token).toBe("first-mail");
+    expect(writes[0]?.set.expiresAt.getTime()).toBeGreaterThanOrEqual(
+      before + 7 * DAY_MS,
+    );
+  });
+
+  test("an expired invite gets a new link", async () => {
+    const { result, writes } = await resend({
+      token: "first-mail",
+      status: "pending",
+      expiresAt: new Date(Date.now() - DAY_MS),
+      email: "anna@example.test",
+    });
+    expect(writes[0]?.set.token).not.toBe("first-mail");
+    expect(result.inviteUrl.endsWith(`/invite/${writes[0]?.set.token}`)).toBe(true);
+  });
+
+  test("writes only to an open invite of the caller's own company", async () => {
+    const { writes } = await resend({
+      token: "first-mail",
+      status: "pending",
+      expiresAt: new Date(Date.now() + DAY_MS),
+      email: "anna@example.test",
+    });
+    expect(writes[0]?.params).toEqual(
+      expect.arrayContaining([INVITE_ID, COMPANY, "pending"]),
+    );
+  });
+
+  test("refuses an invite that is not open in this company", async () => {
+    await expect(resend(undefined)).rejects.toThrow("no longer open");
+  });
+});
+
+describe("team.listInvites", () => {
+  test("says which links have expired and hands over nothing but what the page shows", async () => {
+    const now = Date.now();
+    const rows = [
+      {
+        id: "a",
+        email: "open@example.test",
+        token: "t-open",
+        expiresAt: new Date(now + DAY_MS),
+        assignmentContext: {
+          roleKeys: ["cto"],
+          categoryIds: ["55555555-5555-4555-8555-555555555555"],
+        },
+      },
+      {
+        id: "b",
+        email: "late@example.test",
+        token: "t-late",
+        expiresAt: new Date(now - DAY_MS),
+        assignmentContext: null,
+      },
+    ];
+    let columns: unknown;
+    const db = {
+      query: {
+        companyInvite: {
+          findMany: async (opts: { columns: unknown }) => {
+            columns = opts.columns;
+            return rows;
+          },
+        },
+      },
+    };
+    const listed = await adminCaller(db).listInvites();
+    expect(listed.map((i) => [i.email, i.expired, i.role])).toEqual([
+      ["open@example.test", false, "cto"],
+      ["late@example.test", true, null],
+    ]);
+    expect(Object.keys(columns as object).sort()).toEqual(
+      ["assignmentContext", "email", "expiresAt", "id", "token"].sort(),
+    );
+    expect(Object.keys(listed[0] ?? {}).sort()).toEqual(
+      ["email", "expired", "expiresAt", "id", "role", "token"].sort(),
+    );
   });
 });

@@ -4,7 +4,10 @@ import { AcceptInviteCard } from "@/components/invite/AcceptInviteCard";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
-import { company, companyInvite } from "@/schema";
+import { inviteLinkState } from "@/lib/organization/invite-state";
+import { asMembershipRole } from "@/lib/organization/membership";
+import { companyInvite } from "@/schema";
+import { invitedRoleOf } from "@/server/trpc/helpers/company-invite";
 
 interface Props {
   params: Promise<{ token: string }>;
@@ -22,30 +25,36 @@ export default async function InvitePage({ params }: Props) {
     },
   });
 
-  if (!invite) {
-    return (
-      <CenteredCard title={t("invalidTitle")} description={t("invalidDescription")} />
-    );
-  }
-
-  if (invite.status !== "pending") {
-    return <CenteredCard title={t("usedTitle")} description={t("usedDescription")} />;
-  }
-
-  if (invite.expiresAt < new Date()) {
-    return (
-      <CenteredCard title={t("expiredTitle")} description={t("expiredDescription")} />
-    );
+  const state = inviteLinkState(invite, new Date());
+  if (!invite || state !== "open") {
+    const [title, description] =
+      state === "accepted"
+        ? [
+            t("acceptedTitle"),
+            t("acceptedDescription", { company: invite?.company.name ?? "" }),
+          ]
+        : state === "revoked"
+          ? [t("revokedTitle"), t("revokedDescription")]
+          : state === "expired"
+            ? [t("expiredTitle"), t("expiredDescription")]
+            : [t("invalidTitle"), t("invalidDescription")];
+    return <CenteredCard title={title} description={description} />;
   }
 
   const session = await getSession();
+  // The compliance role the person was invited for names the invite better than the access role,
+  // which is "member" for every invite sent today.
+  const complianceRole = invitedRoleOf(invite.assignmentContext);
+  const roleLabel = complianceRole
+    ? t(`roles.${complianceRole}`)
+    : t(`memberRole.${asMembershipRole(invite.role) ?? "member"}`);
 
   return (
     <AcceptInviteCard
       token={token}
       inviteEmail={invite.email}
       companyName={invite.company.name}
-      role={invite.role}
+      roleLabel={roleLabel}
       redirectPath={inviteRedirectPath(invite.redirectPath)}
       userEmail={session?.user.email ?? null}
       isSignedIn={!!session}

@@ -51,7 +51,9 @@ import {
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 import { rosteredOf } from "../helpers/roster";
 import {
+  companySetupInput,
   createAssessmentsForFrameworks,
+  mailTeamRoleInvites,
   processTeamRoleAssignments,
 } from "../helpers/setup-helpers";
 import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
@@ -204,33 +206,7 @@ export const assessmentRouter = router({
   // ---------------------------------------------------------------------------
 
   createCompanyAndAssessment: protectedProcedure
-    .input(
-      z.object({
-        name: z.string().min(1).max(255),
-        sector: z.string().min(1).max(255),
-        entityType: z.enum(["essential", "important", "kritis"]),
-        legalForm: z.string().max(100).optional(),
-        employeeCount: z.number().int().positive().optional(),
-        contactEmail: z.string().email().optional(),
-        cisoName: z.string().max(255).optional(),
-        cisoReportsTo: z.string().max(255).optional(),
-        bsiContactName: z.string().max(255).optional(),
-        bsiContactEmail: z.string().email().optional(),
-        bsiContactPhone: z.string().max(50).optional(),
-        bsiRegistrationId: z.string().max(100).optional(),
-        annualSecurityBudget: z.string().optional(),
-        primaryLocations: z.string().max(1000).optional(),
-        teamRoles: z
-          .array(
-            z.object({
-              roleKey: z.string(),
-              name: z.string().max(255).optional(),
-              email: z.string().email(),
-            }),
-          )
-          .optional(),
-      }),
-    )
+    .input(companySetupInput)
     .mutation(async ({ ctx, input }) => {
       // Every verified user auto-gets a DRAFT company at email verification, so
       // "already has a company" no longer means "already onboarded". Only an
@@ -351,19 +327,29 @@ export const assessmentRouter = router({
           firstAssessmentId = created.firstAssessmentId;
         }
 
-        if (input.teamRoles && input.teamRoles.length > 0) {
-          await processTeamRoleAssignments(tx, {
-            teamRoles: input.teamRoles,
-            companyId,
-            companyName: input.name,
-            userId: ctx.userId,
-            userEmail: ctx.session.user.email ?? undefined,
-            userName: ctx.session.user.name ?? undefined,
-            frameworkAssessmentMap,
-          });
-        }
+        const teamInvites =
+          input.teamRoles && input.teamRoles.length > 0
+            ? await processTeamRoleAssignments(tx, {
+                teamRoles: input.teamRoles,
+                companyId,
+                companyName: input.name,
+                userId: ctx.userId,
+                userEmail: ctx.session.user.email ?? undefined,
+                userName: ctx.session.user.name ?? undefined,
+                frameworkAssessmentMap,
+              })
+            : [];
 
-        return { firstAssessmentId, companyId, frameworkAssessmentMap };
+        return { firstAssessmentId, companyId, frameworkAssessmentMap, teamInvites };
+      });
+
+      // After the commit, so nobody is mailed a link to an invite that was rolled back.
+      await mailTeamRoleInvites(result.teamInvites, {
+        companyId: result.companyId,
+        companyName: input.name,
+        userId: ctx.userId,
+        userEmail: ctx.session.user.email ?? undefined,
+        userName: ctx.session.user.name ?? undefined,
       });
 
       for (const [, assessmentId] of result.frameworkAssessmentMap) {

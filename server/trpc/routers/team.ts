@@ -10,17 +10,11 @@ import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { MANAGEMENT_ROLE, walkLocaleOf } from "@/lib/durchgang/types";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { LOCALE_CODES } from "@/lib/locale";
-import {
-  accountEmailLocale,
-  inviteEmail,
-  managementHandoffEmail,
-  memberRemovedEmail,
-  sendMail,
-} from "@/lib/mail";
-import { isSuppressedSendId } from "@/lib/mail/delivery";
+import { managementHandoffEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
+import { wasDelivered } from "@/lib/mail/delivery";
 import { resolveEmailLocale } from "@/lib/mail/locale";
-import { mailSuppressionReason } from "@/lib/mail/send";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
+import { isInviteExpired } from "@/lib/organization/invite-state";
 import {
   asMembershipRole,
   findMembershipRole,
@@ -52,7 +46,9 @@ import {
   INVITE_EXPIRY_DAYS,
   invitedRoleOf,
   issueInvite,
+  renewInvite,
 } from "../helpers/company-invite";
+import { mailInvite, mailTeamInvite } from "../helpers/invite-mail";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
 import { discardDraftCompany } from "../helpers/setup-helpers";
@@ -137,15 +133,34 @@ export const teamRouter = router({
     }));
   }),
 
-  /** List pending invites for the current company (admin only) */
+  /**
+   * The current company's open invites (admin only), each saying whether its link has expired, so
+   * the team page can offer to send it again instead of listing a dead link as pending.
+   */
   listInvites: adminProcedure.query(async ({ ctx }) => {
-    return ctx.db.query.companyInvite.findMany({
+    const rows = await ctx.db.query.companyInvite.findMany({
       where: and(
         eq(companyInvite.companyId, ctx.companyId),
         eq(companyInvite.status, "pending"),
       ),
+      columns: {
+        id: true,
+        email: true,
+        token: true,
+        expiresAt: true,
+        assignmentContext: true,
+      },
       orderBy: desc(companyInvite.createdAt),
     });
+    const now = new Date();
+    return rows.map((row) => ({
+      id: row.id,
+      email: row.email,
+      token: row.token,
+      expiresAt: row.expiresAt,
+      expired: isInviteExpired(row.expiresAt, now),
+      role: invitedRoleOf(row.assignmentContext),
+    }));
   }),
 
   /** Create an invite link (admin only) */
@@ -183,55 +198,44 @@ export const teamRouter = router({
         assignmentContext: input.assignmentContext,
       });
 
-      // Send invite email (fire-and-forget)
-      const companyRow = await ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: { name: true },
-      });
-      const inviterName = ctx.session.user.name ?? "Your team admin";
-      const emailRole = input.complianceRole ?? "member";
-
-      // Asked before sending, not after, because the send is fire-and-forget
-      // and the answer has to reach the caller. An instance with no transport
-      // (the BOOTSTRAP_ADMIN route, where the operator never configured mail)
-      // can still create the invite — the row and the token are real — but
-      // nobody will receive it, so the UI has to say so and offer the link
-      // instead of reporting a send that did not happen.
-      const emailed = mailSuppressionReason() === null;
-      // The mail's language must never cost the invite: an unreadable account sends the default.
-      const inviterEmail = ctx.session.user.email;
-      const locale = inviterEmail
-        ? await accountEmailLocale(inviterEmail).catch(() => undefined)
-        : undefined;
-
-      inviteEmail({
-        companyName: companyRow?.name ?? "your company",
-        inviterName,
+      // Awaited: the row and the token are real either way, but only the send says whether the
+      // person will hear of it. Where it did not leave (no transport on a self-hosted instance, a
+      // failed send) the UI says so and hands over the link instead of reporting a send.
+      const emailed = await mailTeamInvite(ctx, {
+        email,
         inviteUrl,
-        role: emailRole,
-        locale,
-      })
-        .then((content) =>
-          sendMail({ emailType: "account.invite", to: email, ...content }),
-        )
-        .then((r) => {
-          // isSuppressedSendId, not r.success: a suppressed send also reports
-          // success, and an audit trail claiming "invite email sent" for mail
-          // that never left the box is worse than no line at all.
-          if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
-            logAudit({
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-              action: "email.invite_sent",
-              entityType: "email",
-              entityId: r.id ?? null,
-              description: `Invite email sent to ${email}`,
-            });
-          }
-        })
-        .catch((err) => console.error("[team] invite email not sent", err));
+        role: input.complianceRole ?? "member",
+      });
 
       return { inviteId, token, inviteUrl, emailed };
+    }),
+
+  /**
+   * Send an open invite again (admin only): seven more days, the same link while it still works
+   * and a new one once it has expired. The invite must be this company's; capped like `invite`,
+   * since every send mails an address someone typed in.
+   */
+  resendInvite: adminProcedure
+    .input(z.object({ inviteId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      await enforceDailyInviteCap("invite", ctx.companyId, INVITE_LIMIT);
+      const renewed = await renewInvite(ctx.db, {
+        inviteId: input.inviteId,
+        companyId: ctx.companyId,
+      });
+      if (!renewed) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "This invite is no longer open.",
+        });
+      }
+
+      const emailed = await mailTeamInvite(ctx, {
+        email: renewed.email,
+        inviteUrl: renewed.inviteUrl,
+        role: renewed.role ?? "member",
+      });
+      return { inviteUrl: renewed.inviteUrl, emailed };
     }),
 
   /**
@@ -276,32 +280,22 @@ export const teamRouter = router({
         where: eq(company.id, ctx.companyId),
         columns: { name: true },
       });
-      const emailed = mailSuppressionReason() === null;
 
-      managementHandoffEmail({
-        locale: walkLocaleOf(input.locale),
-        name: input.name,
-        inviterName: ctx.session.user.name ?? null,
-        companyName: companyRow?.name ?? null,
-        inviteUrl,
-        days: INVITE_EXPIRY_DAYS,
-      })
-        .then((content) =>
-          sendMail({ emailType: "account.invite", to: email, ...content }),
-        )
-        .then((r) => {
-          if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
-            logAudit({
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-              action: "email.invite_sent",
-              entityType: "email",
-              entityId: r.id ?? null,
-              description: `Management invite email sent to ${email}`,
-            });
-          }
-        })
-        .catch((err) => console.error("[team] management invite email not sent", err));
+      const emailed = await mailInvite({
+        companyId: ctx.companyId,
+        actorId: ctx.userId,
+        to: email,
+        content: () =>
+          managementHandoffEmail({
+            locale: walkLocaleOf(input.locale),
+            name: input.name,
+            inviterName: ctx.session.user.name ?? null,
+            companyName: companyRow?.name ?? null,
+            inviteUrl,
+            days: INVITE_EXPIRY_DAYS,
+          }),
+        sentDescription: `Management invite email sent to ${email}`,
+      });
 
       return { emailed };
     }),
@@ -348,7 +342,7 @@ export const teamRouter = router({
         });
       }
 
-      if (invite.expiresAt < new Date()) {
+      if (isInviteExpired(invite.expiresAt, new Date())) {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "This invite has expired.",
@@ -597,7 +591,8 @@ export const teamRouter = router({
           sendMail({ emailType: "account.member_removed", to: member.email, ...content }),
         )
         .then((r) => {
-          if (r.success) {
+          // Only a mail that left: a suppressed send also reports success.
+          if (r.success && wasDelivered(r)) {
             logAudit({
               companyId: ctx.companyId,
               userId: ctx.userId,

@@ -15,6 +15,7 @@ const KEPT_PUBLIC = [
   "/anmelden",
   "/auth",
   "/gap-assessment/share",
+  "/invite",
   "/newsletter",
   "/partner-agreement",
 ];

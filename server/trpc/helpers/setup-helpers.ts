@@ -1,6 +1,5 @@
-import { randomBytes } from "node:crypto";
 import { eq, inArray } from "drizzle-orm";
-import { logAudit } from "@/lib/audit";
+import { z } from "zod";
 import {
   createBillingAccount,
   deleteBillingAccountIfUnused,
@@ -11,9 +10,8 @@ import {
   type RoleKey,
 } from "@/lib/compliance/role-mapping";
 import type { Database, DbOrTx } from "@/lib/db";
-import { accountEmailLocale, inviteEmail, sendMail } from "@/lib/mail";
+import { accountEmailLocale, inviteEmail } from "@/lib/mail";
 import { joinCompany } from "@/lib/organization/membership";
-import { getAppUrl } from "@/lib/utils";
 import {
   categoryAssignment,
   company,
@@ -24,8 +22,40 @@ import {
   requirementCategory,
   user,
 } from "@/schema";
+import {
+  invitedRoleOf,
+  inviteExpiryFrom,
+  inviteUrlOf,
+  newInviteToken,
+} from "./company-invite";
+import { mailInvite } from "./invite-mail";
 
-const INVITE_EXPIRY_DAYS = 7;
+/** What `assessment.createCompanyAndAssessment` takes: the company's identity and its named team. */
+export const companySetupInput = z.object({
+  name: z.string().min(1).max(255),
+  sector: z.string().min(1).max(255),
+  entityType: z.enum(["essential", "important", "kritis"]),
+  legalForm: z.string().max(100).optional(),
+  employeeCount: z.number().int().positive().optional(),
+  contactEmail: z.string().email().optional(),
+  cisoName: z.string().max(255).optional(),
+  cisoReportsTo: z.string().max(255).optional(),
+  bsiContactName: z.string().max(255).optional(),
+  bsiContactEmail: z.string().email().optional(),
+  bsiContactPhone: z.string().max(50).optional(),
+  bsiRegistrationId: z.string().max(100).optional(),
+  annualSecurityBudget: z.string().optional(),
+  primaryLocations: z.string().max(1000).optional(),
+  teamRoles: z
+    .array(
+      z.object({
+        roleKey: z.string(),
+        name: z.string().max(255).optional(),
+        email: z.string().email(),
+      }),
+    )
+    .optional(),
+});
 
 /**
  * Placeholder identity for an auto-provisioned draft company. name/sector/
@@ -196,7 +226,7 @@ export async function processTeamRoleAssignments(
     userName: string | undefined;
     frameworkAssessmentMap: Map<string, string>;
   },
-) {
+): Promise<TeamRoleInvite[]> {
   const allCategories = await db.query.requirementCategory.findMany();
   const slugMap = new Map<string, { categoryId: string; frameworkId: string }>();
   for (const cat of allCategories) {
@@ -237,13 +267,9 @@ export async function processTeamRoleAssignments(
   }
 
   const currentUserEmail = opts.userEmail?.toLowerCase();
-  const appUrl = getAppUrl();
-  const locale = opts.userEmail
-    ? await accountEmailLocale(opts.userEmail).catch(() => undefined)
-    : undefined;
+  const invites: TeamRoleInvite[] = [];
 
   for (const [email, { roleKeys, categoryIds }] of byEmail) {
-    if (categoryIds.size === 0) continue;
     const categoryIdArray = [...categoryIds];
 
     if (email === currentUserEmail) {
@@ -276,8 +302,10 @@ export async function processTeamRoleAssignments(
           });
       }
     } else {
-      const token = randomBytes(32).toString("hex");
-      const expiresAt = new Date(Date.now() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+      // Invited even when the role owns no category (the DPO owns none in NIS 2): accepting gives
+      // the person the role itself, as an invite from the team page does (`issueInvite`).
+      const token = newInviteToken();
+      const expiresAt = inviteExpiryFrom(new Date());
 
       await db
         .insert(companyInvite)
@@ -302,32 +330,57 @@ export async function processTeamRoleAssignments(
           },
         });
 
-      const inviteUrl = `${appUrl}/invite/${token}`;
-      const inviterName = opts.userName ?? "Your team admin";
-
-      inviteEmail({
-        companyName: opts.companyName,
-        inviterName,
-        inviteUrl,
-        role: "member",
-        locale,
-      })
-        .then((content) =>
-          sendMail({ emailType: "account.invite", to: email, ...content }),
-        )
-        .then((r) => {
-          if (r.success) {
-            logAudit({
-              companyId: opts.companyId,
-              userId: opts.userId,
-              action: "email.invite_sent",
-              entityType: "email",
-              entityId: r.id ?? null,
-              description: `Team role invite sent to ${email} (${roleKeys.join(", ")})`,
-            });
-          }
-        })
-        .catch((err) => console.error("[setup] invite email not sent", err));
+      invites.push({ email, inviteUrl: inviteUrlOf(token), roleKeys });
     }
   }
+
+  return invites;
+}
+
+/** An invite written by `processTeamRoleAssignments`, to mail once its transaction has committed. */
+export interface TeamRoleInvite {
+  readonly email: string;
+  readonly inviteUrl: string;
+  readonly roleKeys: readonly string[];
+}
+
+/**
+ * Mail the invites the setup wrote. Called after the transaction commits, so nobody is mailed a
+ * link to a row that was rolled back. Never throws.
+ */
+export async function mailTeamRoleInvites(
+  invites: readonly TeamRoleInvite[],
+  sender: {
+    readonly companyId: string;
+    readonly companyName: string;
+    readonly userId: string;
+    readonly userEmail: string | undefined;
+    readonly userName: string | undefined;
+  },
+): Promise<void> {
+  if (invites.length === 0) return;
+  const locale = sender.userEmail
+    ? await accountEmailLocale(sender.userEmail).catch(() => undefined)
+    : undefined;
+
+  await Promise.all(
+    invites.map((invite) =>
+      mailInvite({
+        companyId: sender.companyId,
+        actorId: sender.userId,
+        to: invite.email,
+        content: () =>
+          inviteEmail({
+            companyName: sender.companyName,
+            inviterName: sender.userName ?? "Your team admin",
+            inviteUrl: invite.inviteUrl,
+            // The one role the person was named for, as the team page's invite says it.
+            role:
+              invitedRoleOf({ roleKeys: invite.roleKeys, categoryIds: [] }) ?? "member",
+            locale,
+          }),
+        sentDescription: `Team role invite sent to ${invite.email} (${invite.roleKeys.join(", ")})`,
+      }),
+    ),
+  );
 }

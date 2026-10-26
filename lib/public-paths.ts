@@ -36,11 +36,13 @@
  *     match missed this because `supplier-onboarding` has no slash
  *     after `supplier`)
  *
- * /invite/[token] is also newly enforced. The invite page itself
- * renders a public "invalid/expired" card for missing tokens, so the
- * inversion changes UX slightly (signin redirect with callbackUrl
- * instead of the invalid-card page for unauthenticated visitors with a
- * good token), but the underlying acceptance flow stays gated.
+ * /invite/[token] was enforced here too until 26.10.2026, and that cost the invite: a colleague
+ * clicking the mail met a bare login form that named neither the company nor the address to use.
+ * It is public again, as below. The token in the link is the credential, as for the other token
+ * pages. What the card shows a visitor without a session (company, role, invited address), any
+ * signed-in account holding the token could already read (the wrong-account card names company
+ * and address), and accepting (`team.acceptInvite`) still needs the account the invite was sent
+ * to.
  *
  * A new public page is also a choice for the self-hosted image: lib/edition/edition.test.ts fails
  * until it is either nisd2.eu's alone (lib/edition/nisd2-only.json) or kept on installs.
@@ -119,4 +121,6 @@ export const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
   "/supplier-access",
   // Partner agreement — the token in the link is how a partner reads and accepts it
   "/partner-agreement",
+  // Team invite — says whose invite it is and which address to use before anyone signs in
+  "/invite",
 ];
