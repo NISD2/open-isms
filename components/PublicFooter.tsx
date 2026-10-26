@@ -1,6 +1,8 @@
 import { getTranslations } from "next-intl/server";
+import { AdsConsentSettingsLink } from "@/components/analytics/AdsConsentSettingsLink";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { Link } from "@/i18n/navigation";
+import { googleAdsConfig } from "@/lib/analytics/google-ads-config";
 
 /**
  * `variant="docs"` drops the locale switcher and nothing else. /docs is a
@@ -146,6 +148,11 @@ export async function PublicFooter({
                   {t("footer.datenschutz")}
                 </Link>
               </li>
+              {googleAdsConfig(process.env) && (
+                <li>
+                  <AdsConsentSettingsLink label={t("footer.adsSettings")} />
+                </li>
+              )}
               <li>
                 <Link
                   href="/avv"

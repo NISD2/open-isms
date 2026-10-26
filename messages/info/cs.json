@@ -941,15 +941,12 @@
       "analytics": {
         "heading": "Analytika",
         "p1": "Pro webovou analytiku používáme Umami. Umami je provozováno na naší vlastní infrastruktuře. Neshromažďuje osobní údaje, nepoužívá cookies a nesleduje jednotlivé uživatele. Všechny údaje jsou agregované a anonymní. Pro tento typ analytiky není vyžadován žádný souhlas.",
-        "p2": "Zvlášť: pokud se zaregistrujete přes odkaz s kampaňovými značkami (parametry začínající utm_, například z reklamy), uložíme tyto značky k vašemu účtu, abychom viděli, ze které reklamy nebo odkazu účet přišel. Nic dalšího z odkazu, například ID kliknutí, se neukládá. Právním základem je čl. 6 odst. 1 písm. f) GDPR, náš oprávněný zájem na tom, abychom mohli měřit, co naše reklama přináší."
+        "p2": "Zvlášť: pokud se zaregistrujete přes odkaz s kampaňovými značkami (parametry začínající utm_, například z reklamy), uložíme tyto značky k vašemu účtu, abychom viděli, ze které reklamy nebo odkazu účet přišel. ID kliknutí z reklamy Google neukládáme k vašemu účtu. Právním základem je čl. 6 odst. 1 písm. f) GDPR, náš oprávněný zájem na tom, abychom mohli měřit, co naše reklama přináší."
       },
       "cookies": {
         "heading": "Cookies",
-        "p1": "Tyto webové stránky používají pouze technicky nezbytné cookies:",
         "session": "Session cookie (NextAuth): vyžadováno pro ověřování, vyprší při odhlášení nebo po vypršení časového limitu relace",
-        "locale": "Locale cookie (next-intl): ukládá vaše jazykové preference (EN/DE)",
-        "p2": "Nepoužíváme sledovací cookies, reklamní cookies ani žádné cookies třetích stran. Banner se souhlasem s cookies není potřeba, protože se nastavují pouze technicky nezbytné cookies."
-      },
+        "locale": "Locale cookie (next-intl): ukládá vaše jazykové preference (EN/DE)"      },
       "rights": {
         "heading": "Vaše práva (čl. 15-21 GDPR)",
         "p1": "Ve vztahu ke svým osobním údajům máte následující práva:",

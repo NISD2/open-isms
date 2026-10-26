@@ -52,6 +52,23 @@ describe("buildCsp", () => {
     expect(frameSrc.split(" ")).toContain("https://cal.com");
   });
 
+  test("Google's measurement tag is allowed only where the operator set one", () => {
+    const set = buildCsp({
+      GOOGLE_ADS_TAG_ID: "AW-1234567890",
+      GOOGLE_ADS_CONVERSION_LABEL: "aB3",
+    });
+    const scriptSrc = set.split("; ").find((d) => d.startsWith("script-src ")) ?? "";
+    expect(scriptSrc).toContain("https://www.googletagmanager.com");
+    expect(set).toContain("https://www.googleadservices.com");
+    for (const unset of [
+      {},
+      { GOOGLE_ADS_TAG_ID: "AW-1234567890" },
+      { GOOGLE_ADS_TAG_ID: "x" },
+    ]) {
+      expect(buildCsp(unset)).not.toContain("googletagmanager");
+    }
+  });
+
   test("directives never carry a blank source", () => {
     expect(buildCsp({})).not.toMatch(/\s{2,}/);
     expect(buildCsp({})).not.toMatch(/;\s*;/);

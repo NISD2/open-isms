@@ -47,6 +47,7 @@ const rightKeys = [
 
 export default async function DatenschutzPage() {
   const t = await getTranslations("info");
+  const ads = await getTranslations("privacyAds");
 
   return (
     <article>
@@ -167,8 +168,18 @@ export default async function DatenschutzPage() {
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                 <span>{t("datenschutz.cookies.locale")}</span>
               </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <span>{ads("consent")}</span>
+              </li>
             </ul>
             <p>{t("datenschutz.cookies.p2")}</p>
+            <h3 className="pt-2 text-base font-semibold text-foreground">
+              {ads("heading")}
+            </h3>
+            <p>{ads("tag")}</p>
+            <p>{ads("asked")}</p>
+            <p>{ads("basis")}</p>
           </CardContent>
         </Card>
       </section>

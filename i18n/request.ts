@@ -49,6 +49,7 @@ const namespaces = [
   "policyGuides",
   "policy-config",
   "pricing",
+  "privacyAds",
   "processingActivities",
   "portal",
   "requirements",

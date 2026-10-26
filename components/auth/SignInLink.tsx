@@ -2,6 +2,7 @@
 
 import { type ComponentProps, useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { REGISTRATION_STARTED_EVENT } from "@/lib/analytics/ads-consent";
 import { campaignTags, FROM_PATH_KEY, originPath } from "@/lib/analytics/token-routes";
 
 type Query = Readonly<Record<string, string>>;
@@ -14,6 +15,7 @@ type Query = Readonly<Record<string, string>>;
  */
 export function SignInLink({
   query,
+  onClick,
   ...props
 }: Omit<ComponentProps<typeof Link>, "href"> & { readonly query?: Query }) {
   const [tags, setTags] = useState<Query>({});
@@ -25,6 +27,15 @@ export function SignInLink({
     });
   }, []);
   return (
-    <Link {...props} href={{ pathname: "/auth/signin", query: { ...query, ...tags } }} />
+    <Link
+      {...props}
+      href={{ pathname: "/auth/signin", query: { ...query, ...tags } }}
+      onClick={(event) => {
+        onClick?.(event);
+        // Heard only by the Google Ads tag, and only when the visitor agreed to it.
+        if (query?.mode === "register")
+          window.dispatchEvent(new Event(REGISTRATION_STARTED_EVENT));
+      }}
+    />
   );
 }

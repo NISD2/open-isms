@@ -927,11 +927,8 @@
       },
       "cookies": {
         "heading": "Cookies",
-        "p1": "This website only uses technically necessary cookies:",
         "session": "Session cookie (NextAuth): required for authentication - expires when you sign out or after the session timeout",
-        "locale": "Locale cookie (next-intl): stores your language preference (EN/DE)",
-        "p2": "We do not use tracking cookies, advertising cookies, or any third-party cookies. No cookie consent banner is needed because only technically necessary cookies are set."
-      },
+        "locale": "Locale cookie (next-intl): stores your language preference (EN/DE)"      },
       "rights": {
         "heading": "Your Rights (Art. 15-21 GDPR)",
         "p1": "You have the following rights regarding your personal data:",
