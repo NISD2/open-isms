@@ -44,7 +44,7 @@ export function SupplierInviteAcceptForm({
   alreadyHasCompany,
   signedInAs,
 }: Props) {
-  const t = useTranslations("supplierPortal.acceptInvite");
+  const t = useTranslations("supplierInvite");
   const accept = trpc.supplierPortal.onboarding.acceptInvite.useMutation({
     onSuccess: () => {
       window.location.href = "/portal/supplier";

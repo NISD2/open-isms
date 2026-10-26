@@ -136,7 +136,7 @@ export async function sendQuestionnaire(
     ok: true,
     data: {
       suppliers: results,
-      next: `Each supplier sent the questionnaire gets an email with a link to it. Once it answers, its row shows as linked: ${linkOf(answersItem.code, input.language)}`,
+      next: `Each supplier sent the questionnaire gets an email with a link to it. Once it answers, its row shows as linked, except on a self-hosted install, where the supplier is asked to share its answers with the sender by email: ${linkOf(answersItem.code, input.language)}`,
     },
   };
 }

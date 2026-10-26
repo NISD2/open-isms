@@ -199,7 +199,7 @@ function buildServer(holder: KeyHolder): McpServer {
     "send_supplier_questionnaire",
     {
       title: "Send suppliers the security questionnaire",
-      description: `Emails suppliers on the company's supplier list the link to the security questionnaire, through the invite the app's button on each supplier sends: to the contact email on the supplier's row, never to another address, and not again to the same address within 24 hours. The supplier answers in its own portal, and its row then shows as linked. ${OUTSIDE}. A row without a contact email, or one already linked, is refused; returns per supplier whether it was sent or why not.`,
+      description: `Emails suppliers on the company's supplier list the link to the security questionnaire, through the invite the app's button on each supplier sends: to the contact email on the supplier's row, never to another address, and not again to the same address within 24 hours. The supplier answers in its own portal at nisd2.eu, and its row then shows as linked; on a self-hosted install the invite stays on the install, so the row stays unlinked and the supplier is asked to share its answers with the sender by email instead. ${OUTSIDE}. A row without a contact email, or one already linked, is refused; returns per supplier whether it was sent or why not.`,
       inputSchema: SendQuestionnaireInput,
       annotations: {
         readOnlyHint: false,
