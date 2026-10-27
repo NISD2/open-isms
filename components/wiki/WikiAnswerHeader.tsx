@@ -31,9 +31,10 @@ export async function WikiAnswerHeader({
   answer: string;
   /**
    * The way forward for a page whose reader the walkthrough does not serve, in place of the
-   * homepage's two buttons and the page for whoever decides.
+   * homepage's two buttons and the page for whoever decides. `null` leaves the header bare, for a
+   * page that shows its first date before the ways forward and places `WikiAnswerActions` itself.
    */
-  actions?: ReactNode;
+  actions?: ReactNode | null;
 } & (
   | {
       /** A picture of the page's one object, under `public/`. */
@@ -42,7 +43,6 @@ export async function WikiAnswerHeader({
     }
   | { shot: true; art?: never }
 )) {
-  const offer = await getTranslations("pricing.tiers");
   return (
     <header
       className={
@@ -59,34 +59,12 @@ export async function WikiAnswerHeader({
         <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {answer}
         </p>
-        {actions ? (
+        {actions === null ? null : actions ? (
           <div className="mt-6 print:hidden">{actions}</div>
         ) : (
-          <>
-            <div
-              className={cn(
-                "mt-6 flex flex-col items-start gap-3 print:hidden",
-                // Beside the shot the column is too narrow for both: they stack, as on the homepage.
-                !picture.shot && "sm:flex-row sm:items-center",
-              )}
-            >
-              <Button
-                asChild
-                size="lg"
-                className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
-              >
-                <SignInLink query={{ mode: "register" }}>{offer("paid.cta")}</SignInLink>
-              </Button>
-              <TalkFirst size="button" />
-            </div>
-            <div className="mt-3 flex flex-col items-start gap-2 print:hidden">
-              <ApprovalLink />
-              <ManagementCourseLink
-                icon
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:text-foreground hover:decoration-foreground"
-              />
-            </div>
-          </>
+          <div className="mt-6">
+            <WikiAnswerActions stacked={Boolean(picture.shot)} />
+          </div>
         )}
       </div>
       {picture.shot ? (
@@ -104,5 +82,41 @@ export async function WikiAnswerHeader({
         </div>
       )}
     </header>
+  );
+}
+
+/**
+ * The homepage hero's ways forward: start, a call, the page for whoever decides, the free
+ * management course. Under the header by default; a page whose reader came for a list of dates
+ * passes `actions={null}` to the header and places this after the list.
+ */
+export async function WikiAnswerActions({ stacked = false }: { stacked?: boolean }) {
+  const offer = await getTranslations("pricing.tiers");
+  return (
+    <>
+      <div
+        className={cn(
+          "flex flex-col items-start gap-3 print:hidden",
+          // Beside the shot the column is too narrow for both: they stack, as on the homepage.
+          !stacked && "sm:flex-row sm:items-center",
+        )}
+      >
+        <Button
+          asChild
+          size="lg"
+          className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
+        >
+          <SignInLink query={{ mode: "register" }}>{offer("paid.cta")}</SignInLink>
+        </Button>
+        <TalkFirst size="button" />
+      </div>
+      <div className="mt-3 flex flex-col items-start gap-2 print:hidden">
+        <ApprovalLink />
+        <ManagementCourseLink
+          icon
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:text-foreground hover:decoration-foreground"
+        />
+      </div>
+    </>
   );
 }
