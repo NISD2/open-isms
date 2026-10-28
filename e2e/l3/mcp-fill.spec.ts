@@ -242,7 +242,9 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     });
     expect(needs.ok, JSON.stringify(needs)).toBe(true);
     expect(
-      await e2eQuery(`SELECT asset_id FROM process_asset WHERE process_id = $1`, [processId]),
+      await e2eQuery(`SELECT asset_id FROM process_asset WHERE process_id = $1`, [
+        processId,
+      ]),
     ).toEqual([{ asset_id: assetId }]);
 
     const restore = await callTool(request, key, "fill_walkthrough_item", {
