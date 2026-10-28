@@ -2,6 +2,16 @@
   "companyLookup": {
     "title": "Is your company affected by NIS2?",
     "subtitle": "The binding determination is made by your national supervisory authority. Below are the official contact points per country, plus a free self-check for orientation. Not sure? See <link>real-world edge cases</link> for examples.",
+    "answer": {
+      "heading": "In short: who is affected",
+      "paragraphs": [
+        "NIS2 applies to companies in the sectors of Annexes I and II of the directive if they are at least medium-sized (Article 2(1) NIS 2). Some providers are covered whatever their size.",
+        "In Germany, a company is affected if it works in a sector listed in Annex 1 or 2 of the BSIG and has at least 50 employees, or an annual turnover and a balance sheet total of more than EUR 10 million each. In a sector of Annex 1 it is an essential entity (besonders wichtige Einrichtung) if it has at least 250 employees, or more than EUR 50 million turnover and more than EUR 43 million balance sheet total.",
+        "The BSI offers a scope check. According to the BSI, its result is not legally binding."
+      ],
+      "law": "Art. 2 NIS 2 · § 28 BSIG · Annexes 1 and 2",
+      "link": "Important and essential entities at a glance"
+    },
     "authorityCallout": {
       "heading": "Binding determination: your national supervisory authority",
       "body": "The final NIS2 classification is made by the competent authority in your country. We link the official sources. The self-check below is only a quick orientation tool.",

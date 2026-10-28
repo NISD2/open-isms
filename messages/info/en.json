@@ -511,11 +511,11 @@
     },
     "bsigParagraph38": {
       "meta": {
-        "title": "§ 38 BSIG: implementation, oversight and training explained",
-        "description": "§ 38 BSIG in plain words: subsection 1 implement and oversee, subsection 2 liability under company law, subsection 3 regular training for management."
+        "title": "§ 38 BSIG wording and explanation, subsection by subsection",
+        "description": "The wording of § 38 BSIG with an explanation in plain words: implement and oversee, liability, regular training for management."
       },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "§ 38 BSIG: management's duties, subsection by subsection",
+      "title": "§ 38 BSIG wording and explanation, subsection by subsection",
       "subtitle": "§ 38 BSIG has three subsections. Subsection 1: management implements the measures under § 30 BSIG and oversees their implementation. Subsection 2: if it culpably breaches this, it is liable to the company under company law. Subsection 3: it attends training regularly. The law prescribes neither a length nor a particular provider.",
       "text": {
         "heading": "The wording, and what it means",
@@ -1787,12 +1787,12 @@
     },
     "ceoLiability": {
       "meta": {
-        "title": "NIS2 director liability: what § 38 BSIG requires",
-        "description": "Is management liable under NIS2? § 38 BSIG: implement and oversee the measures, attend training regularly, liability under company law."
+        "title": "NIS2 director liability: when management is liable",
+        "description": "Is management liable under NIS2? When it is liable to its own company, what it can hand over and what it should keep on record."
       },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "NIS2 director liability: what § 38 BSIG requires of management",
-      "subtitle": "Management must implement the security measures under § 30 BSIG, oversee their implementation and attend training regularly (§ 38 BSIG). If it culpably breaches these duties and the company suffers damage as a result, management is liable to the company. That follows company law, as with management's other duties.",
+      "title": "NIS2 director liability: when management is liable",
+      "subtitle": "Management must implement the security measures under § 30 BSIG, oversee their implementation and attend training regularly (§ 38 BSIG). If it culpably breaches its subsection 1 duties and the company suffers damage as a result, management is liable to the company. That follows company law, as with management's other duties.",
       "who": {
         "heading": "Who § 38 BSIG applies to",
         "paragraphs": [
@@ -1826,7 +1826,7 @@
       "liability": {
         "heading": "How liability works",
         "paragraphs": [
-          "If management breaches these duties and culpably causes damage to the company, it is liable to its own company. This is called internal liability: the claim belongs to the company, not to an authority or a customer.",
+          "If management breaches its subsection 1 duties and culpably causes damage to the company, it is liable to its own company. This is called internal liability: the claim belongs to the company, not to an authority or a customer.",
           "Liability follows the company law of the legal form. For a GmbH that is § 43 GmbHG, for an AG § 93 AktG. Only where company law has no such rule is management liable under the BSIG itself.",
           "Culpably means intentionally or negligently. Whether a claim exists, and for how much, depends on the individual case."
         ],
@@ -7348,7 +7348,7 @@
       },
       "badge": "NIS2 Articles 20 + 21",
       "title": "NIS2 Management Training",
-      "subtitle": "Every member of the management body must follow cybersecurity training themselves (Article 20(2) NIS2, Section 38(3) BSIG). This free online course is one such training, with a certificate of completion at the end.",
+      "subtitle": "Every member of the management body must follow cybersecurity training themselves (Article 20(2) NIS2), and in Germany regularly (Section 38(3) BSIG). This free online course is one such training, with a certificate of completion.",
       "startCourse": "Start the course",
       "downloadPdf": "Download PDF",
       "lessonsLabel": "lessons",

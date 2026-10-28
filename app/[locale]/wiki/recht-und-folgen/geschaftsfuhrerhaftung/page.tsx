@@ -60,9 +60,10 @@ export default async function CeoLiabilityPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = wikiLocale(rawLocale);
-  const [t, w] = await Promise.all([
+  const [t, w, links] = await Promise.all([
     getTranslations("info.ceoLiability"),
     getTranslations("info.wikiWalk"),
+    getTranslations("wikiLinks"),
   ]);
   const faq = t.raw("faq.items") as WikiQuestion[];
   const duties = t.raw("duties.items") as Duty[];
@@ -135,6 +136,7 @@ export default async function CeoLiabilityPage({
           <p className="max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
             {t("duties.directive")}
           </p>
+          <WikiMoreLink href="/wiki/grundlagen/bsig-38">{links("statute")}</WikiMoreLink>
         </section>
 
         <WikiSection
@@ -156,7 +158,9 @@ export default async function CeoLiabilityPage({
         <WikiSection
           heading={t("delegate.heading")}
           paragraphs={t.raw("delegate.paragraphs") as string[]}
-        />
+        >
+          <WikiMoreLink href="/training/nis2-ceo">{links("course")}</WikiMoreLink>
+        </WikiSection>
 
         <WikiSection
           heading={t("size.heading")}

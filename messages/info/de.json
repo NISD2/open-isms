@@ -511,11 +511,11 @@
     },
     "bsigParagraph38": {
       "meta": {
-        "title": "§ 38 BSIG: Umsetzung, Überwachung und Schulung erklärt",
-        "description": "§ 38 BSIG in einfachen Worten: Abs. 1 umsetzen und überwachen, Abs. 2 Haftung nach Gesellschaftsrecht, Abs. 3 regelmäßige Schulung der Geschäftsleitung."
+        "title": "§ 38 BSIG Wortlaut und Erklärung, Absatz für Absatz",
+        "description": "Der Wortlaut von § 38 BSIG mit einer Erklärung in einfachen Worten: umsetzen und überwachen, Haftung, regelmäßige Schulung der Geschäftsleitung."
       },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "§ 38 BSIG: die Pflichten der Geschäftsleitung, Absatz für Absatz",
+      "title": "§ 38 BSIG Wortlaut und Erklärung, Absatz für Absatz",
       "subtitle": "§ 38 BSIG hat drei Absätze. Absatz 1: Die Geschäftsleitung setzt die Maßnahmen nach § 30 BSIG um und überwacht ihre Umsetzung. Absatz 2: Verletzt sie das schuldhaft, haftet sie dem Unternehmen nach Gesellschaftsrecht. Absatz 3: Sie nimmt regelmäßig an Schulungen teil. Eine Dauer oder einen bestimmten Anbieter schreibt das Gesetz nicht vor.",
       "text": {
         "heading": "Der Wortlaut, und was er heißt",
@@ -1787,12 +1787,12 @@
     },
     "ceoLiability": {
       "meta": {
-        "title": "NIS2 Geschäftsführerhaftung: was § 38 BSIG verlangt",
-        "description": "Haftet die Geschäftsführung für NIS2? § 38 BSIG: Maßnahmen umsetzen und überwachen, regelmäßig schulen, Haftung nach Gesellschaftsrecht."
+        "title": "NIS2 Geschäftsführerhaftung: wann die Geschäftsleitung haftet",
+        "description": "Haftet die Geschäftsführung für NIS2? Wann sie dem eigenen Unternehmen haftet, was sie abgeben kann und was sie festhalten sollte."
       },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "NIS2 Geschäftsführerhaftung: was § 38 BSIG von der Geschäftsleitung verlangt",
-      "subtitle": "Die Geschäftsleitung muss die Sicherheitsmaßnahmen nach § 30 BSIG umsetzen, ihre Umsetzung überwachen und regelmäßig an Schulungen teilnehmen (§ 38 BSIG). Verletzt sie diese Pflichten schuldhaft und entsteht dem Unternehmen dadurch ein Schaden, haftet sie dem Unternehmen. Das richtet sich nach dem Gesellschaftsrecht, wie bei anderen Pflichten der Geschäftsführung auch.",
+      "title": "NIS2 Geschäftsführerhaftung: wann die Geschäftsleitung haftet",
+      "subtitle": "Die Geschäftsleitung muss die Sicherheitsmaßnahmen nach § 30 BSIG umsetzen, ihre Umsetzung überwachen und regelmäßig an Schulungen teilnehmen (§ 38 BSIG). Verletzt sie die Pflichten aus Absatz 1 schuldhaft und entsteht dem Unternehmen dadurch ein Schaden, haftet sie dem Unternehmen. Das richtet sich nach dem Gesellschaftsrecht, wie bei anderen Pflichten der Geschäftsführung auch.",
       "who": {
         "heading": "Wen § 38 BSIG betrifft",
         "paragraphs": [
@@ -1826,7 +1826,7 @@
       "liability": {
         "heading": "Wie die Haftung geregelt ist",
         "paragraphs": [
-          "Verletzt die Geschäftsleitung diese Pflichten und entsteht dem Unternehmen dadurch schuldhaft ein Schaden, haftet sie dem eigenen Unternehmen. Man nennt das Innenhaftung: Den Anspruch hat das Unternehmen, nicht eine Behörde oder ein Kunde.",
+          "Verletzt die Geschäftsleitung die Pflichten aus Absatz 1 und entsteht dem Unternehmen dadurch schuldhaft ein Schaden, haftet sie dem eigenen Unternehmen. Man nennt das Innenhaftung: Den Anspruch hat das Unternehmen, nicht eine Behörde oder ein Kunde.",
           "Die Haftung richtet sich nach dem Gesellschaftsrecht der jeweiligen Rechtsform. Bei einer GmbH ist das § 43 GmbHG, bei einer AG § 93 AktG. Nur wo das Gesellschaftsrecht keine solche Regel hat, haftet die Geschäftsleitung nach dem BSIG selbst.",
           "Schuldhaft heißt: vorsätzlich oder fahrlässig. Ob ein Anspruch besteht und wie hoch er ist, hängt vom Einzelfall ab."
         ],
@@ -7346,7 +7346,7 @@
       },
       "badge": "NIS2 Artikel 20 + 21",
       "title": "NIS2 Schulung für die Geschäftsleitung",
-      "subtitle": "Jedes Mitglied der Geschäftsleitung muss selbst an Schulungen zur Cybersicherheit teilnehmen (Art. 20 Abs. 2 NIS2, § 38 Abs. 3 BSIG). Dieser kostenlose Onlinekurs ist eine solche Schulung, mit Teilnahmebescheinigung zum Abschluss.",
+      "subtitle": "Jedes Mitglied der Geschäftsleitung muss selbst an Schulungen zur Cybersicherheit teilnehmen (Art. 20 Abs. 2 NIS2), in Deutschland regelmäßig (§ 38 Abs. 3 BSIG). Dieser kostenlose Onlinekurs ist eine solche Schulung, mit Teilnahmebescheinigung.",
       "startCourse": "Kurs starten",
       "downloadPdf": "PDF herunterladen",
       "lessonsLabel": "Lektionen",

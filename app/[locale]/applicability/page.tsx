@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { ApplicabilitySection } from "@/components/applicability/ApplicabilitySection";
 import { JsonLd } from "@/components/JsonLd";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
+import { WikiSection } from "@/components/wiki/WikiSection";
 import { Link } from "@/i18n/navigation";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
@@ -86,6 +88,19 @@ export default async function ApplicabilityPage({
             ),
           })}
         />
+      </div>
+
+      {/* The plain answer first, in text a search result can show; the tool follows. */}
+      <div className="mb-8">
+        <WikiSection
+          heading={tLookup("answer.heading")}
+          paragraphs={tLookup.raw("answer.paragraphs") as string[]}
+          law={tLookup("answer.law")}
+        >
+          <WikiMoreLink href="/wiki/anwendungsbereich/nis2-einrichtungen">
+            {tLookup("answer.link")}
+          </WikiMoreLink>
+        </WikiSection>
       </div>
 
       <ApplicabilitySection locale={locale} highlightCountry={highlightCountry} />

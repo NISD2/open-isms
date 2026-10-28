@@ -2,6 +2,16 @@
   "companyLookup": {
     "title": "Ist Ihr Unternehmen von NIS2 betroffen?",
     "subtitle": "Verbindlich entscheidet Ihre nationale Aufsichtsbehörde. Hier finden Sie offizielle Anlaufstellen pro Land und einen kostenlosen Selbst-Check als Orientierung. Unsicher? Sehen Sie sich <link>praxisnahe Grenzfälle</link> an.",
+    "answer": {
+      "heading": "Kurz gesagt: wer betroffen ist",
+      "paragraphs": [
+        "NIS2 gilt für Unternehmen in den Sektoren der Anhänge I und II der Richtlinie, wenn sie mindestens mittelgroß sind (Art. 2 Abs. 1 NIS 2). Bestimmte Anbieter sind unabhängig von ihrer Größe betroffen.",
+        "In Deutschland ist ein Unternehmen betroffen, wenn es in einem Sektor der Anlagen 1 oder 2 des BSIG tätig ist und mindestens 50 Beschäftigte hat oder einen Jahresumsatz und eine Bilanzsumme von jeweils über 10 Millionen Euro. In einem Sektor der Anlage 1 ist es eine besonders wichtige Einrichtung, wenn es mindestens 250 Beschäftigte hat oder über 50 Millionen Euro Umsatz und über 43 Millionen Euro Bilanzsumme.",
+        "Das BSI bietet eine Betroffenheitsprüfung an. Ihr Ergebnis ist nach Angabe des BSI nicht rechtlich bindend."
+      ],
+      "law": "Art. 2 NIS 2 · § 28 BSIG · Anlagen 1 und 2",
+      "link": "Wichtige und besonders wichtige Einrichtungen im Überblick"
+    },
     "authorityCallout": {
       "heading": "Verbindliche Einstufung: Ihre nationale Aufsichtsbehörde",
       "body": "Die endgültige NIS2-Einstufung trifft die zuständige Behörde Ihres Landes. Wir verlinken die offiziellen Stellen. Der Selbst-Check unten ist nur eine schnelle Orientierungshilfe.",

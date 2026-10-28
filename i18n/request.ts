@@ -68,6 +68,7 @@ const namespaces = [
   "training",
   "trainingPortal",
   "vulnerabilities",
+  "wikiLinks",
 ] as const;
 
 type Messages = Record<string, unknown>;

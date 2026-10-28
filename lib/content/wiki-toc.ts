@@ -483,8 +483,8 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
       {
         slug: "bsig-38",
         slugs: { de: "bsig-38", en: "bsig-38", nl: "bsig-38" },
-        titleDe: "§ 38 BSIG: die Pflichten der Geschäftsleitung, Absatz für Absatz",
-        titleEn: "§ 38 BSIG: management's duties, subsection by subsection",
+        titleDe: "§ 38 BSIG Wortlaut und Erklärung, Absatz für Absatz",
+        titleEn: "§ 38 BSIG wording and explanation, subsection by subsection",
         summaryDe: "Absatz 1 umsetzen und überwachen, Absatz 2 Haftung nach Gesellschaftsrecht, Absatz 3 regelmäßige Schulung der Geschäftsleitung, mit dem Wortlaut.",
         summaryEn: "Subsection 1 implement and oversee, subsection 2 liability under company law, subsection 3 regular training for management, with the wording.",
         authorSlug: "simon-orzel",
@@ -896,8 +896,8 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
       {
         slug: "geschaftsfuhrerhaftung",
         slugs: { de: "geschaftsfuhrerhaftung", en: "management-liability", nl: "bestuurdersaansprakelijkheid" },
-        titleDe: "NIS2 Geschäftsführerhaftung: was § 38 BSIG von der Geschäftsleitung verlangt",
-        titleEn: "NIS2 director liability: what § 38 BSIG requires of management",
+        titleDe: "NIS2 Geschäftsführerhaftung: wann die Geschäftsleitung haftet",
+        titleEn: "NIS2 director liability: when management is liable",
         summaryDe: "Umsetzen, überwachen, schulen: die drei Pflichten der Geschäftsleitung und wie die Haftung nach Gesellschaftsrecht geregelt ist.",
         summaryEn: "Implement, oversee, train: management's three duties and how liability works under company law.",
         tags: [
