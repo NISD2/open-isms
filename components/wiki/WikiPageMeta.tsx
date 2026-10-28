@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { getLocale } from "next-intl/server";
 import { TranslationBadge } from "@/components/wiki/TranslationBadge";
 import { Link } from "@/i18n/navigation";
 import { AUTHORS, type DocsAuthor } from "@/lib/content/authors";
+import { BYLINE_LABELS, bylineDate } from "@/lib/content/wiki-byline";
 import type { WikiLocale } from "@/lib/content/wiki-locale";
+import { isLocaleCode } from "@/lib/locale";
 
 /** The languages a wiki page is first written in. */
 type SourceLocale = "de" | "en" | "nl";
@@ -13,8 +16,12 @@ type SourceLocale = "de" | "en" | "nl";
  * when the reader's locale differs from the source locale. Sits below
  * the H1 + subtitle. No bottom border; the page-level Separator
  * underneath handles the divider.
+ *
+ * The labels and the date follow the reader's own locale. The `locale` prop is the wiki's
+ * furniture language, which is German for every locale but de, en, nl and cs, so it only decides
+ * the translation notice.
  */
-export function WikiPageMeta({
+export async function WikiPageMeta({
   authorSlug,
   lastReviewedAt,
   datePublished,
@@ -31,13 +38,16 @@ export function WikiPageMeta({
   locale: WikiLocale;
 }) {
   const author = AUTHORS[authorSlug];
+  const requestLocale = await getLocale();
+  const readerLocale = isLocaleCode(requestLocale) ? requestLocale : "en";
+  const labels = BYLINE_LABELS[readerLocale];
 
   const reviewedDate = lastReviewedAt ?? datePublished;
   const dateLine = reviewedDate
     ? lastReviewedAt
-      ? `${REVIEWED_LABEL[locale]} ${formatDate(reviewedDate, locale)}`
-      : `${PUBLISHED_LABEL[locale]} ${formatDate(reviewedDate, locale)}`
-    : CONTINUOUS_LABEL[locale];
+      ? `${labels.reviewed} ${bylineDate(reviewedDate, readerLocale)}`
+      : `${labels.published} ${bylineDate(reviewedDate, readerLocale)}`
+    : labels.continuous;
 
   const translationNotice =
     locale !== sourceLocale ? TRANSLATION_NOTICE[locale][sourceLocale] : null;
@@ -68,27 +78,6 @@ export function WikiPageMeta({
   );
 }
 
-const REVIEWED_LABEL: Record<WikiLocale, string> = {
-  de: "Zuletzt geprüft",
-  en: "Last reviewed",
-  nl: "Laatst gecontroleerd",
-  cs: "Naposledy zkontrolováno",
-};
-
-const PUBLISHED_LABEL: Record<WikiLocale, string> = {
-  de: "Veröffentlicht",
-  en: "Published",
-  nl: "Gepubliceerd",
-  cs: "Zveřejněno",
-};
-
-const CONTINUOUS_LABEL: Record<WikiLocale, string> = {
-  de: "Laufend geprüft",
-  en: "Continuously reviewed",
-  nl: "Doorlopend gecontroleerd",
-  cs: "Průběžně kontrolováno",
-};
-
 const TRANSLATION_NOTICE: Record<WikiLocale, Record<SourceLocale, string>> = {
   en: {
     de: "Originally written in German, automatically translated.",
@@ -111,19 +100,3 @@ const TRANSLATION_NOTICE: Record<WikiLocale, Record<SourceLocale, string>> = {
     nl: "Původně napsáno v nizozemštině, automaticky přeloženo.",
   },
 };
-
-const DATE_TAG: Record<WikiLocale, string> = {
-  de: "de-DE",
-  en: "en-GB",
-  nl: "nl-NL",
-  cs: "cs-CZ",
-};
-
-function formatDate(iso: string, locale: WikiLocale): string {
-  const d = new Date(iso);
-  return d.toLocaleDateString(DATE_TAG[locale], {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
