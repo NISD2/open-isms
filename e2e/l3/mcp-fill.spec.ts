@@ -22,6 +22,8 @@ import { E2E_USER_EMAIL } from "../lib/env";
 import { allowAssistants, callTool as callAs, mcpHeaders } from "../lib/mcp";
 
 const ASSET = "E2E MCP Buchhaltung";
+/** A process that must keep running, so the assistant has something to link its asset to. */
+const PROCESS = "E2E MCP Auftragsannahme";
 const FILE_NAME = "e2e-mcp-inventar.pdf";
 const FILE_BODY = Buffer.from("%PDF-1.4\n% e2e assistant evidence\n");
 const FILE_SHA256 = createHash("sha256").update(FILE_BODY).digest("hex");
@@ -56,8 +58,12 @@ const risksOn = (assetIds: readonly string[]) =>
     [assetIds],
   );
 
-/** Removes what the assistant added: the asset, and the risks rated on it. */
+/** Removes what this spec added: the process (its links die with it), the asset, the risks on it. */
 async function removeOurAssets(tenant: Tenant): Promise<void> {
+  await e2eQuery(`DELETE FROM asset WHERE company_id = $1 AND name = $2`, [
+    tenant.company_id,
+    PROCESS,
+  ]);
   const ids = (await ourAssets(tenant)).map((a) => a.id);
   if (ids.length === 0) return;
   const risks = (await risksOn(ids)).map((r) => r.id);
@@ -137,6 +143,8 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
     for (const { code } of await registerRequirements(["asset", "risk", "supplier"])) {
       opened.push(await setAsideWalkItem(tenant, code));
     }
+    // 4.2 writes a plan (module policy), but what the processes need is recorded there too.
+    opened.push(await setAsideWalkItem(tenant, "4.2"));
     undos = [
       kept,
       await payFor(tenant),
@@ -215,6 +223,47 @@ test.describe("an AI assistant fills the walkthrough over MCP", () => {
       [tenant.company_id, ["2.2", "2.3"]],
     );
     for (const row of statuses) expect(row.status, row.code).not.toBe("completed");
+  });
+
+  test("the assistant records what a process needs (4.2) and how long that system takes back (4.4); the comparison stays the app's", async ({
+    request,
+  }) => {
+    const [process] = await e2eQuery<{ id: string }>(
+      `INSERT INTO asset (company_id, name, type, is_critical, max_outage)
+       VALUES ($1, $2, 'process', true, 'day') RETURNING id`,
+      [tenant.company_id, PROCESS],
+    );
+    const processId = process?.id ?? "";
+    const assetId = (await ourAssets(tenant))[0]?.id ?? "";
+
+    const needs = await callTool(request, key, "fill_walkthrough_item", {
+      code: "4.2",
+      screens: { needs: { rows: [{ processId, assetIds: [assetId] }] } },
+    });
+    expect(needs.ok, JSON.stringify(needs)).toBe(true);
+    expect(
+      await e2eQuery(`SELECT asset_id FROM process_asset WHERE process_id = $1`, [processId]),
+    ).toEqual([{ asset_id: assetId }]);
+
+    const restore = await callTool(request, key, "fill_walkthrough_item", {
+      code: "4.4",
+      screens: { restore: { rows: [{ assetId, restore: "hours", unknown: false }] } },
+    });
+    expect(restore.ok, JSON.stringify(restore)).toBe(true);
+    expect(
+      await e2eQuery(
+        `SELECT restore_time, restore_time_unknown FROM asset WHERE id = $1`,
+        [assetId],
+      ),
+    ).toEqual([{ restore_time: "hours", restore_time_unknown: false }]);
+
+    // The tool names who fills each screen: the comparison only shows, so nobody does.
+    const read = await callTool(request, key, "get_walkthrough", { code: "4.4" });
+    const screens = read.ok
+      ? (read.data.screens as ReadonlyArray<{ kind: string; filledBy: string }>)
+      : [];
+    expect(screens.find((s) => s.kind === "restore")?.filledBy).toBe("assistant");
+    expect(screens.find((s) => s.kind === "recovery")?.filledBy).toBe("none");
   });
 
   test("the walkthrough marks the screen the assistant wrote, and only that one", async ({

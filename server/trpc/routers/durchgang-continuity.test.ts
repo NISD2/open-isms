@@ -2,7 +2,8 @@
  * The Durchgang's continuity writes (4.2 and 4.4): the mark and the tolerance per process, what
  * each process needs, and how long each needed system takes back. Pinned here: only the company's
  * own rows are touched, a process is never a need and a need never a process, a process's links
- * are replaced by the row sent for it, and the trail names what was recorded.
+ * are replaced by the row sent for it, the trail names what was recorded, and the comparison
+ * reads the company's list with the links of its processes that must keep running only.
  */
 import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
@@ -74,7 +75,9 @@ function setup(world: World) {
     const { sql, params } = queryOf(where);
     const ids = params.filter((p) => p !== COMPANY && p !== "process");
     if (table === asset) {
-      const named = world.assets.filter((a) => ids.includes(a.id));
+      // A WHERE that names no id reads the company's whole list.
+      const named =
+        ids.length > 0 ? world.assets.filter((a) => ids.includes(a.id)) : world.assets;
       return sql.includes('"type" = ')
         ? named.filter((a) => a.type === "process")
         : sql.includes('"type" <> ')
@@ -101,7 +104,19 @@ function setup(world: World) {
           limit: async () => rows,
         });
       },
-      innerJoin: () => ({ where: async () => [] }),
+      // The one join, 4.2's links read through the process end (`processLinksOf`): the links of
+      // the company's processes still marked as having to keep running.
+      innerJoin: () => ({
+        where: async (where: SQL) => {
+          wheres.push({ table: "processAsset", where });
+          const critical = new Set(
+            world.assets
+              .filter((a) => a.type === "process" && a.isCritical === true)
+              .map((a) => a.id),
+          );
+          return (world.needs ?? []).filter((l) => critical.has(l.processId));
+        },
+      }),
     }),
   });
 
@@ -426,5 +441,29 @@ describe("how long the needed systems take back (4.4)", () => {
         rows: [{ assetId: ERP, restore: "day", unknown: false }],
       }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+  });
+});
+
+describe("the comparison's facts (4.4)", () => {
+  test("reads the company's list: the processes that must keep running with their tolerance, everything else with its restore time, and only those processes' links", async () => {
+    const { caller, wheres } = setup({
+      assets: [sales, { ...books, maxOutage: "hours" }, erp, server],
+      needs: [
+        { processId: BOOKS, assetId: ERP },
+        // Sales need not keep running: its link counts for nothing downstream.
+        { processId: SALES, assetId: SERVER },
+      ],
+    });
+    expect(await caller.recovery()).toEqual({
+      processes: [{ id: BOOKS, name: "Buchhaltung", maxOutage: "hours" }],
+      systems: [
+        { id: ERP, name: "ERP", restoreTime: null, restoreTimeUnknown: false },
+        { id: SERVER, name: "Server", restoreTime: "day", restoreTimeUnknown: false },
+      ],
+      links: [{ processId: BOOKS, assetId: ERP }],
+    });
+    // Both reads, the list and the links, name the company.
+    expect(wheres.map((w) => w.table).toSorted()).toEqual(["asset", "processAsset"]);
+    for (const { where } of wheres) expect(paramsOf(where)).toContain(COMPANY);
   });
 });
