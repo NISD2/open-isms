@@ -56,8 +56,10 @@ export function SignInCard({
   // walkthrough (locked, with the way to order, for an unpaid account).
   // Company-less users get the company setup there.
   const callbackUrl = localCallbackPath(searchParams.get("callbackUrl"), "/dashboard");
-  // The campaign tags and page path the linking page handed on (SignInLink), kept by the account
-  // a registration creates. The server keeps only the keys it knows.
+  // The campaign tags and page path the linking page handed on (SignInLink), or the page a
+  // redirect was for, kept by the account a registration creates. Only the Google button below
+  // carries none of it: nothing but a cookie crosses Google's redirect (see lib/auth/config.ts).
+  // The server keeps only the keys it knows.
   const campaign = signupTags(searchParams.toString()).toString();
   const [step, setStep] = useState<Step>("auth");
   // "Jetzt starten" on the landing page links here with ?mode=register: a new visitor meets the

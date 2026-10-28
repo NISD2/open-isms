@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { AdsConsentSettingsLink } from "@/components/analytics/AdsConsentSettingsLink";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { Link } from "@/i18n/navigation";
 import { googleAdsConfig } from "@/lib/analytics/google-ads-config";
@@ -49,12 +50,9 @@ export async function PublicFooter({
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/auth/signin"
-                  className="text-sm text-muted-foreground hover:text-foreground"
-                >
+                <SignInLink className="text-sm text-muted-foreground hover:text-foreground">
                   {t("footer.signIn")}
-                </Link>
+                </SignInLink>
               </li>
               <li>
                 <Link

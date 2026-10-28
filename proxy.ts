@@ -4,6 +4,7 @@ import { getToken } from "next-auth/jwt";
 import createIntlMiddleware from "next-intl/middleware";
 import { expandPaths, underAny } from "@/i18n/expand-paths";
 import { routing } from "@/i18n/routing";
+import { withCampaignTags } from "@/lib/analytics/token-routes";
 import { isActivePromo, PROMO_COOKIE, PROMO_COOKIE_MAX_AGE_S } from "@/lib/billing/promo";
 import { isNisd2Only, NISD2_ONLY_PATHS, NISD2_ORIGIN, SELF_HOSTED } from "@/lib/edition";
 import { env } from "@/lib/env";
@@ -228,11 +229,13 @@ async function route(request: NextRequest) {
         pathname.replace(LOCALE_STRIP, "") || "/",
       );
       if (lander) {
-        return NextResponse.redirect(new URL(lander, request.url));
+        return NextResponse.redirect(
+          withCampaignTags(new URL(lander, request.url), request.nextUrl.search),
+        );
       }
       const signinUrl = new URL("/auth/signin", request.url);
       signinUrl.searchParams.set("callbackUrl", pathname);
-      return NextResponse.redirect(signinUrl);
+      return NextResponse.redirect(withCampaignTags(signinUrl, request.nextUrl.search));
     }
   }
 

@@ -8,6 +8,7 @@ import {
   originPath,
   signupTags,
   TOKEN_ROUTE_PREFIXES,
+  withCampaignTags,
 } from "./token-routes";
 
 describe("originPath", () => {
@@ -56,6 +57,81 @@ describe("signupTags", () => {
 
   test("uses the key the schema stores", () => {
     expect(SIGNUP_CAMPAIGN_KEYS).toContain(FROM_PATH_KEY);
+  });
+
+  describe("a sign-in that came by redirect", () => {
+    test("records the page the redirect was for when no link handed one on", () => {
+      // What the proxy builds when "Start the course" opens a lesson without a session.
+      const tags = signupTags("callbackUrl=%2Ftraining%2Fcourses%2Fnis2-ceo%2F0.1");
+      expect(tags.toString()).toBe("from_path=%2Ftraining%2Fcourses%2Fnis2-ceo%2F0.1");
+    });
+
+    test("the page whose link was clicked wins over the redirect target", () => {
+      const tags = signupTags(
+        "from_path=%2Fen%2Ftraining%2Fnis2-ceo&callbackUrl=%2Fen%2Ftraining%2Fcourses%2Fnis2-ceo%2F0.1",
+      );
+      expect(tags.get(FROM_PATH_KEY)).toBe("/en/training/nis2-ceo");
+    });
+
+    test("falls back when the handed-on path is not usable", () => {
+      const tags = signupTags("from_path=%2Finvite%2F5f0c&callbackUrl=%2Fbestellen");
+      expect(tags.get(FROM_PATH_KEY)).toBe("/bestellen");
+    });
+
+    test("drops the query and fragment of the target, keeps the campaign tags", () => {
+      const tags = signupTags(
+        "utm_source=linkedin&callbackUrl=%2Ftraining%2Fcourses%3Ftoken%3Dabc%23x",
+      );
+      expect(tags.toString()).toBe("utm_source=linkedin&from_path=%2Ftraining%2Fcourses");
+    });
+
+    test("never records a credential link or an address off this site", () => {
+      for (const target of [
+        "/invite/5f0c",
+        "/en/supplier-access/5f0c",
+        "/auth/setup?token=abc",
+        "//evil.example/x",
+        "/\\evil.example/x",
+        "https://evil.example/x",
+        "javascript:alert(1)",
+        "training",
+        "",
+      ]) {
+        const tags = signupTags(`callbackUrl=${encodeURIComponent(target)}`);
+        expect(tags.has(FROM_PATH_KEY)).toBe(false);
+      }
+    });
+
+    test("records nothing for a plain visit", () => {
+      expect(signupTags("mode=register").toString()).toBe("");
+    });
+  });
+});
+
+describe("withCampaignTags", () => {
+  const signin = () => new URL("https://nisd2.eu/auth/signin?callbackUrl=%2Ftraining");
+
+  test("carries the campaign tags of the request over to the redirect target", () => {
+    const target = withCampaignTags(
+      signin(),
+      "?utm_source=linkedin&utm_medium=social&x=1",
+    );
+    expect(target.searchParams.get("utm_source")).toBe("linkedin");
+    expect(target.searchParams.get("utm_medium")).toBe("social");
+    expect(target.searchParams.get("callbackUrl")).toBe("/training");
+  });
+
+  test("leaves every other key of the request behind", () => {
+    const target = withCampaignTags(signin(), "?token=abc&email=a%40b.de");
+    expect([...target.searchParams.keys()]).toEqual(["callbackUrl"]);
+  });
+
+  test("does not overwrite a key the target already has, and does not touch its input", () => {
+    const input = new URL("https://nisd2.eu/start?utm_source=ad");
+    const target = withCampaignTags(input, "?utm_source=other&utm_term=nis2");
+    expect(target.searchParams.get("utm_source")).toBe("ad");
+    expect(target.searchParams.get("utm_term")).toBe("nis2");
+    expect(input.search).toBe("?utm_source=ad");
   });
 });
 

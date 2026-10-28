@@ -86,17 +86,52 @@ export function originPath(value: unknown): string | null {
   }
 }
 
+const CALLBACK_URL_KEY = "callbackUrl";
+
 /**
- * What a registration keeps from the sign-in page's own address: the campaign tags and the path of
- * the page whose link led there (SignInLink). Nothing else survives, since the rest can carry a
- * credential, e.g. ?callbackUrl=/invite/<token>.
+ * The page a sign-in redirect was for: the path of a `callbackUrl`, when it is a plain local page
+ * path (query and fragment dropped, never a token route). The proxy sends an anonymous visitor to
+ * sign-in with only this, e.g. when "Start the course" opens a lesson, and nothing else says
+ * which page they were after. Untrusted, so it fails closed.
+ */
+function callbackOrigin(value: string | null): string | null {
+  if (value === null || !value.startsWith("/") || value.startsWith("//")) return null;
+  try {
+    const parsed = new URL(value, BASE);
+    return parsed.origin === new URL(BASE).origin ? originPath(parsed.pathname) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * What a registration keeps from the sign-in page's own address: the campaign tags and the page
+ * that led there. That page is the one whose link was clicked (SignInLink's `from_path`) or, when
+ * sign-in came by redirect and no link handed it on, the page the redirect was for
+ * (`callbackUrl`). Nothing else survives, since the rest can carry a credential, e.g.
+ * ?callbackUrl=/invite/<token>.
  */
 export function signupTags(search: string): URLSearchParams {
-  const origin = originPath(new URLSearchParams(search).get(FROM_PATH_KEY));
+  const params = new URLSearchParams(search);
+  const origin =
+    originPath(params.get(FROM_PATH_KEY)) ?? callbackOrigin(params.get(CALLBACK_URL_KEY));
   return new URLSearchParams([
     ...campaignTags(search),
     ...(origin === null ? [] : [[FROM_PATH_KEY, origin] as [string, string]]),
   ]);
+}
+
+/**
+ * A redirect target that keeps the campaign tags of the request it answers. The proxy sends an
+ * anonymous visitor on to sign-in or a public lander, and a redirect that rebuilds the URL would
+ * drop the tags of an ad link that went straight to a gated page.
+ */
+export function withCampaignTags(target: URL, requestSearch: string): URL {
+  const tagged = new URL(target);
+  for (const [key, value] of campaignTags(requestSearch)) {
+    if (!tagged.searchParams.has(key)) tagged.searchParams.set(key, value);
+  }
+  return tagged;
 }
 
 /**
