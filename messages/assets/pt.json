@@ -22,7 +22,9 @@
       "data_store": "Armazenamento de Dados",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Físico"
+      "physical": "Físico",
+      "process": "Processo de negócio",
+      "room": "Sala"
     },
     "typeDescriptions": {
       "application": "Aplicações de negócio (ERP, CRM, email)",
@@ -34,7 +36,8 @@
       "data_store": "Partilhas de ficheiros, cópias de segurança, arquivos",
       "ot_ics": "SCADA, PLC, controladores industriais",
       "iot": "Dispositivos IoT, sensores",
-      "physical": "Edifícios, salas, infraestruturas"
+      "physical": "Edifícios, salas, infraestruturas",
+      "process": "Vendas, produção, salários"
     },
     "fields": {
       "name": "Nome do Ativo",

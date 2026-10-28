@@ -22,7 +22,9 @@
       "data_store": "Espace de stockage de données",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Physique"
+      "physical": "Physique",
+      "process": "Processus métier",
+      "room": "Local"
     },
     "typeDescriptions": {
       "application": "Applications métier (ERP, CRM, messagerie)",
@@ -34,7 +36,8 @@
       "data_store": "Partages de fichiers, sauvegardes, archives",
       "ot_ics": "SCADA, PLC, contrôleurs industriels",
       "iot": "Appareils IoT, capteurs",
-      "physical": "Bâtiments, locaux, infrastructure"
+      "physical": "Bâtiments, locaux, infrastructure",
+      "process": "Ventes, production, paie"
     },
     "fields": {
       "name": "Nom de l'actif",

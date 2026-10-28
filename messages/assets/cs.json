@@ -36,7 +36,8 @@
       "data_store": "Sdílené složky, zálohy, archivy",
       "ot_ics": "SCADA, PLC, průmyslové řídicí jednotky",
       "iot": "IoT zařízení, senzory",
-      "physical": "Budovy, místnosti, infrastruktura"
+      "physical": "Budovy, místnosti, infrastruktura",
+      "process": "Prodej, výroba, mzdy"
     },
     "fields": {
       "name": "Název aktiva",

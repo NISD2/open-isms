@@ -22,7 +22,9 @@
       "data_store": "Gegevensopslag",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Fysiek"
+      "physical": "Fysiek",
+      "process": "Bedrijfsproces",
+      "room": "Ruimte"
     },
     "typeDescriptions": {
       "application": "Bedrijfsapplicaties (ERP, CRM, e-mail)",
@@ -34,7 +36,8 @@
       "data_store": "Bestandsshares, back-ups, archieven",
       "ot_ics": "SCADA, PLC, industriële controllers",
       "iot": "IoT-apparaten, sensoren",
-      "physical": "Gebouwen, ruimtes, infrastructuur"
+      "physical": "Gebouwen, ruimtes, infrastructuur",
+      "process": "Verkoop, productie, salarisadministratie"
     },
     "fields": {
       "name": "Naam asset",

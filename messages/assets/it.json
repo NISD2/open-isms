@@ -22,7 +22,9 @@
       "data_store": "Archivio dati",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Fisico"
+      "physical": "Fisico",
+      "process": "Processo aziendale",
+      "room": "Locale"
     },
     "typeDescriptions": {
       "application": "Applicazioni aziendali (ERP, CRM, email)",
@@ -34,7 +36,8 @@
       "data_store": "Condivisioni di file, backup, archivi",
       "ot_ics": "SCADA, PLC, controllori industriali",
       "iot": "Dispositivi IoT, sensori",
-      "physical": "Edifici, locali, infrastrutture"
+      "physical": "Edifici, locali, infrastrutture",
+      "process": "Vendite, produzione, paghe"
     },
     "fields": {
       "name": "Nome dell'asset",
