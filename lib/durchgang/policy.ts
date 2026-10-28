@@ -5,6 +5,7 @@
  * and the screen's preview cannot differ.
  */
 
+import type { OutageSpan } from "@nisd2/grc-data-model/enums";
 import type {
   CryptoAlgorithmEntry,
   CryptoPolicyConfig,
@@ -51,38 +52,66 @@ const answerText = (value: unknown): string =>
     ? BLANK
     : String(value).trim();
 
+/**
+ * How the plan says how long a process may be down: a sentence per stored span, since the
+ * screen's chip labels ("länger", "Stunden") do not read inside a sentence.
+ */
 const PROCESS_TEXT = {
   de: {
-    atMost: (span: string) => `höchstens ${span} ohne`,
+    spans: {
+      hours: "höchstens einige Stunden ohne IT",
+      day: "höchstens einen Tag ohne IT",
+      three_days: "höchstens drei Tage ohne IT",
+      week: "höchstens eine Woche ohne IT",
+      longer: "länger als eine Woche ohne IT",
+    },
     needs: (names: string) => `braucht ${names}`,
   },
   en: {
-    atMost: (span: string) => `at most ${span} without`,
+    spans: {
+      hours: "at most a few hours without IT",
+      day: "at most a day without IT",
+      three_days: "at most three days without IT",
+      week: "at most a week without IT",
+      longer: "longer than a week without IT",
+    },
     needs: (names: string) => `needs ${names}`,
   },
   cs: {
-    atMost: (span: string) => `nejvýše ${span} bez`,
+    spans: {
+      hours: "nejvýše několik hodin bez IT",
+      day: "nejvýše jeden den bez IT",
+      three_days: "nejvýše tři dny bez IT",
+      week: "nejvýše jeden týden bez IT",
+      longer: "déle než týden bez IT",
+    },
     needs: (names: string) => `potřebuje ${names}`,
   },
-} as const satisfies Record<WalkLocale, unknown>;
+} as const satisfies Record<
+  WalkLocale,
+  {
+    readonly spans: Readonly<Record<OutageSpan, string>>;
+    readonly needs: (names: string) => string;
+  }
+>;
 
 /**
  * The processes that must keep running as a plan prints them, each with how it goes on, how long
- * it may be down at most (4.2, in the screen's own words for the span) and what it needs.
+ * it may be down at most (4.2's stored span, in the plan's own sentence) and what it needs.
  */
 export const criticalProcessesText = (
   locale: WalkLocale,
   rows: ReadonlyArray<{
     readonly name: string;
     readonly how: string;
-    readonly outage?: string | null;
+    readonly outage?: OutageSpan | null;
     readonly needs?: readonly string[];
   }>,
 ): string => {
   const words = PROCESS_TEXT[locale];
   const line = (r: (typeof rows)[number]) => {
     const facts = [
-      ...(r.outage ? [words.atMost(r.outage)] : []),
+      ...(r.outage ? [words.spans[r.outage]] : []),
       ...(r.needs && r.needs.length > 0 ? [words.needs(r.needs.join(", "))] : []),
     ];
     const name = facts.length > 0 ? `${r.name} (${facts.join("; ")})` : r.name;

@@ -72,7 +72,7 @@
                 },
                 {
                   "heading": "When this plan applies",
-                  "text": "This plan applies when an event interrupts important work for longer than normal troubleshooting takes, or threatens to. In doubt, {emergencyLead} decides."
+                  "text": "This plan applies when an event interrupts important work for longer than a process under emergency operation below may wait, or threatens to. Where no time is given there, it applies as soon as normal troubleshooting is no longer enough. In doubt, {emergencyLead} decides."
                 },
                 {
                   "heading": "Leadership",

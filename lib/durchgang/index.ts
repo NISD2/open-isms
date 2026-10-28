@@ -13,7 +13,13 @@ export type {
   SystemStanding,
   SystemVerdict,
 } from "./continuity";
-export { compare, continuityGaps, requiredOutage, spanRank } from "./continuity";
+export {
+  compare,
+  continuityGaps,
+  requiredOutage,
+  spanRank,
+  unratedProcesses,
+} from "./continuity";
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, ONGOING_COPY, resolveItem } from "./copy";
 export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";

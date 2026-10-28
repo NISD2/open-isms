@@ -90,6 +90,12 @@ export const continuityProcedures = {
             })
             .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
         }
+        // A process that need not keep running needs nothing: its links go with the mark, so no
+        // hidden row comes back, or is diffed against, when it is ticked again.
+        const off = rows.filter((row) => !row.critical).map((row) => row.assetId);
+        if (off.length > 0) {
+          await tx.delete(processAsset).where(inArray(processAsset.processId, off));
+        }
 
         const stored = await storedConfigOf(tx, ctx.companyId, type);
         const config = {
@@ -143,8 +149,8 @@ export const continuityProcedures = {
   /**
    * 4.2: the systems and rooms each process that must keep running needs (`process_asset`), as
    * the person picked them. A process's links are replaced by the row sent for it, so a system
-   * left out is unlinked. Both ends must be the company's: the process a `process` row, each need
-   * anything else on its list.
+   * left out is unlinked. Both ends must be the company's: the process a `process` row marked
+   * as having to keep running (the critical screen first), each need anything else on its list.
    */
   recordNeeds: durchgangWrite
     // The input is shared with the MCP tools, which save this screen for an assistant.
@@ -153,30 +159,43 @@ export const continuityProcedures = {
       askedOnScreen(input.code, "needs", "names no systems");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      // One row per process, one link per need: a system named twice is one link.
+      // One row per process, one link per need: a process sent twice is merged, since a row
+      // replaces the process's links and the last one alone would drop the rest; a system named
+      // twice is one link.
       const rows = [
-        ...new Map(
-          input.rows.map((r) => [
-            r.processId,
-            { ...r, assetIds: [...new Set(r.assetIds)] },
-          ]),
-        ).values(),
-      ];
+        ...input.rows
+          .reduce(
+            (byProcess, r) =>
+              byProcess.set(r.processId, [
+                ...(byProcess.get(r.processId) ?? []),
+                ...r.assetIds,
+              ]),
+            new Map<string, readonly string[]>(),
+          )
+          .entries(),
+      ].map(([processId, assetIds]) => ({ processId, assetIds: [...new Set(assetIds)] }));
       const ids = [...new Set(rows.flatMap((r) => [r.processId, ...r.assetIds]))];
 
       const result = await ctx.db.transaction(async (tx) => {
         const owned = await tx
-          .select({ id: asset.id, name: asset.name, type: asset.type })
+          .select({
+            id: asset.id,
+            name: asset.name,
+            type: asset.type,
+            isCritical: asset.isCritical,
+          })
           .from(asset)
           .where(and(eq(asset.companyId, ctx.companyId), inArray(asset.id, ids)))
           .for("update");
         const typeOf = new Map(owned.map((a) => [a.id, a.type]));
+        const keptOf = new Map(owned.map((a) => [a.id, a.isCritical === true]));
         const nameOf = new Map(owned.map((a) => [a.id, a.name]));
         const wellFormed =
           owned.length === ids.length &&
           rows.every(
             (row) =>
               typeOf.get(row.processId) === "process" &&
+              keptOf.get(row.processId) === true &&
               row.assetIds.every((id) => typeOf.get(id) !== "process"),
           );
         if (!wellFormed) throw new TRPCError({ code: "NOT_FOUND" });

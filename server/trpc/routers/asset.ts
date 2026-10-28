@@ -4,7 +4,7 @@ import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
-import { asset, riskAsset } from "@/schema";
+import { asset, processAsset, riskAsset } from "@/schema";
 import { assetInsertSchema, assetUpdateSchema } from "@/schema/validators";
 import { activatedCompanyProcedure, companyProcedure, router } from "../init";
 
@@ -53,11 +53,27 @@ export const assetRouter = router({
     .input(assetUpdateSchema.omit(WALK_ONLY).extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
+      // A process that stops being critical, or stops being a process, has no tolerance and
+      // needs nothing: 4.2's answers go with the mark they belong to, here as in the walk.
+      const stopsBeingCritical =
+        data.isCritical === false || (data.type !== undefined && data.type !== "process");
       const [row] = await ctx.db
         .update(asset)
-        .set({ ...data, updatedAt: new Date() })
+        .set({
+          ...data,
+          ...(stopsBeingCritical ? { maxOutage: null } : {}),
+          updatedAt: new Date(),
+        })
         .where(and(eq(asset.id, id), eq(asset.companyId, ctx.companyId)))
         .returning();
+      // Only after the company-scoped update found the row, so the links touched are its own.
+      if (row && stopsBeingCritical) {
+        await ctx.db.delete(processAsset).where(eq(processAsset.processId, id));
+      }
+      if (row && data.type === "process") {
+        // A thing turned into a process is nobody's need any more.
+        await ctx.db.delete(processAsset).where(eq(processAsset.assetId, id));
+      }
       invalidateModuleSignOffs(ctx.db, ctx.companyId, "asset", ctx.userId).catch((err) =>
         console.error("[background] asset recheck:", err),
       );

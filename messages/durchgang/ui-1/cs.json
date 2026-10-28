@@ -190,6 +190,7 @@
           "restore": "Obnova ze zálohy zatím nebyla úspěšně vyzkoušena: {names}",
           "recoverySlow": "Vrací se pomaleji, než procesy mohou čekat: {names}",
           "recoveryUnknown": "Nikdo neví, jak dlouho obnova trvá: {names}",
+          "tolerance": "U těchto procesů ještě není určeno, jak dlouho smí nejvýše stát: {names}",
           "reporting": "Společnost se zatím nemůže přihlásit do Portálu NÚKIB, přes který se incidenty hlásí (§ 16 odst. 4 zákona č. 264/2025 Sb.).",
           "trainingNone": "Za poslední tři roky není zaznamenáno žádné školení vedení. Vyhlášky požadují vstupní a pravidelná školení vedení, interval ale nestanoví (vyhláška č. 410/2025 Sb., § 5 odst. 2 písm. a); vyhláška č. 409/2025 Sb., § 10 odst. 3 písm. a)).",
           "training": "Školení za poslední tři roky absolvovali: {names}. Počet osob s rolí vedení: {managers}.",

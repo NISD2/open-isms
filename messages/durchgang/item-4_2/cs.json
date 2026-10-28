@@ -72,7 +72,7 @@
                 },
                 {
                   "heading": "Kdy plán platí",
-                  "text": "Plán platí, když událost přeruší důležitou práci na déle, než trvá běžné odstraňování závad, nebo když to hrozí. V pochybnostech rozhoduje {emergencyLead}."
+                  "text": "Plán platí, když událost přeruší důležitou práci na déle, než smí některý proces v nouzovém provozu níže čekat, nebo když to hrozí. Není-li tam uvedena žádná doba, platí, jakmile běžné odstraňování závad už nestačí. V pochybnostech rozhoduje {emergencyLead}."
                 },
                 {
                   "heading": "Řízení",

@@ -99,11 +99,12 @@
               "week": "1 týden",
               "longer": "déle"
             },
-            "needs": "Potřebné pro:",
+            "needs": "Potřebné pro",
             "required": "smí stát nejvýše:",
             "restore": "obnova:",
             "none": "Zatím není co porovnávat: v kroku 4.2 není u žádného procesu uveden systém, nebo žádný proces nemusí běžet dál.",
-            "good": "Všechno, co je potřeba, se vrátí včas."
+            "good": "Všechno, co je potřeba, se vrátí včas.",
+            "missing": "U těchto procesů ještě chybí, jak dlouho smí nejvýše stát (krok 4.2):"
           },
           "done": {
             "title": "Vaše zálohy jsou zaznamenány",

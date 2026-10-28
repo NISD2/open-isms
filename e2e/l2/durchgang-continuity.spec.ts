@@ -166,9 +166,9 @@ test.describe("durchgang continuity", () => {
   test("prints the process with its tolerance, what it needs and the recovery order in the plan", async ({
     page,
   }) => {
-    // The process line carries the tolerance and the need the first two tests chose, in the
-    // screens' own words.
-    const line = `${PROCESS} (höchstens 1 Tag ohne; braucht ${SYSTEM}): ${HOW}`;
+    // The process line carries the tolerance and the need the first two tests chose, the span
+    // in the plan's own sentence.
+    const line = `${PROCESS} (höchstens einen Tag ohne IT; braucht ${SYSTEM}): ${HOW}`;
     await page.goto(`/de/durchgang/nis2/4.2?s=${PLAN_SCREEN}`);
     await expect(page.getByText(line)).toBeVisible({ timeout: 30_000 });
     await page.locator("#dg-policy-read").click();

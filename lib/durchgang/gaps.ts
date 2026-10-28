@@ -7,7 +7,7 @@
  * changed.
  */
 
-import { type ContinuityFacts, continuityGaps } from "./continuity";
+import { type ContinuityFacts, continuityGaps, unratedProcesses } from "./continuity";
 
 /** The records the gaps are read from. */
 export interface GapFacts {
@@ -52,6 +52,8 @@ export type Gap =
   | { readonly kind: "supplier"; readonly names: readonly string[] }
   /** Backup systems without a restore that worked. */
   | { readonly kind: "restore"; readonly names: readonly string[] }
+  /** Processes that must keep running without a tolerance yet, so nothing they need can be compared. */
+  | { readonly kind: "tolerance"; readonly names: readonly string[] }
   /** Needed systems that take longer to come back than the processes needing them can wait. */
   | { readonly kind: "recovery_slow"; readonly names: readonly string[] }
   /** Needed systems whose restore time nobody knows (BSI-Standard 200-4 p. 196 allows the answer). */
@@ -76,6 +78,7 @@ export const GAP_STEP: Readonly<Record<Exclude<Gap["kind"], "set_aside">, string
   second_factor: "11.1",
   supplier: "5.2",
   restore: "4.4",
+  tolerance: "4.2",
   recovery_slow: "4.4",
   recovery_unknown: "4.4",
   reporting: "3.3",
@@ -94,6 +97,7 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
     .filter((s) => HIGH_RISK.has(s.riskLevel ?? "") && !s.security && !s.incidents)
     .map((s) => s.name);
   const untested = facts.backups.filter((b) => b.lastRestore === null).map((b) => b.name);
+  const unrated = unratedProcesses(facts.continuity).map((p) => p.name);
   const standings = continuityGaps(facts.continuity);
   const slow = standings
     .filter((s) => s.verdict.kind === "too_slow")
@@ -123,6 +127,7 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
       ? [{ kind: "supplier" as const, names: unregulated }]
       : []),
     ...(untested.length > 0 ? [{ kind: "restore" as const, names: untested }] : []),
+    ...(unrated.length > 0 ? [{ kind: "tolerance" as const, names: unrated }] : []),
     ...(slow.length > 0 ? [{ kind: "recovery_slow" as const, names: slow }] : []),
     ...(unknown.length > 0
       ? [{ kind: "recovery_unknown" as const, names: unknown }]
@@ -149,6 +154,7 @@ type GapKey =
   | "secondFactor"
   | "supplier"
   | "restore"
+  | "tolerance"
   | "recoverySlow"
   | "recoveryUnknown"
   | "reporting"
@@ -196,6 +202,13 @@ export function gapLines(
       case "restore":
         return [
           { text: t("restore", { names: gap.names.join(", ") }), code: GAP_STEP.restore },
+        ];
+      case "tolerance":
+        return [
+          {
+            text: t("tolerance", { names: gap.names.join(", ") }),
+            code: GAP_STEP.tolerance,
+          },
         ];
       case "recovery_slow":
         return [

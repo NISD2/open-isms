@@ -34,17 +34,29 @@ import { getNis2Assessment } from "./nis2-scope";
 const REPORTING = z.object({ bsiReportingRegistered: z.boolean().optional() }).catch({});
 
 /**
- * 4.2's links, which system each process needs, read through the process end's company. Only the
- * processes still marked as having to keep running count: a process unticked later keeps its
- * rows, so ticking it again finds them, but nothing downstream (4.4, the plan, the approval, an
- * assistant) sees a need of a process that need not run.
+ * 4.2's links, which system each process needs, read through the process end's company. Only
+ * the links of processes still marked as having to keep running count (the saves delete them on
+ * untick; the filter holds for every reader all the same), and only of processes: a row re-typed
+ * on the assets page is no process any more. In one fixed order whatever order the rows were
+ * written in, so nothing printed from them changes when the same links are written again.
  */
-export const processLinksOf = (db: DbOrTx, companyId: string) =>
-  db
+export const processLinksOf = async (db: DbOrTx, companyId: string) => {
+  const links = await db
     .select({ processId: processAsset.processId, assetId: processAsset.assetId })
     .from(processAsset)
     .innerJoin(asset, eq(asset.id, processAsset.processId))
-    .where(and(eq(asset.companyId, companyId), eq(asset.isCritical, true)));
+    .where(
+      and(
+        eq(asset.companyId, companyId),
+        eq(asset.isCritical, true),
+        eq(asset.type, "process"),
+      ),
+    );
+  return [...links].sort(
+    (a, b) =>
+      a.processId.localeCompare(b.processId) || a.assetId.localeCompare(b.assetId),
+  );
+};
 
 /**
  * The rows the 4.4 comparison reads (`compare`): the processes marked as having to keep running

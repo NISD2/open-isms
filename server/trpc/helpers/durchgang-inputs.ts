@@ -136,10 +136,14 @@ export const recordNeedsInput = z.object({
   code: itemCode,
   rows: z
     .array(
-      z.object({
-        processId: z.string().uuid(),
-        assetIds: z.array(z.string().uuid()).max(100),
-      }),
+      z
+        .object({
+          processId: z.string().uuid(),
+          assetIds: z.array(z.string().uuid()).max(100),
+        })
+        .describe(
+          "One process that must keep running (marked on the critical screen first), with every system and room it needs; its stored links are replaced by this row, and a process sent twice is merged into one row.",
+        ),
     )
     .min(1)
     .max(200),

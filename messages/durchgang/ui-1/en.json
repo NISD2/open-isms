@@ -205,6 +205,7 @@
           "restore": "No restore that worked yet: {names}",
           "recoverySlow": "Comes back slower than the processes can wait: {names}",
           "recoveryUnknown": "Nobody knows how long it takes to come back: {names}",
+          "tolerance": "How long these processes may stand still at most is not recorded yet: {names}",
           "reporting": "The company cannot sign in to the BSI's portal to report an incident yet.",
           "trainingNone": "No management training in the last three years. The explanatory memorandum reads “regularly” as at least every three years.",
           "training": "Trained in the last three years: {names}. {managers} people hold the management role.",

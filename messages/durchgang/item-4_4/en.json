@@ -103,7 +103,8 @@
             "required": "may stand still at most:",
             "restore": "comes back in:",
             "none": "Nothing to compare yet: step 4.2 names no system for any process, or no process must keep running.",
-            "good": "Everything that is needed comes back in time."
+            "good": "Everything that is needed comes back in time.",
+            "missing": "For these processes it is not recorded yet how long they may stand still at most (step 4.2):"
           },
           "done": {
             "title": "Your backups are recorded",

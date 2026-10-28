@@ -205,6 +205,7 @@
           "restore": "Noch keine Wiederherstellung, die funktioniert hat: {names}",
           "recoverySlow": "Kommt langsamer zurück, als die Abläufe warten können: {names}",
           "recoveryUnknown": "Wie lange der Wiederanlauf dauert, weiß niemand: {names}",
+          "tolerance": "Wie lange diese Abläufe höchstens stillstehen dürfen, steht noch nicht fest: {names}",
           "reporting": "Das Unternehmen kann sich noch nicht im Portal des BSI anmelden, um einen Vorfall zu melden.",
           "trainingNone": "Keine Schulung der Geschäftsführung in den letzten drei Jahren. Die Gesetzesbegründung liest „regelmäßig“ als mindestens alle drei Jahre.",
           "training": "In den letzten drei Jahren geschult: {names}. Die Rolle Geschäftsführung haben {managers} Personen.",

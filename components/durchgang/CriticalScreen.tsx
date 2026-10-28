@@ -35,7 +35,8 @@ export function CriticalScreen({
     draft.critical[process.id] ?? {
       on: Boolean(process.isCritical),
       how: fallbacks[process.id] ?? "",
-      outage: process.maxOutage ?? null,
+      // A tolerance belongs to a process that must keep running; a stale one never shows pressed.
+      outage: process.isCritical ? (process.maxOutage ?? null) : null,
     };
   const set = (id: string, value: Critical) =>
     onDraft({ ...draft, critical: { ...draft.critical, [id]: value } });

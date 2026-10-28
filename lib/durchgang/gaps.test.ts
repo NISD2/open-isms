@@ -55,6 +55,37 @@ describe("the gaps management sees before it signs", () => {
     ]);
   });
 
+  test("a process that must keep running without a tolerance is a gap of its own, and never lets a shared system pass as in time", () => {
+    const facts: GapFacts = {
+      ...complete,
+      continuity: {
+        processes: [
+          { id: "p1", name: "Auftragsannahme", maxOutage: "hours" },
+          { id: "p2", name: "Versand", maxOutage: null },
+        ],
+        systems: [
+          { id: "s1", name: "ERP", restoreTime: "day", restoreTimeUnknown: false },
+        ],
+        links: [
+          { processId: "p1", assetId: "s1" },
+          { processId: "p2", assetId: "s1" },
+        ],
+      },
+    };
+    expect(gapsOf(facts)).toEqual([
+      { kind: "tolerance", names: ["Versand"] },
+      { kind: "recovery_slow", names: ["ERP"] },
+    ]);
+    // Alone, the unrated process makes the system "unrated", which is no recovery gap; the
+    // missing tolerance still is.
+    expect(
+      gapsOf({
+        ...facts,
+        continuity: { ...facts.continuity, links: [{ processId: "p2", assetId: "s1" }] },
+      }),
+    ).toEqual([{ kind: "tolerance", names: ["Versand"] }]);
+  });
+
   test("programs without a second factor, and whether none has one", () => {
     expect(
       gapsOf({

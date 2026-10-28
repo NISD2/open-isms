@@ -139,6 +139,8 @@ const SCREEN_COPY = {
     restore: text,
     none: text,
     good: text,
+    /** Before the names of the processes that must keep running but have no tolerance yet. */
+    missing: text,
   }),
   /**
    * The policy itself: its fixed sections, the clauses the person may add, and the signature

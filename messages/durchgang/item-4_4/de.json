@@ -103,7 +103,8 @@
             "required": "darf höchstens stillstehen:",
             "restore": "Wiederanlauf:",
             "none": "Noch nichts zu vergleichen: In Schritt 4.2 steht noch kein System bei einem Ablauf, oder kein Ablauf muss weiterlaufen.",
-            "good": "Alles, was gebraucht wird, kommt rechtzeitig zurück."
+            "good": "Alles, was gebraucht wird, kommt rechtzeitig zurück.",
+            "missing": "Für diese Abläufe fehlt noch, wie lange sie höchstens stillstehen dürfen (Schritt 4.2):"
           },
           "done": {
             "title": "Ihre Datensicherung ist festgehalten",

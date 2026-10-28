@@ -72,7 +72,7 @@
                 },
                 {
                   "heading": "Wann dieser Plan gilt",
-                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als die übliche Störungsbehebung braucht, oder wenn das droht. Im Zweifel entscheidet {emergencyLead}."
+                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als ein Ablauf im Notbetrieb unten warten darf, oder wenn das droht. Steht dort keine Zeit, gilt er, sobald die übliche Störungsbehebung nicht mehr ausreicht. Im Zweifel entscheidet {emergencyLead}."
                 },
                 {
                   "heading": "Leitung",

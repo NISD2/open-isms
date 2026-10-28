@@ -123,3 +123,10 @@ export const continuityGaps = (facts: ContinuityFacts): readonly SystemStanding[
   compare(facts).filter(
     (s) => s.verdict.kind === "too_slow" || s.verdict.kind === "unknown",
   );
+
+/**
+ * The processes that must keep running without a tolerance yet: nothing they need can be
+ * compared, so they are a gap of their own (4.2 first), never a silent "in time".
+ */
+export const unratedProcesses = (facts: ContinuityFacts): readonly ContinuityProcess[] =>
+  facts.processes.filter((p) => p.maxOutage === null);

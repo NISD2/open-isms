@@ -1,4 +1,3 @@
-import type { OutageSpan } from "@nisd2/grc-data-model/enums";
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
@@ -270,13 +269,6 @@ const policyListsOf = async (
     reportingChannel: () => reportingChannelText(locale, portal),
     emergencyLead: () => personText(lead[EMERGENCY_LEAD.field]),
     criticalProcesses: () => {
-      // The tolerance in the 4.2 screen's own words, so the plan and the screen say the same.
-      const keep = resolveItem(NAMESPACES[locale], walkItem("4.2"));
-      const screen = keep.ok
-        ? keep.value.screens.find((s) => s.kind === "critical")
-        : undefined;
-      const spans: Partial<Record<OutageSpan, string>> =
-        screen?.kind === "critical" ? screen.copy.outageOptions : {};
       const names = new Map(assets.map((a) => [a.id, a.name]));
       return criticalProcessesText(
         locale,
@@ -285,13 +277,15 @@ const policyListsOf = async (
           .map((a) => ({
             name: a.name,
             how: fallbacks[a.id] ?? "",
-            outage: a.maxOutage ? (spans[a.maxOutage] ?? a.maxOutage) : null,
+            outage: a.maxOutage,
+            // By name, so the plan's text does not depend on the order the links were written in.
             needs: processLinks
               .filter((l) => l.processId === a.id)
               .flatMap((l) => {
                 const name = names.get(l.assetId);
                 return name ? [name] : [];
-              }),
+              })
+              .sort((x, y) => x.localeCompare(y, locale)),
           })),
       );
     },

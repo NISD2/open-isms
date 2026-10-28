@@ -1,6 +1,6 @@
 "use client";
 
-import { compare, type SystemStanding } from "@/lib/durchgang";
+import { compare, type SystemStanding, unratedProcesses } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { Heading, Lead } from "./ExplainScreens";
 import type { Of, WorkProps } from "./WorkScreens";
@@ -37,8 +37,12 @@ export function RecoveryScreen({ entry }: WorkProps & { entry: Of<"recovery"> })
     const at = standings.filter((s) => s.verdict.kind === kind);
     return at.length > 0 ? [{ kind, at }] : [];
   });
-  // "Everything comes back in time" only once every needed system has been answered and passes.
-  const allInTime = standings.every((s) => s.verdict.kind === "ok");
+  // A process without a tolerance cannot be compared for: named here and an open point on 7.3.
+  const missing = unratedProcesses(facts.data).map((p) => p.name);
+  // "Everything comes back in time" only once every process that must keep running says how
+  // long it can wait, and every needed system has been answered and passes.
+  const allInTime =
+    missing.length === 0 && standings.every((s) => s.verdict.kind === "ok");
 
   return (
     <>
@@ -48,6 +52,11 @@ export function RecoveryScreen({ entry }: WorkProps & { entry: Of<"recovery"> })
         <p className="mt-8 text-muted-foreground">{entry.copy.none}</p>
       ) : (
         <>
+          {missing.length > 0 && (
+            <p className="mt-8 text-sm text-muted-foreground">
+              {entry.copy.missing} {missing.join(", ")}
+            </p>
+          )}
           {allInTime && (
             <p className="mt-8 text-sm font-medium text-emerald-700">{entry.copy.good}</p>
           )}

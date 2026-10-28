@@ -213,10 +213,13 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
         }));
         if (rows.length > 0) {
           await recordCritical.mutateAsync({ code: item.code, rows });
+          // A process unticked loses its links, so the needs screen and the approval reread.
           await Promise.all([
             utils.asset.list.invalidate(),
             utils.durchgang.policyDraft.invalidate(),
+            utils.durchgang.processNeeds.invalidate(),
             utils.durchgang.recovery.invalidate(),
+            utils.durchgang.gaps.invalidate(),
           ]);
         }
         return;
@@ -232,6 +235,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
             utils.durchgang.processNeeds.invalidate(),
             utils.durchgang.policyDraft.invalidate(),
             utils.durchgang.recovery.invalidate(),
+            utils.durchgang.gaps.invalidate(),
           ]);
         }
         return;
@@ -247,6 +251,7 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           await Promise.all([
             utils.asset.list.invalidate(),
             utils.durchgang.recovery.invalidate(),
+            utils.durchgang.gaps.invalidate(),
           ]);
         }
         return;

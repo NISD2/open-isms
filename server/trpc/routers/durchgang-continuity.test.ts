@@ -104,21 +104,41 @@ function setup(world: World) {
           limit: async () => rows,
         });
       },
-      // The one join, 4.2's links read through the process end (`processLinksOf`): the links of
-      // the company's processes still marked as having to keep running.
-      innerJoin: () => ({
-        where: async (where: SQL) => {
-          wheres.push({ table: "processAsset", where });
-          const critical = new Set(
-            world.assets
-              .filter((a) => a.type === "process" && a.isCritical === true)
-              .map((a) => a.id),
-          );
-          return (world.needs ?? []).filter((l) => critical.has(l.processId));
-        },
-      }),
+      innerJoin: joined,
     }),
   });
+
+  /**
+   * The joins, 4.2's links read through their process end (`processLinksOf`), answered from the
+   * clauses the WHERE renders as Postgres would: `"is_critical" = ` keeps the processes marked,
+   * `"type" = ` the process rows. Dropping either clause from the query shows here.
+   */
+  const linksOf = (where: SQL): readonly unknown[] => {
+    const { sql } = queryOf(where);
+    const processes = new Set(
+      world.assets
+        .filter((a) => !sql.includes('"is_critical" = ') || a.isCritical === true)
+        .filter((a) => !sql.includes('"type" = ') || a.type === "process")
+        .map((a) => a.id),
+    );
+    return (world.needs ?? []).filter((l) => processes.has(l.processId));
+  };
+  interface Joined {
+    readonly innerJoin: () => Joined;
+    readonly where: (
+      where: SQL,
+    ) => Promise<readonly unknown[]> & { orderBy: () => Promise<readonly unknown[]> };
+  }
+  function joined(): Joined {
+    return {
+      innerJoin: joined,
+      where: (where) => {
+        wheres.push({ table: "processAsset", where });
+        const rows = linksOf(where);
+        return Object.assign(Promise.resolve(rows), { orderBy: async () => rows });
+      },
+    };
+  }
 
   const db = {
     query: {
@@ -279,13 +299,21 @@ describe("the processes that must keep running (4.2)", () => {
       }),
     ).toEqual({ changed: 0 });
 
-    const off = setup({ assets: [{ ...sales, isCritical: true, maxOutage: "day" }] });
+    const off = setup({
+      assets: [{ ...sales, isCritical: true, maxOutage: "day" }],
+      needs: [{ processId: SALES, assetId: ERP }],
+    });
     await off.caller.recordCritical({
       code: "4.2",
       rows: [{ assetId: SALES, critical: false, how: "" }],
     });
     const [cleared] = off.writes.filter((w) => w.op === "update" && w.table === asset);
     expect(cleared?.values).toMatchObject({ isCritical: false, maxOutage: null });
+    // Its links go with the mark.
+    const unlinked = off.writes.find(
+      (w) => w.op === "delete" && w.table === processAsset,
+    );
+    expect(unlinked?.where && paramsOf(unlinked.where)).toEqual([SALES]);
   });
 
   test("refuses an asset that is not one of the company's processes, an item without the screen, and accounts without the Durchgang", async () => {
@@ -313,9 +341,12 @@ describe("the processes that must keep running (4.2)", () => {
 });
 
 describe("what the processes need (4.2)", () => {
+  /** Sales marked as having to keep running, which a process must be to need anything. */
+  const kept: Thing = { ...sales, isCritical: true };
+
   test("replaces a process's links: unlinks what is gone, links what is new, in the trail", async () => {
     const { caller, writes, wheres } = setup({
-      assets: [sales, erp, server],
+      assets: [kept, erp, server],
       needs: [{ processId: SALES, assetId: SERVER }],
     });
     expect(
@@ -334,8 +365,8 @@ describe("what the processes need (4.2)", () => {
     expect(noteOf(writes)).toContain("Vertrieb: ERP");
   });
 
-  test("a system named twice is one link, and a process with nothing left says so in the trail", async () => {
-    const twice = setup({ assets: [sales, erp] });
+  test("a system named twice is one link, a process sent twice one row, and a process with nothing left says so in the trail", async () => {
+    const twice = setup({ assets: [kept, erp] });
     expect(
       await twice.caller.recordNeeds({
         code: "4.2",
@@ -347,8 +378,28 @@ describe("what the processes need (4.2)", () => {
     );
     expect(inserted?.values).toEqual([{ processId: SALES, assetId: ERP }]);
 
+    // Two rows for one process, as an assistant may send them, are one row: nothing is dropped.
+    const split = setup({ assets: [kept, erp, server] });
+    expect(
+      await split.caller.recordNeeds({
+        code: "4.2",
+        rows: [
+          { processId: SALES, assetIds: [ERP] },
+          { processId: SALES, assetIds: [SERVER] },
+        ],
+      }),
+    ).toEqual({ changed: 2 });
+    const merged = split.writes.find(
+      (w) => w.op === "insert" && w.table === processAsset,
+    );
+    expect(merged?.values).toEqual([
+      { processId: SALES, assetId: ERP },
+      { processId: SALES, assetId: SERVER },
+    ]);
+    expect(noteOf(split.writes)).toContain("Vertrieb: ERP, Server");
+
     const cleared = setup({
-      assets: [sales, erp],
+      assets: [kept, erp],
       needs: [{ processId: SALES, assetId: ERP }],
     });
     expect(
@@ -362,7 +413,7 @@ describe("what the processes need (4.2)", () => {
 
   test("writes nothing when the links sent are the links stored", async () => {
     const { caller, writes } = setup({
-      assets: [sales, erp],
+      assets: [kept, erp],
       needs: [{ processId: SALES, assetId: ERP }],
     });
     expect(
@@ -374,14 +425,23 @@ describe("what the processes need (4.2)", () => {
     expect(writes.filter((w) => w.table === processAsset)).toEqual([]);
   });
 
-  test("refuses a need that is not the company's, a process as a need, and an item without the screen", async () => {
-    const { caller, writes } = setup({ assets: [sales, books, erp] });
+  test("refuses a need that is not the company's, a process as a need, a process that need not keep running, and an item without the screen", async () => {
+    const { caller, writes } = setup({ assets: [kept, books, erp] });
     await expect(
       caller.recordNeeds({
         code: "4.2",
         rows: [{ processId: SALES, assetIds: [FOREIGN] }],
       }),
     ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    // Sales unticked: its row is refused, so no hidden link is ever written or diffed against.
+    const unticked = setup({ assets: [sales, erp] });
+    await expect(
+      unticked.caller.recordNeeds({
+        code: "4.2",
+        rows: [{ processId: SALES, assetIds: [ERP] }],
+      }),
+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    expect(unticked.writes.filter((w) => w.table === processAsset)).toEqual([]);
     await expect(
       caller.recordNeeds({
         code: "4.2",
