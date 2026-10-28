@@ -7,8 +7,12 @@
  * changed.
  */
 
+import { type ContinuityFacts, continuityGaps } from "./continuity";
+
 /** The records the gaps are read from. */
 export interface GapFacts {
+  /** 4.2 and 4.4: the critical processes, the systems they need and how long each takes back. */
+  readonly continuity: ContinuityFacts;
   /** 11.1: every program people sign in to, and whether a second factor is on. */
   readonly signIns: ReadonlyArray<{ readonly name: string; readonly hasMfa: boolean }>;
   /** 2.3 and 5.2: each supplier's rated risk and what its contract settles. */
@@ -48,6 +52,10 @@ export type Gap =
   | { readonly kind: "supplier"; readonly names: readonly string[] }
   /** Backup systems without a restore that worked. */
   | { readonly kind: "restore"; readonly names: readonly string[] }
+  /** Needed systems that take longer to come back than the processes needing them can wait. */
+  | { readonly kind: "recovery_slow"; readonly names: readonly string[] }
+  /** Needed systems whose restore time nobody knows (BSI-Standard 200-4 p. 196 allows the answer). */
+  | { readonly kind: "recovery_unknown"; readonly names: readonly string[] }
   /** The company cannot report to the BSI yet. */
   | { readonly kind: "reporting" }
   /**
@@ -68,6 +76,8 @@ export const GAP_STEP: Readonly<Record<Exclude<Gap["kind"], "set_aside">, string
   second_factor: "11.1",
   supplier: "5.2",
   restore: "4.4",
+  recovery_slow: "4.4",
+  recovery_unknown: "4.4",
   reporting: "3.3",
   training: "1.1",
 };
@@ -84,6 +94,9 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
     .filter((s) => HIGH_RISK.has(s.riskLevel ?? "") && !s.security && !s.incidents)
     .map((s) => s.name);
   const untested = facts.backups.filter((b) => b.lastRestore === null).map((b) => b.name);
+  const standings = continuityGaps(facts.continuity);
+  const slow = standings.filter((s) => s.verdict.kind === "too_slow").map((s) => s.system.name);
+  const unknown = standings.filter((s) => s.verdict.kind === "unknown").map((s) => s.system.name);
   const since = threeYearsBefore(facts.today);
   const trained = [
     ...new Set(
@@ -106,6 +119,8 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
       ? [{ kind: "supplier" as const, names: unregulated }]
       : []),
     ...(untested.length > 0 ? [{ kind: "restore" as const, names: untested }] : []),
+    ...(slow.length > 0 ? [{ kind: "recovery_slow" as const, names: slow }] : []),
+    ...(unknown.length > 0 ? [{ kind: "recovery_unknown" as const, names: unknown }] : []),
     ...(facts.reporting === false ? [{ kind: "reporting" as const }] : []),
     ...(trained.length === 0 || trained.length < facts.managers
       ? [{ kind: "training" as const, trained, managers: facts.managers }]
@@ -128,6 +143,8 @@ type GapKey =
   | "secondFactor"
   | "supplier"
   | "restore"
+  | "recoverySlow"
+  | "recoveryUnknown"
   | "reporting"
   | "trainingNone"
   | "training"
@@ -173,6 +190,20 @@ export function gapLines(
       case "restore":
         return [
           { text: t("restore", { names: gap.names.join(", ") }), code: GAP_STEP.restore },
+        ];
+      case "recovery_slow":
+        return [
+          {
+            text: t("recoverySlow", { names: gap.names.join(", ") }),
+            code: GAP_STEP.recovery_slow,
+          },
+        ];
+      case "recovery_unknown":
+        return [
+          {
+            text: t("recoveryUnknown", { names: gap.names.join(", ") }),
+            code: GAP_STEP.recovery_unknown,
+          },
         ];
       case "reporting":
         return [{ text: t("reporting"), code: GAP_STEP.reporting }];

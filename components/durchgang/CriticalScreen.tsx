@@ -2,7 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
+import { OUTAGE_SPANS } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
+import { cn } from "@/lib/utils";
 import type { Critical } from "./draft";
 import { Heading, Lead } from "./ExplainScreens";
 import { Toggle } from "./RowParts";
@@ -11,8 +13,9 @@ import type { Of, WorkProps } from "./WorkScreens";
 
 /**
  * 4.2: the business processes on the company's list. The person marks what must keep running
- * without IT and says in one line how; the plan on the next screens prints both. The mark is the
- * asset's own `is_critical`, so the asset page shows the same.
+ * without IT, says in one line how, and how long it may be down at most (BSI-Standard 200-4
+ * p. 178, on five coarse steps); the plan on the next screens prints all three. The mark is the
+ * asset's own `is_critical` and the tolerance its `max_outage`, so the asset page shows the same.
  */
 export function CriticalScreen({
   item,
@@ -27,8 +30,12 @@ export function CriticalScreen({
   const fallbacks = plan.data.fallbacks;
   const processes = assets.data.filter((a) => a.type === "process");
 
-  const answerOf = (id: string, stored: boolean | null): Critical =>
-    draft.critical[id] ?? { on: Boolean(stored), how: fallbacks[id] ?? "" };
+  const answerOf = (process: (typeof processes)[number]): Critical =>
+    draft.critical[process.id] ?? {
+      on: Boolean(process.isCritical),
+      how: fallbacks[process.id] ?? "",
+      outage: process.maxOutage ?? null,
+    };
   const set = (id: string, value: Critical) =>
     onDraft({ ...draft, critical: { ...draft.critical, [id]: value } });
 
@@ -41,7 +48,7 @@ export function CriticalScreen({
       ) : (
         <ul className="mt-8 divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
           {processes.map((process) => {
-            const value = answerOf(process.id, process.isCritical);
+            const value = answerOf(process);
             const inputId = `dg-critical-${process.id}`;
             return (
               <li key={process.id} className="space-y-3 px-5 py-4">
@@ -73,6 +80,35 @@ export function CriticalScreen({
                         onChange={(how) => set(process.id, { ...value, how })}
                       />
                     )}
+                    <fieldset className="space-y-2 pt-2">
+                      <legend className="text-sm text-muted-foreground">
+                        {entry.copy.outage}
+                      </legend>
+                      <div className="flex flex-wrap gap-2">
+                        {OUTAGE_SPANS.map((span) => (
+                          <button
+                            key={span}
+                            type="button"
+                            aria-pressed={value.outage === span}
+                            onClick={() =>
+                              set(process.id, {
+                                ...value,
+                                outage: value.outage === span ? null : span,
+                              })
+                            }
+                            className={cn(
+                              "cursor-pointer rounded-full border px-3 py-1.5 text-sm transition-colors",
+                              value.outage === span
+                                ? "border-primary bg-primary/[0.06] text-foreground"
+                                : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                            )}
+                          >
+                            {entry.copy.outageOptions[span]}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-xs text-muted-foreground">{entry.copy.outageHint}</p>
+                    </fieldset>
                   </div>
                 )}
               </li>

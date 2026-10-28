@@ -76,6 +76,8 @@ const TEXT = {
       names.length > 0
         ? `Muss ohne IT weiterlaufen: ${names.join(", ")}.`
         : "Abläufe geprüft: keiner muss ohne IT weiterlaufen.",
+    needs: (lines: readonly string[]) => `Was die Abläufe brauchen: ${lines.join("; ")}.`,
+    restore: (lines: readonly string[]) => `Wiederanlauf festgehalten: ${lines.join("; ")}.`,
   },
   en: {
     waiting: (reason: string, note: string | null) =>
@@ -109,6 +111,8 @@ const TEXT = {
       names.length > 0
         ? `Must keep running without IT: ${names.join(", ")}.`
         : "Processes checked: none must keep running without IT.",
+    needs: (lines: readonly string[]) => `What the processes need: ${lines.join("; ")}.`,
+    restore: (lines: readonly string[]) => `Restore times recorded: ${lines.join("; ")}.`,
   },
   cs: {
     waiting: (reason: string, note: string | null) =>
@@ -145,6 +149,8 @@ const TEXT = {
       names.length > 0
         ? `Musí běžet i bez IT: ${names.join(", ")}.`
         : "Procesy zkontrolovány: žádný nemusí běžet bez IT.",
+    needs: (lines: readonly string[]) => `Co procesy potřebují: ${lines.join("; ")}.`,
+    restore: (lines: readonly string[]) => `Doby obnovy zaznamenány: ${lines.join("; ")}.`,
   },
 } as const;
 
@@ -237,3 +243,11 @@ export const approvedNote = (
 /** The processes marked as having to keep running without IT, or that none was. */
 export const criticalNote = (locale: WalkLocale, names: readonly string[]) =>
   TEXT[locale].critical(names);
+
+/** 4.2: per process that must keep running, what it needs, as "process: a, b". */
+export const needsNote = (locale: WalkLocale, lines: readonly string[]) =>
+  TEXT[locale].needs(lines);
+
+/** 4.4: per needed system, how long it takes to bring back, as "system: a day". */
+export const restoreNote = (locale: WalkLocale, lines: readonly string[]) =>
+  TEXT[locale].restore(lines);

@@ -18,9 +18,9 @@ import {
   walkPolicy,
 } from "../lib/durchgang";
 
-// learn, example, keep running, plan, done. The plan's lead is the one 3.1 names.
+// learn, example, keep running, what it needs, plan, done. The plan's lead is the one 3.1 names.
 const KEEP_SCREEN = 2;
-const PLAN_SCREEN = 3;
+const PLAN_SCREEN = 4;
 const TYPE = "business_continuity";
 const PROCESS = "E2E Auftragsannahme";
 const SYSTEM = "E2E Warenwirtschaft";
@@ -82,17 +82,18 @@ test.describe("durchgang continuity lists", () => {
 
     await row.getByRole("button", { name: "Muss weiterlaufen" }).click();
     await row.getByLabel("So geht es ohne IT weiter").fill(HOW);
+    await row.getByRole("button", { name: "1 Tag", exact: true }).click();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect
       .poll(async () => {
-        const [asset] = await e2eQuery<{ is_critical: boolean | null }>(
-          `SELECT is_critical FROM asset WHERE company_id = $1 AND name = $2`,
+        const [asset] = await e2eQuery<{ is_critical: boolean | null; max_outage: string | null }>(
+          `SELECT is_critical, max_outage FROM asset WHERE company_id = $1 AND name = $2`,
           [tenant.company_id, PROCESS],
         );
-        return asset?.is_critical ?? null;
+        return asset ? `${asset.is_critical}/${asset.max_outage}` : null;
       })
-      .toBe(true);
+      .toBe("true/day");
   });
 
   test("prints the process with its line and the recovery order in the plan", async ({

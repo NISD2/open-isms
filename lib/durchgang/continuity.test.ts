@@ -4,7 +4,7 @@ import {
   type ContinuityFacts,
   type ContinuitySystem,
   compare,
-  gaps,
+  continuityGaps,
   requiredOutage,
   spanRank,
 } from "./continuity";
@@ -107,7 +107,7 @@ describe("the comparison management sees before it signs", () => {
   });
 
   test("lists only what is too slow or unknown as a gap", () => {
-    expect(gaps(f).map((s) => s.system.id)).toEqual(["erp", "files"]);
+    expect(continuityGaps(f).map((s) => s.system.id)).toEqual(["erp", "files"]);
   });
 
   test("a restore as slow as the tolerance is in time, longer against longer included", () => {

@@ -119,7 +119,7 @@ export const compare = (facts: ContinuityFacts): readonly SystemStanding[] =>
   facts.systems.map((system) => ({ system, verdict: verdictOf(facts, system) }));
 
 /** What management sees before it signs: the systems too slow or unknown (200-4 p. 198). */
-export const gaps = (facts: ContinuityFacts): readonly SystemStanding[] =>
+export const continuityGaps = (facts: ContinuityFacts): readonly SystemStanding[] =>
   compare(facts).filter(
     (s) => s.verdict.kind === "too_slow" || s.verdict.kind === "unknown",
   );

@@ -51,13 +51,36 @@ const answerText = (value: unknown): string =>
     ? BLANK
     : String(value).trim();
 
-/** The processes that must keep running as a plan prints them, each with how it goes on. */
+const PROCESS_TEXT = {
+  de: { atMost: (span: string) => `höchstens ${span} ohne`, needs: (names: string) => `braucht ${names}` },
+  en: { atMost: (span: string) => `at most ${span} without`, needs: (names: string) => `needs ${names}` },
+  cs: { atMost: (span: string) => `nejvýše ${span} bez`, needs: (names: string) => `potřebuje ${names}` },
+} as const satisfies Record<WalkLocale, unknown>;
+
+/**
+ * The processes that must keep running as a plan prints them, each with how it goes on, how long
+ * it may be down at most (4.2, in the screen's own words for the span) and what it needs.
+ */
 export const criticalProcessesText = (
-  rows: ReadonlyArray<{ readonly name: string; readonly how: string }>,
-): string =>
-  rows.length === 0
-    ? BLANK
-    : rows.map((r) => (r.how.trim() ? `${r.name}: ${r.how.trim()}` : r.name)).join("; ");
+  locale: WalkLocale,
+  rows: ReadonlyArray<{
+    readonly name: string;
+    readonly how: string;
+    readonly outage?: string | null;
+    readonly needs?: readonly string[];
+  }>,
+): string => {
+  const words = PROCESS_TEXT[locale];
+  const line = (r: (typeof rows)[number]) => {
+    const facts = [
+      ...(r.outage ? [words.atMost(r.outage)] : []),
+      ...(r.needs && r.needs.length > 0 ? [words.needs(r.needs.join(", "))] : []),
+    ];
+    const name = facts.length > 0 ? `${r.name} (${facts.join("; ")})` : r.name;
+    return r.how.trim() ? `${name}: ${r.how.trim()}` : name;
+  };
+  return rows.length === 0 ? BLANK : rows.map(line).join("; ");
+};
 
 /** The systems in the order a plan brings them back, numbered. */
 export const recoveryOrderText = (names: readonly string[]): string =>

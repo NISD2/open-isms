@@ -42,7 +42,23 @@
               "ručně, do systému později",
               "z jiného pracoviště",
               "převezme to dodavatel"
-            ]
+            ],
+            "outage": "Jak dlouho smí nejvýše stát?",
+            "outageHint": "V nejhorším případě: od kdy to pocítí zákazníci, bezpečnost nebo nějaká lhůta? Odhad stačí. Je to zadání pro všechno, co tento proces potřebuje.",
+            "outageOptions": {
+              "hours": "hodiny",
+              "day": "1 den",
+              "three_days": "3 dny",
+              "week": "1 týden",
+              "longer": "déle"
+            }
+          },
+          "needs": {
+            "title": "Co procesy potřebují",
+            "lead": "U každého procesu, který musí běžet dál: které systémy a místnosti z vašeho seznamu k tomu potřebuje? Systém, který potřebují dva procesy, musí být zpět tak rychle, jak žádá ten naléhavější. Německý BSI uvádí u každého procesu jeho zásadní aplikace (standard 200-4; standard 300-1, příloha 2).",
+            "none": "Žádný proces není označen jako „musí běžet dál“, takže tu není co vybírat.",
+            "empty": "Kromě procesů zatím na vašem seznamu nic není. Doplňte v kroku 2.2, co používáte.",
+            "needs": "Potřebuje:"
           },
           "plan": {
             "title": "Váš plán kontinuity činností",
@@ -81,6 +97,10 @@
                 {
                   "heading": "Návrat do běžného provozu",
                   "text": "{emergencyLead} ohlásí konec nouzového provozu. Zapíšeme, co se stalo, a plán upravíme."
+                },
+                {
+                  "heading": "Pojmy a doba platnosti",
+                  "text": "Porucha je výpadek, který běžné odstraňování poruch vyřeší v obvyklém čase. Nouzová situace je výpadek, který přeruší důležitou práci na déle, než smí některý proces výše čekat; pak platí tento plán. Krize je nouzová situace, kterou vlastními silami nezvládneme a při níž {emergencyLead} přivolá pomoc zvenčí. Tento plán platí jeden rok od schválení a poté se přezkoumá. Je to vstupní úroveň podle standardu BSI 200-4; německý BSI očekává, že jej budeme postupně rozvíjet."
                 }
               ],
               "clauses": [
@@ -88,7 +108,7 @@
                   "id": "targets",
                   "label": "Cíle obnovy",
                   "heading": "Cíle obnovy",
-                  "text": "Pro naše nejdůležitější systémy stanovíme, jak dlouho smějí nejvýše stát (doba obnovení chodu) a o kolik dat můžeme nejvýše přijít (bod obnovení dat). Hodnoty vedeme u systémů na našem seznamu."
+                  "text": "Jak dlouho smí každý proces v nouzovém provozu výše nejvýše stát a které systémy potřebuje, je uvedeno u něj. Jak dlouho trvá obnova každého z těchto systémů, vedeme u systémů na našem seznamu; o kolik dat můžeme nejvýše přijít, plyne z toho, jak často zálohujeme. Co je příliš pomalé nebo neznámé, je otevřeným bodem při schválení vedením. Je to vstupní úroveň podle standardu BSI 200-4; odhad tam stačí a postupně ji rozvíjíme."
                 },
                 {
                   "id": "practice",

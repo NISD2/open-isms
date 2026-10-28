@@ -38,6 +38,7 @@ import {
   riskAsset,
 } from "@/schema";
 import { walkItemRef, walkPolicyRows } from "./durchgang";
+import { processLinksOf } from "./durchgang-gaps";
 import { NAMESPACES, recordLocaleOf, walkItem } from "./durchgang-words";
 
 /**
@@ -223,7 +224,7 @@ const policyListsOf = async (
   locale: WalkLocale,
 ): Promise<Partial<Record<PolicyList, string>>> => {
   const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
-  const [assets, links, org, lead, crypto, dpo, documents] = await Promise.all([
+  const [assets, links, processLinks, org, lead, crypto, dpo, documents] = await Promise.all([
     needs("criticalProcesses", "recoveryOrder")
       ? db
           .select({
@@ -231,6 +232,7 @@ const policyListsOf = async (
             name: asset.name,
             type: asset.type,
             isCritical: asset.isCritical,
+            maxOutage: asset.maxOutage,
           })
           .from(asset)
           .where(eq(asset.companyId, companyId))
@@ -248,6 +250,7 @@ const policyListsOf = async (
           .innerJoin(risk, eq(risk.id, riskAsset.riskId))
           .where(eq(risk.companyId, companyId))
       : [],
+    needs("criticalProcesses") ? processLinksOf(db, companyId) : [],
     needs("reportingChannel")
       ? db.query.company.findFirst({
           where: eq(company.id, companyId),
@@ -264,12 +267,29 @@ const policyListsOf = async (
   const text: Record<PolicyList, () => string> = {
     reportingChannel: () => reportingChannelText(locale, portal),
     emergencyLead: () => personText(lead[EMERGENCY_LEAD.field]),
-    criticalProcesses: () =>
-      criticalProcessesText(
+    criticalProcesses: () => {
+      // The tolerance in the 4.2 screen's own words, so the plan and the screen say the same.
+      const keep = resolveItem(NAMESPACES[locale], walkItem("4.2"));
+      const screen = keep.ok ? keep.value.screens.find((s) => s.kind === "critical") : undefined;
+      const spans = screen?.kind === "critical" ? screen.copy.outageOptions : {};
+      const names = new Map(assets.map((a) => [a.id, a.name]));
+      return criticalProcessesText(
+        locale,
         assets
           .filter((a) => a.type === "process" && a.isCritical)
-          .map((a) => ({ name: a.name, how: fallbacks[a.id] ?? "" })),
-      ),
+          .map((a) => ({
+            name: a.name,
+            how: fallbacks[a.id] ?? "",
+            outage: a.maxOutage ? (spans[a.maxOutage] ?? a.maxOutage) : null,
+            needs: processLinks
+              .filter((l) => l.processId === a.id)
+              .flatMap((l) => {
+                const name = names.get(l.assetId);
+                return name ? [name] : [];
+              }),
+          })),
+      );
+    },
     recoveryOrder: () =>
       recoveryOrderText(
         recoveryOrder(

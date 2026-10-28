@@ -1,9 +1,11 @@
+import type { OutageSpan } from "@nisd2/grc-data-model/enums";
 import { and, count, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { isBackupSystem } from "@/lib/asset-inventory/catalog-labels";
 import type { DbOrTx } from "@/lib/db";
 import {
   asksSecondFactor,
+  type ContinuityFacts,
   type GapFacts,
   MANAGEMENT_ROLE,
   NIS2_WALK,
@@ -13,6 +15,7 @@ import {
   companyCategoryIntake,
   companyMembership,
   improvementItem,
+  processAsset,
   requirement,
   requirementCategory,
   supplier,
@@ -30,6 +33,44 @@ import { getNis2Assessment } from "./nis2-scope";
 /** 3.3's answer as the intake stores it; anything else reads as unanswered. */
 const REPORTING = z.object({ bsiReportingRegistered: z.boolean().optional() }).catch({});
 
+/** 4.2's links, which system each process needs, read through the process end's company. */
+export const processLinksOf = (db: DbOrTx, companyId: string) =>
+  db
+    .select({ processId: processAsset.processId, assetId: processAsset.assetId })
+    .from(processAsset)
+    .innerJoin(asset, eq(asset.id, processAsset.processId))
+    .where(eq(asset.companyId, companyId));
+
+/**
+ * The rows the 4.4 comparison reads (`compare`): the processes marked as having to keep running
+ * with their tolerance, every other thing on the list with its restore time, and the links.
+ */
+export const continuityFactsOf = (
+  assets: ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+    readonly type: string;
+    readonly isCritical: boolean | null;
+    readonly maxOutage: OutageSpan | null;
+    readonly restoreTime: OutageSpan | null;
+    readonly restoreTimeUnknown: boolean;
+  }>,
+  links: ReadonlyArray<{ readonly processId: string; readonly assetId: string }>,
+): ContinuityFacts => ({
+  processes: assets
+    .filter((a) => a.type === "process" && a.isCritical === true)
+    .map((a) => ({ id: a.id, name: a.name, maxOutage: a.maxOutage })),
+  systems: assets
+    .filter((a) => a.type !== "process")
+    .map((a) => ({
+      id: a.id,
+      name: a.name,
+      restoreTime: a.restoreTime,
+      restoreTimeUnknown: a.restoreTimeUnknown,
+    })),
+  links,
+});
+
 /**
  * The facts `gapsOf` reads, for one company: its programs with a sign-in, suppliers, backup
  * systems, 3.3's answer, who holds the management role and the management trainings, and the
@@ -40,18 +81,24 @@ export async function gapFactsOf(
   companyId: string,
   today: Date,
 ): Promise<GapFacts> {
-  const [assets, suppliers, managers, trainings, assessment, states] = await Promise.all([
+  const [assets, links, suppliers, managers, trainings, assessment, states] = await Promise.all([
     db
       .select({
+        id: asset.id,
         name: asset.name,
         type: asset.type,
         catalogId: asset.catalogId,
         description: asset.description,
         hasMfa: asset.hasMfa,
         lastRestore: asset.lastBackupTestDate,
+        isCritical: asset.isCritical,
+        maxOutage: asset.maxOutage,
+        restoreTime: asset.restoreTime,
+        restoreTimeUnknown: asset.restoreTimeUnknown,
       })
       .from(asset)
       .where(eq(asset.companyId, companyId)),
+    processLinksOf(db, companyId),
     db
       .select({
         name: supplier.name,
@@ -113,6 +160,7 @@ export async function gapFactsOf(
     backups: assets
       .filter(isBackupSystem)
       .map((a) => ({ name: a.name, lastRestore: a.lastRestore })),
+    continuity: continuityFactsOf(assets, links),
     reporting: REPORTING.parse(intake?.answers ?? {}).bsiReportingRegistered ?? null,
     managers: managers[0]?.n ?? 0,
     managementTrainings: trainings,

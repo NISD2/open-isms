@@ -18,6 +18,8 @@ import {
   recordBackupsInput,
   recordCriticalInput,
   recordLoginsInput,
+  recordNeedsInput,
+  recordRestoreInput,
   specifyAssetsInput,
   writePolicyInput,
 } from "@/server/trpc/helpers/durchgang-inputs";
@@ -115,6 +117,9 @@ const assetsOf = async (caller: Caller) =>
     backupFrequency: a.backupFrequency,
     lastBackupTestDate: a.lastBackupTestDate,
     isCritical: a.isCritical,
+    maxOutage: a.maxOutage,
+    restoreTime: a.restoreTime,
+    restoreTimeUnknown: a.restoreTimeUnknown,
   }));
 
 /** The catalogue the asset list is ticked from, in the walk's language. */
@@ -250,6 +255,25 @@ export const SCREEN_FILLS = {
       return { assets, fallbacks: draft.fallbacks };
     },
     save: (caller, code, input) => caller.durchgang.recordCritical({ code, ...input }),
+  }),
+  needs: fill({
+    input: recordNeedsInput.omit({ code: true }),
+    modules: ["asset"],
+    // The links as stored, so an assistant sends back what it does not mean to change.
+    shows: async (caller) => ({
+      assets: await assetsOf(caller),
+      needs: await caller.durchgang.processNeeds(),
+    }),
+    save: (caller, code, input) => caller.durchgang.recordNeeds({ code, ...input }),
+  }),
+  restore: fill({
+    input: recordRestoreInput.omit({ code: true }),
+    modules: ["asset"],
+    shows: async (caller) => ({
+      assets: await assetsOf(caller),
+      needs: await caller.durchgang.processNeeds(),
+    }),
+    save: (caller, code, input) => caller.durchgang.recordRestore({ code, ...input }),
   }),
   policy: fill({
     input: writePolicyInput.omit({ code: true }),

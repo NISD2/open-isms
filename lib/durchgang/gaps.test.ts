@@ -16,6 +16,11 @@ const complete: GapFacts = {
     { name: "Systemhaus", riskLevel: "high", security: true, incidents: false },
   ],
   backups: [{ name: "NAS", lastRestore: "2026-09-01" }],
+  continuity: {
+    processes: [{ id: "p1", name: "Auftragsannahme", maxOutage: "day" }],
+    systems: [{ id: "s1", name: "ERP", restoreTime: "hours", restoreTimeUnknown: false }],
+    links: [{ processId: "p1", assetId: "s1" }],
+  },
   reporting: true,
   managers: 1,
   managementTrainings: [{ name: "Anna Beispiel", completedAt: new Date("2025-02-01") }],
@@ -26,6 +31,28 @@ const complete: GapFacts = {
 describe("the gaps management sees before it signs", () => {
   test("none when the answers leave nothing open", () => {
     expect(gapsOf(complete)).toEqual([]);
+  });
+
+  test("a needed system that comes back too late, and one nobody knows about", () => {
+    const facts: GapFacts = {
+      ...complete,
+      continuity: {
+        processes: [{ id: "p1", name: "Auftragsannahme", maxOutage: "hours" }],
+        systems: [
+          { id: "s1", name: "ERP", restoreTime: "day", restoreTimeUnknown: false },
+          { id: "s2", name: "Ablage", restoreTime: null, restoreTimeUnknown: true },
+          { id: "s3", name: "Drucker", restoreTime: null, restoreTimeUnknown: false },
+        ],
+        links: [
+          { processId: "p1", assetId: "s1" },
+          { processId: "p1", assetId: "s2" },
+        ],
+      },
+    };
+    expect(gapsOf(facts)).toEqual([
+      { kind: "recovery_slow", names: ["ERP"] },
+      { kind: "recovery_unknown", names: ["Ablage"] },
+    ]);
   });
 
   test("programs without a second factor, and whether none has one", () => {

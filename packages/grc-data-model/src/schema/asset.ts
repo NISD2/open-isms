@@ -77,9 +77,9 @@ export const asset = pgTable(
     // What a process needs to run is process_asset; how long each of those may be down is the
     // shortest max_outage of the processes linked to it, computed, never stored.
     maxOutage: outageSpanEnum("max_outage"),
-    // 4.4: how long a restore from this backup system takes (200-4 p. 196), or that nobody knows,
-    // which is a valid answer there. Three states: both empty is not asked yet; the CHECK below
-    // keeps a span and "unknown" apart. The hour fields rto/rpo above stay what they are.
+    // 4.4: how long it takes to bring this system back when a process needs it (200-4 p. 196), or
+    // that nobody knows, which is a valid answer there. Three states: both empty is not asked yet;
+    // the CHECK below keeps a span and "unknown" apart. The hour fields rto/rpo stay what they are.
     restoreTime: outageSpanEnum("restore_time"),
     restoreTimeUnknown: boolean("restore_time_unknown").default(false).notNull(),
 

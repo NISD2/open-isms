@@ -15,12 +15,21 @@ const { de } = DURCHGANG_MESSAGES;
 
 test("prints the processes that must keep running with their line, and a blank for none", () => {
   expect(
-    criticalProcessesText([
+    criticalProcessesText("de", [
       { name: "Vertrieb", how: " Aufträge per Telefon " },
       { name: "Buchhaltung", how: "" },
     ]),
   ).toBe("Vertrieb: Aufträge per Telefon; Buchhaltung");
-  expect(criticalProcessesText([])).toBe(BLANK);
+  expect(
+    criticalProcessesText("de", [
+      { name: "Vertrieb", how: "per Telefon", outage: "1 Tag", needs: ["ERP", "Server"] },
+      { name: "Buchhaltung", how: "", outage: null, needs: [] },
+    ]),
+  ).toBe("Vertrieb (höchstens 1 Tag ohne; braucht ERP, Server): per Telefon; Buchhaltung");
+  expect(criticalProcessesText("en", [{ name: "Sales", how: "", needs: ["ERP"] }])).toBe(
+    "Sales (needs ERP)",
+  );
+  expect(criticalProcessesText("de", [])).toBe(BLANK);
 });
 
 test("numbers the systems in recovery order, and a blank for none", () => {

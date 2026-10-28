@@ -64,7 +64,9 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
   const recordLogins = trpc.durchgang.recordLogins.useMutation();
   const writePolicy = trpc.durchgang.writePolicy.useMutation();
   const recordCritical = trpc.durchgang.recordCritical.useMutation();
+  const recordNeeds = trpc.durchgang.recordNeeds.useMutation();
   const recordBackups = trpc.durchgang.recordBackups.useMutation();
+  const recordRestore = trpc.durchgang.recordRestore.useMutation();
   const adoptCrypto = trpc.durchgang.adoptCrypto.useMutation();
   const addActivities = trpc.durchgang.gdpr.addActivities.useMutation();
   const describeActivities = trpc.durchgang.gdpr.describeActivities.useMutation();
@@ -207,12 +209,44 @@ export function useWalkItem(item: ItemView, waiting: boolean) {
           assetId,
           critical: value.on,
           how: value.how.trim(),
+          outage: value.outage,
         }));
         if (rows.length > 0) {
           await recordCritical.mutateAsync({ code: item.code, rows });
           await Promise.all([
             utils.asset.list.invalidate(),
             utils.durchgang.policyDraft.invalidate(),
+            utils.durchgang.recovery.invalidate(),
+          ]);
+        }
+        return;
+      }
+      case "needs": {
+        const rows = Object.entries(snapshot.needs).map(([processId, assetIds]) => ({
+          processId,
+          assetIds: [...assetIds],
+        }));
+        if (rows.length > 0) {
+          await recordNeeds.mutateAsync({ code: item.code, rows });
+          await Promise.all([
+            utils.durchgang.processNeeds.invalidate(),
+            utils.durchgang.policyDraft.invalidate(),
+            utils.durchgang.recovery.invalidate(),
+          ]);
+        }
+        return;
+      }
+      case "restore": {
+        const rows = Object.entries(snapshot.restore).map(([assetId, value]) => ({
+          assetId,
+          restore: value.span,
+          unknown: value.unknown,
+        }));
+        if (rows.length > 0) {
+          await recordRestore.mutateAsync({ code: item.code, rows });
+          await Promise.all([
+            utils.asset.list.invalidate(),
+            utils.durchgang.recovery.invalidate(),
           ]);
         }
         return;

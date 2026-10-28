@@ -67,6 +67,44 @@
             "empty": "Auf Ihrer Liste steht noch kein Sicherungssystem.",
             "add": "Ein Sicherungssystem auf die Liste setzen"
           },
+          "restore": {
+            "title": "Wie lange dauert der Wiederanlauf?",
+            "lead": "Die Systeme, die Ihre Abläufe brauchen (aus Schritt 4.2). Wie lange dauert es, bis jedes wieder läuft, wenn es aus der Sicherung zurückgespielt oder ersetzt werden muss? Eine Schätzung reicht. Wissen Sie es nicht, sagen Sie das: Dann steht es auf der Liste, die Sie mit Ihrer IT klären.",
+            "options": {
+              "hours": "Stunden",
+              "day": "1 Tag",
+              "three_days": "3 Tage",
+              "week": "1 Woche",
+              "longer": "länger"
+            },
+            "unknown": "unbekannt",
+            "hint": "Fragen Sie, wer die Sicherung macht: Wie lange hat die letzte Wiederherstellung gedauert, oder wie lange würde sie dauern?",
+            "none": "In Schritt 4.2 steht noch kein System bei einem Ablauf. Gehen Sie dorthin zurück und wählen Sie, was jeder Ablauf braucht.",
+            "needs": "Gebraucht von:"
+          },
+          "recovery": {
+            "title": "Kommt alles rechtzeitig zurück?",
+            "lead": "Jedes System, das ein Ablauf braucht, gegen die kürzeste Zeit, die diese Abläufe warten können. Was zu langsam oder unbekannt ist, steht auch als offener Punkt bei der Freigabe. Der BSI-Standard 200-4 lässt hier eine Schätzung zu, und „unbekannt“ ist eine Antwort, kein Fehler.",
+            "verdicts": {
+              "too_slow": "Zu langsam",
+              "unknown": "Unbekannt",
+              "not_asked": "Noch nicht gefragt",
+              "unrated": "Ablauf ohne Vorgabe",
+              "ok": "Rechtzeitig"
+            },
+            "spans": {
+              "hours": "Stunden",
+              "day": "1 Tag",
+              "three_days": "3 Tage",
+              "week": "1 Woche",
+              "longer": "länger"
+            },
+            "needs": "Gebraucht von",
+            "required": "darf höchstens stillstehen:",
+            "restore": "Wiederanlauf:",
+            "none": "Noch nichts zu vergleichen: In Schritt 4.2 steht noch kein System bei einem Ablauf, oder kein Ablauf muss weiterlaufen.",
+            "good": "Alles, was gebraucht wird, kommt rechtzeitig zurück."
+          },
           "done": {
             "title": "Ihre Datensicherung ist festgehalten",
             "note": "Das BSI rät, die Wiederherstellung regelmäßig zu testen. Tragen Sie nach jeder Probe das neue Datum ein."

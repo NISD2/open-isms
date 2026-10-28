@@ -63,6 +63,9 @@
       "lastBackupTestDate": "Dernier test de sauvegarde",
       "rto": "RTO (heures)",
       "rpo": "RPO (heures)",
+      "maxOutage": "Arrêt toléré au plus",
+      "restoreTime": "Délai de reprise",
+      "restoreTimeUnknown": "Délai de reprise inconnu",
       "endOfLife": "Fin de vie",
       "quantity": "Quantité",
       "processesPersonalData": "Traite des données à caractère personnel"
@@ -94,6 +97,9 @@
       "lastBackupTestDate": "Date à laquelle le dernier test de restauration de sauvegarde a été réalisé.",
       "rto": "Objectif de temps de reprise (RTO) en heures.",
       "rpo": "Objectif de point de reprise (RPO) en heures.",
+      "maxOutage": "Combien de temps ce processus peut rester à l'arrêt au plus, étape 4.2 du parcours.",
+      "restoreTime": "Combien de temps il faut pour remettre ce système en service, étape 4.4.",
+      "restoreTimeUnknown": "Personne ne sait combien de temps prend la reprise ; étape 4.4.",
       "endOfLife": "Date à laquelle cet actif atteint sa fin de vie / fin de support (considérant du CIR 2024/2690).",
       "quantity": "Nombre d'unités identiques dans ce groupe d'actifs (regroupement selon BSI-200-2 §8.1).",
       "processesPersonalData": "Activez si cet actif stocke, traite ou transmet des données à caractère personnel (déclenche les considérations GDPR et alimente l'inventaire RoPA)."

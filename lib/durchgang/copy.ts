@@ -6,6 +6,7 @@
  * showing up on a customer's screen.
  */
 
+import { OUTAGE_SPANS } from "@nisd2/grc-data-model/enums";
 import { z } from "zod";
 import {
   CRYPTO_CATEGORIES,
@@ -99,6 +100,45 @@ const SCREEN_COPY = {
     how: text,
     example: text,
     suggestions: z.array(text).min(1).optional(),
+    // How long the process may be down at most: one label per span (a test checks the set).
+    outage: text,
+    outageHint: text,
+    outageOptions: z.record(z.string(), text),
+  }),
+  /** Per process that must keep running, the systems and rooms it needs; the lines for none. */
+  needs: z.object({ ...heading, none: text, empty: text, needs: text }),
+  /**
+   * The systems the critical processes need, each with how long it takes to bring back: one label
+   * per span (a test checks the set), the "unknown" answer, the hint, the line when 4.2 named no
+   * system yet, and the words before the processes that need one.
+   */
+  restore: z.object({
+    ...heading,
+    options: z.record(z.string(), text),
+    unknown: text,
+    hint: text,
+    none: text,
+    needs: text,
+  }),
+  /**
+   * The comparison: a heading per verdict, one label per span (a test checks the set), the line
+   * per system, and the lines when there is nothing to compare or nothing to fix.
+   */
+  recovery: z.object({
+    ...heading,
+    verdicts: z.object({
+      too_slow: text,
+      unknown: text,
+      not_asked: text,
+      unrated: text,
+      ok: text,
+    }),
+    spans: z.record(z.string(), text),
+    needs: text,
+    required: text,
+    restore: text,
+    none: text,
+    good: text,
   }),
   /**
    * The policy itself: its fixed sections, the clauses the person may add, and the signature
@@ -404,8 +444,30 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.approve);
     case "riskmap":
       return one(screen, SCREEN_COPY.riskmap);
-    case "critical":
-      return one(screen, SCREEN_COPY.critical);
+    case "critical": {
+      // Every span the tolerance column takes needs its label, and no other.
+      const copy = one(screen, SCREEN_COPY.critical);
+      const labelled = copy.ok ? Object.keys(copy.value.copy.outageOptions).sort() : [];
+      return copy.ok && labelled.join() !== [...OUTAGE_SPANS].sort().join()
+        ? { ok: false, errors: [`${where}.outageOptions: ${labelled.join()}`] }
+        : copy;
+    }
+    case "needs":
+      return one(screen, SCREEN_COPY.needs);
+    case "restore": {
+      const copy = one(screen, SCREEN_COPY.restore);
+      const labelled = copy.ok ? Object.keys(copy.value.copy.options).sort() : [];
+      return copy.ok && labelled.join() !== [...OUTAGE_SPANS].sort().join()
+        ? { ok: false, errors: [`${where}.options: ${labelled.join()}`] }
+        : copy;
+    }
+    case "recovery": {
+      const copy = one(screen, SCREEN_COPY.recovery);
+      const labelled = copy.ok ? Object.keys(copy.value.copy.spans).sort() : [];
+      return copy.ok && labelled.join() !== [...OUTAGE_SPANS].sort().join()
+        ? { ok: false, errors: [`${where}.spans: ${labelled.join()}`] }
+        : copy;
+    }
     case "backups": {
       // Every frequency the asset column takes needs its label, and no other.
       const copy = one(screen, SCREEN_COPY.backups);
