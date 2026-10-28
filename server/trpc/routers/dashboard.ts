@@ -1,4 +1,4 @@
-import { and, count, eq, gte, inArray, isNotNull, notInArray, sql } from "drizzle-orm";
+import { and, count, eq, inArray, isNotNull, notInArray, sql } from "drizzle-orm";
 import { requirementsEn } from "@/i18n/requirements";
 import {
   computeUrgency,
@@ -8,6 +8,7 @@ import {
   PRIORITIES,
   type Priority,
 } from "@/lib/compliance/deadlines";
+import { isHigh } from "@/lib/durchgang/ratings";
 import { getRequirementTitle } from "@/lib/messages";
 import {
   asset,
@@ -38,7 +39,7 @@ export const dashboardRouter = router({
 
     const [
       risksAll,
-      risksHigh,
+      riskRows,
       risksByTreatment,
       assetsTotal,
       assetsCritical,
@@ -64,10 +65,16 @@ export const dashboardRouter = router({
       improvementsOpen,
     ] = await Promise.all([
       ctx.db.select({ count: count() }).from(risk).where(eq(risk.companyId, cid)),
+      // Counted in code: which risks are high is the 200-3 matrix's call, not a threshold on the
+      // stored product (lib/durchgang/ratings.ts), and a company has tens of risks, not thousands.
       ctx.db
-        .select({ count: count() })
+        .select({
+          likelihood: risk.likelihood,
+          impact: risk.impact,
+          riskScore: risk.riskScore,
+        })
         .from(risk)
-        .where(and(eq(risk.companyId, cid), gte(risk.riskScore, 15))),
+        .where(eq(risk.companyId, cid)),
       ctx.db
         .select({ treatment: risk.treatment, count: count() })
         .from(risk)
@@ -180,7 +187,7 @@ export const dashboardRouter = router({
     return {
       risks: {
         total: risksAll[0]?.count ?? 0,
-        high: risksHigh[0]?.count ?? 0,
+        high: riskRows.filter(isHigh).length,
         byTreatment: toMap(risksByTreatment, "treatment"),
       },
       assets: {
