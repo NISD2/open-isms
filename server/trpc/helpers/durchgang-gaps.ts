@@ -33,13 +33,18 @@ import { getNis2Assessment } from "./nis2-scope";
 /** 3.3's answer as the intake stores it; anything else reads as unanswered. */
 const REPORTING = z.object({ bsiReportingRegistered: z.boolean().optional() }).catch({});
 
-/** 4.2's links, which system each process needs, read through the process end's company. */
+/**
+ * 4.2's links, which system each process needs, read through the process end's company. Only the
+ * processes still marked as having to keep running count: a process unticked later keeps its
+ * rows, so ticking it again finds them, but nothing downstream (4.4, the plan, the approval, an
+ * assistant) sees a need of a process that need not run.
+ */
 export const processLinksOf = (db: DbOrTx, companyId: string) =>
   db
     .select({ processId: processAsset.processId, assetId: processAsset.assetId })
     .from(processAsset)
     .innerJoin(asset, eq(asset.id, processAsset.processId))
-    .where(eq(asset.companyId, companyId));
+    .where(and(eq(asset.companyId, companyId), eq(asset.isCritical, true)));
 
 /**
  * The rows the 4.4 comparison reads (`compare`): the processes marked as having to keep running
@@ -81,57 +86,58 @@ export async function gapFactsOf(
   companyId: string,
   today: Date,
 ): Promise<GapFacts> {
-  const [assets, links, suppliers, managers, trainings, assessment, states] = await Promise.all([
-    db
-      .select({
-        id: asset.id,
-        name: asset.name,
-        type: asset.type,
-        catalogId: asset.catalogId,
-        description: asset.description,
-        hasMfa: asset.hasMfa,
-        lastRestore: asset.lastBackupTestDate,
-        isCritical: asset.isCritical,
-        maxOutage: asset.maxOutage,
-        restoreTime: asset.restoreTime,
-        restoreTimeUnknown: asset.restoreTimeUnknown,
-      })
-      .from(asset)
-      .where(eq(asset.companyId, companyId)),
-    processLinksOf(db, companyId),
-    db
-      .select({
-        name: supplier.name,
-        riskLevel: supplier.riskLevel,
-        security: supplier.hasSecurityClauses,
-        incidents: supplier.hasIncidentNotificationClause,
-      })
-      .from(supplier)
-      .where(eq(supplier.customerCompanyId, companyId)),
-    db
-      .select({ n: count() })
-      .from(companyMembership)
-      .where(
-        and(
-          eq(companyMembership.companyId, companyId),
-          eq(companyMembership.jobTitle, MANAGEMENT_ROLE),
+  const [assets, links, suppliers, managers, trainings, assessment, states] =
+    await Promise.all([
+      db
+        .select({
+          id: asset.id,
+          name: asset.name,
+          type: asset.type,
+          catalogId: asset.catalogId,
+          description: asset.description,
+          hasMfa: asset.hasMfa,
+          lastRestore: asset.lastBackupTestDate,
+          isCritical: asset.isCritical,
+          maxOutage: asset.maxOutage,
+          restoreTime: asset.restoreTime,
+          restoreTimeUnknown: asset.restoreTimeUnknown,
+        })
+        .from(asset)
+        .where(eq(asset.companyId, companyId)),
+      processLinksOf(db, companyId),
+      db
+        .select({
+          name: supplier.name,
+          riskLevel: supplier.riskLevel,
+          security: supplier.hasSecurityClauses,
+          incidents: supplier.hasIncidentNotificationClause,
+        })
+        .from(supplier)
+        .where(eq(supplier.customerCompanyId, companyId)),
+      db
+        .select({ n: count() })
+        .from(companyMembership)
+        .where(
+          and(
+            eq(companyMembership.companyId, companyId),
+            eq(companyMembership.jobTitle, MANAGEMENT_ROLE),
+          ),
         ),
-      ),
-    db
-      .select({
-        name: trainingRecord.participantName,
-        completedAt: trainingRecord.completedAt,
-      })
-      .from(trainingRecord)
-      .where(
-        and(
-          eq(trainingRecord.companyId, companyId),
-          eq(trainingRecord.isManagement, true),
+      db
+        .select({
+          name: trainingRecord.participantName,
+          completedAt: trainingRecord.completedAt,
+        })
+        .from(trainingRecord)
+        .where(
+          and(
+            eq(trainingRecord.companyId, companyId),
+            eq(trainingRecord.isManagement, true),
+          ),
         ),
-      ),
-    getNis2Assessment(db, companyId),
-    walkStates(db, companyId, NIS2_WALK),
-  ]);
+      getNis2Assessment(db, companyId),
+      walkStates(db, companyId, NIS2_WALK),
+    ]);
   const [intake] = assessment
     ? await db
         .select({ answers: companyCategoryIntake.answers })

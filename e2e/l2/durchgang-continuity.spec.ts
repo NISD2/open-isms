@@ -87,7 +87,10 @@ test.describe("durchgang continuity lists", () => {
 
     await expect
       .poll(async () => {
-        const [asset] = await e2eQuery<{ is_critical: boolean | null; max_outage: string | null }>(
+        const [asset] = await e2eQuery<{
+          is_critical: boolean | null;
+          max_outage: string | null;
+        }>(
           `SELECT is_critical, max_outage FROM asset WHERE company_id = $1 AND name = $2`,
           [tenant.company_id, PROCESS],
         );
@@ -99,14 +102,16 @@ test.describe("durchgang continuity lists", () => {
   test("prints the process with its line and the recovery order in the plan", async ({
     page,
   }) => {
+    // The process line carries the tolerance the first test chose, in the screen's own words.
+    const line = `${PROCESS} (höchstens 1 Tag ohne): ${HOW}`;
     await page.goto(`/de/durchgang/nis2/4.2?s=${PLAN_SCREEN}`);
-    await expect(page.getByText(`${PROCESS}: ${HOW}`)).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByText(line)).toBeVisible({ timeout: 30_000 });
     await page.locator("#dg-policy-read").click();
     await page.getByRole("button", { name: "Weiter", exact: true }).click();
 
     await expect
       .poll(async () => (await walkPolicy(tenant, TYPE))?.content ?? "")
-      .toContain(`${PROCESS}: ${HOW}`);
+      .toContain(line);
     const policy = await walkPolicy(tenant, TYPE);
     expect(policy?.content).toContain(`1. ${SYSTEM}`);
   });

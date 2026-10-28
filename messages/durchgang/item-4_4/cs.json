@@ -80,7 +80,7 @@
             "unknown": "neznámé",
             "hint": "Zeptejte se toho, kdo zálohuje: jak dlouho trvala poslední obnova, nebo jak dlouho by trvala?",
             "none": "V kroku 4.2 zatím u žádného procesu není uveden žádný systém. Vraťte se tam a vyberte, co každý proces potřebuje.",
-            "needs": "Potřebuje:"
+            "needs": "Potřebné pro:"
           },
           "recovery": {
             "title": "Vrátí se všechno včas?",
@@ -99,7 +99,7 @@
               "week": "1 týden",
               "longer": "déle"
             },
-            "needs": "Potřebuje:",
+            "needs": "Potřebné pro:",
             "required": "smí stát nejvýše:",
             "restore": "obnova:",
             "none": "Zatím není co porovnávat: v kroku 4.2 není u žádného procesu uveden systém, nebo žádný proces nemusí běžet dál.",

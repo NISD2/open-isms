@@ -67,6 +67,7 @@ export {
   loginsNote,
   methodNote,
   needsNote,
+  noneWord,
   noteLine,
   recordDay,
   recordedDay,

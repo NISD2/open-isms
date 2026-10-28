@@ -52,9 +52,18 @@ const answerText = (value: unknown): string =>
     : String(value).trim();
 
 const PROCESS_TEXT = {
-  de: { atMost: (span: string) => `höchstens ${span} ohne`, needs: (names: string) => `braucht ${names}` },
-  en: { atMost: (span: string) => `at most ${span} without`, needs: (names: string) => `needs ${names}` },
-  cs: { atMost: (span: string) => `nejvýše ${span} bez`, needs: (names: string) => `potřebuje ${names}` },
+  de: {
+    atMost: (span: string) => `höchstens ${span} ohne`,
+    needs: (names: string) => `braucht ${names}`,
+  },
+  en: {
+    atMost: (span: string) => `at most ${span} without`,
+    needs: (names: string) => `needs ${names}`,
+  },
+  cs: {
+    atMost: (span: string) => `nejvýše ${span} bez`,
+    needs: (names: string) => `potřebuje ${names}`,
+  },
 } as const satisfies Record<WalkLocale, unknown>;
 
 /**

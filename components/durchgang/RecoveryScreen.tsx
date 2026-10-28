@@ -16,10 +16,10 @@ const line = (standing: SystemStanding, copy: Copy): string => {
   if (verdict.kind === "not_needed") return "";
   const parts = [`${copy.needs} ${verdict.needs.join(", ")}`];
   if (verdict.kind !== "unrated") {
-    parts.push(`${copy.required} ${copy.spans[verdict.required] ?? verdict.required}`);
+    parts.push(`${copy.required} ${copy.spans[verdict.required]}`);
   }
   if (verdict.kind === "ok" || verdict.kind === "too_slow") {
-    parts.push(`${copy.restore} ${copy.spans[verdict.restore] ?? verdict.restore}`);
+    parts.push(`${copy.restore} ${copy.spans[verdict.restore]}`);
   }
   return parts.join(" · ");
 };
@@ -37,9 +37,8 @@ export function RecoveryScreen({ entry }: WorkProps & { entry: Of<"recovery"> })
     const at = standings.filter((s) => s.verdict.kind === kind);
     return at.length > 0 ? [{ kind, at }] : [];
   });
-  const open = standings.filter(
-    (s) => s.verdict.kind === "too_slow" || s.verdict.kind === "unknown",
-  ).length;
+  // "Everything comes back in time" only once every needed system has been answered and passes.
+  const allInTime = standings.every((s) => s.verdict.kind === "ok");
 
   return (
     <>
@@ -49,7 +48,7 @@ export function RecoveryScreen({ entry }: WorkProps & { entry: Of<"recovery"> })
         <p className="mt-8 text-muted-foreground">{entry.copy.none}</p>
       ) : (
         <>
-          {open === 0 && (
+          {allInTime && (
             <p className="mt-8 text-sm font-medium text-emerald-700">{entry.copy.good}</p>
           )}
           {groups.map(({ kind, at }) => (

@@ -100,29 +100,29 @@ const SCREEN_COPY = {
     how: text,
     example: text,
     suggestions: z.array(text).min(1).optional(),
-    // How long the process may be down at most: one label per span (a test checks the set).
+    // How long the process may be down at most: every span the column takes needs its label.
     outage: text,
     outageHint: text,
-    outageOptions: z.record(z.string(), text),
+    outageOptions: z.record(z.enum(OUTAGE_SPANS), text),
   }),
   /** Per process that must keep running, the systems and rooms it needs; the lines for none. */
   needs: z.object({ ...heading, none: text, empty: text, needs: text }),
   /**
-   * The systems the critical processes need, each with how long it takes to bring back: one label
-   * per span (a test checks the set), the "unknown" answer, the hint, the line when 4.2 named no
-   * system yet, and the words before the processes that need one.
+   * The systems the critical processes need, each with how long it takes to bring back: a label
+   * per span, the "unknown" answer, the hint, the line when 4.2 named no system yet, and the
+   * words before the processes that need one.
    */
   restore: z.object({
     ...heading,
-    options: z.record(z.string(), text),
+    options: z.record(z.enum(OUTAGE_SPANS), text),
     unknown: text,
     hint: text,
     none: text,
     needs: text,
   }),
   /**
-   * The comparison: a heading per verdict, one label per span (a test checks the set), the line
-   * per system, and the lines when there is nothing to compare or nothing to fix.
+   * The comparison: a heading per verdict, a label per span, the line per system, and the lines
+   * when there is nothing to compare or nothing to fix.
    */
   recovery: z.object({
     ...heading,
@@ -133,7 +133,7 @@ const SCREEN_COPY = {
       unrated: text,
       ok: text,
     }),
-    spans: z.record(z.string(), text),
+    spans: z.record(z.enum(OUTAGE_SPANS), text),
     needs: text,
     required: text,
     restore: text,
@@ -444,30 +444,14 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.approve);
     case "riskmap":
       return one(screen, SCREEN_COPY.riskmap);
-    case "critical": {
-      // Every span the tolerance column takes needs its label, and no other.
-      const copy = one(screen, SCREEN_COPY.critical);
-      const labelled = copy.ok ? Object.keys(copy.value.copy.outageOptions).sort() : [];
-      return copy.ok && labelled.join() !== [...OUTAGE_SPANS].sort().join()
-        ? { ok: false, errors: [`${where}.outageOptions: ${labelled.join()}`] }
-        : copy;
-    }
+    case "critical":
+      return one(screen, SCREEN_COPY.critical);
     case "needs":
       return one(screen, SCREEN_COPY.needs);
-    case "restore": {
-      const copy = one(screen, SCREEN_COPY.restore);
-      const labelled = copy.ok ? Object.keys(copy.value.copy.options).sort() : [];
-      return copy.ok && labelled.join() !== [...OUTAGE_SPANS].sort().join()
-        ? { ok: false, errors: [`${where}.options: ${labelled.join()}`] }
-        : copy;
-    }
-    case "recovery": {
-      const copy = one(screen, SCREEN_COPY.recovery);
-      const labelled = copy.ok ? Object.keys(copy.value.copy.spans).sort() : [];
-      return copy.ok && labelled.join() !== [...OUTAGE_SPANS].sort().join()
-        ? { ok: false, errors: [`${where}.spans: ${labelled.join()}`] }
-        : copy;
-    }
+    case "restore":
+      return one(screen, SCREEN_COPY.restore);
+    case "recovery":
+      return one(screen, SCREEN_COPY.recovery);
     case "backups": {
       // Every frequency the asset column takes needs its label, and no other.
       const copy = one(screen, SCREEN_COPY.backups);

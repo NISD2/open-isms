@@ -299,7 +299,7 @@ describe("the processes that must keep running (4.2)", () => {
 
 describe("what the processes need (4.2)", () => {
   test("replaces a process's links: unlinks what is gone, links what is new, in the trail", async () => {
-    const { caller, writes } = setup({
+    const { caller, writes, wheres } = setup({
       assets: [sales, erp, server],
       needs: [{ processId: SALES, assetId: SERVER }],
     });
@@ -309,11 +309,40 @@ describe("what the processes need (4.2)", () => {
         rows: [{ processId: SALES, assetIds: [ERP] }],
       }),
     ).toEqual({ changed: 2 });
+    // The lookup of both ends names the company, before anything is written.
+    const lookup = wheres.find((w) => w.table === "asset");
+    expect(lookup && paramsOf(lookup.where)).toEqual(expect.arrayContaining([COMPANY]));
     const deleted = writes.find((w) => w.op === "delete" && w.table === processAsset);
     expect(deleted?.where && paramsOf(deleted.where)).toEqual([SALES, SERVER]);
     const inserted = writes.find((w) => w.op === "insert" && w.table === processAsset);
     expect(inserted?.values).toEqual([{ processId: SALES, assetId: ERP }]);
     expect(noteOf(writes)).toContain("Vertrieb: ERP");
+  });
+
+  test("a system named twice is one link, and a process with nothing left says so in the trail", async () => {
+    const twice = setup({ assets: [sales, erp] });
+    expect(
+      await twice.caller.recordNeeds({
+        code: "4.2",
+        rows: [{ processId: SALES, assetIds: [ERP, ERP] }],
+      }),
+    ).toEqual({ changed: 1 });
+    const inserted = twice.writes.find(
+      (w) => w.op === "insert" && w.table === processAsset,
+    );
+    expect(inserted?.values).toEqual([{ processId: SALES, assetId: ERP }]);
+
+    const cleared = setup({
+      assets: [sales, erp],
+      needs: [{ processId: SALES, assetId: ERP }],
+    });
+    expect(
+      await cleared.caller.recordNeeds({
+        code: "4.2",
+        rows: [{ processId: SALES, assetIds: [] }],
+      }),
+    ).toEqual({ changed: 1 });
+    expect(noteOf(cleared.writes)).toContain("Vertrieb: keine Angabe");
   });
 
   test("writes nothing when the links sent are the links stored", async () => {

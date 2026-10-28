@@ -5,6 +5,13 @@ import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compl
 import { asset, riskAsset } from "@/schema";
 import { assetInsertSchema, assetUpdateSchema } from "@/schema/validators";
 
+/**
+ * Answered only in the walk: how long a process may be down (4.2) and how long a system takes
+ * back or that nobody knows (4.4). The walk's saves keep the last two apart as the column's
+ * CHECK does; a plain update could not, so the form's router never takes them.
+ */
+const WALK_ONLY = { maxOutage: true, restoreTime: true, restoreTimeUnknown: true } as const;
+
 export const assetRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
@@ -15,7 +22,15 @@ export const assetRouter = router({
   }),
 
   create: activatedCompanyProcedure
-    .input(assetInsertSchema.omit({ id: true, companyId: true, createdAt: true, updatedAt: true }))
+    .input(
+      assetInsertSchema.omit({
+        id: true,
+        companyId: true,
+        createdAt: true,
+        updatedAt: true,
+        ...WALK_ONLY,
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const [row] = await ctx.db
         .insert(asset)
@@ -26,7 +41,7 @@ export const assetRouter = router({
     }),
 
   update: activatedCompanyProcedure
-    .input(assetUpdateSchema.extend({ id: z.string().uuid() }))
+    .input(assetUpdateSchema.omit(WALK_ONLY).extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
       const [row] = await ctx.db

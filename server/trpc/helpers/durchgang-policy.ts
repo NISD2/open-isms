@@ -1,3 +1,4 @@
+import type { OutageSpan } from "@nisd2/grc-data-model/enums";
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, isNotNull } from "drizzle-orm";
 import { z } from "zod";
@@ -224,44 +225,45 @@ const policyListsOf = async (
   locale: WalkLocale,
 ): Promise<Partial<Record<PolicyList, string>>> => {
   const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
-  const [assets, links, processLinks, org, lead, crypto, dpo, documents] = await Promise.all([
-    needs("criticalProcesses", "recoveryOrder")
-      ? db
-          .select({
-            id: asset.id,
-            name: asset.name,
-            type: asset.type,
-            isCritical: asset.isCritical,
-            maxOutage: asset.maxOutage,
+  const [assets, links, processLinks, org, lead, crypto, dpo, documents] =
+    await Promise.all([
+      needs("criticalProcesses", "recoveryOrder")
+        ? db
+            .select({
+              id: asset.id,
+              name: asset.name,
+              type: asset.type,
+              isCritical: asset.isCritical,
+              maxOutage: asset.maxOutage,
+            })
+            .from(asset)
+            .where(eq(asset.companyId, companyId))
+            .orderBy(asset.name)
+        : [],
+      needs("recoveryOrder")
+        ? db
+            .select({
+              id: risk.id,
+              likelihood: risk.likelihood,
+              impact: risk.impact,
+              assetId: riskAsset.assetId,
+            })
+            .from(riskAsset)
+            .innerJoin(risk, eq(risk.id, riskAsset.riskId))
+            .where(eq(risk.companyId, companyId))
+        : [],
+      needs("criticalProcesses") ? processLinksOf(db, companyId) : [],
+      needs("reportingChannel")
+        ? db.query.company.findFirst({
+            where: eq(company.id, companyId),
+            columns: { country: true },
           })
-          .from(asset)
-          .where(eq(asset.companyId, companyId))
-          .orderBy(asset.name)
-      : [],
-    needs("recoveryOrder")
-      ? db
-          .select({
-            id: risk.id,
-            likelihood: risk.likelihood,
-            impact: risk.impact,
-            assetId: riskAsset.assetId,
-          })
-          .from(riskAsset)
-          .innerJoin(risk, eq(risk.id, riskAsset.riskId))
-          .where(eq(risk.companyId, companyId))
-      : [],
-    needs("criticalProcesses") ? processLinksOf(db, companyId) : [],
-    needs("reportingChannel")
-      ? db.query.company.findFirst({
-          where: eq(company.id, companyId),
-          columns: { country: true },
-        })
-      : undefined,
-    needs("emergencyLead") ? answersOf(db, companyId, EMERGENCY_LEAD.code) : NO_ANSWERS,
-    needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
-    needs("dataProtectionOfficer") ? answersOf(db, companyId, DPO_ITEM) : NO_ANSWERS,
-    needs("securityDocuments") ? securityDocumentsOf(db, companyId, locale) : [],
-  ]);
+        : undefined,
+      needs("emergencyLead") ? answersOf(db, companyId, EMERGENCY_LEAD.code) : NO_ANSWERS,
+      needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
+      needs("dataProtectionOfficer") ? answersOf(db, companyId, DPO_ITEM) : NO_ANSWERS,
+      needs("securityDocuments") ? securityDocumentsOf(db, companyId, locale) : [],
+    ]);
   const portal =
     getRegistrationPortals().portals.find((p) => p.countryCode === org?.country) ?? null;
   const text: Record<PolicyList, () => string> = {
@@ -270,8 +272,11 @@ const policyListsOf = async (
     criticalProcesses: () => {
       // The tolerance in the 4.2 screen's own words, so the plan and the screen say the same.
       const keep = resolveItem(NAMESPACES[locale], walkItem("4.2"));
-      const screen = keep.ok ? keep.value.screens.find((s) => s.kind === "critical") : undefined;
-      const spans = screen?.kind === "critical" ? screen.copy.outageOptions : {};
+      const screen = keep.ok
+        ? keep.value.screens.find((s) => s.kind === "critical")
+        : undefined;
+      const spans: Partial<Record<OutageSpan, string>> =
+        screen?.kind === "critical" ? screen.copy.outageOptions : {};
       const names = new Map(assets.map((a) => [a.id, a.name]));
       return criticalProcessesText(
         locale,

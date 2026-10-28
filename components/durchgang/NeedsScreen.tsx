@@ -11,7 +11,11 @@ import type { Of, WorkProps } from "./WorkScreens";
  * and compares (BSI-Standard 200-4 p. 187; 300-1 Anhang 2). Nothing is typed here: everything is
  * picked from what 2.2 already listed.
  */
-export function NeedsScreen({ draft, onDraft, entry }: WorkProps & { entry: Of<"needs"> }) {
+export function NeedsScreen({
+  draft,
+  onDraft,
+  entry,
+}: WorkProps & { entry: Of<"needs"> }) {
   const assets = trpc.asset.list.useQuery();
   const stored = trpc.durchgang.processNeeds.useQuery();
   if (!assets.data || !stored.data) return null;

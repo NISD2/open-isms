@@ -19,7 +19,8 @@ const chip = (on: boolean) =>
  * 4.4: the systems the critical processes need (4.2), each with how long it takes to bring it
  * back, on the same five steps as the tolerance, or "unknown", which the standard allows as an
  * answer and the next screen lists as a gap (BSI-Standard 200-4 p. 196). The answers are the
- * asset's own columns, so the asset page shows the same.
+ * asset's own columns, answered only here and read by the comparison, the approval's open points
+ * and the export.
  */
 export function RestoreScreen({
   draft,
@@ -86,7 +87,9 @@ export function RestoreScreen({
                   <button
                     type="button"
                     aria-pressed={value.unknown}
-                    onClick={() => set(system.id, { span: null, unknown: !value.unknown })}
+                    onClick={() =>
+                      set(system.id, { span: null, unknown: !value.unknown })
+                    }
                     className={chip(value.unknown)}
                   >
                     {entry.copy.unknown}

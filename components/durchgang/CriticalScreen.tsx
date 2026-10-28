@@ -15,7 +15,8 @@ import type { Of, WorkProps } from "./WorkScreens";
  * 4.2: the business processes on the company's list. The person marks what must keep running
  * without IT, says in one line how, and how long it may be down at most (BSI-Standard 200-4
  * p. 178, on five coarse steps); the plan on the next screens prints all three. The mark is the
- * asset's own `is_critical` and the tolerance its `max_outage`, so the asset page shows the same.
+ * asset's own `is_critical`, which the asset page shows too; the tolerance is its `max_outage`,
+ * answered only here and read by the plan, the 4.4 comparison and the export.
  */
 export function CriticalScreen({
   item,
@@ -107,7 +108,9 @@ export function CriticalScreen({
                           </button>
                         ))}
                       </div>
-                      <p className="text-xs text-muted-foreground">{entry.copy.outageHint}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {entry.copy.outageHint}
+                      </p>
                     </fieldset>
                   </div>
                 )}

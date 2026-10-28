@@ -95,8 +95,12 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
     .map((s) => s.name);
   const untested = facts.backups.filter((b) => b.lastRestore === null).map((b) => b.name);
   const standings = continuityGaps(facts.continuity);
-  const slow = standings.filter((s) => s.verdict.kind === "too_slow").map((s) => s.system.name);
-  const unknown = standings.filter((s) => s.verdict.kind === "unknown").map((s) => s.system.name);
+  const slow = standings
+    .filter((s) => s.verdict.kind === "too_slow")
+    .map((s) => s.system.name);
+  const unknown = standings
+    .filter((s) => s.verdict.kind === "unknown")
+    .map((s) => s.system.name);
   const since = threeYearsBefore(facts.today);
   const trained = [
     ...new Set(
@@ -120,7 +124,9 @@ export function gapsOf(facts: GapFacts): readonly Gap[] {
       : []),
     ...(untested.length > 0 ? [{ kind: "restore" as const, names: untested }] : []),
     ...(slow.length > 0 ? [{ kind: "recovery_slow" as const, names: slow }] : []),
-    ...(unknown.length > 0 ? [{ kind: "recovery_unknown" as const, names: unknown }] : []),
+    ...(unknown.length > 0
+      ? [{ kind: "recovery_unknown" as const, names: unknown }]
+      : []),
     ...(facts.reporting === false ? [{ kind: "reporting" as const }] : []),
     ...(trained.length === 0 || trained.length < facts.managers
       ? [{ kind: "training" as const, trained, managers: facts.managers }]

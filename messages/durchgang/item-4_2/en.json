@@ -99,8 +99,8 @@
                   "text": "{emergencyLead} declares the emergency over. We record what happened and adapt this plan."
                 },
                 {
-                  "heading": "Terms and period covered",
-                  "text": "A disruption is an outage that the usual troubleshooting fixes in the usual time. An emergency is an outage that interrupts important work for longer than a process above may wait; then this plan applies. A crisis is an emergency we cannot handle with our own means, in which {emergencyLead} brings in help from outside. This plan is valid for one year from approval and is then reviewed. It is the entry level of BSI-Standard 200-4; Germany's BSI expects it to be built on step by step."
+                  "heading": "Terms",
+                  "text": "A disruption is an outage that the usual troubleshooting fixes in the usual time. An emergency is an outage that interrupts important work for longer than a process above may wait; then this plan applies. A crisis is an emergency we cannot handle with our own means, in which {emergencyLead} brings in help from outside. We review this plan when something material changes, and after every emergency. It is the entry level of BSI-Standard 200-4; Germany's BSI expects it to be built on step by step."
                 }
               ],
               "clauses": [

@@ -161,7 +161,10 @@ export const recordRestoreInput = z.object({
         })
         .refine((row) => !(row.restore !== null && row.unknown), {
           message: "A restore time and unknown cannot both be given.",
-        }),
+        })
+        .describe(
+          "One needed system: how long it takes to bring back (restore), or that nobody knows (unknown true with restore null); never both. restore null with unknown false clears the answer.",
+        ),
     )
     .min(1)
     .max(200),

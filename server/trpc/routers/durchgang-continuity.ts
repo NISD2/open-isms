@@ -4,6 +4,7 @@ import { seedLocale } from "@/lib/compliance/seed-locale";
 import {
   criticalNote,
   needsNote,
+  noneWord,
   noteLine,
   resolveItem,
   restoreNote,
@@ -151,7 +152,16 @@ export const continuityProcedures = {
     .mutation(async ({ ctx, input }) => {
       askedOnScreen(input.code, "needs", "names no systems");
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const rows = [...new Map(input.rows.map((r) => [r.processId, r])).values()];
+      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      // One row per process, one link per need: a system named twice is one link.
+      const rows = [
+        ...new Map(
+          input.rows.map((r) => [
+            r.processId,
+            { ...r, assetIds: [...new Set(r.assetIds)] },
+          ]),
+        ).values(),
+      ];
       const ids = [...new Set(rows.flatMap((r) => [r.processId, ...r.assetIds]))];
 
       const result = await ctx.db.transaction(async (tx) => {
@@ -215,12 +225,11 @@ export const continuityProcedures = {
               return name ? [name] : [];
             });
             const process = nameOf.get(row.processId) ?? "";
-            return names.length > 0 ? `${process}: ${names.join(", ")}` : process;
+            return `${process}: ${names.length > 0 ? names.join(", ") : noneWord(locale)}`;
           }),
         };
       });
 
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
       await appendNote(
         ctx.db,
         ref.statusId,
@@ -250,71 +259,75 @@ export const continuityProcedures = {
     .mutation(async ({ ctx, input }) => {
       askedOnScreen(input.code, "restore", "asks no restore times");
       const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
+      // The screen's own words for the spans, so the trail says what the screen said.
       const words = resolveItem(NAMESPACES[locale], walkItem(input.code));
       const screen = words.ok
         ? words.value.screens.find((s) => s.kind === "restore")
         : undefined;
       if (screen?.kind !== "restore") {
         throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `${input.code} asks no restore times.`,
+          code: "INTERNAL_SERVER_ERROR",
+          message: `${input.code}: the restore screen's words did not resolve.`,
         });
       }
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
       const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
       const ids = rows.map((r) => r.assetId);
-      const owned = await ctx.db
-        .select({
-          id: asset.id,
-          name: asset.name,
-          restoreTime: asset.restoreTime,
-          restoreTimeUnknown: asset.restoreTimeUnknown,
-        })
-        .from(asset)
-        .where(
-          and(
-            eq(asset.companyId, ctx.companyId),
-            ne(asset.type, "process"),
-            inArray(asset.id, ids),
-          ),
-        );
-      if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
-      const before = new Map(owned.map((a) => [a.id, a]));
-      const changed = rows.filter((row) => {
-        const was = before.get(row.assetId);
-        return (
-          was !== undefined &&
-          (row.restore !== was.restoreTime || row.unknown !== was.restoreTimeUnknown)
-        );
-      });
-      for (const row of changed) {
-        await ctx.db
-          .update(asset)
-          .set({
-            restoreTime: row.restore,
-            restoreTimeUnknown: row.unknown,
-            updatedAt: new Date(),
+
+      const result = await ctx.db.transaction(async (tx) => {
+        const owned = await tx
+          .select({
+            id: asset.id,
+            name: asset.name,
+            restoreTime: asset.restoreTime,
+            restoreTimeUnknown: asset.restoreTimeUnknown,
           })
-          .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
-      }
+          .from(asset)
+          .where(
+            and(
+              eq(asset.companyId, ctx.companyId),
+              ne(asset.type, "process"),
+              inArray(asset.id, ids),
+            ),
+          )
+          .for("update");
+        if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
+        const before = new Map(owned.map((a) => [a.id, a]));
+        const changed = rows.filter((row) => {
+          const was = before.get(row.assetId);
+          return (
+            was !== undefined &&
+            (row.restore !== was.restoreTime || row.unknown !== was.restoreTimeUnknown)
+          );
+        });
+        for (const row of changed) {
+          await tx
+            .update(asset)
+            .set({
+              restoreTime: row.restore,
+              restoreTimeUnknown: row.unknown,
+              updatedAt: new Date(),
+            })
+            .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
+        }
+        return {
+          changed: changed.length,
+          lines: rows.map((row) => {
+            const name = before.get(row.assetId)?.name ?? "";
+            const answer = row.unknown
+              ? screen.copy.unknown
+              : row.restore
+                ? screen.copy.options[row.restore]
+                : noneWord(locale);
+            return `${name}: ${answer}`;
+          }),
+        };
+      });
+
       await appendNote(
         ctx.db,
         ref.statusId,
-        noteLine(
-          new Date(),
-          restoreNote(
-            locale,
-            rows.map((row) => {
-              const name = before.get(row.assetId)?.name ?? "";
-              const answer = row.unknown
-                ? screen.copy.unknown
-                : row.restore
-                  ? (screen.copy.options[row.restore] ?? row.restore)
-                  : null;
-              return answer ? `${name}: ${answer}` : name;
-            }),
-          ),
-        ),
+        noteLine(new Date(), restoreNote(locale, result.lines)),
       );
       await logWalk({
         companyId: ctx.companyId,
@@ -323,10 +336,10 @@ export const continuityProcedures = {
         entityType: "requirement",
         entityId: ref.requirementId,
         description: `${ref.code} restore times recorded`,
-        newValue: { systems: rows.length, changed: changed.length },
+        newValue: { systems: rows.length, changed: result.changed },
       });
-      if (changed.length > 0) recheck(ctx, "asset", input.code);
-      return { changed: changed.length };
+      if (result.changed > 0) recheck(ctx, "asset", input.code);
+      return { changed: result.changed };
     }),
 
   /**

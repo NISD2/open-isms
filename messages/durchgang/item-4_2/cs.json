@@ -99,8 +99,8 @@
                   "text": "{emergencyLead} ohlásí konec nouzového provozu. Zapíšeme, co se stalo, a plán upravíme."
                 },
                 {
-                  "heading": "Pojmy a doba platnosti",
-                  "text": "Porucha je výpadek, který běžné odstraňování poruch vyřeší v obvyklém čase. Nouzová situace je výpadek, který přeruší důležitou práci na déle, než smí některý proces výše čekat; pak platí tento plán. Krize je nouzová situace, kterou vlastními silami nezvládneme a při níž {emergencyLead} přivolá pomoc zvenčí. Tento plán platí jeden rok od schválení a poté se přezkoumá. Je to vstupní úroveň podle standardu BSI 200-4; německý BSI očekává, že jej budeme postupně rozvíjet."
+                  "heading": "Pojmy",
+                  "text": "Porucha je výpadek, který běžné odstraňování poruch vyřeší v obvyklém čase. Nouzová situace je výpadek, který přeruší důležitou práci na déle, než smí některý proces výše čekat; pak platí tento plán. Krize je nouzová situace, kterou vlastními silami nezvládneme a při níž {emergencyLead} přivolá pomoc zvenčí. Tento plán přezkoumáme, když se něco podstatného změní, a po každé nouzové situaci. Je to vstupní úroveň podle standardu BSI 200-4; německý BSI očekává, že jej budeme postupně rozvíjet."
                 }
               ],
               "clauses": [

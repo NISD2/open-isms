@@ -99,8 +99,8 @@
                   "text": "{emergencyLead} erklärt den Notfall für beendet. Wir halten fest, was geschehen ist, und passen diesen Plan an."
                 },
                 {
-                  "heading": "Begriffe und Geltungsdauer",
-                  "text": "Eine Störung ist ein Ausfall, den die übliche Störungsbehebung in der gewohnten Zeit behebt. Ein Notfall ist ein Ausfall, der wichtige Arbeit länger unterbricht, als ein Ablauf oben warten darf; dann gilt dieser Plan. Eine Krise ist ein Notfall, den wir mit eigenen Mitteln nicht bewältigen und bei dem {emergencyLead} Hilfe von außen holt. Dieser Plan gilt ein Jahr ab Freigabe und wird dann geprüft. Er ist die Einstiegsstufe nach BSI-Standard 200-4; das BSI erwartet, dass wir ihn Schritt für Schritt ausbauen."
+                  "heading": "Begriffe",
+                  "text": "Eine Störung ist ein Ausfall, den die übliche Störungsbehebung in der gewohnten Zeit behebt. Ein Notfall ist ein Ausfall, der wichtige Arbeit länger unterbricht, als ein Ablauf oben warten darf; dann gilt dieser Plan. Eine Krise ist ein Notfall, den wir mit eigenen Mitteln nicht bewältigen und bei dem {emergencyLead} Hilfe von außen holt. Wir prüfen diesen Plan, wenn sich etwas Wesentliches ändert, und nach jedem Ernstfall. Er ist die Einstiegsstufe nach BSI-Standard 200-4; das BSI erwartet, dass wir ihn Schritt für Schritt ausbauen."
                 }
               ],
               "clauses": [
