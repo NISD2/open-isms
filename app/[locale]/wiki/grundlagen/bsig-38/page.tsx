@@ -96,7 +96,7 @@ export default async function BsigParagraph38Page({
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale}
-          lastReviewedAt="2026-10-05"
+          lastReviewedAt="2026-10-29"
           sourceLocale="de"
         />
 

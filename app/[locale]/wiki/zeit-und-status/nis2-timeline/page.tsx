@@ -53,9 +53,10 @@ export default async function NIS2TimelinePage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = wikiLocale(rawLocale);
-  const [t, w] = await Promise.all([
+  const [t, w, links] = await Promise.all([
     getTranslations("info.nis2Timeline"),
     getTranslations("info.wikiWalk"),
+    getTranslations("wikiLinks"),
   ]);
   const faq = t.raw("faq.items") as WikiQuestion[];
 
@@ -99,7 +100,11 @@ export default async function NIS2TimelinePage({
           heading={t("company.heading")}
           lead={t("company.lead")}
           items={t.raw("company.items") as WikiDate[]}
-        />
+        >
+          <WikiMoreLink href="/wiki/troubleshooting/nis2-registrierung-verpasst">
+            {links("registration")}
+          </WikiMoreLink>
+        </WikiDates>
 
         <WikiDates
           heading={t("eu.heading")}

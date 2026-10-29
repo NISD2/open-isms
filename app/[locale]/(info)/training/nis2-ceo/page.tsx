@@ -9,7 +9,10 @@ import { CourseOutlineList } from "@/components/training/CourseOutlineList";
 import { CourseHero, WhatIsFree } from "@/components/training/CoursePageParts";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
+import { reviewedLine } from "@/lib/content/wiki-byline";
 import { db } from "@/lib/db";
+import { isLocaleCode, LOCALE_CODES } from "@/lib/locale";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
 import { courseTotals, loadCourse } from "@/lib/training/course-loader";
@@ -53,6 +56,15 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * The day a lesson or a legal sentence on this page was last changed and read against the law.
+ * 29.10.2026: the opening answer on Art. 20 Abs. 2 NIS 2 and § 38 Abs. 3 BSIG was reworded and
+ * checked against both texts. Before that, open-isms #494 brought 12 lessons in line with the
+ * BSI's management training curriculum on 28.10.2026. Move it whenever a lesson or a legal
+ * sentence here is reviewed or changed, never on its own.
+ */
+const COURSE_LAST_REVIEWED = "2026-10-29";
+
 const highlightIcons = [BookOpen, Clock, Shield, GraduationCap] as const;
 const highlightKeys = ["lessons", "hours", "quizzes", "certificate"] as const;
 
@@ -62,7 +74,11 @@ export default async function TrainingLandingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("info");
+  const [t, links] = await Promise.all([
+    getTranslations("info"),
+    getTranslations("wikiLinks"),
+  ]);
+  const readerLocale = isLocaleCode(locale) ? locale : "en";
   const [course, learnerCount, totals] = await Promise.all([
     loadCourse("nis2-ceo"),
     getLearnerCount(),
@@ -83,10 +99,11 @@ export default async function TrainingLandingPage({
             url: "https://nisd2.eu",
           },
           isAccessibleForFree: true,
+          dateModified: COURSE_LAST_REVIEWED,
           numberOfLessons: 47,
           timeRequired: "PT4H",
           educationalLevel: "Executive",
-          inLanguage: ["de", "en"],
+          inLanguage: [...LOCALE_CODES],
           hasCourseInstance: {
             "@type": "CourseInstance",
             courseMode: "online",
@@ -102,6 +119,11 @@ export default async function TrainingLandingPage({
         </h1>
         <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
           {t("trainingCeo.subtitle")}
+        </p>
+        <p className="text-sm text-muted-foreground">
+          <time dateTime={COURSE_LAST_REVIEWED}>
+            {reviewedLine(COURSE_LAST_REVIEWED, readerLocale)}
+          </time>
         </p>
         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
           <GatedLink
@@ -192,6 +214,7 @@ export default async function TrainingLandingPage({
         <p className="text-muted-foreground leading-relaxed">
           {t("trainingCeo.whatLearn.body", { moduleCount: course.modules.length })}
         </p>
+        <WikiMoreLink href="/wiki/grundlagen/bsig-38">{links("statute")}</WikiMoreLink>
         <CourseOutlineList
           courseId="nis2-ceo"
           locale={locale}
