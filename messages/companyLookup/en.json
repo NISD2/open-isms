@@ -4,11 +4,10 @@
     "subtitle": "The binding determination is made by your national supervisory authority. Below are the official contact points per country, plus a free self-check for orientation. Not sure? See <link>real-world edge cases</link> for examples.",
     "answer": {
       "heading": "In short: who is affected",
-      "paragraphs": [
-        "NIS2 applies to companies in the sectors of Annexes I and II of the directive if they are at least medium-sized (Article 2(1) NIS 2). Some providers are covered whatever their size.",
-        "In Germany, a company is affected if it works in a sector listed in Annex 1 or 2 of the BSIG and has at least 50 employees, or an annual turnover and a balance sheet total of more than EUR 10 million each. In a sector of Annex 1 it is an essential entity (besonders wichtige Einrichtung) if it has at least 250 employees, or more than EUR 50 million turnover and more than EUR 43 million balance sheet total.",
-        "The BSI offers a scope check. According to the BSI, its result is not legally binding."
-      ],
+      "eu": "NIS2 applies to companies in the sectors of Annexes I and II of the directive if they are at least medium-sized (Article 2(1) NIS 2). Some providers are covered whatever their size (Article 2(2) NIS 2).",
+      "germany": "In Germany, a company in a sector listed in Annex 1 or 2 of the BSIG is usually an important entity if it has at least {mediumEmployees} employees, or an annual turnover above EUR {mediumTurnover} million and a balance sheet total above EUR {mediumBalanceSheet} million. In a sector of Annex 1 it is usually an essential entity (besonders wichtige Einrichtung) if it has at least {largeEmployees} employees, or an annual turnover above EUR {largeTurnover} million and a balance sheet total above EUR {largeBalanceSheet} million.",
+      "exceptions": "Size does not settle every case. Operators of critical facilities and trust service providers are covered whatever their size. For partner or linked enterprises their figures count too, unless your company is independent of them in its IT systems (§ 28(4) BSIG). The self-check below clarifies your case better than this summary. The authority decides.",
+      "lawEu": "Art. 2 NIS 2",
       "law": "Art. 2 NIS 2 · § 28 BSIG · Annexes 1 and 2",
       "link": "Important and essential entities at a glance"
     },

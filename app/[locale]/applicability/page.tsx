@@ -6,6 +6,8 @@ import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiSection } from "@/components/wiki/WikiSection";
 import { Link } from "@/i18n/navigation";
+import { isGermanReading, readerCountry } from "@/lib/applicability/reader-country";
+import { SIZE_THRESHOLDS } from "@/lib/applicability/size-thresholds";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
 
@@ -68,7 +70,30 @@ export default async function ApplicabilityPage({
   // ?country=javascript:alert(1) never reaches the component.
   const highlightCountry =
     country && /^[A-Za-z]{2}$/.test(country) ? country.toUpperCase() : undefined;
-  const tLookup = await getTranslations("companyLookup");
+  const [tLookup, tInfo] = await Promise.all([
+    getTranslations("companyLookup"),
+    getTranslations("info.missedRegistration"),
+  ]);
+
+  // The size limits are the German ones (§ 28 BSIG), so they and the BSI's own check only show
+  // when the German reading applies: no country asked for, or Germany.
+  const germanReading = isGermanReading(readerCountry(locale, highlightCountry));
+  const { medium, large } = SIZE_THRESHOLDS;
+  const answer = germanReading
+    ? [
+        tLookup("answer.eu"),
+        tLookup("answer.germany", {
+          mediumEmployees: medium.employees,
+          mediumTurnover: medium.turnover,
+          mediumBalanceSheet: medium.balanceSheet,
+          largeEmployees: large.employees,
+          largeTurnover: large.turnover,
+          largeBalanceSheet: large.balanceSheet,
+        }),
+        tLookup("answer.exceptions"),
+        tInfo("who.p3"),
+      ]
+    : [tLookup("answer.eu")];
 
   return (
     <>
@@ -94,12 +119,14 @@ export default async function ApplicabilityPage({
       <div className="mb-8">
         <WikiSection
           heading={tLookup("answer.heading")}
-          paragraphs={tLookup.raw("answer.paragraphs") as string[]}
-          law={tLookup("answer.law")}
+          paragraphs={answer}
+          law={tLookup(germanReading ? "answer.law" : "answer.lawEu")}
         >
-          <WikiMoreLink href="/wiki/anwendungsbereich/nis2-einrichtungen">
-            {tLookup("answer.link")}
-          </WikiMoreLink>
+          {germanReading && (
+            <WikiMoreLink href="/wiki/anwendungsbereich/nis2-einrichtungen">
+              {tLookup("answer.link")}
+            </WikiMoreLink>
+          )}
         </WikiSection>
       </div>
 
