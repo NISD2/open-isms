@@ -2,6 +2,15 @@
   "companyLookup": {
     "title": "Ist Ihr Unternehmen von NIS2 betroffen?",
     "subtitle": "Verbindlich entscheidet Ihre nationale Aufsichtsbehörde. Hier finden Sie offizielle Anlaufstellen pro Land und einen kostenlosen Selbst-Check als Orientierung. Unsicher? Sehen Sie sich <link>praxisnahe Grenzfälle</link> an.",
+    "answer": {
+      "heading": "Kurz gesagt: wer betroffen ist",
+      "eu": "NIS2 gilt für Unternehmen in den Sektoren der Anhänge I und II der Richtlinie, wenn sie mindestens mittelgroß sind (Art. 2 Abs. 1 NIS 2). Bestimmte Anbieter sind unabhängig von ihrer Größe betroffen (Art. 2 Abs. 2 NIS 2).",
+      "germany": "In Deutschland ist ein Unternehmen in einem Sektor der Anlagen 1 oder 2 des BSIG in der Regel eine wichtige Einrichtung, wenn es mindestens {mediumEmployees} Beschäftigte hat oder einen Jahresumsatz über {mediumTurnover} Millionen Euro und eine Bilanzsumme über {mediumBalanceSheet} Millionen Euro. In einem Sektor der Anlage 1 ist es in der Regel eine besonders wichtige Einrichtung, wenn es mindestens {largeEmployees} Beschäftigte hat oder einen Jahresumsatz über {largeTurnover} Millionen Euro und eine Bilanzsumme über {largeBalanceSheet} Millionen Euro.",
+      "exceptions": "Die Größe entscheidet nicht in jedem Fall. Betreiber kritischer Anlagen und Vertrauensdiensteanbieter sind unabhängig von ihrer Größe betroffen. Bei Partnerunternehmen und verbundenen Unternehmen zählen deren Zahlen mit, außer Ihr Unternehmen ist bei seinen informationstechnischen Systemen unabhängig von ihnen (§ 28 Abs. 4 BSIG). Ob Ihr Fall dazugehört, klärt der Selbstcheck unten genauer als diese Kurzfassung. Verbindlich entscheidet die Behörde.",
+      "lawEu": "Art. 2 NIS 2",
+      "law": "Art. 2 NIS 2 · § 28 BSIG · Anlagen 1 und 2",
+      "link": "Wichtige und besonders wichtige Einrichtungen im Überblick"
+    },
     "authorityCallout": {
       "heading": "Verbindliche Einstufung: Ihre nationale Aufsichtsbehörde",
       "body": "Die endgültige NIS2-Einstufung trifft die zuständige Behörde Ihres Landes. Wir verlinken die offiziellen Stellen. Der Selbst-Check unten ist nur eine schnelle Orientierungshilfe.",

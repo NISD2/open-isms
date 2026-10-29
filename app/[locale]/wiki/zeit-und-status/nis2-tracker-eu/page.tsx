@@ -126,10 +126,11 @@ export default async function Nis2TrackerEuPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = resolveLocale(rawLocale);
-  const [t, w, missed] = await Promise.all([
+  const [t, w, missed, links] = await Promise.all([
     getTranslations("info.euTracker"),
     getTranslations("info.wikiWalk"),
     getTranslations("missedDeadline"),
+    getTranslations("wikiLinks"),
   ]);
   const shot = itemShot(REGISTRATION_STEP, rawLocale, t("walk.seeItAlt"));
   if (!shot) throw new Error(`The walk has no screenshot for step ${REGISTRATION_STEP}`);
@@ -328,11 +329,19 @@ export default async function Nis2TrackerEuPage({
 
         <WikiSection
           heading={t("size.heading")}
-          paragraphs={t.raw("size.paragraphs") as string[]}
+          paragraphs={[
+            ...(t.raw("size.paragraphs") as string[]),
+            links("trackerElsewhere"),
+          ]}
         >
-          <WikiMoreLink href="/wiki/zeit-und-status/nis2-umsetzung-europa">
-            {t("size.link")}
-          </WikiMoreLink>
+          <div className="flex flex-col gap-x-6 sm:flex-row sm:flex-wrap">
+            <WikiMoreLink href="/wiki/zeit-und-status/nis2-umsetzung-europa">
+              {t("size.link")}
+            </WikiMoreLink>
+            <WikiMoreLink href="/wiki/zeit-und-status/nis2-in-germany">
+              {links("germany")}
+            </WikiMoreLink>
+          </div>
         </WikiSection>
 
         <WikiExample
