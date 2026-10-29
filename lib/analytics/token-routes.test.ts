@@ -3,12 +3,16 @@ import { LOCALE_CODES } from "@/lib/locale";
 import { SIGNUP_CAMPAIGN_KEYS } from "@/schema";
 import {
   analyticsBeforeSend,
+  CALLBACK_URL_KEY,
   FROM_PATH_KEY,
+  GATE_PATH_KEY,
+  gatePath,
   isTokenRoute,
   originPath,
   signupTags,
+  sourceTags,
   TOKEN_ROUTE_PREFIXES,
-  withCampaignTags,
+  withSourceTags,
 } from "./token-routes";
 
 describe("originPath", () => {
@@ -55,34 +59,32 @@ describe("signupTags", () => {
     expect(signupTags("from_path=%2Finvite%2F5f0c").toString()).toBe("");
   });
 
-  test("uses the key the schema stores", () => {
+  test("uses the keys the schema stores", () => {
     expect(SIGNUP_CAMPAIGN_KEYS).toContain(FROM_PATH_KEY);
+    expect(SIGNUP_CAMPAIGN_KEYS).toContain(GATE_PATH_KEY);
   });
 
   describe("a sign-in that came by redirect", () => {
-    test("records the page the redirect was for when no link handed one on", () => {
+    test("records the entry door the proxy sent the visitor away from, as gate_path", () => {
       // What the proxy builds when "Start the course" opens a lesson without a session.
       const tags = signupTags("callbackUrl=%2Ftraining%2Fcourses%2Fnis2-ceo%2F0.1");
-      expect(tags.toString()).toBe("from_path=%2Ftraining%2Fcourses%2Fnis2-ceo%2F0.1");
+      expect(tags.toString()).toBe("gate_path=%2Ftraining%2Fcourses%2Fnis2-ceo%2F0.1");
+      expect(tags.has(FROM_PATH_KEY)).toBe(false);
     });
 
-    test("the page whose link was clicked wins over the redirect target", () => {
+    test("from_path stays the page whose link was clicked, next to gate_path", () => {
       const tags = signupTags(
         "from_path=%2Fen%2Ftraining%2Fnis2-ceo&callbackUrl=%2Fen%2Ftraining%2Fcourses%2Fnis2-ceo%2F0.1",
       );
       expect(tags.get(FROM_PATH_KEY)).toBe("/en/training/nis2-ceo");
-    });
-
-    test("falls back when the handed-on path is not usable", () => {
-      const tags = signupTags("from_path=%2Finvite%2F5f0c&callbackUrl=%2Fbestellen");
-      expect(tags.get(FROM_PATH_KEY)).toBe("/bestellen");
+      expect(tags.get(GATE_PATH_KEY)).toBe("/en/training/courses/nis2-ceo/0.1");
     });
 
     test("drops the query and fragment of the target, keeps the campaign tags", () => {
       const tags = signupTags(
         "utm_source=linkedin&callbackUrl=%2Ftraining%2Fcourses%3Ftoken%3Dabc%23x",
       );
-      expect(tags.toString()).toBe("utm_source=linkedin&from_path=%2Ftraining%2Fcourses");
+      expect(tags.toString()).toBe("utm_source=linkedin&gate_path=%2Ftraining%2Fcourses");
     });
 
     test("never records a credential link or an address off this site", () => {
@@ -98,7 +100,35 @@ describe("signupTags", () => {
         "",
       ]) {
         const tags = signupTags(`callbackUrl=${encodeURIComponent(target)}`);
-        expect(tags.has(FROM_PATH_KEY)).toBe(false);
+        expect(tags.has(GATE_PATH_KEY)).toBe(false);
+      }
+    });
+
+    test("records only entry doors, never another gated page or an id inside one", () => {
+      for (const target of [
+        "/suppliers/0b3c2f4e-9d7a-4e1b-8c55-6f1a2d3e4b5c",
+        "/en/suppliers/0b3c2f4e-9d7a-4e1b-8c55-6f1a2d3e4b5c",
+        "/billing",
+        "/dashboard",
+        "/organization",
+        "/risks",
+        "/portal/supplier-onboarding",
+        "/platform-admin",
+        "/",
+      ]) {
+        expect(gatePath(target)).toBeNull();
+      }
+      for (const target of [
+        "/training/courses/nis2-ceo/0.1",
+        "/en/training/courses/cra-sbom",
+        "/journey",
+        "/durchgang/nis2",
+        "/en/walkthrough/nis2",
+        "/bestellen",
+        "/en/order",
+        "/fr/commander",
+      ]) {
+        expect(gatePath(target)).toBe(target);
       }
     });
 
@@ -108,27 +138,48 @@ describe("signupTags", () => {
   });
 });
 
-describe("withCampaignTags", () => {
+describe("sourceTags", () => {
+  test("keeps the campaign tags and the clicked page, and no redirect target", () => {
+    const tags = sourceTags(
+      "utm_source=a&from_path=%2Fx&callbackUrl=%2Ftraining%2Fy&token=t",
+    );
+    expect(tags.toString()).toBe("utm_source=a&from_path=%2Fx");
+  });
+
+  test("drops a clicked page that is a token route or not a local path", () => {
+    for (const from of ["/invite/5f0c", "//evil.example", "https://evil.example/x"]) {
+      expect(
+        sourceTags(new URLSearchParams({ from_path: from }).toString()).toString(),
+      ).toBe("");
+    }
+  });
+});
+
+describe("withSourceTags", () => {
   const signin = () => new URL("https://nisd2.eu/auth/signin?callbackUrl=%2Ftraining");
 
-  test("carries the campaign tags of the request over to the redirect target", () => {
-    const target = withCampaignTags(
+  test("carries the campaign tags and the clicked page over to the redirect target", () => {
+    const target = withSourceTags(
       signin(),
-      "?utm_source=linkedin&utm_medium=social&x=1",
+      "?utm_source=linkedin&utm_medium=social&from_path=%2Fen%2Ftraining%2Fnis2-ceo&x=1",
     );
     expect(target.searchParams.get("utm_source")).toBe("linkedin");
     expect(target.searchParams.get("utm_medium")).toBe("social");
-    expect(target.searchParams.get("callbackUrl")).toBe("/training");
+    expect(target.searchParams.get(FROM_PATH_KEY)).toBe("/en/training/nis2-ceo");
+    expect(target.searchParams.get(CALLBACK_URL_KEY)).toBe("/training");
   });
 
-  test("leaves every other key of the request behind", () => {
-    const target = withCampaignTags(signin(), "?token=abc&email=a%40b.de");
-    expect([...target.searchParams.keys()]).toEqual(["callbackUrl"]);
+  test("leaves every other key of the request behind, and a bad clicked page", () => {
+    const target = withSourceTags(
+      signin(),
+      "?token=abc&email=a%40b.de&from_path=%2Finvite%2F5f0c",
+    );
+    expect([...target.searchParams.keys()]).toEqual([CALLBACK_URL_KEY]);
   });
 
   test("does not overwrite a key the target already has, and does not touch its input", () => {
     const input = new URL("https://nisd2.eu/start?utm_source=ad");
-    const target = withCampaignTags(input, "?utm_source=other&utm_term=nis2");
+    const target = withSourceTags(input, "?utm_source=other&utm_term=nis2");
     expect(target.searchParams.get("utm_source")).toBe("ad");
     expect(target.searchParams.get("utm_term")).toBe("nis2");
     expect(input.search).toBe("?utm_source=ad");

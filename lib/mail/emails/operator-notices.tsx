@@ -18,6 +18,8 @@ export interface NewSignupProps {
   readonly followUpLanguage: string;
   /** The campaign tags of the page the signup started from, as one line; null without any. */
   readonly source: string | null;
+  /** The entry door the visitor was sent to sign in from, e.g. a lesson; null without one. */
+  readonly gate: string | null;
 }
 
 export function NewSignupEmail({
@@ -28,6 +30,7 @@ export function NewSignupEmail({
   mailtoUrl,
   followUpLanguage,
   source,
+  gate,
 }: NewSignupProps) {
   return (
     <EmailFrame chrome={ENGLISH_ONLY}>
@@ -38,6 +41,7 @@ export function NewSignupEmail({
           ["Name", userName],
           ["Provider", provider],
           ...(source ? [["Source", source] as const] : []),
+          ...(gate ? [["Wanted to open", gate] as const] : []),
           ["Time", at],
           [
             "Follow-up",

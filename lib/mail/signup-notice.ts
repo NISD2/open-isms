@@ -1,4 +1,4 @@
-import { describeSignupCampaign } from "@/lib/auth/signup-campaign";
+import { describeSignupCampaign, describeSignupGate } from "@/lib/auth/signup-campaign";
 import type { WalkLocale } from "@/lib/durchgang/types";
 import type { SignupCampaign } from "@/schema";
 import { NewSignupEmail } from "./emails/operator-notices";
@@ -32,6 +32,7 @@ export async function newUserSignupEmail(opts: {
   const mailtoUrl = `mailto:${encodeURIComponent(userEmail)}?subject=${encodeURIComponent(followUp.subject)}&body=${encodeURIComponent(followUp.body)}`;
   const followUpLanguage = FOLLOW_UP_LANGUAGE[followUp.locale];
   const source = describeSignupCampaign(opts.campaign);
+  const gate = describeSignupGate(opts.campaign);
 
   return {
     subject: `New signup: ${safeHeader(userEmail)}`,
@@ -43,10 +44,12 @@ export async function newUserSignupEmail(opts: {
       mailtoUrl,
       followUpLanguage,
       source,
+      gate,
     }),
     text: [
       `New signup: ${userEmail} (${userName}) via ${provider}`,
       ...(source ? [`Source: ${source}`] : []),
+      ...(gate ? [`Wanted to open: ${gate}`] : []),
       "",
       `Follow up (prepared in ${followUpLanguage}): ${mailtoUrl}`,
     ].join("\n"),
