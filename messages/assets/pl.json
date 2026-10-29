@@ -66,6 +66,9 @@
       "lastBackupTestDate": "Ostatni test kopii zapasowej",
       "rto": "RTO (godziny)",
       "rpo": "RPO (godziny)",
+      "maxOutage": "Maksymalny dopuszczalny przestój",
+      "restoreTime": "Czas odtworzenia",
+      "restoreTimeUnknown": "Czas odtworzenia nieznany",
       "endOfLife": "Koniec cyklu życia",
       "quantity": "Ilość",
       "processesPersonalData": "Przetwarza dane osobowe"
@@ -97,6 +100,9 @@
       "lastBackupTestDate": "Data wykonania ostatniego testu odtwarzania kopii zapasowej.",
       "rto": "Docelowy czas odtworzenia w godzinach.",
       "rpo": "Docelowy punkt odtworzenia w godzinach.",
+      "maxOutage": "Jak długo ten proces może najwyżej stać, z kroku 4.2 przewodnika.",
+      "restoreTime": "Ile czasu zajmuje przywrócenie tego systemu do działania, z kroku 4.4.",
+      "restoreTimeUnknown": "Nikt nie wie, ile trwa odtworzenie; z kroku 4.4.",
       "endOfLife": "Data, w której ten aktyw osiąga koniec cyklu życia / koniec wsparcia (CIR 2024/2690 motyw).",
       "quantity": "Liczba identycznych jednostek w tej grupie aktywów (grupowanie wg BSI-200-2 §8.1).",
       "processesPersonalData": "Włącz, jeśli ten aktyw przechowuje, przetwarza lub przesyła dane osobowe (uruchamia kwestie związane z GDPR i zasila inwentarz RoPA)."

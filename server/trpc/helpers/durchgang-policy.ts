@@ -38,6 +38,7 @@ import {
   riskAsset,
 } from "@/schema";
 import { walkItemRef, walkPolicyRows } from "./durchgang";
+import { processLinksOf } from "./durchgang-gaps";
 import { NAMESPACES, recordLocaleOf, walkItem } from "./durchgang-words";
 
 /**
@@ -223,53 +224,71 @@ const policyListsOf = async (
   locale: WalkLocale,
 ): Promise<Partial<Record<PolicyList, string>>> => {
   const needs = (...names: readonly PolicyList[]) => names.some((n) => used.includes(n));
-  const [assets, links, org, lead, crypto, dpo, documents] = await Promise.all([
-    needs("criticalProcesses", "recoveryOrder")
-      ? db
-          .select({
-            id: asset.id,
-            name: asset.name,
-            type: asset.type,
-            isCritical: asset.isCritical,
+  const [assets, links, processLinks, org, lead, crypto, dpo, documents] =
+    await Promise.all([
+      needs("criticalProcesses", "recoveryOrder")
+        ? db
+            .select({
+              id: asset.id,
+              name: asset.name,
+              type: asset.type,
+              isCritical: asset.isCritical,
+              maxOutage: asset.maxOutage,
+            })
+            .from(asset)
+            .where(eq(asset.companyId, companyId))
+            .orderBy(asset.name)
+        : [],
+      needs("recoveryOrder")
+        ? db
+            .select({
+              id: risk.id,
+              likelihood: risk.likelihood,
+              impact: risk.impact,
+              assetId: riskAsset.assetId,
+            })
+            .from(riskAsset)
+            .innerJoin(risk, eq(risk.id, riskAsset.riskId))
+            .where(eq(risk.companyId, companyId))
+        : [],
+      needs("criticalProcesses") ? processLinksOf(db, companyId) : [],
+      needs("reportingChannel")
+        ? db.query.company.findFirst({
+            where: eq(company.id, companyId),
+            columns: { country: true },
           })
-          .from(asset)
-          .where(eq(asset.companyId, companyId))
-          .orderBy(asset.name)
-      : [],
-    needs("recoveryOrder")
-      ? db
-          .select({
-            id: risk.id,
-            likelihood: risk.likelihood,
-            impact: risk.impact,
-            assetId: riskAsset.assetId,
-          })
-          .from(riskAsset)
-          .innerJoin(risk, eq(risk.id, riskAsset.riskId))
-          .where(eq(risk.companyId, companyId))
-      : [],
-    needs("reportingChannel")
-      ? db.query.company.findFirst({
-          where: eq(company.id, companyId),
-          columns: { country: true },
-        })
-      : undefined,
-    needs("emergencyLead") ? answersOf(db, companyId, EMERGENCY_LEAD.code) : NO_ANSWERS,
-    needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
-    needs("dataProtectionOfficer") ? answersOf(db, companyId, DPO_ITEM) : NO_ANSWERS,
-    needs("securityDocuments") ? securityDocumentsOf(db, companyId, locale) : [],
-  ]);
+        : undefined,
+      needs("emergencyLead") ? answersOf(db, companyId, EMERGENCY_LEAD.code) : NO_ANSWERS,
+      needs("acceptedCrypto") ? cryptoListOf(db, companyId) : null,
+      needs("dataProtectionOfficer") ? answersOf(db, companyId, DPO_ITEM) : NO_ANSWERS,
+      needs("securityDocuments") ? securityDocumentsOf(db, companyId, locale) : [],
+    ]);
   const portal =
     getRegistrationPortals().portals.find((p) => p.countryCode === org?.country) ?? null;
   const text: Record<PolicyList, () => string> = {
     reportingChannel: () => reportingChannelText(locale, portal),
     emergencyLead: () => personText(lead[EMERGENCY_LEAD.field]),
-    criticalProcesses: () =>
-      criticalProcessesText(
+    criticalProcesses: () => {
+      const names = new Map(assets.map((a) => [a.id, a.name]));
+      return criticalProcessesText(
+        locale,
         assets
           .filter((a) => a.type === "process" && a.isCritical)
-          .map((a) => ({ name: a.name, how: fallbacks[a.id] ?? "" })),
-      ),
+          .map((a) => ({
+            name: a.name,
+            how: fallbacks[a.id] ?? "",
+            outage: a.maxOutage,
+            // By name, so the plan's text does not depend on the order the links were written in.
+            needs: processLinks
+              .filter((l) => l.processId === a.id)
+              .flatMap((l) => {
+                const name = names.get(l.assetId);
+                return name ? [name] : [];
+              })
+              .sort((x, y) => x.localeCompare(y, locale)),
+          })),
+      );
+    },
     recoveryOrder: () =>
       recoveryOrderText(
         recoveryOrder(

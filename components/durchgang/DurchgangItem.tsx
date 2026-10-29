@@ -70,10 +70,13 @@ import {
 } from "./ExplainScreens";
 import { GlossProvider } from "./Glossed";
 import { Logins } from "./LoginScreen";
+import { NeedsScreen } from "./NeedsScreen";
 import { PolicyScreen } from "./PolicyScreen";
 import { Processors } from "./ProcessorScreen";
 import { Rail } from "./Rail";
 import { Rate, Specify } from "./RatingScreens";
+import { RecoveryScreen } from "./RecoveryScreen";
+import { RestoreScreen } from "./RestoreScreen";
 import { RiskMapScreen } from "./RiskMapScreen";
 import { hrefOf, useSteps } from "./setup";
 import {
@@ -112,7 +115,10 @@ const KIND_ICON: Readonly<Record<ScreenKind, LucideIcon>> = {
   approve: BadgeCheck,
   riskmap: Grid3x3,
   critical: LifeBuoy,
+  needs: ListChecks,
   backups: DatabaseBackup,
+  restore: Clock,
+  recovery: Gauge,
   crypto: LockKeyhole,
   activities: ListChecks,
   describe: PenLine,
@@ -304,8 +310,14 @@ export function DurchgangItem({
         return <Approve item={item} entry={entry} />;
       case "critical":
         return <CriticalScreen {...work} entry={entry} />;
+      case "needs":
+        return <NeedsScreen {...work} entry={entry} />;
       case "backups":
         return <BackupsScreen {...work} entry={entry} />;
+      case "restore":
+        return <RestoreScreen {...work} entry={entry} />;
+      case "recovery":
+        return <RecoveryScreen {...work} entry={entry} />;
       case "crypto":
         return <CryptoScreen {...work} entry={entry} />;
       case "riskmap":

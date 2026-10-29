@@ -54,8 +54,10 @@ export const recordOf = (screen: AnyScreen): WalkRecord | null => {
     case "logins":
       return "logins";
     case "critical":
+    case "needs":
       return "critical";
     case "backups":
+    case "restore":
       return "backups";
     case "crypto":
       return "crypto";
@@ -77,6 +79,7 @@ export const recordOf = (screen: AnyScreen): WalkRecord | null => {
     case "fields":
     case "evidence":
     case "policy":
+    case "recovery":
     case "ongoing":
     case "done":
       return null;

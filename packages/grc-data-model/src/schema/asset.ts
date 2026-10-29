@@ -1,5 +1,7 @@
+import { sql } from "drizzle-orm";
 import {
   boolean,
+  check,
   date,
   index,
   integer,
@@ -9,7 +11,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { assetHostingEnum, assetMfaMethodEnum } from "../enums";
+import { assetHostingEnum, assetMfaMethodEnum, outageSpanEnum } from "../enums";
 import { supplier } from "./supplier";
 
 export const asset = pgTable(
@@ -70,6 +72,17 @@ export const asset = pgTable(
     rto: integer("rto"),
     rpo: integer("rpo"),
 
+    // 4.2: how long this business process may be down at most (BSI-Standard 200-4 p. 178, the
+    // MTPD; at this size the RTO equals it). Set on `process` rows only; null until the walk asks.
+    // What a process needs to run is process_asset; how long each of those may be down is the
+    // shortest max_outage of the processes linked to it, computed, never stored.
+    maxOutage: outageSpanEnum("max_outage"),
+    // 4.4: how long it takes to bring this system back when a process needs it (200-4 p. 196), or
+    // that nobody knows, which is a valid answer there. Three states: both empty is not asked yet;
+    // the CHECK below keeps a span and "unknown" apart. The hour fields rto/rpo stay what they are.
+    restoreTime: outageSpanEnum("restore_time"),
+    restoreTimeUnknown: boolean("restore_time_unknown").default(false).notNull(),
+
     // GDPR — Art. 30 prefill trigger
     processesPersonalData: boolean("processes_personal_data").default(false),
 
@@ -84,5 +97,9 @@ export const asset = pgTable(
     index("idx_asset_type").on(table.type),
     index("idx_asset_critical").on(table.isCritical),
     index("idx_asset_supplier").on(table.supplierId),
+    check(
+      "asset_restore_time_or_unknown",
+      sql`NOT (${table.restoreTime} IS NOT NULL AND ${table.restoreTimeUnknown})`,
+    ),
   ],
 );

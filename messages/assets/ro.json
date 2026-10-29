@@ -66,6 +66,9 @@
       "lastBackupTestDate": "Ultimul test al copiei de rezervă",
       "rto": "RTO (ore)",
       "rpo": "RPO (ore)",
+      "maxOutage": "Oprire maximă tolerată",
+      "restoreTime": "Timp de repunere în funcțiune",
+      "restoreTimeUnknown": "Timp de repunere necunoscut",
       "endOfLife": "Sfârșitul ciclului de viață",
       "quantity": "Cantitate",
       "processesPersonalData": "Prelucrează date cu caracter personal"
@@ -97,6 +100,9 @@
       "lastBackupTestDate": "Data la care a fost finalizat ultimul test de restaurare a copiei de rezervă.",
       "rto": "Obiectivul de timp de recuperare (RTO), în ore.",
       "rpo": "Obiectivul de punct de recuperare (RPO), în ore.",
+      "maxOutage": "Cât timp poate sta oprit cel mult acest proces, din pasul 4.2 al parcursului.",
+      "restoreTime": "Cât durează repunerea în funcțiune a acestui sistem, din pasul 4.4.",
+      "restoreTimeUnknown": "Nimeni nu știe cât durează repunerea în funcțiune; din pasul 4.4.",
       "endOfLife": "Data la care acest activ ajunge la sfârșitul ciclului de viață sau al suportului (CIR 2024/2690, considerent).",
       "quantity": "Numărul de unități identice din acest grup de active (grupare conform BSI-200-2 §8.1).",
       "processesPersonalData": "Activați dacă acest activ stochează, prelucrează sau transmite date cu caracter personal (declanșează considerații GDPR și alimentează inventarul RoPA)."

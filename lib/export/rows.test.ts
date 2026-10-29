@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import { answerRow, statusCounts, titleOf } from "./rows";
+import { exportLabels } from "@/lib/pdf/export-labels";
+import { PDF_LOCALES } from "@/lib/pdf/format";
+import { answerRow, shown, statusCounts, titleOf } from "./rows";
 import { exportNames } from "./value-names";
 
 describe("answerRow", () => {
@@ -92,6 +94,29 @@ describe("exportNames managementTraining", () => {
     expect(managementTraining.stored).toContain(
       "Schulung der Geschäftsleitung (§ 38 Abs. 3 BSIG)",
     );
+  });
+});
+
+describe("exportNames values", () => {
+  test("every code the export prints by name has its names in every language the export is written in", async () => {
+    for (const locale of PDF_LOCALES) {
+      const { values } = await exportNames(locale);
+      const unnamed = Object.entries(values).flatMap(([field, names]) =>
+        Object.keys(names).length === 0 ? [field] : [],
+      );
+      expect(unnamed, locale).toEqual([]);
+    }
+  });
+
+  test("an asset's tolerance and restore time print in the walk's own words, and 'nobody knows' as a yes", async () => {
+    const words = {
+      labels: exportLabels("de"),
+      names: await exportNames("de"),
+      locale: "de" as const,
+    };
+    expect(shown("maxOutage", "day", words, "asset")).toBe("1 Tag");
+    expect(shown("restoreTime", "hours", words, "asset")).toBe("Stunden");
+    expect(shown("restoreTimeUnknown", true, words, "asset")).toBe("Ja");
   });
 });
 

@@ -67,6 +67,45 @@
             "empty": "No backup system is on your list yet.",
             "add": "Add a backup system to your list"
           },
+          "restore": {
+            "title": "How long does it take to come back?",
+            "lead": "The systems your processes need (from step 4.2). How long until each runs again when it has to be restored from backup or replaced? An estimate is enough. If you do not know, say so: it then goes on the list you settle with your IT.",
+            "options": {
+              "hours": "hours",
+              "day": "1 day",
+              "three_days": "3 days",
+              "week": "1 week",
+              "longer": "longer"
+            },
+            "unknown": "unknown",
+            "hint": "Ask whoever runs the backups: how long did the last restore take, or how long would it take?",
+            "none": "Step 4.2 names no system for any process yet. Go back there and pick what each process needs.",
+            "needs": "Needed by:"
+          },
+          "recovery": {
+            "title": "Does everything come back in time?",
+            "lead": "Each system a process needs, against the shortest time those processes can wait. What is too slow or unknown is also an open point at the approval. BSI-Standard 200-4 allows an estimate here, and “unknown” is an answer, not a mistake.",
+            "verdicts": {
+              "too_slow": "Too slow",
+              "unknown": "Unknown",
+              "not_asked": "Not asked yet",
+              "unrated": "Process without a tolerance",
+              "ok": "In time"
+            },
+            "spans": {
+              "hours": "hours",
+              "day": "1 day",
+              "three_days": "3 days",
+              "week": "1 week",
+              "longer": "longer"
+            },
+            "needs": "Needed by",
+            "required": "may stand still at most:",
+            "restore": "comes back in:",
+            "none": "Nothing to compare yet: step 4.2 names no system for any process, or no process must keep running.",
+            "good": "Everything that is needed comes back in time.",
+            "missing": "For these processes it is not recorded yet how long they may stand still at most (step 4.2):"
+          },
           "done": {
             "title": "Your backups are recorded",
             "note": "Germany's BSI advises testing restores regularly. Enter the new date after each test."

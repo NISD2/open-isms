@@ -333,6 +333,26 @@ async function critical(page: Page) {
     if ((await row.count()) === 0) continue;
     await tap(row.getByRole("button", { name: "Muss weiterlaufen" }));
     await row.getByLabel("So geht es ohne IT weiter").fill(how);
+    await tap(row.getByRole("button", { name: "1 Tag", exact: true }));
+  }
+}
+
+/** 4.2: each process that must keep running needs the first thing on the list. */
+async function needs(page: Page) {
+  const rows = page
+    .getByRole("listitem")
+    .filter({ has: page.getByRole("button", { pressed: false }) });
+  await rows.first().waitFor(LOAD);
+  for (const row of await rows.all()) await tap(row.getByRole("button").first());
+}
+
+/** 4.4: every needed system comes back within hours. */
+async function restore(page: Page) {
+  const hours = page.getByRole("button", { name: "Stunden", exact: true });
+  const rows = page.getByRole("listitem").filter({ has: hours });
+  await rows.first().waitFor(LOAD);
+  for (const row of await rows.all()) {
+    await tap(row.getByRole("button", { name: "Stunden", exact: true }));
   }
 }
 
@@ -390,8 +410,12 @@ async function answer(session: Session, item: AnyItem, screen: Screen) {
       return policy(page, item.code);
     case "critical":
       return critical(page);
+    case "needs":
+      return needs(page);
     case "backups":
       return backups(page);
+    case "restore":
+      return restore(page);
     case "approve":
       return approve(session);
     default:

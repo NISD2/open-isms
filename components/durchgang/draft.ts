@@ -1,3 +1,4 @@
+import type { OutageSpan } from "@nisd2/grc-data-model/enums";
 import type { z } from "zod";
 import type { AssetLayer } from "@/lib/asset-inventory/types";
 import type {
@@ -27,6 +28,12 @@ export interface Backup {
   readonly frequency: string | null;
   /** A calendar day, YYYY-MM-DD, or empty while no restore has worked yet. */
   readonly lastRestore: string;
+}
+
+/** A needed system on 4.4: how long it takes to bring back, or that nobody knows; never both. */
+export interface Restore {
+  readonly span: OutageSpan | null;
+  readonly unknown: boolean;
 }
 
 /**
@@ -74,6 +81,10 @@ export interface Draft {
   readonly critical: Readonly<Record<string, Critical>>;
   /** The backup systems' answers, by asset id, changed on this visit. */
   readonly backups: Readonly<Record<string, Backup>>;
+  /** Which systems each critical process needs, by process id, changed on this visit. */
+  readonly needs: Readonly<Record<string, readonly string[]>>;
+  /** How long each needed system takes to bring back, by asset id, changed on this visit. */
+  readonly restore: Readonly<Record<string, Restore>>;
   /** Ticked processing-activity catalogue items, and the company's own activities by name. */
   readonly activities: readonly string[];
   readonly ownActivities: readonly string[];
@@ -98,10 +109,14 @@ export interface Agreed {
   readonly incidents: boolean;
 }
 
-/** A process on 4.2: whether it must keep running without IT, and the line on how. */
+/**
+ * A process on 4.2: whether it must keep running without IT, the line on how, and how long it
+ * may be down at most.
+ */
 export interface Critical {
   readonly on: boolean;
   readonly how: string;
+  readonly outage: OutageSpan | null;
 }
 
 export type DraftUpdate = (next: Draft) => void;
@@ -162,6 +177,8 @@ export const initialDraft = (
   methods: {},
   critical: {},
   backups: {},
+  needs: {},
+  restore: {},
   activities: [],
   ownActivities: [],
   described: {},
