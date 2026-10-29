@@ -7,13 +7,11 @@
  *   await sendMail({ to: "user@co.com", ...email });
  */
 
-import { describeSignupCampaign } from "@/lib/auth/signup-campaign";
 import { isSellerInstance } from "@/lib/billing/seller";
 import { CALENDAR_URL } from "@/lib/booking";
 import type { WalkLocale } from "@/lib/durchgang/types";
 import { mailSupportEmail } from "@/lib/env";
 import type { Locale } from "@/lib/seo";
-import type { SignupCampaign } from "@/schema";
 import {
   type DigestItem,
   type DigestNextStep,
@@ -47,7 +45,7 @@ import MemberRemovedEmail, { MEMBER_REMOVED_COPY } from "./emails/member-removed
 import NewSaleEmail, { type NewSaleProps } from "./emails/new-sale";
 import NewsletterEmail from "./emails/newsletter";
 import OperatorAlertEmail from "./emails/operator-alert";
-import { AdvisoryRequestEmail, NewSignupEmail } from "./emails/operator-notices";
+import { AdvisoryRequestEmail } from "./emails/operator-notices";
 import RegistrationAttemptEmail from "./emails/registration-attempt";
 import ReviewDecisionEmail, { REVIEW_DECISION_COPY } from "./emails/review-decision";
 import { SupplierAddedYouEmail, SupplierIncidentEmail } from "./emails/supplier-mails";
@@ -61,10 +59,14 @@ import {
   preferenceFooterText,
   safeHeader,
 } from "./layout";
-import { codeMailLocale, type EmailLocale, resolveEmailLocale, workflowMailLocaleOf } from "./locale";
+import {
+  codeMailLocale,
+  type EmailLocale,
+  resolveEmailLocale,
+  workflowMailLocaleOf,
+} from "./locale";
 import { renderEmail } from "./render";
 import { companyNameForMail } from "./sender-name";
-import { signupFollowUp } from "./signup-followup";
 import type { MailAttachment } from "./transport";
 
 export type { DigestItem, DigestNextStep } from "./digest";
@@ -797,52 +799,6 @@ export async function supplierIncidentBroadcastEmail(opts: {
 // ---------------------------------------------------------------------------
 // Supplier Portal: added by supplier (you've been added as a customer)
 // ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// Platform Admin: new user signup notification
-// ---------------------------------------------------------------------------
-
-/** The language the prepared follow-up is written in, named for the operator who sends it. */
-const FOLLOW_UP_LANGUAGE: Record<WalkLocale, string> = {
-  de: "German",
-  en: "English",
-  cs: "Czech",
-};
-
-export async function newUserSignupEmail(opts: {
-  userEmail: string;
-  userName: string;
-  provider: string;
-  /** The signup's own language, which the prepared follow-up is written in. */
-  locale: EmailLocale;
-  /** The campaign tags of the page the signup started from. */
-  campaign: SignupCampaign | null;
-}): Promise<EmailContent> {
-  const { userEmail, userName, provider } = opts;
-  const followUp = signupFollowUp({ name: userName, locale: opts.locale });
-  const mailtoUrl = `mailto:${encodeURIComponent(userEmail)}?subject=${encodeURIComponent(followUp.subject)}&body=${encodeURIComponent(followUp.body)}`;
-  const followUpLanguage = FOLLOW_UP_LANGUAGE[followUp.locale];
-  const source = describeSignupCampaign(opts.campaign);
-
-  return {
-    subject: `New signup: ${safeHeader(userEmail)}`,
-    html: await renderEmail(NewSignupEmail, {
-      userEmail,
-      userName,
-      provider,
-      at: new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" }),
-      mailtoUrl,
-      followUpLanguage,
-      source,
-    }),
-    text: [
-      `New signup: ${userEmail} (${userName}) via ${provider}`,
-      ...(source ? [`Source: ${source}`] : []),
-      "",
-      `Follow up (prepared in ${followUpLanguage}): ${mailtoUrl}`,
-    ].join("\n"),
-  };
-}
 
 /**
  * Somebody asked to be put in touch with a firm that charges money.
