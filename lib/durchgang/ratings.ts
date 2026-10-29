@@ -103,6 +103,14 @@ export const fromScale = (likelihood: number, impact: number): Rating | null => 
   return frequency && damage ? { frequency, impact: damage } : null;
 };
 
+/** The level of a stored row, when its steps lie on the 200-3 scales; null on another scale. */
+export const levelOfRow = (
+  row: Readonly<Pick<Risk, "likelihood" | "impact">>,
+): RiskLevel | null => {
+  const rating = fromScale(row.likelihood, row.impact);
+  return rating ? levelOf(rating) : null;
+};
+
 /**
  * What a listed thing already has in the risk register, which decides what its row may do.
  * `open`: nothing yet, and a rating adds one risk. `rated`: exactly one risk on the 200-3 scales,
@@ -211,6 +219,30 @@ export const levelGroups = (
  */
 export const treatmentFor = (level: RiskLevel): Treatment =>
   level === "low" ? "accept" : "mitigate";
+
+/**
+ * Whether a stored risk needs measures. On the 200-3 scales the matrix decides (Tabelle 10: low
+ * is accepted, the rest treated); the product of the two steps cannot, since the matrix is not a
+ * threshold on it. Off those scales the method's own threshold on the product stands.
+ */
+export const needsTreatment = (
+  row: Readonly<Pick<Risk, "likelihood" | "impact" | "riskScore">>,
+  threshold: number,
+): boolean => {
+  const level = levelOfRow(row);
+  return level ? treatmentFor(level) === "mitigate" : row.riskScore > threshold;
+};
+
+/**
+ * Whether a stored risk counts as high: high or very high on the matrix. Off the 200-3 scales, a
+ * product of 15 or more, the dashboard's rule from before the matrix existed.
+ */
+export const isHigh = (
+  row: Readonly<Pick<Risk, "likelihood" | "impact" | "riskScore">>,
+): boolean => {
+  const level = levelOfRow(row);
+  return level ? level === "high" || level === "very_high" : row.riskScore >= 15;
+};
 
 /** The supplier register's own level for a rating; its top step is called critical. */
 export const SUPPLIER_LEVEL = {

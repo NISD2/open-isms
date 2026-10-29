@@ -22,7 +22,9 @@
       "data_store": "Gegevensopslag",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Fysiek"
+      "physical": "Fysiek",
+      "process": "Bedrijfsproces",
+      "room": "Ruimte"
     },
     "typeDescriptions": {
       "application": "Bedrijfsapplicaties (ERP, CRM, e-mail)",
@@ -34,7 +36,8 @@
       "data_store": "Bestandsshares, back-ups, archieven",
       "ot_ics": "SCADA, PLC, industriële controllers",
       "iot": "IoT-apparaten, sensoren",
-      "physical": "Gebouwen, ruimtes, infrastructuur"
+      "physical": "Gebouwen, ruimtes, infrastructuur",
+      "process": "Verkoop, productie, salarisadministratie"
     },
     "fields": {
       "name": "Naam asset",
@@ -63,6 +66,9 @@
       "lastBackupTestDate": "Datum laatste back-uptest",
       "rto": "RTO (uren)",
       "rpo": "RPO (uren)",
+      "maxOutage": "Mag maximaal stilstaan",
+      "restoreTime": "Hersteltijd",
+      "restoreTimeUnknown": "Hersteltijd onbekend",
       "endOfLife": "Einde levensduur",
       "quantity": "Aantal",
       "processesPersonalData": "Processes Personal Data"
@@ -94,6 +100,9 @@
       "lastBackupTestDate": "Datum waarop de laatste back-uphersteltest werd voltooid.",
       "rto": "Hersteltijddoelstelling in uren.",
       "rpo": "Herstelpuntdoelstelling in uren.",
+      "maxOutage": "Hoe lang dit proces maximaal mag stilstaan, uit stap 4.2 van de doorloop.",
+      "restoreTime": "Hoe lang het duurt om dit systeem weer in bedrijf te krijgen, uit stap 4.4.",
+      "restoreTimeUnknown": "Niemand weet hoe lang het herstel duurt; uit stap 4.4.",
       "endOfLife": "Datum waarop deze asset het einde van de levensduur / ondersteuning bereikt (CIR 2024/2690 Overweging).",
       "quantity": "Aantal identieke eenheden in deze assetgroep (BSI-200-2 §8.1 groepering).",
       "processesPersonalData": "Enable if this asset stores, processes, or transmits personal data (triggers GDPR considerations and feeds the RoPA inventory)."

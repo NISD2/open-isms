@@ -33,6 +33,7 @@ import {
   RISK_SCORE_COLORS,
   type ScaleLevel,
 } from "@/lib/compliance/risk-methodology-defaults";
+import { needsTreatment } from "@/lib/durchgang/ratings";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import type {
@@ -101,8 +102,8 @@ export function RiskTreatmentView({ initialData, disabled }: RiskTreatmentViewPr
   const [addingTreatment, setAddingTreatment] = useState<string | null>(null);
   const [settingResidual, setSettingResidual] = useState<string | null>(null);
 
-  const aboveThreshold = (risks ?? []).filter((r) => r.riskScore > threshold);
-  const belowOrAccepted = (risks ?? []).filter((r) => r.riskScore <= threshold);
+  const aboveThreshold = (risks ?? []).filter((r) => needsTreatment(r, threshold));
+  const belowOrAccepted = (risks ?? []).filter((r) => !needsTreatment(r, threshold));
 
   function toggleRisk(id: string) {
     setExpandedRisks((prev) => {
@@ -130,7 +131,17 @@ export function RiskTreatmentView({ initialData, disabled }: RiskTreatmentViewPr
         const residualScore = hasResidual
           ? (risk.residualLikelihood ?? 0) * (risk.residualImpact ?? 0)
           : null;
-        const residualBelow = residualScore != null && residualScore <= threshold;
+        const residualBelow =
+          risk.residualLikelihood != null &&
+          risk.residualImpact != null &&
+          !needsTreatment(
+            {
+              likelihood: risk.residualLikelihood,
+              impact: risk.residualImpact,
+              riskScore: risk.residualLikelihood * risk.residualImpact,
+            },
+            threshold,
+          );
 
         return (
           <Card key={risk.id}>

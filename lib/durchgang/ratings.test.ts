@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { FREQUENCIES, IMPACTS } from "@/lib/compliance/bsi-200-3";
+import { FREQUENCIES, IMPACTS, riskLevel } from "@/lib/compliance/bsi-200-3";
 import {
   asksHosting,
   byLevel,
@@ -7,9 +7,12 @@ import {
   fromScale,
   hostingOf,
   inCell,
+  isHigh,
   levelGroups,
+  levelOfRow,
   levelOfStanding,
   type MappedRisk,
+  needsTreatment,
   ratingRows,
   recoveryOrder,
   signsIn,
@@ -286,5 +289,57 @@ describe("the order systems come back in", () => {
   test("leaves out devices and rooms, which are not brought back from a backup", () => {
     expect(recoveryOrder(assets, [])).not.toContain("Laptops");
     expect(recoveryOrder(assets, [])).not.toContain("Büro");
+  });
+});
+
+describe("one scoring for a stored risk: the matrix where the row lies on the 200-3 scales", () => {
+  const row = (likelihood: number, impact: number) => ({
+    likelihood,
+    impact,
+    riskScore: likelihood * impact,
+  });
+
+  test("reads every cell's level off the matrix, never off the product", () => {
+    for (const frequency of FREQUENCIES) {
+      for (const impact of IMPACTS) {
+        const { likelihood, impact: damage } = toScale({ frequency, impact });
+        expect(levelOfRow(row(likelihood, damage))).toBe(riskLevel(frequency, impact));
+      }
+    }
+  });
+
+  test("a row off the scales has no level", () => {
+    expect(levelOfRow(row(5, 2))).toBeNull();
+    expect(levelOfRow(row(0, 1))).toBeNull();
+  });
+
+  test("needs measures exactly where the matrix says more than low, whatever the threshold", () => {
+    for (const frequency of FREQUENCIES) {
+      for (const impact of IMPACTS) {
+        const { likelihood, impact: damage } = toScale({ frequency, impact });
+        const expected = treatmentFor(riskLevel(frequency, impact)) === "mitigate";
+        expect(needsTreatment(row(likelihood, damage), 4)).toBe(expected);
+        expect(needsTreatment(row(likelihood, damage), 100)).toBe(expected);
+      }
+    }
+  });
+
+  test("the product threshold rules only off the scales", () => {
+    expect(needsTreatment(row(5, 1), 4)).toBe(true);
+    expect(needsTreatment(row(5, 1), 5)).toBe(false);
+  });
+
+  test("high means high or very high on the matrix, and 15 or more off it", () => {
+    for (const frequency of FREQUENCIES) {
+      for (const impact of IMPACTS) {
+        const { likelihood, impact: damage } = toScale({ frequency, impact });
+        const level = riskLevel(frequency, impact);
+        expect(isHigh(row(likelihood, damage))).toBe(
+          level === "high" || level === "very_high",
+        );
+      }
+    }
+    expect(isHigh(row(5, 3))).toBe(true);
+    expect(isHigh(row(5, 2))).toBe(false);
   });
 });

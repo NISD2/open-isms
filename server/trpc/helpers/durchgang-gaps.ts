@@ -1,9 +1,11 @@
+import type { OutageSpan } from "@nisd2/grc-data-model/enums";
 import { and, count, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { isBackupSystem } from "@/lib/asset-inventory/catalog-labels";
 import type { DbOrTx } from "@/lib/db";
 import {
   asksSecondFactor,
+  type ContinuityFacts,
   type GapFacts,
   MANAGEMENT_ROLE,
   NIS2_WALK,
@@ -13,6 +15,7 @@ import {
   companyCategoryIntake,
   companyMembership,
   improvementItem,
+  processAsset,
   requirement,
   requirementCategory,
   supplier,
@@ -31,6 +34,61 @@ import { getNis2Assessment } from "./nis2-scope";
 const REPORTING = z.object({ bsiReportingRegistered: z.boolean().optional() }).catch({});
 
 /**
+ * 4.2's links, which system each process needs, read through the process end's company. Only
+ * the links of processes still marked as having to keep running count (the saves delete them on
+ * untick; the filter holds for every reader all the same), and only of processes: a row re-typed
+ * on the assets page is no process any more. In one fixed order whatever order the rows were
+ * written in, so nothing printed from them changes when the same links are written again.
+ */
+export const processLinksOf = async (db: DbOrTx, companyId: string) => {
+  const links = await db
+    .select({ processId: processAsset.processId, assetId: processAsset.assetId })
+    .from(processAsset)
+    .innerJoin(asset, eq(asset.id, processAsset.processId))
+    .where(
+      and(
+        eq(asset.companyId, companyId),
+        eq(asset.isCritical, true),
+        eq(asset.type, "process"),
+      ),
+    );
+  return [...links].sort(
+    (a, b) =>
+      a.processId.localeCompare(b.processId) || a.assetId.localeCompare(b.assetId),
+  );
+};
+
+/**
+ * The rows the 4.4 comparison reads (`compare`): the processes marked as having to keep running
+ * with their tolerance, every other thing on the list with its restore time, and the links.
+ */
+export const continuityFactsOf = (
+  assets: ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+    readonly type: string;
+    readonly isCritical: boolean | null;
+    readonly maxOutage: OutageSpan | null;
+    readonly restoreTime: OutageSpan | null;
+    readonly restoreTimeUnknown: boolean;
+  }>,
+  links: ReadonlyArray<{ readonly processId: string; readonly assetId: string }>,
+): ContinuityFacts => ({
+  processes: assets
+    .filter((a) => a.type === "process" && a.isCritical === true)
+    .map((a) => ({ id: a.id, name: a.name, maxOutage: a.maxOutage })),
+  systems: assets
+    .filter((a) => a.type !== "process")
+    .map((a) => ({
+      id: a.id,
+      name: a.name,
+      restoreTime: a.restoreTime,
+      restoreTimeUnknown: a.restoreTimeUnknown,
+    })),
+  links,
+});
+
+/**
  * The facts `gapsOf` reads, for one company: its programs with a sign-in, suppliers, backup
  * systems, 3.3's answer, who holds the management role and the management trainings, and the
  * steps set aside. Every query is filtered by the company.
@@ -40,51 +98,58 @@ export async function gapFactsOf(
   companyId: string,
   today: Date,
 ): Promise<GapFacts> {
-  const [assets, suppliers, managers, trainings, assessment, states] = await Promise.all([
-    db
-      .select({
-        name: asset.name,
-        type: asset.type,
-        catalogId: asset.catalogId,
-        description: asset.description,
-        hasMfa: asset.hasMfa,
-        lastRestore: asset.lastBackupTestDate,
-      })
-      .from(asset)
-      .where(eq(asset.companyId, companyId)),
-    db
-      .select({
-        name: supplier.name,
-        riskLevel: supplier.riskLevel,
-        security: supplier.hasSecurityClauses,
-        incidents: supplier.hasIncidentNotificationClause,
-      })
-      .from(supplier)
-      .where(eq(supplier.customerCompanyId, companyId)),
-    db
-      .select({ n: count() })
-      .from(companyMembership)
-      .where(
-        and(
-          eq(companyMembership.companyId, companyId),
-          eq(companyMembership.jobTitle, MANAGEMENT_ROLE),
+  const [assets, links, suppliers, managers, trainings, assessment, states] =
+    await Promise.all([
+      db
+        .select({
+          id: asset.id,
+          name: asset.name,
+          type: asset.type,
+          catalogId: asset.catalogId,
+          description: asset.description,
+          hasMfa: asset.hasMfa,
+          lastRestore: asset.lastBackupTestDate,
+          isCritical: asset.isCritical,
+          maxOutage: asset.maxOutage,
+          restoreTime: asset.restoreTime,
+          restoreTimeUnknown: asset.restoreTimeUnknown,
+        })
+        .from(asset)
+        .where(eq(asset.companyId, companyId)),
+      processLinksOf(db, companyId),
+      db
+        .select({
+          name: supplier.name,
+          riskLevel: supplier.riskLevel,
+          security: supplier.hasSecurityClauses,
+          incidents: supplier.hasIncidentNotificationClause,
+        })
+        .from(supplier)
+        .where(eq(supplier.customerCompanyId, companyId)),
+      db
+        .select({ n: count() })
+        .from(companyMembership)
+        .where(
+          and(
+            eq(companyMembership.companyId, companyId),
+            eq(companyMembership.jobTitle, MANAGEMENT_ROLE),
+          ),
         ),
-      ),
-    db
-      .select({
-        name: trainingRecord.participantName,
-        completedAt: trainingRecord.completedAt,
-      })
-      .from(trainingRecord)
-      .where(
-        and(
-          eq(trainingRecord.companyId, companyId),
-          eq(trainingRecord.isManagement, true),
+      db
+        .select({
+          name: trainingRecord.participantName,
+          completedAt: trainingRecord.completedAt,
+        })
+        .from(trainingRecord)
+        .where(
+          and(
+            eq(trainingRecord.companyId, companyId),
+            eq(trainingRecord.isManagement, true),
+          ),
         ),
-      ),
-    getNis2Assessment(db, companyId),
-    walkStates(db, companyId, NIS2_WALK),
-  ]);
+      getNis2Assessment(db, companyId),
+      walkStates(db, companyId, NIS2_WALK),
+    ]);
   const [intake] = assessment
     ? await db
         .select({ answers: companyCategoryIntake.answers })
@@ -113,6 +178,7 @@ export async function gapFactsOf(
     backups: assets
       .filter(isBackupSystem)
       .map((a) => ({ name: a.name, lastRestore: a.lastRestore })),
+    continuity: continuityFactsOf(assets, links),
     reporting: REPORTING.parse(intake?.answers ?? {}).bsiReportingRegistered ?? null,
     managers: managers[0]?.n ?? 0,
     managementTrainings: trainings,

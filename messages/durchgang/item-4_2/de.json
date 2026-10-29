@@ -42,7 +42,23 @@
               "von Hand, später nachgetragen",
               "von einem anderen Standort",
               "der Dienstleister übernimmt"
-            ]
+            ],
+            "outage": "Wie lange darf das höchstens stillstehen?",
+            "outageHint": "Im schlimmsten Fall: ab wann leiden Kunden, Sicherheit oder eine Frist? Eine Schätzung reicht. Das ist die Vorgabe für alles, was dieser Ablauf braucht.",
+            "outageOptions": {
+              "hours": "Stunden",
+              "day": "1 Tag",
+              "three_days": "3 Tage",
+              "week": "1 Woche",
+              "longer": "länger"
+            }
+          },
+          "needs": {
+            "title": "Was die Abläufe brauchen",
+            "lead": "Für jeden Ablauf, der weiterlaufen muss: Welche Systeme und Räume von Ihrer Liste braucht er dafür? Ein System, das zwei Abläufe brauchen, muss so schnell zurück sein wie der eiligere von beiden. Das BSI führt pro Prozess seine wesentlichen Anwendungen auf (Standard 200-4; Standard 300-1, Anhang 2).",
+            "none": "Kein Ablauf ist als „muss weiterlaufen“ markiert. Dann gibt es hier nichts zu wählen.",
+            "empty": "Auf Ihrer Liste steht außer den Abläufen noch nichts. Ergänzen Sie in Schritt 2.2, was Sie nutzen.",
+            "needs": "Braucht dafür:"
           },
           "plan": {
             "title": "Ihr Notfallplan für den Betrieb",
@@ -56,7 +72,7 @@
                 },
                 {
                   "heading": "Wann dieser Plan gilt",
-                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als die übliche Störungsbehebung braucht, oder wenn das droht. Im Zweifel entscheidet {emergencyLead}."
+                  "text": "Dieser Plan gilt, wenn ein Ereignis wichtige Arbeit länger unterbricht, als ein Ablauf im Notbetrieb unten warten darf, oder wenn das droht. Steht dort keine Zeit, gilt er, sobald die übliche Störungsbehebung nicht mehr ausreicht. Im Zweifel entscheidet {emergencyLead}."
                 },
                 {
                   "heading": "Leitung",
@@ -81,6 +97,10 @@
                 {
                   "heading": "Zurück zum Normalbetrieb",
                   "text": "{emergencyLead} erklärt den Notfall für beendet. Wir halten fest, was geschehen ist, und passen diesen Plan an."
+                },
+                {
+                  "heading": "Begriffe",
+                  "text": "Eine Störung ist ein Ausfall, den die übliche Störungsbehebung in der gewohnten Zeit behebt. Ein Notfall ist ein Ausfall, der wichtige Arbeit länger unterbricht, als ein Ablauf oben warten darf; dann gilt dieser Plan. Eine Krise ist ein Notfall, den wir mit eigenen Mitteln nicht bewältigen und bei dem {emergencyLead} Hilfe von außen holt. Wir prüfen diesen Plan, wenn sich etwas Wesentliches ändert, und nach jedem Ernstfall. Er ist die Einstiegsstufe nach BSI-Standard 200-4; das BSI erwartet, dass wir ihn Schritt für Schritt ausbauen."
                 }
               ],
               "clauses": [
@@ -88,7 +108,7 @@
                   "id": "targets",
                   "label": "Wiederherstellungsziele",
                   "heading": "Wiederherstellungsziele",
-                  "text": "Für die wichtigsten Systeme legen wir fest, wie lange sie höchstens ausfallen dürfen und wie viele Daten höchstens verloren gehen dürfen. Die Werte stehen bei den Systemen in unserer Liste."
+                  "text": "Wie lange jeder Ablauf im Notbetrieb oben höchstens stillstehen darf und welche Systeme er braucht, steht dort bei ihm. Wie lange der Wiederanlauf jedes dieser Systeme dauert, steht bei den Systemen in unserer Liste; wie viele Daten höchstens verloren gehen dürfen, folgt daraus, wie oft wir sichern. Was zu langsam ist oder unbekannt, steht als offener Punkt bei der Freigabe durch die Geschäftsführung. Das ist die Einstiegsstufe nach BSI-Standard 200-4; eine Schätzung reicht dort, und wir bauen sie Schritt für Schritt aus."
                 },
                 {
                   "id": "practice",

@@ -124,7 +124,7 @@ export const FillItemInput = z.object({
     .record(z.string(), z.unknown())
     .optional()
     .describe(
-      "Input for the item's other screens, by screen kind (assets, specify, rate, agreements, logins, backups, critical, policy, crypto, adopt), each as get_walkthrough's screens[].input describes it. Use the ids get_walkthrough lists under screens[].now.",
+      `Input for the item's other screens, by screen kind (${Object.keys(SCREEN_FILLS).join(", ")}), each as get_walkthrough's screens[].input describes it. Use the ids get_walkthrough lists under screens[].now.`,
     ),
 });
 

@@ -22,11 +22,11 @@ import type { FunctionalGroup } from "@/lib/asset-inventory/catalog";
 import type { Frequency, Impact } from "@/lib/compliance/bsi-200-3";
 import type { CategoryCode, CategoryField } from "@/lib/compliance/category-schemas";
 import { BCP_SCHEMA } from "@/lib/compliance/category-schemas/nis2";
-import type { CountableModule } from "@/lib/compliance/module-tables";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import type { settledFactEnum } from "@/schema/enums";
 import type { ActivityFact, ActivityGroup, ProcessorFact } from "./gdpr-records";
 import type { AssetSlice, RatingTarget } from "./ratings";
+import type { RegisterModule, TrainingAudience } from "./registers";
 
 /** A framework as the database enum on `compliance_framework.code` defines it. */
 export type FrameworkCode = (typeof frameworkEnum.enumValues)[number];
@@ -63,41 +63,6 @@ export type Provision =
   | "bsig_32_clock"
   | "registration_portals"
   | "reporting_channels";
-
-/**
- * A register the requirement page shows for the item (its `moduleRef`), which a screen shows as
- * the list itself. The asset register has its own screen kind, because it is offered in slices.
- */
-const REGISTER_MODULES = [
-  "supplier",
-  "training_record",
-  "management_review",
-] as const satisfies readonly CountableModule[];
-export type RegisterModule = (typeof REGISTER_MODULES)[number];
-
-/**
- * Whose trainings a training screen lists and adds: management's, which § 38 Abs. 3 BSIG asks
- * for, or the rest of the staff's, which § 30 Abs. 2 Nr. 7 asks for. One register holds both.
- */
-export type TrainingAudience = "management" | "staff";
-
-/**
- * How a training line of each audience is filed: management's as the § 38 Abs. 3 training, the
- * staff's as awareness training. The walk's screen and an assistant's rows (lib/mcp) both use it.
- */
-export const TRAINING_ROW = {
-  management: { trainingType: "management", isManagement: true },
-  staff: { trainingType: "awareness", isManagement: false },
-} as const satisfies Record<
-  TrainingAudience,
-  { readonly trainingType: string; readonly isManagement: boolean }
->;
-
-/** Whether a training register row belongs to the audience a screen lists. */
-export const inAudience = (
-  row: { readonly isManagement: boolean | null },
-  audience: TrainingAudience,
-): boolean => Boolean(row.isManagement) === TRAINING_ROW[audience].isManagement;
 
 /** A page a learn screen points to: one of the platform's, or one the BSI publishes. */
 export type LearnLink =
@@ -333,10 +298,25 @@ export type Screen<C extends CategoryCode> =
    */
   | { readonly kind: "critical"; readonly id: string }
   /**
+   * For each process that must keep running, the systems and rooms on the company's list it
+   * needs (`process_asset`), so 4.4 can say which of them come back in time.
+   */
+  | { readonly kind: "needs"; readonly id: string }
+  /**
    * The company's backup systems from its list, each with how often it backs up and its last
    * restore that worked (`asset.backup_frequency`, `asset.last_backup_test_date`).
    */
   | { readonly kind: "backups"; readonly id: string }
+  /**
+   * The systems the critical processes need, each with how long it takes to bring it back
+   * (`asset.restore_time`), or that nobody knows (`asset.restore_time_unknown`).
+   */
+  | { readonly kind: "restore"; readonly id: string }
+  /**
+   * Each needed system against the shortest time the processes that need it can wait: back in
+   * time, too slow, unknown, not asked yet. Computed from the rows, never stored.
+   */
+  | { readonly kind: "recovery"; readonly id: string }
   /**
    * The cryptographic methods the company accepts: its crypto list (`company_policy_config`
    * type `crypto`), or the BSI TR-02102 list until it has one, which the item's policy prints.

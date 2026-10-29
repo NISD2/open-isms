@@ -6,19 +6,11 @@
  * only together with its reviewed copy in messages/durchgang.
  */
 
-import type { CategoryCode } from "@/lib/compliance/category-schemas";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
+import { BCP_ITEMS } from "./nis2-bcp";
+import { item, MANAGEMENT, MEASURES, REGISTRATION } from "./nis2-item";
 import { NOT_WALKED } from "./nis2-not-walked";
-import type { AnyItem, AnyScreen, Item, Walk } from "./types";
-
-const item = <C extends CategoryCode>(i: Item<C>): Item<C> => i;
-
-/** The § 30 measures: BSIG § 30 for German readers, Art. 21 NIS 2 for everyone else. */
-const MEASURES = { act: "nis2", bsig: 30, article: 21 } as const;
-/** Management's duties: BSIG § 38, Art. 20 NIS 2. */
-const MANAGEMENT = { act: "nis2", bsig: 38, article: 20 } as const;
-/** Registration: BSIG § 33, Art. 3 NIS 2. */
-const REGISTRATION = { act: "nis2", bsig: 33, article: 3 } as const;
+import type { AnyItem, AnyScreen, Walk } from "./types";
 
 const NIS2_SCRIPT: readonly AnyItem[] = [
   item({
@@ -375,50 +367,7 @@ const NIS2_SCRIPT: readonly AnyItem[] = [
         "Penetration tests are not named in § 30 BSIG or Art. 21 NIS 2; security testing is CIR 2024/2690 Annex 6.5, for the digital providers the CIR covers.",
     },
   }),
-  item({
-    code: "4.2",
-    category: "BCP",
-    law: MEASURES,
-    glossary: [],
-    reviewed: "2026-10-01",
-    screens: [
-      { kind: "learn", id: "learn" },
-      { kind: "compare", id: "fallback" },
-      { kind: "critical", id: "keep" },
-      { kind: "policy", id: "plan", policy: "business_continuity" },
-      { kind: "done", id: "done" },
-    ],
-    notAsked: {
-      crisisTeamLead:
-        "In a company of this size the crisis is led by whoever leads in an emergency, asked in 3.1, and the plan names that person from there; asking again would let the two answers drift apart. No statute asks for a separate crisis lead. The requirement page keeps the field for a company that has one.",
-      bcpActivationCriteria:
-        "Conditions for activating the plan are CIR 2024/2690 Annex 4.1.2(d), which binds only the digital providers the CIR covers; no statute asks for them. The plan says in fixed words when it applies, and that the person who leads in an emergency decides in doubt.",
-    },
-  }),
-  item({
-    code: "4.4",
-    category: "BCP",
-    law: MEASURES,
-    glossary: [],
-    reviewed: "2026-10-01",
-    screens: [
-      { kind: "learn", id: "learn" },
-      { kind: "compare", id: "copy" },
-      { kind: "prepare", id: "ask" },
-      { kind: "backups", id: "systems" },
-      { kind: "done", id: "done" },
-    ],
-    notAsked: {
-      backupFrequency:
-        "Recorded per backup system on the company's list (asset.backup_frequency), where the requirement page keeps it too; a company with two backup systems has two answers.",
-      lastBackupTest:
-        "Recorded per backup system on the company's list (asset.last_backup_test_date): the last restore that worked from that system.",
-      backupEncryption:
-        "No statute asks for encrypted backups; CIR 2024/2690 Annex 4.2.2(d) asks the digital providers it covers for access controls to backup copies, and encryption belongs to § 30 Abs. 2 Nr. 8 BSIG, which 9.1 walks (its Konzept offers an encrypted-backup clause).",
-      backupRestoreSuccessRate:
-        "No primary source names a restore success rate; the walk records the date of the last restore that worked.",
-    },
-  }),
+  ...BCP_ITEMS,
   item({
     code: "8.2",
     category: "TRN",
