@@ -928,7 +928,7 @@
       "analytics": {
         "heading": "Analytics",
         "p1": "We use Umami for website analytics. Umami is self-hosted on our own infrastructure. It does not collect personal data, does not use cookies, and does not track individual users. All data is aggregated and anonymous. No consent is required for this type of analytics.",
-        "p2": "Separately: if you sign up through a link that carries campaign tags (parameters starting with utm_, for example from an ad), we store those tags with your account, so we can see which ad or link an account came from. Likewise, every registration stores the path of the page on which you clicked \"register\" (for example /wiki/nis2-timeline), so we can see which content leads to accounts. We do not store click IDs with your account. The legal basis is Art. 6(1)(f) GDPR, our legitimate interest in measuring what our advertising does."
+        "p2": "Separately: if you sign up through a link with campaign tags (parameters starting with utm_, e.g. from an ad), we store them with your account to see where it came from. We also store the path of the page where you clicked \"register\" and, if you first had to sign in to open a course, the walkthrough, the journey or the order page, that page's path, to see which content leads to accounts. We do not store click IDs with your account. Legal basis: Art. 6(1)(f) GDPR, our legitimate interest in measuring what our advertising does."
       },
       "cookies": {
         "heading": "Cookies",

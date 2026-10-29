@@ -2,13 +2,13 @@ import { countDistinct, eq } from "drizzle-orm";
 import { ArrowRight, BookOpen, Clock, GraduationCap, Shield, User } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { GatedLink } from "@/components/auth/GatedLink";
 import { GetStarted } from "@/components/GetStarted";
 import { JsonLd } from "@/components/JsonLd";
 import { CourseOutlineList } from "@/components/training/CourseOutlineList";
 import { CourseHero, WhatIsFree } from "@/components/training/CoursePageParts";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@/i18n/navigation";
 import { db } from "@/lib/db";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
@@ -103,7 +103,7 @@ export default async function CraSbomTrainingLandingPage({
           {t("trainingCraSbom.subtitle")}
         </p>
         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
-          <Link
+          <GatedLink
             href={{
               pathname: "/training/courses/[courseId]/[lessonId]",
               params: { courseId: "cra-sbom", lessonId: "0.1" },
@@ -112,7 +112,7 @@ export default async function CraSbomTrainingLandingPage({
           >
             {t("trainingCraSbom.startCourse")}
             <ArrowRight className="size-4" />
-          </Link>
+          </GatedLink>
           {learnerCount > 0 && (
             <div className="flex items-center gap-2 rounded-full bg-muted/50 px-3 py-1.5 w-fit">
               <div className="flex -space-x-1.5">
@@ -196,7 +196,7 @@ export default async function CraSbomTrainingLandingPage({
       <div className="rounded-lg border bg-muted/30 p-8 text-center space-y-4">
         <h2 className="text-2xl font-bold">{t("trainingCraSbom.cta.heading")}</h2>
         <p className="text-muted-foreground">{t("trainingCraSbom.cta.body")}</p>
-        <Link
+        <GatedLink
           href={{
             pathname: "/training/courses/[courseId]/[lessonId]",
             params: { courseId: "cra-sbom", lessonId: "0.1" },
@@ -205,7 +205,7 @@ export default async function CraSbomTrainingLandingPage({
         >
           {t("trainingCraSbom.cta.button")}
           <ArrowRight className="size-4" />
-        </Link>
+        </GatedLink>
       </div>
 
       <GetStarted variant="funnel" />

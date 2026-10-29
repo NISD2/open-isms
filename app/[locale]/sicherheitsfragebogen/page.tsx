@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { SignInLink } from "@/components/auth/SignInLink";
 import { JsonLd } from "@/components/JsonLd";
 import { MotionProvider } from "@/components/landing/motion";
 import { OpenSourceNote } from "@/components/landing/OpenSourceNote";
@@ -60,10 +61,7 @@ export async function generateMetadata({
 const HERO_SHOT_PX = 704;
 
 /** Sign-up that ends in the supplier portal's setup rather than the walkthrough. */
-const SUPPLIER_SIGN_UP = {
-  pathname: "/auth/signin",
-  query: { callbackUrl: "/portal/supplier-onboarding" },
-} as const;
+const SUPPLIER_SIGN_UP = { callbackUrl: "/portal/supplier-onboarding" } as const;
 
 /** The questionnaire in five steps, each with the screenshot that proves it. */
 const STEPS = [
@@ -167,7 +165,7 @@ export default async function SicherheitsfragebogenLanding({
               </p>
               <div className="mt-8 flex flex-col items-start gap-3">
                 <Button asChild size="lg" className={PRIMARY_BUTTON}>
-                  <Link href={SUPPLIER_SIGN_UP}>{t("hero.ctaPrimary")}</Link>
+                  <SignInLink query={SUPPLIER_SIGN_UP}>{t("hero.ctaPrimary")}</SignInLink>
                 </Button>
                 <Button
                   asChild
@@ -297,7 +295,7 @@ export default async function SicherheitsfragebogenLanding({
             {t("cta.body")}
           </p>
           <Button asChild size="lg" className={`mt-8 ${PRIMARY_BUTTON}`}>
-            <Link href={SUPPLIER_SIGN_UP}>{t("cta.button")}</Link>
+            <SignInLink query={SUPPLIER_SIGN_UP}>{t("cta.button")}</SignInLink>
           </Button>
         </section>
 
