@@ -1,4 +1,6 @@
+import { OUTAGE_SPANS, type OutageSpan } from "@nisd2/grc-data-model/enums";
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 import { DURCHGANG_MESSAGES } from "@/i18n/durchgang";
 import {
   type AnyItem,
@@ -17,6 +19,23 @@ export const NAMESPACES = {
   en: DURCHGANG_MESSAGES.en.durchgang,
   cs: DURCHGANG_MESSAGES.cs.durchgang,
 } as const;
+
+const SPANS = z.record(z.enum(OUTAGE_SPANS), z.string());
+
+/**
+ * The one record of the span words (`durchgang.ui.spans`), which the screens, the asset page and
+ * the export read too; here for the trail, so it says what the screen said.
+ */
+export const spanWords = (locale: WalkLocale): Readonly<Record<OutageSpan, string>> => {
+  const parsed = SPANS.safeParse(NAMESPACES[locale].ui.spans);
+  if (!parsed.success) {
+    throw new TRPCError({
+      code: "INTERNAL_SERVER_ERROR",
+      message: `${locale}: the span words did not resolve.`,
+    });
+  }
+  return parsed.data;
+};
 
 /** An item of any walk by its code; a code no walk has is the caller's mistake. */
 export const walkItem = (code: string): AnyItem => {

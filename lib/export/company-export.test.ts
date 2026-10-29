@@ -181,8 +181,14 @@ describe("the assets, with who provides them", () => {
     const providers = rendered(joins()[0] ?? failed());
     expect(providers.sql).toContain(`"supplier"."customer_company_id" = $1`);
     expect(providers.params).toEqual([COMPANY, "asset-1"]);
+    // What a process needs: through the needed end's company, for these assets only.
+    const needs = rendered(joins()[1] ?? failed());
+    expect(needs.sql).toContain(`"asset"."company_id" = $1`);
+    expect(needs.params).toEqual([COMPANY, "asset-1"]);
 
-    expect(rows).toEqual([{ name: "Website", type: "application", providers: [] }]);
+    expect(rows).toEqual([
+      { name: "Website", type: "application", providers: [], needs: [] },
+    ]);
   });
 
   test("no assets, no second read", async () => {

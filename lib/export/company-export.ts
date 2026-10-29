@@ -18,6 +18,7 @@ import {
   kpiMeasurement,
   managementReview,
   patchRecord,
+  processAsset,
   requirement,
   requirementCategory,
   risk,
@@ -305,7 +306,10 @@ async function loadAnswers(db: DbOrTx, companyId: string) {
   return Object.fromEntries(intakes.map((i) => [i.category, i.answers ?? {}]));
 }
 
-/** The assets, each with the suppliers that provide it. */
+/**
+ * The assets, each with the suppliers that provide it, and a process that must keep running with
+ * the systems and rooms it needs (4.2), by name.
+ */
 async function loadAssets(db: DbOrTx, companyId: string, window: PageWindow) {
   const assets = await db.query.asset.findMany({
     where: eq(asset.companyId, companyId),
@@ -313,25 +317,37 @@ async function loadAssets(db: DbOrTx, companyId: string, window: PageWindow) {
     orderBy: [asc(asset.name), asc(asset.id)],
     ...paged(window),
   });
-  const providers =
+  const ids = assets.map((a) => a.id);
+  const [providers, needs] =
     assets.length === 0
-      ? []
-      : await db
-          .select({ assetId: assetProvider.assetId, name: supplier.name })
-          .from(assetProvider)
-          .innerJoin(supplier, eq(supplier.id, assetProvider.supplierId))
-          .where(
-            and(
-              eq(supplier.customerCompanyId, companyId),
-              inArray(
-                assetProvider.assetId,
-                assets.map((a) => a.id),
+      ? [[], []]
+      : await Promise.all([
+          db
+            .select({ assetId: assetProvider.assetId, name: supplier.name })
+            .from(assetProvider)
+            .innerJoin(supplier, eq(supplier.id, assetProvider.supplierId))
+            .where(
+              and(
+                eq(supplier.customerCompanyId, companyId),
+                inArray(assetProvider.assetId, ids),
               ),
             ),
-          );
+          // The needs through the needed end's company: a link only ever joins one company's rows.
+          db
+            .select({ processId: processAsset.processId, name: asset.name })
+            .from(processAsset)
+            .innerJoin(asset, eq(asset.id, processAsset.assetId))
+            .where(
+              and(eq(asset.companyId, companyId), inArray(processAsset.processId, ids)),
+            ),
+        ]);
   return assets.map(({ id, ...a }) => ({
     ...a,
     providers: providers.filter((p) => p.assetId === id).map((p) => p.name),
+    needs: needs
+      .filter((n) => n.processId === id)
+      .map((n) => n.name)
+      .sort((x, y) => x.localeCompare(y)),
   }));
 }
 

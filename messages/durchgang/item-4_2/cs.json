@@ -44,14 +44,7 @@
               "převezme to dodavatel"
             ],
             "outage": "Jak dlouho smí nejvýše stát?",
-            "outageHint": "V nejhorším případě: od kdy to pocítí zákazníci, bezpečnost nebo nějaká lhůta? Odhad stačí. Je to zadání pro všechno, co tento proces potřebuje.",
-            "outageOptions": {
-              "hours": "hodiny",
-              "day": "1 den",
-              "three_days": "3 dny",
-              "week": "1 týden",
-              "longer": "déle"
-            }
+            "outageHint": "V nejhorším případě: od kdy to pocítí zákazníci, bezpečnost nebo nějaká lhůta? Odhad stačí. Je to zadání pro všechno, co tento proces potřebuje."
           },
           "needs": {
             "title": "Co procesy potřebují",

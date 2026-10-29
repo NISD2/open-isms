@@ -14,6 +14,7 @@ import type { CompanyExport } from "@/lib/export/company-export";
 import { riskCounts } from "@/lib/export/risk-cells";
 import {
   answerRow,
+  extraRows,
   fieldRows,
   shown,
   statusCounts,
@@ -347,7 +348,7 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
                 lead={a.description}
                 rows={[
                   ...fieldRows("asset", withoutNo(a), words, ["type", "description"]),
-                  [labels.providers, shown("providers", a.providers, words)],
+                  ...extraRows(a, words),
                 ]}
               />
             ))}

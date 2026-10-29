@@ -52,6 +52,12 @@ const answerText = (value: unknown): string =>
     ? BLANK
     : String(value).trim();
 
+/** Names as a sentence lists them: "ERP, Server und Drucker". */
+const listed = (names: readonly string[], and: string): string =>
+  names.length > 1
+    ? `${names.slice(0, -1).join(", ")} ${and} ${names[names.length - 1]}`
+    : names.join("");
+
 /**
  * How the plan says how long a process may be down: a sentence per stored span, since the
  * screen's chip labels ("länger", "Stunden") do not read inside a sentence.
@@ -65,7 +71,7 @@ const PROCESS_TEXT = {
       week: "höchstens eine Woche ohne IT",
       longer: "länger als eine Woche ohne IT",
     },
-    needs: (names: string) => `braucht ${names}`,
+    needs: (names: readonly string[]) => `braucht ${listed(names, "und")}`,
   },
   en: {
     spans: {
@@ -75,7 +81,7 @@ const PROCESS_TEXT = {
       week: "at most a week without IT",
       longer: "longer than a week without IT",
     },
-    needs: (names: string) => `needs ${names}`,
+    needs: (names: readonly string[]) => `needs ${listed(names, "and")}`,
   },
   cs: {
     spans: {
@@ -85,13 +91,13 @@ const PROCESS_TEXT = {
       week: "nejvýše jeden týden bez IT",
       longer: "déle než týden bez IT",
     },
-    needs: (names: string) => `potřebuje ${names}`,
+    needs: (names: readonly string[]) => `potřebuje ${listed(names, "a")}`,
   },
 } as const satisfies Record<
   WalkLocale,
   {
     readonly spans: Readonly<Record<OutageSpan, string>>;
-    readonly needs: (names: string) => string;
+    readonly needs: (names: readonly string[]) => string;
   }
 >;
 
@@ -112,9 +118,10 @@ export const criticalProcessesText = (
   const line = (r: (typeof rows)[number]) => {
     const facts = [
       ...(r.outage ? [words.spans[r.outage]] : []),
-      ...(r.needs && r.needs.length > 0 ? [words.needs(r.needs.join(", "))] : []),
+      ...(r.needs && r.needs.length > 0 ? [words.needs(r.needs)] : []),
     ];
-    const name = facts.length > 0 ? `${r.name} (${facts.join("; ")})` : r.name;
+    // The facts read as one clause; "; " stays the separator between the processes.
+    const name = facts.length > 0 ? `${r.name} (${facts.join(", ")})` : r.name;
     return r.how.trim() ? `${name}: ${r.how.trim()}` : name;
   };
   return rows.length === 0 ? BLANK : rows.map(line).join("; ");

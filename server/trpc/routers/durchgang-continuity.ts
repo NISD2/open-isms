@@ -11,7 +11,11 @@ import {
 } from "@/lib/durchgang";
 import { asset, companyPolicyConfig, processAsset } from "@/schema";
 import { appendNote, durchgangItem } from "../helpers/durchgang";
-import { continuityFactsOf, processLinksOf } from "../helpers/durchgang-gaps";
+import {
+  continuityFactsOf,
+  ownedProcesses,
+  processLinksOf,
+} from "../helpers/durchgang-gaps";
 import {
   recordCriticalInput,
   recordNeedsInput,
@@ -19,7 +23,12 @@ import {
 } from "../helpers/durchgang-inputs";
 import { policyTypeOf, storedConfigOf } from "../helpers/durchgang-policy";
 import { actorOf, logWalk, recheck } from "../helpers/durchgang-procedures";
-import { askedOnScreen, NAMESPACES, walkItem } from "../helpers/durchgang-words";
+import {
+  askedOnScreen,
+  NAMESPACES,
+  spanWords,
+  walkItem,
+} from "../helpers/durchgang-words";
 import { durchgangProcedure, durchgangWrite } from "./durchgang-access";
 
 /**
@@ -94,7 +103,14 @@ export const continuityProcedures = {
         // hidden row comes back, or is diffed against, when it is ticked again.
         const off = rows.filter((row) => !row.critical).map((row) => row.assetId);
         if (off.length > 0) {
-          await tx.delete(processAsset).where(inArray(processAsset.processId, off));
+          await tx
+            .delete(processAsset)
+            .where(
+              and(
+                inArray(processAsset.processId, off),
+                inArray(processAsset.processId, ownedProcesses(tx, ctx.companyId)),
+              ),
+            );
         }
 
         const stored = await storedConfigOf(tx, ctx.companyId, type);
@@ -203,10 +219,14 @@ export const continuityProcedures = {
         const stored = await tx
           .select({ processId: processAsset.processId, assetId: processAsset.assetId })
           .from(processAsset)
+          .innerJoin(asset, eq(asset.id, processAsset.processId))
           .where(
-            inArray(
-              processAsset.processId,
-              rows.map((r) => r.processId),
+            and(
+              eq(asset.companyId, ctx.companyId),
+              inArray(
+                processAsset.processId,
+                rows.map((r) => r.processId),
+              ),
             ),
           );
         const diffs = rows.map((row) => {
@@ -227,6 +247,7 @@ export const continuityProcedures = {
                 and(
                   eq(processAsset.processId, row.processId),
                   inArray(processAsset.assetId, gone),
+                  inArray(processAsset.processId, ownedProcesses(tx, ctx.companyId)),
                 ),
               );
           }
@@ -290,6 +311,7 @@ export const continuityProcedures = {
         });
       }
       const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
+      const spans = spanWords(locale);
       const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
       const ids = rows.map((r) => r.assetId);
 
@@ -336,7 +358,7 @@ export const continuityProcedures = {
             const answer = row.unknown
               ? screen.copy.unknown
               : row.restore
-                ? screen.copy.options[row.restore]
+                ? spans[row.restore]
                 : noneWord(locale);
             return `${name}: ${answer}`;
           }),

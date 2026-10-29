@@ -10,6 +10,13 @@
       "unclear": "Ich verstehe es noch nicht"
     },
     "ui": {
+      "spans": {
+        "hours": "Stunden",
+        "day": "1 Tag",
+        "three_days": "3 Tage",
+        "week": "1 Woche",
+        "longer": "länger"
+      },
       "kinds": {
         "learn": "Verstehen",
         "prepare": "Bereitlegen",

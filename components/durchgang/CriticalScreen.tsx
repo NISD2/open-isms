@@ -25,6 +25,7 @@ export function CriticalScreen({
   entry,
 }: WorkProps & { entry: Of<"critical"> }) {
   const t = useTranslations("durchgang.ui.critical");
+  const spans = useTranslations("durchgang.ui.spans");
   const assets = trpc.asset.list.useQuery();
   const plan = trpc.durchgang.policyDraft.useQuery({ code: item.code });
   if (!assets.data || !plan.data) return null;
@@ -105,7 +106,7 @@ export function CriticalScreen({
                                 : "text-muted-foreground hover:border-primary/40 hover:text-foreground",
                             )}
                           >
-                            {entry.copy.outageOptions[span]}
+                            {spans(span)}
                           </button>
                         ))}
                       </div>

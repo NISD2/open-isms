@@ -5,12 +5,12 @@
  * in the inventory. Grouping identical assets into one entry with a
  * quantity is the BSI 200-2 practice the module is built around.
  */
-import { test, expect } from "@playwright/test";
-import { assetInsertSchema } from "@/schema/validators";
+import { expect, test } from "@playwright/test";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
-import { generateValue } from "../lib/value-factory";
-import { fillFields } from "../lib/form-driver";
+import { assetInsertSchema } from "@/schema/asset-validators";
 import { e2eQuery } from "../lib/db";
+import { fillFields } from "../lib/form-driver";
+import { generateValue } from "../lib/value-factory";
 
 const metas = introspectSchema(
   assetInsertSchema as Parameters<typeof introspectSchema>[0],
@@ -160,7 +160,9 @@ test.describe("asset inventory: grouped large-company entries", () => {
   // the kind of thing a later "just add a LIMIT 100" would break silently:
   // the page would still look right, with the tail missing. Seeded by SQL
   // because 500 UI creates would cost minutes and prove nothing extra.
-  test("a CMDB-sized inventory renders every row, none silently dropped", async ({ page }) => {
+  test("a CMDB-sized inventory renders every row, none silently dropped", async ({
+    page,
+  }) => {
     const BULK = 500;
     const [{ company_id }] = await e2eQuery<{ company_id: string }>(
       `SELECT company_id FROM "user" WHERE email = 'dev@nis2.local'`,
@@ -177,7 +179,9 @@ test.describe("asset inventory: grouped large-company entries", () => {
       await expect(page.getByText("Lasttest 1", { exact: false }).first()).toBeVisible({
         timeout: 60_000,
       });
-      await expect(page.getByText(/^Lasttest \d+$/)).toHaveCount(BULK, { timeout: 60_000 });
+      await expect(page.getByText(/^Lasttest \d+$/)).toHaveCount(BULK, {
+        timeout: 60_000,
+      });
     } finally {
       // Later layers sign off against this tenant; leave the inventory as found.
       await e2eQuery(`DELETE FROM asset WHERE name LIKE 'Lasttest %'`);

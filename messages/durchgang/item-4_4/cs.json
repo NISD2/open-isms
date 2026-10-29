@@ -70,13 +70,6 @@
           "restore": {
             "title": "Jak dlouho trvá obnova?",
             "lead": "Systémy, které vaše procesy potřebují (z kroku 4.2). Jak dlouho trvá, než každý znovu běží, když se musí obnovit ze zálohy nebo nahradit? Odhad stačí. Pokud to nevíte, řekněte to: pak to bude na seznamu, který vyjasníte se svým IT.",
-            "options": {
-              "hours": "hodiny",
-              "day": "1 den",
-              "three_days": "3 dny",
-              "week": "1 týden",
-              "longer": "déle"
-            },
             "unknown": "neznámé",
             "hint": "Zeptejte se toho, kdo zálohuje: jak dlouho trvala poslední obnova, nebo jak dlouho by trvala?",
             "none": "V kroku 4.2 zatím u žádného procesu není uveden žádný systém. Vraťte se tam a vyberte, co každý proces potřebuje.",
@@ -91,13 +84,6 @@
               "not_asked": "Zatím nezodpovězeno",
               "unrated": "Proces bez zadání",
               "ok": "Včas"
-            },
-            "spans": {
-              "hours": "hodiny",
-              "day": "1 den",
-              "three_days": "3 dny",
-              "week": "1 týden",
-              "longer": "déle"
             },
             "needs": "Potřebné pro",
             "required": "smí stát nejvýše:",

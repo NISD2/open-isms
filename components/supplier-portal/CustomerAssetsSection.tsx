@@ -27,7 +27,7 @@ import { useRouter } from "@/i18n/navigation";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { SchemaForm } from "@/lib/forms/schema-form";
 import { type RouterOutputs, trpc } from "@/lib/trpc/client";
-import { assetServiceUpdateSchema } from "@/schema/validators";
+import { assetServiceUpdateSchema } from "@/schema/asset-validators";
 
 type AssetServiceValues = z.infer<typeof assetServiceUpdateSchema>;
 type AssetRow =

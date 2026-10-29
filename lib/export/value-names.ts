@@ -30,14 +30,9 @@ const VALUE_SOURCES = {
     "durchgang",
     ["durchgang", "items", "4_4", "screens", "systems", "options"],
   ],
-  maxOutage: [
-    "durchgang",
-    ["durchgang", "items", "4_2", "screens", "keep", "outageOptions"],
-  ],
-  restoreTime: [
-    "durchgang",
-    ["durchgang", "items", "4_4", "screens", "restore", "options"],
-  ],
+  // The one record of the span words, which every screen and the asset page read too.
+  maxOutage: ["durchgang", ["durchgang", "ui", "spans"]],
+  restoreTime: ["durchgang", ["durchgang", "ui", "spans"]],
 } as const satisfies Record<string, readonly [string, readonly string[]]>;
 
 /**

@@ -115,12 +115,22 @@ export const titleOf = (
     : title;
 };
 
-/** What a register row lists beyond its fields: an asset's providers. */
+/**
+ * What a register row lists beyond its fields: an asset's providers, and for a process that must
+ * keep running the systems and rooms it needs (4.2).
+ */
 export const extraRows = (row: object, words: Words): Row[] => {
-  const providers = new Map(Object.entries(row)).get("providers");
-  return Array.isArray(providers)
-    ? [[words.labels.providers, shown("providers", providers, words)]]
-    : [];
+  const values = new Map(Object.entries(row));
+  const providers = values.get("providers");
+  const needs = values.get("needs");
+  return [
+    ...(Array.isArray(providers)
+      ? [[words.labels.providers, shown("providers", providers, words)] as const]
+      : []),
+    ...(Array.isArray(needs) && needs.length > 0
+      ? [[words.labels.needs, shown("needs", needs, words)] as const]
+      : []),
+  ];
 };
 
 /**

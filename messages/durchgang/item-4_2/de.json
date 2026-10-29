@@ -44,14 +44,7 @@
               "der Dienstleister übernimmt"
             ],
             "outage": "Wie lange darf das höchstens stillstehen?",
-            "outageHint": "Im schlimmsten Fall: ab wann leiden Kunden, Sicherheit oder eine Frist? Eine Schätzung reicht. Das ist die Vorgabe für alles, was dieser Ablauf braucht.",
-            "outageOptions": {
-              "hours": "Stunden",
-              "day": "1 Tag",
-              "three_days": "3 Tage",
-              "week": "1 Woche",
-              "longer": "länger"
-            }
+            "outageHint": "Im schlimmsten Fall: ab wann leiden Kunden, Sicherheit oder eine Frist? Eine Schätzung reicht. Das ist die Vorgabe für alles, was dieser Ablauf braucht."
           },
           "needs": {
             "title": "Was die Abläufe brauchen",

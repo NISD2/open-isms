@@ -44,14 +44,7 @@
               "the provider takes over"
             ],
             "outage": "How long may it stand still at most?",
-            "outageHint": "In the worst case: from when do customers, safety or a deadline suffer? An estimate is enough. It sets the pace for everything this process needs.",
-            "outageOptions": {
-              "hours": "hours",
-              "day": "1 day",
-              "three_days": "3 days",
-              "week": "1 week",
-              "longer": "longer"
-            }
+            "outageHint": "In the worst case: from when do customers, safety or a deadline suffer? An estimate is enough. It sets the pace for everything this process needs."
           },
           "needs": {
             "title": "What the processes need",
