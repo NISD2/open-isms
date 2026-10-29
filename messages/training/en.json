@@ -2,7 +2,7 @@
   "training": {
     "title": "Training Records",
     "description": "Employee and management cybersecurity training records. Required by NIS2 Art. 21(2)(g) and BSIG §38(3).",
-    "helpText": "Record all cybersecurity training completions. NIS2 mandates regular awareness training for all employees and specific training for management (BSIG §38(3) - personal liability). Track who completed what training and when.",
+    "helpText": "Record all cybersecurity training completions. NIS2 mandates regular awareness training for all employees and specific training for management (BSIG §38(3)). Track who completed what training and when.",
     "add": "Add Training",
     "edit": "Edit Training",
     "empty": "No training records yet. Add your first training record.",
@@ -45,7 +45,7 @@
       "description": "Brief description of the training content, objectives, and target audience.",
       "participantName": "Full name of the person who attended or completed this training.",
       "participantRole": "Job title or role of the participant within the organization.",
-      "isManagement": "Enable if this is management-level training. BSIG Section 38(3) requires specific cybersecurity training for management with personal liability.",
+      "isManagement": "Enable if this is management-level training. BSIG Section 38(3) requires specific cybersecurity training for management.",
       "providerName": "Name of the training provider or organization delivering the training.",
       "trainerName": "Name of the individual instructor or facilitator.",
       "startedAt": "Date when the participant started this training.",

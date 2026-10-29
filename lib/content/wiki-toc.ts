@@ -898,8 +898,8 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
         slugs: { de: "geschaftsfuhrerhaftung", en: "management-liability", nl: "bestuurdersaansprakelijkheid" },
         titleDe: "NIS2 Geschäftsführerhaftung: wann die Geschäftsleitung haftet",
         titleEn: "NIS2 director liability: when management is liable",
-        summaryDe: "Umsetzen, überwachen, schulen: die drei Pflichten der Geschäftsleitung und wie die Haftung nach Gesellschaftsrecht geregelt ist.",
-        summaryEn: "Implement, oversee, train: management's three duties and how liability works under company law.",
+        summaryDe: "Die drei Pflichten der Geschäftsleitung. Die Haftung nach Gesellschaftsrecht knüpft an Umsetzen und Überwachen an.",
+        summaryEn: "Management's three duties. Liability under company law attaches to implementing and overseeing.",
         tags: [
           "regulation:nis2",
           "regulation:bsig",
