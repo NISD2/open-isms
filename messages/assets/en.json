@@ -36,7 +36,8 @@
       "data_store": "File shares, backups, archives",
       "ot_ics": "SCADA, PLC, industrial controllers",
       "iot": "IoT devices, sensors",
-      "physical": "Buildings, rooms, infrastructure"
+      "physical": "Buildings, rooms, infrastructure",
+      "process": "Sales, production, payroll"
     },
     "fields": {
       "name": "Asset Name",

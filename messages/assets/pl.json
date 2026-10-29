@@ -22,7 +22,9 @@
       "data_store": "Magazyn danych",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Fizyczny"
+      "physical": "Fizyczny",
+      "process": "Proces biznesowy",
+      "room": "Pomieszczenie"
     },
     "typeDescriptions": {
       "application": "Aplikacje biznesowe (ERP, CRM, poczta e-mail)",
@@ -34,7 +36,8 @@
       "data_store": "Udziały plików, kopie zapasowe, archiwa",
       "ot_ics": "SCADA, PLC, sterowniki przemysłowe",
       "iot": "Urządzenia IoT, czujniki",
-      "physical": "Budynki, pomieszczenia, infrastruktura"
+      "physical": "Budynki, pomieszczenia, infrastruktura",
+      "process": "Sprzedaż, produkcja, płace"
     },
     "fields": {
       "name": "Nazwa aktywu",

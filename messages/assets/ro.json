@@ -22,7 +22,9 @@
       "data_store": "Spațiu de stocare a datelor",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Fizic"
+      "physical": "Fizic",
+      "process": "Proces de afaceri",
+      "room": "Încăpere"
     },
     "typeDescriptions": {
       "application": "Aplicații de afaceri (ERP, CRM, e-mail)",
@@ -34,7 +36,8 @@
       "data_store": "Partajări de fișiere, copii de rezervă, arhive",
       "ot_ics": "SCADA, PLC, controlere industriale",
       "iot": "Dispozitive IoT, senzori",
-      "physical": "Clădiri, încăperi, infrastructură"
+      "physical": "Clădiri, încăperi, infrastructură",
+      "process": "Vânzări, producție, salarizare"
     },
     "fields": {
       "name": "Numele activului",

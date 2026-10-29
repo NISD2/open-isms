@@ -36,7 +36,8 @@
       "data_store": "Dateifreigaben, Backups, Archive",
       "ot_ics": "SCADA, SPS, Industriesteuerungen",
       "iot": "IoT-Geräte, Sensoren",
-      "physical": "Gebäude, Räume, Infrastruktur"
+      "physical": "Gebäude, Räume, Infrastruktur",
+      "process": "Verkauf, Produktion, Lohnabrechnung"
     },
     "fields": {
       "name": "Asset-Name",
