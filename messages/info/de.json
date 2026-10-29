@@ -928,7 +928,7 @@
       "analytics": {
         "heading": "Analyse",
         "p1": "Wir verwenden Umami für Website-Analysen. Umami ist selbst gehostet auf unserer eigenen Infrastruktur. Es werden keine personenbezogenen Daten erhoben, keine Cookies gesetzt und keine einzelnen Nutzer verfolgt. Alle Daten sind aggregiert und anonym. Für diese Art der Analyse ist keine Einwilligung erforderlich.",
-        "p2": "Unabhängig davon: Wenn Sie sich über einen Link mit Kampagnenangaben registrieren (Parameter, die mit utm_ beginnen, zum Beispiel aus einer Anzeige), speichern wir diese Angaben zu Ihrem Konto. So sehen wir, über welche Anzeige oder welchen Link ein Konto entstanden ist. Ebenso speichern wir bei jeder Registrierung den Pfad der Seite, auf der Sie „Registrieren“ angeklickt haben (zum Beispiel /wiki/nis2-timeline), damit wir sehen, welche Inhalte zu Konten führen. Klick-IDs speichern wir nicht in Ihrem Konto. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser berechtigtes Interesse, die Wirkung unserer Werbung zu messen."
+        "p2": "Unabhängig davon: Wenn Sie sich über einen Link mit Kampagnenangaben registrieren (Parameter, die mit utm_ beginnen, zum Beispiel aus einer Anzeige), speichern wir diese zu Ihrem Konto, um zu sehen, woher es kam. Ebenso speichern wir den Pfad der Seite, auf der Sie „Registrieren“ angeklickt haben, und, wenn Sie sich für Kurs, Durchgang, Journey oder Bestellung erst anmelden mussten, den Pfad dieser Seite, damit wir sehen, welche Inhalte zu Konten führen. Klick-IDs speichern wir nicht in Ihrem Konto. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser berechtigtes Interesse, die Wirkung unserer Werbung zu messen."
       },
       "cookies": {
         "heading": "Cookies",
