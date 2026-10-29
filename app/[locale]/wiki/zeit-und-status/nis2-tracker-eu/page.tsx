@@ -341,7 +341,6 @@ export default async function Nis2TrackerEuPage({
             <WikiMoreLink href="/wiki/zeit-und-status/nis2-in-germany">
               {links("germany")}
             </WikiMoreLink>
-            <WikiMoreLink href="/training/nis2-ceo">{links("course")}</WikiMoreLink>
           </div>
         </WikiSection>
 

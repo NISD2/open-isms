@@ -80,7 +80,10 @@ export const BYLINE_LABELS: Record<
   },
 };
 
-/** A calendar day written the way the locale writes it, such as "30 de mayo de 2026". */
+/**
+ * A calendar day written the way the locale writes it, such as "30 de mayo de 2026". The day is
+ * the one on a Berlin clock, so an instant late on the 28th UTC is already the 29th.
+ */
 export function bylineDate(iso: string, locale: LocaleCode): string {
   return new Date(iso).toLocaleDateString(BYLINE_LABELS[locale].dateTag, {
     day: "numeric",
@@ -88,4 +91,9 @@ export function bylineDate(iso: string, locale: LocaleCode): string {
     year: "numeric",
     timeZone: "Europe/Berlin",
   });
+}
+
+/** The strip's "last reviewed" line, such as "Zuletzt geprüft 29. Oktober 2026". */
+export function reviewedLine(iso: string, locale: LocaleCode): string {
+  return `${BYLINE_LABELS[locale].reviewed} ${bylineDate(iso, locale)}`;
 }

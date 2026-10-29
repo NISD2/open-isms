@@ -3,7 +3,7 @@ import { getLocale } from "next-intl/server";
 import { TranslationBadge } from "@/components/wiki/TranslationBadge";
 import { Link } from "@/i18n/navigation";
 import { AUTHORS, type DocsAuthor } from "@/lib/content/authors";
-import { BYLINE_LABELS, bylineDate } from "@/lib/content/wiki-byline";
+import { BYLINE_LABELS, bylineDate, reviewedLine } from "@/lib/content/wiki-byline";
 import type { WikiLocale } from "@/lib/content/wiki-locale";
 import { isLocaleCode } from "@/lib/locale";
 
@@ -45,7 +45,7 @@ export async function WikiPageMeta({
   const reviewedDate = lastReviewedAt ?? datePublished;
   const dateLine = reviewedDate
     ? lastReviewedAt
-      ? `${labels.reviewed} ${bylineDate(reviewedDate, readerLocale)}`
+      ? reviewedLine(reviewedDate, readerLocale)
       : `${labels.published} ${bylineDate(reviewedDate, readerLocale)}`
     : labels.continuous;
 

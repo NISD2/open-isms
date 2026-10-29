@@ -10,11 +10,8 @@ export function WikiMoreLink({
   href,
   children,
 }: {
-  /**
-   * The German-slug wiki path, localized by the router, a section of this page, or the one
-   * non-wiki page the wiki sends readers to: the free management course.
-   */
-  href: `/wiki/${string}` | `#${string}` | "/training/nis2-ceo";
+  /** The German-slug wiki path, localized by the router, or a section of this page. */
+  href: `/wiki/${string}` | `#${string}`;
   children: ReactNode;
 }) {
   const content = (

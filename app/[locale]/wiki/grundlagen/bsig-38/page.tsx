@@ -61,10 +61,9 @@ export default async function BsigParagraph38Page({
 }) {
   const { locale: rawLocale } = await params;
   const locale = wikiLocale(rawLocale);
-  const [t, w, links] = await Promise.all([
+  const [t, w] = await Promise.all([
     getTranslations("info.bsigParagraph38"),
     getTranslations("info.wikiWalk"),
-    getTranslations("wikiLinks"),
   ]);
   const faq = t.raw("faq.items") as WikiQuestion[];
   const subsections = t.raw("text.items") as Subsection[];
@@ -97,7 +96,7 @@ export default async function BsigParagraph38Page({
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale}
-          lastReviewedAt="2026-10-05"
+          lastReviewedAt="2026-10-29"
           sourceLocale="de"
         />
 
@@ -134,9 +133,7 @@ export default async function BsigParagraph38Page({
           heading={t("training.heading")}
           paragraphs={t.raw("training.paragraphs") as string[]}
           law={t("training.law")}
-        >
-          <WikiMoreLink href="/training/nis2-ceo">{links("course")}</WikiMoreLink>
-        </WikiSection>
+        />
 
         <WikiSection
           heading={t("implement.heading")}

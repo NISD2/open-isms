@@ -94,7 +94,7 @@ export default async function CeoLiabilityPage({
         <WikiPageMeta
           authorSlug="simon-orzel"
           locale={locale === "nl" ? "de" : locale}
-          lastReviewedAt="2026-10-05"
+          lastReviewedAt="2026-10-29"
           sourceLocale="de"
         />
 
@@ -158,9 +158,7 @@ export default async function CeoLiabilityPage({
         <WikiSection
           heading={t("delegate.heading")}
           paragraphs={t.raw("delegate.paragraphs") as string[]}
-        >
-          <WikiMoreLink href="/training/nis2-ceo">{links("course")}</WikiMoreLink>
-        </WikiSection>
+        />
 
         <WikiSection
           heading={t("size.heading")}

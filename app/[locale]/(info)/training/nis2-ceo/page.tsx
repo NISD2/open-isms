@@ -10,9 +10,9 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { Link } from "@/i18n/navigation";
-import { BYLINE_LABELS, bylineDate } from "@/lib/content/wiki-byline";
+import { reviewedLine } from "@/lib/content/wiki-byline";
 import { db } from "@/lib/db";
-import { isLocaleCode } from "@/lib/locale";
+import { isLocaleCode, LOCALE_CODES } from "@/lib/locale";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
 import { courseTotals, loadCourse } from "@/lib/training/course-loader";
@@ -57,11 +57,13 @@ export async function generateMetadata({
 }
 
 /**
- * The day the course content was last changed and read against the law and the BSI's management
- * training curriculum: open-isms #494 brought 12 lessons in line on 28.10.2026. Move it whenever a
- * lesson or a legal sentence on this page is reviewed or changed, never on its own.
+ * The day a lesson or a legal sentence on this page was last changed and read against the law.
+ * 29.10.2026: the opening answer on Art. 20 Abs. 2 NIS 2 and § 38 Abs. 3 BSIG was reworded and
+ * checked against both texts. Before that, open-isms #494 brought 12 lessons in line with the
+ * BSI's management training curriculum on 28.10.2026. Move it whenever a lesson or a legal
+ * sentence here is reviewed or changed, never on its own.
  */
-const COURSE_LAST_REVIEWED = "2026-10-28";
+const COURSE_LAST_REVIEWED = "2026-10-29";
 
 const highlightIcons = [BookOpen, Clock, Shield, GraduationCap] as const;
 const highlightKeys = ["lessons", "hours", "quizzes", "certificate"] as const;
@@ -101,7 +103,7 @@ export default async function TrainingLandingPage({
           numberOfLessons: 47,
           timeRequired: "PT4H",
           educationalLevel: "Executive",
-          inLanguage: ["de", "en"],
+          inLanguage: [...LOCALE_CODES],
           hasCourseInstance: {
             "@type": "CourseInstance",
             courseMode: "online",
@@ -120,8 +122,7 @@ export default async function TrainingLandingPage({
         </p>
         <p className="text-sm text-muted-foreground">
           <time dateTime={COURSE_LAST_REVIEWED}>
-            {BYLINE_LABELS[readerLocale].reviewed}{" "}
-            {bylineDate(COURSE_LAST_REVIEWED, readerLocale)}
+            {reviewedLine(COURSE_LAST_REVIEWED, readerLocale)}
           </time>
         </p>
         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
