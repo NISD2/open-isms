@@ -510,12 +510,7 @@
       "cta": "Gratis beginnen"
     },
     "bsigParagraph38": {
-      "meta": {
-        "title": "§ 38 BSIG: invoeren, toezicht houden en training uitgelegd",
-        "description": "§ 38 BSIG in eenvoudige woorden: lid 1 invoeren en toezicht houden, lid 2 aansprakelijkheid volgens het vennootschapsrecht, lid 3 regelmatige training voor de directie."
-      },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "§ 38 BSIG: de plichten van de directie, lid voor lid",
       "subtitle": "§ 38 BSIG heeft drie leden. Lid 1: de directie voert de maatregelen volgens § 30 BSIG in en houdt toezicht op de invoering. Lid 2: schendt zij dat verwijtbaar, dan is zij volgens het vennootschapsrecht aansprakelijk tegenover het bedrijf. Lid 3: zij volgt regelmatig een training. De wet schrijft geen duur en geen bepaalde aanbieder voor.",
       "text": {
         "heading": "De tekst, en wat hij betekent",
@@ -1903,7 +1898,6 @@
       },
       "liability": {
         "heading": "Management Liability Protection",
-        "p1": "Section 38 BSIG makes management personally liable for cybersecurity compliance. Three duties apply: approval, oversight, and training. These cannot be delegated away.",
         "p2": "NISD2.eu structures compliance so that management can demonstrate they fulfilled all three duties. Every approval is logged with timestamp and user identity, creating the evidence trail that Section 38 demands.",
         "p3": "If the BSI audits your company, you need proof that management approved measures, oversaw implementation, and completed training. This platform generates that proof as a byproduct of normal use."
       },
@@ -2149,13 +2143,7 @@
       }
     },
     "ceoLiability": {
-      "meta": {
-        "title": "NIS2-aansprakelijkheid van de directie: wat § 38 BSIG vereist",
-        "description": "Is de directie aansprakelijk onder NIS2? § 38 BSIG: maatregelen invoeren en er toezicht op houden, regelmatig een training volgen, aansprakelijkheid volgens het vennootschapsrecht."
-      },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "NIS2-aansprakelijkheid van de directie: wat § 38 BSIG van de directie vraagt",
-      "subtitle": "De directie moet de beveiligingsmaatregelen volgens § 30 BSIG invoeren, toezicht houden op de invoering en regelmatig een training volgen (§ 38 BSIG). Schendt zij deze plichten verwijtbaar en lijdt het bedrijf daardoor schade, dan is de directie aansprakelijk tegenover het bedrijf. Dat volgt het vennootschapsrecht, net als bij de andere plichten van de directie.",
       "who": {
         "heading": "Voor wie § 38 BSIG geldt",
         "paragraphs": [
@@ -3301,8 +3289,7 @@
             "detail": "ISO 27001 requires incident response but sets no external reporting timelines. §32 BSIG mandates: early warning to BSI within 24 hours, incident notification within 72 hours, and final report within one month. These are statutory deadlines with separate penalties for non-compliance. Your ISMS incident process must be extended with BSI-specific reporting workflows."
           },
           "management": {
-            "title": "Management personal liability (§38 BSIG)",
-            "detail": "ISO 27001 requires management commitment and leadership (Clause 5) but creates no personal legal liability. §38 BSIG makes Geschäftsleiter personally liable for failures in cybersecurity governance, including a non-waivable duty to approve measures, oversee implementation, and complete personal cybersecurity training. No ISO control addresses this."
+            "title": "Management personal liability (§38 BSIG)"
           },
           "penalties": {
             "title": "Statutory penalty framework (§65 BSIG)",
@@ -4651,8 +4638,7 @@
           },
           "liability": {
             "aspect": "Management liability",
-            "kritis": "No specific personal liability provision for management. General corporate law duties applied",
-            "nis2": "§38 BSIG introduces explicit personal liability for Geschäftsführung. Management must approve cybersecurity measures, undergo training, and can be held personally liable for damages. Cannot be waived by shareholder resolution"
+            "kritis": "No specific personal liability provision for management. General corporate law duties applied"
           },
           "audit": {
             "aspect": "Audit requirements",
@@ -4724,8 +4710,7 @@
           "a": "No. NIS2 is a fundamentally broader and deeper regulatory regime. KRITIS covered approximately 2,000 operators with high thresholds. NIS2 covers approximately 30,000 entities with much lower thresholds. NIS2 adds personal management liability, mandatory registration, structured incident reporting timelines, supply chain obligations, and significantly higher penalties. Think of KRITIS as the pilot program - NIS2 is the full rollout."
         },
         "q4": {
-          "q": "What is the biggest practical difference for companies?",
-          "a": "Management personal liability under §38 BSIG. Under KRITIS, cybersecurity was an IT department problem. Under NIS2, the Geschäftsführung is personally responsible for approving and overseeing cybersecurity measures, must undergo cybersecurity training, and can be held liable for damages resulting from non-compliance. This liability cannot be waived, even by shareholder resolution. This changes cybersecurity from an IT budget line to a board-level governance issue."
+          "q": "What is the biggest practical difference for companies?"
         }
       },
       "sources": {
@@ -5093,8 +5078,7 @@
       },
       "consequences": {
         "heading": "What Happens If You Do Nothing",
-        "p1": "Essentiële entiteiten riskeren boetes tot 10 miljoen euro of 2 % van de wereldwijde jaaromzet. Belangrijke entiteiten riskeren tot 7 miljoen euro of 1,4 %. Alleen al registratieovertredingen kunnen boetes tot 500.000 euro opleveren. Het BSI kan naleving bevelen (§§ 61, 62 BSIG). Als bijzonder belangrijke entiteiten (besonders wichtige Einrichtungen) zijn bevelen negeren, kan de bevoegde sectorautoriteit als laatste redmiddel tijdelijk een vergunning schorsen en onbetrouwbare leidinggevenden tijdelijk uitsluiten van hun functie (§ 61 Abs. 9 BSIG).",
-        "p2": "Naast boetes schept § 38 BSIG persoonlijke aansprakelijkheid voor de leiding. Bestuurders moeten cyberbeveiligingsmaatregelen uitvoeren, toezien op de uitvoering en regelmatig opleidingen volgen. Zij zijn jegens hun eigen bedrijf aansprakelijk voor schade die zij door schuld veroorzaken, volgens de regels van het vennootschapsrecht voor de rechtsvorm van het bedrijf."
+        "p1": "Essentiële entiteiten riskeren boetes tot 10 miljoen euro of 2 % van de wereldwijde jaaromzet. Belangrijke entiteiten riskeren tot 7 miljoen euro of 1,4 %. Alleen al registratieovertredingen kunnen boetes tot 500.000 euro opleveren. Het BSI kan naleving bevelen (§§ 61, 62 BSIG). Als bijzonder belangrijke entiteiten (besonders wichtige Einrichtungen) zijn bevelen negeren, kan de bevoegde sectorautoriteit als laatste redmiddel tijdelijk een vergunning schorsen en onbetrouwbare leidinggevenden tijdelijk uitsluiten van hun functie (§ 61 Abs. 9 BSIG)."
       },
       "faq": {
         "heading": "Frequently Asked Questions",
@@ -5963,8 +5947,7 @@
           "training": {
             "area": "Cybersecurity training",
             "directive": "Regular training for management and all employees",
-            "cir": "Role-specific training, management must demonstrate competence in risk oversight",
-            "bsig": "Annual awareness training for all employees, role-specific training for IT staff, mandatory section 38 BSIG liability training for management"
+            "cir": "Role-specific training, management must demonstrate competence in risk oversight"
           }
         }
       },
@@ -6629,8 +6612,7 @@
           "a": "Nee. De trainingsplicht treft de leidinggevende organen persoonlijk en kan niet worden overgedragen aan medewerkers of externe dienstverleners (Art. 20 lid 2 NIS 2-richtlijn, in Duitsland Paragraaf 38 lid 3 BSIG). U kunt een functionaris voor gegevensbescherming of beveiliging benoemen en de operationele uitvoering verdelen, maar de eigen deelname aan de training blijft uw taak. Documenteer wie heeft deelgenomen, hoe lang en met welke inhoud, zodat u het op verzoek aan de autoriteit kunt overleggen."
         },
         "q5": {
-          "q": "Is de directie persoonlijk aansprakelijk voor overtredingen?",
-          "a": "Schendt een directielid zijn goedkeurings-, toezichts- of trainingsplicht, dan is het tegenover de eigen entiteit aansprakelijk voor verwijtbaar veroorzaakte schade volgens de vennootschapsrechtelijke regels van de betreffende rechtsvorm (Art. 20 NIS 2-richtlijn, in Duitsland Paragraaf 38 BSIG). Deze aanspraak komt toe aan de vennootschap, niet aan derden, en een volledige uitsluiting van aansprakelijkheid via de vennootschapsovereenkomst of statuten is uitgesloten. In de praktijk verkleint u het risico door vrijgaven, controles en trainingsbewijzen netjes te documenteren. De beste bescherming is niet de uitsluiting, maar de aantoonbaar nagekomen plichtencatalogus."
+          "q": "Is de directie persoonlijk aansprakelijk voor overtredingen?"
         }
       },
       "implementation": {
@@ -6982,7 +6964,6 @@
       },
       "badge": "NIS2 Articles 20 + 21",
       "title": "NIS2 Management Training",
-      "subtitle": "Everything the NIS2 Directive requires you to know as a member of the management body - structured, free, and built for the auditor's questions.",
       "startCourse": "Start the course",
       "downloadPdf": "Download PDF",
       "lessonsLabel": "lessons",
@@ -7617,8 +7598,7 @@
             "reality": "User awareness training is not management training. Article 20(2) lists four content blocks: identify risks, assess risks, understand cybersecurity management practices, understand the impact on services. 'Do not click phishing links' is not on that list. The management body needs training in management practices, not in user behaviour."
           },
           "noAcceptanceCriteria": {
-            "myth": "Our D&O insurance covers personal liability, so the training is optional.",
-            "reality": "It does not. §38(2) BSIG creates personal liability for breach of the management duties under §38. Insurance is something you add on top. It does not remove the underlying obligation, and the training itself is what reduces the underlying risk of breach. Skipping the training raises the liability, it does not lower it."
+            "myth": "Our D&O insurance covers personal liability, so the training is optional."
           }
         }
       },
@@ -13478,11 +13458,9 @@
     },
     "nis2HaftungVorstand": {
       "meta": {
-        "title": "Personal Liability of the Management Body Under NIS 2",
-        "description": "How Article 20 NIS 2 makes the management body of essential and important entities responsible for approving, overseeing, and training on cybersecurity risk management, and how German company law turns that duty into personal liability."
+        "title": "Personal Liability of the Management Body Under NIS 2"
       },
       "title": "Personal Liability of the Management Body Under NIS 2",
-      "subtitle": "Article 20 of the NIS 2 Directive assigns three duties to the management body: approve the cybersecurity risk-management measures, oversee their implementation, and undergo training. National company law converts a breach of those duties into a personal claim against the individual.",
       "overview": {
         "heading": "What Article 20 actually says",
         "p1": "Article 20 of Directive (EU) 2022/2555 places the cybersecurity duty on the management body of every essential and important entity. The management body must approve the risk-management measures required by Article 21, must oversee their implementation, and can be held liable for the entity's infringements of Article 21.",
@@ -15837,7 +15815,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "De meeste Franse operators uit het Mittelstand-equivalent die wij zien, behandelen NIS 2 nog als een uitbreiding van het oude OIV- en OSE-regime. Dat klopt maar half. Volgens het wetsontwerp liggen toezicht en meldkanaal net als voorheen bij ANSSI, maar de reikwijdte is breder en de verantwoordelijkheid van het leidinggevend orgaan zwaarder. Zodra de wet geldt, is de Geschäftsführer-equivalent (président, directeur général, gérant) persoonlijk aansprakelijk voor de goedkeuring van het risicobeheer en voor de eigen opleiding.",
         "p2": "De praktische stap is dezelfde als overal in de EU: stel vast of u onder de richtlijn valt, registreer u vrijwillig vooraf bij ANSSI (messervices.cyber.gouv.fr/nis2, voorheen MonEspaceNIS2) en registreer u zodra de wet is aangenomen, zet de vier doorlopende verplichtingen op (registratiegegevens bijhouden, incidenten melden, risico's in de toeleveringsketen, toezicht door het leidinggevend orgaan) en documenteer het minimum. Het OIV-apparaat helpt, maar vervangt de NIS 2-verplichtingen niet."
       },
       "platform": {
@@ -16236,7 +16213,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most Swedish operators we see spent the whole of 2025 in limbo. Until mid-December 2025 the Cybersäkerhetslagen sat at the Riksdag as Proposition 2025/26:28 and nothing more. The consequence: many managing directors paused their NIS 2 work, then had to compress notification and first documentation into the window shortly after 15 January 2026.",
         "p2": "De praktische stap is dezelfde als overal in de EU: bevestig de reikwijdte onder de richtlijn, registreer u bij het NCSC bij de FRA, zet de vier doorlopende verplichtingen op (registratie bijhouden, incidentmelding, toeleveringsketenrisico, toezicht door het leidinggevend orgaan) en documenteer het minimum. De sectorale autoriteit blijft het toezichtadres; het NCSC en CERT-SE zijn de operationele kanalen."
       },
       "platform": {
@@ -16372,7 +16348,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most Portuguese operators we see treated NIS 2 as a future problem until Decreto-Lei n.º 125/2025 was published in December 2025. That window has closed. CNCS supervision starts on 3 April 2026, the cybersecurity officer must be notified within twenty working days, and the management body, the administrador or gerente, is personally on the hook for risk-management approval and training under the directive.",
         "p2": "The practical move is the same as everywhere else in the EU: confirm scope under the directive, register through the national platform (here the CNCS electronic platform), set up the four continuous obligations (registration upkeep, incident reporting, supply chain risk, management body oversight), and document the minimum. CNCS sector guidance helps, but it does not substitute for the NIS 2 obligation register."
       },
       "platform": {
@@ -16506,7 +16481,6 @@
       },
       "practitioner": {
         "heading": "From the field",
-        "p1": "De meeste Finse middelgrote exploitanten die wij tegenkomen behandelen NIS 2 nog als een IT-onderwerp. Dat is maar half waar. Toezicht en meldkanaal liggen op sectorniveau, de reikwijdte is breder dan onder het oude Finse cyberbeveiligingsregime, en het leidinggevend orgaan (toimitusjohtaja, hallitus) draagt zwaardere verantwoordelijkheid. Het leidinggevend orgaan keurt de risicobeheersprocedure goed en houdt er toezicht op en moet voldoende vertrouwd zijn met cyberbeveiligingsrisicobeheer; bij essentiële entiteiten kunnen herhaalde ernstige overtredingen leiden tot een tijdelijk verbod op een bestuursfunctie.",
         "p2": "De praktische stap is dezelfde als overal in de EU: voer de toepasbaarheidstoets uit aan de hand van de richtlijn, registreer u bij de sectorale toezichthouder en sta op zijn lijst van entiteiten, zet de vier doorlopende plichten op (registratiegegevens actueel houden, incidentmelding, toeleveringsketenrisico, toezicht door het leidinggevend orgaan) en documenteer het minimum. Het gedeelde Traficom-meldformulier houdt het meldpad schoon."
       },
       "platform": {
@@ -16777,7 +16751,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most Czech mid-market operators we see treat NIS 2 as an extension of the old Act 181/2014 Sb. regime. That is half right. NÚKIB still runs supervision and the incident channel, but the scope is much wider, the two-tier model of higher and lower significance changes obligations per service, and the statutory body (jednatel or představenstvo) carries explicit accountability for risk-management approval and training.",
         "p2": "The practical move is the same as everywhere in the EU: confirm scope under the directive, self-identify against the list of regulated services, register through the NÚKIB portal, set up the four continuous obligations (registration upkeep, incident reporting, supply chain risk, management body oversight), and document the minimum. The 2014 documentation helps, but it does not substitute for the NIS 2 obligation register."
       },
       "platform": {
@@ -17048,7 +17021,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "De meeste Ierse middelgrote exploitanten die wij tegenkomen behandelen NIS 2 als een uitgestelde termijn en wachten op de National Cyber Security Bill. Juridisch klopt dat voorlopig: een richtlijn bindt de staat, niet het bedrijf, dus zolang de wet niet van kracht is, gelden alleen de NIS 1 Regulations, en alleen voor exploitanten die daaronder al zijn aangewezen. Praktisch kost het werk maanden, dus wie nu begint, heeft de documentatie al op orde wanneer de wet komt.",
         "p2": "The practical step is the same as everywhere in the EU: run the applicability test against the Directive, use the NCSC-IE preparatory guidance (the draft Risk Management Measures, CyFun) as orientation, set up the four continuous duties (keep registration data current, incident reporting, supply chain risk, supervision by the management body) and document the minimum. Once the Act is in force, the remaining work is mostly plugging the finished documentation into the Irish procedures."
       },
       "platform": {
@@ -17185,7 +17157,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most Danish mid-market operators we see look instinctively for one single point of contact. There is none. If you sit in a regulated sector, you talk primarily to your own sector-responsible authority. If you sit outside the regulated sectors or you have cross-cutting questions, you go to SAMSIK. Incident reporting technically goes through CFCS in parallel with the sector authority. The CEO or direktør is personally on the hook for risk-management approval and own training under Article 20 NIS 2.",
         "p2": "The practical move is the same as everywhere else in the EU: confirm scope under the directive, clarify the primary sector, register through virk.dk, set up the four continuous obligations (registration upkeep, incident reporting, supply chain risk, management body oversight) and document the minimum. An entity active in several sectors documents per sector, because supervisors ask per sector."
       },
       "platform": {
@@ -17452,7 +17423,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most Italian small and mid-cap operators we see still read NIS 2 through the lens of the old D.Lgs. 65/2018 NIS 1 perimeter, in which only a handful of named operators were in scope. The new decree expands the perimeter by an order of magnitude, brings in public administrations, local public transport and research entities, and shifts the accountability onto the management body. The amministratore delegato or legale rappresentante is personally on the hook for risk-management approval and training.",
         "p2": "The practical move is the same as everywhere else in the EU. Confirm scope under the directive and the decree, register on the ACN platform, set up the four continuous obligations (registration upkeep, incident reporting through CSIRT Italia, supply chain risk, management body oversight), and document the minimum. ACN sector annexes refine the detail; they do not replace the obligation register."
       },
       "platform": {
@@ -17586,7 +17556,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "De meeste Spaanse middenbedrijven die wij zien, behandelen NIS 2 als een kwestie die kan wachten tot het Boletín de definitieve wet publiceert. Dat is een dure gok. De termijn van 17 oktober 2024 is verstreken, de Commissie stuurde op 7 mei 2025 een met redenen omkleed advies en heeft Spanje op 8 juli 2026 bij het Hof van Justitie van de EU gedaagd, en de inhoudelijke verplichtingen (goedkeuring van risicomaatregelen door het leidinggevend orgaan, vroegtijdige waarschuwing binnen 24 uur, melding binnen 72 uur, clausules voor de toeleveringsketen) veranderen nauwelijks tussen het ontwerp en een aannemelijke eindtekst.",
         "p2": "De praktische stap is dezelfde als overal in de EU: stel vast of u onder de richtlijn valt, bereid de registratie voor zodra de Spaanse wet de bevoegde instantie en het portaal aanwijst, zet de vier doorlopende verplichtingen op (registratiegegevens bijhouden, incidenten melden, risicobeheer in de toeleveringsketen, toezicht door het leidinggevend orgaan) en documenteer het minimum. Bestaande richtsnoeren van CCN en INCIBE en de meldkanalen van Real Decreto-ley 12/2018 blijven bruikbaar zolang de nieuwe wet nog niet van kracht is."
       },
       "platform": {
@@ -17795,7 +17764,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most Hungarian operators we talk to assume NIS 2 starts when a new omnibus law is passed. It does not. SZTFH supervision under Act XXIII of 2023 is already active, audits are happening, and the management body sign-off is already a question SZTFH can ask. The Commission reasoned opinion of 7 May 2025 raises the political pressure but it does not push the supervisor's start date back.",
         "p2": "The practical move is the same as everywhere else in the EU. Confirm scope under the directive, register with the national supervisor (here SZTFH), set up the four continuous obligations (registration upkeep, incident reporting via NKI, supply chain risk, management body oversight), and document the minimum. Hungarian sector regulators stay competent where lex specialis applies, finance under MNB in particular."
       },
       "platform": {
@@ -17929,7 +17897,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Romanian mid-market operators we meet still treat NIS 2 as a topic for IT, not for the management body. That is the same mistake we see elsewhere in the EU. Article 20 puts the obligation on the management body to approve risk management, oversee its implementation and follow management training. DNSC will look at that approval, not at who wrote the policy.",
         "p2": "The practical step in Romania is the same as everywhere in the EU: test applicability against the directive, register through DNSC's national channel, set up the four continuous obligations (keep registration data current, incident reporting, supply chain risk, management body oversight) and document the minimum."
       },
       "platform": {
@@ -18062,7 +18029,6 @@
       },
       "practitioner": {
         "heading": "From the field",
-        "p1": "De meeste Slowaakse middelgrote exploitanten die wij tegenkomen behandelen NIS 2 nog als een kleine update van de Cybersecurity Act van 2018. De wijziging is meer dan dat. De kring van gereguleerde entiteiten is breder, het leidinggevend orgaan draagt nu persoonlijke verantwoordelijkheid voor het goedkeuren van risicobehandeling en voor de eigen training, en het meldschema is strenger dan het oude regime vroeg.",
         "p2": "De praktische stap is dezelfde als overal in de EU: voer de toepasbaarheidstoets uit aan de hand van de richtlijn, registreer u via het nationale portaal (hier JISKB), zet de vier doorlopende verplichtingen op (registratiegegevens actueel houden, incidentmelding, toeleveringsketenrisico, toezicht door het leidinggevend orgaan) en documenteer het minimum. Het bestaande proces uit de Cybersecurity Act van 2018 helpt, maar vervangt niet het documenteren van de NIS 2-maatregelen zelf."
       },
       "platform": {
@@ -18197,7 +18163,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Croatian operators we meet still read NIS 2 as a continuation of the older critical infrastructure framework. That is only partly true. Supervision now runs through SOA / NCSC-HR with UVNS as EU contact, the scope is broader than under the old regime, and the management body carries personal responsibility for approving risk management and completing its own training.",
         "p2": "The practical step is the same as anywhere in the EU: check applicability against the directive, register through the channels under NN 14/2024 and NN 135/2024, set up the four continuous obligations (keep registration data current, incident reporting, supply chain risk, oversight by the management body) and document the minimum. The PiXi platform and e-Ovlaštenja are the operational interface, not the obligation itself."
       },
       "platform": {
@@ -18333,7 +18298,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most operators we see in Bulgaria are still waiting for a definitive national text before they start work. That is the wrong sequence. The directive obligations apply from the 17 October 2024 deadline; the Commission has already sent a reasoned opinion on 7 May 2025. The supervision channel and the CSIRT exist today, and the management body sign-off duty under Article 20 binds the Geschäftsführer-equivalent (управител, изпълнителен директор) regardless of where the national amendment lands.",
         "p2": "The practical move is the same as everywhere else in the EU: confirm scope under the directive, contact the State e-Government Agency as single point of contact, set up the four continuous obligations (registration upkeep, incident reporting, supply chain risk, management body oversight), and document the minimum. Once the amended Cybersecurity Act is fully in force, the work already done maps across; the directive is the constant."
       },
       "platform": {
@@ -18467,7 +18431,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Greek mid-market operators we meet still read NIS 2 as a continuation of NIS 1. The supervisor sits in the same ministry, but the scope is wider and the management body sits on the hook personally. The Greek managing director, the διαχειριστής or νόμιμος εκπρόσωπος, signs off on risk management and on their own training.",
         "p2": "The practical step is the same as everywhere in the EU: run applicability against the directive, register with the national authority, set up the four ongoing duties (keep registration data current, incident reporting, supply chain risk, management body oversight) and document the minimum. The late transposition does not change that ordering."
       },
       "platform": {
@@ -18601,7 +18564,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Luxembourg mid-market operators we meet still treat NIS 2 as a future obligation. The deadline slipped twice, first at EU level on 17 October 2024, then in the national law that only entered into force on 15 May 2026. That created the impression that nothing is binding yet. It is. The directive obligations on risk management and incident reporting bite from the date the national law took effect, and ILR is supervising under it.",
         "p2": "The practical step is the same as everywhere in the EU: check applicability against the directive, register with the competent authority (here ILR via myilr.lu), set up the four continuous duties (keep registration data current, report incidents, manage supply chain risk, ensure management body oversight) and document the minimum. The financial sector reads DORA in parallel under CSSF supervision."
       },
       "platform": {
@@ -18736,7 +18698,6 @@
       },
       "practitioner": {
         "heading": "Practitioner view",
-        "p1": "Most Slovenian operators we see treat NIS 2 as a continuation of the old ZInfV regime. That is partly right: URSIV is still the policy owner and SI-CERT still runs incident response. The scope is wider, the management body sign-off is heavier, and the 18-month implementation window from 19 June 2025 is a real clock. The director or management board is personally on the hook for risk management approval and for completing the required training.",
         "p2": "De praktische stap is dezelfde als overal in de EU: bevestig de reikwijdte onder de richtlijn, registreer u bij URSIV, zet de vier doorlopende verplichtingen op (registratie bijhouden, incidentmelding, toeleveringsketenrisico, toezicht door het leidinggevend orgaan) en documenteer het minimum. De oude ZInfV-documentatie helpt, maar vervangt niet het documenteren van de ZInfV-1-maatregelen."
       },
       "platform": {
@@ -18869,7 +18830,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Cypriot operators we see still treat NIS 2 as a future Cypriot law problem. That is half right. The carrier statute is moving slowly. The directive obligations are not. Management bodies in Cyprus are accountable for risk management approval and their own training the moment the Cypriot law enters fully into force, and arguably already today via the directive standing behind a delayed transposition.",
         "p2": "The practical step is the same as everywhere in the EU: check applicability against the directive, prepare to register once the Cypriot mechanism is published, set up the four continuous obligations (keep registration data current, incident notification, supply chain risk, oversight by the management body), and document the minimum. The DSA and CSIRT-CY are the contact points already in place."
       },
       "platform": {
@@ -19137,7 +19097,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Lithuanian mid-market operators we see still treat NIS 2 as an extension of the old NIS 1 regime. That is half right. NKSC was the supervisor before, and remains so. The scope is broader, the management body accountability is heavier, and the catalogue of cybersecurity requirements in the implementing regulation is more detailed than the previous decision.",
         "p2": "The practical step is the same as everywhere in the EU: run the applicability test against the directive, register with the national supervisor (here NKSC), set up the four continuous obligations (keep registration data current, incident notification, supply chain risk, supervision by the management body) and document the minimum. The earlier NIS 1 paperwork helps as a baseline, but does not replace the NIS 2 obligation register."
       },
       "platform": {
@@ -19271,7 +19230,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Latvian mid-market operators we meet still treat NIS 2 as something the Ministry of Defence handles for them through CERT.LV. CERT.LV is the friendly face, but it is not the supervisor. Enforcement and sanctions sit with the NCSC for general essential and important entities, and with the SAB for critical ICT infrastructure. Management bodies of those entities are personally accountable for approving risk management and getting their own training, under the directive level.",
         "p2": "The practical step is the same as anywhere in the EU: test applicability against the directive, notify the competent authority within the one-month window, run the four continuous duties (keep registration data current, incident notification, supply chain risk, oversight by the management body) and document the minimum. CERT.LV remains the partner for incident handling, not the place that decides whether you are in scope."
       },
       "platform": {
@@ -19405,7 +19363,6 @@
       },
       "practitioner": {
         "heading": "From practice",
-        "p1": "Most Maltese operators we meet treat NIS 2 as the next compliance file after GDPR. That is fine as a project framing. The substance is different: the directive talks about service continuity, supply chain risk and management accountability, not just personal data. The directors of a Maltese company under NIS 2 personally sign off on the risk management baseline and on their own training. That sign-off is not delegable to the parent group or to an external consultant.",
         "p2": "The practical sequence is the same across the EU: run the applicability check against the directive, register with the national competent authority once the channel is open, set up the four continuing duties (keep registration data current, incident reporting, supply chain risk, management body oversight), and document the minimum. Where CSIRTMalta or the competent authority publishes sector guidance, use it. Where they do not, the directive text and the implementing regulation are the fallback."
       },
       "platform": {
