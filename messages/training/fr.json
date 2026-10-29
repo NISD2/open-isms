@@ -2,7 +2,6 @@
   "training": {
     "title": "Registres de formation",
     "description": "Registres de formation à la cybersécurité des employés et de la direction. Exigés par l'art. 21(2)(g) NIS2 et le §38(3) BSIG.",
-    "helpText": "Consignez toutes les formations à la cybersécurité réalisées. NIS2 impose une formation de sensibilisation régulière pour tous les employés et une formation spécifique pour la direction (§38(3) BSIG - responsabilité personnelle). Suivez qui a suivi quelle formation et quand.",
     "add": "Ajouter une formation",
     "edit": "Modifier la formation",
     "empty": "Aucun registre de formation pour le moment. Ajoutez votre premier registre de formation.",
@@ -44,7 +43,6 @@
       "description": "Brève description du contenu, des objectifs et du public cible de la formation.",
       "participantName": "Nom complet de la personne ayant assisté à cette formation ou l'ayant terminée.",
       "participantRole": "Intitulé de poste ou rôle du participant au sein de l'organisation.",
-      "isManagement": "Activez s'il s'agit d'une formation de niveau direction. Le §38(3) BSIG exige une formation spécifique à la cybersécurité pour la direction, assortie d'une responsabilité personnelle.",
       "providerName": "Nom du prestataire ou de l'organisation dispensant la formation.",
       "trainerName": "Nom de l'instructeur ou de l'animateur.",
       "startedAt": "Date à laquelle le participant a commencé cette formation.",

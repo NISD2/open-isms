@@ -2,7 +2,6 @@
   "training": {
     "title": "Rejestry szkoleń",
     "description": "Rejestry szkoleń z bezpieczeństwa cybernetycznego dla pracowników i kierownictwa. Wymagane przez NIS2 Art. 21(2)(g) oraz BSIG §38(3).",
-    "helpText": "Rejestruj wszystkie ukończone szkolenia z bezpieczeństwa cybernetycznego. NIS2 nakazuje regularne szkolenia uświadamiające dla wszystkich pracowników oraz szczególne szkolenia dla kierownictwa (BSIG §38(3) - osobista odpowiedzialność). Śledź, kto ukończył jakie szkolenie i kiedy.",
     "add": "Dodaj szkolenie",
     "edit": "Edytuj szkolenie",
     "empty": "Brak rejestrów szkoleń. Dodaj swój pierwszy rejestr szkolenia.",
@@ -44,7 +43,6 @@
       "description": "Krótki opis treści szkolenia, celów i grupy docelowej.",
       "participantName": "Pełne imię i nazwisko osoby, która wzięła udział w tym szkoleniu lub je ukończyła.",
       "participantRole": "Stanowisko lub rola uczestnika w organizacji.",
-      "isManagement": "Włącz, jeśli jest to szkolenie na poziomie kierowniczym. BSIG sekcja 38(3) wymaga szczególnych szkoleń z bezpieczeństwa cybernetycznego dla kierownictwa z osobistą odpowiedzialnością.",
       "providerName": "Nazwa dostawcy szkolenia lub organizacji prowadzącej szkolenie.",
       "trainerName": "Imię i nazwisko indywidualnego instruktora lub prowadzącego.",
       "startedAt": "Data, w której uczestnik rozpoczął to szkolenie.",
