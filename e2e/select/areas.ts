@@ -17,6 +17,7 @@ export const AREAS = [
   "security",
   "auth",
   "onboarding",
+  "team",
 ] as const;
 export type Area = (typeof AREAS)[number];
 
@@ -76,6 +77,7 @@ export const SPEC_AREAS: Readonly<Record<string, readonly Area[] | "full">> = {
   "e2e/l3/sign-off-after-save.spec.ts": ["signoff"],
   "e2e/l3/signoff.spec.ts": ["signoff"],
   "e2e/l3/supplier-portal.spec.ts": ["supplier"],
+  "e2e/l3/team-invites.spec.ts": ["team"],
   "e2e/l3/team-signoff-invalidation.spec.ts": ["signoff"],
   "e2e/l4/grand-tour.spec.ts": "full",
 };
@@ -129,6 +131,11 @@ export const PATH_AREAS: ReadonlyArray<
   // Onboarding surfaces
   ["components/onboarding/", ["onboarding"]],
   ["lib/onboarding/", ["onboarding"]],
+  // The team page and the invite link. The team router, its helpers and components/team/ stay
+  // unclaimed: the walk's approval hand-off and the sign-off roster go through them.
+  ["app/[locale]/(portal)/team/", ["team"]],
+  ["app/[locale]/invite/", ["team"]],
+  ["components/invite/", ["team"]],
   // No browser spec reads these
   ["docs/", []],
   ["content/", []],

@@ -1,11 +1,11 @@
 import { ChevronDown, Clock, PlayCircle } from "lucide-react";
+import { GatedLink } from "@/components/auth/GatedLink";
 import { Art } from "@/components/durchgang/Art";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Link } from "@/i18n/navigation";
 import { loadCourse, loadLesson } from "@/lib/training/course-loader";
 
 type Locale = string;
@@ -74,7 +74,7 @@ export async function CourseOutlineList({
                     const mins = meta?.estimatedMinutes ?? 0;
 
                     return (
-                      <Link
+                      <GatedLink
                         key={lessonId}
                         href={{
                           pathname: "/training/courses/[courseId]/[lessonId]",
@@ -93,7 +93,7 @@ export async function CourseOutlineList({
                           <Clock className="size-3" />
                           {mins} min
                         </div>
-                      </Link>
+                      </GatedLink>
                     );
                   })}
                 </div>

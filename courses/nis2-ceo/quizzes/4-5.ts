@@ -217,16 +217,8 @@ const quiz = quizSchema.parse({
     {
       id: "4.5.4",
       question: {
-        en: "What is the CEO's typical role in crisis communication according to the Maersk case study?",
-        de: "Welche Rolle hat der CEO laut der Maersk-Fallstudie typischerweise in der Krisenkommunikation?",
-        nl: "Wat is de typische rol van de CEO in crisiscommunicatie volgens de casus Maersk?",
-        fr: "Quel est le rôle typique du CEO dans la communication de crise selon l'étude de cas Maersk ?",
-        it: "Qual è il ruolo tipico del CEO nella comunicazione di crisi secondo il caso di studio Maersk?",
-        es: "¿Cuál es el papel típico del CEO en la comunicación de crisis según el caso práctico de Maersk?",
-        pl: "Jaka jest typowa rola CEO w komunikacji kryzysowej według studium przypadku Maersk?",
-        cs: "Jaká je podle případové studie Maersk obvyklá role generálního ředitele v krizové komunikaci?",
-        pt: "Qual é o papel típico do diretor executivo na comunicação de crise segundo o estudo de caso da Maersk?",
-        ro: "Care este rolul tipic al directorului general în comunicarea de criză potrivit studiului de caz Maersk?",
+        en: "What is the CEO's typical role in crisis communication according to the lesson?",
+        de: "Welche Rolle hat der CEO laut der Lektion typischerweise in der Krisenkommunikation?",
       },
       options: [
         {

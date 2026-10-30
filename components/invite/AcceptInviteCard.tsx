@@ -21,7 +21,8 @@ interface Props {
   token: string;
   inviteEmail: string;
   companyName: string;
-  role: string;
+  /** The role the person is invited as, already in the reader's language. */
+  roleLabel: string;
   /** Already checked to be a same-origin path (lib/organization/invite-redirect.ts). */
   redirectPath: string;
   userEmail: string | null;
@@ -32,7 +33,7 @@ export function AcceptInviteCard({
   token,
   inviteEmail,
   companyName,
-  role,
+  roleLabel,
   redirectPath,
   userEmail,
   isSignedIn,
@@ -59,28 +60,38 @@ export function AcceptInviteCard({
     acceptMutation.mutate({ token });
   };
 
-  // Case 1: Not signed in. Route to the standard signin page, which exposes
-  // both email/password and Google. The callbackUrl returns the user to
-  // /invite/[token] so the invite is auto-resolved after auth.
+  // Case 1: Not signed in. Most people opening an invite have no account yet, so creating one
+  // comes first, with the invited address filled in: an account under any other address cannot
+  // accept it. The callbackUrl returns the person to /invite/[token] after either way in.
   if (!isSignedIn) {
-    const callbackUrl = `/invite/${token}`;
+    const query = { callbackUrl: `/invite/${token}`, email: inviteEmail };
     return (
       <CenteredCard
         title={t("accept.joinTitle", { company: companyName })}
-        description={t("accept.signInDescription", { role })}
+        description={t("accept.signInDescription", { role: roleLabel })}
       >
-        <Button asChild className="w-full" size="lg">
-          <Link
-            href={
-              {
-                pathname: "/auth/signin",
-                query: { callbackUrl },
-              } as never
-            }
-          >
-            {t("accept.signInToAccept")}
-          </Link>
-        </Button>
+        <p className="mb-4 text-center text-sm">
+          {t("accept.forAddress", { email: inviteEmail })}
+        </p>
+        <div className="space-y-2">
+          <Button asChild className="w-full" size="lg">
+            <Link
+              href={
+                {
+                  pathname: "/auth/signin",
+                  query: { ...query, mode: "register" },
+                } as never
+              }
+            >
+              {t("accept.createAccount")}
+            </Link>
+          </Button>
+          <Button asChild className="w-full" size="lg" variant="outline">
+            <Link href={{ pathname: "/auth/signin", query } as never}>
+              {t("accept.haveAccount")}
+            </Link>
+          </Button>
+        </div>
       </CenteredCard>
     );
   }
@@ -110,7 +121,7 @@ export function AcceptInviteCard({
   return (
     <CenteredCard
       title={t("accept.joinTitle", { company: companyName })}
-      description={t("accept.joinDescription", { role })}
+      description={t("accept.joinDescription", { role: roleLabel })}
     >
       <Button className="w-full" size="lg" disabled={accepting} onClick={handleAccept}>
         <UserPlus className="mr-2 h-4 w-4" />

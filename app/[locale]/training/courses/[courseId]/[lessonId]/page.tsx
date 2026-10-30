@@ -1,24 +1,58 @@
+import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { headlinesOf } from "@/app/[locale]/(portal)/durchgang/_walk/load";
+import { imageFor } from "@/app/[locale]/(portal)/durchgang/_walk/steps";
 import { GetStarted } from "@/components/GetStarted";
 import { StuckLink } from "@/components/help/StuckLink";
 import { AfterTrainingStep } from "@/components/training-portal/AfterTrainingStep";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
 import { lessonArt } from "@/lib/training/art";
+import { isCourseLesson, loadCourse, loadLesson } from "@/lib/training/course-loader";
 import { walkItemForLesson } from "@/lib/training/lesson-journey-map";
 import { api } from "@/lib/trpc/server";
 
+const MANAGEMENT_TRAINING = "nis2-ceo";
+
 /**
- * The walk item a lesson leads to, named by the walk's own headline. The NIS2 course only: the
- * other courses reuse its lesson IDs, so its map must not leak into them. The walk's gates take it
- * from there (not set up, not paid).
+ * The certificate picture on the management training's first lesson, in the reader's language
+ * where one is drawn (scripts/render-certificate-sample.tsx), else the English one.
+ */
+function certificateSampleFor(courseId: string, lessonId: string, locale: string) {
+  if (courseId !== MANAGEMENT_TRAINING || lessonId !== "0.1") return null;
+  return `/images/training/certificate-sample-${locale === "de" ? "de" : "en"}.webp`;
+}
+
+/** The tab names the lesson and the course, instead of the home page's title. */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ courseId: string; lessonId: string }>;
+}): Promise<Metadata> {
+  const [{ courseId, lessonId }, locale] = await Promise.all([params, getLocale()]);
+  // Both ids come from the URL: only a known course's current lesson is loaded (loadLesson builds
+  // an import path from the id without checking it).
+  const known = await isCourseLesson(courseId, lessonId).catch(() => false);
+  if (!known) return {};
+  const [course, lesson] = await Promise.all([
+    loadCourse(courseId),
+    loadLesson(courseId, lessonId),
+  ]);
+  return {
+    title: `${lesson.title[locale] ?? lesson.title.en} · ${course.title[locale] ?? course.title.en}`,
+  };
+}
+
+/**
+ * The walk item a lesson leads to, named by the walk's own headline and shown with its picture.
+ * The NIS2 course only: the other courses reuse its lesson IDs, so its map must not leak into
+ * them. The walk takes it from there: a locked item opens read only.
  */
 async function walkLinkFor(courseId: string, lessonId: string) {
-  const code = courseId === "nis2-ceo" ? walkItemForLesson(lessonId) : null;
+  const code = courseId === MANAGEMENT_TRAINING ? walkItemForLesson(lessonId) : null;
   if (!code) return null;
   const headline = (await headlinesOf([code])).get(code);
-  return headline ? { code, headline } : null;
+  return headline ? { code, headline, image: imageFor(code) } : null;
 }
 
 export default async function LessonRoute({
@@ -29,10 +63,11 @@ export default async function LessonRoute({
   const { courseId, lessonId } = await params;
   const locale = await getLocale();
 
-  const [lessonData, quizData, walkLink] = await Promise.all([
+  const [lessonData, quizData, walkLink, course] = await Promise.all([
     api.trainingPortal.getLesson({ courseId, lessonId, locale }),
     api.trainingPortal.getQuiz({ courseId, lessonId, locale }).catch(() => null),
     walkLinkFor(courseId, lessonId),
+    loadCourse(courseId),
   ]);
 
   // The certificate sits on each course's final lesson. It used to match the
@@ -63,7 +98,10 @@ export default async function LessonRoute({
         quiz={quizData}
         progress={lessonData.progress}
         courseId={courseId}
+        courseTitle={course.title[locale] ?? course.title.en ?? courseId}
+        showWalkCta={courseId === MANAGEMENT_TRAINING}
         image={lessonArt(courseId, lessonId)}
+        certificateSample={certificateSampleFor(courseId, lessonId, locale)}
         walkLink={walkLink}
         onSubmitQuiz={handleSubmitQuiz}
         onCompleteLesson={handleCompleteLesson}

@@ -2,7 +2,11 @@
 
 import { Loader2 } from "lucide-react";
 import { type ReactNode, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc/client";
 import { ActivityTable, UserName, when } from "./UserDialog";
 
@@ -35,6 +39,9 @@ const yesNo = (value: boolean) => (value ? "yes" : "no");
 function CompanyDialog({ id, onClose }: { id: string; onClose: () => void }) {
   const query = trpc.platformAdminUsers.company.useQuery({ id });
   const data = query.data;
+  const [assigning, setAssigning] = useState<{ userId: string; name: string } | null>(
+    null,
+  );
 
   return (
     <Dialog open onOpenChange={(open) => !open && onClose()}>
@@ -125,6 +132,19 @@ function CompanyDialog({ id, onClose }: { id: string; onClose: () => void }) {
                         <td className="py-1.5 pr-4">
                           {m.role}
                           {m.jobTitle ? ` · ${m.jobTitle}` : ""}
+                          {m.userId === data.ownerId ? (
+                            <div className="text-xs font-medium">Owner</div>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setAssigning({ userId: m.userId, name: m.name })
+                              }
+                              className="block cursor-pointer text-xs text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:text-foreground"
+                            >
+                              Make owner
+                            </button>
+                          )}
                         </td>
                         <td className="whitespace-nowrap py-1.5 pr-4">
                           {when(m.lastLoginAt)}{" "}
@@ -152,6 +172,19 @@ function CompanyDialog({ id, onClose }: { id: string; onClose: () => void }) {
               </div>
             </section>
 
+            {assigning && (
+              <AssignOwnerForm
+                companyId={id}
+                companyName={data.company.name}
+                to={assigning}
+                onDone={() => {
+                  setAssigning(null);
+                  query.refetch();
+                }}
+                onCancel={() => setAssigning(null)}
+              />
+            )}
+
             <section className="space-y-2">
               <h3 className="font-medium">
                 Activity{" "}
@@ -169,5 +202,80 @@ function CompanyDialog({ id, onClose }: { id: string; onClose: () => void }) {
         )}
       </DialogContent>
     </Dialog>
+  );
+}
+
+/**
+ * Make a member the owner when the owner cannot hand it over: gone, or no longer in the company.
+ * Only after the request was verified outside the app; the reason says how, and the company's
+ * admins and the old owner are told.
+ */
+function AssignOwnerForm({
+  companyId,
+  companyName,
+  to,
+  onDone,
+  onCancel,
+}: {
+  companyId: string;
+  companyName: string;
+  to: { userId: string; name: string };
+  onDone: () => void;
+  onCancel: () => void;
+}) {
+  const [notes, setNotes] = useState("");
+  const [confirmOrgName, setConfirmOrgName] = useState("");
+  const [tooShort, setTooShort] = useState(false);
+  const assign = trpc.platformAdminUsers.assignOwner.useMutation({ onSuccess: onDone });
+  const submit = () => {
+    // The server needs 20 characters; said here in words rather than as zod's issue list.
+    const short = notes.trim().length < 20;
+    setTooShort(short);
+    if (!short) assign.mutate({ companyId, toUserId: to.userId, notes, confirmOrgName });
+  };
+
+  return (
+    <section className="space-y-3 rounded-md border p-4" data-testid="assign-owner">
+      <h3 className="font-medium">Make {to.name} the owner</h3>
+      <p className="text-muted-foreground">
+        For a company whose owner is gone or cannot hand it over. Only after you verified
+        the request outside the app. The old owner, {to.name} and the admins are emailed,
+        and the company's activity log shows it.
+      </p>
+      <div className="space-y-1.5">
+        <Label htmlFor="assign-owner-notes">Reason and how it was verified</Label>
+        <Textarea
+          id="assign-owner-notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={3}
+        />
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="assign-owner-name">
+          Type the company name to confirm: {companyName}
+        </Label>
+        <Input
+          id="assign-owner-name"
+          value={confirmOrgName}
+          onChange={(e) => setConfirmOrgName(e.target.value)}
+        />
+      </div>
+      {tooShort ? (
+        <p className="text-destructive">
+          Write at least 20 characters: who asked, and how you verified it.
+        </p>
+      ) : (
+        assign.error && <p className="text-destructive">{assign.error.message}</p>
+      )}
+      <div className="flex justify-between gap-2">
+        <Button type="button" variant="ghost" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button type="button" disabled={assign.isPending} onClick={submit}>
+          Make owner
+        </Button>
+      </div>
+    </section>
   );
 }

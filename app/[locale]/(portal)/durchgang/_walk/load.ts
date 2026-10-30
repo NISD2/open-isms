@@ -1,5 +1,6 @@
 import "@/lib/server-guard";
 import { getLocale, getTranslations } from "next-intl/server";
+import type { ItemPreviewView } from "@/components/durchgang/ItemPreview";
 import type { HeadStart, ItemView, WalkEntry } from "@/components/durchgang/view";
 import { onRegister } from "@/lib/asset-inventory/catalog-labels";
 import { catalogueSectorsOf } from "@/lib/asset-inventory/sectors";
@@ -61,6 +62,22 @@ const dutyCitation = (
     default:
       return item.law satisfies never;
   }
+};
+
+/**
+ * The duty card's citation and the provision it opens: the BSIG in German, Czech law in Czech, the
+ * directive in English; a GDPR item its article. The item and its locked preview print the same.
+ */
+const dutyOf = (
+  item: AnyItem,
+  req: Parameters<typeof czechRefOf>[0] & Parameters<typeof dutyCitation>[1],
+  locale: WalkLocale,
+) => {
+  const czech = locale === "cs" ? czechDutyCitation(czechRefOf(req)) : null;
+  return {
+    cite: czech?.cite ?? typesetCitation(dutyCitation(item, req, locale)),
+    href: czech?.href ?? dutyHref(item.law, locale),
+  };
 };
 
 /** The caller's company and the items of this walk it walks, read off its profile; none without a company. */
@@ -265,7 +282,7 @@ export async function loadItem(code: string): Promise<ItemView | null> {
     href: row.href,
     note: row.id === "cir" ? typesetCitation(tUi("cirNote")) : null,
   }));
-  const czechDuty = locale === "cs" ? czechDutyCitation(czechRef) : null;
+  const duty = dutyOf(item, req, locale);
   // The running text that may explain a term in place: learn paragraphs, leads, missed lines.
   const prose = [
     ...words.missed,
@@ -292,10 +309,8 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       return { term: entry.term, definition: entry.definition, source: entry.legalRef };
     }),
     citations: law,
-    // The duty card cites what its text is written from: the BSIG in German, Czech law in Czech,
-    // the directive in English; a GDPR item its article. All of them stay in the rail.
-    duty: czechDuty?.cite ?? typesetCitation(dutyCitation(item, req, locale)),
-    dutyHref: czechDuty?.href ?? dutyHref(item.law, locale),
+    duty: duty.cite,
+    dutyHref: duty.href,
     gloss: glossary(prose, locale),
     screens: words.screens,
     mayDecline: item.mustDo === undefined,
@@ -330,5 +345,54 @@ export async function loadItem(code: string): Promise<ItemView | null> {
       admin: session.role === "admin",
     },
     locale,
+  };
+}
+
+const PREVIEW_SKIPS: ReadonlySet<AnyScreen["kind"]> = new Set([
+  "learn",
+  "prepare",
+  "done",
+]);
+
+/**
+ * A locked item as an account that has not ordered sees it from a direct link (a course lesson
+ * leads here): the walk's own words and the duty, read from the copy and the framework data. Of
+ * the company only its profile is read, to open just the items its walk holds (as `loadItem`
+ * does); nothing is written, so it needs neither an order nor a company set up. Null for a code
+ * in no walk or not in the company's.
+ */
+export async function loadItemPreview(code: string): Promise<ItemPreviewView | null> {
+  const walk = walkOfCode(code);
+  if (!walk) return null;
+  const { items } = await callerWalk(walk);
+  const item = items.find((i) => i.code === code);
+  if (!item) return null;
+  const [req, localeTag, words, tc] = await Promise.all([
+    api.requirement.getByCode({ code }),
+    getLocale(),
+    wordsOf(item),
+    getTranslations("compliance"),
+  ]);
+  if (!req) return null;
+  const learn = words.screens.find((s) => s.kind === "learn");
+  return {
+    framework: walk.framework,
+    code,
+    section: tc(`categories.${item.category}.name`),
+    title: words.headline,
+    image: imageFor(code),
+    learn:
+      learn?.kind === "learn"
+        ? { title: learn.copy.title, body: learn.copy.body, duty: learn.copy.duty }
+        : null,
+    duty: dutyOf(item, req, walkLocaleOf(localeTag, walk.locales)),
+    // What the item asks, in its own screen titles: the work it opens, not the work itself. The
+    // explaining screen is shown above, and "what to have ready" and the end screen are worded
+    // for someone moving through the item ("For the next step: ..."), so they are left out.
+    steps: words.screens.flatMap((s) =>
+      !PREVIEW_SKIPS.has(s.kind) && "title" in s.copy && typeof s.copy.title === "string"
+        ? [s.copy.title]
+        : [],
+    ),
   };
 }

@@ -1,43 +1,33 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq, inArray, ne, or, sql } from "drizzle-orm";
 import { z } from "zod";
-import { getPathname } from "@/i18n/navigation";
 import { logAudit } from "@/lib/audit";
 import { holderOf } from "@/lib/billing/accounts";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
-import { MANAGEMENT_ROLE, walkLocaleOf } from "@/lib/durchgang/types";
+import { MANAGEMENT_ROLE } from "@/lib/durchgang/types";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { LOCALE_CODES } from "@/lib/locale";
-import {
-  accountEmailLocale,
-  inviteEmail,
-  managementHandoffEmail,
-  memberRemovedEmail,
-  sendMail,
-} from "@/lib/mail";
-import { isSuppressedSendId } from "@/lib/mail/delivery";
-import { resolveEmailLocale } from "@/lib/mail/locale";
-import { mailSuppressionReason } from "@/lib/mail/send";
 import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
+import { isInviteExpired } from "@/lib/organization/invite-state";
 import {
   asMembershipRole,
+  companyOwnerId,
   findMembershipRole,
   isMemberOf,
   joinCompany,
   leaveCompany,
   listCompanyMembers,
   listUserCompanies,
+  lockCompanyOwner,
   openCompany,
   setMembershipJobTitle,
   setMembershipRole,
   signupDraftOf,
 } from "@/lib/organization/membership";
-import { rateLimit } from "@/lib/rate-limit";
 import {
   categoryAssignment,
-  company,
   companyAssessment,
   companyInvite,
   companyMembership,
@@ -49,10 +39,25 @@ import {
   user,
 } from "@/schema";
 import {
-  INVITE_EXPIRY_DAYS,
   invitedRoleOf,
+  inviteUrlOf,
   issueInvite,
+  renewInvite,
 } from "../helpers/company-invite";
+import {
+  authorizeResend,
+  enforceDailyInviteCap,
+  FORWARD_LIMIT,
+  INVITE_LIMIT,
+} from "../helpers/invite-limits";
+import {
+  inviteSenderOf,
+  mailManagementHandoff,
+  mailRenewedInvite,
+  mailTeamInvite,
+  managementHandoffPath,
+} from "../helpers/invite-mail";
+import { mailMemberRemoved } from "../helpers/member-removed-mail";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
 import { discardDraftCompany } from "../helpers/setup-helpers";
@@ -62,27 +67,6 @@ import {
   protectedProcedure,
   router,
 } from "../init";
-
-/** Hand-offs to management one company may send per day: a few retries above honest use. */
-const FORWARD_LIMIT = 5;
-/** Team invites one company may send per day: room to onboard a whole department in one sitting. */
-const INVITE_LIMIT = 50;
-const DAY_MS = 24 * 60 * 60 * 1000;
-
-/** Every invite mails an address someone typed in, so each kind is capped per company per day. */
-async function enforceDailyInviteCap(
-  kind: "invite" | "forward",
-  companyId: string,
-  limit: number,
-): Promise<void> {
-  if (!(await rateLimit(`team:${kind}:${companyId}`, limit, DAY_MS))) {
-    throw new TRPCError({
-      code: "TOO_MANY_REQUESTS",
-      message:
-        "Your organization has sent many of these today. Please try again tomorrow.",
-    });
-  }
-}
 
 export const teamRouter = router({
   /** List members of the current company with their category assignments */
@@ -137,15 +121,35 @@ export const teamRouter = router({
     }));
   }),
 
-  /** List pending invites for the current company (admin only) */
+  /**
+   * The current company's open invites (admin only), each saying whether its link has expired, so
+   * the team page can offer to send it again instead of listing a dead link as pending.
+   */
   listInvites: adminProcedure.query(async ({ ctx }) => {
-    return ctx.db.query.companyInvite.findMany({
+    const rows = await ctx.db.query.companyInvite.findMany({
       where: and(
         eq(companyInvite.companyId, ctx.companyId),
         eq(companyInvite.status, "pending"),
       ),
+      columns: {
+        id: true,
+        email: true,
+        token: true,
+        expiresAt: true,
+        assignmentContext: true,
+      },
       orderBy: desc(companyInvite.createdAt),
     });
+    const now = new Date();
+    return rows.map((row) => ({
+      id: row.id,
+      email: row.email,
+      // The link as the mail carries it, so a copied link is the same one.
+      inviteUrl: inviteUrlOf(row.token),
+      expiresAt: row.expiresAt,
+      expired: isInviteExpired(row.expiresAt, now),
+      role: invitedRoleOf(row.assignmentContext),
+    }));
   }),
 
   /** Create an invite link (admin only) */
@@ -183,62 +187,47 @@ export const teamRouter = router({
         assignmentContext: input.assignmentContext,
       });
 
-      // Send invite email (fire-and-forget)
-      const companyRow = await ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: { name: true },
-      });
-      const inviterName = ctx.session.user.name ?? "Your team admin";
-      const emailRole = input.complianceRole ?? "member";
-
-      // Asked before sending, not after, because the send is fire-and-forget
-      // and the answer has to reach the caller. An instance with no transport
-      // (the BOOTSTRAP_ADMIN route, where the operator never configured mail)
-      // can still create the invite — the row and the token are real — but
-      // nobody will receive it, so the UI has to say so and offer the link
-      // instead of reporting a send that did not happen.
-      const emailed = mailSuppressionReason() === null;
-      // The mail's language must never cost the invite: an unreadable account sends the default.
-      const inviterEmail = ctx.session.user.email;
-      const locale = inviterEmail
-        ? await accountEmailLocale(inviterEmail).catch(() => undefined)
-        : undefined;
-
-      inviteEmail({
-        companyName: companyRow?.name ?? "your company",
-        inviterName,
+      // Awaited: the row and the token are real either way, but only the send says whether the
+      // person will hear of it. Where it did not leave (no transport on a self-hosted instance, a
+      // failed send) the UI says so and hands over the link instead of reporting a send.
+      const emailed = await mailTeamInvite(await inviteSenderOf(ctx), {
+        to: email,
         inviteUrl,
-        role: emailRole,
-        locale,
-      })
-        .then((content) =>
-          sendMail({ emailType: "account.invite", to: email, ...content }),
-        )
-        .then((r) => {
-          // isSuppressedSendId, not r.success: a suppressed send also reports
-          // success, and an audit trail claiming "invite email sent" for mail
-          // that never left the box is worse than no line at all.
-          if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
-            logAudit({
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-              action: "email.invite_sent",
-              entityType: "email",
-              entityId: r.id ?? null,
-              description: `Invite email sent to ${email}`,
-            });
-          }
-        })
-        .catch((err) => console.error("[team] invite email not sent", err));
+        role: input.complianceRole ?? "member",
+      });
 
       return { inviteId, token, inviteUrl, emailed };
+    }),
+
+  /**
+   * Send an open invite again (admin only): seven more days, the same link while it still works
+   * and a new one once it has expired. The invite must be this company's; capped like `invite`,
+   * since every send mails an address someone typed in.
+   */
+  resendInvite: adminProcedure
+    .input(z.object({ inviteId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const renewed = await renewInvite(
+        ctx.db,
+        { inviteId: input.inviteId, companyId: ctx.companyId },
+        (invite) => authorizeResend(ctx.db, ctx, invite),
+      );
+      if (!renewed) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "This invite is no longer open.",
+        });
+      }
+
+      const emailed = await mailRenewedInvite(await inviteSenderOf(ctx), renewed);
+      return { inviteUrl: renewed.inviteUrl, emailed };
     }),
 
   /**
    * The hand-off at the walk's lock: the account holder invites management into this company to
    * decide on the order. The same invite as above, for the management role, landing on the
    * decision page; once accepted, management orders for this company's account (billing.place,
-   * `mayOrderFor`), not for a new one.
+   * `orderRightFor`), not a new one.
    *
    * Account tier rather than the paid ones: the company has not ordered yet, which is the point.
    * Holder only, because only management the holder invited may order. Capped per company, since
@@ -266,42 +255,16 @@ export const teamRouter = router({
         companyId: ctx.companyId,
         invitedBy: ctx.userId,
         email,
-        redirectPath: inviteRedirectPath(
-          getPathname({ href: "/pricing/approval", locale: input.locale }),
-        ),
+        redirectPath: managementHandoffPath(input.locale),
         complianceRole: MANAGEMENT_ROLE,
       });
 
-      const companyRow = await ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: { name: true },
-      });
-      const emailed = mailSuppressionReason() === null;
-
-      managementHandoffEmail({
-        locale: walkLocaleOf(input.locale),
-        name: input.name,
-        inviterName: ctx.session.user.name ?? null,
-        companyName: companyRow?.name ?? null,
+      const emailed = await mailManagementHandoff(await inviteSenderOf(ctx), {
+        to: email,
         inviteUrl,
-        days: INVITE_EXPIRY_DAYS,
-      })
-        .then((content) =>
-          sendMail({ emailType: "account.invite", to: email, ...content }),
-        )
-        .then((r) => {
-          if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
-            logAudit({
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-              action: "email.invite_sent",
-              entityType: "email",
-              entityId: r.id ?? null,
-              description: `Management invite email sent to ${email}`,
-            });
-          }
-        })
-        .catch((err) => console.error("[team] management invite email not sent", err));
+        name: input.name,
+        locale: input.locale,
+      });
 
       return { emailed };
     }),
@@ -348,7 +311,7 @@ export const teamRouter = router({
         });
       }
 
-      if (invite.expiresAt < new Date()) {
+      if (isInviteExpired(invite.expiresAt, new Date())) {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "This invite has expired.",
@@ -379,6 +342,22 @@ export const teamRouter = router({
       });
 
       await ctx.db.transaction(async (tx) => {
+        // Claimed first, and only while still open: a withdrawal that lands after the read above
+        // wins, and nobody joins on a withdrawn invite.
+        const [claimed] = await tx
+          .update(companyInvite)
+          .set({ status: "accepted", acceptedBy: ctx.userId, acceptedAt: new Date() })
+          .where(
+            and(eq(companyInvite.id, invite.id), eq(companyInvite.status, "pending")),
+          )
+          .returning({ id: companyInvite.id });
+        if (!claimed) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Invite not found or already used.",
+          });
+        }
+
         // An existing member keeps their role; the invite does not change it. Otherwise the invite
         // row's free-text role falls back to the least privileged one a membership can hold, and
         // an invite for a compliance role (management, asked to approve the walk's documents)
@@ -400,15 +379,6 @@ export const teamRouter = router({
             });
           }
         }
-
-        await tx
-          .update(companyInvite)
-          .set({
-            status: "accepted",
-            acceptedBy: ctx.userId,
-            acceptedAt: new Date(),
-          })
-          .where(eq(companyInvite.id, invite.id));
       });
 
       // Discard the now-abandoned draft shell when nobody else is in it (best-effort, post-commit,
@@ -421,6 +391,17 @@ export const teamRouter = router({
           console.error("[team.acceptInvite] draft discard skipped:", err);
         }
       }
+
+      // Filed under the company joined. The automatic row goes under the session's company, which
+      // for a new account is the draft just discarded: that write fails, and no joining was logged.
+      logAudit({
+        companyId: invite.companyId,
+        userId: ctx.userId,
+        action: "team.invite_accepted",
+        entityType: "team",
+        entityId: invite.id,
+        description: `Invite accepted by ${invite.email}`,
+      });
 
       // Auto-assign based on the invite's assignment context
       if (invite.assignmentContext) {
@@ -483,15 +464,6 @@ export const teamRouter = router({
         });
       }
 
-      // With several admins, another admin could otherwise remove the person who created the
-      // organization and take it over.
-      if ((await companyOwnerId(ctx.db, ctx.companyId)) === input.userId) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "The person who created the organization cannot be removed.",
-        });
-      }
-
       const assessments = await ctx.db.query.companyAssessment.findMany({
         where: eq(companyAssessment.companyId, ctx.companyId),
         columns: { id: true },
@@ -502,6 +474,13 @@ export const teamRouter = router({
       // partway through left a member stripped of their categories and
       // sign-off rows who still had access to the company.
       await ctx.db.transaction(async (tx) => {
+        // Else another admin could remove the owner, or the member just accepting a handover.
+        if ((await lockCompanyOwner(tx, ctx.companyId)) === input.userId) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "The owner of the organization cannot be removed.",
+          });
+        }
         if (assessmentIds.length > 0) {
           await tx
             .delete(categoryAssignment)
@@ -582,33 +561,12 @@ export const teamRouter = router({
         await leaveCompany(tx, { userId: input.userId, companyId: ctx.companyId });
       });
 
-      // Notify removed member (fire-and-forget)
-      const companyRow = await ctx.db.query.company.findFirst({
-        where: eq(company.id, ctx.companyId),
-        columns: { name: true },
+      await mailMemberRemoved({
+        db: ctx.db,
+        companyId: ctx.companyId,
+        actorId: ctx.userId,
+        member,
       });
-
-      memberRemovedEmail({
-        companyName: companyRow?.name ?? "your company",
-        memberName: member.name,
-        locale: resolveEmailLocale(member.locale, null),
-      })
-        .then((content) =>
-          sendMail({ emailType: "account.member_removed", to: member.email, ...content }),
-        )
-        .then((r) => {
-          if (r.success) {
-            logAudit({
-              companyId: ctx.companyId,
-              userId: ctx.userId,
-              action: "email.member_removed",
-              entityType: "email",
-              entityId: r.id ?? null,
-              description: `Removal email sent to ${member.email}`,
-            });
-          }
-        })
-        .catch((err) => console.error("[team] removal email not sent", err));
 
       // Losing a member changes who holds which role, which is the evidence
       // behind requirement 1.2. Every other module reverts its requirements
@@ -624,7 +582,7 @@ export const teamRouter = router({
 
   /**
    * Change a member's access role (admin only), so an organization can have a backup admin. The
-   * person who created the organization always stays an admin, and there is always at least one.
+   * owner always stays an admin, and there is always at least one.
    */
   setMemberRole: adminProcedure
     .input(
@@ -634,9 +592,8 @@ export const teamRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const ownerId = await companyOwnerId(ctx.db, ctx.companyId);
-
       return ctx.db.transaction(async (tx) => {
+        const ownerId = await lockCompanyOwner(tx, ctx.companyId);
         // Locking the admin rows serializes two admins demoting each other at once, which could
         // otherwise leave the organization with none.
         const admins = await tx
@@ -666,7 +623,7 @@ export const teamRouter = router({
           if (input.userId === ownerId) {
             throw new TRPCError({
               code: "FORBIDDEN",
-              message: "The person who created the organization stays an admin.",
+              message: "The owner of the organization stays an admin.",
             });
           }
           if (admins.length <= 1) {
@@ -762,18 +719,6 @@ export const teamRouter = router({
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-/** The person who created the organization, or null once they are gone. */
-async function companyOwnerId(
-  db: import("@/lib/db").DbOrTx,
-  companyId: string,
-): Promise<string | null> {
-  const row = await db.query.company.findFirst({
-    where: eq(company.id, companyId),
-    columns: { ownerId: true },
-  });
-  return row?.ownerId ?? null;
-}
 
 const batchAssignmentSchema = z.object({
   roleKeys: z.array(z.string()),

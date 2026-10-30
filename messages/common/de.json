@@ -1,5 +1,12 @@
 {
   "common": {
+    "adsConsent": {
+      "label": "Werbemessung",
+      "body": "Mit Ihrem Ja messen wir, ob eine Google-Anzeige zu einer Registrierung führt. Dafür speichert Google Cookies und erhält Ihre IP-Adresse.",
+      "more": "Mehr dazu",
+      "decline": "Ablehnen",
+      "accept": "Zustimmen"
+    },
     "save": "Speichern",
     "saving": "Speichern...",
     "cancel": "Abbrechen",

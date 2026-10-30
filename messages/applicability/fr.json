@@ -88,10 +88,8 @@
       "incidentReportingInfo": "Les incidents de sécurité importants doivent être notifiés au BSI en trois étapes : (1) Alerte précoce dans les 24 heures - cause présumée et impact transfrontalier, (2) Notification actualisée dans les 72 heures - gravité, impact, indicateurs de compromission, (3) Rapport final dans un délai d'1 mois - cause profonde, mesures d'atténuation, étapes préventives.",
       "managementLiability": "Responsabilité de la direction",
       "managementLiabilityValue": "Responsabilité personnelle des membres de la direction (article 38 BSIG)",
-      "managementLiabilityInfo": "Les membres de la direction (Vorstand/Geschäftsführer) sont personnellement responsables de la conformité à NIS2. Trois obligations : (1) approuver formellement les mesures de cybersécurité, (2) surveiller activement leur mise en œuvre, (3) suivre la formation obligatoire en cybersécurité. Cette responsabilité ne peut être levée par les actionnaires. Une assurance D&O ne supprime pas les obligations légales.",
       "managementTraining": "Formation de la direction",
       "managementTrainingValue": "Formation obligatoire en cybersécurité tous les 3 ans",
-      "managementTrainingInfo": "Tous les membres de l'organe de direction doivent personnellement participer à une formation en cybersécurité au moins tous les 3 ans. Cette obligation ne peut être déléguée à un CISO ou à un service informatique. Le non-respect contribue à la responsabilité personnelle au titre de l'article 38 BSIG.",
 
       "cta": "Réserver une présentation guidée",
       "ctaVoluntary": "Réserver quand même une présentation guidée",

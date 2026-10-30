@@ -171,6 +171,17 @@ export const assetMfaMethodEnum = pgEnum("asset_mfa_method", [
  */
 export const assetHostingEnum = pgEnum("asset_hosting", ["in_house", "cloud"]);
 
+/**
+ * How long something may be down, or takes to come back, on one coarse scale (BSI-Standard 200-4
+ * p. 162, the entry level: an estimate is enough). Ordered shortest first, so the position in this
+ * list is the rank a comparison uses. Both sides of the 4.2/4.4 comparison use this one scale:
+ * how long a process may be down at most (its MTPD) and how long a restore takes. A finer scale
+ * later adds members here and nothing else.
+ */
+export const OUTAGE_SPANS = ["hours", "day", "three_days", "week", "longer"] as const;
+export type OutageSpan = (typeof OUTAGE_SPANS)[number];
+export const outageSpanEnum = pgEnum("outage_span", OUTAGE_SPANS);
+
 export const assetServiceTypeEnum = pgEnum("asset_service_type", [
   "saas",
   "on_prem",

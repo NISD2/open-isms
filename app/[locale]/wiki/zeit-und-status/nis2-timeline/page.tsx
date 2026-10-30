@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WalkHow } from "@/components/wiki/WalkHow";
 import { WalkPriceCard } from "@/components/wiki/WalkPriceCard";
-import { WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
+import { WikiAnswerActions, WikiAnswerHeader } from "@/components/wiki/WikiAnswerHeader";
 import { type WikiDate, WikiDates } from "@/components/wiki/WikiDates";
 import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
@@ -53,9 +53,10 @@ export default async function NIS2TimelinePage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = wikiLocale(rawLocale);
-  const [t, w] = await Promise.all([
+  const [t, w, links] = await Promise.all([
     getTranslations("info.nis2Timeline"),
     getTranslations("info.wikiWalk"),
+    getTranslations("wikiLinks"),
   ]);
   const faq = t.raw("faq.items") as WikiQuestion[];
 
@@ -79,6 +80,7 @@ export default async function NIS2TimelinePage({
           title={t("title")}
           answer={t("subtitle")}
           art="/images/durchgang/12_3.svg"
+          actions={null}
         />
 
         <WikiPageMeta
@@ -90,11 +92,19 @@ export default async function NIS2TimelinePage({
 
         <Separator />
 
+        <WikiSection heading={t("news.heading")} paragraphs={[t("news.lead")]}>
+          <Timeline id="nis2" />
+        </WikiSection>
+
         <WikiDates
           heading={t("company.heading")}
           lead={t("company.lead")}
           items={t.raw("company.items") as WikiDate[]}
-        />
+        >
+          <WikiMoreLink href="/wiki/troubleshooting/nis2-registrierung-verpasst">
+            {links("registration")}
+          </WikiMoreLink>
+        </WikiDates>
 
         <WikiDates
           heading={t("eu.heading")}
@@ -105,6 +115,10 @@ export default async function NIS2TimelinePage({
             {t("eu.link")}
           </WikiMoreLink>
         </WikiDates>
+
+        <div>
+          <WikiAnswerActions />
+        </div>
 
         <WikiSection
           heading={t("size.heading")}
@@ -128,10 +142,6 @@ export default async function NIS2TimelinePage({
         />
 
         <WikiFaq heading={t("faq.heading")} items={faq} />
-
-        <WikiSection heading={t("news.heading")} paragraphs={[t("news.lead")]}>
-          <Timeline id="nis2" />
-        </WikiSection>
 
         <WikiSources
           heading={t("sources.heading")}

@@ -5,10 +5,10 @@ import {
   hasGotIn,
   isGrandfatheredPerson,
   mayOpenPortalPath,
-  mayOrderFor,
   mayWalkDurchgang,
   newAccountAccessLevel,
   OFFER_PATH,
+  orderRightFor,
   unpaidAccessLevel,
   walkLockFor,
 } from "./access";
@@ -156,70 +156,79 @@ describe("walkLockFor", () => {
   });
 });
 
-describe("mayOrderFor", () => {
+describe("orderRightFor", () => {
   const holder = "holder-id";
   const fromHolder = { invitedBy: holder, role: "ceo" } as const;
+  const keeps = { may: true, becomesPayer: false } as const;
+  const takesOver = { may: true, becomesPayer: true } as const;
+  const refused = { may: false } as const;
+  // Someone on a paid account who holds nothing and administers none of its organizations: each
+  // test changes what it is about.
+  const base = {
+    userId: "gf-id",
+    holderUserId: holder,
+    adminOfAccount: false,
+    jobTitle: null,
+    invite: null,
+    unpaid: false,
+  } as const;
 
-  test("the account holder orders", () => {
-    expect(
-      mayOrderFor({ userId: holder, holderUserId: holder, jobTitle: null, invite: null }),
-    ).toBe(true);
+  test("the account holder orders and stays the payer", () => {
+    expect(orderRightFor({ ...base, userId: holder })).toEqual(keeps);
+    expect(orderRightFor({ ...base, userId: holder, unpaid: true })).toEqual(keeps);
   });
 
-  test("management the holder invited orders for the same account", () => {
-    expect(
-      mayOrderFor({
-        userId: "gf-id",
-        holderUserId: holder,
-        jobTitle: "ceo",
-        invite: fromHolder,
-      }),
-    ).toBe(true);
+  test("management the holder invited orders for the same account; the holder stays the payer", () => {
+    expect(orderRightFor({ ...base, jobTitle: "ceo", invite: fromHolder })).toEqual(
+      keeps,
+    );
   });
 
   test("the management role alone is not enough: an admin can give it to anyone", () => {
+    expect(orderRightFor({ ...base, jobTitle: "ceo" })).toEqual(refused);
     expect(
-      mayOrderFor({
-        userId: "gf-id",
-        holderUserId: holder,
-        jobTitle: "ceo",
-        invite: null,
-      }),
-    ).toBe(false);
-    expect(
-      mayOrderFor({
-        userId: "gf-id",
-        holderUserId: holder,
+      orderRightFor({
+        ...base,
         jobTitle: "ceo",
         invite: { invitedBy: "admin-id", role: "ceo" },
       }),
-    ).toBe(false);
+    ).toEqual(refused);
   });
 
   test("the holder's invite must have been for management, and the role still held", () => {
     expect(
-      mayOrderFor({
-        userId: "member-id",
-        holderUserId: holder,
+      orderRightFor({
+        ...base,
         jobTitle: "ceo",
         invite: { invitedBy: holder, role: null },
       }),
-    ).toBe(false);
+    ).toEqual(refused);
     for (const jobTitle of [null, "ciso", "dpo"]) {
-      expect(
-        mayOrderFor({
-          userId: "gf-id",
-          holderUserId: holder,
-          jobTitle,
-          invite: fromHolder,
-        }),
-      ).toBe(false);
+      expect(orderRightFor({ ...base, jobTitle, invite: fromHolder })).toEqual(refused);
     }
   });
 
-  test("an account without a holder takes no order", () => {
+  test("while nobody has paid, an admin of every organization on it orders and becomes the payer", () => {
+    expect(orderRightFor({ ...base, adminOfAccount: true, unpaid: true })).toEqual(
+      takesOver,
+    );
     expect(
-      mayOrderFor({ userId: "gf-id", holderUserId: null, jobTitle: "ceo", invite: null }),
-    ).toBe(false);
+      orderRightFor({ ...base, adminOfAccount: true, unpaid: true, holderUserId: null }),
+    ).toEqual(takesOver);
+  });
+
+  test("once paid, an admin who is not the payer does not order", () => {
+    expect(orderRightFor({ ...base, adminOfAccount: true })).toEqual(refused);
+  });
+
+  test("an unpaid account takes no order from someone who is not an admin of all its organizations", () => {
+    // A member, a reviewer, or an admin of only one of a consultant's client organizations.
+    expect(orderRightFor({ ...base, unpaid: true })).toEqual(refused);
+  });
+
+  test("an account without a holder takes no order from management", () => {
+    expect(orderRightFor({ ...base, holderUserId: null, jobTitle: "ceo" })).toEqual(
+      refused,
+    );
   });
 });

@@ -5,17 +5,23 @@
  */
 import { randomBytes } from "node:crypto";
 import { TRPCError } from "@trpc/server";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { ALL_ROLE_KEYS, type RoleKey } from "@/lib/compliance/role-keys";
 import type { Database, DbOrTx } from "@/lib/db";
+import { INVITE_EXPIRY_DAYS, reusableInviteToken } from "@/lib/organization/invite-state";
 import { isMemberOf } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import { companyInvite, user } from "@/schema";
 import { verifyAssessmentOwnership } from "../guards";
 import { resolveRoleAssignments } from "./resolve-role-assignments";
 
-export const INVITE_EXPIRY_DAYS = 7;
+export const newInviteToken = (): string => randomBytes(32).toString("hex");
+
+export const inviteExpiryFrom = (now: Date): Date =>
+  new Date(now.getTime() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+
+export const inviteUrlOf = (token: string): string => `${getAppUrl()}/invite/${token}`;
 
 const batchAssignmentSchema = z.object({
   roleKeys: z.array(z.string()),
@@ -29,6 +35,23 @@ export const invitedRoleOf = (raw: unknown): RoleKey | null => {
   const role = z.enum(ALL_ROLE_KEYS).safeParse(only);
   return role.success && rest.length === 0 ? role.data : null;
 };
+
+/**
+ * Refuses an address that already belongs to the company. Someone in another organization can be
+ * invited: accepting adds a membership and leaves their other organizations as they are.
+ */
+async function assertNotMember(db: Database, companyId: string, email: string) {
+  const alreadyMember = await db.query.user.findFirst({
+    where: and(eq(user.email, email), isMemberOf(db, companyId)),
+    columns: { id: true },
+  });
+  if (alreadyMember) {
+    throw new TRPCError({
+      code: "CONFLICT",
+      message: "This person is already a member of your company.",
+    });
+  }
+}
 
 /**
  * Create or renew the invite for one address into one company. The caller has already established
@@ -57,19 +80,7 @@ export async function issueInvite(
   readonly inviteUrl: string;
 }> {
   const email = input.email.toLowerCase();
-
-  // Someone who belongs to another organization can be invited too: accepting adds a membership
-  // and leaves their other organizations as they are.
-  const alreadyMember = await db.query.user.findFirst({
-    where: and(eq(user.email, email), isMemberOf(db, input.companyId)),
-    columns: { id: true },
-  });
-  if (alreadyMember) {
-    throw new TRPCError({
-      code: "CONFLICT",
-      message: "This person is already a member of your company.",
-    });
-  }
+  await assertNotMember(db, input.companyId, email);
 
   // Audit H-1 (2026-06-10): the single-format assignmentContext flows into a
   // `(assessmentId, categoryId)` upsert at accept time. Without an ownership check, an admin in
@@ -100,17 +111,31 @@ export async function issueInvite(
       }
     : (input.assignmentContext ?? null);
 
-  const token = randomBytes(32).toString("hex");
-  const expiresAt = new Date(Date.now() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+  // One row per company and address. Inviting the address again to the same place keeps a
+  // still-working link, so the mail the person already has keeps working and keeps meaning what it
+  // said. An invite to somewhere else (a hand-off, then a plain team invite) gets a new link.
+  const now = new Date();
+  const existing = await db.query.companyInvite.findFirst({
+    where: and(
+      eq(companyInvite.companyId, input.companyId),
+      eq(companyInvite.email, email),
+    ),
+    columns: { token: true, status: true, expiresAt: true, redirectPath: true },
+  });
+  const kept =
+    existing?.redirectPath === input.redirectPath
+      ? reusableInviteToken(existing, now)
+      : null;
+  const fresh = newInviteToken();
+  const expiresAt = inviteExpiryFrom(now);
 
-  // Upsert: if a pending invite exists for this email+company, reset it
   const [invite] = await db
     .insert(companyInvite)
     .values({
       companyId: input.companyId,
       invitedBy: input.invitedBy,
       email,
-      token,
+      token: fresh,
       expiresAt,
       redirectPath: input.redirectPath,
       assignmentContext,
@@ -118,7 +143,11 @@ export async function issueInvite(
     .onConflictDoUpdate({
       target: [companyInvite.companyId, companyInvite.email],
       set: {
-        token,
+        // Decided again in the write: an invite withdrawn since it was read gets the new link, so a
+        // withdrawal racing this re-invite cannot bring its link back.
+        token: kept
+          ? sql`CASE WHEN ${companyInvite.status} = 'pending' AND ${companyInvite.token} = ${kept} THEN ${companyInvite.token} ELSE ${fresh} END`
+          : fresh,
         expiresAt,
         invitedBy: input.invitedBy,
         status: "pending",
@@ -128,10 +157,74 @@ export async function issueInvite(
         assignmentContext,
       },
     })
-    .returning({ id: companyInvite.id });
+    .returning({ id: companyInvite.id, token: companyInvite.token });
   if (!invite) throw new Error("company invite upsert returned no row");
 
-  return { inviteId: invite.id, token, inviteUrl: `${getAppUrl()}/invite/${token}` };
+  return {
+    inviteId: invite.id,
+    token: invite.token,
+    inviteUrl: inviteUrlOf(invite.token),
+  };
+}
+
+/** An open invite renewed for sending again. */
+export interface RenewedInvite {
+  readonly email: string;
+  readonly inviteUrl: string;
+  readonly role: RoleKey | null;
+  /** Where accepting lands, which tells a hand-off to management from a team invite. */
+  readonly redirectPath: string | null;
+}
+
+/**
+ * Send an open invite of this company again: seven more days from now, the same link while it
+ * still works and a new one once it has expired. Who sent it first stays recorded, because that
+ * decides who may order for the company (`acceptedInviteOf`). Null for an invite that is not this
+ * company's or no longer open; refused for someone who has joined meanwhile. `authorize` sees the
+ * invite before anything is written, so the caller can apply the rules of the kind it is.
+ */
+export async function renewInvite(
+  db: Database,
+  input: { readonly inviteId: string; readonly companyId: string },
+  authorize: (invite: { readonly redirectPath: string | null }) => Promise<void>,
+): Promise<RenewedInvite | null> {
+  const open = and(
+    eq(companyInvite.id, input.inviteId),
+    eq(companyInvite.companyId, input.companyId),
+    eq(companyInvite.status, "pending"),
+  );
+  const invite = await db.query.companyInvite.findFirst({
+    where: open,
+    columns: {
+      token: true,
+      status: true,
+      expiresAt: true,
+      email: true,
+      assignmentContext: true,
+      redirectPath: true,
+    },
+  });
+  if (!invite) return null;
+  await assertNotMember(db, input.companyId, invite.email);
+  await authorize(invite);
+
+  const now = new Date();
+  const token = reusableInviteToken(invite, now) ?? newInviteToken();
+  const [renewed] = await db
+    .update(companyInvite)
+    .set({ token, expiresAt: inviteExpiryFrom(now) })
+    // Re-checked in the write: withdrawn, accepted or invited again with another link since it was
+    // read means this send is no longer the latest, and nothing is sent.
+    .where(and(open, eq(companyInvite.token, invite.token)))
+    .returning({ id: companyInvite.id });
+  if (!renewed) return null;
+
+  return {
+    email: invite.email,
+    inviteUrl: inviteUrlOf(token),
+    role: invitedRoleOf(invite.assignmentContext),
+    redirectPath: invite.redirectPath,
+  };
 }
 
 /**

@@ -6,8 +6,9 @@
  *   - The invoices and cancelling are for the account holder (`billing_account.ownerUserId`), the
  *     person who pays. Not for company admins: any admin may add an organization and is its
  *     admin, so a company role says nothing about who may put the account on an invoice.
- *   - Ordering is for the holder, and for management the holder invited into the company to
- *     decide (`mayOrderFor`): its order lands on this same account.
+ *   - Ordering is for the holder, for management the holder invited into the company to decide,
+ *     and for any admin of the company while nobody has paid for the account, who then becomes
+ *     its holder (`orderRightFor`). The order always lands on this same account.
  *   - On top of that, `billingFor` decides: nobody while Qonto is not set up, platform admins
  *     whenever it is, everyone else only with live keys.
  *
@@ -18,8 +19,8 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
-import { mayOrderFor } from "@/lib/billing/access";
 import { billingStateFor, waiveMoneyBack } from "@/lib/billing/account-facts";
+import { findActiveInvoice } from "@/lib/billing/account-invoices";
 import { verdictFor } from "@/lib/billing/account-state";
 import {
   cancelAuditDescription,
@@ -35,7 +36,7 @@ import {
 import { hasOrderCheck } from "@/lib/billing/order-check";
 import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
 import { billingFor } from "@/lib/billing/ordering-access";
-import { findActiveInvoice, placeOrder } from "@/lib/billing/place-order";
+import { placeOrder } from "@/lib/billing/place-order";
 import { getInvoice } from "@/lib/billing/qonto";
 import { quoteFor } from "@/lib/billing/quote";
 import { TERMS_VERSION } from "@/lib/billing/terms";
@@ -46,7 +47,12 @@ import { isLocaleCode } from "@/lib/locale";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
 import { billingAccount, company, creditNote, invoice, user } from "@/schema";
-import { acceptedInviteOf } from "../helpers/company-invite";
+import {
+  companiesOf,
+  orderFactsHere,
+  orderRightHere,
+  payerNameOf,
+} from "../helpers/order-right";
 import { accountProcedure, router } from "../init";
 
 const accountOf = async (db: DbOrTx, companyId: string) => {
@@ -74,41 +80,21 @@ const payerProcedure = accountProcedure.use(async ({ ctx, next }) => {
   return next({ ctx: { ...ctx, account } });
 });
 
-/** Whether the caller may order for the open company's account (lib/billing/access.ts). */
-const mayOrderHere = async (
-  db: DbOrTx,
-  ctx: {
-    readonly companyId: string;
-    readonly userId: string;
-    readonly jobTitle: string | null;
-  },
-  holderUserId: string | null,
-): Promise<boolean> =>
-  mayOrderFor({
-    userId: ctx.userId,
-    holderUserId,
-    jobTitle: ctx.jobTitle,
-    invite:
-      holderUserId === ctx.userId
-        ? null
-        : await acceptedInviteOf(db, { companyId: ctx.companyId, userId: ctx.userId }),
-  });
-
 /** The open company's billing account, for whoever may order for it. */
 const ordererProcedure = accountProcedure.use(async ({ ctx, next }) => {
   const account = await accountOf(ctx.db, ctx.companyId);
-  const may = await mayOrderHere(
-    ctx.db,
-    { companyId: ctx.companyId, userId: ctx.userId, jobTitle: ctx.session.jobTitle },
-    account.ownerUserId,
+  const right = orderRightHere(
+    { userId: ctx.userId, jobTitle: ctx.session.jobTitle },
+    account,
+    await orderFactsHere(ctx.db, ctx, account),
   );
-  if (!may) {
+  if (!right.may) {
     throw new TRPCError({
       code: "FORBIDDEN",
-      message: "Only the account holder or the management they invited.",
+      message: "Only the person who pays for this account, or management they invited.",
     });
   }
-  return next({ ctx: { ...ctx, account } });
+  return next({ ctx: { ...ctx, account, becomesPayer: right.becomesPayer } });
 });
 
 /** The page's language. It only ever picks a number format (formatReaderEuro). */
@@ -171,20 +157,34 @@ export const billingRouter = router({
     const now = new Date();
     const active = await findActiveInvoice(ctx.db, account.id, now);
     const isPayer = account.ownerUserId === ctx.userId;
-    const mayOrder = await mayOrderHere(
-      ctx.db,
-      { companyId: ctx.companyId, userId: ctx.userId, jobTitle: ctx.session.jobTitle },
-      account.ownerUserId,
+    const facts = await orderFactsHere(ctx.db, ctx, account);
+    const right = orderRightHere(
+      { userId: ctx.userId, jobTitle: ctx.session.jobTitle },
+      account,
+      facts,
     );
     const pending = await hasOrderCheck(ctx.db, account.id);
     const netCents = ANNUAL_NET_CENTS;
     return {
       mode: mode.kind,
       open,
-      canOrder: open && mayOrder && !active && !pending,
+      canOrder: open && right.may && !active && !pending,
       isPayer,
-      /** The holder, or management the holder invited (`mayOrderFor`). */
-      mayOrder,
+      /** The holder, management the holder invited, or an admin while unpaid (`orderRightFor`). */
+      mayOrder: right.may,
+      /** Ordering makes the caller the account's payer: nobody has paid for it yet. */
+      becomesPayer: right.may && right.becomesPayer,
+      /** Whether the account was ever invoiced: a page with nothing to account for is the offer. */
+      invoiced: facts.invoiced,
+      /**
+       * An admin here who cannot order because the account also holds organizations they do not
+       * administer, so the page names the holder rather than telling them to ask an admin.
+       */
+      sharedAccount: !right.may && ctx.session.role === "admin" && !facts.adminOfAccount,
+      /** Who pays, by name, so a page that cannot offer the order says whom to ask. */
+      payerName: isPayer ? null : await payerNameOf(ctx.db, account.ownerUserId),
+      /** The organizations this account pays for, shown to its payer only. */
+      companies: isPayer ? await companiesOf(ctx.db, account.id) : null,
       /** An earlier order is being checked in Qonto; ordering waits for that. */
       orderPending: pending,
       accessLevel: account.accessLevel,
@@ -367,8 +367,21 @@ export const billingRouter = router({
         expectedGrossCents: input.quotedGrossCents,
         netCentsOverride: null,
         terms: { version: input.terms.version, acceptedByUserId: ctx.userId },
+        newPayerUserId: ctx.becomesPayer ? ctx.userId : null,
       });
       if (outcome.ok) {
+        if (ctx.becomesPayer) {
+          await logAudit({
+            companyId: ctx.companyId,
+            userId: ctx.userId,
+            action: "billing.payer_changed",
+            entityType: "billing_account",
+            entityId: ctx.account.id,
+            description: `Became the payer with the first order, invoice ${outcome.number}; the account had no invoice before`,
+            ipAddress: ctx.ip,
+            userAgent: ctx.userAgent,
+          });
+        }
         return {
           number: outcome.number,
           gross: formatReaderEuro(outcome.grossCents, input.locale),

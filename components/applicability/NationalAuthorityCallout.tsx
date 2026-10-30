@@ -2,6 +2,7 @@ import { ArrowUpRight, Building2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
+import { readerCountry } from "@/lib/applicability/reader-country";
 import { getRegistrationPortals } from "@/lib/registration-portals";
 
 const FEATURED_COUNTRIES = [
@@ -53,9 +54,7 @@ export async function NationalAuthorityCallout({
 
   // Re-order so the highlighted country comes first. Stable for the rest. A Czech reader with no
   // country chosen sees NÚKIB first rather than the BSI.
-  const highlight = (
-    highlightCountry ?? (locale === "cs" ? "CZ" : undefined)
-  )?.toUpperCase();
+  const highlight = readerCountry(locale, highlightCountry);
   const featured = highlight
     ? [
         ...featuredList.filter((p) => p.countryCode === highlight),

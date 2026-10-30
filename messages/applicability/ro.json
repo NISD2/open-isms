@@ -88,10 +88,8 @@
       "incidentReportingInfo": "Incidentele de securitate semnificative trebuie raportate la BSI în trei etape: (1) Avertizare timpurie în termen de 24 de ore, cu cauza suspectată și impactul transfrontalier, (2) Notificare actualizată în termen de 72 de ore, cu gravitatea, impactul și indicatorii de compromitere, (3) Raport final în termen de 1 lună, cu cauza-rădăcină, măsurile de atenuare și pașii preventivi.",
       "managementLiability": "Răspunderea conducerii",
       "managementLiabilityValue": "Răspundere personală pentru membrii organului de conducere (articolul 38 BSIG)",
-      "managementLiabilityInfo": "Membrii organului de conducere (Vorstand/Geschäftsführer) răspund personal pentru conformitatea cu NIS2. Trei obligații: (1) aprobarea formală a măsurilor de securitate cibernetică, (2) monitorizarea activă a implementării, (3) absolvirea instruirii obligatorii în securitate cibernetică. Răspunderea nu poate fi exclusă de către acționari. Asigurarea D&O nu înlătură obligațiile legale.",
       "managementTraining": "Instruirea conducerii",
       "managementTrainingValue": "Instruire obligatorie în securitate cibernetică la fiecare 3 ani",
-      "managementTrainingInfo": "Toți membrii organului de conducere trebuie să participe personal la instruire în securitate cibernetică cel puțin la fiecare 3 ani. Această obligație nu poate fi delegată unui CISO sau departamentului IT. Nerespectarea contribuie la răspunderea personală prevăzută la articolul 38 BSIG.",
 
       "cta": "Rezervați o prezentare ghidată",
       "ctaVoluntary": "Rezervați oricum o prezentare ghidată",

@@ -1,0 +1,9 @@
+{
+  "privacyAds": {
+    "consent": "Your answer to the ad measurement question (accept or decline) is kept in your browser's local storage, so we do not ask again",
+    "heading": "Ad measurement with Google Ads (only with your consent)",
+    "tag": "If you arrive from a Google ad and agree, we load the Google Ads measurement tag (Google Ireland Limited, Ireland). Google then receives your IP address and the address of the page, and the tag stores cookies whose names start with _gcl_ (among them _gcl_aw, holding the ad's click ID, and _gcl_au, both valid for 90 days). If you later click \"register\", we load the tag there too and report to Google the click ID and that registration was started. We do not send your name or email address. This tells us whether an ad led to a registration. We never load it on pages whose address is itself an access key (such as invitation links). Google processes the data under its own terms and may transfer it to the USA; details are in Google's privacy policy and in the Google Ads data processing terms.",
+    "asked": "We only ask visitors who arrive with the click ID of a Google ad, and anyone who opens \"Cookie settings\" in the footer. Everyone else is not asked, because only the technically necessary cookies are set.",
+    "basis": "The legal basis is your consent (Art. 6(1)(a) GDPR, Section 25(1) TDDDG). You can withdraw it at any time under \"Cookie settings\" in the footer. We then stop measuring, in other open tabs too, and delete this site's _gcl_ cookies in your browser. What Google received up to then stays with Google. Processing up to that point stays lawful."
+  }
+}

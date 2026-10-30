@@ -22,7 +22,9 @@
       "data_store": "Armazenamento de Dados",
       "ot_ics": "OT / ICS",
       "iot": "IoT",
-      "physical": "Físico"
+      "physical": "Físico",
+      "process": "Processo de negócio",
+      "room": "Sala"
     },
     "typeDescriptions": {
       "application": "Aplicações de negócio (ERP, CRM, email)",
@@ -34,7 +36,8 @@
       "data_store": "Partilhas de ficheiros, cópias de segurança, arquivos",
       "ot_ics": "SCADA, PLC, controladores industriais",
       "iot": "Dispositivos IoT, sensores",
-      "physical": "Edifícios, salas, infraestruturas"
+      "physical": "Edifícios, salas, infraestruturas",
+      "process": "Vendas, produção, salários"
     },
     "fields": {
       "name": "Nome do Ativo",
@@ -63,6 +66,9 @@
       "lastBackupTestDate": "Último Teste de Cópia de Segurança",
       "rto": "RTO (horas)",
       "rpo": "RPO (horas)",
+      "maxOutage": "Paragem máxima tolerada",
+      "restoreTime": "Tempo de recuperação",
+      "restoreTimeUnknown": "Tempo de recuperação desconhecido",
       "endOfLife": "Fim de Vida",
       "quantity": "Quantidade",
       "processesPersonalData": "Trata Dados Pessoais"
@@ -94,6 +100,9 @@
       "lastBackupTestDate": "Data em que foi concluído o último teste de restauro da cópia de segurança.",
       "rto": "Objetivo de Tempo de Recuperação em horas.",
       "rpo": "Objetivo de Ponto de Recuperação em horas.",
+      "maxOutage": "Quanto tempo este processo pode ficar parado no máximo, passo 4.2 do percurso.",
+      "restoreTime": "Quanto tempo demora a repor este sistema em funcionamento, passo 4.4.",
+      "restoreTimeUnknown": "Ninguém sabe quanto tempo demora a recuperação; passo 4.4.",
       "endOfLife": "Data em que este ativo atinge o fim de vida ou o fim de suporte (Considerando do CIR 2024/2690).",
       "quantity": "Número de unidades idênticas neste grupo de ativos (agrupamento BSI-200-2 §8.1).",
       "processesPersonalData": "Ative se este ativo armazenar, tratar ou transmitir dados pessoais (aciona considerações de GDPR e alimenta o inventário RoPA)."

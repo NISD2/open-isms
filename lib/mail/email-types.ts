@@ -67,8 +67,16 @@ export const EMAIL_TYPES = {
   "account.contact_email_changed": { category: "security", consent: "essential" },
   /** To the person, when a key is made for their AI assistants or an assistant is allowed. */
   "account.assistant_connected": { category: "security", consent: "essential" },
+  /** To the person, when a platform admin removed their authenticator app. */
+  "account.two_factor_reset": { category: "security", consent: "essential" },
+  /** To the person: their second factor turned on or off, ten wrong codes in a row, or paused. */
+  "account.two_factor_notice": { category: "security", consent: "essential" },
   "account.invite": { category: "account", consent: "essential" },
   "account.member_removed": { category: "account", consent: "essential" },
+  /** To the owner: the code that confirms handing the company to another member. */
+  "auth.ownership_transfer_code": { category: "security", consent: "essential" },
+  /** To the old and new owner and the admins: ownership is being handed over, or was. */
+  "account.ownership_transfer": { category: "security", consent: "essential" },
   /** The setup link for an account a platform admin opened on a sales call (door two). */
   "account.setup": { category: "account", consent: "essential" },
   /** The invoice for an order, to the billing address the customer gave. */

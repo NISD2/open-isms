@@ -6,6 +6,7 @@
  * showing up on a customer's screen.
  */
 
+import { OUTAGE_SPANS } from "@nisd2/grc-data-model/enums";
 import { z } from "zod";
 import {
   CRYPTO_CATEGORIES,
@@ -99,6 +100,47 @@ const SCREEN_COPY = {
     how: text,
     example: text,
     suggestions: z.array(text).min(1).optional(),
+    // How long the process may be down at most: every span the column takes needs its label.
+    outage: text,
+    outageHint: text,
+    outageOptions: z.record(z.enum(OUTAGE_SPANS), text),
+  }),
+  /** Per process that must keep running, the systems and rooms it needs; the lines for none. */
+  needs: z.object({ ...heading, none: text, empty: text, needs: text }),
+  /**
+   * The systems the critical processes need, each with how long it takes to bring back: a label
+   * per span, the "unknown" answer, the hint, the line when 4.2 named no system yet, and the
+   * words before the processes that need one.
+   */
+  restore: z.object({
+    ...heading,
+    options: z.record(z.enum(OUTAGE_SPANS), text),
+    unknown: text,
+    hint: text,
+    none: text,
+    needs: text,
+  }),
+  /**
+   * The comparison: a heading per verdict, a label per span, the line per system, and the lines
+   * when there is nothing to compare or nothing to fix.
+   */
+  recovery: z.object({
+    ...heading,
+    verdicts: z.object({
+      too_slow: text,
+      unknown: text,
+      not_asked: text,
+      unrated: text,
+      ok: text,
+    }),
+    spans: z.record(z.enum(OUTAGE_SPANS), text),
+    needs: text,
+    required: text,
+    restore: text,
+    none: text,
+    good: text,
+    /** Before the names of the processes that must keep running but have no tolerance yet. */
+    missing: text,
   }),
   /**
    * The policy itself: its fixed sections, the clauses the person may add, and the signature
@@ -406,6 +448,12 @@ function resolveScreen(
       return one(screen, SCREEN_COPY.riskmap);
     case "critical":
       return one(screen, SCREEN_COPY.critical);
+    case "needs":
+      return one(screen, SCREEN_COPY.needs);
+    case "restore":
+      return one(screen, SCREEN_COPY.restore);
+    case "recovery":
+      return one(screen, SCREEN_COPY.recovery);
     case "backups": {
       // Every frequency the asset column takes needs its label, and no other.
       const copy = one(screen, SCREEN_COPY.backups);

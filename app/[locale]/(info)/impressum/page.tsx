@@ -56,8 +56,11 @@ export default async function ImpressumPage() {
             <CardTitle>{t("impressum.mstv.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-1 text-sm text-muted-foreground">
-            <p className="font-medium text-foreground">{t("impressum.mstv.name")}</p>
-            <p>{t("impressum.mstv.address")}</p>
+            <p className="font-medium text-foreground">
+              {t("impressum.responsible.company")}
+            </p>
+            <p>{t("impressum.responsible.representedBy")}</p>
+            <p>{t("impressum.responsible.address")}</p>
           </CardContent>
         </Card>
       </section>

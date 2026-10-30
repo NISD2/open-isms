@@ -2,14 +2,17 @@ import { countDistinct, eq } from "drizzle-orm";
 import { ArrowRight, BookOpen, Clock, GraduationCap, Shield, User } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { GatedLink } from "@/components/auth/GatedLink";
 import { GetStarted } from "@/components/GetStarted";
 import { JsonLd } from "@/components/JsonLd";
 import { CourseOutlineList } from "@/components/training/CourseOutlineList";
 import { CourseHero, WhatIsFree } from "@/components/training/CoursePageParts";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@/i18n/navigation";
+import { WikiMoreLink } from "@/components/wiki/WikiMoreLink";
+import { reviewedLine } from "@/lib/content/wiki-byline";
 import { db } from "@/lib/db";
+import { isLocaleCode, LOCALE_CODES } from "@/lib/locale";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
 import { courseTotals, loadCourse } from "@/lib/training/course-loader";
@@ -53,6 +56,15 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * The day a lesson or a legal sentence on this page was last changed and read against the law.
+ * 29.10.2026: the opening answer on Art. 20 Abs. 2 NIS 2 and § 38 Abs. 3 BSIG was reworded and
+ * checked against both texts. Before that, open-isms #494 brought 12 lessons in line with the
+ * BSI's management training curriculum on 28.10.2026. Move it whenever a lesson or a legal
+ * sentence here is reviewed or changed, never on its own.
+ */
+const COURSE_LAST_REVIEWED = "2026-10-29";
+
 const highlightIcons = [BookOpen, Clock, Shield, GraduationCap] as const;
 const highlightKeys = ["lessons", "hours", "quizzes", "certificate"] as const;
 
@@ -62,7 +74,11 @@ export default async function TrainingLandingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("info");
+  const [t, links] = await Promise.all([
+    getTranslations("info"),
+    getTranslations("wikiLinks"),
+  ]);
+  const readerLocale = isLocaleCode(locale) ? locale : "en";
   const [course, learnerCount, totals] = await Promise.all([
     loadCourse("nis2-ceo"),
     getLearnerCount(),
@@ -83,10 +99,11 @@ export default async function TrainingLandingPage({
             url: "https://nisd2.eu",
           },
           isAccessibleForFree: true,
+          dateModified: COURSE_LAST_REVIEWED,
           numberOfLessons: 47,
           timeRequired: "PT4H",
           educationalLevel: "Executive",
-          inLanguage: ["de", "en"],
+          inLanguage: [...LOCALE_CODES],
           hasCourseInstance: {
             "@type": "CourseInstance",
             courseMode: "online",
@@ -103,8 +120,13 @@ export default async function TrainingLandingPage({
         <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
           {t("trainingCeo.subtitle")}
         </p>
+        <p className="text-sm text-muted-foreground">
+          <time dateTime={COURSE_LAST_REVIEWED}>
+            {reviewedLine(COURSE_LAST_REVIEWED, readerLocale)}
+          </time>
+        </p>
         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
-          <Link
+          <GatedLink
             href={{
               pathname: "/training/courses/[courseId]/[lessonId]",
               params: { courseId: "nis2-ceo", lessonId: "0.1" },
@@ -113,7 +135,7 @@ export default async function TrainingLandingPage({
           >
             {t("trainingCeo.startCourse")}
             <ArrowRight className="size-4" />
-          </Link>
+          </GatedLink>
           {/*
             Scale and freedom-to-skip, stated before the click. The only
             CTA used to be "start at lesson 0.1", which reads as a
@@ -192,6 +214,7 @@ export default async function TrainingLandingPage({
         <p className="text-muted-foreground leading-relaxed">
           {t("trainingCeo.whatLearn.body", { moduleCount: course.modules.length })}
         </p>
+        <WikiMoreLink href="/wiki/grundlagen/bsig-38">{links("statute")}</WikiMoreLink>
         <CourseOutlineList
           courseId="nis2-ceo"
           locale={locale}
@@ -238,7 +261,7 @@ export default async function TrainingLandingPage({
       <div className="rounded-lg border bg-muted/30 p-8 text-center space-y-4">
         <h2 className="text-2xl font-bold">{t("trainingCeo.cta.heading")}</h2>
         <p className="text-muted-foreground">{t("trainingCeo.cta.body")}</p>
-        <Link
+        <GatedLink
           href={{
             pathname: "/training/courses/[courseId]/[lessonId]",
             params: { courseId: "nis2-ceo", lessonId: "0.1" },
@@ -247,7 +270,7 @@ export default async function TrainingLandingPage({
         >
           {t("trainingCeo.cta.button")}
           <ArrowRight className="size-4" />
-        </Link>
+        </GatedLink>
       </div>
 
       <GetStarted variant="funnel" />

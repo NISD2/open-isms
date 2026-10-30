@@ -864,9 +864,7 @@
         "email": "contact@nisd2.eu"
       },
       "mstv": {
-        "heading": "Odpovědnost za obsah podle § 18 odst. 2 MStV",
-        "name": "Simon Orzel",
-        "address": "Trierer Str. 6, 50676 Köln, Německo"
+        "heading": "Odpovědnost za obsah podle § 18 odst. 2 MStV"
       },
       "dispute": {
         "heading": "Online řešení sporů v EU",
@@ -940,16 +938,12 @@
       },
       "analytics": {
         "heading": "Analytika",
-        "p1": "Pro webovou analytiku používáme Umami. Umami je provozováno na naší vlastní infrastruktuře. Neshromažďuje osobní údaje, nepoužívá cookies a nesleduje jednotlivé uživatele. Všechny údaje jsou agregované a anonymní. Pro tento typ analytiky není vyžadován žádný souhlas.",
-        "p2": "Zvlášť: pokud se zaregistrujete přes odkaz s kampaňovými značkami (parametry začínající utm_, například z reklamy), uložíme tyto značky k vašemu účtu, abychom viděli, ze které reklamy nebo odkazu účet přišel. Nic dalšího z odkazu, například ID kliknutí, se neukládá. Právním základem je čl. 6 odst. 1 písm. f) GDPR, náš oprávněný zájem na tom, abychom mohli měřit, co naše reklama přináší."
+        "p1": "Pro webovou analytiku používáme Umami. Umami je provozováno na naší vlastní infrastruktuře. Neshromažďuje osobní údaje, nepoužívá cookies a nesleduje jednotlivé uživatele. Všechny údaje jsou agregované a anonymní. Pro tento typ analytiky není vyžadován žádný souhlas."
       },
       "cookies": {
         "heading": "Cookies",
-        "p1": "Tyto webové stránky používají pouze technicky nezbytné cookies:",
         "session": "Session cookie (NextAuth): vyžadováno pro ověřování, vyprší při odhlášení nebo po vypršení časového limitu relace",
-        "locale": "Locale cookie (next-intl): ukládá vaše jazykové preference (EN/DE)",
-        "p2": "Nepoužíváme sledovací cookies, reklamní cookies ani žádné cookies třetích stran. Banner se souhlasem s cookies není potřeba, protože se nastavují pouze technicky nezbytné cookies."
-      },
+        "locale": "Locale cookie (next-intl): ukládá vaše jazykové preference (EN/DE)"      },
       "rights": {
         "heading": "Vaše práva (čl. 15-21 GDPR)",
         "p1": "Ve vztahu ke svým osobním údajům máte následující práva:",
@@ -13697,11 +13691,9 @@
     },
     "nis2HaftungVorstand": {
       "meta": {
-        "title": "Osobní odpovědnost řídícího orgánu podle NIS 2",
-        "description": "Jak čl. 20 NIS 2 činí řídící orgán základních a důležitých subjektů odpovědným za schválení, dohled a školení v řízení kybernetických bezpečnostních rizik a jak z této povinnosti dělá osobní odpovědnost české právo: § 159 občanského zákoníku a zákon o obchodních korporacích."
+        "title": "Osobní odpovědnost řídícího orgánu podle NIS 2"
       },
       "title": "Osobní odpovědnost řídícího orgánu podle NIS 2",
-      "subtitle": "Čl. 20 směrnice NIS 2 přiřazuje řídícímu orgánu tři povinnosti: schválit opatření k řízení kybernetických bezpečnostních rizik, dohlížet na jejich uplatňování a absolvovat školení. Porušení těchto povinností mění v osobní nárok vůči jednotlivci národní právo, v Česku péče řádného hospodáře.",
       "overview": {
         "heading": "Co článek 20 vlastně říká",
         "p1": "Čl. 20 směrnice (EU) 2022/2555 klade povinnost kybernetické bezpečnosti na řídící orgán každého základního a důležitého subjektu. Řídící orgán musí schválit opatření k řízení rizik vyžadovaná čl. 21, dohlížet na jejich uplatňování a může nést odpovědnost, poruší-li subjekt čl. 21.",
@@ -16056,7 +16048,6 @@
       },
       "practitioner": {
         "heading": "Pohled praktika",
-        "p1": "Většina středně velkých provozovatelů ve Francii, které vidíme, stále zachází s NIS 2 jako s rozšířením starého režimu OIV / OSE. To je napůl správně. Podle návrhu zákona dohled a kanál pro incidenty sedí uvnitř ANSSI jako dřív, ale rozsah je širší a odsouhlasení řídícím orgánem je těžší. Jakmile se zákon uplatní, bude obdoba jednatele (président, directeur général, gérant) osobně odpovídat za schválení řízení rizik a za školení.",
         "p2": "Praktický krok je stejný jako všude jinde v EU: potvrďte rozsah podle směrnice, dobrovolně se předregistrujte u ANSSI (messervices.cyber.gouv.fr/nis2, dříve MonEspaceNIS2) a zaregistrujte se, jakmile bude zákon přijat, nastavte čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dozor řídícího orgánu) a zdokumentujte minimum. Aparát OIV pomáhá, ale nenahrazuje registr povinností NIS 2."
       },
       "platform": {
@@ -16455,7 +16446,6 @@
       },
       "practitioner": {
         "heading": "Pohled praktika",
-        "p1": "Většina švédských provozovatelů, které vidíme, strávila celý rok 2025 v nejistotě. Až do poloviny prosince 2025 ležel zákon Cybersäkerhetslagen v Riksdagu jako Proposition 2025/26:28 a nic víc. Důsledek: mnoho ředitelů pozastavilo svou práci na NIS 2 a poté museli stlačit oznámení a první dokumentaci do okna krátce po 15. lednu 2026.",
         "p2": "Praktický krok je stejný jako všude jinde v EU: potvrdit rozsah podle směrnice, registrovat se u NCSC při FRA, nastavit čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dohled statutárního orgánu) a zdokumentovat minimum. Odvětvový regulátor zůstává dohledovou adresou; NCSC a CERT-SE jsou provozní kanály."
       },
       "platform": {
@@ -16591,7 +16581,6 @@
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "Většina portugalských provozovatelů, které vidíme, považovala NIS 2 za budoucí problém, dokud nebyl v prosinci 2025 zveřejněn Decreto-Lei n.º 125/2025. To okno se zavřelo. Dozor CNCS začíná 3. dubna 2026, bezpečnostní pracovník musí být oznámen do dvaceti pracovních dnů a řídicí orgán, administrador nebo gerente, osobně ručí za schválení řízení rizik a za školení podle směrnice.",
         "p2": "Praktický krok je stejný jako všude jinde v EU: potvrdit působnost podle směrnice, zaregistrovat se přes národní platformu (zde elektronická platforma CNCS), nastavit čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dohled řídicího orgánu) a zdokumentovat minimum. Sektorové pokyny CNCS pomáhají, ale nenahrazují evidenci povinností NIS 2."
       },
       "platform": {
@@ -16725,7 +16714,6 @@
       },
       "practitioner": {
         "heading": "Z terénu",
-        "p1": "Většina finských provozovatelů středního trhu, které potkáváme, stále bere NIS 2 jako IT téma. To je jen z poloviny pravda. Dozor a kanál hlášení sedí na odvětvové úrovni, působnost je širší než ve starém finském režimu kybernetické bezpečnosti a řídicí orgán (toimitusjohtaja, hallitus) nese těžší odpovědnost. Řídicí orgán schvaluje a dohlíží na postup řízení rizik a musí být dostatečně obeznámen s řízením rizik kybernetické bezpečnosti; u základních subjektů může opakované závažné porušení vést k dočasnému zákazu členství ve správní radě.",
         "p2": "Praktický krok je stejný jako všude v EU: proveďte kontrolu působnosti proti směrnici, zaregistrujte se u odvětvového dozorového orgánu a objevte se na jeho seznamu subjektů, nastavte čtyři průběžné povinnosti (udržujte registrační údaje aktuální, hlášení incidentů, riziko dodavatelského řetězce, dozor řídicího orgánu) a zdokumentujte minimum. Použití sdíleného oznamovacího formuláře Traficomu udržuje cestu hlášení čistou."
       },
       "platform": {
@@ -16996,7 +16984,7 @@
       },
       "practitioner": {
         "heading": "Pohled praktika",
-        "p1": "Většina českých středních firem, které vidíme, bere NIS 2 jako rozšíření režimu zákona č. 181/2014 Sb. To je z poloviny pravda. NÚKIB dál vykonává dozor a spolu s Národním CERT přijímá hlášení incidentů, ale okruh regulovaných služeb je mnohem širší, režim vyšších a nižších povinností mění rozsah povinností podle služby a vrcholné vedení (jednatel nebo představenstvo) má vlastní povinnosti: absolvuje školení a prokazatelně se seznamuje se stavem plnění bezpečnostních opatření (režim nižších povinností, vyhláška č. 410/2025 Sb., § 4 písm. b) a d)), resp. se zprávou o hodnocení rizik, plánem zvládání rizik a výsledky auditů (režim vyšších povinností, vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a) a odst. 2).",
+        "p1": "NÚKIB dál vykonává dozor a spolu s Národním CERT přijímá hlášení incidentů, ale okruh regulovaných služeb je mnohem širší, režim vyšších a nižších povinností mění rozsah povinností podle služby a vrcholné vedení (jednatel nebo představenstvo) má vlastní povinnosti: absolvuje školení a prokazatelně se seznamuje se stavem plnění bezpečnostních opatření (režim nižších povinností, vyhláška č. 410/2025 Sb., § 4 písm. b) a d)), resp. se zprávou o hodnocení rizik, plánem zvládání rizik a výsledky auditů (režim vyšších povinností, vyhláška č. 409/2025 Sb., § 4 odst. 1 písm. a) a odst. 2).",
         "p2": "Praktický postup je stejný jako všude v EU: ověřit, zda poskytujete regulovanou službu podle vyhlášky č. 408/2025 Sb., ohlásit ji přes Portál NÚKIB, zavést čtyři průběžné povinnosti (aktuální údaje o registraci, hlášení incidentů, rizika dodavatelů, dohled vedení) a zdokumentovat minimum. Dokumentace z režimu roku 2014 pomáhá, ale registr povinností NIS 2 nenahrazuje."
       },
       "platform": {
@@ -17267,7 +17255,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina irských provozovatelů ze středního trhu, se kterými se setkáváme, považuje NIS 2 za odloženou lhůtu a čeká na National Cyber Security Bill. Právně to zatím platí: směrnice zavazuje stát, ne společnost, takže dokud zákon není v platnosti, platí jen nařízení NIS 1, a to jen pro provozovatele podle něj již určené. Prakticky práce trvá měsíce, takže kdo začne nyní, potká zákon s dokumentací již na místě.",
         "p2": "Praktický krok je stejný jako všude v EU: provést test použitelnosti podle směrnice, použít přípravné pokyny NCSC-IE (návrh Risk Management Measures, CyFun) jako orientaci, nastavit čtyři průběžné povinnosti (udržovat registrační údaje aktuální, hlášení incidentů, riziko dodavatelského řetězce, dohled statutárního orgánu) a zdokumentovat minimum. Jakmile bude zákon v platnosti, zbývající práce spočívá převážně v zapojení hotové dokumentace do irských postupů."
       },
       "platform": {
@@ -17404,7 +17391,6 @@
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "Většina dánských provozovatelů středního trhu, které vidíme, instinktivně hledá jediné kontaktní místo. Žádné neexistuje. Pokud sedíte v regulovaném sektoru, mluvíte primárně se svým vlastním sektorově odpovědným orgánem. Pokud sedíte mimo regulované sektory nebo máte průřezové otázky, jdete na SAMSIK. Hlášení incidentů technicky probíhá přes CFCS paralelně se sektorovým orgánem. CEO nebo direktør je osobně na háku za schválení řízení rizik a vlastní školení podle čl. 20 NIS 2.",
         "p2": "Praktický krok je stejný jako kdekoli jinde v EU: potvrdit rozsah podle směrnice, ujasnit primární sektor, zaregistrovat se přes virk.dk, nastavit čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dohled vedení) a zdokumentovat minimum. Subjekt aktivní v několika sektorech dokumentuje podle sektoru, protože dozorci se ptají podle sektoru."
       },
       "platform": {
@@ -17671,7 +17657,6 @@
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "Většina italských malých a středních provozovatelů, které vidíme, stále čte NIS 2 optikou starého perimetru NIS 1 podle D.Lgs. 65/2018, ve kterém spadala do působnosti jen hrstka jmenovaných provozovatelů. Nový dekret rozšiřuje perimetr o řád, přivádí veřejnou správu, místní veřejnou dopravu a výzkumné subjekty a přesouvá odpovědnost na řídicí orgán. Amministratore delegato nebo legale rappresentante je osobně na háku za schválení řízení rizik a za školení.",
         "p2": "Praktický krok je stejný jako všude jinde v EU. Potvrďte působnost podle směrnice a dekretu, zaregistrujte se na platformě ACN, nastavte čtyři průběžné povinnosti (udržování registrace, hlášení incidentů přes CSIRT Italia, riziko dodavatelského řetězce, dozor řídicím orgánem) a zdokumentujte minimum. Odvětvové přílohy ACN zpřesňují detail; nenahrazují registr povinností."
       },
       "platform": {
@@ -17805,7 +17790,6 @@
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "Většina španělských provozovatelů středního trhu, které vidíme, považuje NIS 2 za problém, který lze odložit, dokud Boletín nezveřejní finální zákon. To je drahá sázka. Lhůta směrnice 17. října 2024 již uplynula, Komise zaslala odůvodněné stanovisko dne 7. května 2025 a dne 8. července 2026 podala žalobu proti Španělsku u Soudního dvora EU a hmotněprávní povinnosti (schválení opatření k řízení rizik vedením, 24h včasné varování, 72h oznámení, doložky o dodavatelském řetězci) se mezi návrhem a jakýmkoli pravděpodobným finálním textem nemění.",
         "p2": "Praktický krok je stejný jako kdekoli jinde v EU: potvrdit rozsah podle směrnice, připravit se na registraci, jakmile španělský zákon určí registrační orgán a portál, nastavit čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, řízení rizik dodavatelského řetězce, dohled vedení) a zdokumentovat minimum. Stávající pokyny CCN a INCIBE plus ohlašovací kanály Real Decreto-ley 12/2018 zůstávají použitelné, dokud je nový zákon ve schvalování."
       },
       "platform": {
@@ -18020,7 +18004,6 @@
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "Většina maďarských provozovatelů, se kterými mluvíme, předpokládá, že NIS 2 začíná, až je přijat nový souhrnný zákon. Není tomu tak. Dozor SZTFH podle zákona č. XXIII z roku 2023 je již aktivní, audity probíhají a schválení řídicím orgánem je už otázkou, kterou SZTFH může položit. Odůvodněné stanovisko Komise ze dne 7. května 2025 zvyšuje politický tlak, ale neposouvá datum zahájení dozoru zpět.",
         "p2": "Praktický krok je stejný jako všude jinde v EU. Potvrďte působnost podle směrnice, zaregistrujte se u národního dozoru (zde SZTFH), nastavte čtyři průběžné povinnosti (udržování registrace, hlášení incidentů přes NKI, riziko dodavatelského řetězce, dozor řídicím orgánem) a zdokumentujte minimum. Maďarští odvětvoví regulátoři zůstávají příslušní tam, kde platí lex specialis, zejména finance pod MNB."
       },
       "platform": {
@@ -18154,7 +18137,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina rumunských provozovatelů středního trhu, které potkáváme, stále považuje NIS 2 za téma pro IT, ne pro řídicí orgán. To je tatáž chyba, kterou vidíme jinde v EU. Článek 20 klade povinnost na řídicí orgán schválit řízení rizik, dohlížet na jeho zavedení a absolvovat školení vedení. DNSC se bude dívat na toto schválení, ne na to, kdo zásadu napsal.",
         "p2": "Praktický krok v Rumunsku je stejný jako všude v EU: otestovat působnost proti směrnici, zaregistrovat se přes národní kanál DNSC, nastavit čtyři průběžné povinnosti (udržovat registrační data aktuální, hlášení incidentů, riziko dodavatelského řetězce, dohled řídicího orgánu) a zdokumentovat minimum."
       },
       "platform": {
@@ -18287,7 +18269,6 @@
       },
       "practitioner": {
         "heading": "Z terénu",
-        "p1": "Většina slovenských operátorů na středním trhu, které potkáváme, stále bere NIS 2 jako malou aktualizaci zákona o kybernetické bezpečnosti z roku 2018. Novela je víc než to. Rozsah regulovaných subjektů je širší, řídící orgán nyní nese osobní odpovědnost za schvalování ošetření rizik a za vlastní školení a harmonogram hlášení je tvrdší než to, co žádal starý režim.",
         "p2": "Praktický krok je stejný jako všude v EU: provést kontrolu použitelnosti proti směrnici, zaregistrovat se přes národní portál (zde JISKB), zavést čtyři průběžné povinnosti (udržování registračních údajů aktuálních, hlášení incidentů, riziko dodavatelského řetězce, dohled řídícího orgánu) a zdokumentovat minimum. Stávající proces podle zákona o kybernetické bezpečnosti z roku 2018 pomáhá, ale nenahrazuje dokumentaci samotných opatření NIS 2."
       },
       "platform": {
@@ -18422,7 +18403,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina chorvatských operátorů, které potkáváme, stále čte NIS 2 jako pokračování staršího rámce kritické infrastruktury. To je jen zčásti pravda. Dozor nyní vede SOA / NCSC-HR s UVNS jako kontaktem EU, rozsah je širší než ve starém režimu a řídící orgán nese osobní odpovědnost za schvalování řízení rizik a absolvování vlastního školení.",
         "p2": "Praktický krok je stejný jako kdekoli v EU: zkontrolovat použitelnost proti směrnici, zaregistrovat se kanály podle NN 14/2024 a NN 135/2024, zavést čtyři průběžné povinnosti (udržovat registrační údaje aktuální, hlášení incidentů, riziko dodavatelského řetězce, dohled řídícího orgánu) a zdokumentovat minimum. Platforma PiXi a e-Ovlaštenja jsou provozní rozhraní, ne samotná povinnost."
       },
       "platform": {
@@ -18558,7 +18538,6 @@
       },
       "practitioner": {
         "heading": "Pohled praktika",
-        "p1": "Většina operátorů, které v Bulharsku vidíme, stále čeká na definitivní vnitrostátní text, než začne pracovat. To je špatné pořadí. Povinnosti směrnice platí od termínu 17. října 2024; Komise již zaslala odůvodněné stanovisko dne 7. května 2025. Dohledový kanál a CSIRT existují dnes a povinnost schválení řídicím orgánem podle článku 20 zavazuje obdobu jednatele (управител, изпълнителен директор) bez ohledu na to, kde vnitrostátní novela přistane.",
         "p2": "Praktický krok je stejný jako všude jinde v EU: potvrdit působnost podle směrnice, kontaktovat Státní agenturu pro e-Government jako jednotné kontaktní místo, nastavit čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dohled řídicího orgánu) a zdokumentovat minimum. Jakmile bude novelizovaný zákon o kybernetické bezpečnosti plně v platnosti, již odvedená práce se přenese; směrnice je konstantou."
       },
       "platform": {
@@ -18692,7 +18671,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina řeckých provozovatelů středního trhu, které potkáváme, stále čte NIS 2 jako pokračování NIS 1. Dozorový orgán sedí na stejném ministerstvu, ale působnost je širší a řídicí orgán je na háku osobně. Řecký jednatel, διαχειριστής nebo νόμιμος εκπρόσωπος, podepisuje řízení rizik a vlastní školení.",
         "p2": "Praktický krok je stejný jako všude v EU: proveďte použitelnost vůči směrnici, registrujte se u vnitrostátního orgánu, nastavte čtyři průběžné povinnosti (udržujte registrační data aktuální, hlášení incidentů, riziko dodavatelského řetězce, dohled řídicího orgánu) a zdokumentujte minimum. Opožděné provedení toto pořadí nemění."
       },
       "platform": {
@@ -18826,7 +18804,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina lucemburských provozovatelů středního trhu, které potkáváme, stále považuje NIS 2 za budoucí povinnost. Lhůta uklouzla dvakrát, nejprve na úrovni EU 17. října 2024, pak v národním zákoně, který nabyl účinnosti až 15. května 2026. To vytvořilo dojem, že nic zatím není závazné. Je. Povinnosti ze směrnice na řízení rizik a hlášení incidentů doléhají ode dne, kdy národní zákon nabyl účinnosti, a ILR pod ním dozoruje.",
         "p2": "Praktický krok je stejný jako všude v EU: zkontrolovat působnost proti směrnici, zaregistrovat se u příslušného orgánu (zde ILR přes myilr.lu), nastavit čtyři průběžné povinnosti (udržovat registrační data aktuální, hlásit incidenty, řídit riziko dodavatelského řetězce, zajistit dohled řídicího orgánu) a zdokumentovat minimum. Finanční sektor čte DORA souběžně pod dozorem CSSF."
       },
       "platform": {
@@ -18961,7 +18938,6 @@
       },
       "practitioner": {
         "heading": "Pohled praktika",
-        "p1": "Většina slovinských operátorů, které vidíme, bere NIS 2 jako pokračování starého režimu ZInfV. To je zčásti pravda: URSIV je stále gestorem politiky a SI-CERT stále provozuje reakci na incidenty. Rozsah je ale širší, schválení řídícím orgánem je náročnější a 18měsíční lhůta pro zavedení od 19. června 2025 skutečně běží. Ředitel nebo představenstvo nese osobní odpovědnost za schválení řízení rizik a za absolvování požadovaného školení.",
         "p2": "Praktický krok je stejný jako všude jinde v EU: potvrdit rozsah podle směrnice, zaregistrovat se u URSIV, zavést čtyři průběžné povinnosti (udržování registrace, hlášení incidentů, riziko dodavatelského řetězce, dohled řídícího orgánu) a zdokumentovat minimum. Stará dokumentace ZInfV pomáhá, ale nenahrazuje dokumentaci opatření ZInfV-1."
       },
       "platform": {
@@ -19094,7 +19070,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina kyperských provozovatelů, které vidíme, stále bere NIS 2 jako problém budoucího kyperského zákona. To je z poloviny pravda. Nosná norma se hýbe pomalu, povinnosti směrnice ne. Řídící orgány na Kypru odpovídají za schválení řízení rizik a za vlastní školení v okamžiku, kdy kyperský zákon plně nabude účinnosti. Do té doby směrnice ukazuje, co bude kyperský zákon vyžadovat.",
         "p2": "Praktický krok je stejný jako všude v EU: zkontrolovat použitelnost proti směrnici, připravit se na registraci, jakmile bude kyperský mechanismus zveřejněn, zavést čtyři průběžné povinnosti (udržovat registrační údaje aktuální, oznamování incidentů, riziko dodavatelského řetězce, dohled řídícího orgánu) a zdokumentovat minimum. DSA a CSIRT-CY jsou kontaktní místa, která jsou již na svém místě."
       },
       "platform": {
@@ -19362,7 +19337,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina litevských operátorů na středním trhu, které vidíme, stále bere NIS 2 jako rozšíření starého režimu NIS 1. To je z poloviny pravda. NKSC byl dozorovým orgánem předtím a zůstává jím. Rozsah je širší, odpovědnost řídícího orgánu je těžší a katalog požadavků kybernetické bezpečnosti v prováděcím nařízení je podrobnější než předchozí rozhodnutí.",
         "p2": "Praktický krok je stejný jako všude v EU: provést test použitelnosti proti směrnici, zaregistrovat se u národního dozorového orgánu (zde NKSC), zavést čtyři průběžné povinnosti (udržovat registrační údaje aktuální, oznamování incidentů, riziko dodavatelského řetězce, dohled řídícího orgánu) a zdokumentovat minimum. Dřívější papírování NIS 1 pomáhá jako základ, ale nenahrazuje registr povinností NIS 2."
       },
       "platform": {
@@ -19496,7 +19470,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina lotyšských operátorů na středním trhu, které potkáváme, stále bere NIS 2 jako něco, co za ně Ministerstvo obrany řeší přes CERT.LV. CERT.LV je přívětivá tvář, ale není dozorovým orgánem. Vymáhání a sankce sedí u NCSC pro obecné základní a důležité subjekty a u SAB pro kritickou ICT infrastrukturu. Řídící orgány těchto subjektů jsou osobně odpovědné za schválení řízení rizik a za absolvování vlastního školení, na úrovni směrnice.",
         "p2": "Praktický krok je stejný jako kdekoli v EU: otestovat použitelnost proti směrnici, oznámit příslušnému orgánu v jednoměsíční lhůtě, provádět čtyři průběžné povinnosti (udržovat registrační údaje aktuální, oznamování incidentů, riziko dodavatelského řetězce, dohled řídícího orgánu) a zdokumentovat minimum. CERT.LV zůstává partnerem pro zvládání incidentů, ne místem, které rozhoduje, zda jste v rozsahu."
       },
       "platform": {
@@ -19630,7 +19603,6 @@
       },
       "practitioner": {
         "heading": "Z praxe",
-        "p1": "Většina maltských operátorů, které potkáváme, zachází s NIS 2 jako s dalším spisem shody po GDPR. To je jako rámec projektu v pořádku. Podstata je jiná: směrnice mluví o kontinuitě služeb, riziku dodavatelského řetězce a odpovědnosti vedení, ne jen o osobních údajích. Ředitelé maltské společnosti podle NIS 2 osobně odsouhlasují základní linii řízení rizik a vlastní školení. Toto odsouhlasení nelze přenést na mateřskou skupinu nebo na externího poradce.",
         "p2": "Praktický sled je stejný napříč EU: spusťte kontrolu použitelnosti proti směrnici, zaregistrujte se u národního příslušného orgánu, jakmile je kanál otevřen, nastavte čtyři průběžné povinnosti (udržujte registrační data aktuální, hlášení incidentů, riziko dodavatelského řetězce, dozor řídícího orgánu) a zdokumentujte minimum. Tam, kde CSIRTMalta nebo příslušný orgán vydává odvětvové pokyny, použijte je. Tam, kde ne, jsou záložní možností text směrnice a prováděcí nařízení."
       },
       "platform": {

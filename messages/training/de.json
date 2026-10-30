@@ -2,7 +2,7 @@
   "training": {
     "title": "Schulungsnachweise",
     "description": "Schulungsnachweise für Mitarbeiter und Management. Erforderlich nach NIS2 Art. 21(2)(g) und BSIG §38(3).",
-    "helpText": "Erfassen Sie alle absolvierten Cybersicherheitsschulungen. NIS2 schreibt regelmäßige Awareness-Schulungen für alle Mitarbeiter und spezifische Schulungen für die Geschäftsleitung vor (BSIG §38(3) - persönliche Haftung). Dokumentieren Sie wer welche Schulung wann absolviert hat.",
+    "helpText": "Erfassen Sie alle absolvierten Cybersicherheitsschulungen. NIS2 schreibt regelmäßige Awareness-Schulungen für alle Mitarbeiter und spezifische Schulungen für die Geschäftsleitung vor (BSIG §38(3)). Dokumentieren Sie wer welche Schulung wann absolviert hat.",
     "add": "Schulung hinzufügen",
     "edit": "Schulung bearbeiten",
     "empty": "Noch keine Schulungsnachweise vorhanden. Fügen Sie Ihren ersten Nachweis hinzu.",

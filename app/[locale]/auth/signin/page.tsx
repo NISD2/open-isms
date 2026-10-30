@@ -3,10 +3,13 @@ import { getTranslations } from "next-intl/server";
 import { ContinueNotice } from "@/components/auth/ContinueNotice";
 import { PromoNotice } from "@/components/auth/PromoNotice";
 import { SignInCard } from "@/components/auth/SignInCard";
-import { Link } from "@/i18n/navigation";
+import { LegalNotice } from "@/components/legal/LegalNotice";
 import { callbackDestination } from "@/lib/auth/callback-destination";
 import { applyPromoToSession } from "@/lib/billing/promo-session";
+import { isSellerInstance } from "@/lib/billing/seller";
+import { NISD2_ORIGIN } from "@/lib/edition";
 import { mailSupportEmail } from "@/lib/env";
+import { replyAddress } from "@/lib/mail/templates";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -44,11 +47,17 @@ export default async function SignInPage({
       <h1 className="sr-only">{t("title")}</h1>
       <PromoNotice fromLink={fromLink} />
       <ContinueNotice destination={destination} />
-      <SignInCard supportEmail={mailSupportEmail()} />
+      <SignInCard
+        supportEmail={mailSupportEmail()}
+        contactEmail={replyAddress()}
+        independentInstall={!isSellerInstance()}
+      />
+      <LegalNotice className="mt-6 max-w-sm" />
       <p className="mt-6 text-sm text-muted-foreground">
-        <Link href="/" className="underline hover:text-foreground">
+        {/* nisd2.eu itself, also from a self-hosted install, whose own home is this sign-in. */}
+        <a href={NISD2_ORIGIN} className="underline hover:text-foreground">
           {t("backToHome")}
-        </Link>
+        </a>
       </p>
     </div>
   );

@@ -1,3 +1,4 @@
+import { OUTAGE_SPANS } from "@nisd2/grc-data-model/enums";
 import { z } from "zod";
 import { CATALOG_BY_ID } from "@/lib/asset-inventory/catalog";
 import { ASSET_LAYERS } from "@/lib/asset-inventory/types";
@@ -111,7 +112,10 @@ export const recordBackupsInput = z.object({
     .max(100),
 });
 
-/** 4.2: which business processes must keep running without IT, and how. */
+/**
+ * 4.2: which business processes must keep running without IT, how, and how long each may be
+ * down at most. The tolerance left out keeps what is stored; null clears it.
+ */
 export const recordCriticalInput = z.object({
   code: itemCode,
   rows: z
@@ -120,7 +124,51 @@ export const recordCriticalInput = z.object({
         assetId: z.string().uuid(),
         critical: z.boolean(),
         how: z.string().trim().max(300),
+        outage: z.enum(OUTAGE_SPANS).nullable().optional(),
       }),
+    )
+    .min(1)
+    .max(200),
+});
+
+/** 4.2: per process that must keep running, the systems and rooms on the list it needs. */
+export const recordNeedsInput = z.object({
+  code: itemCode,
+  rows: z
+    .array(
+      z
+        .object({
+          processId: z.string().uuid(),
+          assetIds: z.array(z.string().uuid()).max(100),
+        })
+        .describe(
+          "One process that must keep running (marked on the critical screen first), with every system and room it needs; its stored links are replaced by this row, and a process sent twice is merged into one row.",
+        ),
+    )
+    .min(1)
+    .max(200),
+});
+
+/**
+ * 4.4: per needed system, how long it takes to bring it back, or that nobody knows. A row says
+ * one or the other, as the column's CHECK does.
+ */
+export const recordRestoreInput = z.object({
+  code: itemCode,
+  rows: z
+    .array(
+      z
+        .object({
+          assetId: z.string().uuid(),
+          restore: z.enum(OUTAGE_SPANS).nullable(),
+          unknown: z.boolean(),
+        })
+        .refine((row) => !(row.restore !== null && row.unknown), {
+          message: "A restore time and unknown cannot both be given.",
+        })
+        .describe(
+          "One needed system: how long it takes to bring back (restore), or that nobody knows (unknown true with restore null); never both. restore null with unknown false clears the answer.",
+        ),
     )
     .min(1)
     .max(200),

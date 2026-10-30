@@ -1,11 +1,14 @@
 import { TRPCError } from "@trpc/server";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
+import { logAudit } from "@/lib/audit";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
 import { env } from "@/lib/env";
 import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { readRequest } from "@/lib/mcp/oauth";
+import { findMembershipRole } from "@/lib/organization/membership";
+import { makeOwner, transferExpiry } from "@/lib/organization/ownership-transfer";
 import { DEFAULT_ACTIVE_DAYS, MAX_ACTIVE_DAYS } from "@/lib/platform-admin/active-window";
 import { bestTimeToReach, REACH_DAYS } from "@/lib/platform-admin/best-time";
 import {
@@ -14,6 +17,7 @@ import {
   auditLogFor,
   personWithCompanies,
 } from "@/lib/platform-admin/users";
+import { rateLimit } from "@/lib/rate-limit";
 import { testResource } from "@/lib/test-mcp/address";
 import { recordConnect } from "@/lib/test-mcp/audit";
 import { companyOverview } from "@/lib/test-mcp/company";
@@ -21,7 +25,8 @@ import { testInstanceKey } from "@/lib/test-mcp/context";
 import { DAYS_IN_ORDER, daysInOrder } from "@/lib/test-mcp/inputs";
 import { mintTestKey, TEST_KEY_SECONDS } from "@/lib/test-mcp/key";
 import { allowTest } from "@/lib/test-mcp/oauth";
-import { user } from "@/schema";
+import { company, ownershipTransfer, user } from "@/schema";
+import { mailOwnershipNotice } from "../helpers/ownership-mail";
 import { platformAdminProcedure, router } from "../init";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -109,7 +114,7 @@ export const platformAdminUsersRouter = router({
   company: platformAdminProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      const [overview, log] = await Promise.all([
+      const [overview, log, owner] = await Promise.all([
         companyOverview(ctx.db, input.id),
         auditLogFor(
           ctx.db,
@@ -117,8 +122,127 @@ export const platformAdminUsersRouter = router({
           {},
           COMPANY_ACTIVITY_LIMIT,
         ),
+        ctx.db.query.company.findFirst({
+          where: eq(company.id, input.id),
+          columns: { ownerId: true },
+        }),
       ]);
-      return overview ? { ...overview, activity: log.rows } : null;
+      return overview
+        ? { ...overview, ownerId: owner?.ownerId ?? null, activity: log.rows }
+        : null;
+    }),
+
+  /**
+   * Make a member the owner when the owner cannot hand it over themselves: they left the company,
+   * or their account is gone. Only after the request was verified outside the app (who asked, and
+   * that they speak for the company), which the reason records. The company's own activity log and
+   * a notice to the old owner, the new one and the admins show it, so a handover nobody asked for
+   * is seen. The inputs are named like eraseUser's, so the automatic platform row scrubs them.
+   */
+  assignOwner: platformAdminProcedure
+    .input(
+      z.object({
+        companyId: z.string().uuid(),
+        toUserId: z.string().uuid(),
+        /** Why, and how the request was verified. Kept on the transfer row. */
+        notes: z.string().trim().min(20).max(1000),
+        /** The company's name, typed as a confirmation. */
+        confirmOrgName: z.string().trim().max(255),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!(await rateLimit(`assign-owner:${ctx.userId}`, 10, 60 * 60 * 1000))) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Owner assignment limit reached. Wait before assigning more.",
+        });
+      }
+      const now = new Date();
+      const done = await ctx.db.transaction(async (tx) => {
+        const [target] = await tx
+          .select({ name: company.name, ownerId: company.ownerId })
+          .from(company)
+          .where(eq(company.id, input.companyId))
+          .for("update");
+        if (!target)
+          throw new TRPCError({ code: "NOT_FOUND", message: "No such company." });
+        if (target.name.trim().toLowerCase() !== input.confirmOrgName.toLowerCase()) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "The name typed does not match the company.",
+          });
+        }
+        if (target.ownerId === input.toUserId) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "This person already owns it.",
+          });
+        }
+        if (
+          !(await findMembershipRole(tx, {
+            userId: input.toUserId,
+            companyId: input.companyId,
+          }))
+        ) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "The new owner must be a member of the company.",
+          });
+        }
+        // An open request is overtaken by this decision.
+        await tx
+          .update(ownershipTransfer)
+          .set({ status: "cancelled", decidedAt: now, decidedBy: ctx.userId })
+          .where(
+            and(
+              eq(ownershipTransfer.companyId, input.companyId),
+              eq(ownershipTransfer.status, "pending"),
+            ),
+          );
+        const [row] = await tx
+          .insert(ownershipTransfer)
+          .values({
+            companyId: input.companyId,
+            fromUserId: target.ownerId,
+            toUserId: input.toUserId,
+            initiatedBy: ctx.userId,
+            method: "platform_admin",
+            status: "accepted",
+            reason: input.notes,
+            decidedBy: ctx.userId,
+            decidedAt: now,
+            createdAt: now,
+            expiresAt: transferExpiry(now),
+          })
+          .returning({ id: ownershipTransfer.id });
+        if (!row) throw new Error("ownership_transfer insert returned no row");
+        await makeOwner(tx, { companyId: input.companyId, userId: input.toUserId });
+        return { id: row.id, fromUserId: target.ownerId };
+      });
+
+      // In the company's own log, where its admins see it; the reason stays on the transfer row.
+      await logAudit({
+        companyId: input.companyId,
+        userId: ctx.userId,
+        action: "ownership.owner_assigned",
+        entityType: "ownership_transfer",
+        entityId: done.id,
+        description: `Owner assigned by the platform operator from ${done.fromUserId ?? "nobody"} to ${input.toUserId}, after verification outside the app`,
+        previousValue: { ownerId: done.fromUserId },
+        newValue: { ownerId: input.toUserId, method: "platform_admin" },
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      mailOwnershipNotice({
+        db: ctx.db,
+        companyId: input.companyId,
+        actorId: ctx.userId,
+        kind: "assigned",
+        fromUserId: done.fromUserId,
+        toUserId: input.toUserId,
+        expiresAt: null,
+      });
+      return { transferId: done.id };
     }),
 
   /**

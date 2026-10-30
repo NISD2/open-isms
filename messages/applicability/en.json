@@ -90,10 +90,10 @@
       "incidentReportingInfo": "Significant security incidents must be reported to BSI in three stages: (1) Early warning within 24 hours - suspected cause and cross-border impact, (2) Updated notification within 72 hours - severity, impact, indicators of compromise, (3) Final report within 1 month - root cause, mitigation, preventive steps.",
       "managementLiability": "Management Liability",
       "managementLiabilityValue": "Personal liability for board members (Section 38 BSIG)",
-      "managementLiabilityInfo": "Board members (Vorstand/Geschäftsführer) are personally liable for NIS2 compliance. Three duties: (1) formally approve cybersecurity measures, (2) actively monitor implementation, (3) complete mandatory cybersecurity training. Liability cannot be waived by shareholders. D&O insurance does not remove the statutory obligations.",
+      "managementLiabilityInfo": "Board members (Vorstand/Geschäftsführer) are liable to their own company if they breach the duty to implement and oversee the measures (§ 38(1) and (2) BSIG). Training (§ 38(3) BSIG) is a duty of its own. D&O insurance does not remove the statutory obligations.",
       "managementTraining": "Management Training",
       "managementTrainingValue": "Mandatory cybersecurity training every 3 years",
-      "managementTrainingInfo": "All members of the management body must personally participate in cybersecurity training at least every 3 years. This duty cannot be delegated to a CISO or IT department. Failure to comply contributes to personal liability under Section 38 BSIG.",
+      "managementTrainingInfo": "All members of the management body must personally participate in cybersecurity training at least every 3 years. This duty cannot be delegated to a CISO or IT department.",
 
       "cta": "Book a call",
       "ctaVoluntary": "Book a call anyway",

@@ -1,0 +1,9 @@
+{
+  "privacyAds": {
+    "consent": "Ihre Antwort auf die Frage zur Werbemessung (Zustimmen oder Ablehnen) speichern wir im Local Storage Ihres Browsers, damit wir nicht erneut fragen",
+    "heading": "Werbemessung mit Google Ads (nur mit Ihrer Zustimmung)",
+    "tag": "Wenn Sie von einer Google-Anzeige kommen und zustimmen, laden wir das Messprogramm von Google Ads (Google Ireland Limited, Irland). Dabei erhält Google Ihre IP-Adresse und die Adresse der aufgerufenen Seite, und das Programm speichert Cookies, deren Namen mit _gcl_ beginnen (darunter _gcl_aw mit der Klick-ID der Anzeige und _gcl_au, beide 90 Tage gültig). Klicken Sie später auf „Registrieren“, laden wir das Programm auch dort und melden Google die Klick-ID und dass die Registrierung begonnen wurde. Ihren Namen oder Ihre E-Mail-Adresse übermitteln wir nicht. So sehen wir, ob eine Anzeige zu einer Registrierung geführt hat. Auf Seiten, deren Adresse selbst ein Zugangsschlüssel ist (etwa Einladungslinks), laden wir es nie. Google verarbeitet die Daten nach eigenen Bedingungen und kann sie in die USA übermitteln; Einzelheiten stehen in Googles Datenschutzerklärung und in den Bedingungen zur Datenverarbeitung bei Google Ads.",
+    "asked": "Wir fragen nur Besucher, die mit der Klick-ID einer Google-Anzeige kommen, und alle, die im Seitenfuß „Cookie-Einstellungen“ öffnen. Wer anders kommt, wird nicht gefragt, weil dann nur die technisch notwendigen Cookies gesetzt werden.",
+    "basis": "Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Sie können sie jederzeit über „Cookie-Einstellungen“ im Seitenfuß widerrufen. Dann stellen wir die Messung ein, auch in anderen offenen Tabs, und löschen die _gcl_-Cookies dieser Website in Ihrem Browser. Was Google bis dahin erhalten hat, liegt bei Google. Die Verarbeitung bis dahin bleibt rechtmäßig."
+  }
+}

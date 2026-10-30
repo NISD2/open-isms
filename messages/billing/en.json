@@ -2,6 +2,16 @@
   "billing": {
     "translationNotice": "This is a translation for your information. The <english>English text</english> is binding.",
     "translationNoticeTerms": "This is a translation for your information. The terms apply in their <english>English</english> and German versions; if they differ, the German version prevails (clause C2).",
+    "payer": {
+      "becomes": "Nobody pays for this account yet, so this order makes you its payer. The invoices and cancelling are then yours.",
+      "askAdmin": "An admin of your organization can place the order.",
+      "sharedNamed": "This billing account also holds organizations you are not an admin of, so {name}, who holds it, places its order.",
+      "sharedUnnamed": "This billing account also holds organizations you are not an admin of, so the person who holds it places its order.",
+      "named": "{name} pays for this account, so {name} places its orders. Ask them, or ask them to invite you as management to decide on it.",
+      "unnamed": "Someone else pays for this account and places its orders. Ask them, or ask them to invite you as management to decide on it.",
+      "invoicesNamed": "{name} pays for this account and sees its invoices.",
+      "invoicesUnnamed": "The person who pays for this account sees its invoices."
+    },
     "offer": {
       "title": "How would you like to continue?",
       "lead": "The Compliance Portal opens with the order. The supplier portal and the training portal need no order.",
@@ -15,7 +25,6 @@
       "title": "Order",
       "intro": "The NIS 2 walkthrough for one year, {price} net. One payment covers every organization and user on your account.",
       "sandboxNotice": "Test mode: this order creates an invoice in the Qonto sandbox and unlocks this account.",
-      "payerOnly": "The account holder can place the order, or management the holder invited to do so. The holder is usually whoever set up the organization.",
       "pendingCheck": "We are checking an earlier order for this account. Please do not order again; we will get back to you.",
       "toInvoices": "Your invoices"
     },
@@ -203,8 +212,10 @@
       "price": "Your price: {price} net a year",
       "order": "Order",
       "invoicesTitle": "Invoices",
-      "payerOnly": "The account holder sees the invoices. Usually that is whoever set up the organization.",
       "empty": "No invoices yet.",
+      "companiesTitle": "Organizations on this account",
+      "companiesNote": "One licence covers your company and the companies of its group on this account, with every user in them. An organization you look after for a client, as a consultant or IT service provider, needs its own licence (<terms>terms</terms>, B1).",
+      "companyUnnamed": "Organization not set up yet",
       "number": "Number",
       "amount": "Amount",
       "period": "Period",

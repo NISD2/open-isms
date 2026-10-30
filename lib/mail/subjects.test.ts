@@ -21,6 +21,9 @@ mock.module("../env", () => ({
 
 const t = await import("./templates");
 const { entityInvitesSupplierEmail } = await import("./supplier-invite-email");
+const { ownershipCodeEmail, ownershipTransferEmail } = await import(
+  "./ownership-templates"
+);
 
 /** Optional mail renders the shared preference footer; the subject ignores it. */
 const FOOTER = {
@@ -120,6 +123,24 @@ const SUBJECTS: Array<[string, string]> = [
     (await t.memberRemovedEmail({ companyName: "Stadtwerke", memberName: "Jan" }))
       .subject,
   ],
+  ...(await Promise.all(
+    (["requested", "accepted", "assigned"] as const).map(
+      async (kind): Promise<[string, string]> => [
+        `ownershipTransfer:${kind}`,
+        (
+          await ownershipTransferEmail({
+            kind,
+            companyName: "Stadtwerke",
+            fromName: "Anna",
+            toName: "Jan",
+            expiresAt: kind === "requested" ? new Date("2026-11-06T10:00:00Z") : null,
+            teamUrl: "https://nisd2.eu/team",
+          })
+        ).subject,
+      ],
+    ),
+  )),
+  ["ownershipCode", (await ownershipCodeEmail({ code: "123456" })).subject],
   [
     "dailyDigestOverdue",
     (

@@ -365,16 +365,14 @@ try {
   console.log("[migrate] all chains complete");
 
   // ---------------------------------------------------------------------
-  // Framework reference data, once, on a database that has none.
+  // Framework reference data, once, on a database without NIS 2.
   //
-  // Migrations create the tables and correct the rows in them; nothing in the
-  // chains inserts the frameworks themselves. Until this ran here, a fresh
-  // install came up with an empty portal and the fix was a git clone, a bun
-  // install and a seed script — three things a self-hoster should never need,
-  // and the single most common reason a correct install looked broken.
+  // No migration inserts NIS 2. Until this ran here, a fresh install came up
+  // with an empty portal and the fix was a git clone, a bun install and a seed
+  // script — the most common reason a correct install looked broken.
   //
-  // Guarded on an empty catalogue, so it happens exactly once and never
-  // touches an instance that is in use. The file is upsert-only in any case.
+  // Guarded on the NIS 2 row, not an empty catalogue: migration 0034 inserts
+  // GDPR, so a fresh catalogue is never empty. Upsert-only in any case.
   // Failure is logged and startup continues: reference data missing is a
   // portal with nothing in it, while refusing to boot over it would take down
   // an instance whose own data is fine.
@@ -390,12 +388,13 @@ try {
       console.log("[seed] no requirement table — skipping framework data");
     } else {
       const { rows: counted } = await client.query(
-        `SELECT count(*)::int AS n FROM requirement`,
+        `SELECT count(*)::int AS n, EXISTS (SELECT 1 FROM compliance_framework
+          WHERE code = 'nis2') AS nis2 FROM requirement`,
       );
-      if (counted[0].n > 0) {
+      if (counted[0].nis2) {
         console.log(`[seed] framework data present (${counted[0].n} requirements)`);
       } else {
-        console.log("[seed] empty catalogue — loading db/framework-seed.sql");
+        console.log("[seed] no NIS 2 in the catalogue — loading db/framework-seed.sql");
         await client.query(readFileSync(seedPath, "utf-8"));
         const { rows: after } = await client.query(
           `SELECT count(*)::int AS n FROM requirement`,

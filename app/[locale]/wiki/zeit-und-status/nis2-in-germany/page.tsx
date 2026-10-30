@@ -73,9 +73,10 @@ export default async function Nis2InGermanyPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale = wikiLocale(rawLocale);
-  const [t, w] = await Promise.all([
+  const [t, w, links] = await Promise.all([
     getTranslations("info.nis2InGermany"),
     getTranslations("info.wikiWalk"),
+    getTranslations("wikiLinks"),
   ]);
   const faq = t.raw("faq.items") as WikiQuestion[];
   const duties = t.raw("duties.items") as Duty[];
@@ -136,9 +137,14 @@ export default async function Nis2InGermanyPage({
               </div>
             ))}
           </div>
-          <WikiMoreLink href="/wiki/zeit-und-status/nis2-timeline">
-            {t("timeline.link")}
-          </WikiMoreLink>
+          <div className="flex flex-col gap-x-6 sm:flex-row">
+            <WikiMoreLink href="/wiki/zeit-und-status/nis2-timeline">
+              {t("timeline.link")}
+            </WikiMoreLink>
+            <WikiMoreLink href="/wiki/troubleshooting/nis2-registrierung-verpasst">
+              {links("registration")}
+            </WikiMoreLink>
+          </div>
         </section>
 
         <WikiSection

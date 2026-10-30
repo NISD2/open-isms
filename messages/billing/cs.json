@@ -15,7 +15,6 @@
       "title": "Objednávka",
       "intro": "Průvodce NIS 2 na jeden rok za {price} bez DPH. Jedna platba pokrývá všechny organizace a uživatele ve vašem účtu.",
       "sandboxNotice": "Testovací režim: tato objednávka vytvoří fakturu v sandboxu Qonto a odemkne tento účet.",
-      "payerOnly": "Objednávku může zadat držitel účtu nebo vedení, které k tomu držitel pozval. Držitelem je obvykle ten, kdo organizaci založil.",
       "pendingCheck": "Prověřujeme dřívější objednávku tohoto účtu. Neobjednávejte prosím znovu, ozveme se vám.",
       "toInvoices": "Vaše faktury"
     },
@@ -193,7 +192,6 @@
       "price": "Vaše cena: {price} bez DPH ročně",
       "order": "Objednat",
       "invoicesTitle": "Faktury",
-      "payerOnly": "Faktury vidí držitel účtu. Obvykle je to ten, kdo organizaci založil.",
       "empty": "Zatím žádné faktury.",
       "number": "Číslo",
       "amount": "Částka",

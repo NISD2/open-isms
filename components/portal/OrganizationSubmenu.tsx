@@ -18,14 +18,16 @@ import { trpc } from "@/lib/trpc/client";
  * A full page load after the open organization changes, because the portal layouts render the
  * sidebar and progress for the open one on the server and a client navigation keeps them.
  */
-const loadFor = (href: "/dashboard" | "/journey", locale: string) =>
+const loadFor = (href: "/dashboard", locale: string) =>
   window.location.assign(getPathname({ href, locale: locale as LocaleCode }));
 
 /**
  * The user menu's list of the person's organizations, and the way to start another one. Hidden for
- * someone with a single organization who cannot add one, so their menu is unchanged.
+ * someone with a single organization who cannot add one, so their menu is unchanged. Adding opens
+ * `AddOrganizationDialog`, which the user menu holds (`onAdd`), since a dialog inside the menu
+ * would close with it.
  */
-export function OrganizationSubmenu() {
+export function OrganizationSubmenu({ onAdd }: { onAdd: () => void }) {
   const t = useTranslations("portal");
   const locale = useLocale();
   const mine = trpc.company.listMine.useQuery();
@@ -33,15 +35,11 @@ export function OrganizationSubmenu() {
     onSuccess: () => loadFor("/dashboard", locale),
     onError: (e) => toast.error(e.message),
   });
-  const add = trpc.company.createAnother.useMutation({
-    onSuccess: () => loadFor("/journey", locale),
-    onError: (e) => toast.error(e.message),
-  });
 
   const data = mine.data;
   if (!data || (data.companies.length < 2 && !data.canAddCompany)) return null;
 
-  const busy = open.isPending || add.isPending;
+  const busy = open.isPending;
   const label = (name: string) => name || t("untitledOrganization");
   const current = data.companies.find((c) => c.open);
 
@@ -70,7 +68,7 @@ export function OrganizationSubmenu() {
           {data.canAddCompany && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem disabled={busy} onClick={() => add.mutate()}>
+              <DropdownMenuItem disabled={busy} onSelect={onAdd}>
                 <Plus className="mr-2 h-4 w-4" />
                 {t("addOrganization")}
               </DropdownMenuItem>

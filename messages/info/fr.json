@@ -510,12 +510,7 @@
       "cta": "Commencer gratuitement"
     },
     "bsigParagraph38": {
-      "meta": {
-        "title": "§ 38 BSIG : mise en œuvre, surveillance et formation expliquées",
-        "description": "Le § 38 BSIG en mots simples : alinéa 1 mettre en œuvre et surveiller, alinéa 2 responsabilité selon le droit des sociétés, alinéa 3 formation régulière de la direction."
-      },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "§ 38 BSIG : les obligations de la direction, alinéa par alinéa",
       "subtitle": "Le § 38 BSIG comporte trois alinéas. Alinéa 1 : la direction met en œuvre les mesures prévues au § 30 BSIG et surveille leur mise en œuvre. Alinéa 2 : si elle y manque par sa faute, elle en répond envers l'entreprise selon le droit des sociétés. Alinéa 3 : elle suit régulièrement une formation. La loi ne prescrit ni durée ni organisme particulier.",
       "text": {
         "heading": "Le texte, et ce qu'il signifie",
@@ -849,9 +844,7 @@
         "email": "contact@nisd2.eu"
       },
       "mstv": {
-        "heading": "Responsable du contenu conformément au paragraphe 18, alinéa 2, du MStV",
-        "name": "Simon Orzel",
-        "address": "Trierer Str. 6, 50676 Köln, Allemagne"
+        "heading": "Responsable du contenu conformément au paragraphe 18, alinéa 2, du MStV"
       },
       "dispute": {
         "heading": "Règlement extrajudiciaire des litiges en ligne de l'UE",
@@ -927,11 +920,8 @@
       },
       "cookies": {
         "heading": "Cookies",
-        "p1": "Ce site web n'utilise que des cookies techniquement nécessaires :",
         "session": "Cookie de session (NextAuth) : requis pour l'authentification - expire lorsque vous vous déconnectez ou à l'expiration du délai de session",
-        "locale": "Cookie de langue (next-intl) : enregistre votre préférence linguistique (EN/DE)",
-        "p2": "Nous n'utilisons pas de cookies de suivi, de cookies publicitaires ni aucun cookie tiers. Aucune bannière de consentement aux cookies n'est nécessaire car seuls des cookies techniquement nécessaires sont déposés."
-      },
+        "locale": "Cookie de langue (next-intl) : enregistre votre préférence linguistique (EN/DE)"      },
       "rights": {
         "heading": "Vos droits (art. 15 à 21 GDPR)",
         "p1": "Vous disposez des droits suivants concernant vos données à caractère personnel :",
@@ -1907,7 +1897,6 @@
       },
       "liability": {
         "heading": "Protection de la responsabilité des dirigeants",
-        "p1": "Le § 38 BSIG rend les dirigeants personnellement responsables de la conformité en matière de cybersécurité. Trois obligations s'appliquent : approbation, supervision et formation. Elles ne peuvent pas être déléguées.",
         "p2": "NISD2.eu structure la conformité de manière à ce que les dirigeants puissent démontrer qu'ils ont rempli ces trois obligations. Chaque approbation est consignée avec horodatage et identité de l'utilisateur, créant la piste de preuves qu'exige le § 38.",
         "p3": "Si le BSI audite votre entreprise, vous devez prouver que la direction a approuvé les mesures, supervisé leur mise en œuvre et suivi la formation. Cette plateforme génère cette preuve comme sous-produit de l'usage normal."
       },
@@ -2153,13 +2142,7 @@
       }
     },
     "ceoLiability": {
-      "meta": {
-        "title": "Responsabilité de la direction NIS2 : ce qu'exige le § 38 BSIG",
-        "description": "La direction est-elle responsable au titre de NIS2 ? § 38 BSIG : mettre en œuvre et surveiller les mesures, suivre régulièrement une formation, responsabilité selon le droit des sociétés."
-      },
       "badge": "§ 38 BSIG · Art. 20 NIS 2",
-      "title": "Responsabilité de la direction NIS2 : ce que le § 38 BSIG exige de la direction",
-      "subtitle": "La direction doit mettre en œuvre les mesures de sécurité prévues au § 30 BSIG, surveiller leur mise en œuvre et suivre régulièrement une formation (§ 38 BSIG). Si elle manque à ces obligations par sa faute et que l'entreprise subit de ce fait un dommage, la direction en répond envers l'entreprise. Cela relève du droit des sociétés, comme pour les autres obligations de la direction.",
       "who": {
         "heading": "À qui s'applique le § 38 BSIG",
         "paragraphs": [
@@ -3309,8 +3292,7 @@
             "detail": "ISO 27001 exige une réponse aux incidents mais ne fixe aucun délai de notification externe. Le §32 BSIG impose : une alerte précoce au BSI dans les 24 heures, une notification d'incident dans les 72 heures, et un rapport final dans un délai d'un mois. Ce sont des délais légaux assortis de sanctions distinctes en cas de non-respect. Votre processus de gestion des incidents du SMSI doit être étendu par des flux de notification propres au BSI."
           },
           "management": {
-            "title": "Responsabilité personnelle de la direction (§38 BSIG)",
-            "detail": "ISO 27001 exige l'engagement et le leadership de la direction (clause 5) mais ne crée aucune responsabilité juridique personnelle. Le §38 BSIG rend les Geschäftsleiter personnellement responsables des manquements à la gouvernance de la cybersécurité, y compris une obligation à laquelle on ne peut renoncer d'approuver les mesures, de superviser leur mise en œuvre et de suivre une formation personnelle en cybersécurité. Aucune mesure ISO ne traite de cela."
+            "title": "Responsabilité personnelle de la direction (§38 BSIG)"
           },
           "penalties": {
             "title": "Cadre légal des sanctions (§65 BSIG)",
@@ -4659,8 +4641,7 @@
           },
           "liability": {
             "aspect": "Responsabilité de la direction",
-            "kritis": "Aucune disposition spécifique de responsabilité personnelle pour la direction. Les devoirs généraux du droit des sociétés s'appliquaient",
-            "nis2": "Le §38 BSIG introduit une responsabilité personnelle explicite pour la Geschäftsführung. La direction doit approuver les mesures de cybersécurité, suivre une formation et peut être tenue personnellement responsable des dommages. Ne peut être écartée par une résolution des associés"
+            "kritis": "Aucune disposition spécifique de responsabilité personnelle pour la direction. Les devoirs généraux du droit des sociétés s'appliquaient"
           },
           "audit": {
             "aspect": "Exigences d'audit",
@@ -4732,8 +4713,7 @@
           "a": "Non. NIS2 est un régime réglementaire fondamentalement plus large et plus profond. KRITIS couvrait environ 2 000 exploitants avec des seuils élevés. NIS2 couvre environ 30 000 entités avec des seuils bien plus bas. NIS2 ajoute la responsabilité personnelle de la direction, l'enregistrement obligatoire, des délais structurés de notification des incidents, des obligations de chaîne d'approvisionnement et des sanctions nettement plus élevées. Considérez KRITIS comme le programme pilote - NIS2 est le déploiement complet."
         },
         "q4": {
-          "q": "Quelle est la plus grande différence pratique pour les entreprises ?",
-          "a": "La responsabilité personnelle de la direction au titre du §38 BSIG. Sous KRITIS, la cybersécurité était un problème du service informatique. Sous NIS2, la Geschäftsführung est personnellement responsable de l'approbation et de la supervision des mesures de cybersécurité, doit suivre une formation en cybersécurité et peut être tenue responsable des dommages résultant d'une non-conformité. Cette responsabilité ne peut être écartée, même par une résolution des associés. Cela transforme la cybersécurité d'une ligne de budget informatique en un enjeu de gouvernance au niveau du conseil."
+          "q": "Quelle est la plus grande différence pratique pour les entreprises ?"
         }
       },
       "sources": {
@@ -5101,8 +5081,7 @@
       },
       "consequences": {
         "heading": "Ce qui se passe si vous ne faites rien",
-        "p1": "Les entités essentielles encourent des amendes pouvant atteindre 10 millions d'euros ou 2 % du chiffre d'affaires annuel mondial. Les entités importantes encourent jusqu'à 7 millions d'euros ou 1,4 %. Les violations de l'obligation d'enregistrement à elles seules sont passibles d'amendes pouvant atteindre 500 000 euros. Le BSI peut ordonner la mise en conformité (§§ 61, 62 BSIG). Pour les entités particulièrement importantes qui ignorent ses ordres, l'autorité sectorielle compétente peut, en dernier recours, suspendre temporairement une autorisation et interdire temporairement d'exercer des dirigeants jugés non fiables (§ 61 Abs. 9 BSIG).",
-        "p2": "Au-delà des amendes, l'article 38 BSIG crée une responsabilité personnelle pour la direction. Les dirigeants doivent mettre en œuvre les mesures de cybersécurité, superviser leur mise en œuvre et suivre régulièrement une formation. Ils répondent envers leur propre entreprise des dommages causés par leur faute, selon les règles du droit des sociétés applicables à sa forme juridique."
+        "p1": "Les entités essentielles encourent des amendes pouvant atteindre 10 millions d'euros ou 2 % du chiffre d'affaires annuel mondial. Les entités importantes encourent jusqu'à 7 millions d'euros ou 1,4 %. Les violations de l'obligation d'enregistrement à elles seules sont passibles d'amendes pouvant atteindre 500 000 euros. Le BSI peut ordonner la mise en conformité (§§ 61, 62 BSIG). Pour les entités particulièrement importantes qui ignorent ses ordres, l'autorité sectorielle compétente peut, en dernier recours, suspendre temporairement une autorisation et interdire temporairement d'exercer des dirigeants jugés non fiables (§ 61 Abs. 9 BSIG)."
       },
       "faq": {
         "heading": "Questions fréquentes",
@@ -5971,8 +5950,7 @@
           "training": {
             "area": "Formation à la cybersécurité",
             "directive": "Formation régulière pour la direction et l'ensemble du personnel",
-            "cir": "Formation spécifique au rôle, la direction doit démontrer sa compétence en matière de supervision des risques",
-            "bsig": "Formation annuelle de sensibilisation pour l'ensemble du personnel, formation spécifique au rôle pour le personnel informatique, formation obligatoire de la direction à la responsabilité au titre du paragraphe 38 du BSIG"
+            "cir": "Formation spécifique au rôle, la direction doit démontrer sa compétence en matière de supervision des risques"
           }
         }
       },
@@ -6637,8 +6615,7 @@
           "a": "Non. L'obligation de formation incombe personnellement aux organes de direction et ne peut être remise à des employés ou à des prestataires externes (art. 20, paragraphe 2, de la directive NIS 2, en Allemagne §38, paragraphe 3, BSIG). Vous pouvez nommer un délégué à la protection des données ou un responsable de la sécurité et répartir la mise en œuvre opérationnelle, mais suivre vous-même la formation reste votre tâche. Documentez qui a participé, pendant combien de temps et avec quel contenu, afin de pouvoir le présenter à l'autorité sur demande."
         },
         "q5": {
-          "q": "La direction est-elle personnellement responsable des manquements ?",
-          "a": "Si un membre de la direction manque à son obligation d'approbation, de supervision ou de formation, il est responsable envers sa propre entité du dommage causé par sa faute selon les règles de droit des sociétés de la forme juridique respective (art. 20 de la directive NIS 2, en Allemagne §38 BSIG). Cette action appartient à la société, et non à des tiers, et une renonciation totale à la responsabilité par le contrat de société ou les statuts est exclue. En pratique, vous réduisez le risque en documentant proprement les approbations, les contrôles et les registres de formation. La meilleure protection n'est pas la renonciation, mais l'ensemble des obligations rempli de manière démontrable."
+          "q": "La direction est-elle personnellement responsable des manquements ?"
         }
       },
       "implementation": {
@@ -7295,7 +7272,6 @@
       },
       "badge": "NIS2 Articles 20 + 21",
       "title": "Formation des dirigeants NIS2",
-      "subtitle": "Tout ce que la directive NIS2 exige que vous sachiez en tant que membre de l'organe de direction - structuré, gratuit et conçu pour les questions de l'auditeur.",
       "startCourse": "Commencer le cours",
       "downloadPdf": "Télécharger le PDF",
       "lessonsLabel": "leçons",
@@ -7811,8 +7787,7 @@
             "reality": "La formation de sensibilisation des utilisateurs n'est pas une formation de direction. L'article 20, paragraphe 2, énumère quatre blocs de contenu : identifier les risques, évaluer les risques, comprendre les pratiques de gestion de la cybersécurité, comprendre l'incidence sur les services. « Ne cliquez pas sur les liens d'hameçonnage » ne figure pas sur cette liste. L'organe de direction a besoin d'une formation aux pratiques de gestion, pas au comportement des utilisateurs."
           },
           "noAcceptanceCriteria": {
-            "myth": "Notre assurance D&O couvre la responsabilité personnelle, donc la formation est facultative.",
-            "reality": "Ce n'est pas le cas. Le §38(2) BSIG crée une responsabilité personnelle en cas de manquement aux obligations de direction prévues au §38. L'assurance est quelque chose que vous ajoutez par-dessus. Elle ne supprime pas l'obligation sous-jacente, et la formation elle-même est ce qui réduit le risque sous-jacent de manquement. Omettre la formation augmente la responsabilité, elle ne la diminue pas."
+            "myth": "Notre assurance D&O couvre la responsabilité personnelle, donc la formation est facultative."
           }
         }
       },
@@ -13672,11 +13647,9 @@
     },
     "nis2HaftungVorstand": {
       "meta": {
-        "title": "Responsabilité personnelle de l'organe de direction au titre de NIS 2",
-        "description": "Comment l'article 20 NIS 2 rend l'organe de direction des entités essentielles et importantes responsable de l'approbation, de la supervision et de la formation en matière de gestion des risques de cybersécurité, et comment le droit allemand des sociétés transforme cette obligation en responsabilité personnelle."
+        "title": "Responsabilité personnelle de l'organe de direction au titre de NIS 2"
       },
       "title": "Responsabilité personnelle de l'organe de direction au titre de NIS 2",
-      "subtitle": "L'article 20 de la directive NIS 2 assigne trois obligations à l'organe de direction : approuver les mesures de gestion des risques de cybersécurité, en superviser la mise en oeuvre et suivre une formation. Le droit national des sociétés convertit un manquement à ces obligations en une action personnelle contre l'individu.",
       "overview": {
         "heading": "Ce que dit réellement l'article 20",
         "p1": "L'article 20 de la directive (UE) 2022/2555 fait peser l'obligation de cybersécurité sur l'organe de direction de chaque entité essentielle et importante. L'organe de direction doit approuver les mesures de gestion des risques exigées par l'article 21, doit en superviser la mise en oeuvre et peut être tenu responsable des infractions de l'entité à l'article 21.",
@@ -16031,7 +16004,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des opérateurs français équivalents au Mittelstand que nous voyons traitent encore NIS 2 comme une extension de l'ancien régime OIV / OSE. C'est à moitié exact. Au titre du projet de loi, la supervision et le canal d'incident résident au sein de l'ANSSI comme auparavant, mais le champ d'application est plus large et la validation par l'organe de direction est plus lourde. Une fois la loi applicable, l'équivalent du Geschäftsführer (président, directeur général, gérant) est personnellement engagé pour l'approbation de la gestion des risques et la formation.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, se préenregistrer volontairement auprès de l'ANSSI (messervices.cyber.gouv.fr/nis2, anciennement MonEspaceNIS2) et s'enregistrer une fois la loi adoptée, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, déclaration d'incidents, risque lié à la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. L'appareil OIV aide, mais il ne se substitue pas aux obligations NIS 2."
       },
       "platform": {
@@ -16430,7 +16402,6 @@
       },
       "practitioner": {
         "heading": "Vue du praticien",
-        "p1": "La plupart des opérateurs suédois que nous voyons ont passé toute l'année 2025 dans l'incertitude. Jusqu'à la mi-décembre 2025, la Cybersäkerhetslagen était au Riksdag sous la forme de la Proposition 2025/26:28 et rien de plus. La conséquence : de nombreux directeurs généraux ont suspendu leur travail NIS 2, puis ont dû comprimer la notification et la première documentation dans la fenêtre peu après le 15 janvier 2026.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, s'enregistrer auprès du NCSC à la FRA, mettre en place les quatre obligations continues (mise à jour de l'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, surveillance de l'organe de direction) et documenter le minimum. Le régulateur sectoriel reste l'adresse de supervision ; le NCSC et CERT-SE sont les canaux opérationnels."
       },
       "platform": {
@@ -16566,7 +16537,6 @@
       },
       "practitioner": {
         "heading": "Vue du praticien",
-        "p1": "La plupart des opérateurs portugais que nous voyons ont traité NIS 2 comme un problème futur jusqu'à la publication du Decreto-Lei n.º 125/2025 en décembre 2025. Cette fenêtre est fermée. La surveillance du CNCS commence le 3 avril 2026, le responsable de la cybersécurité doit être notifié dans les vingt jours ouvrables, et l'organe de direction, l'administrador ou gerente, est personnellement engagé pour l'approbation de la gestion des risques et la formation au titre de la directive.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, s'enregistrer via la plateforme nationale (ici la plateforme électronique du CNCS), mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, notification d'incident, risque de chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum. Les orientations sectorielles du CNCS aident, mais elles ne se substituent pas au registre des obligations NIS 2."
       },
       "platform": {
@@ -16700,7 +16670,6 @@
       },
       "practitioner": {
         "heading": "Sur le terrain",
-        "p1": "La plupart des opérateurs finlandais de taille intermédiaire que nous rencontrons traitent encore NIS 2 comme un sujet informatique. Ce n'est qu'à moitié vrai. La surveillance et le canal de notification se situent au niveau sectoriel, le périmètre est plus large que sous l'ancien régime finlandais de cybersécurité, et l'organe de direction (toimitusjohtaja, hallitus) porte une responsabilité plus lourde. L'organe de direction approuve et supervise la procédure de gestion des risques et doit avoir une connaissance suffisante de la gestion des risques de cybersécurité ; pour les entités essentielles, des manquements graves répétés peuvent conduire à une interdiction temporaire d'exercer au conseil.",
         "p2": "L'étape pratique est la même que partout dans l'UE : effectuer le test d'applicabilité au regard de la directive, s'enregistrer auprès du superviseur sectoriel et figurer sur sa liste d'entités, mettre en place les quatre devoirs continus (tenir à jour les données d'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, surveillance par l'organe de direction) et documenter le minimum. Utiliser le formulaire de notification Traficom commun garde la voie de notification claire."
       },
       "platform": {
@@ -16971,7 +16940,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des opérateurs tchèques du marché intermédiaire que nous voyons traitent NIS 2 comme une extension de l'ancien régime de la loi 181/2014 Sb. C'est à moitié vrai. Le NÚKIB exerce toujours la supervision et le canal des incidents, mais le périmètre est bien plus large, le modèle à deux niveaux de plus et de moins grande importance modifie les obligations par service, et l'organe statutaire (jednatel ou představenstvo) porte une responsabilité explicite pour l'approbation de la gestion des risques et la formation.",
         "p2": "La démarche pratique est la même que partout dans l'UE : confirmer le périmètre au titre de la directive, s'auto-identifier au regard de la liste des services réglementés, s'enregistrer via le portail du NÚKIB, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. La documentation de 2014 aide, mais elle ne se substitue pas au registre des obligations NIS 2."
       },
       "platform": {
@@ -17242,7 +17210,6 @@
       },
       "practitioner": {
         "heading": "Du terrain",
-        "p1": "La plupart des opérateurs irlandais du marché intermédiaire que nous rencontrons traitent NIS 2 comme une échéance reportée et attendent le National Cyber Security Bill. Juridiquement, cela tient pour l'instant : une directive lie l'État, pas l'entreprise, donc tant que la loi n'est pas en vigueur, seules les NIS 1 Regulations s'appliquent, et seulement aux exploitants déjà désignés en vertu de celles-ci. En pratique, le travail prend des mois : qui commence maintenant aborde la loi avec la documentation déjà en place.",
         "p2": "La démarche pratique est la même que partout dans l'UE : effectuer le test d'applicabilité au regard de la directive, utiliser les orientations préparatoires du NCSC-IE (le projet de Risk Management Measures, CyFun) comme repère, mettre en place les quatre obligations continues (tenir les données d'enregistrement à jour, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum. Une fois la loi en vigueur, le travail restant consiste surtout à brancher la documentation finalisée sur les procédures irlandaises."
       },
       "platform": {
@@ -17379,7 +17346,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des exploitants danois du marché intermédiaire que nous voyons cherchent instinctivement un point de contact unique. Il n'y en a pas. Si vous relevez d'un secteur réglementé, vous vous adressez principalement à votre propre autorité responsable du secteur. Si vous êtes hors des secteurs réglementés ou si vous avez des questions transversales, vous allez vers SAMSIK. Le signalement d'incident passe techniquement par le CFCS en parallèle de l'autorité sectorielle. Le CEO ou direktør est personnellement responsable de l'approbation de la gestion des risques et de sa propre formation au titre de l'article 20 de NIS 2.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, préciser le secteur principal, s'enregistrer via virk.dk, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, signalement d'incident, risque lié à la chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum. Une entité active dans plusieurs secteurs documente par secteur, car les superviseurs interrogent par secteur."
       },
       "platform": {
@@ -17646,7 +17612,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des petits et moyens opérateurs italiens que nous rencontrons lisent encore NIS 2 à travers le prisme de l'ancien périmètre NIS 1 du D.Lgs. 65/2018, dans lequel seuls quelques opérateurs nommément désignés étaient dans le périmètre. Le nouveau décret élargit le périmètre d'un ordre de grandeur, fait entrer les administrations publiques, le transport public local et les entités de recherche, et fait peser la responsabilité sur l'organe de direction. L'amministratore delegato ou le legale rappresentante est personnellement responsable de l'approbation de la gestion des risques et de la formation.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE. Confirmer le périmètre au regard de la directive et du décret, s'enregistrer sur la plateforme de l'ACN, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, notification des incidents via le CSIRT Italia, risque de la chaîne d'approvisionnement, surveillance par l'organe de direction) et documenter le minimum. Les annexes sectorielles de l'ACN affinent le détail ; elles ne remplacent pas le registre d'obligations."
       },
       "platform": {
@@ -17780,7 +17745,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des exploitants espagnols du marché intermédiaire que nous voyons traitent NIS 2 comme un problème qu'ils peuvent reporter jusqu'à ce que le Boletín publie la loi finale. C'est un pari coûteux. Le délai du 17 octobre 2024 de la directive est déjà passé, la Commission a envoyé un avis motivé le 7 mai 2025 et a saisi la Cour de justice de l'UE contre l'Espagne le 8 juillet 2026, et les obligations de fond (approbation par l'organe de direction des mesures de risque, alerte précoce à 24 h, notification à 72 h, clauses relatives à la chaîne d'approvisionnement) ne changent pas entre le projet et tout texte final plausible.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, préparer l'enregistrement une fois que la loi espagnole désignera l'organisme et le portail d'enregistrement, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, signalement d'incident, gestion des risques de la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. Les orientations existantes du CCN et de l'INCIBE ainsi que les canaux de signalement du Real Decreto-ley 12/2018 restent utilisables tant que la nouvelle loi est en attente."
       },
       "platform": {
@@ -17989,7 +17953,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des opérateurs hongrois à qui nous parlons supposent que NIS 2 commence lorsqu'une nouvelle loi omnibus est adoptée. Ce n'est pas le cas. La surveillance de SZTFH au titre de l'Act XXIII of 2023 est déjà active, des audits ont lieu, et l'approbation par l'organe de direction est déjà une question que SZTFH peut poser. L'avis motivé de la Commission du 7 mai 2025 accroît la pression politique mais ne repousse pas la date de début du surveillant.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE. Confirmer le périmètre au regard de la directive, s'enregistrer auprès du surveillant national (ici SZTFH), mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, notification des incidents via NKI, risque de la chaîne d'approvisionnement, surveillance par l'organe de direction) et documenter le minimum. Les régulateurs sectoriels hongrois restent compétents là où la lex specialis s'applique, en particulier la finance sous la MNB."
       },
       "platform": {
@@ -18123,7 +18086,6 @@
       },
       "practitioner": {
         "heading": "En pratique",
-        "p1": "La plupart des opérateurs roumains de taille intermédiaire que nous rencontrons traitent encore NIS 2 comme un sujet pour l'informatique, et non pour l'organe de direction. C'est la même erreur que nous observons ailleurs dans l'UE. L'article 20 met l'obligation sur l'organe de direction d'approuver la gestion des risques, d'en superviser la mise en œuvre et de suivre une formation de direction. Le DNSC examinera cette approbation, et non qui a rédigé la politique.",
         "p2": "La démarche pratique en Roumanie est la même que partout dans l'UE : tester l'applicabilité par rapport à la directive, s'enregistrer via le canal national du DNSC, mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, notification d'incident, risque de chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum."
       },
       "platform": {
@@ -18256,7 +18218,6 @@
       },
       "practitioner": {
         "heading": "Sur le terrain",
-        "p1": "La plupart des opérateurs slovaques du marché intermédiaire que nous rencontrons traitent encore NIS 2 comme une petite mise à jour de la loi sur la cybersécurité de 2018. La modification est davantage que cela. Le périmètre des entités réglementées est plus large, l'organe de direction porte désormais une responsabilité personnelle pour l'approbation du traitement des risques et pour sa propre formation, et le calendrier de notification est plus exigeant que ce que demandait l'ancien régime.",
         "p2": "La démarche pratique est la même que partout dans l'UE : effectuer le test d'applicabilité au regard de la directive, s'enregistrer via le portail national (ici JISKB), mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. Le processus existant de la loi sur la cybersécurité de 2018 aide, mais il ne remplace pas la documentation des mesures NIS 2 elles-mêmes."
       },
       "platform": {
@@ -18391,7 +18352,6 @@
       },
       "practitioner": {
         "heading": "De la pratique",
-        "p1": "La plupart des opérateurs croates que nous rencontrons lisent encore NIS 2 comme une continuation de l'ancien cadre des infrastructures critiques. Ce n'est qu'en partie vrai. La supervision passe désormais par la SOA / le NCSC-HR avec l'UVNS comme contact de l'UE, le périmètre est plus large que sous l'ancien régime, et l'organe de direction porte une responsabilité personnelle pour l'approbation de la gestion des risques et l'accomplissement de sa propre formation.",
         "p2": "La démarche pratique est la même que partout dans l'UE : vérifier l'applicabilité au regard de la directive, s'enregistrer via les canaux prévus par NN 14/2024 et NN 135/2024, mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum. La plateforme PiXi et e-Ovlaštenja sont l'interface opérationnelle, et non l'obligation elle-même."
       },
       "platform": {
@@ -18527,7 +18487,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des opérateurs que nous voyons en Bulgarie attendent encore un texte national définitif avant de commencer le travail. C'est le mauvais ordre. Les obligations de la directive s'appliquent à compter de l'échéance du 17 octobre 2024 ; la Commission a déjà envoyé un avis motivé le 7 mai 2025. Le canal de supervision et le CSIRT existent aujourd'hui, et l'obligation d'approbation de l'organe de direction au titre de l'article 20 lie l'équivalent du Geschäftsführer (управител, изпълнителен директор) indépendamment de l'endroit où aboutit la modification nationale.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le champ d'application au titre de la directive, contacter l'Agence d'État pour l'administration en ligne comme point de contact unique, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, notification d'incidents, risque de chaîne d'approvisionnement, surveillance par l'organe de direction), et documenter le minimum. Une fois que la loi sur la cybersécurité modifiée sera pleinement en vigueur, le travail déjà accompli se reportera ; la directive est la constante."
       },
       "platform": {
@@ -18661,7 +18620,6 @@
       },
       "practitioner": {
         "heading": "Depuis la pratique",
-        "p1": "La plupart des opérateurs grecs du marché intermédiaire que nous rencontrons lisent encore NIS 2 comme une continuation de NIS 1. Le superviseur siège dans le même ministère, mais le champ d'application est plus large et l'organe de direction est personnellement sur la sellette. Le gérant grec, le διαχειριστής ou νόμιμος εκπρόσωπος, valide la gestion des risques et sa propre formation.",
         "p2": "L'étape pratique est la même que partout dans l'UE : mener l'applicabilité au regard de la directive, s'enregistrer auprès de l'autorité nationale, mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, notifier les incidents, gérer le risque de la chaîne d'approvisionnement, assurer la supervision par l'organe de direction) et documenter le minimum. La transposition tardive ne change pas cet ordonnancement."
       },
       "platform": {
@@ -18795,7 +18753,6 @@
       },
       "practitioner": {
         "heading": "En pratique",
-        "p1": "La plupart des opérateurs luxembourgeois de taille intermédiaire que nous rencontrons traitent encore NIS 2 comme une obligation future. Le délai a glissé deux fois, d'abord au niveau de l'UE le 17 octobre 2024, puis dans la loi nationale qui n'est entrée en vigueur que le 15 mai 2026. Cela a donné l'impression que rien n'est encore contraignant. Ça l'est. Les obligations de la directive en matière de gestion des risques et de notification d'incident mordent à compter de la date de prise d'effet de la loi nationale, et l'ILR surveille en application de celle-ci.",
         "p2": "La démarche pratique est la même que partout dans l'UE : vérifier l'applicabilité par rapport à la directive, s'enregistrer auprès de l'autorité compétente (ici l'ILR via myilr.lu), mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, notifier les incidents, gérer le risque de chaîne d'approvisionnement, assurer la supervision par l'organe de direction) et documenter le minimum. Le secteur financier lit DORA en parallèle sous la surveillance de la CSSF."
       },
       "platform": {
@@ -18930,7 +18887,6 @@
       },
       "practitioner": {
         "heading": "Point de vue du praticien",
-        "p1": "La plupart des opérateurs slovènes que nous voyons traitent NIS 2 comme une continuation de l'ancien régime ZInfV. C'est en partie vrai : URSIV reste le responsable de la politique et SI-CERT assure toujours la réponse aux incidents. Le périmètre est plus large, la validation de l'organe de direction est plus lourde, et la fenêtre de mise en œuvre de 18 mois à compter du 19 juin 2025 est un véritable compte à rebours. Le directeur ou le conseil de direction est personnellement engagé pour l'approbation de la gestion des risques et pour l'accomplissement de la formation requise.",
         "p2": "La démarche pratique est la même que partout ailleurs dans l'UE : confirmer le périmètre au titre de la directive, s'enregistrer auprès d'URSIV, mettre en place les quatre obligations continues (tenue à jour de l'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum. L'ancienne documentation ZInfV aide, mais elle ne remplace pas la documentation des mesures ZInfV-1."
       },
       "platform": {
@@ -19063,7 +19019,6 @@
       },
       "practitioner": {
         "heading": "De la pratique",
-        "p1": "La plupart des opérateurs chypriotes que nous voyons traitent encore NIS 2 comme un futur problème de droit chypriote. C'est à moitié vrai. La loi porteuse avance lentement. Les obligations de la directive, non. Les organes de direction à Chypre sont responsables de l'approbation de la gestion des risques et de leur propre formation dès que le droit chypriote entre pleinement en vigueur, et sans doute déjà aujourd'hui via la directive qui se tient derrière une transposition retardée.",
         "p2": "La démarche pratique est la même que partout dans l'UE : vérifier l'applicabilité au regard de la directive, se préparer à s'enregistrer une fois le mécanisme chypriote publié, mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. La DSA et le CSIRT-CY sont les points de contact déjà en place."
       },
       "platform": {
@@ -19331,7 +19286,6 @@
       },
       "practitioner": {
         "heading": "De la pratique",
-        "p1": "La plupart des opérateurs lituaniens du marché intermédiaire que nous voyons traitent encore NIS 2 comme une extension de l'ancien régime NIS 1. C'est à moitié vrai. Le NKSC était le superviseur auparavant, et le demeure. Le périmètre est plus large, la responsabilité de l'organe de direction est plus lourde, et le catalogue des exigences de cybersécurité du règlement d'exécution est plus détaillé que la décision précédente.",
         "p2": "La démarche pratique est la même que partout dans l'UE : effectuer le test d'applicabilité au regard de la directive, s'enregistrer auprès du superviseur national (ici le NKSC), mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum. L'ancienne paperasse NIS 1 aide comme socle, mais ne remplace pas le registre des obligations NIS 2."
       },
       "platform": {
@@ -19465,7 +19419,6 @@
       },
       "practitioner": {
         "heading": "De la pratique",
-        "p1": "La plupart des opérateurs lettons du marché intermédiaire que nous rencontrons traitent encore NIS 2 comme quelque chose que le ministère de la Défense gère pour eux via CERT.LV. CERT.LV est le visage amical, mais ce n'est pas le superviseur. L'exécution et les sanctions relèvent du NCSC pour les entités essentielles et importantes générales, et du SAB pour les infrastructures TIC critiques. Les organes de direction de ces entités sont personnellement responsables de l'approbation de la gestion des risques et de l'obtention de leur propre formation, au niveau de la directive.",
         "p2": "La démarche pratique est la même que partout dans l'UE : tester l'applicabilité au regard de la directive, notifier à l'autorité compétente dans la fenêtre d'un mois, exercer les quatre obligations continues (tenir à jour les données d'enregistrement, notification des incidents, risque de la chaîne d'approvisionnement, supervision par l'organe de direction) et documenter le minimum. CERT.LV reste le partenaire pour le traitement des incidents, et non l'endroit qui décide si vous êtes dans le périmètre."
       },
       "platform": {
@@ -19599,7 +19552,6 @@
       },
       "practitioner": {
         "heading": "Sur le terrain",
-        "p1": "La plupart des opérateurs maltais que nous rencontrons traitent NIS 2 comme le prochain dossier de conformité après le GDPR. C'est acceptable comme cadrage de projet. La substance est différente : la directive parle de continuité de service, de risque lié à la chaîne d'approvisionnement et de responsabilité de la direction, et non seulement de données à caractère personnel. Les dirigeants d'une société maltaise relevant de NIS 2 valident personnellement le socle de gestion des risques et leur propre formation. Cette validation n'est pas délégable au groupe mère ni à un consultant externe.",
         "p2": "La séquence pratique est la même dans toute l'UE : effectuer le test d'applicabilité au regard de la directive, s'enregistrer auprès de l'autorité nationale compétente une fois le canal ouvert, mettre en place les quatre obligations continues (tenir à jour les données d'enregistrement, déclaration d'incidents, risque lié à la chaîne d'approvisionnement, supervision par l'organe de direction), et documenter le minimum. Là où CSIRTMalta ou l'autorité compétente publie des orientations sectorielles, utilisez-les. Là où elles ne le font pas, le texte de la directive et le règlement d'exécution constituent le recours."
       },
       "platform": {

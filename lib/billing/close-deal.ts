@@ -196,6 +196,8 @@ export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
     terms: input.termsAcceptedOnCall
       ? { version: TERMS_VERSION, acceptedByUserId: customer.id }
       : null,
+    // The customer already holds this account (`heldAccount`).
+    newPayerUserId: null,
   });
   if (!outcome.ok) return outcome;
 
