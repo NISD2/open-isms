@@ -3,7 +3,7 @@ import "@/lib/server-guard";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { journeyIndex } from "@/lib/compliance/journey-position";
 import type { DbOrTx } from "@/lib/db";
-import { NIS2_WALK } from "@/lib/durchgang";
+import { journeyEntryOf, NIS2_WALK } from "@/lib/durchgang";
 import {
   asset,
   assetProvider,
@@ -274,10 +274,10 @@ async function loadRequirements(db: DbOrTx, companyId: string, window: PageWindo
     .where(eq(companyRequirementStatus.assessmentId, assessment.id));
   return sliced(
     statuses
-      .map((s) => ({
-        ...s,
-        journey: states.get(s.code) ?? { state: "todo" as const, coveredBy: null },
-      }))
+      .map(({ status, ...row }) => {
+        const { state, coveredBy } = journeyEntryOf(status, states.get(row.code));
+        return { ...row, state, coveredBy, approved: status === "approved" };
+      })
       // Codes outside the journey share its last place; their code orders them, so pages hold.
       .toSorted(
         (a, b) =>

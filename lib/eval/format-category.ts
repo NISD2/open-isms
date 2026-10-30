@@ -18,7 +18,7 @@ export function formatCategoryForPrompt(
   for (const req of category.requirements) {
     const hasSigned = !!req.signedOffRole;
 
-    if (mode === "data" && req.status === "not_started" && !hasSigned) {
+    if (mode === "data" && req.state === "todo" && !hasSigned) {
       notStartedCount++;
       continue;
     }
@@ -28,12 +28,13 @@ export function formatCategoryForPrompt(
     lines.push(`Evidence type: ${req.evidenceType}`);
 
     if (mode === "data") {
-      lines.push(`Status: ${req.status}`);
+      lines.push(`Status: ${req.state}`);
       lines.push(`Evidence files: ${req.evidence.length}`);
 
       if (req.signedOffRole) {
         lines.push(`Signed off by: ${req.signedOffRole}`);
-        if (req.signedOffAt) lines.push(`Signed off at: ${req.signedOffAt.toISOString()}`);
+        if (req.signedOffAt)
+          lines.push(`Signed off at: ${req.signedOffAt.toISOString()}`);
       }
 
       if (req.signOffSnapshot?.derivedData) {

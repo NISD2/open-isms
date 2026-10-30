@@ -82,8 +82,9 @@ test.describe("the GDPR walkthrough's paywall", () => {
     await expect(page).toHaveURL(/\/durchgang\/dsgvo\/G-ROP\.1$/);
     await page.goto("/de/durchgang/dsgvo/G-DPA.1");
     await expect(page).toHaveURL(/\/durchgang\/dsgvo\/G-DPA\.1$/);
+    // In German: the preview's words were English only until 30.10.2026.
     await expect(
-      page.getByText("You fill this in once the company has ordered"),
+      page.getByText("Das füllen Sie aus, sobald das Unternehmen bestellt hat"),
     ).toBeVisible();
     await expect(page.locator("main input, main textarea")).toHaveCount(0);
     await page.goto("/de/durchgang/dsgvo/freigabe");

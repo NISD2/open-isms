@@ -105,6 +105,7 @@ import ui2En from "@/messages/durchgang/ui-2/en.json";
 import ui3Cs from "@/messages/durchgang/ui-3/cs.json";
 import ui3De from "@/messages/durchgang/ui-3/de.json";
 import ui3En from "@/messages/durchgang/ui-3/en.json";
+import ui4Cs from "@/messages/durchgang/ui-4/cs.json";
 import ui4De from "@/messages/durchgang/ui-4/de.json";
 import ui4En from "@/messages/durchgang/ui-4/en.json";
 import walksCs from "@/messages/durchgang/walks/cs.json";
@@ -192,6 +193,7 @@ const PARTS: Readonly<Record<WalkLocale, readonly unknown[]>> = {
     ui1Cs,
     ui2Cs,
     ui3Cs,
+    ui4Cs,
     walksCs,
     item1_1Cs,
     item2_1Cs,

@@ -61,7 +61,12 @@ export default async function AuditPage() {
         <AuditLogTable rows={rows} />
       ) : (
         <>
-          <ExampleNote text={tx("audit")} order={examplesOnly} />
+          {/* Before the order the log is not read at all, though the walk writes to it: the
+              note says so, rather than promise entries that cannot appear yet. */}
+          <ExampleNote
+            text={tx(examplesOnly ? "auditUnpaid" : "audit")}
+            order={examplesOnly}
+          />
           <AuditLogTable rows={examples} />
         </>
       )}

@@ -19,6 +19,7 @@ import {
   itemState,
   itemsFor,
   type JourneyRow,
+  journeyEntryOf,
   journeyStates,
   NIS2_WALK,
   type StatusRow,
@@ -282,5 +283,33 @@ describe("the approval item counts as walked once signed", () => {
     for (const code of ["7.1", "7.2", "7.4"]) {
       expect({ code, ...states.get(code) }).toMatchObject({ code, state: "signed" });
     }
+  });
+});
+
+describe("an export reads a requirement as the journey does", () => {
+  const at = new Date("2026-10-30T10:00:00Z");
+  const walk = { sector: "manufacturing", walks: codesOf(company("important")) };
+  const row = (status: string): JourneyRow => ({
+    code: "2.1",
+    requirementId: "req-2.1",
+    status,
+    signedOffAt: status === "completed" ? at : null,
+    reviewedAt: null,
+  });
+
+  test("an item filled in the walk awaits sign-off, though its status row says not started", () => {
+    const events = new Map([
+      ["req-2.1", { action: "durchgang.item_done", newValue: null, createdAt: at }],
+    ]);
+    const states = journeyStates([row("not_started")], events, walk);
+    expect(journeyEntryOf("not_started", states.get("2.1")).state).toBe("awaiting");
+  });
+
+  test("without a journey entry the status alone decides, read as the journey reads it", () => {
+    expect(journeyEntryOf("completed", undefined)).toEqual({
+      state: "signed",
+      coveredBy: null,
+    });
+    expect(journeyEntryOf("not_started", undefined).state).toBe("todo");
   });
 });

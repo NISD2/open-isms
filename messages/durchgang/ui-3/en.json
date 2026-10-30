@@ -20,8 +20,6 @@
         "unchecked": "Your authority's website says which channel to use. Look it up now, not during an incident.",
         "openPortal": "Open the {name}",
         "website": "Authority's website",
-        "noCountry": "No country is set for your company yet. Once it is, your authority appears here at the top.",
-        "setCountry": "Set the country",
         "others": "The authorities in the other {count} EU member states"
       },
       "riskmap": {
@@ -80,6 +78,7 @@
         },
         "open": "Open",
         "toSignOff": "Not signed off yet. Jump to sign-off",
+        "toSignOffLocked": "Not signed off yet. Management's sign-off comes with the order",
         "next": "Next",
         "waiting": "Still waiting",
         "allFilled": "Every item is filled in.",

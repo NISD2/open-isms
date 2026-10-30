@@ -50,6 +50,7 @@ import { PgNumeric } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 import { QUESTIONNAIRE_COLUMNS } from "@/lib/forms/supplier-portal-sections";
+import { isoCountrySchema } from "@/lib/organization/constants";
 import { normalizeDomain } from "@/lib/supplier-portal/domain";
 
 // --- Module imports ---
@@ -172,11 +173,7 @@ export const companyInsertSchema = createInsertSchema(company, {
   incidentContactEmail: z.string().email().max(255).nullish(),
   legalName: z.string().min(1).max(255).nullish(),
   registeredAddress: z.string().min(1).max(500).nullish(),
-  country: z
-    .string()
-    .length(2)
-    .regex(/^[A-Z]{2}$/, "ISO 3166-1 alpha-2")
-    .nullish(),
+  country: isoCountrySchema.nullish(),
   securityContactName: z.string().min(1).max(255).nullish(),
 });
 export const companySelectSchema = createSelectSchema(company);
@@ -784,11 +781,6 @@ export const bsiIncidentReportUpdateSchema = bsiIncidentReportInsertSchema
 // One source of truth so the form labels, validation, and the server-side
 // .input() validation can never drift apart.
 // ----------------------------------------------------------------------------
-
-const isoCountrySchema = z
-  .string()
-  .length(2)
-  .regex(/^[A-Z]{2}$/, "ISO 3166-1 alpha-2");
 
 /** Supplier-only signup (creates a company with actsAsSupplier=true). */
 export const supplierOnboardingBootstrapSchema = z.object({

@@ -79,12 +79,18 @@
           "proofHint": "List of who took part, slides or an export from the online course."
         }
       },
+      "country": {
+        "label": "The country your company is established in",
+        "placeholder": "Pick the country",
+        "hint": "Your authority then appears here at the top.",
+        "change": "Not your country? Change it",
+        "askAdmin": "No country is set for your company yet. An admin of your company sets it on this screen.",
+        "failed": "The country was not saved. Please try again."
+      },
       "portals": {
         "yours": "Your country",
         "others": "{count} other EU member states",
         "all": "All {count} EU member states",
-        "noCountry": "No country is set for your company yet. Once it is, it appears here at the top.",
-        "setCountry": "Set the country",
         "asOf": "List as of {date}",
         "noPortal": "No portal yet",
         "open": "Open the portal",

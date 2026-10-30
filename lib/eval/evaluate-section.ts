@@ -2,6 +2,7 @@ import "@/lib/server-guard";
 import { createXai } from "@ai-sdk/xai";
 import { generateObject } from "ai";
 import { clipAnswer } from "@/lib/compliance/intake-answers";
+import { isDoneState } from "@/lib/compliance/journey-position";
 import { env } from "@/lib/env";
 import type { ReportCategory } from "@/lib/pdf/load-report-data";
 import { BSIG_SECTIONS } from "./bsig-sections";
@@ -35,13 +36,13 @@ function formatCategoryForPrompt(category: ReportCategory): string {
   let notStartedCount = 0;
 
   for (const req of category.requirements) {
-    if (req.status === "not_started" && !req.signedOffRole) {
+    if (req.state === "todo" && !req.signedOffRole) {
       notStartedCount++;
       continue;
     }
 
     lines.push(`\n### ${req.code}: ${req.title}`);
-    lines.push(`Status: ${req.status}`);
+    lines.push(`Status: ${req.state}`);
     if (req.legalRef) lines.push(`Legal ref: ${req.legalRef}`);
     lines.push(`Evidence files: ${req.evidence.length}`);
 
@@ -120,7 +121,7 @@ ${bsig.auditExpectations.map((e) => `- ${e}`).join("\n")}
 ${formatCategoryForPrompt(category)}
 
 Total requirements in section: ${category.requirements.length}
-Completed/approved: ${category.requirements.filter((r) => ["completed", "approved", "not_applicable"].includes(r.status)).length}
+Completed/approved: ${category.requirements.filter((r) => isDoneState(r.state)).length}
 `;
 
   const { object } = await generateObject({

@@ -512,10 +512,20 @@ export function ProvisionView({
       return <SizeThresholds />;
     case "registration_portals":
       return (
-        <RegistrationPortals registration={item.registration} locale={item.locale} />
+        <RegistrationPortals
+          registration={item.registration}
+          locale={item.locale}
+          admin={item.viewer.admin}
+        />
       );
     case "reporting_channels":
-      return <ReportingChannels registration={item.registration} locale={item.locale} />;
+      return (
+        <ReportingChannels
+          registration={item.registration}
+          locale={item.locale}
+          admin={item.viewer.admin}
+        />
+      );
     default:
       return provision satisfies never;
   }

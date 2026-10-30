@@ -1,5 +1,6 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
-import { answerRow, coverageLabel } from "@/lib/export/rows";
+import { requirementStatusLabel } from "@/lib/compliance/status-words";
+import { answerRow, statusKind } from "@/lib/export/rows";
 import {
   Badge,
   BrandBands,
@@ -14,7 +15,7 @@ import {
 } from "./chrome";
 import { formatDecision, formatReportDate, formatSigner, pdfLocale } from "./format";
 import type { ReportData, ReportRequirement } from "./load-report-data";
-import { getDocumentLabels, getReportLabels, getStatusLabel } from "./policy-labels";
+import { getDocumentLabels, getReportLabels } from "./policy-labels";
 import { styles } from "./styles";
 import type { StatusTone } from "./theme";
 
@@ -23,12 +24,13 @@ interface ComplianceReportProps {
   locale: string;
 }
 
-/** Review states map onto the shared tones; anything unrecognised reads as
- *  neutral rather than inventing a colour for it. */
-const STATUS_TONE: Record<string, StatusTone> = {
-  approved: "approved",
-  completed: "completed",
-  rejected: "rejected",
+/** A legal reviewer's approval and a rejection keep their own tones; done is what the status
+ *  table counts as done (`statusKind`); open and a decision against read neutral. */
+const toneOf = (req: ReportRequirement): StatusTone => {
+  if (req.approved) return "approved";
+  if (req.state === "rejected") return "rejected";
+  const kind = statusKind(req);
+  return kind === "approved" || kind === "notRequired" ? "completed" : "neutral";
 };
 
 function RequirementSection({ req, locale }: { req: ReportRequirement; locale: string }) {
@@ -37,18 +39,13 @@ function RequirementSection({ req, locale }: { req: ReportRequirement; locale: s
   const notApplicableDecided = req.notApplicable
     ? formatDecision(req.notApplicable.decidedAt, req.notApplicable.decidedBy, locale)
     : null;
-  const coverage = coverageLabel(req.covered, labels);
 
   return (
     <View style={styles.record} wrap={false}>
       <View style={styles.recordHeader}>
         <Text style={styles.recordCode}>{req.code}</Text>
         <Text style={styles.recordTitle}>{req.title}</Text>
-        <Badge
-          tone={req.covered?.done ? "completed" : (STATUS_TONE[req.status] ?? "neutral")}
-        >
-          {coverage ?? getStatusLabel(req.status, locale)}
-        </Badge>
+        <Badge tone={toneOf(req)}>{requirementStatusLabel(req, pdfLocale(locale))}</Badge>
       </View>
 
       {req.notApplicable && (

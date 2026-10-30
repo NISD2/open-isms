@@ -39,21 +39,18 @@ describe("answerRow", () => {
 });
 
 describe("statusCounts", () => {
-  const signed = { status: "approved", covered: null };
+  const signed = { state: "signed", coveredBy: null } as const;
   const metInStep = {
-    status: "not_started",
-    covered: { by: { kind: "codes", codes: ["7.3"] }, done: true },
+    state: "signed",
+    coveredBy: { kind: "walk", codes: ["7.3"] },
   } as const;
   const stepUnsigned = {
-    status: "not_started",
-    covered: { by: { kind: "codes", codes: ["7.3"] }, done: false },
+    state: "awaiting",
+    coveredBy: { kind: "walk", codes: ["7.3"] },
   } as const;
-  const notRequired = {
-    status: "not_started",
-    covered: { by: { kind: "not_required" }, done: true },
-  } as const;
-  const declined = { status: "not_applicable", covered: null };
-  const open = { status: "in_progress", covered: null };
+  const notRequired = { state: "na", coveredBy: { kind: "not_required" } } as const;
+  const declined = { state: "na", coveredBy: null } as const;
+  const open = { state: "started", coveredBy: null } as const;
 
   test("keeps signed off, not applicable, not required and open apart", () => {
     expect(

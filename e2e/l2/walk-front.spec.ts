@@ -86,6 +86,29 @@ test.describe("the walkthrough as the portal's front", () => {
       "Wie möchten Sie weitermachen?",
     );
 
+    // The step where management signs is locked too, so a free step's sign-off tick leads to its
+    // preview, which says the sign-off comes with the order (an outside tester, 30.10.2026: it
+    // "just scrolls to the locked items", with no word that it is paid).
+    await page.goto("/de/durchgang/nis2");
+    await page
+      .getByRole("link", {
+        name: "Noch nicht freigegeben. Die Freigabe durch die Geschäftsführung kommt mit der Bestellung",
+      })
+      .first()
+      .click();
+    await expect(
+      page.getByRole("heading", {
+        level: 2,
+        name: "Das füllen Sie aus, sobald das Unternehmen bestellt hat",
+      }),
+    ).toBeVisible();
+
+    // The activity log shows examples before the order, and says the walk is recorded already.
+    await page.goto("/de/audit");
+    await expect(
+      page.getByText("Was Sie im Durchgang tun, wird schon jetzt festgehalten"),
+    ).toBeVisible();
+
     // The registers open with example rows, never the company's own.
     await page.goto("/de/assets");
     await expect(page).toHaveURL(/\/assets$/);

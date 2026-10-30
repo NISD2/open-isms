@@ -94,6 +94,7 @@
       "badge": "Příklad",
       "order": "Objednat",
       "audit": "Takto protokol aktivit zaznamenává, kdo co a kdy změnil. Vaše vlastní záznamy se tu objeví, jakmile začnete pracovat v průvodci.",
+      "auditUnpaid": "Takto protokol aktivit zaznamenává, kdo co a kdy změnil. Co děláte v průvodci, se zaznamenává už teď a objeví se tu, jakmile společnost objedná.",
       "auditRows": [
         {
           "action": "durchgang.requirements_signed",

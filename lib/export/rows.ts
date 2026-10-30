@@ -2,12 +2,10 @@
  * How an export prints a record, whatever renders it: the PDFs (lib/pdf) and the complete export
  * page (components/export) read the same rows, so a field reads the same on paper and on screen.
  */
-import { isDoneStatus } from "@/lib/compliance/journey-position";
+import type { JourneyEntry } from "@/lib/durchgang";
 import { humanize } from "@/lib/forms/schema-introspect";
 import type { ExportLabels } from "@/lib/pdf/export-labels";
 import { formatFieldValue, formatReportDate, type PdfLocale } from "@/lib/pdf/format";
-import type { ReportRequirement } from "@/lib/pdf/load-report-data";
-import type { getReportLabels } from "@/lib/pdf/policy-labels";
 import { type CompanyExport, EXPORT_FIELDS, type ExportRecord } from "./company-export";
 import type { AnswerNames, CodedField, ExportNames } from "./value-names";
 
@@ -157,20 +155,18 @@ export type StatusKind = "approved" | "notApplicable" | "notRequired" | "open";
 /**
  * Where a requirement stands, as a reader of the status table would sort it: signed off (itself,
  * or met inside a walk step that was signed off), decided not applicable, not asked of the
- * company by any statute, or open.
+ * company by any statute, or open. Its words are `requirementStatusLabel`'s.
  */
-export const statusKind = (
-  req: Pick<ReportRequirement, "status" | "covered">,
-): StatusKind => {
-  if (req.covered?.by.kind === "not_required") return "notRequired";
-  if (req.covered) return req.covered.done ? "approved" : "open";
-  if (req.status === "not_applicable") return "notApplicable";
-  return isDoneStatus(req.status) ? "approved" : "open";
+export const statusKind = (req: JourneyEntry): StatusKind => {
+  if (req.coveredBy?.kind === "not_required") return "notRequired";
+  if (req.state === "signed") return "approved";
+  if (req.state === "na") return "notApplicable";
+  return "open";
 };
 
 /** How many requirements stand where (`statusKind`). */
 export const statusCounts = (
-  reqs: ReadonlyArray<Pick<ReportRequirement, "status" | "covered">>,
+  reqs: ReadonlyArray<JourneyEntry>,
 ): Readonly<Record<StatusKind, number>> => {
   const kinds = reqs.map(statusKind);
   const count = (kind: StatusKind) => kinds.filter((k) => k === kind).length;
@@ -181,14 +177,3 @@ export const statusCounts = (
     open: count("open"),
   };
 };
-
-/** How the journey reads a requirement it does not read off its own work, or null. */
-export function coverageLabel(
-  covered: ReportRequirement["covered"],
-  labels: ReturnType<typeof getReportLabels>,
-): string | null {
-  if (covered === null) return null;
-  if (covered.by.kind === "not_required") return labels.notRequired;
-  const codes = covered.by.codes.join(` ${labels.and} `);
-  return covered.done ? labels.coveredSigned(codes) : labels.coveredAwaiting(codes);
-}

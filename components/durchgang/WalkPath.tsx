@@ -24,6 +24,9 @@ const FLASH_MS = 2400;
 
 const stepId = (code: string) => `dg-step-${code}`;
 
+const SIGN_OFF_TICK =
+  "absolute -right-1.5 -bottom-1.5 flex size-4 cursor-pointer items-center justify-center rounded-full border border-muted-foreground/30 bg-card text-muted-foreground/60 ring-2 ring-card hover:border-emerald-600 hover:text-emerald-600";
+
 /**
  * "Ihr Weg": the walk step by step, each step a card with its status circle and its picture. The
  * walk's home shows it beside what the walk is; a locked item's preview shows it beside the item,
@@ -69,16 +72,24 @@ export function WalkPath({
     box.scrollTop += top - (box.clientHeight - card.offsetHeight) / 2;
   }, [current]);
 
+  /** Locked: not walkable without the order. */
+  const isClosed = (code: string) => locked && !isFreeStep(code);
+  const signOff = approvalOf(WALKS[framework])?.code ?? null;
+  // Before the order the step where management signs is locked, and its card says nothing about
+  // signing: the tick leads to that step's preview instead, which says sign-off comes with the
+  // order (an outside tester, 30.10.2026: the jump "just scrolls to the locked items").
+  const signOffLocked = signOff !== null && isClosed(signOff);
+  const toSignOff = t(signOffLocked ? "ui.home.toSignOffLocked" : "ui.home.toSignOff");
+
   /** A small sign-off tick leads to the step where management signs, and lights it briefly. */
   const showSignOff = () => {
-    const code = approvalOf(WALKS[framework])?.code;
-    if (!code) return;
+    if (!signOff) return;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document
-      .getElementById(stepId(code))
+      .getElementById(stepId(signOff))
       ?.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "center" });
-    setFlash(code);
-    window.setTimeout(() => setFlash((c) => (c === code ? null : c)), FLASH_MS);
+    setFlash(signOff);
+    window.setTimeout(() => setFlash((c) => (c === signOff ? null : c)), FLASH_MS);
   };
 
   /** The state a step's circle names on hover; the card's top line stays its area. */
@@ -129,9 +140,9 @@ export function WalkPath({
           const isNext = next?.code === entry.code;
           const here = entry.code === current;
           const href = stepHref(framework, entry.code);
-          // Locked: not walkable without the order. A company already set up has nothing
-          // left to do on its setup step, which stays on the path but opens nothing.
-          const closed = locked && !isFreeStep(entry.code);
+          // A company already set up has nothing left to do on its setup step, which stays on
+          // the path but opens nothing.
+          const closed = isClosed(entry.code);
           const inert = here || closed || (entry.code === SETUP_STEP && settled);
           const shot =
             closed && !here
@@ -203,16 +214,26 @@ export function WalkPath({
                       {awaitsSignOff && (
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              aria-label={t("ui.home.toSignOff")}
-                              onClick={showSignOff}
-                              className="absolute -right-1.5 -bottom-1.5 flex size-4 cursor-pointer items-center justify-center rounded-full border border-muted-foreground/30 bg-card text-muted-foreground/60 ring-2 ring-card hover:border-emerald-600 hover:text-emerald-600"
-                            >
-                              <Check className="size-2.5" strokeWidth={3} />
-                            </button>
+                            {signOffLocked ? (
+                              <Link
+                                href={stepHref(framework, signOff)}
+                                aria-label={toSignOff}
+                                className={SIGN_OFF_TICK}
+                              >
+                                <Check className="size-2.5" strokeWidth={3} />
+                              </Link>
+                            ) : (
+                              <button
+                                type="button"
+                                aria-label={toSignOff}
+                                onClick={showSignOff}
+                                className={SIGN_OFF_TICK}
+                              >
+                                <Check className="size-2.5" strokeWidth={3} />
+                              </button>
+                            )}
                           </TooltipTrigger>
-                          <TooltipContent>{t("ui.home.toSignOff")}</TooltipContent>
+                          <TooltipContent>{toSignOff}</TooltipContent>
                         </Tooltip>
                       )}
                     </>

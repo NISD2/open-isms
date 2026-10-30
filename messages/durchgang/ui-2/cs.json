@@ -79,12 +79,18 @@
           "proofHint": "Seznam účastníků, prezentace nebo export z online kurzu."
         }
       },
+      "country": {
+        "label": "Země, ve které je vaše společnost usazena",
+        "placeholder": "Vyberte zemi",
+        "hint": "Váš úřad se pak zobrazí zde nahoře.",
+        "change": "Není to vaše země? Změnit",
+        "askAdmin": "Pro vaši společnost zatím není nastavena země. Nastaví ji administrátor vaší společnosti na této stránce.",
+        "failed": "Zemi se nepodařilo uložit. Zkuste to prosím znovu."
+      },
       "portals": {
         "yours": "Vaše země",
         "others": "Další členské státy EU ({count})",
         "all": "Všechny členské státy EU ({count})",
-        "noCountry": "Pro vaši společnost zatím není nastavena země. Jakmile bude, zobrazí se zde nahoře.",
-        "setCountry": "Nastavit zemi",
         "asOf": "Stav seznamu k {date}",
         "noPortal": "Zatím bez portálu",
         "open": "Otevřít portál",

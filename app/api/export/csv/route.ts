@@ -1,9 +1,11 @@
 import { eq } from "drizzle-orm";
 import type { NextRequest } from "next/server";
+import { requirementStatusLabel } from "@/lib/compliance/status-words";
 import { toCsv } from "@/lib/csv";
 import { db } from "@/lib/db";
 import { attachment, exportAccess, logDownload } from "@/lib/export/access";
-import { loadReportData, type ReportRequirement } from "@/lib/pdf/load-report-data";
+import { pdfLocale } from "@/lib/pdf/format";
+import { loadReportData } from "@/lib/pdf/load-report-data";
 import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 
@@ -33,6 +35,7 @@ export async function GET(request: NextRequest) {
 
   const locale = request.nextUrl.searchParams.get("locale") ?? "en";
   const data = await loadReportData(assessmentId, locale);
+  const language = pdfLocale(locale);
 
   const headers = [
     "Category Code",
@@ -41,19 +44,11 @@ export async function GET(request: NextRequest) {
     "Requirement Title",
     "Priority",
     "Status",
-    "Walkthrough",
+    "Walkthrough Notes",
     "Signed Off At",
     "Evidence Count",
     "Review Feedback",
   ];
-
-  /** Where the walk met it, as the journey reads it (`ReportRequirement.covered`). */
-  const walkthrough = (covered: ReportRequirement["covered"]): string => {
-    if (covered === null) return "";
-    if (covered.by.kind === "not_required") return "not required by law";
-    const codes = covered.by.codes.join(" + ");
-    return covered.done ? `signed off with ${codes}` : `with ${codes}, awaiting sign-off`;
-  };
 
   const rows = data.categories.flatMap((cat) =>
     cat.requirements.map((req) => [
@@ -62,8 +57,8 @@ export async function GET(request: NextRequest) {
       req.code,
       req.title,
       req.priority,
-      req.status,
-      walkthrough(req.covered),
+      requirementStatusLabel(req, language),
+      req.notes ?? "",
       req.signedOffAt ? new Date(req.signedOffAt).toISOString() : "",
       String(req.evidence.length),
       req.reviewFeedback ?? "",

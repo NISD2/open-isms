@@ -93,6 +93,17 @@ export interface JourneyEntry {
 }
 
 /**
+ * What a reader holding a requirement's stored status prints as its status: the journey's entry
+ * for it, or, where the journey has none, what the status alone reads on the journey. Never the
+ * stored status itself, which reads "not started" for an item filled in the walk until management
+ * signs: every export prints this one, as the walk's overview does.
+ */
+export const journeyEntryOf = (
+  status: string,
+  entry: JourneyEntry | undefined,
+): JourneyEntry => entry ?? { state: journeyState(status, null), coveredBy: null };
+
+/**
  * Where each requirement stands on the journey, by code: its own state from its status and the
  * walk's newest event for it, then what its coverage makes of that (`coveredState`). The journey
  * and every export read this one computation, so a requirement met inside the walk reads done in

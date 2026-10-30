@@ -103,6 +103,7 @@
       "badge": "Example",
       "order": "Order now",
       "audit": "This is how the activity log records who changed what, and when. Your own entries appear here as soon as you work in the walkthrough.",
+      "auditUnpaid": "This is how the activity log records who changed what, and when. What you do in the walkthrough is recorded already, and shows here once the company has ordered.",
       "auditRows": [
         {
           "action": "durchgang.requirements_signed",

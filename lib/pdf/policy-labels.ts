@@ -122,12 +122,6 @@ interface ReportLabels {
   reviewerFeedback: string;
   signedOff: string;
   categoryIntake: string;
-  /** A requirement met inside these walk items, signed off with them or still waiting. */
-  coveredSigned: (codes: string) => string;
-  coveredAwaiting: (codes: string) => string;
-  /** A requirement no statute asks of the company. */
-  notRequired: string;
-  and: string;
   /** The BSI's method a category maps to: German, so a reader outside Germany is told it is. */
   grundschutz: string;
 }
@@ -156,10 +150,6 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     reviewerFeedback: "Reviewer Feedback",
     signedOff: "Signed off",
     categoryIntake: "Category Intake",
-    coveredSigned: (codes) => `signed off in the walkthrough with ${codes}`,
-    coveredAwaiting: (codes) => `in the walkthrough with ${codes}, awaiting sign-off`,
-    notRequired: "not required by law",
-    and: "and",
     grundschutz: "IT-Grundschutz",
   },
   de: {
@@ -185,10 +175,6 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     reviewerFeedback: "Prüferfeedback",
     signedOff: "Freigegeben",
     categoryIntake: "Kategorieerfassung",
-    coveredSigned: (codes) => `im Durchgang mit ${codes} freigegeben`,
-    coveredAwaiting: (codes) => `im Durchgang mit ${codes}, wartet auf Freigabe`,
-    notRequired: "gesetzlich nicht gefordert",
-    and: "und",
     grundschutz: "IT-Grundschutz",
   },
   cs: {
@@ -214,51 +200,12 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     reviewerFeedback: "Připomínky revizora",
     signedOff: "Schváleno",
     categoryIntake: "Odpovědi k oblasti",
-    coveredSigned: (codes) => `schváleno v průvodci (${codes})`,
-    coveredAwaiting: (codes) => `v průvodci (${codes}), čeká na schválení`,
-    notRequired: "zákon nevyžaduje",
-    and: "a",
     grundschutz: "IT-Grundschutz (německá metodika BSI)",
-  },
-};
-
-const STATUS_LABELS: Readonly<Record<PdfLocale, Readonly<Record<string, string>>>> = {
-  en: {
-    not_started: "not started",
-    in_progress: "in progress",
-    completed: "completed",
-    approved: "approved",
-    rejected: "rejected",
-    not_applicable: "not applicable",
-  },
-  de: {
-    not_started: "nicht begonnen",
-    in_progress: "in Bearbeitung",
-    completed: "abgeschlossen",
-    approved: "freigegeben",
-    rejected: "abgelehnt",
-    not_applicable: "nicht anwendbar",
-  },
-  cs: {
-    not_started: "nezahájeno",
-    in_progress: "probíhá",
-    completed: "dokončeno",
-    approved: "schváleno",
-    rejected: "zamítnuto",
-    not_applicable: "nevztahuje se",
   },
 };
 
 export function getReportLabels(locale: string): ReportLabels {
   return REPORT_LABELS[pdfLocale(locale)];
-}
-
-export function getStatusLabel(status: string, locale: string): string {
-  return (
-    STATUS_LABELS[pdfLocale(locale)][status] ??
-    STATUS_LABELS.en[status] ??
-    status.replace(/_/g, " ")
-  );
 }
 
 export function getPolicyTitle(categoryCode: string, locale: string): string {
