@@ -49,6 +49,7 @@ const namespaces = [
   "policyGuides",
   "policy-config",
   "pricing",
+  "privacyAds",
   "processingActivities",
   "portal",
   "requirements",
@@ -59,6 +60,7 @@ const namespaces = [
   "settings",
   "sicherheitsfragebogen",
   "suppliers",
+  "supplierInvite",
   "supplierPortal",
   "supplierPortalContact",
   "team",
@@ -66,6 +68,7 @@ const namespaces = [
   "training",
   "trainingPortal",
   "vulnerabilities",
+  "wikiLinks",
 ] as const;
 
 type Messages = Record<string, unknown>;

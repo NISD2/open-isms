@@ -9,7 +9,7 @@ Startup validates the environment with Zod and refuses to run on a bad value, na
 | Variable | Notes |
 |---|---|
 | `DATABASE_URL` | Postgres connection string. The compose file builds it for you from `POSTGRES_PASSWORD`. |
-| `AUTH_SECRET` | Minimum 32 characters. `openssl rand -base64 32`. Anything shorter fails startup. |
+| `AUTH_SECRET` | Minimum 32 characters. `openssl rand -base64 32`. Anything shorter fails startup. It also encrypts the secret of each person's authenticator app (two-factor sign-in). Changing it signs everyone out, and the codes from those apps can then no longer be checked: those people sign in with a recovery code, or a platform admin resets their second factor, and they set the app up again. |
 
 ## Required for a usable instance
 
@@ -46,6 +46,7 @@ Why two endpoints, and what goes wrong with one: [Evidence storage](/docs/self-h
 | `RESEND_FROM_EMAIL_NEWS` | Newsletter sends from `RESEND_FROM_EMAIL` instead of its own mailbox. |
 | `ANALYTICS_SCRIPT_URL`, `ANALYTICS_WEBSITE_ID` | No analytics tag, which is the default. Both are required together, and the CSP allows the script's origin only when the URL is set. Nothing is reported to this project either way. |
 | `ANALYTICS_API_USERNAME`, `ANALYTICS_API_PASSWORD` | The platform admin Graphs tab shows no traffic cards. They are a view-only Umami login, read from the same host as `ANALYTICS_SCRIPT_URL` (https only); all four analytics settings must be set. |
+| `GOOGLE_ADS_TAG_ID`, `GOOGLE_ADS_CONVERSION_LABEL` | No Google tag, no consent banner, and no Google origin in the CSP, which is the default. Both are required together. Set them only for your own Google Ads account: a visitor who arrives with a Google click ID is then asked for consent, and the tag loads after a yes. |
 | `CAL_LINK` | The booking UI is not rendered at all. Empty by default on purpose: a self-hosted instance must not embed someone else's calendar. |
 | `DISABLE_EMAIL=1` | Silences all outbound email. Useful for a staging copy of production data. |
 | `CSP_UPGRADE_INSECURE=1` | Set this **only** once you are HTTPS-only with a real certificate. It turns on HSTS with a two-year max-age, which pins HTTPS for that hostname the moment anyone visits over TLS. |

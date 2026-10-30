@@ -1,5 +1,12 @@
 {
   "common": {
+    "adsConsent": {
+      "label": "Ad measurement",
+      "body": "With your yes we measure whether a Google ad leads to a registration. For that, Google stores cookies and receives your IP address.",
+      "more": "Learn more",
+      "decline": "Decline",
+      "accept": "Accept"
+    },
     "save": "Save",
     "saving": "Saving...",
     "cancel": "Cancel",
@@ -66,5 +73,9 @@
   "metadata": {
     "title": "NIS2 Compliance Platform",
     "description": "NIS2/BSIG 2025 Compliance Management"
+  },
+  "legalNotice": {
+    "software": "Software: <product>open-isms by nisd2.eu</product>, © 2026 the open-isms authors. open-isms is free software under the <license>AGPL-3.0</license>. The licence gives no warranty for the software itself; any warranty comes from the operator's own contract. <source>Source code</source>",
+    "independent": "This installation is run independently of nisd2.eu. Its operator, not nisd2.eu, runs it and decides how data is handled here."
   }
 }

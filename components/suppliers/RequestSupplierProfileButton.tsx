@@ -25,6 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { NISD2_ORIGIN, SELF_HOSTED } from "@/lib/edition";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { SchemaForm } from "@/lib/forms/schema-form";
 import { trpc } from "@/lib/trpc/client";
@@ -33,15 +34,34 @@ import { supplierInviteRequestSchema } from "@/schema/validators";
 
 type InviteRequestValues = z.infer<typeof supplierInviteRequestSchema>;
 
-export function RequestSupplierProfileButton({
-  label,
-  supplierId,
-}: {
+type Props = {
   /** The button's text where a page words it its own way; the register's wording otherwise. */
   label?: string;
   /** The row of the supplier list it is sent for, which the reply then links. */
   supplierId?: string;
-} = {}) {
+};
+
+/**
+ * A self-hosted install has no supplier portal (lib/edition): every supplier answers at nisd2.eu,
+ * where filling in is free, so the button opens it there.
+ */
+export function RequestSupplierProfileButton(props: Props = {}) {
+  return SELF_HOSTED ? <AskAtNisd2 label={props.label} /> : <InviteSheet {...props} />;
+}
+
+function AskAtNisd2({ label }: { label?: string }) {
+  const t = useTranslations("suppliers.requestProfile");
+  return (
+    <Button variant="outline" size="sm" asChild>
+      <a href={`${NISD2_ORIGIN}/supplier-portal`} target="_blank" rel="noopener">
+        <Mail className="h-4 w-4 mr-2" />
+        {label ?? t("button")}
+      </a>
+    </Button>
+  );
+}
+
+function InviteSheet({ label, supplierId }: Props) {
   const t = useTranslations("suppliers.requestProfile");
   const [open, setOpen] = useState(false);
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);

@@ -28,7 +28,6 @@ import {
   askedFields,
   backupsNote,
   contactSuggestions,
-  criticalNote,
   cryptoNote,
   type DurchgangAction,
   declinedNote,
@@ -103,18 +102,11 @@ import {
   rateInput,
   recordAgreementsInput,
   recordBackupsInput,
-  recordCriticalInput,
   recordLoginsInput,
   specifyAssetsInput,
   writePolicyInput,
 } from "../helpers/durchgang-inputs";
-import {
-  CRYPTO_LIST,
-  cryptoListOf,
-  policyDraftOf,
-  policyTypeOf,
-  storedConfigOf,
-} from "../helpers/durchgang-policy";
+import { CRYPTO_LIST, cryptoListOf, policyDraftOf } from "../helpers/durchgang-policy";
 import { actorOf, logWalk, recheck } from "../helpers/durchgang-procedures";
 import {
   askedOnScreen,
@@ -131,6 +123,7 @@ import {
   gateStep,
   stepWrite,
 } from "./durchgang-access";
+import { continuityProcedures } from "./durchgang-continuity";
 import { durchgangGdprRouter } from "./durchgang-gdpr";
 
 /**
@@ -1320,90 +1313,8 @@ export const durchgangRouter = router({
     .input(z.object({ code }))
     .query(({ ctx, input }) => policyDraftOf(ctx, input.code)),
 
-  /**
-   * 4.2: which of the company's business processes must keep running without IT. The mark is
-   * the asset's own column (`is_critical`), written only on the company's process assets and only
-   * where it changed. The one-line fallback per process has no column; it is kept with the plan's
-   * other choices in the plan's policy config, which the plan prints.
-   */
-  recordCritical: durchgangWrite
-    // The input is shared with the MCP tools, which save this screen for an assistant.
-    .input(recordCriticalInput)
-    .mutation(async ({ ctx, input }) => {
-      askedOnScreen(input.code, "critical", "marks no processes");
-      const ref = await durchgangItem(ctx.db, actorOf(ctx), input.code);
-      const type = policyTypeOf(input.code);
-      const rows = [...new Map(input.rows.map((r) => [r.assetId, r])).values()];
-      const ids = rows.map((r) => r.assetId);
-
-      const result = await ctx.db.transaction(async (tx) => {
-        const owned = await tx
-          .select({ id: asset.id, name: asset.name, isCritical: asset.isCritical })
-          .from(asset)
-          .where(
-            and(
-              eq(asset.companyId, ctx.companyId),
-              eq(asset.type, "process"),
-              inArray(asset.id, ids),
-            ),
-          )
-          .for("update");
-        if (owned.length !== ids.length) throw new TRPCError({ code: "NOT_FOUND" });
-
-        const before = new Map(owned.map((a) => [a.id, a]));
-        const changed = rows.filter(
-          (row) => row.critical !== Boolean(before.get(row.assetId)?.isCritical),
-        );
-        for (const row of changed) {
-          await tx
-            .update(asset)
-            .set({ isCritical: row.critical, updatedAt: new Date() })
-            .where(and(eq(asset.id, row.assetId), eq(asset.companyId, ctx.companyId)));
-        }
-
-        const stored = await storedConfigOf(tx, ctx.companyId, type);
-        const config = {
-          ...stored,
-          fallbacks: Object.fromEntries([
-            ...Object.entries(stored.fallbacks).filter(([id]) => !ids.includes(id)),
-            ...rows.flatMap((row) =>
-              row.critical && row.how ? [[row.assetId, row.how] as const] : [],
-            ),
-          ]),
-        };
-        await tx
-          .insert(companyPolicyConfig)
-          .values({ companyId: ctx.companyId, policyType: type, config })
-          .onConflictDoUpdate({
-            target: [companyPolicyConfig.companyId, companyPolicyConfig.policyType],
-            set: { config, updatedAt: new Date() },
-          });
-        return {
-          changed: changed.length,
-          critical: rows.flatMap((row) =>
-            row.critical ? [before.get(row.assetId)?.name ?? ""] : [],
-          ),
-        };
-      });
-
-      const locale = await seedLocale(ctx.db, ctx.userId, ctx.companyId);
-      await appendNote(
-        ctx.db,
-        ref.statusId,
-        noteLine(new Date(), criticalNote(locale, result.critical)),
-      );
-      await logWalk({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        action: "durchgang.critical",
-        entityType: "requirement",
-        entityId: ref.requirementId,
-        description: `${ref.code} processes that must keep running checked`,
-        newValue: { checked: rows.length, changed: result.changed },
-      });
-      if (result.changed > 0) recheck(ctx, "asset", input.code);
-      return { changed: result.changed };
-    }),
+  // 4.2 and 4.4: the critical processes, what they need and how long their systems take back.
+  ...continuityProcedures,
 
   /**
    * A policy written from the walk's template (the 2.4 Leitlinie, the 3.1 incident plan): its

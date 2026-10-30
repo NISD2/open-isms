@@ -148,16 +148,9 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 2,
       explanation: {
-        en: "An uninformed signature is legally void. If you signed without reviewing, your signature becomes evidence that you approved something you did not read - and that evidence works against you in court.",
-        de: "Eine uninformierte Unterschrift ist rechtlich nichtig. Wenn Sie ohne Prüfung unterschrieben haben, wird Ihre Unterschrift zum Beweis, dass Sie etwas genehmigt haben, das Sie nicht gelesen haben - und dieser Beweis wirkt vor Gericht gegen Sie.",
-        nl: "Een ondoordachte handtekening is juridisch nietig. Als u heeft ondertekend zonder te beoordelen, wordt uw handtekening bewijs dat u iets heeft goedgekeurd dat u niet heeft gelezen - en dat bewijs werkt tegen u in de rechtbank.",
-        fr: "Une signature non éclairée est juridiquement nulle. Si vous avez signé sans examiner, votre signature devient la preuve que vous avez approuvé quelque chose que vous n'avez pas lu - et cette preuve joue contre vous au tribunal.",
-        it: "Una firma non informata è giuridicamente nulla. Se avete firmato senza esaminare, la vostra firma diventa la prova che avete approvato qualcosa che non avete letto - e tale prova gioca contro di voi in tribunale.",
-        es: "Una firma no informada es jurídicamente nula. Si firmó sin revisar, su firma se convierte en prueba de que aprobó algo que no leyó, y esa prueba actúa en su contra ante los tribunales.",
-        pl: "Niepoinformowany podpis jest prawnie nieważny. Jeśli podpisałeś bez sprawdzenia, Twój podpis staje się dowodem, że zatwierdziłeś coś, czego nie przeczytałeś - a dowód ten działa przeciwko Tobie w sądzie.",
+        en: "An uninformed signature is worthless as a defence. If you signed without reviewing, your signature becomes evidence that you approved something you did not read - and that evidence works against you in court.",
+        de: "Eine uninformierte Unterschrift ist als Verteidigung wertlos. Wenn Sie ohne Prüfung unterschrieben haben, wird Ihre Unterschrift zum Beweis, dass Sie etwas genehmigt haben, das Sie nicht gelesen haben - und dieser Beweis wirkt vor Gericht gegen Sie.",
         cs: "Neinformovaný podpis vás právně nechrání (v Česku § 51 odst. 1 zákona o obchodních korporacích chrání jen rozhodnutí učiněné informovaně). Pokud jste podepsali bez přezkoumání, váš podpis se stává důkazem, že jste schválili něco, co jste nečetli, a tento důkaz u soudu hraje proti vám.",
-        pt: "Uma assinatura não informada é juridicamente nula. Se assinou sem rever, a sua assinatura torna-se prova de que aprovou algo que não leu, e essa prova joga contra si em tribunal.",
-        ro: "O semnătură neinformată este nulă din punct de vedere juridic. Dacă ați semnat fără a revizui, semnătura dumneavoastră devine dovada că ați aprobat ceva ce nu ați citit, iar acea dovadă joacă împotriva dumneavoastră în instanță.",
       },
     },
     {

@@ -40,7 +40,7 @@ const OUTSIDE =
 const INSTRUCTIONS = [
   "nisd2.eu guides a company through implementing NIS2, one item at a time: the walkthrough.",
   "get_walkthrough lists the company's items with where each stands. With a code it returns one item in full: its own words, its fields with their JSON schema and current answers, its register with the rows already in it, and each other screen's input schema with what it shows now.",
-  "fill_walkthrough_item saves answers to an item's fields, adds rows to its register and corrects rows already there, fills its other screens (assets, their details, risk ratings, supplier agreements, sign-ins, backups, critical processes, policies, the crypto list) and attaches uploaded files, checked the way the app checks them.",
+  "fill_walkthrough_item saves answers to an item's fields, adds rows to its register and corrects rows already there, fills its other screens (assets, their details, risk ratings, supplier agreements, sign-ins, backups, critical processes with what they need and how long their systems take back, policies, the crypto list) and attaches uploaded files, checked the way the app checks them.",
   "upload_file gives an upload request for a document (an item's evidence) or a training certificate; send the bytes with it, then attach the file with fill_walkthrough_item.",
   `send_supplier_questionnaire emails suppliers on the company's list the link to the security questionnaire, at the contact email on each supplier's row, as the button on each supplier in the app does. ${OUTSIDE}.`,
   "read_records reads the company's records as its export holds them, one part a page at a time: master data, each requirement's status, the answers, the documents, and every register. Only once the company's admin allows it, and only for someone who may export them.",
@@ -161,7 +161,7 @@ function buildServer(holder: KeyHolder): McpServer {
     {
       title: "Fill in a walkthrough item",
       description:
-        "Saves answers to an item's fields, adds rows to its register and corrects rows already in it, fills its other screens (add assets, describe them, rate them, record agreements, sign-ins, backups and critical processes, write the policy, set the crypto list entry by entry) and attaches files uploaded with upload_file, each through the save the app's own screen uses and checked as the app checks it. Takes only items still open or waiting; never finishes, decides or signs one, never deletes a row, and refuses a change that would take a signature or an approval back. An answer replaces what the field held and cannot be empty: leave a field out to keep what is there. A screen's rows are saved as sent: send back the stored values get_walkthrough shows for what you do not mean to change. Returns what was saved and what is still empty.",
+        "Saves answers to an item's fields, adds rows to its register and corrects rows already in it, fills its other screens (add assets, describe them, rate them, record agreements, sign-ins, backups, critical processes with what they need and restore times, write the policy, set the crypto list entry by entry) and attaches files uploaded with upload_file, each through the save the app's own screen uses and checked as the app checks it. Takes only items still open or waiting; never finishes, decides or signs one, never deletes a register row (a screen's links are replaced as sent), and refuses a change that would take a signature or an approval back. An answer replaces what the field held and cannot be empty: leave a field out to keep what is there. A screen's rows are saved as sent: send back the stored values get_walkthrough shows for what you do not mean to change. Returns what was saved and what is still empty.",
       inputSchema: FillItemInput,
       annotations: {
         readOnlyHint: false,
@@ -199,7 +199,7 @@ function buildServer(holder: KeyHolder): McpServer {
     "send_supplier_questionnaire",
     {
       title: "Send suppliers the security questionnaire",
-      description: `Emails suppliers on the company's supplier list the link to the security questionnaire, through the invite the app's button on each supplier sends: to the contact email on the supplier's row, never to another address, and not again to the same address within 24 hours. The supplier answers in its own portal, and its row then shows as linked. ${OUTSIDE}. A row without a contact email, or one already linked, is refused; returns per supplier whether it was sent or why not.`,
+      description: `Emails suppliers on the company's supplier list the link to the security questionnaire, through the invite the app's button on each supplier sends: to the contact email on the supplier's row, never to another address, and not again to the same address within 24 hours. The supplier answers in its own portal at nisd2.eu, and its row then shows as linked; on a self-hosted install the invite stays on the install, so the row stays unlinked and the supplier is asked to share its answers with the sender by email instead. ${OUTSIDE}. A row without a contact email, or one already linked, is refused; returns per supplier whether it was sent or why not.`,
       inputSchema: SendQuestionnaireInput,
       annotations: {
         readOnlyHint: false,

@@ -90,7 +90,7 @@
       "incidentReportingInfo": "Art. 23 NIS 2 / § 32 BSIG sehen für erhebliche Sicherheitsvorfälle eine dreistufige Meldekaskade an das BSI vor: (1) Frühwarnung innerhalb von 24 Stunden, (2) aktualisierte Meldung innerhalb von 72 Stunden, (3) Abschlussmeldung innerhalb von 1 Monat. Inhalte und Schwellen sind im Gesetzestext geregelt.",
       "managementLiability": "Geschäftsführerhaftung",
       "managementLiabilityValue": "Persönliche Haftung nach § 38 BSIG",
-      "managementLiabilityInfo": "Der Gesetzestext (§ 38 BSIG) regelt eine persönliche Innenhaftung der Geschäftsleitung mit drei Kernpflichten: (1) formelle Billigung der Cybersicherheitsmaßnahmen, (2) aktive Überwachung der Umsetzung, (3) Pflichtschulung. Ein Haftungsverzicht durch Gesellschafter ist nach dem Gesetzeswortlaut ausgeschlossen.",
+      "managementLiabilityInfo": "§ 38 BSIG regelt die Haftung der Geschäftsleitung gegenüber ihrem Unternehmen (Innenhaftung) für die Pflichten aus Absatz 1: die Maßnahmen umsetzen und ihre Umsetzung überwachen. Die Schulung (Absatz 3) ist eine eigene Pflicht.",
       "managementTraining": "Schulungspflicht",
       "managementTrainingValue": "Pflichtschulung Cybersicherheit nach § 38 BSIG",
       "managementTrainingInfo": "§ 38 BSIG sieht vor, dass Mitglieder der Geschäftsleitung regelmäßig persönlich an einer Cybersicherheitsschulung teilnehmen. Diese Pflicht ist nach dem Gesetzeswortlaut nicht an einen CISO oder die IT-Abteilung delegierbar.",

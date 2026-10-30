@@ -70,16 +70,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 1,
       explanation: {
-        en: "Zurich refused to pay by citing the acts-of-war exclusion. The case ran for nearly five years and settled for an undisclosed amount.",
-        de: "Zurich verweigerte die Zahlung unter Berufung auf den Kriegshandlungsausschluss. Das Verfahren dauerte fast fünf Jahre und endete mit einem Vergleich ueber eine nicht genannte Summe.",
-        nl: "Zurich weigerde te betalen door een beroep te doen op de oorlogshandelingenuitsluiting. De zaak liep bijna vijf jaar en werd geschikt voor een onbekend bedrag.",
-        fr: "Zurich a refusé de payer en invoquant l'exclusion des actes de guerre. L'affaire a duré près de cinq ans et a été réglée pour un montant non divulgué.",
-        it: "Zurich ha rifiutato di pagare invocando l'esclusione degli atti di guerra. Il caso è durato quasi cinque anni e si è concluso con un accordo per un importo non divulgato.",
-        es: "Zurich se negó a pagar invocando la exclusión de actos de guerra. El caso se prolongó casi cinco años y se resolvió por un importe no revelado.",
-        pl: "Zurich odmówił zapłaty, powołując się na wyłączenie aktów wojny. Sprawa trwała prawie pięć lat i zakończyła się ugodą na nieujawnioną kwotę.",
-        cs: "Zurich odmítla plnit s odkazem na výluku válečných aktů. Případ trval téměř pět let a byl urovnán za nezveřejněnou částku.",
-        pt: "A Zurich recusou-se a pagar invocando a exclusão de atos de guerra. O caso durou quase cinco anos e foi resolvido por um montante não divulgado.",
-        ro: "Zurich a refuzat să plătească invocând excluderea actelor de război. Cazul a durat aproape cinci ani și s-a soluționat pentru o sumă nedivulgată.",
+        en: "Zurich refused to pay by citing the acts-of-war exclusion. The lawsuit ran for about four years and settled for an undisclosed amount.",
+        de: "Zurich verweigerte die Zahlung unter Berufung auf den Kriegshandlungsausschluss. Der Rechtsstreit dauerte etwa vier Jahre und endete mit einem Vergleich über eine nicht genannte Summe.",
       },
     },
     {

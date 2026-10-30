@@ -1,15 +1,29 @@
 import { Check, ChevronDown, Clock, PlayCircle } from "lucide-react";
+import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Art } from "@/components/durchgang/Art";
 import { AfterTrainingStep } from "@/components/training-portal/AfterTrainingStep";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
+import { CoursePortalCta } from "@/components/training-portal/CoursePortalCta";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Link } from "@/i18n/navigation";
+import { loadCourse } from "@/lib/training/course-loader";
 import { api } from "@/lib/trpc/server";
+
+/** The tab names the course, instead of the home page's title. */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ courseId: string }>;
+}): Promise<Metadata> {
+  const [{ courseId }, locale] = await Promise.all([params, getLocale()]);
+  const course = await loadCourse(courseId).catch(() => null);
+  return course ? { title: course.title[locale] ?? course.title.en } : {};
+}
 
 export default async function CourseOverviewRoute({
   params,
@@ -43,6 +57,12 @@ export default async function CourseOverviewRoute({
 
   return (
     <div className="max-w-3xl mx-auto space-y-8">
+      {/* The lesson pages carry the same link beside the course title. */}
+      {courseId === "nis2-ceo" ? (
+        <div className="flex justify-end">
+          <CoursePortalCta locale={locale} />
+        </div>
+      ) : null}
       {/* Hero */}
       <div className="space-y-3">
         {image && (

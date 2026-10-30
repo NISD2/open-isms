@@ -30,6 +30,14 @@ const VALUE_SOURCES = {
     "durchgang",
     ["durchgang", "items", "4_4", "screens", "systems", "options"],
   ],
+  maxOutage: [
+    "durchgang",
+    ["durchgang", "items", "4_2", "screens", "keep", "outageOptions"],
+  ],
+  restoreTime: [
+    "durchgang",
+    ["durchgang", "items", "4_4", "screens", "restore", "options"],
+  ],
 } as const satisfies Record<string, readonly [string, readonly string[]]>;
 
 /**
@@ -248,6 +256,8 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     approverRole,
     mfaMethod,
     backupFrequency,
+    maxOutage,
+    restoreTime,
     asset,
     supplier,
     risk,
@@ -275,6 +285,8 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
     named(VALUE_SOURCES.approverRole),
     named(VALUE_SOURCES.mfaMethod),
     named(VALUE_SOURCES.backupFrequency),
+    named(VALUE_SOURCES.maxOutage),
+    named(VALUE_SOURCES.restoreTime),
     named(FIELD_SOURCES.asset),
     named(FIELD_SOURCES.supplier),
     named(FIELD_SOURCES.risk),
@@ -304,6 +316,8 @@ export async function exportNames(locale: PdfLocale): Promise<ExportNames> {
       approverRole,
       mfaMethod,
       backupFrequency,
+      maxOutage,
+      restoreTime,
     },
     fields: {
       asset,

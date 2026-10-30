@@ -88,10 +88,8 @@
       "incidentReportingInfo": "Poważne incydenty bezpieczeństwa muszą być zgłaszane do BSI w trzech etapach: (1) Wczesne ostrzeżenie w ciągu 24 godzin - podejrzewana przyczyna i wpływ transgraniczny, (2) Zaktualizowane zgłoszenie w ciągu 72 godzin - waga, wpływ, wskaźniki naruszenia, (3) Raport końcowy w ciągu 1 miesiąca - przyczyna źródłowa, działania naprawcze, kroki zapobiegawcze.",
       "managementLiability": "Odpowiedzialność kierownictwa",
       "managementLiabilityValue": "Osobista odpowiedzialność członków zarządu (§ 38 BSIG)",
-      "managementLiabilityInfo": "Członkowie zarządu (Vorstand/Geschäftsführer) ponoszą osobistą odpowiedzialność za zgodność z NIS2. Trzy obowiązki: (1) formalne zatwierdzenie środków cyberbezpieczeństwa, (2) aktywne monitorowanie wdrożenia, (3) ukończenie obowiązkowego szkolenia z cyberbezpieczeństwa. Odpowiedzialności nie można uchylić uchwałą wspólników. Ubezpieczenie D&O nie znosi ustawowych obowiązków.",
       "managementTraining": "Szkolenie kierownictwa",
       "managementTrainingValue": "Obowiązkowe szkolenie z cyberbezpieczeństwa co 3 lata",
-      "managementTrainingInfo": "Wszyscy członkowie organu zarządzającego muszą osobiście uczestniczyć w szkoleniu z cyberbezpieczeństwa co najmniej co 3 lata. Obowiązku tego nie można delegować na CISO ani dział IT. Niedopełnienie przyczynia się do osobistej odpowiedzialności na podstawie § 38 BSIG.",
 
       "cta": "Umów się na przegląd",
       "ctaVoluntary": "Mimo to umów się na przegląd",

@@ -273,26 +273,6 @@
       "clausesIntro": "Co jste s tímto zákazníkem sjednali ve smlouvě. Vychází z bodu 5.1.4 přílohy prováděcího nařízení (EU) 2024/2690 a z Technical Implementation Guidance agentury ENISA k tomuto bodu.",
       "saveClauses": "Uložit doložky"
     },
-    "acceptInvite": {
-      "metaTitle": "Přijetí pozvání pro dodavatele",
-      "wrongEmailTitle": "Přihlášeni s jiným e-mailem",
-      "wrongEmailBody": "Toto pozvání bylo odesláno na <b>{invited}</b>, ale jste přihlášeni jako <b>{signedIn}</b>.",
-      "wrongEmailHint": "Odhlaste se a přihlaste se znovu jako {invited}, abyste mohli pozvání přijmout.",
-      "signOut": "Odhlásit se",
-      "hasCompanyTitle": "Účet se už používá",
-      "hasCompanyBody": "Váš účet už na platformě patří jiné společnosti. Chcete-li toto pozvání přijmout, přihlaste se prosím jinou e-mailovou adresou.",
-      "toPortal": "Přejít do mého dodavatelského portálu",
-      "eyebrow": "Pozvání",
-      "title": "{company} žádá o přístup k vašemu bezpečnostnímu profilu",
-      "intro": "{company} spadá pod NIS 2 a musí ověřovat, jak bezpečně pracují její dodavatelé. Místo vlastního dotazníku používá nisd2.eu: jednotný dotazník vyplníte jednou a zpřístupníte ho každému zákazníkovi, který o to požádá.",
-      "yourEmail": "Váš e-mail",
-      "nameLabel": "Název vaší firmy",
-      "namePlaceholder": "Příklad s.r.o.",
-      "countryLabel": "Země (kód ISO)",
-      "countryHint": "Dvoupísmenný kód podle ISO 3166-1, například CZ nebo SK.",
-      "submit": "Přijmout a vytvořit profil",
-      "freeNote": "Dodavatelský portál nic nestojí. Většina dodavatelů sama pod NIS 2 nespadá a tento formulář to ani nepředpokládá."
-    },
     "options": {
       "saasHostingRegion": {
         "eu": "Pouze EU",

@@ -4,6 +4,7 @@ import { SetupAccessCard } from "@/components/auth/SetupAccessCard";
 import { Link } from "@/i18n/navigation";
 import { readOpenSetupToken } from "@/lib/auth/setup-link";
 import { db } from "@/lib/db";
+import { replyAddress } from "@/lib/mail/templates";
 
 /**
  * Where an account setup link lands (door two, lib/billing/close-deal.ts). The token is checked on
@@ -28,7 +29,7 @@ export default async function SetupPage({
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
       <h1 className="sr-only">{t("setup.title")}</h1>
       {link && token ? (
-        <SetupAccessCard token={token} email={link.email} />
+        <SetupAccessCard token={token} email={link.email} contactEmail={replyAddress()} />
       ) : (
         <div className="max-w-md space-y-3 text-center">
           <p className="font-semibold text-lg">{t("setup.invalidTitle")}</p>

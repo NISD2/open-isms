@@ -1,30 +1,42 @@
 "use client";
 
-import { type ComponentProps, useEffect, useState } from "react";
+import type { ComponentProps } from "react";
+import { useSourceTags } from "@/components/auth/useSourceTags";
 import { Link } from "@/i18n/navigation";
-import { campaignTags, FROM_PATH_KEY, originPath } from "@/lib/analytics/token-routes";
+import { REGISTRATION_STARTED_EVENT } from "@/lib/analytics/ads-consent";
 
 type Query = Readonly<Record<string, string>>;
 
+/** Heard only by the Google Ads tag, and only when the visitor agreed to it. */
+const announceRegistration = (): void => {
+  window.dispatchEvent(new Event(REGISTRATION_STARTED_EVENT));
+};
+
 /**
- * A link to sign-in that hands on the page's own campaign tags and its own path, so a signup keeps
+ * A link to sign-in that hands on the campaign tags and the current page's path, so a signup keeps
  * the campaign it came from and the page it clicked "register" on (the only source an organic
- * visitor has). Like BookingLink, they are read from the address bar after mount and stored
- * nowhere, so the server-rendered page stays the same for everyone.
+ * visitor has). See useSourceTags for what is read, from where, and why nothing is stored.
  */
 export function SignInLink({
   query,
+  onClick,
+  onAuxClick,
   ...props
 }: Omit<ComponentProps<typeof Link>, "href"> & { readonly query?: Query }) {
-  const [tags, setTags] = useState<Query>({});
-  useEffect(() => {
-    const origin = originPath(window.location.pathname);
-    setTags({
-      ...Object.fromEntries(campaignTags(window.location.search)),
-      ...(origin === null ? {} : { [FROM_PATH_KEY]: origin }),
-    });
-  }, []);
+  const tags = useSourceTags();
   return (
-    <Link {...props} href={{ pathname: "/auth/signin", query: { ...query, ...tags } }} />
+    <Link
+      {...props}
+      href={{ pathname: "/auth/signin", query: { ...query, ...tags } }}
+      onClick={(event) => {
+        onClick?.(event);
+        if (query?.mode === "register") announceRegistration();
+      }}
+      // A middle click opens registration in a new tab and fires no click event.
+      onAuxClick={(event) => {
+        onAuxClick?.(event);
+        if (query?.mode === "register" && event.button === 1) announceRegistration();
+      }}
+    />
   );
 }

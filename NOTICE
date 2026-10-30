@@ -1,0 +1,21 @@
+open-isms
+Copyright (C) 2026 the open-isms authors
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU Affero General Public License as published by the Free Software Foundation, either version 3
+of the License, or (at your option) any later version. It is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License in LICENSE.
+
+
+Additional term under section 7(b) of the GNU Affero General Public License, version 3
+
+This term applies to the versions of open-isms released from the one that first contains this
+file, and to every work based on them.
+
+open-isms displays Appropriate Legal Notices, as section 0 of the licence defines them, in its
+user interface: on the sign-in pages and at the foot of every portal page
+(components/legal/LegalNotice.tsx).
+A work based on open-isms that has an interactive user interface must preserve, in the
+Appropriate Legal Notices it displays, the author attribution "open-isms by nisd2.eu" together
+with a link to https://nisd2.eu. You may add your own name next to it.

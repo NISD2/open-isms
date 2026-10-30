@@ -273,26 +273,6 @@
       "clausesIntro": "Was Sie mit diesem Kunden vertraglich vereinbart haben. Grundlage ist Nr. 5.1.4 im Anhang der Durchführungsverordnung (EU) 2024/2690 und die ENISA Technical Implementation Guidance dazu.",
       "saveClauses": "Klauseln speichern"
     },
-    "acceptInvite": {
-      "metaTitle": "Einladung annehmen",
-      "wrongEmailTitle": "Mit einer anderen E-Mail-Adresse angemeldet",
-      "wrongEmailBody": "Diese Einladung ging an <b>{invited}</b>, Sie sind aber als <b>{signedIn}</b> angemeldet.",
-      "wrongEmailHint": "Melden Sie sich ab und mit {invited} wieder an, um die Einladung anzunehmen.",
-      "signOut": "Abmelden",
-      "hasCompanyTitle": "Konto gehört schon zu einem Unternehmen",
-      "hasCompanyBody": "Ihr Konto gehört auf der Plattform bereits zu einem anderen Unternehmen. Um diese Einladung anzunehmen, melden Sie sich bitte mit einer anderen E-Mail-Adresse an.",
-      "toPortal": "Zu meinem Lieferantenportal",
-      "eyebrow": "Einladung",
-      "title": "{company} möchte Ihr Sicherheitsprofil sehen",
-      "intro": "{company} fällt unter NIS2 und muss prüfen, wie sicher seine Lieferanten arbeiten. Statt eines eigenen Fragebogens nutzt das Unternehmen dafür nisd2.eu: Sie beantworten den einheitlichen Fragebogen einmal und geben ihn jedem Kunden frei, der danach fragt.",
-      "yourEmail": "Ihre E-Mail-Adresse",
-      "nameLabel": "Name Ihres Unternehmens",
-      "namePlaceholder": "Muster GmbH",
-      "countryLabel": "Land (Ländercode)",
-      "countryHint": "Zwei Buchstaben nach ISO 3166-1, etwa DE oder AT.",
-      "submit": "Annehmen und Profil anlegen",
-      "freeNote": "Das Lieferantenportal kostet nichts. Die meisten Lieferanten fallen nicht selbst unter NIS2, und dieses Formular geht auch nicht davon aus."
-    },
     "options": {
       "saasHostingRegion": {
         "eu": "Nur EU",

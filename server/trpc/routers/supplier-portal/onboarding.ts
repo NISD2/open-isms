@@ -131,24 +131,29 @@ export const supplierOnboardingRouter = router({
     }),
 
   /**
-   * Look up a pending invite by token. Public endpoint — used by the
-   * /supplier-invite/[token] landing page to display the inviting entity's
-   * name and pre-fill the supplier email before signup. The token is the
-   * credential; if it's wrong/expired/accepted we return null and the page
-   * shows a 404.
+   * Look up an invite by token, for the /supplier-invite/[token] landing page to display the
+   * inviting entity's name and the invited email. The token is the credential. `closed` is
+   * expired or accepted. `unknown` means no invite here carries the token: a self-hosted install
+   * sent it (its link forwards here, the invite stays in its database), or a later send replaced
+   * it.
    */
   getInviteByToken: protectedProcedure
     .input(z.object({ token: z.string().length(64) }))
     .query(async ({ ctx, input }) => {
       const invite = await ctx.db.query.supplierInvite.findFirst({
-        where: and(
-          eq(supplierInvite.token, input.token),
-          isNull(supplierInvite.acceptedAt),
-          gt(supplierInvite.expiresAt, new Date()),
-        ),
-        columns: { id: true, fromCompanyId: true, toEmail: true, message: true },
+        where: eq(supplierInvite.token, input.token),
+        columns: {
+          fromCompanyId: true,
+          toEmail: true,
+          message: true,
+          acceptedAt: true,
+          expiresAt: true,
+        },
       });
-      if (!invite) return null;
+      if (!invite) return { state: "unknown" } as const;
+      if (invite.acceptedAt !== null || invite.expiresAt <= new Date()) {
+        return { state: "closed" } as const;
+      }
 
       const fromCompany = await ctx.db.query.company.findFirst({
         where: eq(company.id, invite.fromCompanyId),
@@ -156,10 +161,11 @@ export const supplierOnboardingRouter = router({
       });
 
       return {
+        state: "open",
         toEmail: invite.toEmail,
         fromCompanyName: fromCompany?.name ?? "A NIS2 entity",
         message: invite.message,
-      };
+      } as const;
     }),
 
   /**

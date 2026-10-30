@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { googleAdsEnvShape } from "@/lib/analytics/google-ads-config";
 import { analyticsEnvShape } from "@/lib/analytics/umami-config";
 import { billingEnvShape } from "@/lib/billing/config-schema";
 import { closeEnvShape } from "@/lib/crm/config-schema";
@@ -113,6 +114,10 @@ const envSchema = z.object({
   // Analytics tag and the login the Graphs tab reads traffic back with — all optional.
   // Defined in lib/analytics/umami-config.ts, normalised once and never rejected.
   ...analyticsEnvShape,
+
+  // Google Ads measurement behind a consent question — both optional, unset on a self-hosted copy.
+  // Defined in lib/analytics/google-ads-config.ts, normalised once and never rejected.
+  ...googleAdsEnvShape,
 
   // Cron — optional
   CRON_SECRET: z.string().optional(),

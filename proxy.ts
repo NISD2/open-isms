@@ -2,9 +2,13 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import createIntlMiddleware from "next-intl/middleware";
+import { expandPaths, underAny } from "@/i18n/expand-paths";
 import { routing } from "@/i18n/routing";
+import { CALLBACK_URL_KEY, withSourceTags } from "@/lib/analytics/token-routes";
 import { isActivePromo, PROMO_COOKIE, PROMO_COOKIE_MAX_AGE_S } from "@/lib/billing/promo";
+import { isNisd2Only, NISD2_ONLY_PATHS, NISD2_ORIGIN, SELF_HOSTED } from "@/lib/edition";
 import { env } from "@/lib/env";
+import { CANONICAL_PUBLIC_EXACT, CANONICAL_PUBLIC_PREFIXES } from "@/lib/public-paths";
 import { buildCsp } from "@/lib/security/csp";
 
 const handleI18n = createIntlMiddleware(routing);
@@ -20,178 +24,14 @@ function getAuthCookieName(isSecure: boolean): string {
   return isSecure ? "__Secure-authjs.session-token" : "authjs.session-token";
 }
 
-/**
- * Public route allowlist — default-deny inversion (audit followup,
- * 2026-06-11). Every route in the app falls into one of three buckets:
- *
- *   1. BYPASS — early return at the top of proxy(). Route handlers do
- *      their own auth (API routes, the trpc dispatcher), or no auth is
- *      meaningful (static metadata, internal screenshot route).
- *
- *   2. PUBLIC — the canonical (DE-keyed) path appears below in
- *      CANONICAL_PUBLIC_EXACT or CANONICAL_PUBLIC_PREFIXES. The
- *      expansion walks routing.pathnames at module init and adds every
- *      localized variant, so `/privacy` (EN/NL) gets the same
- *      classification as `/datenschutz` (DE). The next-intl pathname
- *      map is the single source of truth — the two structures cannot
- *      drift apart, and adding a new public page in routing.ts
- *      automatically opens it across all three locales.
- *
- *   3. PROTECTED — everything else. Default behavior. Proxy requires a
- *      validly-signed JWT; missing or expired tokens redirect to
- *      /auth/signin with callbackUrl preserved.
- *
- * The previous shape was an explicit *protected* allowlist. That had
- * the failure mode "forgot to add a new protected route to the list".
- * Inverting to a public allowlist makes the failure mode "forgot to add
- * a new public route to the list" — same shape but now functional
- * (users see a redirect on a public page) instead of structural (a
- * protected page silently leaks data without ever asking for auth).
- *
- * Pages that the inversion newly proxy-enforces (each ALREADY had a
- * page-level `getSession()` + redirect, so behavior is unchanged — the
- * inversion is defense in depth):
- *   - /applicability-admin
- *   - /journey
- *   - /supplier-invite/[token]
- *   - /portal/supplier-onboarding (the old `/portal/supplier` prefix
- *     match missed this because `supplier-onboarding` has no slash
- *     after `supplier`)
- *
- * /invite/[token] is also newly enforced. The invite page itself
- * renders a public "invalid/expired" card for missing tokens, so the
- * inversion changes UX slightly (signin redirect with callbackUrl
- * instead of the invalid-card page for unauthenticated visitors with a
- * good token), but the underlying acceptance flow stays gated.
- */
-const CANONICAL_PUBLIC_EXACT: readonly string[] = [
-  "/",
-  // The promo link's sign-in page (lib/billing/promo.ts)
-  "/anmelden",
-  // Marketing / info pages — every page under app/[locale]/(info)/
-  "/about",
-  "/avv",
-  "/changelog",
-  "/corrections",
-  "/datenschutz",
-  "/ethik",
-  "/features",
-  "/finanzierung",
-  "/hilfe",
-  "/impressum",
-  "/mission",
-  "/nis2-lieferanten-fragebogen",
-  "/nis2-meldepflicht-schema",
-  "/nis2-tool",
-  "/open-source",
-  "/partner",
-  "/pricing",
-  "/pricing/approval",
-  "/redaktion",
-  "/sicherheit",
-  "/status",
-  "/subprozessoren",
-  "/terms",
-  "/toms",
-  "/vermittlung",
-  "/vertrauen",
-  "/vormerken/dsgvo",
-  // Public course overview and landing pages. /training itself is the portal's records page.
-  "/kurse",
-  "/training/cra-sbom",
-  "/training/nis2-ceo",
-  "/training/nis2-tabletop",
-  // Standalone public pages
-  "/applicability",
-  "/risikobewertung",
-  "/strukturanalyse",
-  "/start",
-  "/pitch",
-  "/supplier-portal",
-  // Design playgrounds for the entity + supplier portals (preview only).
-  // /journey-preview/fork is deliberately NOT here: it renders both journey
-  // layouts, which is the signed-in product, so it sits behind the same gate
-  // as the page it previews.
-  "/journey-preview",
-  "/supplier-preview",
-];
+// The public allowlist and why it is one: lib/public-paths.ts.
+const { exact: PUBLIC_EXACT, prefixes: PUBLIC_PREFIXES } = expandPaths(
+  CANONICAL_PUBLIC_EXACT,
+  CANONICAL_PUBLIC_PREFIXES,
+);
 
-const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
-  // Wiki — /wiki itself + every nested category and article. The /wiki
-  // segment is locale-stable; only the category and article slugs
-  // change between locales, so the prefix match alone covers all three.
-  "/wiki",
-  // sicherheitsfragebogen.de wedge — single landing page + future
-  // programmatic SEO subtrees. Same slug across all three locales so a
-  // prefix entry suffices.
-  "/sicherheitsfragebogen",
-  // Public newsletter archive — /newsletter hub + every /newsletter/<slug>
-  // permalink. Slug is locale-stable, so the prefix match covers all three.
-  "/newsletter",
-  // Auth flow pages — /auth/signin, /auth/forgot-password, /auth/signout
-  "/auth",
-  // Author bios — /autor/[slug] (DE), /author/[slug] (EN), /auteur/[slug] (NL)
-  "/autor",
-  // Shared gap assessment — token IS the authentication mechanism
-  "/gap-assessment/share",
-  // Supplier-relationship access — token-gated landing for external suppliers
-  "/supplier-access",
-  // Partner agreement — the token in the link is how a partner reads and accepts it
-  "/partner-agreement",
-];
-
-type PathnameMapping = string | Partial<Record<string, string>>;
-
-/**
- * Expand each canonical (DE-keyed) public path/prefix to all locale
- * variants via routing.pathnames lookup. Resolves the localized-slug
- * blocker found during PR #14 review: `/datenschutz` is canonical, but
- * EN/NL users hit `/privacy` and the proxy never saw it; same for
- * `/toepasselijkheid`, `/leveranciersportaal`, `/author/[slug]`, etc.
- */
-function expandPublicPaths(): {
-  exact: ReadonlySet<string>;
-  prefixes: readonly string[];
-} {
-  const pathnames = routing.pathnames as Record<string, PathnameMapping>;
-  const exact = new Set<string>();
-  const prefixes = new Set<string>();
-
-  for (const canonical of CANONICAL_PUBLIC_EXACT) {
-    exact.add(canonical);
-    const mapping = pathnames[canonical];
-    if (mapping && typeof mapping === "object") {
-      for (const localized of Object.values(mapping)) {
-        if (localized) exact.add(localized);
-      }
-    }
-  }
-
-  for (const canonical of CANONICAL_PUBLIC_PREFIXES) {
-    prefixes.add(canonical);
-    // Walk all routing entries: when a canonical key sits under this
-    // prefix and the entry is localized, derive the localized prefix
-    // root by stripping the trailing suffix shared with the canonical
-    // key. e.g. canonical="/autor", key="/autor/simon-orzel",
-    // mapping.en="/author/simon-orzel" → localized prefix "/author".
-    for (const [key, mapping] of Object.entries(pathnames)) {
-      const isUnderPrefix = key === canonical || key.startsWith(`${canonical}/`);
-      if (!isUnderPrefix) continue;
-      if (!mapping || typeof mapping !== "object") continue;
-      const suffix = key.slice(canonical.length);
-      for (const localized of Object.values(mapping)) {
-        if (!localized) continue;
-        if (suffix && !localized.endsWith(suffix)) continue;
-        const localizedRoot = suffix ? localized.slice(0, -suffix.length) : localized;
-        if (localizedRoot) prefixes.add(localizedRoot);
-      }
-    }
-  }
-
-  return { exact, prefixes: [...prefixes] };
-}
-
-const { exact: PUBLIC_EXACT, prefixes: PUBLIC_PREFIXES } = expandPublicPaths();
+// nisd2.eu's own pages, which the self-hosted image leaves out (lib/edition), in every locale.
+const { prefixes: NISD2_ONLY_PREFIXES } = expandPaths([], NISD2_ONLY_PATHS);
 
 // Derived from routing.locales so newly added locales are stripped too,
 // instead of a hardcoded de|en|nl list that silently 404s/redirects new ones.
@@ -234,11 +74,15 @@ const NON_DEFAULT_LOCALE_PREFIX = new RegExp(
  * /nl/leveranciersportaal rather than eating a second redirect hop. A
  * target that is not in routing.pathnames (like /journey-preview) is
  * locale-stable and falls through to itself.
+ *
+ * A self-hosted install has neither lander, so its visitors go to sign-in as on any other page.
  */
-const ANONYMOUS_LANDER_TARGETS: Record<string, string> = {
-  "/portal/supplier": "/supplier-portal",
-  "/journey": "/start",
-};
+const ANONYMOUS_LANDER_TARGETS: Record<string, string> = Object.fromEntries(
+  Object.entries({
+    "/portal/supplier": "/supplier-portal",
+    "/journey": "/start",
+  }).filter(([, target]) => !(SELF_HOSTED && isNisd2Only(target))),
+);
 
 function landerByLocale(target: string): Record<string, string> {
   const pathnames = routing.pathnames as Record<
@@ -260,6 +104,12 @@ const ANONYMOUS_LANDERS: Record<string, Record<string, string>> = Object.fromEnt
   ]),
 );
 
+/** The URL prefix of a non-default locale in `pathname` ("/en"), or "" for the default. */
+function localePrefixOf(pathname: string): string {
+  const match = pathname.match(NON_DEFAULT_LOCALE_PREFIX);
+  return match ? `/${match[1].toLowerCase()}` : "";
+}
+
 /**
  * Locale-prefixed lander for an anonymous hit on `strippedPath`, or null
  * when that path has no lander and should go to signin as before.
@@ -275,13 +125,27 @@ function anonymousLanderPath(pathname: string, strippedPath: string): string | n
 
 function isPublic(pathname: string): boolean {
   const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
-  if (PUBLIC_EXACT.has(stripped)) return true;
-  for (const prefix of PUBLIC_PREFIXES) {
-    if (stripped === prefix || stripped.startsWith(`${prefix}/`)) {
-      return true;
-    }
+  return PUBLIC_EXACT.has(stripped) || underAny(stripped, PUBLIC_PREFIXES);
+}
+
+/**
+ * On a self-hosted install, where a request for a page it does not have goes: nisd2.eu's own
+ * pages to the same address at nisd2.eu, and the home page to the app. Null for every other page.
+ *
+ * The image does not contain those pages at all (scripts/self-host-strip.mjs), so this is how
+ * every link to them, old bookmarks and old emails reach nisd2.eu. The browser keeps the install's
+ * address as referrer across the redirect (Referrer-Policy in next.config.ts).
+ */
+function selfHostedRedirect(request: NextRequest): NextResponse | null {
+  const { pathname, search } = request.nextUrl;
+  const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
+  if (stripped === "/") {
+    return NextResponse.redirect(
+      new URL(`${localePrefixOf(pathname)}/dashboard`, request.url),
+    );
   }
-  return false;
+  if (!underAny(stripped, NISD2_ONLY_PREFIXES)) return null;
+  return NextResponse.redirect(new URL(`${pathname}${search}`, NISD2_ORIGIN), 308);
 }
 
 // EMD redirect: sicherheitsfragebogen.de is a brand-billboard domain.
@@ -302,12 +166,16 @@ async function route(request: NextRequest) {
     // locale and has no URL prefix on nisd2.eu. Subpaths are dropped —
     // the EMD has no canonical content beyond root; redirecting deep
     // links to the wedge landing is the safe default.
-    const localeMatch = pathname.match(NON_DEFAULT_LOCALE_PREFIX);
-    const localePrefix = localeMatch ? `/${localeMatch[1].toLowerCase()}` : "";
-    const target = new URL(`https://nisd2.eu${localePrefix}/sicherheitsfragebogen`);
+    const target = new URL(
+      `https://nisd2.eu${localePrefixOf(pathname)}/sicherheitsfragebogen`,
+    );
     target.search = request.nextUrl.search;
     return NextResponse.redirect(target, 301);
   }
+
+  // Before the bypass below, which lets /docs through.
+  const away = SELF_HOSTED ? selfHostedRedirect(request) : null;
+  if (away) return away;
 
   // EW-5: strip any inbound x-pathname header before downstream
   // handlers see it. Only the proxy is allowed to set this for server
@@ -361,11 +229,13 @@ async function route(request: NextRequest) {
         pathname.replace(LOCALE_STRIP, "") || "/",
       );
       if (lander) {
-        return NextResponse.redirect(new URL(lander, request.url));
+        return NextResponse.redirect(
+          withSourceTags(new URL(lander, request.url), request.nextUrl.search),
+        );
       }
       const signinUrl = new URL("/auth/signin", request.url);
-      signinUrl.searchParams.set("callbackUrl", pathname);
-      return NextResponse.redirect(signinUrl);
+      signinUrl.searchParams.set(CALLBACK_URL_KEY, pathname);
+      return NextResponse.redirect(withSourceTags(signinUrl, request.nextUrl.search));
     }
   }
 
@@ -387,10 +257,13 @@ async function route(request: NextRequest) {
  * is the difference between a self-hoster's evidence uploads working and being
  * blocked by an origin belonging to whoever ran the build. Set here rather than
  * at each return so a new branch cannot forget it.
+ *
+ * A self-hosted install is someone's compliance app, never a search result.
  */
 export async function proxy(request: NextRequest) {
   const response = await route(request);
   response.headers.set("Content-Security-Policy", buildCsp(process.env));
+  if (SELF_HOSTED) response.headers.set("X-Robots-Tag", "noindex");
   await rememberPromo(request, response);
   return response;
 }

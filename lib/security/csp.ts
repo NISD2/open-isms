@@ -16,6 +16,8 @@
  * callers share this module so the two policies cannot drift.
  */
 
+import { googleAdsTag } from "../analytics/google-ads-tag";
+
 /** Index-signature shaped so `process.env` satisfies it directly. */
 export type CspEnv = { readonly [key: string]: string | undefined };
 
@@ -38,6 +40,23 @@ export const storageOrigin = (env: CspEnv): string => {
   return "";
 };
 
+/** Where Google's tag loads from. */
+const GOOGLE_ADS_SCRIPT = "https://www.googletagmanager.com";
+
+/**
+ * Where the tag reports to. Checked against the browser console on 26.10.2026 with the tag on and
+ * a conversion fired; widen only on a logged block.
+ */
+const GOOGLE_ADS_CONNECT = [
+  GOOGLE_ADS_SCRIPT,
+  "https://www.google.com",
+  "https://www.googleadservices.com",
+  "https://googleads.g.doubleclick.net",
+  "https://ad.doubleclick.net",
+  // The conversion also goes to the visitor's own Google country site; Germany is the market.
+  "https://www.google.de",
+] as const;
+
 const directive = (name: string, sources: readonly string[]): string =>
   [name, ...sources.filter((s) => s !== "")].join(" ");
 
@@ -48,6 +67,10 @@ export const buildCsp = (env: CspEnv): string => {
   const httpsHardened = env.CSP_UPGRADE_INSECURE === "1";
   const analytics = env.ANALYTICS_SCRIPT_URL ? originOf(env.ANALYTICS_SCRIPT_URL) : "";
   const storage = storageOrigin(env);
+  // Google's measurement tag, named only where the layout would render it: the same check decides both.
+  const googleAdsOn = googleAdsTag(env) !== null;
+  const googleAdsScript = googleAdsOn ? GOOGLE_ADS_SCRIPT : "";
+  const googleAdsConnect = googleAdsOn ? GOOGLE_ADS_CONNECT : [];
   // The booking calendar (components/pricing/BookingDialog.tsx) is cal.com's page in a plain
   // frame. Framing only: no cal.com script runs on our origin.
   const booking = "https://cal.com";
@@ -60,6 +83,7 @@ export const buildCsp = (env: CspEnv): string => {
       "'unsafe-eval'",
       analytics,
       "https://accounts.google.com",
+      googleAdsScript,
     ]),
     directive("style-src", ["'self'", "'unsafe-inline'"]),
     directive("img-src", ["'self'", "data:", "blob:", "https:"]),
@@ -69,6 +93,7 @@ export const buildCsp = (env: CspEnv): string => {
       analytics,
       "https://accounts.google.com",
       storage,
+      ...googleAdsConnect,
     ]),
     directive("frame-src", [
       "'self'",

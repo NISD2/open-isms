@@ -79,7 +79,7 @@
       "member": "Membre",
       "reviewer": "Réviseur",
       "legal_reviewer": "Réviseur juridique",
-      "owner": "A créé l'organisation",
+      "owner": "Propriétaire de l'organisation",
       "success": "Rôle d'accès mis à jour"
     }
   }

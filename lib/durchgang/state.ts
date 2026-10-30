@@ -40,6 +40,8 @@ const RECORD_ACTIONS = [
   "durchgang.policies_approved",
   "durchgang.requirements_signed",
   "durchgang.critical",
+  "durchgang.needs",
+  "durchgang.restore",
   "durchgang.activities",
   "durchgang.described",
   "durchgang.processors",

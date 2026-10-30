@@ -44,7 +44,7 @@ import { billingAccount } from "./billing";
 export const company = pgTable("company", {
   id: uuid("id").primaryKey().defaultRandom(),
   /**
-   * The account that owns this organization (its creator). Deleting the owner
+   * The account that owns this organization. Deleting the owner
    * tears down the whole org and every member; deleting a non-owner member
    * removes only that person. onDelete "set null" so an owner-teardown, which
    * deletes the owner's user row, does not FK-block the subsequent company
@@ -290,10 +290,7 @@ export const company = pgTable("company", {
 // Users — Platform accounts (not the company workforce, just login users)
 // ---------------------------------------------------------------------------
 
-/**
- * What a signup keeps from the page it started from: the campaign tags in that page's address,
- * and the path of the page itself (`from_path`), which is the only source an organic visitor has.
- */
+/** A signup's source; what each key means: lib/analytics/token-routes.ts. */
 export const SIGNUP_CAMPAIGN_KEYS = [
   "utm_source",
   "utm_medium",
@@ -301,6 +298,7 @@ export const SIGNUP_CAMPAIGN_KEYS = [
   "utm_content",
   "utm_term",
   "from_path",
+  "gate_path",
 ] as const;
 
 export type SignupCampaign = Partial<

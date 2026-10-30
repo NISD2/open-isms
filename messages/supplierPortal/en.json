@@ -273,26 +273,6 @@
       "clausesIntro": "What you have agreed with this customer in your contract. Based on point 5.1.4 of the Annex to Implementing Regulation (EU) 2024/2690 and ENISA's Technical Implementation Guidance on it.",
       "saveClauses": "Save clauses"
     },
-    "acceptInvite": {
-      "metaTitle": "Accept supplier invite",
-      "wrongEmailTitle": "Signed in with a different email",
-      "wrongEmailBody": "This invite was sent to <b>{invited}</b>, but you are signed in as <b>{signedIn}</b>.",
-      "wrongEmailHint": "Sign out and sign back in with {invited} to accept this invite.",
-      "signOut": "Sign out",
-      "hasCompanyTitle": "Account already in use",
-      "hasCompanyBody": "Your account already belongs to another company on the platform. To accept this invite, please sign in with a different email address.",
-      "toPortal": "Go to my supplier portal",
-      "eyebrow": "Invitation",
-      "title": "{company} would like to see your security profile",
-      "intro": "{company} falls under NIS2 and has to check how securely its suppliers work. Instead of its own questionnaire it uses nisd2.eu: you answer the unified questionnaire once and release it to every customer who asks.",
-      "yourEmail": "Your email",
-      "nameLabel": "Your company name",
-      "namePlaceholder": "Example Ltd",
-      "countryLabel": "Country (ISO code)",
-      "countryHint": "Two-letter ISO 3166-1 code, for example DE or AT.",
-      "submit": "Accept and create profile",
-      "freeNote": "The supplier portal costs nothing. Most suppliers do not fall under NIS2 themselves, and this form does not assume you do."
-    },
     "options": {
       "saasHostingRegion": {
         "eu": "EU only",

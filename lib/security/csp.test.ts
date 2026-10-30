@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { googleAdsTag } from "../analytics/google-ads-tag";
 import { buildCsp, storageOrigin } from "./csp";
 
 describe("storageOrigin", () => {
@@ -50,6 +51,46 @@ describe("buildCsp", () => {
     const frameSrc = directives.find((d) => d.startsWith("frame-src ")) ?? "";
     expect(scriptSrc).not.toContain("cal.com");
     expect(frameSrc.split(" ")).toContain("https://cal.com");
+  });
+
+  test("Google's measurement tag is allowed only where the operator set one", () => {
+    const set = buildCsp({
+      GOOGLE_ADS_TAG_ID: "AW-1234567890",
+      GOOGLE_ADS_CONVERSION_LABEL: "aB3",
+    });
+    const scriptSrc = set.split("; ").find((d) => d.startsWith("script-src ")) ?? "";
+    expect(scriptSrc).toContain("https://www.googletagmanager.com");
+    expect(set).toContain("https://www.googleadservices.com");
+    for (const unset of [
+      {},
+      { GOOGLE_ADS_TAG_ID: "AW-1234567890" },
+      { GOOGLE_ADS_TAG_ID: "x" },
+    ]) {
+      const csp = buildCsp(unset);
+      for (const origin of [
+        "googletagmanager",
+        "googleadservices",
+        "doubleclick",
+        "www.google.com",
+      ]) {
+        expect(csp).not.toContain(origin);
+      }
+    }
+  });
+
+  // The layout renders the tag from googleAdsConfig; the CSP opens Google from the same check, so a
+  // value one of them rejects can never leave the other open.
+  test("the CSP opens Google for exactly the values that render the tag", () => {
+    const cases = [
+      { GOOGLE_ADS_TAG_ID: "AW-123\n", GOOGLE_ADS_CONVERSION_LABEL: "aB3" },
+      { GOOGLE_ADS_TAG_ID: "AW-abc", GOOGLE_ADS_CONVERSION_LABEL: "aB3" },
+      { GOOGLE_ADS_TAG_ID: "AW-123", GOOGLE_ADS_CONVERSION_LABEL: "a b" },
+      { GOOGLE_ADS_TAG_ID: "AW-123", GOOGLE_ADS_CONVERSION_LABEL: "" },
+      { GOOGLE_ADS_TAG_ID: "AW-123", GOOGLE_ADS_CONVERSION_LABEL: "aB3" },
+    ];
+    for (const env of cases) {
+      expect(buildCsp(env).includes("googletagmanager")).toBe(googleAdsTag(env) !== null);
+    }
   });
 
   test("directives never carry a blank source", () => {

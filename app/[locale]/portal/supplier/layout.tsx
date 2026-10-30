@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { LegalNotice } from "@/components/legal/LegalNotice";
 import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SupplierAppSidebar } from "@/components/supplier-portal/SupplierAppSidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -68,6 +69,7 @@ export default async function SupplierPortalLayout({
       <SidebarInset>
         <PortalHeader />
         <div className="flex-1 px-6 py-6">{children}</div>
+        <LegalNotice className="border-t px-6 py-3" />
       </SidebarInset>
     </SidebarProvider>
   );

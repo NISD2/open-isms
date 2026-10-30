@@ -1,3 +1,5 @@
+import { ORDER_SLUGS } from "@/i18n/slugs";
+import { localCallbackPath } from "@/lib/auth/local-path";
 import { isLocaleCode } from "@/lib/locale";
 
 /**
@@ -86,17 +88,84 @@ export function originPath(value: unknown): string | null {
   }
 }
 
+/** Same key as in SIGNUP_CAMPAIGN_KEYS (schema). Where the proxy leaves the page a visitor was after. */
+export const CALLBACK_URL_KEY = "callbackUrl";
+export const GATE_PATH_KEY = "gate_path";
+
 /**
- * What a registration keeps from the sign-in page's own address: the campaign tags and the path of
- * the page whose link led there (SignInLink). Nothing else survives, since the rest can carry a
- * credential, e.g. ?callbackUrl=/invite/<token>.
+ * The entry doors a visitor meets before they have an account: a lesson, the walk, the journey and
+ * the order page (one slug per language). A gated path outside these is recorded as nothing, since
+ * the rest of the app carries ids of a tenant's own objects, e.g. /suppliers/<uuid>.
  */
-export function signupTags(search: string): URLSearchParams {
+const GATE_DOORS: ReadonlySet<string> = new Set([
+  "training",
+  "journey",
+  "walkthrough",
+  "durchgang",
+  ...Object.values(ORDER_SLUGS).map((slug) => slug.slice(1)),
+]);
+
+const firstSegment = (pathname: string): string => {
+  const segments = pathname.split("/").filter(Boolean);
+  return (isLocaleCode(segments[0]?.toLowerCase()) ? segments[1] : segments[0]) ?? "";
+};
+
+/**
+ * A path a signup may record as the entry door it was sent away from: a plain local path
+ * (`originPath`) whose first segment is a door. What the server accepts for `gate_path`.
+ */
+export function gateDoor(value: unknown): string | null {
+  const path = originPath(value);
+  return path !== null && GATE_DOORS.has(firstSegment(path)) ? path : null;
+}
+
+/**
+ * The gated page a visitor was sent to sign-in for, from a `callbackUrl`: the path of an entry door
+ * (`gateDoor`), query and fragment dropped. Only an absolute path on this site qualifies, as the
+ * sign-in card's own redirect rule defines it (`localCallbackPath`). Untrusted, so it fails closed.
+ * It is not `from_path`: that is the page whose link was clicked.
+ */
+export function gatePath(value: unknown): string | null {
+  if (typeof value !== "string" || !value.startsWith("/")) return null;
+  const local = localCallbackPath(value, "");
+  return local === "" ? null : gateDoor(new URL(local, BASE).pathname);
+}
+
+/**
+ * The campaign tags and the page whose link was clicked (`from_path`), nothing else: a query can
+ * carry a credential. What a link hands on, and what the proxy keeps when it redirects.
+ */
+export function sourceTags(search: string): URLSearchParams {
   const origin = originPath(new URLSearchParams(search).get(FROM_PATH_KEY));
   return new URLSearchParams([
     ...campaignTags(search),
     ...(origin === null ? [] : [[FROM_PATH_KEY, origin] as [string, string]]),
   ]);
+}
+
+/**
+ * What a registration keeps from the sign-in page's own address: `sourceTags`, and the entry door
+ * the proxy sent the visitor away from (`gate_path`), e.g. the lesson behind "Start the course".
+ */
+export function signupTags(search: string): URLSearchParams {
+  const gate = gatePath(new URLSearchParams(search).get(CALLBACK_URL_KEY));
+  return new URLSearchParams([
+    ...sourceTags(search),
+    ...(gate === null ? [] : [[GATE_PATH_KEY, gate] as [string, string]]),
+  ]);
+}
+
+/**
+ * A redirect target that keeps the source tags of the request it answers. The proxy sends an
+ * anonymous visitor on to sign-in or a public lander, and a redirect that rebuilds the URL would
+ * drop the tags a page's link handed on to a gated route.
+ */
+export function withSourceTags(target: URL, requestSearch: string): URL {
+  const tagged = new URL(target);
+  for (const [key, value] of sourceTags(requestSearch)) {
+    if (!tagged.searchParams.has(key)) tagged.searchParams.set(key, value);
+  }
+  return tagged;
 }
 
 /**

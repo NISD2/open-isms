@@ -5,6 +5,7 @@ export {
   sendMail,
   sendWelcomeEmail,
 } from "./send";
+export { newUserSignupEmail } from "./signup-notice";
 export { entityInvitesSupplierEmail } from "./supplier-invite-email";
 export {
   accountSetupEmail,
@@ -27,7 +28,6 @@ export {
   memberRemovedEmail,
   newSaleEmail,
   newsletterEmail,
-  newUserSignupEmail,
   passwordResetCodeEmail,
   registrationAttemptEmail,
   replyAddress,

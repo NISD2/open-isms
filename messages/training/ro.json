@@ -2,7 +2,6 @@
   "training": {
     "title": "Evidența instruirilor",
     "description": "Evidența instruirilor de securitate cibernetică pentru angajați și conducere. Cerută de NIS2 Art. 21(2)(g) și BSIG §38(3).",
-    "helpText": "Înregistrați toate instruirile de securitate cibernetică finalizate. NIS2 impune instruire periodică de conștientizare pentru toți angajații și instruire specifică pentru conducere (BSIG §38(3), răspundere personală). Urmăriți cine a finalizat fiecare instruire și când.",
     "add": "Adaugă instruire",
     "edit": "Editează instruirea",
     "empty": "Nicio evidență de instruire încă. Adăugați prima evidență de instruire.",
@@ -44,7 +43,6 @@
       "description": "Scurtă descriere a conținutului instruirii, a obiectivelor și a publicului țintă.",
       "participantName": "Numele complet al persoanei care a participat sau a finalizat această instruire.",
       "participantRole": "Funcția sau rolul participantului în cadrul organizației.",
-      "isManagement": "Activați dacă aceasta este o instruire la nivel de conducere. BSIG Secțiunea 38(3) impune instruire specifică de securitate cibernetică pentru conducere, cu răspundere personală.",
       "providerName": "Numele furnizorului de instruire sau al organizației care realizează instruirea.",
       "trainerName": "Numele instructorului sau al facilitatorului individual.",
       "startedAt": "Data la care participantul a început această instruire.",

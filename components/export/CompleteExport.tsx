@@ -70,8 +70,8 @@ function planLine(
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
-/** Processes first, rooms last, the presets between, anything typed in after them. */
-const TYPE_ORDER: readonly string[] = ["process", ...NIS2_ASSET_TYPES, "room"];
+/** The presets in their order (processes first), rooms last, anything typed in after them. */
+const TYPE_ORDER: readonly string[] = [...NIS2_ASSET_TYPES, "room"];
 const typeRank = (type: string) =>
   TYPE_ORDER.includes(type) ? TYPE_ORDER.indexOf(type) : TYPE_ORDER.length;
 

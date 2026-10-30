@@ -55,29 +55,55 @@ export const isGrandfatheredPerson = (person: {
 export const unpaidAccessLevel = (holderGrandfathered: boolean): AccessLevel =>
   holderGrandfathered ? "grandfathered" : "free";
 
+/** Whether a person may order for an account, and whether the order makes them its payer. */
+export type OrderRight =
+  | { readonly may: false }
+  | { readonly may: true; readonly becomesPayer: boolean };
+
 /**
- * Whether this person may order for the account of the company they have open: the account
- * holder, or management the holder invited into that company to decide on the order
- * (team.forwardToManagement). Its order lands on the company's existing account.
+ * Who may order for the account of the company they have open. The order always lands on that
+ * account.
  *
- * Holding the management role is not enough on its own: any company admin can give that role, and
- * a company role says nothing about who may put the account on an invoice. So the accepted invite
- * has to come from the holder and be for management, and the person has to hold the role still.
- * Invoices and cancelling stay with the holder.
+ * - The account holder, the person who pays.
+ * - Management the holder invited into that company to decide on the order
+ *   (team.forwardToManagement). The holder stays the payer. Holding the management role is not
+ *   enough on its own, since any company admin can give it: the accepted invite has to come from
+ *   the holder and be for management, and the person has to hold the role still.
+ * - An admin of every organization on the account while nobody has paid for it: never invoiced,
+ *   and not on the full level some other way. The admin becomes its payer (Simon, 23.10.2026: "If
+ *   it's unpaid then anybody can pay but if it's paid only the payer, the person who paid, can
+ *   change"). Admins only, because the order binds the company to the AGB. Of every organization
+ *   on the account, because the payer controls the licence of all of them: an account a consultant
+ *   holds for two clients must not pass to one client's admin, whose licence covers only its own
+ *   group (AGB B1). An account invoiced before stays with its payer: its next invoice goes to the
+ *   Qonto client of the first one (place-order.ts `qontoClientFor`), and its invoices name that
+ *   customer.
  */
-export const mayOrderFor = (person: {
+export const orderRightFor = (person: {
   readonly userId: string;
   readonly holderUserId: string | null;
+  /** The person is an admin of every organization on the account, the open one included. */
+  readonly adminOfAccount: boolean;
   /** The compliance role the person holds in the open company. */
   readonly jobTitle: string | null;
   /** The invite the person accepted into the open company: who sent it, and for which role. */
   readonly invite: { readonly invitedBy: string; readonly role: string | null } | null;
-}): boolean =>
-  person.holderUserId !== null &&
-  (person.holderUserId === person.userId ||
-    (person.jobTitle === MANAGEMENT_ROLE &&
-      person.invite?.role === MANAGEMENT_ROLE &&
-      person.invite.invitedBy === person.holderUserId));
+  /** The account was never invoiced and is not on the full level. */
+  readonly unpaid: boolean;
+}): OrderRight => {
+  const holder = person.holderUserId;
+  if (holder === person.userId) return { may: true, becomesPayer: false };
+  if (
+    holder !== null &&
+    person.jobTitle === MANAGEMENT_ROLE &&
+    person.invite?.role === MANAGEMENT_ROLE &&
+    person.invite.invitedBy === holder
+  ) {
+    return { may: true, becomesPayer: false };
+  }
+  if (person.unpaid && person.adminOfAccount) return { may: true, becomesPayer: true };
+  return { may: false };
+};
 
 /** Where an account that must order first is sent from any portal page it may not open. */
 export const OFFER_PATH = "/billing/offer";

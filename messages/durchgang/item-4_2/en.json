@@ -42,7 +42,23 @@
               "by hand, entered later",
               "from another site",
               "the provider takes over"
-            ]
+            ],
+            "outage": "How long may it stand still at most?",
+            "outageHint": "In the worst case: from when do customers, safety or a deadline suffer? An estimate is enough. It sets the pace for everything this process needs.",
+            "outageOptions": {
+              "hours": "hours",
+              "day": "1 day",
+              "three_days": "3 days",
+              "week": "1 week",
+              "longer": "longer"
+            }
+          },
+          "needs": {
+            "title": "What the processes need",
+            "lead": "For each process that must keep running: which systems and rooms on your list does it need? A system two processes need has to be back as fast as the more urgent of the two. Germany's BSI lists each process with its essential applications (Standard 200-4; Standard 300-1, Annex 2).",
+            "none": "No process is marked as having to keep running, so there is nothing to pick here.",
+            "empty": "Besides the processes, nothing is on your list yet. Add what you use in step 2.2.",
+            "needs": "Needs:"
           },
           "plan": {
             "title": "Your business continuity plan",
@@ -56,7 +72,7 @@
                 },
                 {
                   "heading": "When this plan applies",
-                  "text": "This plan applies when an event interrupts important work for longer than normal troubleshooting takes, or threatens to. In doubt, {emergencyLead} decides."
+                  "text": "This plan applies when an event interrupts important work for longer than a process under emergency operation below may wait, or threatens to. Where no time is given there, it applies as soon as normal troubleshooting is no longer enough. In doubt, {emergencyLead} decides."
                 },
                 {
                   "heading": "Leadership",
@@ -81,6 +97,10 @@
                 {
                   "heading": "Back to normal operation",
                   "text": "{emergencyLead} declares the emergency over. We record what happened and adapt this plan."
+                },
+                {
+                  "heading": "Terms",
+                  "text": "A disruption is an outage that the usual troubleshooting fixes in the usual time. An emergency is an outage that interrupts important work for longer than a process above may wait; then this plan applies. A crisis is an emergency we cannot handle with our own means, in which {emergencyLead} brings in help from outside. We review this plan when something material changes, and after every emergency. It is the entry level of BSI-Standard 200-4; Germany's BSI expects it to be built on step by step."
                 }
               ],
               "clauses": [
@@ -88,7 +108,7 @@
                   "id": "targets",
                   "label": "Recovery targets",
                   "heading": "Recovery targets",
-                  "text": "For our most important systems we set how long they may be down at most and how much data may be lost at most. The figures are recorded with the systems on our list."
+                  "text": "How long each process in the emergency operation above may stand still at most, and which systems it needs, is stated with it there. How long each of those systems takes to come back is recorded with the systems on our list; how much data may be lost at most follows from how often we back up. What is too slow or unknown is an open point at management's approval. This is the entry level of BSI-Standard 200-4; an estimate is enough there, and we build on it step by step."
                 },
                 {
                   "id": "practice",

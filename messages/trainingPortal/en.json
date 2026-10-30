@@ -18,11 +18,17 @@
     "previousLesson": "Previous Lesson",
     "completeLesson": "Mark as Complete",
     "lessonCompleted": "Lesson Completed",
+    "lessonSaveFailed": "This lesson could not be recorded. Please try again.",
     "textView": "Text",
     "videoView": "Video",
     "dictionary": "Terms",
     "definedTerms": "Key Terms",
     "vocabularyWords": "Vocabulary",
+    "certificatePreview": {
+      "title": "At the end: your certificate",
+      "body": "Finish every lesson and you get this certificate in your name. The course and the certificate cost nothing.",
+      "alt": "A sample certificate of completion, made out to a made-up participant"
+    },
     "quiz": {
       "title": "Quiz",
       "question": "Question",
@@ -54,7 +60,26 @@
       "whatIsFree": "This course and its certificate stay free, as do the wiki and self-hosting: the same source code (AGPL-3.0) on your own servers. The NIS 2 walkthrough on nisd2.eu, which guides you step by step through implementation, costs {price} net a year.",
       "afterTraining": {
         "title": "After the training: implementing the measures",
-        "body": "The training is management's duty under Section 38(3) BSIG. <law>Subsection 1</law> also requires management to implement the risk-management measures under Section 30 and to oversee their implementation. The NIS 2 walkthrough guides you through these measures step by step, and at the end management signs."
+        "body": "The training is management's duty under Section 38(3) BSIG. <law>Subsection 1</law> also requires management to implement the risk-management measures under Section 30 and to oversee their implementation. The NIS 2 walkthrough guides you through these measures step by step, and at the end management signs.",
+        "recorded": "Your course already shows in the walkthrough, under management training.",
+        "self": {
+          "title": "You do the work yourself",
+          "body": "The walkthrough takes you through the measures one step at a time.",
+          "setup": "First your company, so the walkthrough fits it:",
+          "start": "Start the NIS 2 walkthrough",
+          "ownerSetsUp": "Whoever created your company's account sets the company up first; then the walkthrough opens here."
+        },
+        "other": {
+          "title": "Someone else does the work",
+          "body": "Are you on the management? Hand the day-to-day work to whoever does it: they go through the walkthrough, and management oversees it and signs at the end.",
+          "notYou": "Not the one who fills it in? Send it to the person who does.",
+          "label": "Their work email",
+          "placeholder": "name@company.com",
+          "send": "Send the walkthrough",
+          "invited": "Invitation sent to {email}",
+          "setupFirst": "Set up your company first, then invite them here.",
+          "askAdmin": "Your company's admin can invite them from the team page."
+        }
       }
     },
     "estimatedTime": "{minutes} min read",

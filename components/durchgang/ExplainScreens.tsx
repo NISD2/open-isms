@@ -91,7 +91,7 @@ export function Source({ children }: { children: ReactNode }) {
  * The legal duty: a paragraph sign, one plain sentence, and the citation it rests on. The whole
  * card opens that provision.
  */
-function Duty({ text, cite, href }: { text: string; cite: string; href: string }) {
+export function Duty({ text, cite, href }: { text: string; cite: string; href: string }) {
   const t = useTranslations("durchgang.ui");
   return (
     <a

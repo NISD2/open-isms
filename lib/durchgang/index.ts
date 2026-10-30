@@ -3,7 +3,23 @@
  * database, no request. This file is the only way in.
  */
 
+export { OUTAGE_SPANS, type OutageSpan } from "@nisd2/grc-data-model/enums";
 export { answerRefsOf, refKey } from "./answer-refs";
+export type {
+  ContinuityFacts,
+  ContinuityLink,
+  ContinuityProcess,
+  ContinuitySystem,
+  SystemStanding,
+  SystemVerdict,
+} from "./continuity";
+export {
+  compare,
+  continuityGaps,
+  requiredOutage,
+  spanRank,
+  unratedProcesses,
+} from "./continuity";
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, ONGOING_COPY, resolveItem } from "./copy";
 export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
@@ -56,9 +72,12 @@ export {
   enteredDay,
   loginsNote,
   methodNote,
+  needsNote,
+  noneWord,
   noteLine,
   recordDay,
   recordedDay,
+  restoreNote,
   WALK_DATE_LOCALE,
   waitingNote,
 } from "./notes";
@@ -113,6 +132,8 @@ export {
   toScale,
   treatmentFor,
 } from "./ratings";
+export type { RegisterModule, TrainingAudience } from "./registers";
+export { inAudience, TRAINING_ROW } from "./registers";
 export { itemHref, WALK_ROUTES } from "./routes";
 export type {
   DurchgangAction,
@@ -148,10 +169,8 @@ export type {
   PolicyList,
   PolicyTemplate,
   Provision,
-  RegisterModule,
   ScreenKind,
   SuggestSource,
-  TrainingAudience,
   Walk,
   WalkFacts,
   WalkFramework,
@@ -161,12 +180,10 @@ export {
   askedFields,
   BACKUP_FREQUENCIES,
   HOSTINGS,
-  inAudience,
   MANAGEMENT_ROLE,
   MFA_METHODS,
   POLICY_LISTS,
   POLICY_TEMPLATES,
-  TRAINING_ROW,
   WALK_FRAMEWORKS,
   WALK_LOCALES,
   walkLocaleOf,

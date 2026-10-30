@@ -1,13 +1,15 @@
 import "@/lib/server-guard";
 
 import type { Locale } from "@/lib/seo";
+import { ownershipCodeEmail } from "./ownership-templates";
 import { sendMail } from "./send";
 import { emailVerificationCodeEmail, passwordResetCodeEmail } from "./templates";
 import { configuredTransport } from "./transport";
 
 /**
- * The two emails that decide whether anyone can get into an instance at all:
- * the sign-up verification code and the password-reset code.
+ * The two emails that decide whether anyone can get into an instance at all,
+ * the sign-up verification code and the password-reset code, and the code an
+ * owner needs to hand their company over.
  *
  * They are separated from every other message because of what happens when
  * there is no mail transport, meaning neither SMTP_HOST nor RESEND_API_KEY.
@@ -30,7 +32,25 @@ import { configuredTransport } from "./transport";
  * that configuring one is the fix.
  */
 
-type AuthCodeKind = "verification" | "password-reset";
+type AuthCodeKind = "verification" | "password-reset" | "ownership-transfer";
+
+const CODE_MAIL = {
+  verification: {
+    content: emailVerificationCodeEmail,
+    emailType: "auth.verification_code",
+    what: "sign-in code",
+  },
+  "password-reset": {
+    content: passwordResetCodeEmail,
+    emailType: "auth.password_reset_code",
+    what: "password reset code",
+  },
+  "ownership-transfer": {
+    content: ownershipCodeEmail,
+    emailType: "auth.ownership_transfer_code",
+    what: "ownership handover code",
+  },
+} as const satisfies Record<AuthCodeKind, unknown>;
 
 interface SendAuthCodeOptions {
   to: string;
@@ -54,20 +74,13 @@ function hasNoMailTransport(): boolean {
 }
 
 export async function sendAuthCode({ to, code, locale, kind }: SendAuthCodeOptions) {
-  const content =
-    kind === "verification"
-      ? await emailVerificationCodeEmail({ code, locale })
-      : await passwordResetCodeEmail({ code, locale });
+  const mail = CODE_MAIL[kind];
+  const content = await mail.content({ code, locale });
 
-  const result = await sendMail({
-    emailType:
-      kind === "verification" ? "auth.verification_code" : "auth.password_reset_code",
-    to,
-    ...content,
-  });
+  const result = await sendMail({ emailType: mail.emailType, to, ...content });
 
   if (hasNoMailTransport()) {
-    const what = kind === "verification" ? "sign-in code" : "password reset code";
+    const what = mail.what;
     console.warn(
       `[mail] No mail transport is configured, so nothing was sent. ` +
         `The ${what} for ${to} is ${code}. ` +
