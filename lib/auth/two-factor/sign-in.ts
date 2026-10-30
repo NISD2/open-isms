@@ -4,6 +4,7 @@ import type { DbOrTx } from "@/lib/db";
 import { rateLimit } from "@/lib/rate-limit";
 import { auditTwoFactor } from "./audit";
 import { readTypedCode } from "./codes";
+import { failureNotice, noticeTwoFactor } from "./notice";
 import { twoFactorRequirement } from "./policy";
 import { checkSecondFactor, confirmSetup, readTwoFactor } from "./store";
 
@@ -24,7 +25,9 @@ export type SignInRefusal =
   | "TWO_FACTOR_REQUIRED"
   | "TWO_FACTOR_INVALID"
   | "TWO_FACTOR_SETUP_REQUIRED"
-  | "TWO_FACTOR_UNAVAILABLE";
+  | "TWO_FACTOR_UNAVAILABLE"
+  /** A hundred wrong codes in a row: only a recovery code (or a platform admin's reset) helps. */
+  | "TWO_FACTOR_LOCKED";
 
 export type PasswordSignIn =
   | { readonly ok: true; readonly user: PasswordAccount }
@@ -84,7 +87,11 @@ export async function passwordSignIn(
     if (typed.kind === "none") return refuse("TWO_FACTOR_REQUIRED");
     if (!(await allowCodeAttempt(person.id))) return refuse("RATE_LIMITED");
     const check = await checkSecondFactor(db, key, person.id, typed, now);
-    if (!check.ok) return refuse("TWO_FACTOR_INVALID");
+    if (!check.ok) {
+      const notice = failureNotice(check.failedAttempts);
+      if (notice) noticeTwoFactor(db, person.id, notice);
+      return refuse(check.locked ? "TWO_FACTOR_LOCKED" : "TWO_FACTOR_INVALID");
+    }
     if (check.method === "recovery") {
       auditTwoFactor(
         {
@@ -111,6 +118,8 @@ export async function passwordSignIn(
       return refuse("TWO_FACTOR_INVALID");
     }
     auditTwoFactor({ kind: "enabled", how: "sign_in", requiredBy }, who);
+    // Anyone with the password could set it up here: the mail is how the person learns of it.
+    noticeTwoFactor(db, person.id, "enabled");
     return { ok: true, user: person };
   }
   return refuse("TWO_FACTOR_SETUP_REQUIRED");

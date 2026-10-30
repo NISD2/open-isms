@@ -30,6 +30,7 @@ const emptyRow = (userId: string): TwoFactorRow => ({
   enabledAt: null,
   recoveryCodeHashes: [],
   lastUsedStep: 0,
+  failedAttempts: 0,
   pendingSecretEncrypted: null,
   pendingRecoveryCodeHashes: null,
   pendingStartedAt: null,
@@ -44,6 +45,8 @@ export function fakeTwoFactorDb(people: readonly FakePerson[]) {
     /** Whether some company of the person's requires two-factor sign-in. */
     companyRequires: false,
     companyUpdates: [] as Array<{ set: Record<string, unknown>; companyId: unknown }>,
+    /** People whose sessions were ended (user.session_version bumped), in order. */
+    sessionsEnded: [] as string[],
   };
 
   /** Whether `row` meets the rendered WHERE: the user id first, then any guard after it. */
@@ -99,16 +102,22 @@ export function fakeTwoFactorDb(people: readonly FakePerson[]) {
     update: (table: Parameters<typeof getTableName>[0]) => ({
       set: (set: Record<string, unknown>) => ({
         where: (where: SQL) => {
+          if (getTableName(table) === "user") {
+            state.sessionsEnded.push(String(render(where).params[0]));
+            return Object.assign(Promise.resolve([]), { returning: async () => [] });
+          }
           const row = rowOf(where);
           const hit = matches(row, where);
           if (hit) {
             const removed = render(where).params[1];
             const next = { ...row } as Record<string, unknown>;
+            // The two SQL expressions the store sets: one recovery code out, one failure more.
             for (const [k, v] of Object.entries(set)) {
-              next[k] =
-                v instanceof SQL
-                  ? row.recoveryCodeHashes.filter((h) => h !== removed)
-                  : v;
+              next[k] = !(v instanceof SQL)
+                ? v
+                : k === "failedAttempts"
+                  ? row.failedAttempts + 1
+                  : row.recoveryCodeHashes.filter((h) => h !== removed);
             }
             state.rows.set(row.userId, next as TwoFactorRow);
           }

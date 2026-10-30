@@ -56,6 +56,7 @@
       "back": "Back",
       "errorInvalid": "That code does not match. Use the code the app shows now; each one works only once.",
       "errorUnavailable": "Signing in with a code is not available here right now. Please contact whoever runs this installation.",
+      "errorLocked": "After too many wrong codes, codes from the app are no longer accepted. Sign in with a recovery code, then change your password.",
       "setupTitle": "Set up sign-in with a code",
       "setupDescription": "Your account needs a code from an app on your phone as well as your password.",
       "setupScan": "Scan the QR code with an authenticator app, for example Microsoft Authenticator, Google Authenticator or your password manager.",

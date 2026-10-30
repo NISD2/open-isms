@@ -2,6 +2,7 @@
 
 import { TRPCClientError } from "@trpc/client";
 import { Loader2 } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -57,12 +58,24 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
     setCode("");
     setError("");
   };
-  const failed = (err: unknown) =>
+  const failed = (err: unknown) => {
+    const code = err instanceof TRPCClientError ? err.data?.code : null;
     setError(
-      err instanceof TRPCClientError && err.data?.code === "TOO_MANY_REQUESTS"
+      code === "TOO_MANY_REQUESTS"
         ? t("tooMany")
-        : t("wrongCode"),
+        : code === "PRECONDITION_FAILED"
+          ? t("locked")
+          : t("wrongCode"),
     );
+  };
+  /**
+   * Turning it on or off ends every session of the person, this one included
+   * (lib/auth/two-factor/store.ts), so the page signs out and the next sign-in shows the change.
+   */
+  const signInAgain = async (message: string) => {
+    toast.success(message);
+    await signOut({ callbackUrl: "/auth/signin" });
+  };
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -70,14 +83,10 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
     try {
       if (task.kind === "setup") {
         await confirm.mutateAsync({ totpCode: code });
-        toast.success(t("turnedOn"));
-        open({ kind: "idle" });
-        router.refresh();
+        await signInAgain(t("turnedOn"));
       } else if (task.kind === "turnOff") {
         await disable.mutateAsync({ totpCode: code });
-        toast.success(t("turnedOff"));
-        open({ kind: "idle" });
-        router.refresh();
+        await signInAgain(t("turnedOff"));
       } else if (task.kind === "newCodes") {
         const { recoveryCodes } = await replace.mutateAsync({ totpCode: code });
         open({ kind: "codesShown", codes: recoveryCodes });

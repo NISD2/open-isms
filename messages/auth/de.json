@@ -56,6 +56,7 @@
       "back": "Zurück",
       "errorInvalid": "Dieser Code passt nicht. Nehmen Sie den Code, den die App jetzt zeigt; jeder gilt nur einmal.",
       "errorUnavailable": "Die Anmeldung mit Code ist hier gerade nicht verfügbar. Bitte wenden Sie sich an den Betreiber dieser Installation.",
+      "errorLocked": "Nach zu vielen falschen Codes nimmt die Anmeldung keine Codes aus der App mehr an. Melden Sie sich mit einem Wiederherstellungscode an und ändern Sie danach Ihr Passwort.",
       "setupTitle": "Anmeldung mit Code einrichten",
       "setupDescription": "Ihr Konto verlangt beim Anmelden zusätzlich zum Passwort einen Code aus einer App auf Ihrem Telefon.",
       "setupScan": "Scannen Sie den QR-Code mit einer Authentifizierungsapp, zum Beispiel Microsoft Authenticator, Google Authenticator oder Ihrem Passwortmanager.",

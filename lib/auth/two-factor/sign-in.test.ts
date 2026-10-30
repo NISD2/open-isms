@@ -47,6 +47,7 @@ const { currentCode } = await import("./codes");
 const { decryptSecret } = await import("./crypto");
 const { startSetup } = await import("./store");
 const { fakeTwoFactorDb } = await import("./testing");
+const { failureNotice } = await import("./notice");
 
 const KEY = randomBytes(32);
 const PASSWORD = "correct horse battery staple";
@@ -182,7 +183,51 @@ describe("with the app on", () => {
     const { secret } = await turnOn();
     const row = fake.state.rows.get(PERSON.id);
     expect(row?.secretEncrypted).not.toContain(secret);
-    expect(row?.secretEncrypted && decryptSecret(row.secretEncrypted, KEY)).toBe(secret);
+    expect(
+      row?.secretEncrypted && decryptSecret(row.secretEncrypted, KEY, PERSON.id),
+    ).toBe(secret);
+  });
+});
+
+describe("a run of wrong codes", () => {
+  const wrongAt = (secret: string, at: Date) =>
+    currentCode(secret, at.getTime()) === "000000" ? "111111" : "000000";
+  const failures = () => fake.state.rows.get(PERSON.id)?.failedAttempts;
+
+  test("is counted, earns a notice at ten and at a hundred, and a right code ends it", async () => {
+    const { secret } = await turnOn();
+    for (let i = 0; i < 9; i++) await signIn(wrongAt(secret, later(1)), later(1));
+    expect(failures()).toBe(9);
+    expect(failureNotice(9)).toBeNull();
+    expect(failureNotice(10)).toBe("failures");
+    expect(failureNotice(11)).toBeNull();
+    expect(failureNotice(100)).toBe("locked");
+    expect(await signIn(currentCode(secret, later(2).getTime()), later(2))).toMatchObject(
+      {
+        ok: true,
+      },
+    );
+    expect(failures()).toBe(0);
+  });
+
+  test("past a hundred refuses even the right app code; a recovery code still works and ends it", async () => {
+    const { secret, recoveryCodes } = await turnOn();
+    const row = fake.state.rows.get(PERSON.id);
+    if (!row) throw new Error("no row");
+    fake.state.rows.set(PERSON.id, { ...row, failedAttempts: 99 });
+    expect(await signIn(wrongAt(secret, later(1)), later(1))).toEqual({
+      ok: false,
+      code: "TWO_FACTOR_LOCKED",
+    });
+    expect(failures()).toBe(100);
+    const right = currentCode(secret, later(2).getTime());
+    expect(await signIn(right, later(2))).toEqual({
+      ok: false,
+      code: "TWO_FACTOR_LOCKED",
+    });
+    expect(await signIn(recoveryCodes[0], later(2))).toMatchObject({ ok: true });
+    expect(failures()).toBe(0);
+    expect(await signIn(right, later(2))).toMatchObject({ ok: true });
   });
 });
 
@@ -216,6 +261,9 @@ describe("when it is required and not set up", () => {
     expect(fake.state.rows.get(PERSON.id)?.enabledAt).toEqual(later(1));
     const enabled = state.audits.find((a) => a.action === "user.two_factor_enabled");
     expect(enabled?.newValue).toEqual({ how: "sign_in", requiredBy: "company" });
+    // Sessions opened on the password alone end; this sign-in is issued after and carries the
+    // new version.
+    expect(fake.state.sessionsEnded).toEqual([PERSON.id]);
   });
 
   test("a setup left for more than fifteen minutes has to be started again", async () => {

@@ -8,6 +8,7 @@ export type CodeSignInResult =
   | "unavailable"
   | "setupRequired"
   | "codeRequired"
+  | "locked"
   | "failed";
 
 /**
@@ -40,5 +41,20 @@ export function readSignInResult(
   if (raw.includes("TWO_FACTOR_REQUIRED")) return "codeRequired";
   if (raw.includes("TWO_FACTOR_INVALID")) return "invalid";
   if (raw.includes("TWO_FACTOR_UNAVAILABLE")) return "unavailable";
+  if (raw.includes("TWO_FACTOR_LOCKED")) return "locked";
   return "failed";
+}
+
+/**
+ * The step a password sign-in leads to when the password was right but a code is still needed:
+ * the code step, or the setup step for someone who must have the app and has none. Null for any
+ * other answer. Every card that signs in with a password routes through this.
+ */
+export function codeStepAfter(
+  result: { error?: string | null; code?: string | null } | undefined,
+): "code" | "setup" | null {
+  const read = readSignInResult(result);
+  if (read === "codeRequired") return "code";
+  if (read === "setupRequired") return "setup";
+  return null;
 }

@@ -1,9 +1,10 @@
 import "@/lib/server-guard";
 import { and, eq, isNotNull, lt, sql } from "drizzle-orm";
 import { renderSVG } from "uqr";
+import { revokedByCredentialChange } from "@/lib/auth/credential-change";
 import type { DbOrTx } from "@/lib/db";
 import { getAppUrl } from "@/lib/utils";
-import { userTwoFactor } from "@/schema";
+import { user, userTwoFactor } from "@/schema";
 import {
   appUri,
   newAppSecret,
@@ -17,6 +18,16 @@ import { decryptSecret, encryptSecret, hashRecoveryCode } from "./crypto";
 /** A setup started longer ago than this has to be started again. */
 const SETUP_VALID_MS = 15 * 60 * 1000;
 
+/** Wrong codes in a row after which the person is emailed, once per run of failures. */
+export const WARN_AFTER_FAILURES = 10;
+/**
+ * Wrong codes in a row after which codes from the app are refused. Someone holding the password
+ * gets 100 guesses, each matching one of three steps: about three chances in ten thousand at a
+ * six-digit code, where the attempt limit alone allows 960 guesses a day for ever. A recovery code
+ * still works and ends the lock; so does a platform admin's reset.
+ */
+export const LOCK_AFTER_FAILURES = 100;
+
 export type TwoFactorRow = typeof userTwoFactor.$inferSelect;
 
 export const readTwoFactor = async (
@@ -24,6 +35,14 @@ export const readTwoFactor = async (
   userId: string,
 ): Promise<TwoFactorRow | undefined> =>
   db.query.userTwoFactor.findFirst({ where: eq(userTwoFactor.userId, userId) });
+
+/**
+ * Turning the second factor on or off is a credential change: every session and every assistant
+ * key of the person ends, so one opened on the password alone does not outlive it. A sign-in that
+ * turned it on is issued after this and carries the new version.
+ */
+const endSessions = (db: DbOrTx, userId: string) =>
+  db.update(user).set(revokedByCredentialChange()).where(eq(user.id, userId));
 
 /** What a person needs to set the app up, shown once: never stored in this form. */
 export type SetupMaterial = {
@@ -57,7 +76,7 @@ export async function startSetup(
   const secret = newAppSecret();
   const recoveryCodes = newRecoveryCodes();
   const pending = {
-    pendingSecretEncrypted: encryptSecret(secret, key),
+    pendingSecretEncrypted: encryptSecret(secret, key, person.userId),
     pendingRecoveryCodeHashes: recoveryCodes.map((c) =>
       hashRecoveryCode(normaliseRecoveryCode(c)),
     ),
@@ -79,8 +98,8 @@ export async function startSetup(
 
 /**
  * Turns the pending setup on when `code` is the app's current code: the secret and recovery codes
- * become the active ones and the code's step counts as used. False for a wrong or old code, an
- * expired setup, or none.
+ * become the active ones, the code's step counts as used, and the person's other sessions end.
+ * False for a wrong or old code, an expired setup, or none.
  */
 export async function confirmSetup(
   db: DbOrTx,
@@ -92,7 +111,7 @@ export async function confirmSetup(
   const row = await readTwoFactor(db, userId);
   if (!row?.pendingSecretEncrypted || !row.pendingStartedAt) return false;
   if (now.getTime() - row.pendingStartedAt.getTime() > SETUP_VALID_MS) return false;
-  const secret = decryptSecret(row.pendingSecretEncrypted, key);
+  const secret = decryptSecret(row.pendingSecretEncrypted, key, userId);
   if (!secret) return false;
   const step = stepOfCode(secret, code, now.getTime());
   if (step === null) return false;
@@ -104,6 +123,7 @@ export async function confirmSetup(
       enabledAt: now,
       recoveryCodeHashes: row.pendingRecoveryCodeHashes ?? [],
       lastUsedStep: step,
+      failedAttempts: 0,
       pendingSecretEncrypted: null,
       pendingRecoveryCodeHashes: null,
       pendingStartedAt: null,
@@ -116,18 +136,23 @@ export async function confirmSetup(
       ),
     )
     .returning({ userId: userTwoFactor.userId });
-  return done.length === 1;
+  if (done.length !== 1) return false;
+  await endSessions(db, userId);
+  return true;
 }
 
 export type FactorCheck =
   | { readonly ok: true; readonly method: "app" }
   | { readonly ok: true; readonly method: "recovery"; readonly recoveryCodesLeft: number }
-  | { readonly ok: false };
+  /** `failedAttempts`: wrong codes in a row now; `locked`: app codes are refused. */
+  | { readonly ok: false; readonly failedAttempts: number; readonly locked: boolean };
 
 /**
  * Checks a code against an active second factor. An app code counts once: its step must be later
  * than the last one accepted, and the update that records it is the check, so two requests with
  * the same code cannot both pass. A recovery code is removed in the statement that accepts it.
+ * Every wrong code adds one to the person's run of failures, every right one ends it; past
+ * LOCK_AFTER_FAILURES app codes are refused without being checked.
  */
 export async function checkSecondFactor(
   db: DbOrTx,
@@ -136,9 +161,19 @@ export async function checkSecondFactor(
   typed: TypedCode,
   now: Date,
 ): Promise<FactorCheck> {
-  if (typed.kind === "none") return { ok: false };
   const row = await readTwoFactor(db, userId);
-  if (!row?.enabledAt || !row.secretEncrypted) return { ok: false };
+  if (!row?.enabledAt || !row.secretEncrypted || typed.kind === "none") {
+    return { ok: false, failedAttempts: row?.failedAttempts ?? 0, locked: false };
+  }
+  const failed = async (): Promise<FactorCheck> => {
+    const [counted] = await db
+      .update(userTwoFactor)
+      .set({ failedAttempts: sql`${userTwoFactor.failedAttempts} + 1`, updatedAt: now })
+      .where(eq(userTwoFactor.userId, userId))
+      .returning({ failedAttempts: userTwoFactor.failedAttempts });
+    const failedAttempts = Number(counted?.failedAttempts ?? row.failedAttempts + 1);
+    return { ok: false, failedAttempts, locked: failedAttempts >= LOCK_AFTER_FAILURES };
+  };
 
   if (typed.kind === "recovery") {
     const hash = hashRecoveryCode(typed.code);
@@ -146,6 +181,7 @@ export async function checkSecondFactor(
       .update(userTwoFactor)
       .set({
         recoveryCodeHashes: sql`array_remove(${userTwoFactor.recoveryCodeHashes}, ${hash})`,
+        failedAttempts: 0,
         updatedAt: now,
       })
       .where(
@@ -157,19 +193,21 @@ export async function checkSecondFactor(
       .returning({ left: sql<number>`cardinality(${userTwoFactor.recoveryCodeHashes})` });
     return used
       ? { ok: true, method: "recovery", recoveryCodesLeft: Number(used.left) }
-      : { ok: false };
+      : failed();
   }
 
-  const secret = decryptSecret(row.secretEncrypted, key);
-  if (!secret) return { ok: false };
-  const step = stepOfCode(secret, typed.code, now.getTime());
-  if (step === null) return { ok: false };
+  if (row.failedAttempts >= LOCK_AFTER_FAILURES) {
+    return { ok: false, failedAttempts: row.failedAttempts, locked: true };
+  }
+  const secret = decryptSecret(row.secretEncrypted, key, userId);
+  const step = secret ? stepOfCode(secret, typed.code, now.getTime()) : null;
+  if (step === null) return failed();
   const accepted = await db
     .update(userTwoFactor)
-    .set({ lastUsedStep: step, updatedAt: now })
+    .set({ lastUsedStep: step, failedAttempts: 0, updatedAt: now })
     .where(and(eq(userTwoFactor.userId, userId), lt(userTwoFactor.lastUsedStep, step)))
     .returning({ userId: userTwoFactor.userId });
-  return accepted.length === 1 ? { ok: true, method: "app" } : { ok: false };
+  return accepted.length === 1 ? { ok: true, method: "app" } : failed();
 }
 
 /** Ten new recovery codes for an active second factor; the old ones stop working. */
@@ -190,11 +228,15 @@ export async function replaceRecoveryCodes(
   return done.length === 1 ? codes : null;
 }
 
-/** Turns the second factor off: the secret, the recovery codes and any setup in progress go. */
+/**
+ * Turns the second factor off: the secret, the recovery codes, the run of failures and any setup in
+ * progress go, and every session of the person ends. True when it had been on.
+ */
 export async function removeSecondFactor(db: DbOrTx, userId: string): Promise<boolean> {
   const gone = await db
     .delete(userTwoFactor)
     .where(eq(userTwoFactor.userId, userId))
     .returning({ enabledAt: userTwoFactor.enabledAt });
+  if (gone.length > 0) await endSessions(db, userId);
   return gone[0]?.enabledAt != null;
 }

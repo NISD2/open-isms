@@ -26,9 +26,10 @@
       "newCodesConfirm": "Nieuwe codes maken",
       "newCodesShown": "Je nieuwe herstelcodes. De oude werken niet meer. Je ziet deze alleen nu.",
       "done": "Klaar",
-      "turnedOn": "Aanmelden met een tweede factor staat aan.",
-      "turnedOff": "Aanmelden met een tweede factor staat uit.",
+      "turnedOn": "Aangezet. Al je sessies zijn beëindigd; meld je opnieuw aan met de code.",
+      "turnedOff": "Uitgezet. Al je sessies zijn beëindigd; meld je opnieuw aan.",
       "wrongCode": "Deze code klopt niet. Gebruik de code die de app nu toont.",
+      "locked": "Na te veel foute codes worden codes uit de app niet meer aangenomen. Gebruik een herstelcode.",
       "tooMany": "Te veel pogingen. Wacht een paar minuten."
     },
     "twoFactorRequired": {

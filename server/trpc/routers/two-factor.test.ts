@@ -135,6 +135,30 @@ describe("in Settings", () => {
     expect(audits.map((a) => a.action)).toContain("user.two_factor_enabled");
   });
 
+  test("turning it on and off each end every session of the person", async () => {
+    const { recoveryCodes } = await turnOn();
+    expect(fake.state.sessionsEnded).toEqual([ME.id]);
+    const { recoveryCodes: fresh } = await callerFor().replaceRecoveryCodes({
+      totpCode: recoveryCodes[0],
+    });
+    expect(fake.state.sessionsEnded).toEqual([ME.id]);
+    await callerFor().disable({ totpCode: fresh[0] });
+    expect(fake.state.sessionsEnded).toEqual([ME.id, ME.id]);
+  });
+
+  test("past a hundred wrong codes, Settings refuses app codes and says so", async () => {
+    const { secret, recoveryCodes } = await turnOn();
+    const row = fake.state.rows.get(ME.id);
+    if (!row) throw new Error("no row");
+    fake.state.rows.set(ME.id, { ...row, failedAttempts: 100 });
+    const code = currentCode(secret, Date.now() + 60_000);
+    expect(await codeOf(callerFor().replaceRecoveryCodes({ totpCode: code }))).toBe(
+      "PRECONDITION_FAILED",
+    );
+    await callerFor().replaceRecoveryCodes({ totpCode: recoveryCodes[0] });
+    expect(fake.state.rows.get(ME.id)?.failedAttempts).toBe(0);
+  });
+
   test("a wrong first code leaves it off", async () => {
     await callerFor().startSetup();
     expect(await codeOf(callerFor().confirmSetup({ totpCode: "000000" }))).toBe(
@@ -231,6 +255,7 @@ describe("a platform admin's reset", () => {
       enabledAt: new Date(),
       recoveryCodeHashes: ["h"],
       lastUsedStep: 1,
+      failedAttempts: 0,
       pendingSecretEncrypted: null,
       pendingRecoveryCodeHashes: null,
       pendingStartedAt: null,
@@ -241,6 +266,7 @@ describe("a platform admin's reset", () => {
       wasEnabled: true,
     });
     expect(fake.state.rows.has(OTHER.id)).toBe(false);
+    expect(fake.state.sessionsEnded).toEqual([OTHER.id]);
     const row = audits.find((a) => a.action === "user.two_factor_reset");
     expect(row).toMatchObject({ userId: ME.id, entityId: OTHER.id, companyId: null });
     expect(row?.newValue).toEqual({ reason, wasEnabled: true });

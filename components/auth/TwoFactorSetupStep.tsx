@@ -71,6 +71,7 @@ export function TwoFactorSetupStep({
     unavailable: t("errorUnavailable"),
     setupRequired: t("errorInvalid"),
     codeRequired: t("errorInvalid"),
+    locked: t("errorLocked"),
     failed: tAuth("errorGeneric"),
   };
 

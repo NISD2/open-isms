@@ -69,6 +69,8 @@ export const EMAIL_TYPES = {
   "account.assistant_connected": { category: "security", consent: "essential" },
   /** To the person, when a platform admin removed their authenticator app. */
   "account.two_factor_reset": { category: "security", consent: "essential" },
+  /** To the person: their second factor turned on or off, ten wrong codes in a row, or paused. */
+  "account.two_factor_notice": { category: "security", consent: "essential" },
   "account.invite": { category: "account", consent: "essential" },
   "account.member_removed": { category: "account", consent: "essential" },
   /** To the owner: the code that confirms handing the company to another member. */

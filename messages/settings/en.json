@@ -26,9 +26,10 @@
       "newCodesConfirm": "Make new codes",
       "newCodesShown": "Your new recovery codes. The old ones no longer work. You only see these now.",
       "done": "Done",
-      "turnedOn": "Two-factor sign-in is on.",
-      "turnedOff": "Two-factor sign-in is off.",
+      "turnedOn": "Turned on. All your sessions were ended; sign in again with the code.",
+      "turnedOff": "Turned off. All your sessions were ended; sign in again.",
       "wrongCode": "That code does not match. Use the code the app shows now.",
+      "locked": "After too many wrong codes, codes from the app are no longer accepted. Use a recovery code.",
       "tooMany": "Too many tries. Please wait a few minutes."
     },
     "twoFactorRequired": {

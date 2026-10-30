@@ -45,6 +45,7 @@ export function TwoFactorCodeStep({
     unavailable: t("errorUnavailable"),
     setupRequired: tAuth("errorGeneric"),
     codeRequired: t("errorInvalid"),
+    locked: t("errorLocked"),
     failed: tAuth("errorGeneric"),
   };
 
@@ -57,6 +58,11 @@ export function TwoFactorCodeStep({
       if (result === "ok") {
         router.push(callbackUrl);
         return;
+      }
+      // Paused app codes leave the recovery code as the way in: show its field.
+      if (result === "locked" && !recovery) {
+        setRecovery(true);
+        setCode("");
       }
       setError(messages[result]);
     } catch {

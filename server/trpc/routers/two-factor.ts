@@ -5,6 +5,7 @@ import { logAudit } from "@/lib/audit";
 import { auditTwoFactor } from "@/lib/auth/two-factor/audit";
 import { readTypedCode } from "@/lib/auth/two-factor/codes";
 import { twoFactorKey } from "@/lib/auth/two-factor/crypto";
+import { failureNotice, noticeTwoFactor } from "@/lib/auth/two-factor/notice";
 import {
   companyRequiresTwoFactor,
   twoFactorRequirement,
@@ -52,6 +53,21 @@ const tooManyCodes = () =>
   });
 const wrongCode = () =>
   new TRPCError({ code: "BAD_REQUEST", message: "That code did not match." });
+
+/** A wrong code against an active second factor: the run of failures may earn a notice. */
+const refused = (
+  ctx: { readonly db: DbOrTx; readonly userId: string },
+  check: { readonly failedAttempts: number; readonly locked: boolean },
+) => {
+  const notice = failureNotice(check.failedAttempts);
+  if (notice) noticeTwoFactor(ctx.db, ctx.userId, notice);
+  return check.locked
+    ? new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message: "Codes from the app are paused. Use a recovery code.",
+      })
+    : wrongCode();
+};
 
 type Ctx = {
   readonly userId: string;
@@ -130,6 +146,8 @@ export const twoFactorRouter = router({
     const email = await emailOf(ctx, ctx.userId);
     const requiredBy = await twoFactorRequirement(ctx.db, { userId: ctx.userId, email });
     auditTwoFactor({ kind: "enabled", how: "settings", requiredBy }, self(ctx));
+    noticeTwoFactor(ctx.db, ctx.userId, "enabled");
+    // Every session ended with the change (confirmSetup), this one too: the card signs out.
     return { enabled: true };
   }),
 
@@ -154,9 +172,10 @@ export const twoFactorRouter = router({
       readTypedCode(input.totpCode),
       new Date(),
     );
-    if (!check.ok) throw wrongCode();
+    if (!check.ok) throw refused(ctx, check);
     await removeSecondFactor(ctx.db, ctx.userId);
     auditTwoFactor({ kind: "disabled", confirmedWith: check.method }, self(ctx));
+    noticeTwoFactor(ctx.db, ctx.userId, "disabled");
     return { enabled: false };
   }),
 
@@ -174,7 +193,7 @@ export const twoFactorRouter = router({
         readTypedCode(input.totpCode),
         now,
       );
-      if (!check.ok) throw wrongCode();
+      if (!check.ok) throw refused(ctx, check);
       const codes = await replaceRecoveryCodes(ctx.db, ctx.userId, now);
       if (!codes) throw wrongCode();
       auditTwoFactor({ kind: "recovery_codes_replaced" }, self(ctx));

@@ -26,9 +26,10 @@
       "newCodesConfirm": "Neue Codes erstellen",
       "newCodesShown": "Ihre neuen Wiederherstellungscodes. Die alten gelten nicht mehr. Sie sehen diese nur jetzt.",
       "done": "Fertig",
-      "turnedOn": "Anmeldung mit zweitem Faktor ist eingeschaltet.",
-      "turnedOff": "Anmeldung mit zweitem Faktor ist ausgeschaltet.",
+      "turnedOn": "Eingeschaltet. Alle Ihre Anmeldungen wurden beendet; melden Sie sich mit dem Code neu an.",
+      "turnedOff": "Ausgeschaltet. Alle Ihre Anmeldungen wurden beendet; melden Sie sich neu an.",
       "wrongCode": "Dieser Code passt nicht. Nehmen Sie den Code, den die App jetzt zeigt.",
+      "locked": "Nach zu vielen falschen Codes nimmt die Anmeldung keine Codes aus der App mehr an. Nehmen Sie einen Wiederherstellungscode.",
       "tooMany": "Zu viele Versuche. Bitte warten Sie ein paar Minuten."
     },
     "twoFactorRequired": {

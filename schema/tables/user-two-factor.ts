@@ -28,6 +28,12 @@ export const userTwoFactor = pgTable(
      * step, so one seen over someone's shoulder cannot be used a second time.
      */
     lastUsedStep: integer("last_used_step").default(0).notNull(),
+    /**
+     * Wrong codes in a row since the last right one (lib/auth/two-factor/store.ts). At 10 the
+     * person is emailed; at 100 codes from the app are refused until a recovery code works or a
+     * platform admin resets the second factor.
+     */
+    failedAttempts: integer("failed_attempts").default(0).notNull(),
     /** A setup started and not confirmed yet: its secret, recovery codes and start time. */
     pendingSecretEncrypted: text("pending_secret_encrypted"),
     pendingRecoveryCodeHashes: text("pending_recovery_code_hashes").array(),
