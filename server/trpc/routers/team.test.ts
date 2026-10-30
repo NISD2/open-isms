@@ -8,6 +8,7 @@ import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
 import {
   categoryAssignment,
+  company,
   companyInvite,
   companyMembership,
   notification,
@@ -29,8 +30,15 @@ const MEMBER = "33333333-3333-4333-8333-333333333333";
 
 type Role = "admin" | "member" | "reviewer" | "legal_reviewer";
 
-/** Just the drizzle calls the procedure makes, over an in-memory role map. */
-function fakeDb(roles: Map<string, Role>, writes: { userId: string; role: Role }[]) {
+/**
+ * Just the drizzle calls the procedure makes, over an in-memory role map. `locks` records which
+ * table each `for update` read locked, in order.
+ */
+function fakeDb(
+  roles: Map<string, Role>,
+  writes: { userId: string; role: Role }[],
+  locks: string[] = [],
+) {
   const db = {
     query: {
       company: { findFirst: async () => ({ ownerId: OWNER }) },
@@ -44,17 +52,25 @@ function fakeDb(roles: Map<string, Role>, writes: { userId: string; role: Role }
       },
     },
     select: () => ({
-      from: () => ({
+      from: (table: unknown) => ({
         where: () => ({
-          for: async () =>
-            [...roles].filter(([, r]) => r === "admin").map(([userId]) => ({ userId })),
+          for: async () => {
+            const locked = table === company ? "company" : "company_membership";
+            locks.push(locked);
+            return locked === "company"
+              ? [{ ownerId: OWNER }]
+              : [...roles]
+                  .filter(([, r]) => r === "admin")
+                  .map(([userId]) => ({ userId }));
+          },
         }),
       }),
     }),
     update: () => ({
       set: (values: { role: Role }) => ({
-        where: async () => {
+        where: () => {
           writes.push({ userId: target.userId, role: values.role });
+          return { returning: async () => [{ userId: target.userId }] };
         },
       }),
     }),
@@ -68,8 +84,9 @@ const target = { userId: "" };
 function setup(initial: [string, Role][]) {
   const roles = new Map(initial);
   const writes: { userId: string; role: Role }[] = [];
+  const locks: string[] = [];
   const caller = createCallerFactory(teamRouter)({
-    db: fakeDb(roles, writes) as unknown as TRPCContext["db"],
+    db: fakeDb(roles, writes, locks) as unknown as TRPCContext["db"],
     session: { role: "admin", accessLevel: "full" } as TRPCContext["session"],
     userId: OWNER,
     companyId: COMPANY,
@@ -80,7 +97,7 @@ function setup(initial: [string, Role][]) {
     target.userId = userId;
     return caller.setMemberRole({ userId, role });
   };
-  return { setRole, writes };
+  return { setRole, writes, locks };
 }
 
 describe("team.setMemberRole", () => {
@@ -125,6 +142,17 @@ describe("team.setMemberRole", () => {
     const { setRole } = setup([[OWNER, "admin"]]);
     await expect(setRole(MEMBER, "admin")).rejects.toThrow("not found");
   });
+
+  // The owner is read under the company lock, taken before the admin rows as ownership.accept
+  // takes it before the rows it changes, so a handover cannot slip between the read and the write.
+  test("reads the owner with the company row locked, before the admin rows", async () => {
+    const { setRole, locks } = setup([
+      [OWNER, "admin"],
+      [SECOND, "admin"],
+    ]);
+    await setRole(SECOND, "member");
+    expect(locks).toEqual(["company", "company_membership"]);
+  });
 });
 
 /**
@@ -142,9 +170,10 @@ type Write = {
   values?: Record<string, unknown>;
 };
 
-function removalDb(assignments: AssignmentRow[]) {
+function removalDb(assignments: AssignmentRow[], ownerId = OWNER) {
   const writes: Write[] = [];
   const state = { inTx: false };
+  const locks: { table: string; inTx: boolean }[] = [];
   const db = {
     query: {
       user: {
@@ -160,11 +189,19 @@ function removalDb(assignments: AssignmentRow[]) {
       // No NIS 2 framework, so the background module recheck finds nothing.
       complianceFramework: { findFirst: async () => undefined },
     },
-    // A select either becomes a subquery or, for the leaving member's rows, is
-    // read under a lock; only the locked read returns rows.
+    // A select either becomes a subquery or is read under a lock: the company
+    // row for its owner, or the leaving member's rows.
     select: () => ({
-      from: () => ({
-        where: () => ({ for: async () => assignments }),
+      from: (table: unknown) => ({
+        where: () => ({
+          for: async () => {
+            locks.push({
+              table: table === company ? "company" : "other",
+              inTx: state.inTx,
+            });
+            return table === company ? [{ ownerId }] : assignments;
+          },
+        }),
       }),
     }),
     delete: (table: unknown) => ({
@@ -192,20 +229,23 @@ function removalDb(assignments: AssignmentRow[]) {
       }
     },
   };
-  return { db, writes };
+  return { db, writes, locks };
 }
 
-async function removeMember(assignments: AssignmentRow[]) {
-  const { db, writes } = removalDb(assignments);
-  const caller = createCallerFactory(teamRouter)({
-    db: db as unknown as TRPCContext["db"],
+function removalCaller(db: unknown) {
+  return createCallerFactory(teamRouter)({
+    db: db as TRPCContext["db"],
     session: { role: "admin", accessLevel: "full" } as TRPCContext["session"],
     userId: OWNER,
     companyId: COMPANY,
     ip: "test",
     userAgent: null,
   } as TRPCContext);
-  await caller.removeMember({ userId: MEMBER });
+}
+
+async function removeMember(assignments: AssignmentRow[]) {
+  const { db, writes } = removalDb(assignments);
+  await removalCaller(db).removeMember({ userId: MEMBER });
   return writes;
 }
 
@@ -215,6 +255,17 @@ const deletedAssignmentIds = (writes: Write[]) =>
     .flatMap((w) => new PgDialect().sqlToQuery(w.where).params);
 
 describe("team.removeMember", () => {
+  // The member was handed the company a moment ago: the owner is read inside the transaction,
+  // under the company lock ownership.accept also takes, so the removal sees the new owner.
+  test("refuses a member who has just become the owner, read under the lock", async () => {
+    const { db, writes, locks } = removalDb([], MEMBER);
+    await expect(removalCaller(db).removeMember({ userId: MEMBER })).rejects.toThrow(
+      "cannot be removed",
+    );
+    expect(locks[0]).toEqual({ table: "company", inTx: true });
+    expect(writes).toEqual([]);
+  });
+
   test("drops the member's pending sign-off rows and keeps their receipts", async () => {
     const writes = await removeMember([
       { id: "pending-row", userId: MEMBER, signedOffAt: null },

@@ -25,6 +25,7 @@ import { llmRouter } from "./routers/llm";
 import { managementReviewRouter } from "./routers/management-review";
 import { newsletterPublicRouter, newsletterRouter } from "./routers/newsletter";
 import { notificationRouter } from "./routers/notification";
+import { ownershipRouter } from "./routers/ownership";
 import { partnerContractRouter } from "./routers/partner-contract";
 import { patchRouter } from "./routers/patch";
 import { platformAdminRouter } from "./routers/platform-admin";
@@ -44,6 +45,7 @@ import { teamRouter } from "./routers/team";
 import { trainingRouter } from "./routers/training";
 import { trainingCertificateRouter } from "./routers/training-certificate";
 import { trainingPortalRouter } from "./routers/training-portal";
+import { twoFactorRouter } from "./routers/two-factor";
 import { userRouter } from "./routers/user";
 import { vulnerabilityRouter } from "./routers/vulnerability";
 
@@ -59,6 +61,7 @@ export const appRouter = router({
   audit: auditRouter,
   assignment: assignmentRouter,
   team: teamRouter,
+  ownership: ownershipRouter,
   company: companyRouter,
   billing: billingRouter,
   review: reviewRouter,
@@ -99,6 +102,7 @@ export const appRouter = router({
   newsletter: newsletterRouter,
   newsletterPublic: newsletterPublicRouter,
   user: userRouter,
+  twoFactor: twoFactorRouter,
 });
 
 export type AppRouter = typeof appRouter;

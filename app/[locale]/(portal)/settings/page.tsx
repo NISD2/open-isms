@@ -6,6 +6,10 @@ import {
   AssistantsReadRecordsSwitch,
 } from "@/components/settings/AssistantsAllowedSwitch";
 import { McpKeySettings } from "@/components/settings/McpKeySettings";
+import {
+  TwoFactorRequiredSwitch,
+  TwoFactorSettings,
+} from "@/components/settings/TwoFactorSettings";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { mayWalkDurchgang } from "@/lib/billing/access";
@@ -23,6 +27,7 @@ export default async function SettingsPage() {
   if (!companyData) redirect("/onboarding");
 
   const isAdmin = session.role === "admin";
+  const twoFactor = await api.twoFactor.status();
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -33,6 +38,8 @@ export default async function SettingsPage() {
           <p className="text-muted-foreground mt-1">{t("description")}</p>
         </div>
       </div>
+      <TwoFactorSettings status={twoFactor} />
+      <TwoFactorRequiredSwitch required={twoFactor.companyRequired} isAdmin={isAdmin} />
       <AssistantsAllowedSwitch
         allowed={companyData.assistantsAllowed}
         isAdmin={isAdmin}

@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { TwoFactorCodeStep } from "./TwoFactorCodeStep";
+import { TwoFactorSetupStep } from "./TwoFactorSetupStep";
+import { codeStepAfter } from "./two-factor-sign-in";
 
 type Step = "request" | "reset";
 
@@ -30,11 +33,12 @@ type Step = "request" | "reset";
  * Generic error messages everywhere — same shape regardless of whether
  * the email exists, the code is wrong, or the password is too short.
  */
-export function ForgotPasswordCard() {
+export function ForgotPasswordCard({ contactEmail }: { contactEmail: string }) {
   const t = useTranslations("auth");
   const locale = useLocale();
   const router = useRouter();
   const [step, setStep] = useState<Step>("request");
+  const [codeStep, setCodeStep] = useState<"code" | "setup" | null>(null);
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -100,6 +104,13 @@ export function ForgotPasswordCard() {
       });
 
       if (result?.error) {
+        // The new password is saved; someone with an authenticator app still needs its code.
+        const next = codeStepAfter(result);
+        if (next) {
+          setCodeStep(next);
+          setLoading(false);
+          return;
+        }
         setError(t("errorGeneric"));
         setLoading(false);
         return;
@@ -110,6 +121,30 @@ export function ForgotPasswordCard() {
       setError(t("errorGeneric"));
     }
     setLoading(false);
+  }
+
+  // Back to the card's own last step; the page's link under the card leads to sign-in.
+  const toSignIn = () => setCodeStep(null);
+  if (codeStep === "code") {
+    return (
+      <TwoFactorCodeStep
+        email={email}
+        password={newPassword}
+        callbackUrl="/dashboard"
+        contactEmail={contactEmail}
+        onBack={toSignIn}
+      />
+    );
+  }
+  if (codeStep === "setup") {
+    return (
+      <TwoFactorSetupStep
+        email={email}
+        password={newPassword}
+        callbackUrl="/dashboard"
+        onBack={toSignIn}
+      />
+    );
   }
 
   if (step === "request") {

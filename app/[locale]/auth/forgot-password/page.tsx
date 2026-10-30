@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { ForgotPasswordCard } from "@/components/auth/ForgotPasswordCard";
+import { Link } from "@/i18n/navigation";
+import { replyAddress } from "@/lib/mail/templates";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -26,7 +27,7 @@ export default async function ForgotPasswordPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
       <h1 className="sr-only">{t("forgotPassword.title")}</h1>
-      <ForgotPasswordCard />
+      <ForgotPasswordCard contactEmail={replyAddress()} />
       <p className="mt-6 text-sm text-muted-foreground">
         <Link href="/auth/signin" className="underline hover:text-foreground">
           {t("forgotPassword.backToSignIn")}

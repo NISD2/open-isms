@@ -1,22 +1,23 @@
-import { api } from "@/lib/trpc/server";
-import { getSession } from "@/lib/auth";
-import { getLocale, getTranslations } from "next-intl/server";
-import { TeamPage } from "@/components/team/TeamPage";
 import { Users } from "lucide-react";
 import { redirect } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { getComplianceMessages, getCategoryName } from "@/lib/messages";
+import { TeamPage } from "@/components/team/TeamPage";
+import { getSession } from "@/lib/auth";
+import { getCategoryName, getComplianceMessages } from "@/lib/messages";
+import { api } from "@/lib/trpc/server";
 
 export default async function TeamManagementPage() {
   const session = await getSession();
   if (!session?.companyId) redirect("/dashboard");
 
   const isAdmin = session.role === "admin";
-  const [t, compliance, rawMembers, invites] = await Promise.all([
+  const [t, compliance, rawMembers, invites, ownership] = await Promise.all([
     getTranslations("team"),
     getLocale().then(getComplianceMessages),
     api.team.listMembers(),
     isAdmin ? api.team.listInvites() : [],
+    api.ownership.state(),
   ]);
   const members = rawMembers.map((m) => ({
     ...m,
@@ -39,6 +40,7 @@ export default async function TeamManagementPage() {
         invites={invites}
         currentUserId={session.user.id}
         isAdmin={isAdmin}
+        ownership={ownership}
       />
     </div>
   );

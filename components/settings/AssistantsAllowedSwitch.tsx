@@ -8,8 +8,8 @@ import { Switch } from "@/components/ui/switch";
 import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 
-/** One of the company's decisions about assistants: an admin's switch, saved on change. */
-function SettingSwitch({
+/** One of the company's decisions: an admin's switch, saved on change. */
+export function SettingSwitch({
   id,
   namespace,
   checked,
@@ -18,7 +18,10 @@ function SettingSwitch({
   save,
 }: {
   id: string;
-  namespace: "settings.mcp.switch" | "settings.mcp.recordsSwitch";
+  namespace:
+    | "settings.mcp.switch"
+    | "settings.mcp.recordsSwitch"
+    | "settings.twoFactorRequired";
   checked: boolean;
   isAdmin: boolean;
   /** Why the switch cannot change now, or null when it can. */
