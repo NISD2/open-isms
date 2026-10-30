@@ -7,6 +7,7 @@ import { applyPromoToSession } from "@/lib/billing/promo-session";
 import { isSellerInstance } from "@/lib/billing/seller";
 import { NISD2_ORIGIN } from "@/lib/edition";
 import { mailSupportEmail } from "@/lib/env";
+import { replyAddress } from "@/lib/mail/templates";
 
 /**
  * Where the promo link lands (`/anmelden?promo=2400`, `/en/login?promo=2400`, …).
@@ -40,6 +41,7 @@ export default async function PromoSignInPage({
       <PromoNotice fromLink={fromLink} />
       <SignInCard
         supportEmail={mailSupportEmail()}
+        contactEmail={replyAddress()}
         independentInstall={!isSellerInstance()}
       />
       <LegalNotice className="mt-6 max-w-sm" />

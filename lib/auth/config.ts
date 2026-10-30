@@ -1,5 +1,4 @@
 import "@/lib/server-guard";
-import bcrypt from "bcryptjs";
 import { and, eq, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 import type { Session } from "next-auth";
@@ -18,6 +17,8 @@ import {
   issuedToAccount,
   isWithinAbsoluteSessionAge,
 } from "@/lib/auth/session-age";
+import { twoFactorKey } from "@/lib/auth/two-factor/crypto";
+import { passwordSignIn } from "@/lib/auth/two-factor/sign-in";
 import { effectiveAccessLevel } from "@/lib/billing/access";
 import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
 import { grandfatherByPromo } from "@/lib/billing/promo-grant";
@@ -27,12 +28,8 @@ import { env } from "@/lib/env";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import { NO_HINTS, resolveHints } from "@/lib/onboarding/hints";
-import { rateLimit } from "@/lib/rate-limit";
 import { billingAccount, company, companyMembership, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
-
-// Dummy hash for timing-safe comparison when user doesn't exist
-const DUMMY_HASH = "$2a$12$000000000000000000000uGBYRMjo5lsWIKE/k.HdGZfR5YmKKKu";
 
 /**
  * Carries a machine-readable code from `authorize()` to the sign-in client.
@@ -71,70 +68,42 @@ async function applyPromoFromCookie(email: string): Promise<void> {
   }
 }
 
-const LOGIN_WINDOW_MS = 15 * 60 * 1000;
-const LOGIN_MAX_PER_EMAIL = 10;
-const LOGIN_MAX_PER_IP = 30;
-
-/**
- * Per email caps guessing at one account; per IP caps one source trying a
- * password across many accounts, which the email key alone never slowed.
- * The IP goes first and stops the check, so a source over its budget no longer
- * counts against the emails it names and can lock out at most three accounts
- * per window. An "unknown" IP would put every visitor in one bucket, so it
- * gets the email cap only.
- */
-async function isLoginAllowed(email: string, ip: string): Promise<boolean> {
-  const byIp =
-    ip === "unknown" ||
-    (await rateLimit(`login:ip:${ip}`, LOGIN_MAX_PER_IP, LOGIN_WINDOW_MS));
-  return (
-    byIp &&
-    (await rateLimit(`login:email:${email}`, LOGIN_MAX_PER_EMAIL, LOGIN_WINDOW_MS))
-  );
-}
-
 const providers: Provider[] = [
   // Email/password. Email is proven-owned once at registration via the
-  // verify-email OTP flow; subsequent logins are password-only.
+  // verify-email OTP flow; a sign-in takes the password, and a code from an
+  // authenticator app where the person has one (lib/auth/two-factor/sign-in.ts).
   Credentials({
     id: "credentials",
     name: "Email",
     credentials: {
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
+      totpCode: { label: "Code", type: "text" },
     },
     async authorize(credentials, request) {
-      const email = (credentials?.email as string | undefined)?.toLowerCase().trim();
-      const password = credentials?.password as string | undefined;
-
-      if (!email || !password) return null;
-      if (password.length > 128) return null;
-
-      // A coded error, not null: null reads as a wrong password, which sends
-      // someone who is only rate limited off to reset a password that works.
-      if (!(await isLoginAllowed(email, getClientIp(request.headers)))) {
-        throw new CredentialsFlowError("RATE_LIMITED");
+      const result = await passwordSignIn(
+        db,
+        twoFactorKey(),
+        {
+          email: credentials?.email as string | undefined,
+          password: credentials?.password as string | undefined,
+          totpCode: credentials?.totpCode as string | undefined,
+        },
+        {
+          ip: getClientIp(request.headers),
+          userAgent: request.headers.get("user-agent"),
+        },
+      );
+      if (result.ok) {
+        const { id, email, name } = result.user;
+        return { id, email, name };
       }
-
-      const dbUser = await db.query.user.findFirst({
-        where: eq(user.email, email),
-      });
-
-      // Always run bcrypt.compare to prevent timing attacks
-      const hash = dbUser?.passwordHash ?? DUMMY_HASH;
-      const valid = await bcrypt.compare(password, hash);
-
-      if (!dbUser?.passwordHash || !valid) return null;
-
-      // Block unverified email-password accounts. The signin UI handles this
-      // specific error code by prompting the user to verify their email.
-      // Google OAuth users don't go through this branch and are implicitly
-      // trusted because Google verifies profile.email_verified upstream.
-      if (!dbUser.emailVerifiedAt) {
-        throw new CredentialsFlowError("EMAIL_NOT_VERIFIED");
-      }
-
-      return { id: dbUser.id, email: dbUser.email, name: dbUser.name };
+      // A coded error, not null: null reads as a wrong password, which sends someone who is only
+      // rate limited off to reset a password that works, and someone asked for a code to it too.
+      // The sign-in card branches on these codes (EMAIL_NOT_VERIFIED to the verify step,
+      // TWO_FACTOR_* to the code step).
+      if (result.code) throw new CredentialsFlowError(result.code);
+      return null;
     },
   }),
 

@@ -9,6 +9,7 @@ import { applyPromoToSession } from "@/lib/billing/promo-session";
 import { isSellerInstance } from "@/lib/billing/seller";
 import { NISD2_ORIGIN } from "@/lib/edition";
 import { mailSupportEmail } from "@/lib/env";
+import { replyAddress } from "@/lib/mail/templates";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -48,6 +49,7 @@ export default async function SignInPage({
       <ContinueNotice destination={destination} />
       <SignInCard
         supportEmail={mailSupportEmail()}
+        contactEmail={replyAddress()}
         independentInstall={!isSellerInstance()}
       />
       <LegalNotice className="mt-6 max-w-sm" />

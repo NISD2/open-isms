@@ -18,6 +18,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { TwoFactorCodeStep } from "./TwoFactorCodeStep";
+import { TwoFactorSetupStep } from "./TwoFactorSetupStep";
+import { codeStepAfter } from "./two-factor-sign-in";
 
 /** Where a freshly set up customer lands: the portal's home, which opens the walkthrough. */
 const AFTER_SETUP = "/dashboard";
@@ -25,11 +28,15 @@ const AFTER_SETUP = "/dashboard";
 export function SetupAccessCard({
   token,
   email,
+  contactEmail,
 }: {
   readonly token: string;
   readonly email: string;
+  /** Where someone without phone and recovery codes writes: an address a person reads. */
+  readonly contactEmail: string;
 }) {
   const t = useTranslations("auth");
+  const [codeStep, setCodeStep] = useState<"code" | "setup" | null>(null);
   const [password, setPassword] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,12 +60,38 @@ export function SetupAccessCard({
     }
     const signedIn = await signIn("credentials", { email, password, redirect: false });
     if (signedIn?.error) {
-      setError(t("errorGeneric"));
+      // The password is saved; a company that requires an authenticator app asks for its setup.
+      const next = codeStepAfter(signedIn);
+      if (next) setCodeStep(next);
+      else setError(t("errorGeneric"));
       setSaving(false);
       return;
     }
     window.location.assign(AFTER_SETUP);
   };
+
+  const back = () => setCodeStep(null);
+  if (codeStep === "setup") {
+    return (
+      <TwoFactorSetupStep
+        email={email}
+        password={password}
+        callbackUrl={AFTER_SETUP}
+        onBack={back}
+      />
+    );
+  }
+  if (codeStep === "code") {
+    return (
+      <TwoFactorCodeStep
+        email={email}
+        password={password}
+        callbackUrl={AFTER_SETUP}
+        contactEmail={contactEmail}
+        onBack={back}
+      />
+    );
+  }
 
   return (
     <Card className="w-full max-w-md">

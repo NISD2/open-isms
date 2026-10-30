@@ -27,6 +27,7 @@ export * from "./tables/advisory-referral";
 export * from "./tables/advisory-request";
 export * from "./tables/close-crm-sync";
 export * from "./tables/company-invite";
+export * from "./tables/company-two-factor";
 export * from "./tables/data-erasure-log";
 export * from "./tables/email-otp";
 // SaaS-only tables — stay at NIS2 root
@@ -38,6 +39,7 @@ export * from "./tables/partner-contract";
 export * from "./tables/rate-limit-window";
 export * from "./tables/supplier-invite";
 export * from "./tables/supplier-portal";
+export * from "./tables/user-two-factor";
 
 // Types
 export * from "./types";

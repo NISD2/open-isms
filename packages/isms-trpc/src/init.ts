@@ -214,6 +214,9 @@ const AUDIT_REDACT_KEYS = new Set([
   // the log. The token endpoint records the assistant and where it returns to
   // when the connection opens (mcp.connected).
   "request",
+  // A code from an authenticator app or a recovery code (twoFactor.*): the
+  // handler records what it was used for, never the code.
+  "totpcode",
 ]);
 
 /**
@@ -228,6 +231,9 @@ const PLATFORM_AUDIT_REDACT_KEYS = new Set([
   // An erasure's free text (platformAdmin.eraseUser) can name the requester, and this row outlives
   // the erasure; the erasure record keeps both.
   "notes",
+  // Why a platform admin reset someone's second factor (twoFactor.adminReset): free text that can
+  // name the requester. The handler's own row keeps it, under the person it is about.
+  "reason",
   "rightsinvoked",
   "confirmorgname",
   "customeremail",

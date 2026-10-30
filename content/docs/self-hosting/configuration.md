@@ -9,7 +9,7 @@ Startup validates the environment with Zod and refuses to run on a bad value, na
 | Variable | Notes |
 |---|---|
 | `DATABASE_URL` | Postgres connection string. The compose file builds it for you from `POSTGRES_PASSWORD`. |
-| `AUTH_SECRET` | Minimum 32 characters. `openssl rand -base64 32`. Anything shorter fails startup. |
+| `AUTH_SECRET` | Minimum 32 characters. `openssl rand -base64 32`. Anything shorter fails startup. It also encrypts the secret of each person's authenticator app (two-factor sign-in). Changing it signs everyone out, and the codes from those apps can then no longer be checked: those people sign in with a recovery code, or a platform admin resets their second factor, and they set the app up again. |
 
 ## Required for a usable instance
 
