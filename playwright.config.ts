@@ -34,13 +34,18 @@ export default defineConfig({
       dependencies: ["setup"],
     },
   ],
-  webServer: {
-    command: "bash e2e/start-server.sh",
-    url: E2E_BASE_URL,
-    // First run builds the production bundle inside the command.
-    timeout: 900_000,
-    reuseExistingServer: !process.env.CI,
-    stdout: "pipe",
-    stderr: "pipe",
-  },
+  // When E2E_BASE_URL is provided, the suite targets an already-running server
+  // (such as a published container image via scripts/e2e-against-image.sh or
+  // e2e/serve.sh). Only start a local server if no external URL is specified.
+  webServer: process.env.E2E_BASE_URL
+    ? undefined
+    : {
+        command: "bash e2e/start-server.sh",
+        url: E2E_BASE_URL,
+        // First run builds the production bundle inside the command.
+        timeout: 900_000,
+        reuseExistingServer: !process.env.CI,
+        stdout: "pipe",
+        stderr: "pipe",
+      },
 });

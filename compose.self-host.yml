@@ -81,7 +81,7 @@ services:
   app:
     # Pinned by tag. `stable` tracks the current release; set OPEN_ISMS_VERSION
     # to an exact version (e.g. 0.2.8) to pin, and to roll back.
-    image: ghcr.io/nisd2/open-isms:${OPEN_ISMS_VERSION:-stable}
+    image: ${OPEN_ISMS_IMAGE:-ghcr.io/nisd2/open-isms}:${OPEN_ISMS_VERSION:-stable}
     restart: unless-stopped
     environment:
       # Required. The app refuses to start without these.

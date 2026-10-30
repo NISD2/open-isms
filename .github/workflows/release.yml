@@ -339,13 +339,59 @@ jobs:
           docker logs gate
           exit 1
 
+  # Proves the published artifact works end-to-end in the published compose
+  # stack before it becomes `stable`.
+  #
+  # What this catches: build-time frozen configuration (e.g. CSP storage
+  # origin bugs), browser/upload breakages in the packaged image, and any
+  # discrepancy between the local build and the container artifact self-hosters
+  # actually pull.
+  e2e:
+    if: ${{ github.repository == 'NISD2/open-isms' && !inputs.dry_run }}
+    needs: [version, manifest]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: read
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - run: bunx playwright install --with-deps chromium
+
+      - uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run E2E against published image in self-host stack
+        run: bash scripts/e2e-against-image.sh "${VERSION}"
+        env:
+          CI: "1"
+
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report-release
+          path: playwright-report/
+          retention-days: 7
+
   # Last, and only after the gate. `stable` is what a self-hoster pulls when
   # they have not pinned a version, and the tag is the record of what passed:
   # written here rather than by a human beforehand, so a tag can never name a
   # version that failed.
   promote:
     if: ${{ github.repository == 'NISD2/open-isms' && !inputs.dry_run }}
-    needs: [version, manifest, upgrade-gate]
+    needs: [version, manifest, upgrade-gate, e2e]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

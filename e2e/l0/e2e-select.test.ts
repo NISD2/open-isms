@@ -9,7 +9,9 @@ import { existsSync } from "node:fs";
 import { ALWAYS, SPEC_AREAS, TENANT_DATA } from "../select/areas";
 import { selectSpecs } from "../select/select";
 
-const specsOnDisk = [...new Bun.Glob("e2e/**/*.spec.ts").scanSync(".")].sort();
+const specsOnDisk = [...new Bun.Glob("e2e/**/*.spec.ts").scanSync(".")]
+  .map((p) => p.replaceAll("\\", "/"))
+  .sort();
 
 describe("the table of specs", () => {
   test("names every spec on disk, apart from the ones every run starts with", () => {
