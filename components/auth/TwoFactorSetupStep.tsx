@@ -14,7 +14,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AppQrCode, RecoveryCodes, type SetupMaterial } from "./TwoFactorMaterial";
+import {
+  AppQrCode,
+  RecoveryCodes,
+  type SetupMaterial,
+  setupMaterialSchema,
+} from "./TwoFactorMaterial";
 import { type CodeSignInResult, signInWithCode } from "./two-factor-sign-in";
 
 type Load =
@@ -60,7 +65,12 @@ export function TwoFactorSetupStep({
     })
       .then(async (res) => {
         if (!res.ok) throw new Error(String(res.status));
-        setLoad({ kind: "ready", material: (await res.json()) as SetupMaterial });
+        const material = setupMaterialSchema.safeParse(await res.json());
+        setLoad(
+          material.success
+            ? { kind: "ready", material: material.data }
+            : { kind: "failed" },
+        );
       })
       .catch(() => setLoad({ kind: "failed" }));
   }, [email, password]);

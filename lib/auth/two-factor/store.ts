@@ -169,7 +169,6 @@ export async function confirmSetup(
 export type FactorCheck =
   | { readonly ok: true; readonly method: "app" }
   | { readonly ok: true; readonly method: "recovery"; readonly recoveryCodesLeft: number }
-  /** `failedAttempts`: wrong codes in a row now; `locked`: app codes are refused. */
   /**
    * `wrong`: counted in `failedAttempts`, the run of wrong codes now. `locked`: app codes are
    * refused after LOCK_AFTER_FAILURES. `unreadable`: the stored secret no longer decrypts (most

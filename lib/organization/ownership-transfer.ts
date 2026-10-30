@@ -4,7 +4,7 @@
  * assign an owner when the old one is gone. The decisions are pure functions here so the router
  * and its tests ask the same question; `makeOwner` is the one write both paths end in.
  */
-import { and, eq, lte } from "drizzle-orm";
+import { and, eq, lte, type SQL } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { company, ownershipTransfer } from "@/schema";
 import { setMembershipRole } from "./membership";
@@ -15,13 +15,12 @@ export const TRANSFER_DAYS = 7;
 export const transferExpiry = (now: Date): Date =>
   new Date(now.getTime() + TRANSFER_DAYS * 24 * 60 * 60 * 1000);
 
-export type TransferRow = {
-  readonly companyId: string;
-  readonly fromUserId: string | null;
-  readonly toUserId: string | null;
-  readonly status: "pending" | "accepted" | "cancelled";
-  readonly expiresAt: Date;
-};
+export type TransferRow = Readonly<
+  Pick<
+    typeof ownershipTransfer.$inferSelect,
+    "companyId" | "fromUserId" | "toUserId" | "status" | "expiresAt"
+  >
+>;
 
 /** Open means it can still be accepted or cancelled: pending and not past its end. */
 export const isOpen = (transfer: TransferRow, now: Date): boolean =>
@@ -55,26 +54,54 @@ export const mayCancel = (transfer: TransferRow, userId: string, now: Date): boo
   isOpen(transfer, now) &&
   (transfer.fromUserId === userId || transfer.toUserId === userId);
 
+/** Close the company's pending requests (those `only` narrows to) as cancelled, decided by `by`. */
+const cancelPending = async (
+  db: DbOrTx,
+  input: {
+    readonly companyId: string;
+    readonly by: string | null;
+    readonly now: Date;
+    readonly only?: SQL;
+  },
+): Promise<void> => {
+  await db
+    .update(ownershipTransfer)
+    .set({ status: "cancelled", decidedAt: input.now, decidedBy: input.by })
+    .where(
+      and(
+        eq(ownershipTransfer.companyId, input.companyId),
+        eq(ownershipTransfer.status, "pending"),
+        input.only,
+      ),
+    );
+};
+
 /**
  * A pending row past its end still holds the company's one pending slot, so it is closed before a
  * new request takes the slot. It closes as cancelled with nobody deciding, which is how a lapsed
  * request reads in the record.
  */
-export async function closeLapsedTransfers(
+export const closeLapsedTransfers = (
   db: DbOrTx,
   input: { readonly companyId: string; readonly now: Date },
-): Promise<void> {
-  await db
-    .update(ownershipTransfer)
-    .set({ status: "cancelled", decidedAt: input.now })
-    .where(
-      and(
-        eq(ownershipTransfer.companyId, input.companyId),
-        eq(ownershipTransfer.status, "pending"),
-        lte(ownershipTransfer.expiresAt, input.now),
-      ),
-    );
-}
+): Promise<void> =>
+  cancelPending(db, {
+    companyId: input.companyId,
+    by: null,
+    now: input.now,
+    only: lte(ownershipTransfer.expiresAt, input.now),
+  });
+
+/**
+ * A decision over the company's owner overtakes any request still pending, lapsed or not: it
+ * closes as cancelled, decided by whoever made that decision. Callers hold the company row lock.
+ */
+export const cancelOpenTransfers = (
+  db: DbOrTx,
+  companyId: string,
+  by: string,
+  now: Date,
+): Promise<void> => cancelPending(db, { companyId, by, now });
 
 /**
  * Make the person the company's owner. The owner is always an admin, so the new one becomes one;

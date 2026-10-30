@@ -3,14 +3,21 @@
 import { Check, Copy } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 
-/** What setting up shows once: the QR code and key for the app, and the recovery codes. */
-export type SetupMaterial = {
-  readonly secret: string;
-  readonly qrDataUrl: string;
-  readonly recoveryCodes: readonly string[];
-};
+/**
+ * What setting up shows once: the QR code and key for the app, and the recovery codes. The sign-in's
+ * setup step reads it from a plain fetch, so this checks the answer before anything shows it.
+ */
+export const setupMaterialSchema = z
+  .object({
+    secret: z.string().min(1),
+    qrDataUrl: z.string().startsWith("data:image/"),
+    recoveryCodes: z.array(z.string().min(1)).min(1).readonly(),
+  })
+  .readonly();
+export type SetupMaterial = z.infer<typeof setupMaterialSchema>;
 
 /** The QR code to scan, with the key to type behind a disclosure for when scanning fails. */
 export function AppQrCode({ material }: { material: SetupMaterial }) {
