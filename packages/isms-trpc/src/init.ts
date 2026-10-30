@@ -84,8 +84,16 @@ export function createTRPCSetup<TContext extends BaseContext>(options: TRPCSetup
           action: path,
           entityType: path.split(".")[0] ?? path,
           entityId: extractEntityId(rawInput),
-          description: path,
-          newValue: scrubSensitiveValues(rawInput, REDACT_KEYS_BY_SCOPE[auditScope]),
+          // A refused or failed call still leaves its row, but not its input: nothing
+          // validated it, so it holds whatever the caller chose to send.
+          ...(result.ok
+            ? {
+                description: path,
+                newValue: boundAuditInput(
+                  scrubSensitiveValues(rawInput, REDACT_KEYS_BY_SCOPE[auditScope]),
+                ),
+              }
+            : { description: `${path} failed (${result.error.code})` }),
           ipAddress: ctx.ip === "unknown" ? null : ctx.ip,
           userAgent: ctx.userAgent,
         });
@@ -240,6 +248,32 @@ const REDACT_KEYS_BY_SCOPE: Record<AuditScope, ReadonlySet<string>> = {
   callerCompany: AUDIT_REDACT_KEYS,
   platform: PLATFORM_AUDIT_REDACT_KEYS,
 };
+
+/**
+ * Twice the largest automatic row in production (8,570 bytes, durchgang.rate; 8,064 rows measured
+ * 30.10.2026, none over 16 KB). No real input is cut; a pasted document is.
+ */
+export const AUDIT_INPUT_MAX_BYTES = 16_384;
+
+/** The input as logged, or over the cap only its size and top-level field names. */
+function boundAuditInput(value: unknown): unknown {
+  const bytes = serializedBytes(value);
+  if (bytes !== null && bytes <= AUDIT_INPUT_MAX_BYTES) return value;
+  const fields =
+    value !== null && typeof value === "object" && !Array.isArray(value)
+      ? Object.keys(value)
+      : [];
+  return { truncated: true, bytes, fields };
+}
+
+/** Byte length of the JSON form; null when JSON cannot encode it (a BigInt), so the call never fails over its own log row. */
+function serializedBytes(value: unknown): number | null {
+  try {
+    return new TextEncoder().encode(JSON.stringify(value) ?? "").length;
+  } catch {
+    return null;
+  }
+}
 
 function scrubSensitiveValues(value: unknown, keys: ReadonlySet<string>): unknown {
   if (value === null || value === undefined) return value;
