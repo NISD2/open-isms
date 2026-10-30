@@ -12,7 +12,7 @@
       "off": "Off.",
       "requiredByCompany": "Your company requires the second factor, so it stays on.",
       "requiredByPlatform": "As a platform admin you always need the second factor.",
-      "unavailable": "Two-factor sign-in is not set up on this installation.",
+      "startFailed": "The setup could not start. Please try again.",
       "setUp": "Set up",
       "turnOff": "Turn off",
       "newCodes": "New recovery codes",
@@ -29,15 +29,14 @@
       "turnedOn": "Turned on. All your sessions were ended; sign in again with the code.",
       "turnedOff": "Turned off. All your sessions were ended; sign in again.",
       "wrongCode": "That code does not match. Use the code the app shows now.",
-      "locked": "After too many wrong codes, codes from the app are no longer accepted. Use a recovery code.",
+      "locked": "Codes from the app are not accepted right now, after too many wrong codes or because this installation's key changed. Use a recovery code.",
       "tooMany": "Too many tries. Please wait a few minutes."
     },
     "twoFactorRequired": {
       "label": "Require a second factor for everyone",
       "description": "Everyone in this company signs in with their password and a code from an app. Anyone who has not set the app up yet does so at their next sign-in. For sign-ins with Google, Google asks.",
       "turnedOn": "From their next sign-in, everyone needs a code from the app.",
-      "turnedOff": "The second factor is no longer required for everyone.",
-      "unavailable": "Not set up on this installation."
+      "turnedOff": "The second factor is no longer required for everyone."
     },
     "mcp": {
       "title": "Connect assistants like Claude or Copilot",

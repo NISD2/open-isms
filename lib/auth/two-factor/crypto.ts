@@ -1,20 +1,35 @@
 import "@/lib/server-guard";
-import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
+import {
+  createCipheriv,
+  createDecipheriv,
+  createHash,
+  hkdfSync,
+  randomBytes,
+} from "node:crypto";
 import { env } from "@/lib/env";
 
 const VERSION = "v1";
 const ALGORITHM = "aes-256-gcm";
 const TAG_BYTES = 16;
+/** Names what the derived key is for; a new version of the label is a new key. */
+const KEY_INFO = "open-isms two-factor secret v1";
+
+let derived: Buffer | undefined;
 
 /**
- * The key that encrypts the authenticator app secrets, or null when this instance has none, which
- * switches two-factor sign-in off (lib/env.ts TWO_FACTOR_ENCRYPTION_KEY).
+ * The key that encrypts the authenticator app secrets: HKDF-SHA256 of AUTH_SECRET (required, at
+ * least 32 characters, lib/env.ts) under its own label, so it is never the session key itself and
+ * nothing extra has to be configured. Derived once per process.
+ *
+ * Rotating AUTH_SECRET makes every stored app secret unreadable. Those people are refused with
+ * TWO_FACTOR_UNREADABLE and sign in with a recovery code (hashed, so not tied to the key), or a
+ * platform admin resets their second factor; either way they then set the app up again.
  */
-export function twoFactorKey(): Buffer | null {
-  const raw = env.TWO_FACTOR_ENCRYPTION_KEY;
-  if (!raw) return null;
-  const key = Buffer.from(raw.trim(), "base64");
-  return key.length === 32 ? key : null;
+export function twoFactorKey(): Buffer {
+  derived ??= Buffer.from(
+    hkdfSync("sha256", env.AUTH_SECRET, Buffer.alloc(0), KEY_INFO, 32),
+  );
+  return derived;
 }
 
 /**

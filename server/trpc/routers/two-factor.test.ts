@@ -7,7 +7,6 @@
  * There is no database here: lib/auth/two-factor/testing.ts stands in for it.
  */
 import { beforeEach, describe, expect, mock, test } from "bun:test";
-import { randomBytes } from "node:crypto";
 import { TRPCError } from "@trpc/server";
 
 const audits: Array<{
@@ -24,7 +23,6 @@ mock.module("@/lib/env", () => ({
     DATABASE_URL: "postgres://unused:unused@localhost:5432/unused",
     AUTH_SECRET: "test-secret-test-secret-test-secret",
     NEXT_PUBLIC_APP_URL: "https://example.test",
-    TWO_FACTOR_ENCRYPTION_KEY: randomBytes(32).toString("base64"),
   },
   mailSupportEmail: () => "support@example.test",
 }));

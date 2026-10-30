@@ -25,9 +25,16 @@ export type SignInRefusal =
   | "TWO_FACTOR_REQUIRED"
   | "TWO_FACTOR_INVALID"
   | "TWO_FACTOR_SETUP_REQUIRED"
-  | "TWO_FACTOR_UNAVAILABLE"
   /** A hundred wrong codes in a row: only a recovery code (or a platform admin's reset) helps. */
-  | "TWO_FACTOR_LOCKED";
+  | "TWO_FACTOR_LOCKED"
+  /** The stored app secret no longer decrypts (AUTH_SECRET changed): a recovery code helps. */
+  | "TWO_FACTOR_UNREADABLE";
+
+const REFUSAL_OF = {
+  wrong: "TWO_FACTOR_INVALID",
+  locked: "TWO_FACTOR_LOCKED",
+  unreadable: "TWO_FACTOR_UNREADABLE",
+} as const satisfies Record<string, SignInRefusal>;
 
 export type PasswordSignIn =
   | { readonly ok: true; readonly user: PasswordAccount }
@@ -47,12 +54,11 @@ const refuse = (code: SignInRefusal | null): PasswordSignIn => ({ ok: false, cod
  * - Second factor on: a code from the app, or a recovery code, is needed.
  * - Off, and required (platform admin, or a company that requires it): the person sets it up
  *   (app/api/auth/two-factor/setup) and the code they then type confirms it and signs them in.
- * - Off and not required, or no key on this instance: the password is enough. Someone who turned
- *   it on is refused while the key is missing rather than let in without it.
+ * - Off and not required: the password is enough.
  */
 export async function passwordSignIn(
   db: DbOrTx,
-  key: Buffer | null,
+  key: Buffer,
   credentials: {
     readonly email: string | undefined;
     readonly password: string | undefined;
@@ -83,14 +89,14 @@ export async function passwordSignIn(
   };
 
   if (row?.enabledAt) {
-    if (!key) return refuse("TWO_FACTOR_UNAVAILABLE");
     if (typed.kind === "none") return refuse("TWO_FACTOR_REQUIRED");
     if (!(await allowCodeAttempt(person.id))) return refuse("RATE_LIMITED");
     const check = await checkSecondFactor(db, key, person.id, typed, now);
     if (!check.ok) {
-      const notice = failureNotice(check.failedAttempts);
+      const notice =
+        check.reason === "unreadable" ? null : failureNotice(check.failedAttempts);
       if (notice) noticeTwoFactor(db, person.id, notice);
-      return refuse(check.locked ? "TWO_FACTOR_LOCKED" : "TWO_FACTOR_INVALID");
+      return refuse(REFUSAL_OF[check.reason]);
     }
     if (check.method === "recovery") {
       auditTwoFactor(
@@ -105,7 +111,6 @@ export async function passwordSignIn(
     return { ok: true, user: person };
   }
 
-  if (!key) return { ok: true, user: person };
   const requiredBy = await twoFactorRequirement(db, {
     userId: person.id,
     email: person.email,

@@ -5,7 +5,7 @@ export type CodeSignInResult =
   | "ok"
   | "invalid"
   | "rateLimited"
-  | "unavailable"
+  | "unreadable"
   | "setupRequired"
   | "codeRequired"
   | "locked"
@@ -40,7 +40,7 @@ export function readSignInResult(
   if (raw.includes("TWO_FACTOR_SETUP_REQUIRED")) return "setupRequired";
   if (raw.includes("TWO_FACTOR_REQUIRED")) return "codeRequired";
   if (raw.includes("TWO_FACTOR_INVALID")) return "invalid";
-  if (raw.includes("TWO_FACTOR_UNAVAILABLE")) return "unavailable";
+  if (raw.includes("TWO_FACTOR_UNREADABLE")) return "unreadable";
   if (raw.includes("TWO_FACTOR_LOCKED")) return "locked";
   return "failed";
 }

@@ -43,7 +43,6 @@ export async function POST(request: Request) {
   }
 
   const key = twoFactorKey();
-  if (!key) return refused;
   const person = { userId: checked.user.id, email: checked.user.email };
   const [row, requiredBy] = await Promise.all([
     readTwoFactor(db, person.userId),

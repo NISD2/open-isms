@@ -68,7 +68,7 @@ export function TwoFactorSetupStep({
   const messages: Record<Exclude<CodeSignInResult, "ok">, string> = {
     invalid: t("errorInvalid"),
     rateLimited: tAuth("errorRateLimited"),
-    unavailable: t("errorUnavailable"),
+    unreadable: t("errorUnreadable"),
     setupRequired: t("errorInvalid"),
     codeRequired: t("errorInvalid"),
     locked: t("errorLocked"),

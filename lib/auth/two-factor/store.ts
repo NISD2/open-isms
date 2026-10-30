@@ -145,14 +145,24 @@ export type FactorCheck =
   | { readonly ok: true; readonly method: "app" }
   | { readonly ok: true; readonly method: "recovery"; readonly recoveryCodesLeft: number }
   /** `failedAttempts`: wrong codes in a row now; `locked`: app codes are refused. */
-  | { readonly ok: false; readonly failedAttempts: number; readonly locked: boolean };
+  /**
+   * `wrong`: counted in `failedAttempts`, the run of wrong codes now. `locked`: app codes are
+   * refused after LOCK_AFTER_FAILURES. `unreadable`: the stored secret no longer decrypts (most
+   * likely AUTH_SECRET was changed), so no app code can be checked; not counted as a failure.
+   */
+  | {
+      readonly ok: false;
+      readonly reason: "wrong" | "locked" | "unreadable";
+      readonly failedAttempts: number;
+    };
 
 /**
  * Checks a code against an active second factor. An app code counts once: its step must be later
  * than the last one accepted, and the update that records it is the check, so two requests with
  * the same code cannot both pass. A recovery code is removed in the statement that accepts it.
  * Every wrong code adds one to the person's run of failures, every right one ends it; past
- * LOCK_AFTER_FAILURES app codes are refused without being checked.
+ * LOCK_AFTER_FAILURES app codes are refused without being checked. A secret the key cannot read
+ * refuses app codes too, while recovery codes (hashes, independent of the key) still work.
  */
 export async function checkSecondFactor(
   db: DbOrTx,
@@ -163,7 +173,7 @@ export async function checkSecondFactor(
 ): Promise<FactorCheck> {
   const row = await readTwoFactor(db, userId);
   if (!row?.enabledAt || !row.secretEncrypted || typed.kind === "none") {
-    return { ok: false, failedAttempts: row?.failedAttempts ?? 0, locked: false };
+    return { ok: false, reason: "wrong", failedAttempts: row?.failedAttempts ?? 0 };
   }
   const failed = async (): Promise<FactorCheck> => {
     const [counted] = await db
@@ -172,7 +182,8 @@ export async function checkSecondFactor(
       .where(eq(userTwoFactor.userId, userId))
       .returning({ failedAttempts: userTwoFactor.failedAttempts });
     const failedAttempts = Number(counted?.failedAttempts ?? row.failedAttempts + 1);
-    return { ok: false, failedAttempts, locked: failedAttempts >= LOCK_AFTER_FAILURES };
+    const reason = failedAttempts >= LOCK_AFTER_FAILURES ? "locked" : "wrong";
+    return { ok: false, reason, failedAttempts };
   };
 
   if (typed.kind === "recovery") {
@@ -197,10 +208,13 @@ export async function checkSecondFactor(
   }
 
   if (row.failedAttempts >= LOCK_AFTER_FAILURES) {
-    return { ok: false, failedAttempts: row.failedAttempts, locked: true };
+    return { ok: false, reason: "locked", failedAttempts: row.failedAttempts };
   }
   const secret = decryptSecret(row.secretEncrypted, key, userId);
-  const step = secret ? stepOfCode(secret, typed.code, now.getTime()) : null;
+  if (secret === null) {
+    return { ok: false, reason: "unreadable", failedAttempts: row.failedAttempts };
+  }
+  const step = stepOfCode(secret, typed.code, now.getTime());
   if (step === null) return failed();
   const accepted = await db
     .update(userTwoFactor)

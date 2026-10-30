@@ -45,7 +45,7 @@
       "noAccess": "Geen telefoon en geen codes meer? Schrijf naar {email}. We controleren wie je bent en zetten je tweede factor terug.",
       "back": "Terug",
       "errorInvalid": "Deze code klopt niet. Gebruik de code die de app nu toont; elke code werkt maar één keer.",
-      "errorUnavailable": "Aanmelden met een code is hier nu niet beschikbaar. Neem contact op met de beheerder van deze installatie.",
+      "errorUnreadable": "Codes uit je app kunnen hier niet meer worden gecontroleerd, omdat de sleutel van deze installatie is gewijzigd. Meld je aan met een herstelcode en stel de app daarna opnieuw in bij Instellingen.",
       "errorLocked": "Na te veel foute codes worden codes uit de app niet meer aangenomen. Meld je aan met een herstelcode en wijzig daarna je wachtwoord.",
       "setupTitle": "Aanmelden met een code instellen",
       "setupDescription": "Je account vraagt naast je wachtwoord om een code uit een app op je telefoon.",

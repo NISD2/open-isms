@@ -4,7 +4,7 @@
  * different secret.
  */
 import { describe, expect, mock, test } from "bun:test";
-import { randomBytes } from "node:crypto";
+import { hkdfSync, randomBytes } from "node:crypto";
 
 const KEY = randomBytes(32);
 const ME = "11111111-1111-4111-8111-111111111111";
@@ -16,7 +16,6 @@ mock.module("@/lib/env", () => ({
     DATABASE_URL: "postgres://unused:unused@localhost:5432/unused",
     AUTH_SECRET: "test-secret-test-secret-test-secret",
     NEXT_PUBLIC_APP_URL: "https://example.test",
-    TWO_FACTOR_ENCRYPTION_KEY: KEY.toString("base64"),
   },
   mailSupportEmail: () => "support@example.test",
 }));
@@ -24,8 +23,21 @@ mock.module("@/lib/env", () => ({
 const { decryptSecret, encryptSecret, twoFactorKey } = await import("./crypto");
 
 describe("app secret encryption", () => {
-  test("the configured key is read as 32 bytes", () => {
-    expect(twoFactorKey()?.equals(KEY)).toBe(true);
+  test("the key is HKDF-SHA256 of AUTH_SECRET under its own label, never the secret itself", () => {
+    const key = twoFactorKey();
+    expect(key).toHaveLength(32);
+    const expected = Buffer.from(
+      hkdfSync(
+        "sha256",
+        "test-secret-test-secret-test-secret",
+        Buffer.alloc(0),
+        "open-isms two-factor secret v1",
+        32,
+      ),
+    );
+    expect(key.equals(expected)).toBe(true);
+    expect(key.toString("utf8")).not.toContain("test-secret");
+    expect(twoFactorKey()).toBe(key);
   });
 
   test("what is written reads back with the same key for the same person", () => {

@@ -77,7 +77,6 @@ services:
       ERASURE_EMAIL_HASH_SALT: ${ERASURE_EMAIL_HASH_SALT:-}
       # Optional. Each one degrades a single feature, see
       # content/docs/self-hosting/configuration.md.
-      TWO_FACTOR_ENCRYPTION_KEY: ${TWO_FACTOR_ENCRYPTION_KEY:-}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       AWS_S3_REGION: ${AWS_S3_REGION:-eu-north-1}

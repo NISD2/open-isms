@@ -273,7 +273,6 @@ else
   set_env POSTGRES_PASSWORD "$(random_hex)"
   set_env AUTH_SECRET "$(random_b64)"
   set_env ERASURE_EMAIL_HASH_SALT "$(random_b64)"
-  set_env TWO_FACTOR_ENCRYPTION_KEY "$(random_b64)"
   set_env AWS_SECRET_ACCESS_KEY "$(random_hex)"
   set_env MINIO_KMS_KEY "$(random_b64)"
   set_env AUTH_URL "$URL"

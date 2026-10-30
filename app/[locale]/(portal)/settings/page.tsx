@@ -39,11 +39,7 @@ export default async function SettingsPage() {
         </div>
       </div>
       <TwoFactorSettings status={twoFactor} />
-      <TwoFactorRequiredSwitch
-        required={twoFactor.companyRequired}
-        isAdmin={isAdmin}
-        available={twoFactor.available}
-      />
+      <TwoFactorRequiredSwitch required={twoFactor.companyRequired} isAdmin={isAdmin} />
       <AssistantsAllowedSwitch
         allowed={companyData.assistantsAllowed}
         isAdmin={isAdmin}

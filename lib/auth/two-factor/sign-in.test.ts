@@ -167,16 +167,23 @@ describe("with the app on", () => {
     expect(await signIn(code, later(4))).toMatchObject({ ok: true });
   });
 
-  test("without the instance's key it refuses rather than let the password through", async () => {
-    await turnOn();
-    const result = await passwordSignIn(
-      fake.db,
-      null,
-      { email: PERSON.email, password: PASSWORD, totpCode: "123456" },
-      REQUEST,
-      later(1),
-    );
-    expect(result).toEqual({ ok: false, code: "TWO_FACTOR_UNAVAILABLE" });
+  test("after AUTH_SECRET changed: a clear refusal, not counted, and a recovery code still works", async () => {
+    const { secret, recoveryCodes } = await turnOn();
+    const rotated = randomBytes(32);
+    const withRotatedKey = (totpCode: string) =>
+      passwordSignIn(
+        fake.db,
+        rotated,
+        { email: PERSON.email, password: PASSWORD, totpCode },
+        REQUEST,
+        later(1),
+      );
+    expect(await withRotatedKey(currentCode(secret, later(1).getTime()))).toEqual({
+      ok: false,
+      code: "TWO_FACTOR_UNREADABLE",
+    });
+    expect(fake.state.rows.get(PERSON.id)?.failedAttempts).toBe(0);
+    expect(await withRotatedKey(recoveryCodes[0])).toMatchObject({ ok: true });
   });
 
   test("the secret is stored encrypted, never as the app shows it", async () => {
@@ -277,17 +284,5 @@ describe("when it is required and not set up", () => {
     const late = later(31);
     const code = currentCode(material.secret, late.getTime());
     expect(await signIn(code, late)).toEqual({ ok: false, code: "TWO_FACTOR_INVALID" });
-  });
-
-  test("without the instance's key nobody is made to, so the password signs in", async () => {
-    fake.state.companyRequires = true;
-    const result = await passwordSignIn(
-      fake.db,
-      null,
-      { email: PERSON.email, password: PASSWORD, totpCode: undefined },
-      REQUEST,
-      T0,
-    );
-    expect(result).toMatchObject({ ok: true });
   });
 });

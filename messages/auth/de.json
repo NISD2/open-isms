@@ -55,7 +55,7 @@
       "noAccess": "Weder Telefon noch Codes? Schreiben Sie an {email}. Wir prüfen, wer Sie sind, und setzen den zweiten Faktor zurück.",
       "back": "Zurück",
       "errorInvalid": "Dieser Code passt nicht. Nehmen Sie den Code, den die App jetzt zeigt; jeder gilt nur einmal.",
-      "errorUnavailable": "Die Anmeldung mit Code ist hier gerade nicht verfügbar. Bitte wenden Sie sich an den Betreiber dieser Installation.",
+      "errorUnreadable": "Codes aus Ihrer App lassen sich hier nicht mehr prüfen, weil der Schlüssel dieser Installation gewechselt hat. Melden Sie sich mit einem Wiederherstellungscode an und richten Sie die App danach in den Einstellungen neu ein.",
       "errorLocked": "Nach zu vielen falschen Codes nimmt die Anmeldung keine Codes aus der App mehr an. Melden Sie sich mit einem Wiederherstellungscode an und ändern Sie danach Ihr Passwort.",
       "setupTitle": "Anmeldung mit Code einrichten",
       "setupDescription": "Ihr Konto verlangt beim Anmelden zusätzlich zum Passwort einen Code aus einer App auf Ihrem Telefon.",

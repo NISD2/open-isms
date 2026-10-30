@@ -35,16 +35,7 @@ import {
 /** A code from the app or a recovery code, as typed; the server reads which it is. */
 const CodeInput = z.object({ totpCode: z.string().max(32) });
 
-const key = (): Buffer => {
-  const k = twoFactorKey();
-  if (!k) {
-    throw new TRPCError({
-      code: "PRECONDITION_FAILED",
-      message: "Two-factor sign-in is not set up on this instance.",
-    });
-  }
-  return k;
-};
+const key = twoFactorKey;
 
 const tooManyCodes = () =>
   new TRPCError({
@@ -54,19 +45,28 @@ const tooManyCodes = () =>
 const wrongCode = () =>
   new TRPCError({ code: "BAD_REQUEST", message: "That code did not match." });
 
-/** A wrong code against an active second factor: the run of failures may earn a notice. */
+/**
+ * A refused code against an active second factor: a wrong one may earn a notice; paused codes
+ * and an unreadable secret both leave the recovery code as the way, and say so.
+ */
 const refused = (
   ctx: { readonly db: DbOrTx; readonly userId: string },
-  check: { readonly failedAttempts: number; readonly locked: boolean },
+  check: {
+    readonly failedAttempts: number;
+    readonly reason: "wrong" | "locked" | "unreadable";
+  },
 ) => {
-  const notice = failureNotice(check.failedAttempts);
+  const notice =
+    check.reason === "unreadable" ? null : failureNotice(check.failedAttempts);
   if (notice) noticeTwoFactor(ctx.db, ctx.userId, notice);
-  return check.locked
-    ? new TRPCError({
-        code: "PRECONDITION_FAILED",
-        message: "Codes from the app are paused. Use a recovery code.",
-      })
-    : wrongCode();
+  if (check.reason === "wrong") return wrongCode();
+  return new TRPCError({
+    code: "PRECONDITION_FAILED",
+    message:
+      check.reason === "locked"
+        ? "Codes from the app are paused. Use a recovery code."
+        : "Codes from the app can no longer be checked here. Use a recovery code.",
+  });
 };
 
 type Ctx = {
@@ -112,7 +112,6 @@ export const twoFactorRouter = router({
       ctx.companyId ? companyRequiresTwoFactor(ctx.db, ctx.companyId) : false,
     ]);
     return {
-      available: twoFactorKey() !== null,
       enabledAt: row?.enabledAt ?? null,
       recoveryCodesLeft: row?.enabledAt ? row.recoveryCodeHashes.length : 0,
       requiredBy,
@@ -207,7 +206,6 @@ export const twoFactorRouter = router({
   setCompanyRequired: accountAdminProcedure
     .input(z.object({ required: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
-      if (input.required) key();
       const rule = {
         required: input.required,
         updatedBy: ctx.userId,

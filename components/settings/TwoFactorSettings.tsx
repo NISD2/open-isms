@@ -19,7 +19,6 @@ import { trpc } from "@/lib/trpc/client";
 import { SettingSwitch } from "./AssistantsAllowedSwitch";
 
 export type TwoFactorStatus = {
-  readonly available: boolean;
   readonly enabledAt: Date | null;
   readonly recoveryCodesLeft: number;
   readonly requiredBy: "platform" | "company" | null;
@@ -96,14 +95,12 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
     }
   }
 
-  const statusLine = !status.available
-    ? t("unavailable")
-    : status.enabledAt
-      ? t("on", {
-          date: format.dateTime(new Date(status.enabledAt), { dateStyle: "medium" }),
-          count: status.recoveryCodesLeft,
-        })
-      : t("off");
+  const statusLine = status.enabledAt
+    ? t("on", {
+        date: format.dateTime(new Date(status.enabledAt), { dateStyle: "medium" }),
+        count: status.recoveryCodesLeft,
+      })
+    : t("off");
 
   return (
     <section
@@ -130,7 +127,7 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
         )}
       </p>
 
-      {status.available && task.kind === "idle" && (
+      {task.kind === "idle" && (
         <div className="flex flex-wrap gap-2">
           {status.enabledAt ? (
             <>
@@ -150,7 +147,7 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
                 try {
                   open({ kind: "setup", material: await start.mutateAsync() });
                 } catch {
-                  toast.error(t("unavailable"));
+                  toast.error(t("startFailed"));
                 }
               }}
             >
@@ -232,20 +229,14 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
   );
 }
 
-/**
- * The company's switch: everyone signs in with a code (twoFactor.setCompanyRequired). Only an
- * admin changes it, and only where this installation has the key the feature needs.
- */
+/** The company's switch: everyone signs in with a code (twoFactor.setCompanyRequired), admin only. */
 export function TwoFactorRequiredSwitch({
   required,
   isAdmin,
-  available,
 }: {
   required: boolean;
   isAdmin: boolean;
-  available: boolean;
 }) {
-  const t = useTranslations("settings.twoFactorRequired");
   const save = trpc.twoFactor.setCompanyRequired.useMutation();
   return (
     <SettingSwitch
@@ -253,7 +244,7 @@ export function TwoFactorRequiredSwitch({
       namespace="settings.twoFactorRequired"
       checked={required}
       isAdmin={isAdmin}
-      disabledNote={available || required ? null : t("unavailable")}
+      disabledNote={null}
       save={({ allowed }) => save.mutateAsync({ required: allowed })}
     />
   );

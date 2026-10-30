@@ -98,7 +98,6 @@ export function SignInCard({
     const read = readSignInResult(result);
     if (read === "codeRequired") setStep("twoFactor");
     else if (read === "setupRequired") setStep("twoFactorSetup");
-    else if (read === "unavailable") setError(t("twoFactor.errorUnavailable"));
     else return false;
     setLoading(false);
     return true;

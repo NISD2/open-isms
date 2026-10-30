@@ -12,7 +12,7 @@
       "off": "Ausgeschaltet.",
       "requiredByCompany": "Ihr Unternehmen verlangt den zweiten Faktor. Er bleibt deshalb eingeschaltet.",
       "requiredByPlatform": "Als Plattformadmin brauchen Sie den zweiten Faktor immer.",
-      "unavailable": "Auf dieser Installation ist die Anmeldung mit zweitem Faktor nicht eingerichtet.",
+      "startFailed": "Die Einrichtung ließ sich nicht starten. Bitte versuchen Sie es noch einmal.",
       "setUp": "Einrichten",
       "turnOff": "Ausschalten",
       "newCodes": "Neue Wiederherstellungscodes",
@@ -29,15 +29,14 @@
       "turnedOn": "Eingeschaltet. Alle Ihre Anmeldungen wurden beendet; melden Sie sich mit dem Code neu an.",
       "turnedOff": "Ausgeschaltet. Alle Ihre Anmeldungen wurden beendet; melden Sie sich neu an.",
       "wrongCode": "Dieser Code passt nicht. Nehmen Sie den Code, den die App jetzt zeigt.",
-      "locked": "Nach zu vielen falschen Codes nimmt die Anmeldung keine Codes aus der App mehr an. Nehmen Sie einen Wiederherstellungscode.",
+      "locked": "Codes aus der App werden gerade nicht angenommen, nach zu vielen falschen Codes oder weil der Schlüssel dieser Installation gewechselt hat. Nehmen Sie einen Wiederherstellungscode.",
       "tooMany": "Zu viele Versuche. Bitte warten Sie ein paar Minuten."
     },
     "twoFactorRequired": {
       "label": "Zweiten Faktor für alle verlangen",
       "description": "Alle in diesem Unternehmen melden sich mit Passwort und einem Code aus einer App an. Wer die App noch nicht eingerichtet hat, richtet sie bei der nächsten Anmeldung ein. Bei Anmeldungen mit Google fragt Google.",
       "turnedOn": "Ab der nächsten Anmeldung brauchen alle einen Code aus der App.",
-      "turnedOff": "Der zweite Faktor ist nicht mehr für alle verlangt.",
-      "unavailable": "Auf dieser Installation nicht eingerichtet."
+      "turnedOff": "Der zweite Faktor ist nicht mehr für alle verlangt."
     },
     "mcp": {
       "title": "Assistenten wie Claude oder Copilot verbinden",

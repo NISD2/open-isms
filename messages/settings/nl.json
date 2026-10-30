@@ -12,7 +12,7 @@
       "off": "Uit.",
       "requiredByCompany": "Je organisatie vereist de tweede factor, dus die blijft aan.",
       "requiredByPlatform": "Als platformbeheerder heb je de tweede factor altijd nodig.",
-      "unavailable": "Aanmelden met een tweede factor is op deze installatie niet ingesteld.",
+      "startFailed": "Het instellen kon niet starten. Probeer het opnieuw.",
       "setUp": "Instellen",
       "turnOff": "Uitzetten",
       "newCodes": "Nieuwe herstelcodes",
@@ -29,15 +29,14 @@
       "turnedOn": "Aangezet. Al je sessies zijn beëindigd; meld je opnieuw aan met de code.",
       "turnedOff": "Uitgezet. Al je sessies zijn beëindigd; meld je opnieuw aan.",
       "wrongCode": "Deze code klopt niet. Gebruik de code die de app nu toont.",
-      "locked": "Na te veel foute codes worden codes uit de app niet meer aangenomen. Gebruik een herstelcode.",
+      "locked": "Codes uit de app worden nu niet aangenomen, na te veel foute codes of omdat de sleutel van deze installatie is gewijzigd. Gebruik een herstelcode.",
       "tooMany": "Te veel pogingen. Wacht een paar minuten."
     },
     "twoFactorRequired": {
       "label": "Tweede factor voor iedereen vereisen",
       "description": "Iedereen in deze organisatie meldt zich aan met wachtwoord en een code uit een app. Wie de app nog niet heeft ingesteld, doet dat bij de volgende aanmelding. Bij aanmelden met Google vraagt Google.",
       "turnedOn": "Vanaf de volgende aanmelding heeft iedereen een code uit de app nodig.",
-      "turnedOff": "De tweede factor is niet meer voor iedereen vereist.",
-      "unavailable": "Niet ingesteld op deze installatie."
+      "turnedOff": "De tweede factor is niet meer voor iedereen vereist."
     },
     "mcp": {
       "title": "Assistenten zoals Claude of Copilot koppelen",

@@ -7,7 +7,7 @@ import { check, integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-c
  * RFC 6238), plus one-time recovery codes for a lost phone (lib/auth/two-factor).
  *
  * One row per person, made when they first start setting it up. The app's secret is stored
- * encrypted with TWO_FACTOR_ENCRYPTION_KEY, the recovery codes only as SHA-256 hashes, so a
+ * encrypted with a key derived from AUTH_SECRET, the recovery codes only as SHA-256 hashes, so a
  * database read alone gives no code. Setting up writes the pending columns; the first correct
  * code moves them to the active ones. Removed with the person (erasure).
  */

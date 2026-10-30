@@ -42,7 +42,7 @@ export function TwoFactorCodeStep({
   const messages: Record<Exclude<CodeSignInResult, "ok">, string> = {
     invalid: t("errorInvalid"),
     rateLimited: tAuth("errorRateLimited"),
-    unavailable: t("errorUnavailable"),
+    unreadable: t("errorUnreadable"),
     setupRequired: tAuth("errorGeneric"),
     codeRequired: t("errorInvalid"),
     locked: t("errorLocked"),
@@ -59,8 +59,8 @@ export function TwoFactorCodeStep({
         router.push(callbackUrl);
         return;
       }
-      // Paused app codes leave the recovery code as the way in: show its field.
-      if (result === "locked" && !recovery) {
+      // Paused or unreadable app codes leave the recovery code as the way in: show its field.
+      if ((result === "locked" || result === "unreadable") && !recovery) {
         setRecovery(true);
         setCode("");
       }
