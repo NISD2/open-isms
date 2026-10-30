@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "id": "2026-10-30-product-export-status-columns",
+      "date": "2026-10-30",
+      "category": "product",
+      "titleDe": "Exporte: überall der Stand aus dem Durchgang",
+      "titleEn": "Exports: the walkthrough's status everywhere",
+      "bodyDe": "Seit dem 30.10.2026 enthält die Spalte Status der CSV den Stand aus dem Durchgang in der Sprache des Lesers, und die Spalte Walkthrough heißt jetzt Walkthrough Notes. Der Datenexport als JSON und die Datensätze, die ein Assistent mit KI über read_records liest, führen je Anforderung state, coveredBy und approved statt status und journey. Damit zeigt jeder Export denselben Stand wie der Durchgang.",
+      "bodyEn": "Since 30 October 2026 the CSV's Status column holds the walkthrough's status in the reader's language, and the Walkthrough column is now called Walkthrough Notes. The JSON data export and the records an AI assistant reads through read_records carry state, coveredBy and approved for each requirement instead of status and journey. Every export now shows the same status as the walkthrough.",
+      "links": []
+    },
+    {
       "id": "2026-09-08-product-requirement-page-and-team-signoff",
       "date": "2026-09-08",
       "category": "product",

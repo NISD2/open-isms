@@ -1042,7 +1042,7 @@
           "paragraphs": [
             "Die Maßnahmen nach Art. 32 DSGVO beschreibt die Seite TOMs in der Fassung, die zum Zeitpunkt der Annahme galt. Sie nennt nur, was im Code und im Betrieb umgesetzt ist. Die wichtigsten Punkte:",
             "Verschlüsselung: TLS für alle Verbindungen zur Plattform. Hochgeladene Dateien und archivierte Rechnungen liegen in AWS S3 mit serverseitiger Verschlüsselung (AES256), die bei jedem Hochladen gesetzt wird. Die Datenbank verschlüsselt die Anwendung nicht zusätzlich.",
-            "Zugang und Berechtigungen: Anmeldung mit E-Mail und Passwort (bcrypt, Kostenfaktor 12, Bestätigung der Adresse per Einmalcode) oder mit Google. Einen zweiten Faktor für den Passwortweg gibt es nicht. Sitzungen enden nach acht Stunden. Vier Rollen (Admin, Reviewer, Legal Reviewer, Member). Die Trennung zwischen Kunden erfolgt in der Anwendung: jede Abfrage filtert auf die Company ID der Sitzung.",
+            "Zugang und Berechtigungen: Anmeldung mit E-Mail und Passwort (bcrypt, Kostenfaktor 12, Bestätigung der Adresse per Einmalcode) oder mit Google. Konten mit Passwort können einen zweiten Faktor einschalten, einen Code aus einer Authentifizierungsapp; Plattformadmins müssen ihn nutzen, und ein Admin des Unternehmens kann ihn für alle im Unternehmen verlangen. Sitzungen enden nach acht Stunden. Vier Rollen (Admin, Reviewer, Legal Reviewer, Member). Die Trennung zwischen Kunden erfolgt in der Anwendung: jede Abfrage filtert auf die Company ID der Sitzung.",
             "Eingabekontrolle: Jede Änderung über die Plattform wird mit Nutzer, Aktion, Zeitpunkt, IP-Adresse, User Agent und den Eingabewerten protokolliert, den vorherigen Wert speichern nur ausgewählte Vorgänge. Freigaben bilden eine Kette von SHA-256 Prüfsummen.",
             "Unterstützung (Klauseln 8 und 9): Der Kunde kann Daten in der Plattform selbst einsehen, ändern und löschen. Anfragen betroffener Personen und Datenschutzverletzungen meldet der Auftragsverarbeiter dem Kunden unverzüglich an die Person, der das Konto gehört."
           ],
@@ -1065,89 +1065,6 @@
             "href": "/subprozessoren"
           }
         }
-      }
-    },
-    "toms": {
-      "meta": {
-        "title": "Technische und organisatorische Maßnahmen (TOMs) - Art. 32 DSGVO",
-        "description": "Technische und organisatorische Maßnahmen der NISD2.eu-Plattform gemäß Art. 32 DSGVO. Hosting bei Hetzner Deutschland, TLS, Audit-Trail mit SHA-256-Prüfsummen, Mandantentrennung, RBAC."
-      },
-      "title": "Technische und organisatorische Maßnahmen (TOMs)",
-      "subtitle": "Maßnahmen gemäß Art. 32 DSGVO zur Sicherheit der Verarbeitung personenbezogener Daten auf der NISD2.eu-Plattform.",
-      "revised": "Stand: 26.09.2026. Am Code geprüft und korrigiert; die Fassung ist Anhang III des Auftragsverarbeitungsvertrags.",
-      "intro": {
-        "heading": "Überblick",
-        "p1": "Dieses Dokument beschreibt die technischen und organisatorischen Maßnahmen, die die Kardashev Catalyst UG (haftungsbeschränkt) als Betreiberin der Plattform NISD2.eu tatsächlich umsetzt. Es ist eine ehrliche Bestandsaufnahme, keine Wunschliste - wir nennen nur, was bereits implementiert ist.",
-        "p2": "Die Maßnahmen orientieren sich an IT-Grundschutz (BSI) und werden mit dem Wachstum der Plattform erweitert."
-      },
-      "hosting": {
-        "heading": "Hosting in der EU",
-        "scopeNote": "Server, Datenbank und Dateispeicher liegen in der EU. Ein Dienst sitzt in den USA und erhält nur die Daten für seine Funktion:",
-        "items": {
-          "appServers": "Anwendungsserver und PostgreSQL-Datenbank: Hetzner Online GmbH, Rechenzentrum Falkenstein/Nürnberg, Deutschland",
-          "fileStorage": "Speicherung hochgeladener Nachweisdokumente: AWS S3, EU-Region",
-          "usServices": "In den USA: Resend, über das wir E-Mails versenden. Grundlage der Übermittlung sind die EU-Standardvertragsklauseln (Art. 46 DSGVO)."
-        }
-      },
-      "pseudonymization": {
-        "heading": "Verschlüsselung (Art. 32 Abs. 1 lit. a DSGVO)",
-        "items": {
-          "transit": "Transportverschlüsselung: TLS für sämtliche Verbindungen zur Plattform (HTTPS)",
-          "restStorage": "Verschlüsselung im Ruhezustand: AWS S3 Server-Side Encryption (AES256, bei jedem Upload ausdrücklich gesetzt, auch für archivierte Rechnungen). Die PostgreSQL-Datenbank verschlüsselt die Anwendung nicht zusätzlich.",
-          "secrets": "Zugangsdaten und API-Schlüssel werden über Server-Umgebungsvariablen verwaltet, nicht im Quellcode oder in Datenbanken gespeichert"
-        }
-      },
-      "confidentiality": {
-        "heading": "Vertraulichkeit (Art. 32 Abs. 1 lit. b DSGVO)",
-        "p1": "Maßnahmen zur Sicherstellung der Vertraulichkeit:",
-        "items": {
-          "physical": "Zutrittskontrolle: Rechenzentren der eingesetzten Hoster (Hetzner, AWS) verfügen über ISO 27001-Zertifizierungen",
-          "authMethods": "Authentifizierung: Anmeldung per E-Mail und Passwort oder über Google OAuth 2.0. Passwörter speichern wir ausschließlich als bcrypt-Hash mit Kostenfaktor 12, nie im Klartext. Bei der Registrierung per Passwort wird die E-Mail-Adresse einmalig über einen Einmalcode bestätigt. Anmeldeversuche sind je E-Mail-Adresse und Anwendungsinstanz auf 10 in 15 Minuten begrenzt; gezählt wird jeder Versuch. Sitzungen enden nach acht Stunden. Eine zweite Stufe bietet die Plattform für den Passwortweg nicht an. Wer sich über Google anmeldet, nutzt die MFA des eigenen Google-Kontos.",
-          "roles": "Rollenbasierte Berechtigungen: Admin, Reviewer, Legal Reviewer, Member; durchgesetzt in der Anwendungsschicht über tRPC-Middleware",
-          "tenantSeparation": "Mandantentrennung in der Anwendung: jede datentragende Abfrage filtert auf die Company-ID aus der Sitzung des angemeldeten Nutzers. Eine zusätzliche Trennung in der Datenbank (Row Level Security) gibt es nicht.",
-          "secrets": "Passwörter werden nie im Klartext gespeichert. Der Abgleich läuft immer gegen einen bcrypt-Hash, auch wenn zu der angefragten E-Mail-Adresse kein Konto existiert, damit sich aus der Antwortzeit nicht ableiten lässt, wer registriert ist.",
-          "personnel": "Personelle Maßnahmen: Zugriff auf Produktivsysteme und personenbezogene Daten ist auf einen kleinen, namentlich benannten Personenkreis beschränkt, der zur Vertraulichkeit verpflichtet ist. Zugänge folgen dem Prinzip der minimalen Rechte und werden bei Beendigung der Tätigkeit entzogen."
-        }
-      },
-      "integrity": {
-        "heading": "Integrität (Art. 32 Abs. 1 lit. b DSGVO)",
-        "items": {
-          "inputLog": "Eingabekontrolle: Jede Änderung, die ein angemeldeter Nutzer über die Programmierschnittstelle der Plattform auslöst, wird mit Benutzer-ID, Aktion, Entitätstyp, Zeitstempel, IP-Adresse, User-Agent und den Eingabewerten protokolliert (sensible Felder entfernt). Den vorherigen Wert speichern nur ausgewählte Vorgänge.",
-          "rowChecksum": "Prüfsumme im Audit-Trail: Jede Audit-Zeile erhält beim Schreiben eine SHA-256-Prüfsumme über ihren Inhalt. Ein Werkzeug, das diese Prüfsummen später nachrechnet, gibt es noch nicht.",
-          "transfer": "Weitergabekontrolle: Datenübertragung ausschließlich über TLS; alle authentifizierten Endpunkte erfordern eine gültige Session",
-          "evidenceHash": "Nachweisdokumente: Speicherort und Metadaten werden bei Upload festgeschrieben; ein Datei-Hash kann optional vom Client mitgesendet und gespeichert werden",
-          "signoff": "Sign-Off-Mechanismus: zum Zeitpunkt einer Freigabe wird der Zustand der Anforderung in eine Sign-Off-Historie geschrieben, deren Einträge eine SHA-256-Kette bilden (jede Zeile schließt die Prüfsumme der Vorgängerzeile ein) - Manipulationen am Verlauf werden Ende-zu-Ende erkannt"
-        }
-      },
-      "availability": {
-        "heading": "Verfügbarkeit (Art. 32 Abs. 1 lit. b DSGVO)",
-        "items": {
-          "backupSetup": "Datenbanksicherungen richtet der Betreiber in der Hosting-Umgebung ein. Sie sind nicht Teil des Quellcodes. Die aktuelle Konfiguration nennen wir auf Anfrage.",
-          "redundancy": "Speicherung von Nachweisdokumenten in AWS S3 mit der von AWS bereitgestellten Objekt-Haltbarkeit",
-          "rateLimits": "Begrenzung der Anfragen (in der Datenbank gezählt und damit über Neustarts und alle Anwendungsinstanzen hinweg wirksam; IP-Adressen und E-Mail-Adressen werden dabei nur als Hash gespeichert) auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie aufwendigen authentifizierten Endpunkten (PDF-Exporte, Erstellung von Zertifikaten)",
-          "uploadLimit": "Hochgeladene Dateien sind auf 50 MB pro Datei begrenzt",
-          "statusPage": "Verfügbarkeitsanzeige: nisd2.eu/status prüft die Erreichbarkeit der Datenbank höchstens alle 30 Sekunden und zeigt das Ergebnis öffentlich an. Eine durchgehende Überwachung mit automatischer Alarmierung betreiben wir nicht."
-        }
-      },
-      "evaluation": {
-        "heading": "Verfahren zur regelmäßigen Überprüfung (Art. 32 Abs. 1 lit. d DSGVO)",
-        "items": {
-          "review": "Diese TOMs werden anlassbezogen sowie mindestens jährlich überprüft und aktualisiert",
-          "dependencyUpdates": "Aktualisierung von Abhängigkeiten: Dependabot schlägt wöchentlich neue Versionen der npm-Pakete und GitHub Actions als Pull-Requests vor",
-          "incident": "Meldepflichten: Datenschutzverletzungen werden gemäß Art. 33 DSGVO innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde gemeldet",
-          "code": "Entwicklungspraxis: Codeänderungen laufen über Pull-Requests; TypeScript strict-mode wird durchgesetzt; automatisierte Tests bestehen für sicherheitskritische Logik (z. B. Anwendbarkeits-Klassifizierung)"
-        }
-      },
-      "subprocessors": {
-        "heading": "Auftragskontrolle (Unterauftragsverarbeiter)",
-        "p1": "Alle Unterauftragsverarbeiter sind durch Verträge gemäß Art. 28 DSGVO verpflichtet. Die vollständige Liste finden Sie im AVV-Dokument.",
-        "linkLabel": "Zur Liste der Unterauftragsverarbeiter (AVV)",
-        "linkHref": "/avv"
-      },
-      "contact": {
-        "heading": "Kontakt für Datenschutzanfragen",
-        "p1": "Anfragen zu diesen TOMs oder zur Datenverarbeitung richten Sie bitte an:",
-        "email": "contact@nisd2.eu"
       }
     },
     "whatIsNis2": {

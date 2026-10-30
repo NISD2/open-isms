@@ -1,5 +1,9 @@
 {
   "entries": {
+    "2026-10-30-product-export-status-columns": {
+      "title": "Exporty: všude stav z průvodce",
+      "body": "Od 30. října 2026 obsahuje sloupec Status v CSV stav z průvodce v jazyce čtenáře a sloupec Walkthrough se nyní jmenuje Walkthrough Notes. Datový export ve formátu JSON a záznamy, které asistent s AI čte přes read_records, uvádějí u každého požadavku state, coveredBy a approved místo status a journey. Každý export tak ukazuje stejný stav jako průvodce."
+    },
     "2026-09-08-product-requirement-page-and-team-signoff": {
       "title": "Stránka požadavku: vysvětlení, doklady všude, odvolání schválení",
       "body": "Každý požadavek nyní začíná tím, co vyžaduje, a kroky k zavedení jsou k rozbalení. Doklady lze připojit ke každému požadavku, nejen k těm typu dokument nebo doklad: 15 ze 49 požadavků NIS 2 pro ně dosud nemělo žádné pole, mimo jiné povinnost školení vedení, jejímž dokladem je právě certifikát. Udělené schválení lze odvolat; záznam v historii schválení zůstává, takže auditor stále vidí, že bylo schváleno a později odvoláno. Tlačítka Další a Předchozí nyní přecházejí i přes hranice kategorií a neuložené vstupy se při odchodu uloží, místo aby se zahodily. Upozornění pro stávající účty: požadavek 1.2 (role a odpovědnosti) se nyní chová jako každý jiný modul a vrací se ke kontrole, kdykoli se změní váš tým nebo přiřazení role. Dosud schválení platilo i poté, co osoba v roli odešla. Kdo schválení udělil a o svůj podpis přijde odvoláním, dostane o tom oznámení."

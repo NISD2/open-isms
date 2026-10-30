@@ -1,6 +1,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import type { AuditEntry } from "./audit";
+import { failedCallDescription } from "./audit/failed-call";
 import { formatError } from "./error-formatter";
 
 /**
@@ -91,7 +92,7 @@ export function createTRPCSetup<TContext extends BaseContext>(options: TRPCSetup
                 description: path,
                 newValue: auditInput(rawInput, REDACT_KEYS_BY_SCOPE[auditScope]),
               }
-            : { description: `${path} failed (${result.error.code})` }),
+            : { description: failedCallDescription(path, result.error.code) }),
           ipAddress: ctx.ip === "unknown" ? null : ctx.ip,
           userAgent: ctx.userAgent,
         });
