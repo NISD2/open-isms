@@ -8,6 +8,7 @@ import { describe, expect, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
 import type { DbOrTx } from "@/lib/db";
+import { ERASED_REASON } from "./erase-reasons";
 import { redactPiiInJson } from "./redact-pii";
 import { scrubAuditTrail } from "./scrub-audit-log";
 
@@ -18,6 +19,8 @@ const EMAIL = "Anna.Muster@Kunde.de";
 type Row = {
   id: string;
   userId: string | null;
+  entityType?: string;
+  entityId?: string | null;
   description: string;
   previousValue: unknown;
   newValue: unknown;
@@ -175,7 +178,50 @@ describe("scrubAuditTrail", () => {
     const { tx, wheres } = fakeTx([]);
     await scrubAuditTrail(tx, { userId: SUBJECT, email: "  " }, redact);
     const { sql, params } = queryOf(wheres);
-    expect(params).toEqual([SUBJECT]);
+    expect(params).toEqual([SUBJECT, "user", SUBJECT]);
     expect(sql).not.toContain("strpos");
+  });
+
+  // A platform admin's two-factor reset is written by the operator, about the
+  // person, with the operator's note on how they were verified. Found by
+  // neither the user id (the operator's) nor the address, it kept the note.
+  test("replaces the reason on rows about the person, whoever wrote them", async () => {
+    const rows: Row[] = [
+      {
+        id: "reset",
+        userId: OPERATOR,
+        entityType: "user",
+        entityId: SUBJECT,
+        description: "Two-factor sign-in reset by a platform admin",
+        previousValue: null,
+        newValue: { reason: "Called Anna's mobile, she lost it", wasEnabled: true },
+      },
+      {
+        id: "reset-of-someone-else",
+        userId: OPERATOR,
+        entityType: "user",
+        entityId: OPERATOR,
+        description: "Two-factor sign-in reset by a platform admin",
+        previousValue: null,
+        newValue: { reason: "Verified by video call", wasEnabled: true },
+      },
+    ];
+    const { tx, wheres, updates } = fakeTx(rows);
+    const count = await scrubAuditTrail(tx, { userId: SUBJECT, email: EMAIL }, redact);
+    const { sql, params } = queryOf(wheres);
+    expect(sql).toContain('"entity_type" = ');
+    expect(sql).toContain('"entity_id" = ');
+    expect(params).toContain("user");
+    expect(count).toBe(1);
+    expect(updates).toEqual([
+      {
+        id: "reset",
+        values: {
+          description: "Two-factor sign-in reset by a platform admin",
+          previousValue: null,
+          newValue: { reason: ERASED_REASON, wasEnabled: true },
+        },
+      },
+    ]);
   });
 });

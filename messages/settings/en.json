@@ -30,12 +30,18 @@
       "turnedOff": "Turned off. All your sessions were ended; sign in again.",
       "wrongCode": "That code does not match. Use the code the app shows now.",
       "locked": "Codes from the app are not accepted right now, after too many wrong codes or because this installation's key changed. Use a recovery code.",
-      "tooMany": "Too many tries. Please wait a few minutes."
+      "tooMany": "Too many tries. Please wait a few minutes.",
+      "passwordLabel": "Your current password",
+      "passwordWhy": "So nobody who only finds your session open on your computer can set up an app of their own.",
+      "passwordContinue": "Continue",
+      "wrongPassword": "That password does not match.",
+      "reauth": "Setting it up needs a sign-in from the last {minutes} minutes. Sign in again, then set up the app.",
+      "signInAgain": "Sign in again"
     },
     "twoFactorRequired": {
       "label": "Require a second factor for everyone",
-      "description": "Everyone in this company signs in with their password and a code from an app. Anyone who has not set the app up yet does so at their next sign-in. For sign-ins with Google, Google asks.",
-      "turnedOn": "From their next sign-in, everyone needs a code from the app.",
+      "description": "Everyone in this company signs in with their password and a code from an app. Turning this on signs out everyone who signs in with a password and has not set the app up yet, and disconnects their assistants. They set the app up at their next sign-in. For sign-ins with Google, Google asks.",
+      "turnedOn": "Turned on. Anyone without the app was signed out and sets it up at their next sign-in.",
       "turnedOff": "The second factor is no longer required for everyone."
     },
     "mcp": {

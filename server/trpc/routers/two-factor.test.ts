@@ -1,8 +1,9 @@
 /**
- * Two-factor sign-in in Settings and for the platform admin: a person sets it up and turns it off
- * with a code, cannot turn it off while it is required, a company admin requires it only for their
- * own company, and only a platform admin resets someone else's, never their own. No assistant's
- * key reaches any of it.
+ * Two-factor sign-in in Settings and for the platform admin: a person sets it up with their
+ * password (or, signing in with Google only, a recent sign-in) and turns it off with a code, cannot
+ * turn it off while it is required, a company admin requires it only for their own company, which
+ * ends the sessions of that company's members still signing in with a password alone, and only a
+ * platform admin resets someone else's, never their own. No assistant's key reaches any of it.
  *
  * There is no database here: lib/auth/two-factor/testing.ts stands in for it.
  */
@@ -40,10 +41,13 @@ mock.module("@/lib/auth/platform-admin", () => ({
   requirePlatformAdmin: async () => {},
 }));
 const rateLimitModule = await import("@/lib/rate-limit");
+/** Keys a test has used up: the sign-in budget the password check counts against. */
+const spent = new Set<string>();
 mock.module("@/lib/rate-limit", () => ({
   ...rateLimitModule,
-  rateLimit: async () => true,
+  rateLimit: async (key: string) => ![...spent].some((prefix) => key.startsWith(prefix)),
 }));
+const bcrypt = (await import("bcryptjs")).default;
 
 const { createCallerFactory } = await import("../init");
 const { appRouter } = await import("../router");
@@ -69,16 +73,39 @@ const OTHER = {
   emailVerifiedAt: new Date(),
 };
 
-let fake = fakeTwoFactorDb([ME, OTHER]);
+const PASSWORD = "correct horse battery staple";
+/** Signs in with a password, so setting the app up takes it. ME signs in with Google only. */
+const WITH_PASSWORD = {
+  id: "77777777-7777-4777-8777-777777777777",
+  email: "password@customer.example",
+  name: "Password",
+  companyId: COMPANY,
+  passwordHash: bcrypt.hashSync(PASSWORD, 4),
+  emailVerifiedAt: new Date(),
+};
+/** Signs in with a password and has the app set up already. */
+const WITH_APP = {
+  ...WITH_PASSWORD,
+  id: "88888888-8888-4888-8888-888888888888",
+  email: "has-app@customer.example",
+};
+const PEOPLE = [ME, OTHER, WITH_PASSWORD, WITH_APP];
+
+let fake = fakeTwoFactorDb(PEOPLE);
+
+const nowS = () => Math.floor(Date.now() / 1000);
 
 function callerFor({
   as = ME,
   role = "admin",
   viaKey = false,
+  authTime = nowS(),
 }: {
-  as?: typeof ME;
+  as?: typeof ME | typeof WITH_PASSWORD;
   role?: string;
   viaKey?: boolean;
+  /** When the session signed in; a minute ago unless a test says otherwise. */
+  authTime?: number;
 } = {}) {
   return createCallerFactory(appRouter)({
     db: fake.db as TRPCContext["db"],
@@ -88,6 +115,7 @@ function callerFor({
       jobTitle: null,
       companyId: COMPANY,
       accessLevel: "full",
+      authTime,
     } as TRPCContext["session"],
     userId: as.id,
     companyId: COMPANY,
@@ -105,20 +133,36 @@ const codeOf = async (call: Promise<unknown>) =>
 
 /** Sets the app up for ME through Settings and returns its secret and recovery codes. */
 async function turnOn() {
-  const material = await callerFor().startSetup();
+  const material = await callerFor().startSetup({});
   await callerFor().confirmSetup({ totpCode: currentCode(material.secret, Date.now()) });
   return material;
 }
 
+/** A turned-on app for someone, as the store leaves it. */
+const appOn = (userId: string) =>
+  fake.state.rows.set(userId, {
+    userId,
+    secretEncrypted: "v1:a:b:c",
+    enabledAt: new Date(),
+    recoveryCodeHashes: ["h"],
+    lastUsedStep: 1,
+    failedAttempts: 0,
+    pendingSecretEncrypted: null,
+    pendingRecoveryCodeHashes: null,
+    pendingStartedAt: null,
+    updatedAt: new Date(),
+  });
+
 beforeEach(() => {
-  fake = fakeTwoFactorDb([ME, OTHER]);
+  fake = fakeTwoFactorDb(PEOPLE);
   audits.length = 0;
   platformAdmins.clear();
+  spent.clear();
 });
 
 describe("in Settings", () => {
   test("setting up shows a QR code and ten recovery codes, and the first code turns it on", async () => {
-    const material = await callerFor().startSetup();
+    const material = await callerFor().startSetup({});
     expect(material.qrDataUrl.startsWith("data:image/svg+xml;base64,")).toBe(true);
     expect(material.uri.startsWith("otpauth://totp/")).toBe(true);
     expect(material.recoveryCodes).toHaveLength(10);
@@ -158,7 +202,7 @@ describe("in Settings", () => {
   });
 
   test("a wrong first code leaves it off", async () => {
-    await callerFor().startSetup();
+    await callerFor().startSetup({});
     expect(await codeOf(callerFor().confirmSetup({ totpCode: "000000" }))).toBe(
       "BAD_REQUEST",
     );
@@ -167,7 +211,7 @@ describe("in Settings", () => {
 
   test("it cannot be set up a second time over the one that is on", async () => {
     await turnOn();
-    expect(await codeOf(callerFor().startSetup())).toBe("CONFLICT");
+    expect(await codeOf(callerFor().startSetup({}))).toBe("CONFLICT");
   });
 
   test("turning it off takes a recovery code or a fresh code", async () => {
@@ -206,9 +250,66 @@ describe("in Settings", () => {
   });
 });
 
+describe("setting it up takes the person, not only the session", () => {
+  const asPassword = () => callerFor({ as: WITH_PASSWORD });
+
+  test("an account with a password starts and confirms the setup only with that password", async () => {
+    expect(await codeOf(asPassword().startSetup({}))).toBe("UNAUTHORIZED");
+    expect(await codeOf(asPassword().startSetup({ password: "guessed" }))).toBe(
+      "UNAUTHORIZED",
+    );
+    expect(fake.state.rows.has(WITH_PASSWORD.id)).toBe(false);
+
+    const material = await asPassword().startSetup({ password: PASSWORD });
+    const totpCode = currentCode(material.secret, Date.now());
+    expect(await codeOf(asPassword().confirmSetup({ totpCode }))).toBe("UNAUTHORIZED");
+    expect(fake.state.rows.get(WITH_PASSWORD.id)?.enabledAt).toBeNull();
+
+    await asPassword().confirmSetup({ totpCode, password: PASSWORD });
+    expect(fake.state.rows.get(WITH_PASSWORD.id)?.enabledAt).not.toBeNull();
+  });
+
+  test("the password check counts against the sign-in budget", async () => {
+    spent.add(`login:email:${WITH_PASSWORD.email}`);
+    expect(await codeOf(asPassword().startSetup({ password: PASSWORD }))).toBe(
+      "TOO_MANY_REQUESTS",
+    );
+  });
+
+  test("no password typed reaches the audit log", async () => {
+    const material = await asPassword().startSetup({ password: PASSWORD });
+    await asPassword().confirmSetup({
+      totpCode: currentCode(material.secret, Date.now()),
+      password: PASSWORD,
+    });
+    expect(JSON.stringify(audits)).not.toContain(PASSWORD);
+  });
+
+  test("a Google-only account needs a sign-in from the last few minutes instead", async () => {
+    const twentyMinutesAgo = nowS() - 20 * 60;
+    const stale = callerFor({ authTime: twentyMinutesAgo });
+    await expect(stale.startSetup({})).rejects.toMatchObject({
+      code: "FORBIDDEN",
+      message: "reauth",
+    });
+    expect(fake.state.rows.has(ME.id)).toBe(false);
+    const material = await callerFor().startSetup({});
+    expect(
+      await codeOf(
+        stale.confirmSetup({ totpCode: currentCode(material.secret, Date.now()) }),
+      ),
+    ).toBe("FORBIDDEN");
+  });
+
+  test("status tells Settings which of the two it asks for", async () => {
+    expect((await callerFor().status()).hasPassword).toBe(false);
+    expect((await asPassword().status()).hasPassword).toBe(true);
+  });
+});
+
 describe("the company's requirement", () => {
   test("an admin sets it for their own open company only", async () => {
-    expect(await callerFor().setCompanyRequired({ required: true })).toEqual({
+    expect(await callerFor().setCompanyRequired({ required: true })).toMatchObject({
       required: true,
     });
     expect(fake.state.companyUpdates).toHaveLength(1);
@@ -227,6 +328,49 @@ describe("the company's requirement", () => {
       await codeOf(callerFor({ role: "member" }).setCompanyRequired({ required: true })),
     ).toBe("FORBIDDEN");
     expect(fake.state.companyUpdates).toHaveLength(0);
+    expect(fake.state.sessionsEnded).toEqual([]);
+  });
+
+  test("turning it on ends sessions and assistant keys of this company's password members without the app", async () => {
+    // OTHER signs in with a password too, but in another company.
+    const otherWithPassword = { ...WITH_PASSWORD, id: OTHER.id };
+    fake = fakeTwoFactorDb([ME, otherWithPassword, WITH_PASSWORD, WITH_APP]);
+    fake.state.members.set(COMPANY, [ME.id, WITH_PASSWORD.id, WITH_APP.id]);
+    fake.state.members.set(OTHER.companyId, [OTHER.id]);
+    appOn(WITH_APP.id);
+
+    const saved = await callerFor().setCompanyRequired({ required: true });
+    // ME signs in with Google, which asks for its own second factor; WITH_APP has the app.
+    expect(fake.state.sessionsEnded).toEqual([WITH_PASSWORD.id]);
+    expect(saved).toEqual({ required: true, sessionsEnded: 1, ownSessionEnded: false });
+    expect(Object.keys(fake.state.userSets[0] ?? {}).sort()).toEqual([
+      "mcpKeyVersion",
+      "sessionVersion",
+    ]);
+    const audit = audits.find((a) => a.action === "company.updated");
+    expect(audit).toMatchObject({ companyId: COMPANY, userId: ME.id });
+    expect(audit?.newValue).toEqual({
+      twoFactorRequired: true,
+      sessionsEndedFor: [WITH_PASSWORD.id],
+    });
+  });
+
+  test("an admin without the app is signed out with the others", async () => {
+    fake.state.members.set(COMPANY, [WITH_PASSWORD.id]);
+    const saved = await callerFor({ as: WITH_PASSWORD }).setCompanyRequired({
+      required: true,
+    });
+    expect(saved.ownSessionEnded).toBe(true);
+  });
+
+  test("turning it off ends nobody's session", async () => {
+    fake.state.members.set(COMPANY, [WITH_PASSWORD.id]);
+    expect(await callerFor().setCompanyRequired({ required: false })).toEqual({
+      required: false,
+      sessionsEnded: 0,
+      ownSessionEnded: false,
+    });
+    expect(fake.state.sessionsEnded).toEqual([]);
   });
 });
 
@@ -247,18 +391,7 @@ describe("a platform admin's reset", () => {
   });
 
   test("a platform admin resets someone else's, recorded with the reason under no company", async () => {
-    fake.state.rows.set(OTHER.id, {
-      userId: OTHER.id,
-      secretEncrypted: "v1:a:b:c",
-      enabledAt: new Date(),
-      recoveryCodeHashes: ["h"],
-      lastUsedStep: 1,
-      failedAttempts: 0,
-      pendingSecretEncrypted: null,
-      pendingRecoveryCodeHashes: null,
-      pendingStartedAt: null,
-      updatedAt: new Date(),
-    });
+    appOn(OTHER.id);
     platformAdmins.add(ME.email);
     expect(await callerFor().adminReset({ userId: OTHER.id, reason })).toEqual({
       wasEnabled: true,

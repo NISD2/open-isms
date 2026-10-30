@@ -1,7 +1,9 @@
 import { TRPCError } from "@trpc/server";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
+import { checkPassword } from "@/lib/auth/password-check";
+import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
 import { auditTwoFactor } from "@/lib/auth/two-factor/audit";
 import { readTypedCode } from "@/lib/auth/two-factor/codes";
 import { twoFactorKey } from "@/lib/auth/two-factor/crypto";
@@ -14,6 +16,7 @@ import { allowCodeAttempt } from "@/lib/auth/two-factor/sign-in";
 import {
   checkSecondFactor,
   confirmSetup,
+  endSessionsWithoutSecondFactor,
   readTwoFactor,
   removeSecondFactor,
   replaceRecoveryCodes,
@@ -86,7 +89,11 @@ const self = (ctx: Ctx) => ({
 /** The person's address and language from the database, not the session snapshot. */
 const accountOf = async (ctx: { readonly db: DbOrTx }, id: string) => {
   const [row] = await ctx.db
-    .select({ email: user.email, locale: user.locale })
+    .select({
+      email: user.email,
+      locale: user.locale,
+      hasPassword: sql<boolean>`${user.passwordHash} is not null`,
+    })
     .from(user)
     .where(eq(user.id, id))
     .limit(1);
@@ -95,6 +102,44 @@ const accountOf = async (ctx: { readonly db: DbOrTx }, id: string) => {
 };
 const emailOf = async (ctx: { readonly db: DbOrTx }, id: string) =>
   (await accountOf(ctx, id)).email;
+
+/** The current password, for an account that has one; Google-only accounts send none. */
+const PasswordInput = z.object({ password: z.string().max(128).optional() });
+
+/**
+ * Setting the app up takes the person, not only their session: a copied session could otherwise
+ * enrol an app of its own and keep the account after the password changes. An account with a
+ * password gives it, checked as the sign-in checks it and against the same per-address and per-IP
+ * budget (lib/auth/password-check.ts). An account without one signs in with Google only and has no
+ * password to give, so it needs a sign-in from the last few minutes instead, the rule deleting the
+ * account and connecting an assistant use (lib/auth/session-age.ts). Returns the account's address.
+ */
+async function provePresence(
+  ctx: {
+    readonly db: DbOrTx;
+    readonly userId: string;
+    readonly ip: string;
+    readonly session: { readonly authTime?: number | null } | null;
+  },
+  password: string | undefined,
+): Promise<string> {
+  const account = await accountOf(ctx, ctx.userId);
+  if (!account.hasPassword) {
+    if (isRecentSignIn(ctx.session?.authTime ?? null, epochSeconds(new Date()))) {
+      return account.email;
+    }
+    throw new TRPCError({ code: "FORBIDDEN", message: "reauth" });
+  }
+  const checked = await checkPassword(ctx.db, account.email, password, ctx.ip);
+  if (checked.ok && checked.user.id === ctx.userId) return account.email;
+  if (!checked.ok && checked.reason === "rate_limited") {
+    throw new TRPCError({
+      code: "TOO_MANY_REQUESTS",
+      message: "Too many sign-in attempts. Wait a few minutes.",
+    });
+  }
+  throw new TRPCError({ code: "UNAUTHORIZED", message: "That password did not match." });
+}
 
 /**
  * Two-factor sign-in with an authenticator app (lib/auth/two-factor): a person sets it up, checks
@@ -105,7 +150,7 @@ const emailOf = async (ctx: { readonly db: DbOrTx }, id: string) =>
 export const twoFactorRouter = router({
   /** Where the person stands, for Settings. Nothing secret. */
   status: protectedProcedure.query(async ({ ctx }) => {
-    const email = await emailOf(ctx, ctx.userId);
+    const { email, hasPassword } = await accountOf(ctx, ctx.userId);
     const [row, requiredBy, companyRequired] = await Promise.all([
       readTwoFactor(ctx.db, ctx.userId),
       twoFactorRequirement(ctx.db, { userId: ctx.userId, email }),
@@ -117,11 +162,13 @@ export const twoFactorRouter = router({
       requiredBy,
       /** Whether the open company requires it, for the admin's switch. */
       companyRequired,
+      /** Whether setting it up asks for the password, or for a recent sign-in (Google only). */
+      hasPassword,
     };
   }),
 
-  /** A new secret and recovery codes, pending until confirmSetup; shown once. */
-  startSetup: protectedProcedure.mutation(async ({ ctx }) => {
+  /** A new secret and recovery codes, pending until confirmSetup; shown once. Takes the password. */
+  startSetup: protectedProcedure.input(PasswordInput).mutation(async ({ ctx, input }) => {
     const k = key();
     const row = await readTwoFactor(ctx.db, ctx.userId);
     if (row?.enabledAt) {
@@ -130,25 +177,30 @@ export const twoFactorRouter = router({
         message: "Two-factor sign-in is already on.",
       });
     }
-    const email = await emailOf(ctx, ctx.userId);
+    const email = await provePresence(ctx, input.password);
     return startSetup(ctx.db, k, { userId: ctx.userId, email }, new Date());
   }),
 
-  /** The first code from the app, which turns the pending setup on. */
-  confirmSetup: protectedProcedure.input(CodeInput).mutation(async ({ ctx, input }) => {
-    const k = key();
-    const typed = readTypedCode(input.totpCode);
-    if (typed.kind !== "app") throw wrongCode();
-    if (!(await allowCodeAttempt(ctx.userId))) throw tooManyCodes();
-    if (!(await confirmSetup(ctx.db, k, ctx.userId, typed.code, new Date())))
-      throw wrongCode();
-    const email = await emailOf(ctx, ctx.userId);
-    const requiredBy = await twoFactorRequirement(ctx.db, { userId: ctx.userId, email });
-    auditTwoFactor({ kind: "enabled", how: "settings", requiredBy }, self(ctx));
-    noticeTwoFactor(ctx.db, ctx.userId, "enabled");
-    // Every session ended with the change (confirmSetup), this one too: the card signs out.
-    return { enabled: true };
-  }),
+  /** The first code from the app, which turns the pending setup on. Takes the password again. */
+  confirmSetup: protectedProcedure
+    .input(CodeInput.extend(PasswordInput.shape))
+    .mutation(async ({ ctx, input }) => {
+      const k = key();
+      const typed = readTypedCode(input.totpCode);
+      if (typed.kind !== "app") throw wrongCode();
+      const email = await provePresence(ctx, input.password);
+      if (!(await allowCodeAttempt(ctx.userId))) throw tooManyCodes();
+      if (!(await confirmSetup(ctx.db, k, ctx.userId, typed.code, new Date())))
+        throw wrongCode();
+      const requiredBy = await twoFactorRequirement(ctx.db, {
+        userId: ctx.userId,
+        email,
+      });
+      auditTwoFactor({ kind: "enabled", how: "settings", requiredBy }, self(ctx));
+      noticeTwoFactor(ctx.db, ctx.userId, "enabled");
+      // Every session ended with the change (confirmSetup), this one too: the card signs out.
+      return { enabled: true };
+    }),
 
   /**
    * Turns it off, with a current code or a recovery code. Refused while the person's company or
@@ -200,35 +252,48 @@ export const twoFactorRouter = router({
     }),
 
   /**
-   * The company admin's switch: everyone in the company signs in with the app. Members without it
-   * set it up at their next password sign-in. Only for the admin's own open company.
+   * The company admin's switch: everyone in the company signs in with the app. Turning it on ends
+   * the sessions and assistant keys of the members who sign in with a password and have no app yet
+   * (endSessionsWithoutSecondFactor), in the same transaction as the rule; they set the app up at
+   * their next password sign-in. Only for the admin's own open company, and only its members.
    */
   setCompanyRequired: accountAdminProcedure
     .input(z.object({ required: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
+      const companyId = ctx.companyId;
       const rule = {
         required: input.required,
         updatedBy: ctx.userId,
         updatedAt: new Date(),
       };
-      await ctx.db
-        .insert(companyTwoFactor)
-        .values({ companyId: ctx.companyId, ...rule })
-        .onConflictDoUpdate({ target: companyTwoFactor.companyId, set: rule });
+      const sessionsEndedFor = await ctx.db.transaction(
+        async (tx): Promise<readonly string[]> => {
+          await tx
+            .insert(companyTwoFactor)
+            .values({ companyId, ...rule })
+            .onConflictDoUpdate({ target: companyTwoFactor.companyId, set: rule });
+          return input.required ? endSessionsWithoutSecondFactor(tx, companyId) : [];
+        },
+      );
       logAudit({
-        companyId: ctx.companyId,
+        companyId,
         userId: ctx.userId,
         action: "company.updated",
         entityType: "company",
-        entityId: ctx.companyId,
+        entityId: companyId,
         description: input.required
-          ? "Two-factor sign-in required for everyone in the company"
+          ? `Two-factor sign-in required for everyone in the company; sessions and assistant keys ended for ${sessionsEndedFor.length} member(s) without it`
           : "Two-factor sign-in no longer required",
-        newValue: { twoFactorRequired: input.required },
+        newValue: { twoFactorRequired: input.required, sessionsEndedFor },
         ipAddress: ctx.ip === "unknown" ? null : ctx.ip,
         userAgent: ctx.userAgent,
       });
-      return { required: input.required };
+      return {
+        required: input.required,
+        sessionsEnded: sessionsEndedFor.length,
+        /** The admin had no app either: this session ended too, so the page signs out. */
+        ownSessionEnded: sessionsEndedFor.includes(ctx.userId),
+      };
     }),
 
   /** For the platform admin's user dialog: whether the person has it on, nothing else. */

@@ -114,6 +114,7 @@ import {
   vulnerability,
 } from "@/schema";
 import { alertGdprOperators } from "./alert";
+import { eraseOwnershipReasons } from "./erase-reasons";
 import { computeRecordChecksum } from "./erasure-checksum";
 import { redactPiiInJson } from "./redact-pii";
 import { scrubAuditTrail } from "./scrub-audit-log";
@@ -1094,8 +1095,7 @@ async function erasePerson(
       .returning(),
   );
 
-  // audit_log: sever the userId link and scrub the subject's PII, on the rows
-  // they wrote and on the rows that name their address without a user id.
+  await anon("ownership_transfer", () => eraseOwnershipReasons(tx, userId));
   const auditRows = await scrubAuditTrail(tx, { userId, email }, redact);
   if (auditRows > 0)
     scope.anonymized.audit_log = (scope.anonymized.audit_log ?? 0) + auditRows;

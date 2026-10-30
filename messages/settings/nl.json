@@ -30,12 +30,18 @@
       "turnedOff": "Uitgezet. Al je sessies zijn beëindigd; meld je opnieuw aan.",
       "wrongCode": "Deze code klopt niet. Gebruik de code die de app nu toont.",
       "locked": "Codes uit de app worden nu niet aangenomen, na te veel foute codes of omdat de sleutel van deze installatie is gewijzigd. Gebruik een herstelcode.",
-      "tooMany": "Te veel pogingen. Wacht een paar minuten."
+      "tooMany": "Te veel pogingen. Wacht een paar minuten.",
+      "passwordLabel": "Je huidige wachtwoord",
+      "passwordWhy": "Zo kan niemand die alleen je open sessie op je computer aantreft een eigen app instellen.",
+      "passwordContinue": "Verder",
+      "wrongPassword": "Dit wachtwoord klopt niet.",
+      "reauth": "Instellen vraagt om een aanmelding van de afgelopen {minutes} minuten. Meld je opnieuw aan en stel daarna de app in.",
+      "signInAgain": "Opnieuw aanmelden"
     },
     "twoFactorRequired": {
       "label": "Tweede factor voor iedereen vereisen",
-      "description": "Iedereen in deze organisatie meldt zich aan met wachtwoord en een code uit een app. Wie de app nog niet heeft ingesteld, doet dat bij de volgende aanmelding. Bij aanmelden met Google vraagt Google.",
-      "turnedOn": "Vanaf de volgende aanmelding heeft iedereen een code uit de app nodig.",
+      "description": "Iedereen in deze organisatie meldt zich aan met wachtwoord en een code uit een app. Bij het aanzetten wordt iedereen afgemeld die zich met een wachtwoord aanmeldt en de app nog niet heeft ingesteld, en worden hun assistenten losgekoppeld. Zij stellen de app in bij de volgende aanmelding. Bij aanmelden met Google vraagt Google.",
+      "turnedOn": "Aangezet. Wie de app nog niet heeft, is afgemeld en stelt die in bij de volgende aanmelding.",
       "turnedOff": "De tweede factor is niet meer voor iedereen vereist."
     },
     "mcp": {

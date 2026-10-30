@@ -15,28 +15,40 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "@/i18n/navigation";
+import { RECENT_SIGN_IN_S } from "@/lib/auth/session-age";
 import { trpc } from "@/lib/trpc/client";
 import { SettingSwitch } from "./AssistantsAllowedSwitch";
+import { signInAgain as signInHere } from "./ConnectAssistant";
 
 export type TwoFactorStatus = {
   readonly enabledAt: Date | null;
   readonly recoveryCodesLeft: number;
   readonly requiredBy: "platform" | "company" | null;
   readonly companyRequired: boolean;
+  readonly hasPassword: boolean;
 };
 
 /** What the card is doing: at rest, or one task open under the status. */
 type Task =
   | { readonly kind: "idle" }
-  | { readonly kind: "setup"; readonly material: SetupMaterial }
+  | { readonly kind: "password" }
+  /** A Google-only account's sign-in is too old to set the app up (twoFactor.startSetup). */
+  | { readonly kind: "reauth" }
+  | {
+      readonly kind: "setup";
+      readonly material: SetupMaterial;
+      /** Sent again with the first code; empty for a Google-only account. */
+      readonly password: string;
+    }
   | { readonly kind: "turnOff" }
   | { readonly kind: "newCodes" }
   | { readonly kind: "codesShown"; readonly codes: readonly string[] };
 
 /**
  * The person's own second factor: set it up, see it is on and how many recovery codes are left,
- * make new codes, turn it off. Every change takes a code (lib/auth/two-factor), so a session left
- * open on someone's desk cannot quietly switch it off.
+ * make new codes, turn it off. Setting it up takes the password (or, for a Google-only account, a
+ * recent sign-in) and every other change takes a code (lib/auth/two-factor), so a session left
+ * open on someone's desk can neither enrol an app of its own nor quietly switch it off.
  */
 export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
   const t = useTranslations("settings.twoFactor");
@@ -44,6 +56,7 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
   const router = useRouter();
   const [task, setTask] = useState<Task>({ kind: "idle" });
   const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const start = trpc.twoFactor.startSetup.useMutation();
   const confirm = trpc.twoFactor.confirmSetup.useMutation();
@@ -55,17 +68,44 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
   const open = (next: Task) => {
     setTask(next);
     setCode("");
+    setPassword("");
     setError("");
   };
   const failed = (err: unknown) => {
+    if (err instanceof TRPCClientError && err.message === "reauth") {
+      open({ kind: "reauth" });
+      return;
+    }
     const code = err instanceof TRPCClientError ? err.data?.code : null;
     setError(
       code === "TOO_MANY_REQUESTS"
         ? t("tooMany")
-        : code === "PRECONDITION_FAILED"
-          ? t("locked")
-          : t("wrongCode"),
+        : code === "UNAUTHORIZED"
+          ? t("wrongPassword")
+          : code === "PRECONDITION_FAILED"
+            ? t("locked")
+            : t("wrongCode"),
     );
+  };
+  /** Asks the server for the setup; the password is checked there, empty for Google only. */
+  const begin = async (given: string) => {
+    try {
+      const material = await start.mutateAsync({ password: given || undefined });
+      setTask({ kind: "setup", material, password: given });
+      setCode("");
+      setError("");
+    } catch (err) {
+      const code = err instanceof TRPCClientError ? err.data?.code : null;
+      if (
+        code === "UNAUTHORIZED" ||
+        code === "TOO_MANY_REQUESTS" ||
+        code === "FORBIDDEN"
+      ) {
+        failed(err);
+      } else {
+        toast.error(t("startFailed"));
+      }
+    }
   };
   /**
    * Turning it on or off ends every session of the person, this one included
@@ -80,8 +120,13 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
     e.preventDefault();
     setError("");
     try {
-      if (task.kind === "setup") {
-        await confirm.mutateAsync({ totpCode: code });
+      if (task.kind === "password") {
+        await begin(password);
+      } else if (task.kind === "setup") {
+        await confirm.mutateAsync({
+          totpCode: code,
+          password: task.password || undefined,
+        });
         await signInAgain(t("turnedOn"));
       } else if (task.kind === "turnOff") {
         await disable.mutateAsync({ totpCode: code });
@@ -143,19 +188,61 @@ export function TwoFactorSettings({ status }: { status: TwoFactorStatus }) {
           ) : (
             <Button
               disabled={busy}
-              onClick={async () => {
-                try {
-                  open({ kind: "setup", material: await start.mutateAsync() });
-                } catch {
-                  toast.error(t("startFailed"));
-                }
-              }}
+              onClick={() =>
+                status.hasPassword ? open({ kind: "password" }) : begin("")
+              }
             >
               {start.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {t("setUp")}
             </Button>
           )}
         </div>
+      )}
+
+      {task.kind === "reauth" && (
+        <div className="space-y-3 text-sm">
+          <p>{t("reauth", { minutes: RECENT_SIGN_IN_S / 60 })}</p>
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" onClick={signInHere}>
+              {t("signInAgain")}
+            </Button>
+            <Button type="button" variant="ghost" onClick={() => open({ kind: "idle" })}>
+              {t("cancel")}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {task.kind === "password" && (
+        <form onSubmit={submit} className="max-w-sm space-y-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="two-factor-password">{t("passwordLabel")}</Label>
+            <p className="text-xs text-muted-foreground">{t("passwordWhy")}</p>
+            <Input
+              id="two-factor-password"
+              type="password"
+              autoComplete="current-password"
+              maxLength={128}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error && (
+            <p className="text-sm text-destructive" role="alert">
+              {error}
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-2">
+            <Button type="submit" disabled={busy}>
+              {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {t("passwordContinue")}
+            </Button>
+            <Button type="button" variant="ghost" onClick={() => open({ kind: "idle" })}>
+              {t("cancel")}
+            </Button>
+          </div>
+        </form>
       )}
 
       {task.kind === "setup" && (
@@ -245,7 +332,11 @@ export function TwoFactorRequiredSwitch({
       checked={required}
       isAdmin={isAdmin}
       disabledNote={null}
-      save={({ allowed }) => save.mutateAsync({ required: allowed })}
+      save={async ({ allowed }) => {
+        const saved = await save.mutateAsync({ required: allowed });
+        // An admin without the app is one of the members whose sessions just ended.
+        if (saved.ownSessionEnded) await signOut({ callbackUrl: "/auth/signin" });
+      }}
     />
   );
 }
