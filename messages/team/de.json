@@ -81,8 +81,47 @@
       "member": "Mitglied",
       "reviewer": "Prüfer",
       "legal_reviewer": "Rechtlicher Prüfer",
-      "owner": "Hat die Organisation angelegt",
+      "owner": "Inhaber der Organisation",
       "success": "Zugriffsrolle geändert"
+    },
+    "ownership": {
+      "title": "Inhaberschaft",
+      "youOwn": "Sie sind Inhaber dieser Organisation.",
+      "ownedBy": "Inhaber dieser Organisation ist {name}.",
+      "noOwner": "Diese Organisation hat derzeit keinen Inhaber.",
+      "meaning": "Der Inhaber ist immer Admin und kann nicht entfernt werden. Löscht er sein eigenes Konto, wird die Organisation mit gelöscht.",
+      "handOver": "Inhaberschaft übergeben",
+      "inviteFirst": "Um die Inhaberschaft zu übergeben, laden Sie zuerst die Person ein, die übernehmen soll.",
+      "pendingOwner": "Sie haben die Übergabe an {name} angefragt. {name} kann bis zum {date} annehmen.",
+      "pendingOther": "{from} hat die Übergabe an {to} angefragt, offen bis zum {date}.",
+      "withdraw": "Zurückziehen",
+      "withdrawn": "Übergabe zurückgezogen",
+      "formerOwner": "Der bisherige Inhaber",
+      "offerTitle": "{from} möchte Ihnen die Inhaberschaft übergeben",
+      "offerBody": "Wenn Sie annehmen, sind Sie Inhaber dieser Organisation und {from} bleibt Admin. Offen bis zum {date}.",
+      "accept": "Annehmen",
+      "decline": "Ablehnen",
+      "accepted": "Sie sind jetzt Inhaber dieser Organisation.",
+      "declined": "Übergabe abgelehnt",
+      "noLongerOpen": "Diese Übergabe ist nicht mehr offen. Laden Sie die Seite neu.",
+      "dialog": {
+        "title": "Inhaberschaft übergeben",
+        "description": "Die Person nimmt die Übergabe auf dieser Seite an. Bis dahin bleiben Sie Inhaber, danach bleiben Sie Admin.",
+        "member": "Neuer Inhaber",
+        "memberPlaceholder": "Mitglied wählen",
+        "whyCode": "Zur Bestätigung schicken wir einen Code an {email}.",
+        "sendCode": "Code senden",
+        "code": "Code aus der E-Mail",
+        "codeSentTo": "Gesendet an {email}. Der Code ist 10 Minuten gültig.",
+        "resend": "Neuen Code senden",
+        "submit": "Übergabe anfragen",
+        "pickFirst": "Wählen Sie zuerst das Mitglied, das übernehmen soll.",
+        "codeMissing": "Geben Sie den sechsstelligen Code aus der E-Mail ein.",
+        "codeWrong": "Der Code stimmt nicht oder ist abgelaufen. Fordern Sie einen neuen an.",
+        "tooMany": "Gerade wurde schon ein Code geschickt. Warten Sie ein paar Minuten.",
+        "alreadyOpen": "Es ist schon eine Übergabe offen. Ziehen Sie sie zuerst zurück.",
+        "requested": "Übergabe an {name} angefragt"
+      }
     }
   }
 }

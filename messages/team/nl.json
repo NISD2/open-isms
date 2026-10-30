@@ -79,8 +79,47 @@
       "member": "Lid",
       "reviewer": "Reviewer",
       "legal_reviewer": "Juridisch reviewer",
-      "owner": "Heeft de organisatie aangemaakt",
+      "owner": "Eigenaar van de organisatie",
       "success": "Toegangsrol bijgewerkt"
+    },
+    "ownership": {
+      "title": "Eigendom",
+      "youOwn": "U bent eigenaar van deze organisatie.",
+      "ownedBy": "{name} is eigenaar van deze organisatie.",
+      "noOwner": "Deze organisatie heeft op dit moment geen eigenaar.",
+      "meaning": "De eigenaar is altijd admin en kan niet worden verwijderd. Verwijdert de eigenaar het eigen account, dan wordt de organisatie mee verwijderd.",
+      "handOver": "Eigendom overdragen",
+      "inviteFirst": "Om het eigendom over te dragen, nodigt u eerst de persoon uit die het moet overnemen.",
+      "pendingOwner": "U hebt gevraagd het eigendom over te dragen aan {name}. {name} kan tot {date} accepteren.",
+      "pendingOther": "{from} heeft gevraagd het eigendom over te dragen aan {to}, open tot {date}.",
+      "withdraw": "Intrekken",
+      "withdrawn": "Overdracht ingetrokken",
+      "formerOwner": "De vorige eigenaar",
+      "offerTitle": "{from} wil het eigendom aan u overdragen",
+      "offerBody": "Als u accepteert, bent u eigenaar van deze organisatie en blijft {from} admin. Open tot {date}.",
+      "accept": "Accepteren",
+      "decline": "Weigeren",
+      "accepted": "U bent nu eigenaar van deze organisatie.",
+      "declined": "Overdracht geweigerd",
+      "noLongerOpen": "Deze overdracht staat niet meer open. Laad de pagina opnieuw.",
+      "dialog": {
+        "title": "Eigendom overdragen",
+        "description": "De persoon accepteert de overdracht op deze pagina. Tot dan blijft u eigenaar, daarna blijft u admin.",
+        "member": "Nieuwe eigenaar",
+        "memberPlaceholder": "Kies een lid",
+        "whyCode": "Ter bevestiging sturen we een code naar {email}.",
+        "sendCode": "Code sturen",
+        "code": "Code uit de e-mail",
+        "codeSentTo": "Verstuurd naar {email}. De code is 10 minuten geldig.",
+        "resend": "Nieuwe code sturen",
+        "submit": "Overdracht aanvragen",
+        "pickFirst": "Kies eerst het lid dat het moet overnemen.",
+        "codeMissing": "Voer de zescijferige code uit de e-mail in.",
+        "codeWrong": "De code klopt niet of is verlopen. Vraag een nieuwe aan.",
+        "tooMany": "Er is net al een code verstuurd. Wacht een paar minuten.",
+        "alreadyOpen": "Er staat al een overdracht open. Trek die eerst in.",
+        "requested": "Overdracht aan {name} aangevraagd"
+      }
     }
   }
 }

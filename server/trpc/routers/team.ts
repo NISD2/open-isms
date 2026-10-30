@@ -463,12 +463,11 @@ export const teamRouter = router({
         });
       }
 
-      // With several admins, another admin could otherwise remove the person who created the
-      // organization and take it over.
+      // With several admins, another admin could otherwise remove the owner and take it over.
       if ((await companyOwnerId(ctx.db, ctx.companyId)) === input.userId) {
         throw new TRPCError({
           code: "FORBIDDEN",
-          message: "The person who created the organization cannot be removed.",
+          message: "The owner of the organization cannot be removed.",
         });
       }
 
@@ -583,7 +582,7 @@ export const teamRouter = router({
 
   /**
    * Change a member's access role (admin only), so an organization can have a backup admin. The
-   * person who created the organization always stays an admin, and there is always at least one.
+   * owner always stays an admin, and there is always at least one.
    */
   setMemberRole: adminProcedure
     .input(
@@ -625,7 +624,7 @@ export const teamRouter = router({
           if (input.userId === ownerId) {
             throw new TRPCError({
               code: "FORBIDDEN",
-              message: "The person who created the organization stays an admin.",
+              message: "The owner of the organization stays an admin.",
             });
           }
           if (admins.length <= 1) {
@@ -722,7 +721,7 @@ export const teamRouter = router({
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** The person who created the organization, or null once they are gone. */
+/** The owner: the person who created the organization or was handed it, null once they are gone. */
 async function companyOwnerId(
   db: import("@/lib/db").DbOrTx,
   companyId: string,

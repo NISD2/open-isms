@@ -194,6 +194,8 @@ const AUDIT_REDACT_KEYS = new Set([
   "cvv",
   "cvc",
   "pin",
+  // A one-time email code typed to confirm an action (ownership.start).
+  "otp",
   "answers",
   "text",
   "prompt",

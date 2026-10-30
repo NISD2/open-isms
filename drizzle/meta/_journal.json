@@ -267,6 +267,13 @@
       "when": 1792535782113,
       "tag": "0037_skinny_micromax",
       "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1793357332253,
+      "tag": "0038_mushy_lorna_dane",
+      "breakpoints": true
     }
   ]
 }

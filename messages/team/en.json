@@ -102,8 +102,47 @@
       "member": "Member",
       "reviewer": "Reviewer",
       "legal_reviewer": "Legal reviewer",
-      "owner": "Created the organization",
+      "owner": "Owner of the organization",
       "success": "Access role updated"
+    },
+    "ownership": {
+      "title": "Ownership",
+      "youOwn": "You own this organization.",
+      "ownedBy": "{name} owns this organization.",
+      "noOwner": "This organization has no owner at the moment.",
+      "meaning": "The owner is always an admin and cannot be removed. If the owner deletes their own account, the organization is deleted with it.",
+      "handOver": "Hand over ownership",
+      "inviteFirst": "To hand over ownership, first invite the person who should take it.",
+      "pendingOwner": "You asked to hand ownership to {name}. {name} can accept until {date}.",
+      "pendingOther": "{from} asked to hand ownership to {to}, open until {date}.",
+      "withdraw": "Withdraw",
+      "withdrawn": "Handover withdrawn",
+      "formerOwner": "The previous owner",
+      "offerTitle": "{from} wants to hand ownership to you",
+      "offerBody": "If you accept, you own this organization and {from} stays an admin. Open until {date}.",
+      "accept": "Accept",
+      "decline": "Decline",
+      "accepted": "You now own this organization.",
+      "declined": "Handover declined",
+      "noLongerOpen": "This handover is no longer open. Reload the page.",
+      "dialog": {
+        "title": "Hand over ownership",
+        "description": "The person accepts the handover on this page. Until then you stay the owner; afterwards you stay an admin.",
+        "member": "New owner",
+        "memberPlaceholder": "Choose a member",
+        "whyCode": "To confirm it is you, we send a code to {email}.",
+        "sendCode": "Send code",
+        "code": "Code from the email",
+        "codeSentTo": "Sent to {email}. The code is valid for 10 minutes.",
+        "resend": "Send a new code",
+        "submit": "Request handover",
+        "pickFirst": "First choose the member who should take over.",
+        "codeMissing": "Enter the six-digit code from the email.",
+        "codeWrong": "The code is wrong or has expired. Ask for a new one.",
+        "tooMany": "A code was just sent. Wait a few minutes.",
+        "alreadyOpen": "A handover is already open. Withdraw it first.",
+        "requested": "Handover to {name} requested"
+      }
     }
   }
 }

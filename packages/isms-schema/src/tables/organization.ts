@@ -44,7 +44,7 @@ import { billingAccount } from "./billing";
 export const company = pgTable("company", {
   id: uuid("id").primaryKey().defaultRandom(),
   /**
-   * The account that owns this organization (its creator). Deleting the owner
+   * The account that owns this organization. Deleting the owner
    * tears down the whole org and every member; deleting a non-owner member
    * removes only that person. onDelete "set null" so an owner-teardown, which
    * deletes the owner's user row, does not FK-block the subsequent company
