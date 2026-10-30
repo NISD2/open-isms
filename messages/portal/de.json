@@ -94,6 +94,7 @@
       "badge": "Beispiel",
       "order": "Jetzt bestellen",
       "audit": "So hält das Aktivitätsprotokoll fest, wer was wann geändert hat. Ihre eigenen Einträge stehen hier, sobald Sie im Durchgang arbeiten.",
+      "auditUnpaid": "So hält das Aktivitätsprotokoll fest, wer was wann geändert hat. Was Sie im Durchgang tun, wird schon jetzt festgehalten und steht hier, sobald das Unternehmen bestellt hat.",
       "auditRows": [
         {
           "action": "durchgang.requirements_signed",

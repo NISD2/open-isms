@@ -1,6 +1,13 @@
 {
   "durchgang": {
     "ui": {
+      "preview": {
+        "stepsTitle": "Was dieser Schritt fragt",
+        "lockedTitle": "Das füllen Sie aus, sobald das Unternehmen bestellt hat",
+        "lockedBody": "Was dieser Schritt umfasst, können Sie schon jetzt lesen. Ihre Angaben und die Freigabe durch die Geschäftsführung am Ende öffnen sich mit der Bestellung. Was Sie bisher eingetragen haben, bleibt gespeichert.",
+        "order": "Zur Bestellung",
+        "back": "Zurück zum Durchgang"
+      },
       "kinds": {
         "activities": "Ihr Verzeichnis",
         "describe": "Beschreiben",

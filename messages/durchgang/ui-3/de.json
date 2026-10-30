@@ -20,8 +20,6 @@
         "unchecked": "Auf der Website Ihrer Behörde steht, über welchen Weg Sie melden. Schlagen Sie es jetzt nach, nicht erst im Ernstfall.",
         "openPortal": "Zum {name}",
         "website": "Website der Behörde",
-        "noCountry": "Für Ihr Unternehmen ist noch kein Land hinterlegt. Dann stünde Ihre Behörde hier oben.",
-        "setCountry": "Land eintragen",
         "others": "Die Behörden der {count} anderen EU-Staaten"
       },
       "riskmap": {
@@ -80,6 +78,7 @@
         },
         "open": "Offen",
         "toSignOff": "Noch nicht freigegeben. Zur Freigabe springen",
+        "toSignOffLocked": "Noch nicht freigegeben. Die Freigabe durch die Geschäftsführung kommt mit der Bestellung",
         "next": "Als Nächstes",
         "waiting": "Wartet noch",
         "allFilled": "Alle Punkte sind ausgefüllt.",

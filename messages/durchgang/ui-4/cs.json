@@ -1,0 +1,13 @@
+{
+  "durchgang": {
+    "ui": {
+      "preview": {
+        "stepsTitle": "Na co se tento krok ptá",
+        "lockedTitle": "Toto vyplníte, jakmile společnost objedná",
+        "lockedBody": "Co tento krok obsahuje, si můžete přečíst už teď. Zadávání odpovědí a schválení vedením na konci se otevře s objednávkou. Co jste dosud vyplnili, zůstává uloženo.",
+        "order": "K objednávce",
+        "back": "Zpět do průvodce"
+      }
+    }
+  }
+}

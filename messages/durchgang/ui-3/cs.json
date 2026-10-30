@@ -20,8 +20,6 @@
         "unchecked": "Jakou cestou hlásit, uvádí web vašeho úřadu. Zjistěte si to hned, ne až během incidentu.",
         "openPortal": "Otevřít {name}",
         "website": "Web úřadu",
-        "noCountry": "Pro vaši společnost zatím není nastavena země. Jakmile bude, zobrazí se zde nahoře váš úřad.",
-        "setCountry": "Nastavit zemi",
         "others": "Úřady v ostatních členských státech EU ({count})"
       },
       "riskmap": {
@@ -80,6 +78,7 @@
         },
         "open": "Otevřené",
         "toSignOff": "Zatím neschváleno. Přejít ke schválení",
+        "toSignOffLocked": "Zatím neschváleno. Schválení vedením přijde s objednávkou",
         "next": "Na řadě",
         "waiting": "Stále čeká",
         "allFilled": "Všechny body jsou vyplněné.",
