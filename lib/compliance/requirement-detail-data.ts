@@ -15,6 +15,7 @@ import { type FieldMeta, introspectSchema } from "@/lib/forms/schema-introspect"
 import { api } from "@/lib/trpc/server";
 import type { Asset } from "@/schema/types";
 import { ensureAssessment } from "@/server/trpc/helpers/framework-assessment";
+import { latestSignOffSnapshots } from "@/server/trpc/helpers/sign-off-chain";
 
 type Items = Record<string, unknown>[];
 
@@ -230,10 +231,12 @@ export async function loadRequirementDetail(
   // Find this requirement's status
   const statusRow = rawStatuses.find((rs) => rs.requirementId === req.id);
   const statusId = statusRow?.status?.id ?? null;
+  const snapshotMap = statusId ? await latestSignOffSnapshots(db, [statusId]) : null;
   const status = {
     statusId,
     currentStatus: statusRow?.status?.status ?? "not_started",
     signedOffRole: statusRow?.status?.signedOffRole ?? null,
+    signedOffByName: statusId ? (snapshotMap?.get(statusId)?.signerName ?? null) : null,
     signedOffAt: statusRow?.status?.signedOffAt?.toISOString() ?? null,
     signedOffBy: statusRow?.status?.signedOffBy ?? null,
     reviewFeedback: statusRow?.status?.reviewFeedback ?? null,

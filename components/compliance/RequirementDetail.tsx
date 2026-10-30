@@ -1,6 +1,5 @@
 "use client";
 
-import type { Frequency } from "@nisd2/grc-data-model/frameworks";
 import {
   Ban,
   CheckCircle2,
@@ -43,7 +42,10 @@ import { leavesNoChoice } from "@/lib/durchgang/must-do";
 import { walkLocaleOf } from "@/lib/durchgang/types";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
+import { formatSigner } from "@/lib/pdf/format";
+import { teachingLessonForCategory } from "@/lib/training/lesson-journey-map";
 import { trpc } from "@/lib/trpc/client";
+import { cn } from "@/lib/utils";
 import type { Asset } from "@/schema/types";
 import { useBillingAct } from "../billing/BillingActGate";
 import { CitationList } from "./CitationList";
@@ -54,29 +56,15 @@ import { InlineModulePanel } from "./InlineModulePanel";
 import { PolicyItemsPanel, SKIP_INLINE_MODULE } from "./PolicyItemsPanel";
 import { ReopenButton } from "./ReopenButton";
 import { type AssignmentRow, RequirementAssignPopover } from "./RequirementAssignPopover";
-import { PriorityBadge, StatusBadge } from "./RequirementConstants";
+import {
+  CEO_COURSE_REQUIREMENT_CODES,
+  FREQUENCY_LABEL,
+  PriorityBadge,
+  StatusBadge,
+} from "./RequirementConstants";
 import { type NavLink, RequirementFooterNav } from "./RequirementFooterNav";
 import { RequirementGuidance } from "./RequirementGuidance";
 import { SignOffButton } from "./SignOffButton";
-
-// Requirements where the built-in CEO management training course satisfies
-// the §38(3) BSIG / Art. 20(2) NIS2 training obligation.
-const CEO_COURSE_REQUIREMENT_CODES = new Set(["1.1", "8.3"]);
-
-import { teachingLessonForCategory } from "@/lib/training/lesson-journey-map";
-import { cn } from "@/lib/utils";
-
-/** Each frequency's name, under `intake` in the compliance messages of every locale. */
-const FREQUENCY_LABEL: Readonly<Record<Frequency, string>> = {
-  "one-time": "frequencyOneTime",
-  monthly: "frequencyMonthly",
-  quarterly: "frequencyQuarterly",
-  "semi-annual": "frequencySemiAnnual",
-  annual: "frequencyAnnual",
-  "every-3-years": "frequencyEvery3Years",
-  "on-change": "frequencyOnChange",
-  ongoing: "frequencyOngoing",
-};
 
 // ---------------------------------------------------------------------------
 // Types
@@ -98,6 +86,7 @@ export interface StatusData {
   statusId: string | null;
   currentStatus: string;
   signedOffRole: string | null;
+  signedOffByName?: string | null;
   signedOffAt: string | null;
   signedOffBy: string | null;
   reviewFeedback: string | null;
@@ -475,15 +464,19 @@ export function RequirementDetail({
           <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1.5">
             <CheckCircle2 className="h-3.5 w-3.5" />
             {status.signedOffRole
-              ? t("requirement.signedOffByOn", {
-                  name:
+              ? (() => {
+                  const roleName =
                     translated && tTeam.has(`roles.${status.signedOffRole}`)
                       ? tTeam(`roles.${status.signedOffRole}`)
-                      : status.signedOffRole,
-                  date: new Date(status.signedOffAt).toLocaleDateString(
-                    translated ? locale : undefined,
-                  ),
-                })
+                      : status.signedOffRole;
+                  return t("requirement.signedOffByOn", {
+                    name:
+                      formatSigner(status.signedOffByName ?? null, roleName) ?? roleName,
+                    date: new Date(status.signedOffAt).toLocaleDateString(
+                      translated ? locale : undefined,
+                    ),
+                  });
+                })()
               : t("requirement.signedOff")}
           </p>
         )}

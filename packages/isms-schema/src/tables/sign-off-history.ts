@@ -40,6 +40,12 @@ export interface SignOffSnapshotData {
    * written before it was recorded.
    */
   requirement?: SignedWording;
+  /**
+   * The signer's display name at sign-off time. Kept with the signature so historical attribution
+   * does not drift when the user changes their profile name. Absent on entries written before
+   * it was recorded.
+   */
+  signerName?: string | null;
 }
 
 export interface SignedWording {

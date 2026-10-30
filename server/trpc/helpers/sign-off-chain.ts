@@ -15,9 +15,9 @@
 
 import type { SignOffSnapshotData } from "@nisd2/isms-schema/tables/sign-off-history";
 import { computeChainedChecksum, getLastSignOffEntry } from "@nisd2/isms-trpc/audit";
-import { eq } from "drizzle-orm";
+import { desc, eq, inArray } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { evidence, signOffHistory } from "@/schema";
+import { evidence, signOffHistory, user } from "@/schema";
 import { signedWording } from "./signed-wording";
 
 /**
@@ -32,6 +32,7 @@ export interface RecordSignOffParams {
   requirementId: string;
   signedOffBy: string;
   signedOffRole: string;
+  signerName?: string | null;
   source: SignOffSnapshotData["source"];
   templateVersion: number;
   companyProfile: Record<string, unknown>;
@@ -57,7 +58,7 @@ export async function recordSignOffChainEntry(
   db: DbOrTx,
   params: RecordSignOffParams,
 ): Promise<void> {
-  const [evidenceRows, requirement] = await Promise.all([
+  const [evidenceRows, requirement, signer] = await Promise.all([
     db.query.evidence.findMany({
       where: eq(evidence.requirementStatusId, params.statusId),
       columns: { id: true, fileName: true, contentHash: true, version: true },
@@ -67,7 +68,18 @@ export async function recordSignOffChainEntry(
       signerId: params.signedOffBy,
       companyId: params.companyId,
     }),
+    params.signerName !== undefined
+      ? Promise.resolve(null)
+      : db.query?.user?.findFirst
+        ? db.query.user.findFirst({
+            where: eq(user.id, params.signedOffBy),
+            columns: { name: true },
+          })
+        : Promise.resolve(null),
   ]);
+
+  const signerName =
+    params.signerName !== undefined ? params.signerName : (signer?.name ?? null);
 
   const snapshot: SignOffSnapshotData = {
     source: params.source,
@@ -81,6 +93,7 @@ export async function recordSignOffChainEntry(
       version: e.version,
     })),
     requirement,
+    ...(signerName ? { signerName } : {}),
   };
 
   const last = await getLastSignOffEntry(db, params.statusId);
@@ -105,4 +118,28 @@ export async function recordSignOffChainEntry(
     checksum,
     previousChecksum,
   });
+}
+
+/**
+ * Load the latest sign-off history snapshots for a set of status IDs.
+ * Newest first, so each status maps to its latest sign-off snapshot.
+ */
+export async function latestSignOffSnapshots(
+  db: DbOrTx,
+  statusIds: readonly string[],
+): Promise<Map<string, SignOffSnapshotData>> {
+  if (statusIds.length === 0) return new Map();
+  const rows = await db
+    .select({ statusId: signOffHistory.statusId, snapshot: signOffHistory.snapshot })
+    .from(signOffHistory)
+    .where(inArray(signOffHistory.statusId, [...statusIds]))
+    .orderBy(desc(signOffHistory.version));
+
+  const result = new Map<string, SignOffSnapshotData>();
+  for (const row of rows) {
+    if (!result.has(row.statusId)) {
+      result.set(row.statusId, row.snapshot);
+    }
+  }
+  return result;
 }

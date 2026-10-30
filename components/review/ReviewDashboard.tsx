@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/collapsible";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
+import { formatSigner } from "@/lib/pdf/format";
 import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
 import { formatFileSize } from "@/lib/utils";
@@ -54,6 +55,7 @@ export interface ReviewRow {
   evidenceCount: number;
   signOffSnapshot: SignOffSnapshot | null;
   signedOffRole: string | null;
+  signedOffByName?: string | null;
   signedOffAt: Date | null;
   evidence: EvidenceItem[];
   auditLog: AuditEntry[];
@@ -198,6 +200,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
               <SignOffDisplay
                 snapshot={row.signOffSnapshot}
                 role={row.signedOffRole}
+                signerName={row.signedOffByName}
                 signedAt={row.signedOffAt}
               />
             )}
@@ -352,22 +355,25 @@ function ReviewItem({ row }: { row: ReviewRow }) {
 function SignOffDisplay({
   snapshot,
   role,
+  signerName,
   signedAt,
 }: {
   snapshot: SignOffSnapshot;
   role: string | null;
+  signerName?: string | null;
   signedAt: Date | null;
 }) {
   const t = useTranslations("review");
+  const signer = formatSigner(signerName ?? null, role);
 
   return (
     <div>
       <h4 className="text-sm font-medium mb-2">{t("signOffDetails")}</h4>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-        {role && (
+        {signer && (
           <div>
             <span className="text-muted-foreground">{t("signedOffAs")}: </span>
-            <span className="font-medium">{role}</span>
+            <span className="font-medium">{signer}</span>
           </div>
         )}
         {signedAt && (

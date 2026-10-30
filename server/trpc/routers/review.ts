@@ -18,6 +18,7 @@ import {
 } from "@/schema";
 import { requireBillingAct } from "../helpers/billing-act";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
+import { latestSignOffSnapshots } from "../helpers/sign-off-chain";
 import { reviewerProcedure, router } from "../init";
 
 export const reviewRouter = router({
@@ -84,11 +85,11 @@ export const reviewRouter = router({
       }
     }
 
-    // Batch-load audit log entries for all status IDs
+    // Batch-load audit log entries and latest sign-off snapshots for all status IDs
     const statusIds = rows.map((r) => r.id);
-    const auditRows =
+    const [auditRows, latestSnapshots] = await Promise.all([
       statusIds.length > 0
-        ? await ctx.db.query.auditLog.findMany({
+        ? ctx.db.query.auditLog.findMany({
             where: and(
               eq(auditLog.companyId, ctx.companyId),
               eq(auditLog.entityType, "assessment"),
@@ -104,7 +105,9 @@ export const reviewRouter = router({
             },
             orderBy: [desc(auditLog.createdAt)],
           })
-        : [];
+        : [],
+      latestSignOffSnapshots(ctx.db, statusIds),
+    ]);
 
     // Resolve audit user names
     const auditUserIds = [
@@ -159,6 +162,7 @@ export const reviewRouter = router({
       evidenceCount: r.evidence.length,
       signOffSnapshot: r.signOffSnapshot,
       signedOffRole: r.signedOffRole,
+      signedOffByName: latestSnapshots.get(r.id)?.signerName ?? null,
       signedOffAt: r.signedOffAt,
       evidence: r.evidence,
       auditLog: auditByStatus.get(r.id) ?? [],
