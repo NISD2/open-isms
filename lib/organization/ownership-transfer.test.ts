@@ -4,10 +4,13 @@
  * company.
  */
 import { describe, expect, test } from "bun:test";
-import { getTableName } from "drizzle-orm";
+import { getTableName, type SQL } from "drizzle-orm";
+import { PgDialect } from "drizzle-orm/pg-core";
 import type { DbOrTx } from "@/lib/db";
 import {
   acceptRefusal,
+  cancelOpenTransfers,
+  closeLapsedTransfers,
   isOpen,
   makeOwner,
   mayCancel,
@@ -121,6 +124,44 @@ describe("makeOwner", () => {
       makeOwner(db, { companyId: "company", userId: RECIPIENT }),
     ).rejects.toThrow("not a member");
     expect(updated).toEqual(["company_membership"]);
+  });
+});
+
+describe("closing pending requests", () => {
+  /** Records what one update sets and the condition it runs under, as SQL. */
+  const fakeDb = () => {
+    const seen: { set?: unknown; where?: string; params?: unknown[] } = {};
+    const db = {
+      update: () => ({
+        set: (values: unknown) => ({
+          where: async (condition: SQL) => {
+            const query = new PgDialect().sqlToQuery(condition);
+            Object.assign(seen, { set: values, where: query.sql, params: query.params });
+          },
+        }),
+      }),
+    };
+    return { db: db as unknown as DbOrTx, seen };
+  };
+
+  test("a lapsed request closes as cancelled with nobody deciding", async () => {
+    const { db, seen } = fakeDb();
+    await closeLapsedTransfers(db, { companyId: "company", now: NOW });
+    expect(seen.set).toEqual({ status: "cancelled", decidedAt: NOW, decidedBy: null });
+    expect(seen.where).toContain('"expires_at" <=');
+    expect(seen.params).toEqual(["company", "pending", NOW.toISOString()]);
+  });
+
+  test("a decision over the owner closes every pending request, decided by its maker", async () => {
+    const { db, seen } = fakeDb();
+    await cancelOpenTransfers(db, "company", "operator", NOW);
+    expect(seen.set).toEqual({
+      status: "cancelled",
+      decidedAt: NOW,
+      decidedBy: "operator",
+    });
+    expect(seen.where).not.toContain("expires_at");
+    expect(seen.params).toEqual(["company", "pending"]);
   });
 });
 

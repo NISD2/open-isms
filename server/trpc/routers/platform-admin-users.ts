@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { epochSeconds, isRecentSignIn } from "@/lib/auth/session-age";
@@ -7,8 +7,16 @@ import { env } from "@/lib/env";
 import { issuer } from "@/lib/mcp/config";
 import { instanceKey } from "@/lib/mcp/instance-key";
 import { readRequest } from "@/lib/mcp/oauth";
-import { findMembershipRole } from "@/lib/organization/membership";
-import { makeOwner, transferExpiry } from "@/lib/organization/ownership-transfer";
+import {
+  companyOwnerId,
+  findMembershipRole,
+  lockCompanyOwner,
+} from "@/lib/organization/membership";
+import {
+  cancelOpenTransfers,
+  makeOwner,
+  transferExpiry,
+} from "@/lib/organization/ownership-transfer";
 import { DEFAULT_ACTIVE_DAYS, MAX_ACTIVE_DAYS } from "@/lib/platform-admin/active-window";
 import { bestTimeToReach, REACH_DAYS } from "@/lib/platform-admin/best-time";
 import {
@@ -114,7 +122,7 @@ export const platformAdminUsersRouter = router({
   company: platformAdminProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      const [overview, log, owner] = await Promise.all([
+      const [overview, log, ownerId] = await Promise.all([
         companyOverview(ctx.db, input.id),
         auditLogFor(
           ctx.db,
@@ -122,14 +130,9 @@ export const platformAdminUsersRouter = router({
           {},
           COMPANY_ACTIVITY_LIMIT,
         ),
-        ctx.db.query.company.findFirst({
-          where: eq(company.id, input.id),
-          columns: { ownerId: true },
-        }),
+        companyOwnerId(ctx.db, input.id),
       ]);
-      return overview
-        ? { ...overview, ownerId: owner?.ownerId ?? null, activity: log.rows }
-        : null;
+      return overview ? { ...overview, ownerId, activity: log.rows } : null;
     }),
 
   /**
@@ -159,11 +162,12 @@ export const platformAdminUsersRouter = router({
       }
       const now = new Date();
       const done = await ctx.db.transaction(async (tx) => {
-        const [target] = await tx
-          .select({ name: company.name, ownerId: company.ownerId })
-          .from(company)
-          .where(eq(company.id, input.companyId))
-          .for("update");
+        // The company row first, the order every owner change locks in.
+        const ownerId = await lockCompanyOwner(tx, input.companyId);
+        const target = await tx.query.company.findFirst({
+          where: eq(company.id, input.companyId),
+          columns: { name: true },
+        });
         if (!target)
           throw new TRPCError({ code: "NOT_FOUND", message: "No such company." });
         if (target.name.trim().toLowerCase() !== input.confirmOrgName.toLowerCase()) {
@@ -172,7 +176,7 @@ export const platformAdminUsersRouter = router({
             message: "The name typed does not match the company.",
           });
         }
-        if (target.ownerId === input.toUserId) {
+        if (ownerId === input.toUserId) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "This person already owns it.",
@@ -189,21 +193,12 @@ export const platformAdminUsersRouter = router({
             message: "The new owner must be a member of the company.",
           });
         }
-        // An open request is overtaken by this decision.
-        await tx
-          .update(ownershipTransfer)
-          .set({ status: "cancelled", decidedAt: now, decidedBy: ctx.userId })
-          .where(
-            and(
-              eq(ownershipTransfer.companyId, input.companyId),
-              eq(ownershipTransfer.status, "pending"),
-            ),
-          );
+        await cancelOpenTransfers(tx, input.companyId, ctx.userId, now);
         const [row] = await tx
           .insert(ownershipTransfer)
           .values({
             companyId: input.companyId,
-            fromUserId: target.ownerId,
+            fromUserId: ownerId,
             toUserId: input.toUserId,
             initiatedBy: ctx.userId,
             method: "platform_admin",
@@ -217,7 +212,7 @@ export const platformAdminUsersRouter = router({
           .returning({ id: ownershipTransfer.id });
         if (!row) throw new Error("ownership_transfer insert returned no row");
         await makeOwner(tx, { companyId: input.companyId, userId: input.toUserId });
-        return { id: row.id, fromUserId: target.ownerId };
+        return { id: row.id, fromUserId: ownerId };
       });
 
       // In the company's own log, where its admins see it; the reason stays on the transfer row.

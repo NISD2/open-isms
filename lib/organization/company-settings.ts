@@ -1,7 +1,7 @@
-import { aiDataSharingEnum } from "@nisd2/isms-schema/enums";
 import { z } from "zod";
 import { getRegistrationPortals } from "@/lib/registration-portals";
-import { ENTITY_TYPES, isoCountrySchema } from "./constants";
+import { companyUpdateSchema } from "@/schema/validators";
+import { isoCountrySchema } from "./constants";
 
 /** A country the walk names an authority for: the portal list the picker offers. */
 const portalCountry = isoCountrySchema.refine(
@@ -9,23 +9,32 @@ const portalCountry = isoCountrySchema.refine(
   "a country on the registration portal list",
 );
 
-/** What an admin may change about the company (`assessment.updateCompany`), each field on its own. */
-export const companySettingsSchema = z.object({
-  name: z.string().min(1).max(255).optional(),
-  sector: z.string().min(1).max(255).optional(),
-  entityType: z.enum(ENTITY_TYPES).optional(),
-  legalForm: z.string().max(100).nullish(),
-  employeeCount: z.number().int().positive().nullish(),
-  contactEmail: z.string().email().nullish(),
-  aiDataSharing: z.enum(aiDataSharingEnum.enumValues).optional(),
-  cisoName: z.string().max(255).nullish(),
-  cisoReportsTo: z.string().max(255).nullish(),
-  bsiContactName: z.string().max(255).nullish(),
-  bsiContactEmail: z.string().email().nullish(),
-  bsiContactPhone: z.string().max(50).nullish(),
-  bsiRegistrationId: z.string().max(100).nullish(),
-  annualSecurityBudget: z.string().nullish(),
-  primaryLocations: z.string().max(1000).nullish(),
-  // Asked where the walk needs it, on the registration and reporting screens (CountryPicker).
-  country: portalCountry.optional(),
-});
+/**
+ * What an admin may change about the company (`assessment.updateCompany`), each field on its own.
+ * Lengths, nullability and formats come from the company table's schema; only the country and the
+ * BSI contact's address are narrower here.
+ */
+export const companySettingsSchema = companyUpdateSchema
+  .pick({
+    name: true,
+    sector: true,
+    entityType: true,
+    legalForm: true,
+    employeeCount: true,
+    contactEmail: true,
+    aiDataSharing: true,
+    cisoName: true,
+    cisoReportsTo: true,
+    bsiContactName: true,
+    bsiContactEmail: true,
+    bsiContactPhone: true,
+    bsiRegistrationId: true,
+    annualSecurityBudget: true,
+    primaryLocations: true,
+  })
+  .extend({
+    // The table schema checks only its length (schema/validators.ts may not grow to say more).
+    bsiContactEmail: z.string().email().max(255).nullish(),
+    // Asked where the walk needs it, on the registration and reporting screens (CountryPicker).
+    country: portalCountry.optional(),
+  });

@@ -17,6 +17,7 @@ import {
   checkSecondFactor,
   confirmSetup,
   endSessionsWithoutSecondFactor,
+  type FactorCheck,
   readTwoFactor,
   removeSecondFactor,
   replaceRecoveryCodes,
@@ -54,10 +55,7 @@ const wrongCode = () =>
  */
 const refused = (
   ctx: { readonly db: DbOrTx; readonly userId: string },
-  check: {
-    readonly failedAttempts: number;
-    readonly reason: "wrong" | "locked" | "unreadable";
-  },
+  check: Extract<FactorCheck, { ok: false }>,
 ) => {
   const notice =
     check.reason === "unreadable" ? null : failureNotice(check.failedAttempts);
@@ -71,6 +69,10 @@ const refused = (
         : "Codes from the app can no longer be checked here. Use a recovery code.",
   });
 };
+
+/** Recovery codes still usable: none while the app is not on, whatever a pending setup holds. */
+const recoveryCodesLeft = (row: Awaited<ReturnType<typeof readTwoFactor>>): number =>
+  row?.enabledAt ? row.recoveryCodeHashes.length : 0;
 
 type Ctx = {
   readonly userId: string;
@@ -158,7 +160,7 @@ export const twoFactorRouter = router({
     ]);
     return {
       enabledAt: row?.enabledAt ?? null,
-      recoveryCodesLeft: row?.enabledAt ? row.recoveryCodeHashes.length : 0,
+      recoveryCodesLeft: recoveryCodesLeft(row),
       requiredBy,
       /** Whether the open company requires it, for the admin's switch. */
       companyRequired,
@@ -303,7 +305,7 @@ export const twoFactorRouter = router({
       const row = await readTwoFactor(ctx.db, input.userId);
       return {
         enabledAt: row?.enabledAt ?? null,
-        recoveryCodesLeft: row?.enabledAt ? row.recoveryCodeHashes.length : 0,
+        recoveryCodesLeft: recoveryCodesLeft(row),
       };
     }),
 
