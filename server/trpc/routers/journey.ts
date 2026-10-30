@@ -24,6 +24,12 @@ import { getNis2Assessment } from "../helpers/nis2-scope";
 import { companyProcedure, router } from "../init";
 
 /**
+ * The layout a company gets until someone chooses the other one with the switch in the journey's
+ * header: the team view. Nobody is asked first, so no answer stored means this.
+ */
+const DEFAULT_JOURNEY_MODE = "team" satisfies (typeof journeyModeEnum.enumValues)[number];
+
+/**
  * Statuses where companyRequirementStatus.nextReviewDate is a recurring REVIEW
  * date (vs the initial implementation deadline written to not-done rows by
  * backfillInitialDeadlines / the deadlines cron). Includes needs_review: the
@@ -75,7 +81,7 @@ export const journeyRouter = router({
       //
       // The layout mode rides along because it is journey state, this view is
       // its only reader, and fetching it here keeps the page to one round
-      // trip. null = never answered, which is what makes the view ask.
+      // trip. Never answered (null) is the default layout, not a question.
       const [assessment, companyRows] = await Promise.all([
         getNis2Assessment(ctx.db, cid),
         ctx.db
@@ -90,7 +96,7 @@ export const journeyRouter = router({
           .limit(1),
       ]);
       const companyRow = companyRows[0];
-      const mode = companyRow?.journeyMode ?? null;
+      const mode = companyRow?.journeyMode ?? DEFAULT_JOURNEY_MODE;
 
       if (!assessment) {
         return {
@@ -281,9 +287,9 @@ export const journeyRouter = router({
     }),
 
   /**
-   * Answer (or change) "who implements NIS 2 here". companyProcedure, not
-   * admin: this is how the path is drawn, not who may change the record, and
-   * gating it would lock out exactly the member who needs the other layout.
+   * Choose the journey layout: the team view (the default) or the guided one. companyProcedure,
+   * not admin: this is how the path is drawn, not who may change the record, and gating it would
+   * lock out exactly the member who needs the other layout.
    */
   setMode: companyProcedure
     .input(z.object({ mode: z.enum(journeyModeEnum.enumValues) }))
