@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "Sie können die E-Mail-Adresse weglassen und später auf der Seite Zugriff des Kunden Personen hinzufügen. Ohne E-Mail-Adresse wird nichts verschickt.",
+    "needNameOrEmail": "Geben Sie den Firmennamen des Kunden oder eine E-Mail-Adresse an.",
+    "cancel": "Abbrechen",
+    "emailPlaceholder": "it@kunde.example",
+    "addPersonLabel": "Person hinzufügen",
+    "contactsEmpty": "Noch niemand hat den Link auf Ihr Sicherheitsprofil. Tragen Sie unten eine E-Mail-Adresse ein, dann wird er verschickt.",
+    "sendLink": "Link senden",
+    "linkSent": "Der Link auf Ihr Sicherheitsprofil wurde an {email} gesendet.",
+    "linkNotSent": "Der Link konnte nicht an {email} gesendet werden.",
+    "removeAccess": "Zugriff entziehen",
+    "removeAccessFor": "Zugriff für {email} entziehen",
+    "removeAccessTitle": "Zugriff für {email} entziehen?",
+    "removeAccessBody": "Der Link dieser Person auf Ihr Sicherheitsprofil funktioniert danach nicht mehr, und an diese Adresse wird nichts mehr gesendet. Der Kunde und die anderen Personen bleiben bestehen.",
+    "accessRemoved": "Zugriff entzogen. Der Kunde bleibt in Ihrer Liste.",
+    "deleteCustomer": "Kunde löschen",
+    "deleteCustomerTitle": "{name} löschen?",
+    "deleteCustomerBody": "Der Kunde wird endgültig gelöscht, mit den Systemen, die Sie für ihn erfasst haben, und den Vorfallmeldungen, die Sie ihm geschickt haben. Sein Link auf Ihr Sicherheitsprofil funktioniert danach nicht mehr. Das lässt sich nicht rückgängig machen.",
+    "deleteCustomerBodyOwnAccount": "Dieser Kunde hat ein eigenes Konto. Er verlässt Ihre Liste und sein Zugriff auf Ihr Sicherheitsprofil endet, aber er behält seine eigene Aufzeichnung über Sie. Das lässt sich nicht rückgängig machen.",
+    "ownAccountNote": "Dieser Kunde hat ein eigenes Konto und wird unter der Adresse erreicht, die er dort hinterlegt hat."
+  }
+}

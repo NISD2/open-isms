@@ -28,7 +28,7 @@
       "serviceTypeEmptyLink": "Vai al profilo",
       "certificationsIntro": "Caricate i vostri attestati di sicurezza (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). I PDF e i relativi dati sono visibili ai clienti che avete invitato.",
       "customersTitle": "Aggiungi un cliente",
-      "customersIntro": "Invitate un cliente via e-mail. Riceve un link privato al vostro profilo di sicurezza e non gli serve alcun account. Dopo che ha accettato, inserite i sistemi che gestite per lui e segnalate gli incidenti che li riguardano.",
+      "customersIntro": "Aggiungete un cliente con il nome dell'azienda, l'e-mail o entrambi. Con un'e-mail riceve un link privato al vostro profilo di sicurezza e non gli serve alcun account. Poi inserite i sistemi che gestite per lui e segnalate gli incidenti che li riguardano.",
       "customer": "Cliente",
       "unknownCustomer": "(cliente sconosciuto)"
     },
@@ -152,6 +152,13 @@
           "why": "Per quanto tempo fornisce aggiornamenti di sicurezza per il suo software, e come potete verificare che il software e i suoi aggiornamenti siano affidabili."
         }
       }
+    },
+    "customers": {
+      "emailLabel": "E-mail del referente per la sicurezza presso il cliente",
+      "emailPlaceholder": "ti@cliente.example",
+      "orgNameLabel": "Nome dell'azienda del cliente",
+      "orgNamePlaceholder": "Esempio S.r.l.",
+      "submit": "Aggiungi cliente"
     },
     "customerView": {
       "securityProfile": "Profilo di sicurezza",

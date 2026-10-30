@@ -1,0 +1,23 @@
+{
+  "supplierPortalContact": {
+    "emailLaterHint": "Vous pouvez laisser l'e-mail de côté et ajouter des personnes plus tard sur la page Accès du client. Sans e-mail, rien n'est envoyé.",
+    "needNameOrEmail": "Indiquez le nom de l'entreprise du client ou une adresse e-mail.",
+    "cancel": "Annuler",
+    "emailPlaceholder": "ti@client.example",
+    "addPersonLabel": "Ajouter une personne",
+    "contactsEmpty": "Personne n'a encore le lien vers votre profil de sécurité. Ajoutez une adresse e-mail ci-dessous et il lui sera envoyé.",
+    "sendLink": "Envoyer le lien",
+    "linkSent": "Le lien vers votre profil de sécurité a été envoyé à {email}.",
+    "linkNotSent": "Le lien n'a pas pu être envoyé à {email}.",
+    "removeAccess": "Retirer l'accès",
+    "removeAccessFor": "Retirer l'accès de {email}",
+    "removeAccessTitle": "Retirer l'accès de {email} ?",
+    "removeAccessBody": "Le lien de cette personne vers votre profil de sécurité cesse de fonctionner et plus rien n'est envoyé à cette adresse. Le client et les autres personnes restent.",
+    "accessRemoved": "Accès retiré. Le client reste dans votre liste.",
+    "deleteCustomer": "Supprimer le client",
+    "deleteCustomerTitle": "Supprimer {name} ?",
+    "deleteCustomerBody": "Le client est supprimé définitivement, avec les systèmes que vous avez enregistrés pour lui et les avis d'incident que vous lui avez envoyés. Son lien vers votre profil de sécurité cesse de fonctionner. Cette action est irréversible.",
+    "deleteCustomerBodyOwnAccount": "Ce client a son propre compte. Il quitte votre liste et son accès à votre profil de sécurité prend fin, mais il garde son propre enregistrement à votre sujet. Cette action est irréversible.",
+    "ownAccountNote": "Ce client a son propre compte et est joint à l'adresse qu'il y a enregistrée."
+  }
+}

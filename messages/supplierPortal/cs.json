@@ -43,7 +43,7 @@
       "serviceTypeEmptyLink": "Přejít na profil",
       "certificationsIntro": "Nahrajte svá bezpečnostní osvědčení (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). PDF a jejich údaje vidí zákazníci, které jste pozvali.",
       "customersTitle": "Přidat zákazníka",
-      "customersIntro": "Pozvěte zákazníka e-mailem. Dostane soukromý odkaz na váš bezpečnostní profil a účet k tomu nepotřebuje. Jakmile pozvání přijme, zadáte systémy, které pro něj provozujete, a hlásíte incidenty, které se jich týkají.",
+      "customersIntro": "Přidejte zákazníka podle názvu firmy, e-mailu, nebo obojího. S e-mailem dostane soukromý odkaz na váš bezpečnostní profil a účet k tomu nepotřebuje. Poté zadáte systémy, které pro něj provozujete, a hlásíte incidenty, které se jich týkají.",
       "customer": "Zákazník",
       "unknownCustomer": "(neznámý zákazník)"
     },
@@ -215,7 +215,7 @@
       "emailPlaceholder": "it@zakaznik.example",
       "orgNameLabel": "Název firmy zákazníka",
       "orgNamePlaceholder": "Příklad s.r.o.",
-      "submit": "Pozvat zákazníka"
+      "submit": "Přidat zákazníka"
     },
     "assets": {
       "add": "Přidat aktivum",
@@ -264,8 +264,6 @@
       }
     },
     "access": {
-      "contactMissing": "(bez e-mailu)",
-      "revokeConfirm": "Ukončit přístup pro tohoto zákazníka? Váš bezpečnostní profil pak už neuvidí.",
       "status": {
         "active": "Aktivní",
         "revoked": "Ukončeno",
