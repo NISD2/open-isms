@@ -56,14 +56,21 @@ export const assetRouter = router({
         .where(and(eq(asset.id, id), eq(asset.companyId, ctx.companyId)))
         .returning();
       // Only after the company-scoped update found the row, and through the company's own
-      // processes, so the links touched are its own.
+      // assets, so the links touched are its own. Not through its processes: the update above
+      // may just have re-typed this row, and it would no longer be found among them.
       if (row && stopsBeingCritical) {
         await ctx.db
           .delete(processAsset)
           .where(
             and(
               eq(processAsset.processId, id),
-              inArray(processAsset.processId, ownedProcesses(ctx.db, ctx.companyId)),
+              inArray(
+                processAsset.processId,
+                ctx.db
+                  .select({ id: asset.id })
+                  .from(asset)
+                  .where(eq(asset.companyId, ctx.companyId)),
+              ),
             ),
           );
       }

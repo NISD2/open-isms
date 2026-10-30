@@ -1,6 +1,7 @@
 import "@/lib/server-guard";
 
 import { and, asc, eq, inArray } from "drizzle-orm";
+import { alias } from "drizzle-orm/pg-core";
 import { journeyIndex } from "@/lib/compliance/journey-position";
 import type { DbOrTx } from "@/lib/db";
 import { journeyEntryOf, NIS2_WALK } from "@/lib/durchgang";
@@ -306,6 +307,9 @@ async function loadAnswers(db: DbOrTx, companyId: string) {
   return Object.fromEntries(intakes.map((i) => [i.category, i.answers ?? {}]));
 }
 
+/** A link's process end, beside its needed end. */
+const processEnd = alias(asset, "process_end");
+
 /**
  * The assets, each with the suppliers that provide it, and a process that must keep running with
  * the systems and rooms it needs (4.2), by name.
@@ -333,12 +337,20 @@ async function loadAssets(db: DbOrTx, companyId: string, window: PageWindow) {
               ),
             ),
           // The needs through the needed end's company: a link only ever joins one company's rows.
+          // As processLinksOf reads them: only a process end that is still a process and still
+          // marked as having to keep running has needs.
           db
             .select({ processId: processAsset.processId, name: asset.name })
             .from(processAsset)
             .innerJoin(asset, eq(asset.id, processAsset.assetId))
+            .innerJoin(processEnd, eq(processEnd.id, processAsset.processId))
             .where(
-              and(eq(asset.companyId, companyId), inArray(processAsset.processId, ids)),
+              and(
+                eq(asset.companyId, companyId),
+                inArray(processAsset.processId, ids),
+                eq(processEnd.type, "process"),
+                eq(processEnd.isCritical, true),
+              ),
             ),
         ]);
   return assets.map(({ id, ...a }) => ({
