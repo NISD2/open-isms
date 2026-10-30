@@ -10,10 +10,10 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations("info");
+  const t = await getTranslations("toms");
   return {
-    title: t("toms.meta.title"),
-    description: t("toms.meta.description"),
+    title: t("meta.title"),
+    description: t("meta.description"),
     alternates: pageAlternates("toms", locale),
   };
 }
@@ -47,14 +47,14 @@ const availabilityKeys = [
 const evaluationKeys = ["review", "dependencyUpdates", "incident", "code"] as const;
 
 export default async function TomsPage() {
-  const t = await getTranslations("info");
+  const t = await getTranslations("toms");
 
   return (
     <article>
       <header className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">{t("toms.title")}</h1>
-        <p className="text-lg text-muted-foreground">{t("toms.subtitle")}</p>
-        <p className="text-xs text-muted-foreground">{t("toms.revised")}</p>
+        <h1 className="text-4xl font-bold tracking-tight">{t("title")}</h1>
+        <p className="text-lg text-muted-foreground">{t("subtitle")}</p>
+        <p className="text-xs text-muted-foreground">{t("revised")}</p>
       </header>
 
       <Separator className="my-8" />
@@ -62,11 +62,11 @@ export default async function TomsPage() {
       <section id="intro">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.intro.heading")}</CardTitle>
+            <CardTitle>{t("intro.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("toms.intro.p1")}</p>
-            <p>{t("toms.intro.p2")}</p>
+            <p>{t("intro.p1")}</p>
+            <p>{t("intro.p2")}</p>
           </CardContent>
         </Card>
       </section>
@@ -74,15 +74,15 @@ export default async function TomsPage() {
       <section id="hosting" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.hosting.heading")}</CardTitle>
+            <CardTitle>{t("hosting.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("toms.hosting.scopeNote")}</p>
+            <p>{t("hosting.scopeNote")}</p>
             <ul className="space-y-2">
               {hostingKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>{t(`toms.hosting.items.${key}`)}</span>
+                  <span>{t(`hosting.items.${key}`)}</span>
                 </li>
               ))}
             </ul>
@@ -93,14 +93,14 @@ export default async function TomsPage() {
       <section id="pseudonymization" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.pseudonymization.heading")}</CardTitle>
+            <CardTitle>{t("pseudonymization.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <ul className="space-y-2">
               {pseudoKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>{t(`toms.pseudonymization.items.${key}`)}</span>
+                  <span>{t(`pseudonymization.items.${key}`)}</span>
                 </li>
               ))}
             </ul>
@@ -111,15 +111,15 @@ export default async function TomsPage() {
       <section id="confidentiality" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.confidentiality.heading")}</CardTitle>
+            <CardTitle>{t("confidentiality.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("toms.confidentiality.p1")}</p>
+            <p>{t("confidentiality.p1")}</p>
             <ul className="space-y-2">
               {confidentialityKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>{t(`toms.confidentiality.items.${key}`)}</span>
+                  <span>{t(`confidentiality.items.${key}`)}</span>
                 </li>
               ))}
             </ul>
@@ -130,14 +130,14 @@ export default async function TomsPage() {
       <section id="integrity" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.integrity.heading")}</CardTitle>
+            <CardTitle>{t("integrity.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <ul className="space-y-2">
               {integrityKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>{t(`toms.integrity.items.${key}`)}</span>
+                  <span>{t(`integrity.items.${key}`)}</span>
                 </li>
               ))}
             </ul>
@@ -148,14 +148,14 @@ export default async function TomsPage() {
       <section id="availability" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.availability.heading")}</CardTitle>
+            <CardTitle>{t("availability.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <ul className="space-y-2">
               {availabilityKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>{t(`toms.availability.items.${key}`)}</span>
+                  <span>{t(`availability.items.${key}`)}</span>
                 </li>
               ))}
             </ul>
@@ -166,14 +166,14 @@ export default async function TomsPage() {
       <section id="evaluation" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.evaluation.heading")}</CardTitle>
+            <CardTitle>{t("evaluation.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <ul className="space-y-2">
               {evaluationKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>{t(`toms.evaluation.items.${key}`)}</span>
+                  <span>{t(`evaluation.items.${key}`)}</span>
                 </li>
               ))}
             </ul>
@@ -184,16 +184,16 @@ export default async function TomsPage() {
       <section id="subprocessors" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.subprocessors.heading")}</CardTitle>
+            <CardTitle>{t("subprocessors.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("toms.subprocessors.p1")}</p>
+            <p>{t("subprocessors.p1")}</p>
             <p>
               <a
-                href={t("toms.subprocessors.linkHref")}
+                href={t("subprocessors.linkHref")}
                 className="underline hover:text-foreground"
               >
-                {t("toms.subprocessors.linkLabel")}
+                {t("subprocessors.linkLabel")}
               </a>
             </p>
           </CardContent>
@@ -203,16 +203,16 @@ export default async function TomsPage() {
       <section id="contact" className="mt-8">
         <Card>
           <CardHeader>
-            <CardTitle>{t("toms.contact.heading")}</CardTitle>
+            <CardTitle>{t("contact.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("toms.contact.p1")}</p>
+            <p>{t("contact.p1")}</p>
             <p>
               <a
-                href={`mailto:${t("toms.contact.email")}`}
+                href={`mailto:${t("contact.email")}`}
                 className="underline hover:text-foreground"
               >
-                {t("toms.contact.email")}
+                {t("contact.email")}
               </a>
             </p>
           </CardContent>

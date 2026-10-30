@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "id": "2026-10-30-product-export-status-columns",
+      "date": "2026-10-30",
+      "category": "product",
+      "titleDe": "Exporte: überall der Stand aus dem Durchgang, der gespeicherte Wert bleibt in der CSV",
+      "titleEn": "Exports: the walkthrough's status everywhere, the stored value kept in the CSV",
+      "bodyDe": "Der Datenexport als JSON und die Datensätze, die ein Assistent mit KI über read_records liest, führen je Anforderung jetzt state, coveredBy und approved statt status und journey und zeigen damit denselben Stand wie der Durchgang. In der CSV steht dieser Stand in der Spalte Status in der Sprache des Exports; die neue Spalte Stored Status direkt dahinter behält den gespeicherten Wert, den Status bisher enthielt, für Skripte, die ihn auslesen, und die folgenden Spalten rücken um eine Stelle nach rechts. Die Spalte Walkthrough heißt jetzt Walkthrough Notes und enthält die datierten Notizen aus dem Durchgang.",
+      "bodyEn": "The JSON data export and the records an AI assistant reads through read_records now give each requirement state, coveredBy and approved in place of status and journey, so they show the same status as the walkthrough. In the CSV, the Status column holds that status in the export's language, and a new Stored Status column right after it keeps the stored value Status held before, for scripts that read it; the columns after it move one place to the right. The Walkthrough column is now called Walkthrough Notes and holds the requirement's dated notes from the walkthrough.",
+      "links": []
+    },
+    {
       "id": "2026-09-08-product-requirement-page-and-team-signoff",
       "date": "2026-09-08",
       "category": "product",

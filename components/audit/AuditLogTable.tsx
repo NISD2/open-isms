@@ -27,6 +27,7 @@ import { recordDay } from "@/lib/durchgang";
 import { assistantOf } from "@/lib/mcp/agent";
 import type { AuditVia } from "@/schema";
 import { AuditDiffView } from "./AuditDiffView";
+import { entryWords } from "./entry-words";
 
 interface AuditRow {
   id: string;
@@ -75,10 +76,6 @@ const BERLIN = "Europe/Berlin";
 const dayBefore = (day: string) =>
   new Date(Date.parse(`${day}T00:00:00Z`) - 86_400_000).toISOString().slice(0, 10);
 
-/** A stored description says something only when it is a sentence, not the action's own name. */
-const isSentence = (row: AuditRow) =>
-  row.description !== row.action && row.description.includes(" ");
-
 /** The rows, newest first as they come, in one group per Berlin day (`recordDay`). */
 const byDay = (rows: readonly AuditRow[]) => {
   const dated = rows.map((row) => ({ row, day: recordDay(new Date(row.createdAt)) }));
@@ -120,14 +117,8 @@ export function AuditLogTable({ rows }: AuditLogTableProps) {
     timeZone: BERLIN,
   });
 
-  const labelOf = (row: AuditRow) =>
-    t.has(`actions.${row.action}`)
-      ? t(`actions.${row.action}`)
-      : isSentence(row)
-        ? row.description
-        : row.action;
-  const detailOf = (row: AuditRow) =>
-    t.has(`actions.${row.action}`) && isSentence(row) ? row.description : null;
+  const wordsOf = (row: AuditRow) =>
+    entryWords(row, t.has(`actions.${row.action}`) ? t(`actions.${row.action}`) : null);
 
   return (
     <div className="space-y-8">
@@ -145,7 +136,7 @@ export function AuditLogTable({ rows }: AuditLogTableProps) {
               const Icon = AREA_ICON[row.action.split(".")[0] ?? ""] ?? Activity;
               const hasDiff = !!(row.previousValue || row.newValue);
               const open = expandedId === row.id;
-              const detail = detailOf(row);
+              const words = wordsOf(row);
               const assistant = assistantOf(row.userAgent);
               const body = (
                 <>
@@ -159,11 +150,16 @@ export function AuditLogTable({ rows }: AuditLogTableProps) {
                           MCP
                         </span>
                       )}
-                      {labelOf(row)}
+                      {words.title}
+                      {words.failed && (
+                        <span className="ml-1.5 rounded bg-destructive/10 px-1.5 py-0.5 align-middle text-[10px] font-semibold tracking-wide text-destructive">
+                          {t("failed")}
+                        </span>
+                      )}
                     </span>
-                    {detail && (
+                    {words.detail && (
                       <span className="block truncate text-muted-foreground">
-                        {detail}
+                        {words.detail}
                       </span>
                     )}
                   </span>

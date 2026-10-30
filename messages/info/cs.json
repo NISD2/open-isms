@@ -20757,7 +20757,7 @@
           "paragraphs": [
             "Opatření podle čl. 32 GDPR jsou popsána na stránce TOMs, ve znění platném v době přijetí. Uvádí jen to, co je zavedeno v kódu a v provozu. Hlavní body:",
             "Šifrování: TLS pro každé spojení s platformou. Nahrané soubory a archivované faktury jsou uloženy v AWS S3 se šifrováním na straně serveru (AES256), nastaveným u každého nahrání. Aplikace databázi dodatečně nešifruje.",
-            "Přístup a oprávnění: přihlášení e-mailem a heslem (bcrypt, cost factor 12, adresa potvrzená jednorázovým kódem) nebo přes Google. Pro přihlášení heslem neexistuje druhý faktor. Relace končí po osmi hodinách. Čtyři role (Administrátor, Revizor, Právní revizor, Člen). Zákazníci jsou oddělení v aplikaci: každý dotaz filtruje podle ID společnosti z relace.",
+            "Přístup a oprávnění: přihlášení e-mailem a heslem (bcrypt, cost factor 12, adresa potvrzená jednorázovým kódem) nebo přes Google. Účty s heslem si mohou zapnout druhý faktor, kód z ověřovací aplikace; správci platformy ho používat musí a administrátor společnosti ho může vyžadovat od všech ve společnosti. Relace končí po osmi hodinách. Čtyři role (Administrátor, Revizor, Právní revizor, Člen). Zákazníci jsou oddělení v aplikaci: každý dotaz filtruje podle ID společnosti z relace.",
             "Kontrola vstupů: každá změna provedená přes platformu se zaznamenává s uživatelem, akcí, časem, IP adresou, user agentem a zadanými hodnotami; jen u vybraných operací se ukládá i předchozí hodnota. Schválení tvoří řetězec kontrolních součtů SHA-256.",
             "Pomoc (doložky 8 a 9): zákazník může údaje v platformě sám zobrazit, změnit a smazat. Zpracovatel zákazníkovi bez zbytečného odkladu oznamuje žádosti subjektů údajů a porušení zabezpečení osobních údajů, a to osobě, která drží účet."
           ],
@@ -20780,89 +20780,6 @@
             "href": "/subprozessoren"
           }
         }
-      }
-    },
-    "toms": {
-      "meta": {
-        "title": "Technická a organizační opatření (TOMs), čl. 32 GDPR",
-        "description": "Technická a organizační opatření platformy NISD2.eu podle čl. 32 GDPR. Hosting u Hetzner v Německu, TLS, auditní stopa s kontrolními součty SHA-256, oddělení zákazníků (multi-tenant), RBAC."
-      },
-      "title": "Technická a organizační opatření (TOMs)",
-      "subtitle": "Opatření podle čl. 32 GDPR, která zajišťují bezpečnost zpracování osobních údajů na platformě NISD2.eu.",
-      "revised": "Stav k 26. září 2026. Zkontrolováno podle kódu a opraveno; toto znění je přílohou III smlouvy o zpracování osobních údajů.",
-      "intro": {
-        "heading": "Přehled",
-        "p1": "Tento dokument popisuje technická a organizační opatření, která společnost Kardashev Catalyst UG (haftungsbeschränkt) jako provozovatel platformy NISD2.eu skutečně zavedla. Je to poctivý soupis, ne seznam přání: uvádíme jen to, co už funguje.",
-        "p2": "Opatření vycházejí z IT-Grundschutz (metodika německého úřadu BSI) a s růstem platformy se budou rozšiřovat."
-      },
-      "hosting": {
-        "heading": "Hosting v EU",
-        "scopeNote": "Servery, databáze a úložiště souborů jsou v EU. Jedna služba sídlí v USA a dostává jen údaje potřebné pro svou funkci:",
-        "items": {
-          "appServers": "Aplikační servery a databáze PostgreSQL: Hetzner Online GmbH, datové centrum Falkenstein/Norimberk, Německo",
-          "fileStorage": "Úložiště nahraných dokumentů s důkazy: AWS S3, region EU",
-          "usServices": "V USA: Resend, který odesílá naše e-maily. Předávání probíhá na základě standardních smluvních doložek EU (čl. 46 GDPR)."
-        }
-      },
-      "pseudonymization": {
-        "heading": "Šifrování (čl. 32 odst. 1 písm. a) GDPR)",
-        "items": {
-          "transit": "Šifrování přenosu: TLS pro všechna spojení s platformou (HTTPS)",
-          "restStorage": "Šifrování uložených dat: šifrování na straně serveru v AWS S3 (AES256, výslovně nastavené u každého nahrání, včetně archivovaných faktur). Aplikace databázi PostgreSQL dodatečně nešifruje.",
-          "secrets": "Přístupové údaje a klíče API se spravují v proměnných prostředí serveru, neukládají se ve zdrojovém kódu ani v databázích"
-        }
-      },
-      "confidentiality": {
-        "heading": "Důvěrnost (čl. 32 odst. 1 písm. b) GDPR)",
-        "p1": "Opatření k zajištění důvěrnosti:",
-        "items": {
-          "physical": "Fyzická kontrola přístupu: datová centra poskytovatelů hostingu (Hetzner, AWS) mají certifikace ISO 27001",
-          "authMethods": "Ověřování: přihlášení e-mailem a heslem nebo přes Google OAuth 2.0. Hesla se ukládají jen jako bcrypt hash s cost factorem 12, nikdy v čitelné podobě. Registrace s heslem jednou potvrdí e-mailovou adresu jednorázovým kódem. Pokusy o přihlášení jsou omezeny na 10 za 15 minut na e-mailovou adresu a instanci aplikace; počítá se každý pokus. Relace končí po osmi hodinách. Platforma pro přihlášení heslem nenabízí druhý faktor. Uživatelé, kteří se přihlašují přes Google, spoléhají na MFA svého vlastního účtu Google.",
-          "roles": "Oprávnění podle rolí: administrátor, revizor, právní revizor, člen; vynucovaná v aplikační vrstvě přes middleware tRPC",
-          "tenantSeparation": "Oddělení zákazníků v aplikaci: každý dotaz, který pracuje s daty, filtruje podle ID společnosti z relace přihlášeného uživatele. Dodatečné oddělení v databázi (row level security) neexistuje.",
-          "secrets": "Hesla se nikdy neukládají v čitelné podobě. Každé přihlášení se porovnává s bcrypt hashem, i když pro zadanou adresu žádný účet neexistuje, aby doba odezvy neprozradila, kdo je registrován.",
-          "personnel": "Personální opatření: přístup k produkčním systémům a osobním údajům má jen malá, jmenovitě určená skupina vázaná mlčenlivostí. Přístup se řídí principem nejnižších oprávnění a odebírá se při skončení role."
-        }
-      },
-      "integrity": {
-        "heading": "Integrita (čl. 32 odst. 1 písm. b) GDPR)",
-        "items": {
-          "inputLog": "Kontrola vstupů: každá změna, kterou přihlášený uživatel provede přes API platformy, se zaznamenává s ID uživatele, akcí, typem entity, časovou značkou, IP adresou, user agentem a zadanými hodnotami (citlivá pole odstraněna). Jen u vybraných operací se ukládá i předchozí hodnota.",
-          "rowChecksum": "Kontrolní součet auditní stopy: každý řádek auditu dostane při zápisu kontrolní součet SHA-256 svého obsahu. Nástroj, který by tyto součty později přepočítal, zatím neexistuje.",
-          "transfer": "Kontrola přenosu: přenos dat jen přes TLS; všechny ověřované koncové body vyžadují platnou relaci",
-          "evidenceHash": "Dokumenty s důkazy: místo uložení a metadata se zapisují při nahrání; volitelný hash SHA-256 dodaný klientem lze uložit spolu se souborem",
-          "signoff": "Mechanismus schválení: v okamžiku schválení se stav požadavku uloží jako snímek do tabulky historie schválení, jejíž záznamy tvoří řetězec SHA-256 (kontrolní součet každého záznamu zahrnuje ten předchozí), takže manipulaci s historií lze odhalit od začátku do konce"
-        }
-      },
-      "availability": {
-        "heading": "Dostupnost (čl. 32 odst. 1 písm. b) GDPR)",
-        "items": {
-          "backupSetup": "Zálohy databáze nastavuje provozovatel v hostingovém prostředí. Nejsou součástí zdrojového kódu. Aktuální konfiguraci sdělíme na požádání.",
-          "redundancy": "Ukládání dokumentů s důkazy v AWS S3 se zárukami trvanlivosti objektů, které poskytuje AWS",
-          "rateLimits": "Omezení počtu požadavků (počítané v databázi, takže platí i po restartech a pro každou instanci aplikace; IP adresy a e-mailové adresy se ukládají jen jako hash) u pokusů o přihlášení, veřejných koncových bodů (kontrola působnosti, portál pro dodavatele) a náročných ověřovaných koncových bodů (exporty PDF, generování certifikátů)",
-          "uploadLimit": "Nahrávané soubory jsou omezeny na 50 MB na soubor",
-          "statusPage": "Zobrazení dostupnosti: nisd2.eu/status nejvýše každých 30 sekund ověřuje dosažitelnost databáze a výsledek veřejně zobrazuje. Nepřetržitý monitoring s automatickým upozorňováním neprovozujeme."
-        }
-      },
-      "evaluation": {
-        "heading": "Postup pravidelného přezkoumávání (čl. 32 odst. 1 písm. d) GDPR)",
-        "items": {
-          "review": "Tato TOMs se přezkoumávají při podnětu z události a nejméně jednou ročně",
-          "dependencyUpdates": "Aktualizace závislostí: Dependabot každý týden navrhuje nové verze balíčků npm a GitHub Actions jako pull requesty",
-          "incident": "Ohlašovací povinnosti: porušení zabezpečení osobních údajů ohlásíme příslušnému dozorovému úřadu do 72 hodin podle čl. 33 GDPR",
-          "code": "Vývojová praxe: změny kódu procházejí pull requesty; vynucují se typové kontroly TypeScriptu ve striktním režimu; cílené automatizované testy pokrývají bezpečnostně kritickou logiku (např. klasifikaci působnosti)"
-        }
-      },
-      "subprocessors": {
-        "heading": "Další zpracovatelé",
-        "p1": "Všichni další zpracovatelé jsou vázáni smlouvami podle čl. 28 GDPR. Úplný seznam je ve smlouvě o zpracování osobních údajů.",
-        "linkLabel": "Úplný seznam dalších zpracovatelů (smlouva o zpracování osobních údajů)",
-        "linkHref": "/avv"
-      },
-      "contact": {
-        "heading": "Kontakt pro ochranu osobních údajů",
-        "p1": "Dotazy k těmto TOMs nebo k našemu zpracování údajů zasílejte na:",
-        "email": "contact@nisd2.eu"
       }
     }
   }
