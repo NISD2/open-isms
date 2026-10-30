@@ -25,6 +25,7 @@ import {
 } from "@/lib/compliance/signer-role";
 import { leavesNoChoice } from "@/lib/durchgang";
 import { accountEmailLocale, contactEmailChangedEmail, sendMail } from "@/lib/mail";
+import { companySettingsSchema } from "@/lib/organization/company-settings";
 import { joinCompany } from "@/lib/organization/membership";
 import {
   company,
@@ -92,27 +93,9 @@ export const assessmentRouter = router({
 
   // Company master data stays editable before an order: it is on the invoice and on /organization.
   updateCompany: accountAdminProcedure
-    .input(
-      z.object({
-        name: z.string().min(1).max(255).optional(),
-        sector: z.string().min(1).max(255).optional(),
-        entityType: z.enum(["essential", "important", "kritis"]).optional(),
-        legalForm: z.string().max(100).nullish(),
-        employeeCount: z.number().int().positive().nullish(),
-        contactEmail: z.string().email().nullish(),
-        aiDataSharing: z.enum(["none", "basic", "full"]).optional(),
-        cisoName: z.string().max(255).nullish(),
-        cisoReportsTo: z.string().max(255).nullish(),
-        bsiContactName: z.string().max(255).nullish(),
-        bsiContactEmail: z.string().email().nullish(),
-        bsiContactPhone: z.string().max(50).nullish(),
-        bsiRegistrationId: z.string().max(100).nullish(),
-        annualSecurityBudget: z.string().nullish(),
-        primaryLocations: z.string().max(1000).nullish(),
-      }),
-    )
+    .input(companySettingsSchema)
     .mutation(async ({ ctx, input }) => {
-      // adminProcedure already enforces ctx.companyId is set + role === "admin"
+      // accountAdminProcedure enforces ctx.companyId is set + role === "admin"
       const prev = await ctx.db.query.company.findFirst({
         where: eq(company.id, ctx.companyId),
       });

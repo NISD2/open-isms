@@ -443,3 +443,61 @@ describe("assessment.reopenRequirement", () => {
     });
   });
 });
+
+/**
+ * The registration and reporting screens ask for the company's country where they need it
+ * (CountryPicker). Before, they linked to the organization page, which has no country field, so a
+ * company without one could never see its own authority.
+ */
+describe("assessment.updateCompany country", () => {
+  function companySetup(session: { role: "admin" | "member"; accessLevel: string }) {
+    const writes: unknown[] = [];
+    const db = {
+      query: {
+        company: {
+          findFirst: async () => ({ id: COMPANY, name: "Acme", contactEmail: null }),
+        },
+      },
+      update: () => ({
+        set: (values: unknown) => ({
+          where: () => ({
+            returning: async () => {
+              writes.push(values);
+              return [{ id: COMPANY, name: "Acme" }];
+            },
+          }),
+        }),
+      }),
+    };
+    const caller = createCallerFactory(assessmentRouter)({
+      db: db as unknown as TRPCContext["db"],
+      session: session as TRPCContext["session"],
+      userId: USER,
+      companyId: COMPANY,
+      ip: "test",
+      userAgent: null,
+    } as TRPCContext);
+    return { caller, writes };
+  }
+
+  test("an admin who has not ordered yet sets it, as registration is a free step", async () => {
+    const { caller, writes } = companySetup({ role: "admin", accessLevel: "free" });
+    await caller.updateCompany({ country: "AT" });
+    expect(writes).toEqual([expect.objectContaining({ country: "AT" })]);
+  });
+
+  test("takes only a two-letter ISO code, the one the portal list is keyed by", async () => {
+    const { caller, writes } = companySetup({ role: "admin", accessLevel: "full" });
+    await expect(caller.updateCompany({ country: "at" })).rejects.toThrow();
+    await expect(caller.updateCompany({ country: "Austria" })).rejects.toThrow();
+    expect(writes).toEqual([]);
+  });
+
+  test("a member who is not an admin cannot change it", async () => {
+    const { caller, writes } = companySetup({ role: "member", accessLevel: "full" });
+    await expect(caller.updateCompany({ country: "AT" })).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+    expect(writes).toEqual([]);
+  });
+});

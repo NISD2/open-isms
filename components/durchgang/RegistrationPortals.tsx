@@ -2,51 +2,46 @@
 
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { WALK_DATE_LOCALE, type WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
+import { CountryPicker } from "./CountryPicker";
+import { type Portal, splitPortals } from "./portals";
 import type { Registration } from "./view";
-
-type Portal = Registration["portals"][number];
 
 /**
  * Every member state's authority and registration portal, from the list the wiki's portal page
  * keeps. The company's own country comes first and large; the rest sit behind one disclosure,
- * for a company that also operates elsewhere.
+ * for a company that also operates elsewhere. Without a country the screen asks for it.
  */
 export function RegistrationPortals({
   registration,
   locale,
+  admin,
 }: {
   registration: Registration | null;
   locale: WalkLocale;
+  admin: boolean;
 }) {
   const t = useTranslations("durchgang.ui.portals");
   if (!registration) return null;
-  const names = new Intl.DisplayNames([locale], { type: "region" });
-  const nameOf = (p: Portal) => names.of(p.countryCode) ?? p.countryCode;
-  const own = registration.portals.find((p) => p.countryCode === registration.country);
-  const others = registration.portals
-    .filter((p) => p !== own)
-    .toSorted((a, b) => nameOf(a).localeCompare(nameOf(b), locale));
+  const { own, others, all, nameOf } = splitPortals(registration, locale);
 
   return (
     <div className="space-y-4">
-      {own ? (
+      {own && (
         <section className="rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 sm:p-6">
           <p className="text-xs font-medium text-primary">{t("yours")}</p>
           <p className="mt-1 text-xl font-semibold">{nameOf(own)}</p>
           <p className="mt-1 text-sm text-muted-foreground">{own.authority}</p>
           <PortalLink portal={own} className="mt-4" prominent />
         </section>
-      ) : (
-        <p className="rounded-xl bg-muted p-4 text-sm">
-          {t("noCountry")}{" "}
-          <Link href="/organization" className="font-medium text-primary hover:underline">
-            {t("setCountry")}
-          </Link>
-        </p>
       )}
+      <CountryPicker
+        countries={all}
+        country={own?.countryCode ?? null}
+        admin={admin}
+        nameOf={nameOf}
+      />
       <details
         className="group overflow-hidden rounded-2xl border bg-card shadow-sm"
         open={!own}

@@ -79,12 +79,18 @@
           "proofHint": "Teilnehmerliste, Folien oder ein Export aus dem Onlinekurs."
         }
       },
+      "country": {
+        "label": "Das Land, in dem Ihr Unternehmen niedergelassen ist",
+        "placeholder": "Land wählen",
+        "hint": "Dann steht Ihre Behörde hier oben.",
+        "change": "Nicht Ihr Land? Ändern",
+        "askAdmin": "Für Ihr Unternehmen ist noch kein Land hinterlegt. Ein Admin Ihres Unternehmens trägt es auf dieser Seite ein.",
+        "failed": "Das Land wurde nicht gespeichert. Bitte versuchen Sie es noch einmal."
+      },
       "portals": {
         "yours": "Ihr Land",
         "others": "{count} weitere EU-Staaten",
         "all": "Alle {count} EU-Staaten",
-        "noCountry": "Für Ihr Unternehmen ist noch kein Land hinterlegt. Dann stünde es hier oben.",
-        "setCountry": "Land eintragen",
         "asOf": "Stand der Liste: {date}",
         "noPortal": "Noch kein Portal",
         "open": "Zum Portal",

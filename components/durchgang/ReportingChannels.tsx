@@ -2,12 +2,11 @@
 
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import type { WalkLocale } from "@/lib/durchgang";
 import { cn } from "@/lib/utils";
+import { CountryPicker } from "./CountryPicker";
+import { splitPortals } from "./portals";
 import type { Registration } from "./view";
-
-type Portal = Registration["portals"][number];
 
 /**
  * The country whose reporting channel we have checked ourselves: in Germany a registered company
@@ -19,27 +18,25 @@ const CHECKED_CHANNEL = "DE";
 /**
  * Where a significant incident is reported (Art. 23(1) NIS 2: the CSIRT or the competent
  * authority), from the same list the registration screen reads. The company's own country comes
- * first and large; every other member state sits behind one disclosure.
+ * first and large; every other member state sits behind one disclosure. Without a country the
+ * screen asks for it.
  */
 export function ReportingChannels({
   registration,
   locale,
+  admin,
 }: {
   registration: Registration | null;
   locale: WalkLocale;
+  admin: boolean;
 }) {
   const t = useTranslations("durchgang.ui.reporting");
   if (!registration) return null;
-  const names = new Intl.DisplayNames([locale], { type: "region" });
-  const nameOf = (p: Portal) => names.of(p.countryCode) ?? p.countryCode;
-  const own = registration.portals.find((p) => p.countryCode === registration.country);
-  const others = registration.portals
-    .filter((p) => p !== own)
-    .toSorted((a, b) => nameOf(a).localeCompare(nameOf(b), locale));
+  const { own, others, all, nameOf } = splitPortals(registration, locale);
 
   return (
     <div className="space-y-4">
-      {own ? (
+      {own && (
         <section className="rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 sm:p-6">
           <p className="text-xs font-medium text-primary">{t("yours")}</p>
           <p className="mt-1 text-xl font-semibold">{own.authority}</p>
@@ -70,14 +67,13 @@ export function ReportingChannels({
             )
           )}
         </section>
-      ) : (
-        <p className="rounded-xl bg-muted p-4 text-sm">
-          {t("noCountry")}{" "}
-          <Link href="/organization" className="font-medium text-primary hover:underline">
-            {t("setCountry")}
-          </Link>
-        </p>
       )}
+      <CountryPicker
+        countries={all}
+        country={own?.countryCode ?? null}
+        admin={admin}
+        nameOf={nameOf}
+      />
       <details
         className="group overflow-hidden rounded-2xl border bg-card shadow-sm"
         open={!own}

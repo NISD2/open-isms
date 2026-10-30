@@ -1,4 +1,11 @@
 import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
+import { z } from "zod";
+
+/** A country as `company.country` stores it, and the registration portal list is keyed by. */
+export const isoCountrySchema = z
+  .string()
+  .length(2)
+  .regex(/^[A-Z]{2}$/, "ISO 3166-1 alpha-2");
 
 /** How § 28 BSIG can class a company, as the database stores it. */
 export const ENTITY_TYPES = entityTypeEnum.enumValues;
