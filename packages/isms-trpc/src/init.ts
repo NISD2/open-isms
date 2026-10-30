@@ -84,8 +84,14 @@ export function createTRPCSetup<TContext extends BaseContext>(options: TRPCSetup
           action: path,
           entityType: path.split(".")[0] ?? path,
           entityId: extractEntityId(rawInput),
-          description: path,
-          newValue: scrubSensitiveValues(rawInput, REDACT_KEYS_BY_SCOPE[auditScope]),
+          // A refused or failed call still leaves its row, but not its input: nothing
+          // validated it, so it holds whatever the caller chose to send.
+          ...(result.ok
+            ? {
+                description: path,
+                newValue: auditInput(rawInput, REDACT_KEYS_BY_SCOPE[auditScope]),
+              }
+            : { description: `${path} failed (${result.error.code})` }),
           ipAddress: ctx.ip === "unknown" ? null : ctx.ip,
           userAgent: ctx.userAgent,
         });
@@ -241,17 +247,88 @@ const REDACT_KEYS_BY_SCOPE: Record<AuditScope, ReadonlySet<string>> = {
   platform: PLATFORM_AUDIT_REDACT_KEYS,
 };
 
-function scrubSensitiveValues(value: unknown, keys: ReadonlySet<string>): unknown {
-  if (value === null || value === undefined) return value;
-  if (Array.isArray(value)) return value.map((v) => scrubSensitiveValues(v, keys));
-  if (typeof value !== "object") return value;
-  const out: Record<string, unknown> = {};
-  for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-    if (keys.has(k.toLowerCase())) {
-      out[k] = "[REDACTED]";
-    } else {
-      out[k] = scrubSensitiveValues(v, keys);
-    }
+/**
+ * Twice the largest automatic row in production (8,570 bytes, durchgang.rate; 8,064 rows measured
+ * 30.10.2026, none over 16 KB). No real input is cut; a pasted document is.
+ */
+export const AUDIT_INPUT_MAX_BYTES = 16_384;
+
+/** Over the cap, the row names at most this many top-level fields, each cut to FIELD_NAME_MAX_CHARS. */
+const FIELD_NAMES_MAX = 50;
+const FIELD_NAME_MAX_CHARS = 64;
+/** The names list's own budget; 50 names of 64 four-byte characters would pass it, so it is then dropped. */
+const FIELD_NAMES_MAX_BYTES = 4_096;
+
+/**
+ * What the row stores of a successful call's input. Runs after the handler committed, so it must
+ * not throw: an input it cannot walk still leaves the row, marked, instead of losing it.
+ */
+function auditInput(rawInput: unknown, keys: ReadonlySet<string>): unknown {
+  try {
+    return boundAuditInput(
+      scrubSensitiveValues(rawInput, keys, new WeakSet(), new WeakSet()),
+    );
+  } catch {
+    return { unloggable: true };
   }
+}
+
+/** The input as logged, or over the cap only its size and a bounded list of top-level field names. */
+function boundAuditInput(value: unknown): unknown {
+  const bytes = serializedBytes(value);
+  if (bytes !== null && bytes <= AUDIT_INPUT_MAX_BYTES) return value;
+  const names =
+    value !== null && typeof value === "object" && !Array.isArray(value)
+      ? Object.keys(value)
+      : [];
+  // Cut by code point, so a name never ends in half a surrogate pair (jsonb refuses those).
+  const fields = names
+    .slice(0, FIELD_NAMES_MAX)
+    .map((name) => Array.from(name).slice(0, FIELD_NAME_MAX_CHARS).join(""));
+  const fieldsBytes = serializedBytes(fields);
+  return {
+    truncated: true,
+    bytes,
+    fieldCount: names.length,
+    ...(fieldsBytes !== null && fieldsBytes <= FIELD_NAMES_MAX_BYTES ? { fields } : {}),
+  };
+}
+
+/** Byte length of the JSON form; null when JSON cannot encode it (a BigInt), so the call never fails over its own log row. */
+function serializedBytes(value: unknown): number | null {
+  try {
+    return new TextEncoder().encode(JSON.stringify(value) ?? "").length;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The input with secret values replaced. superjson rebuilds shared and circular references from the
+ * caller's meta, so an object met again is not walked again: on its own path it is a cycle
+ * ("[CIRCULAR]"), elsewhere a repeat ("[REPEATED]"), which also stops a chain of shared objects
+ * from doubling at every level.
+ */
+function scrubSensitiveValues(
+  value: unknown,
+  keys: ReadonlySet<string>,
+  ancestors: WeakSet<object>,
+  seen: WeakSet<object>,
+): unknown {
+  if (value === null || typeof value !== "object") return value;
+  if (ancestors.has(value)) return "[CIRCULAR]";
+  if (seen.has(value)) return "[REPEATED]";
+  ancestors.add(value);
+  seen.add(value);
+  const walk = (v: unknown) => scrubSensitiveValues(v, keys, ancestors, seen);
+  const out = Array.isArray(value)
+    ? value.map(walk)
+    : Object.fromEntries(
+        Object.entries(value).map(([k, v]) => [
+          k,
+          keys.has(k.toLowerCase()) ? "[REDACTED]" : walk(v),
+        ]),
+      );
+  ancestors.delete(value);
   return out;
 }
