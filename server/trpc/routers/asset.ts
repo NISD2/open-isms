@@ -1,23 +1,13 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
 import { asset, processAsset, riskAsset } from "@/schema";
-import { assetInsertSchema, assetUpdateSchema } from "@/schema/validators";
+import { assetInsertSchema, assetUpdateSchema } from "@/schema/asset-validators";
+import { ownedProcesses } from "../helpers/durchgang-gaps";
 import { activatedCompanyProcedure, companyProcedure, router } from "../init";
-
-/**
- * Answered only in the walk: how long a process may be down (4.2) and how long a system takes
- * back or that nobody knows (4.4). The walk's saves keep the last two apart as the column's
- * CHECK does; a plain update could not, so the form's router never takes them.
- */
-const WALK_ONLY = {
-  maxOutage: true,
-  restoreTime: true,
-  restoreTimeUnknown: true,
-} as const;
 
 export const assetRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -35,7 +25,6 @@ export const assetRouter = router({
         companyId: true,
         createdAt: true,
         updatedAt: true,
-        ...WALK_ONLY,
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -50,7 +39,7 @@ export const assetRouter = router({
     }),
 
   update: activatedCompanyProcedure
-    .input(assetUpdateSchema.omit(WALK_ONLY).extend({ id: z.string().uuid() }))
+    .input(assetUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
       // A process that stops being critical, or stops being a process, has no tolerance and
@@ -66,13 +55,35 @@ export const assetRouter = router({
         })
         .where(and(eq(asset.id, id), eq(asset.companyId, ctx.companyId)))
         .returning();
-      // Only after the company-scoped update found the row, so the links touched are its own.
+      // Only after the company-scoped update found the row, and through the company's own
+      // assets, so the links touched are its own. Not through its processes: the update above
+      // may just have re-typed this row, and it would no longer be found among them.
       if (row && stopsBeingCritical) {
-        await ctx.db.delete(processAsset).where(eq(processAsset.processId, id));
+        await ctx.db
+          .delete(processAsset)
+          .where(
+            and(
+              eq(processAsset.processId, id),
+              inArray(
+                processAsset.processId,
+                ctx.db
+                  .select({ id: asset.id })
+                  .from(asset)
+                  .where(eq(asset.companyId, ctx.companyId)),
+              ),
+            ),
+          );
       }
       if (row && data.type === "process") {
         // A thing turned into a process is nobody's need any more.
-        await ctx.db.delete(processAsset).where(eq(processAsset.assetId, id));
+        await ctx.db
+          .delete(processAsset)
+          .where(
+            and(
+              eq(processAsset.assetId, id),
+              inArray(processAsset.processId, ownedProcesses(ctx.db, ctx.companyId)),
+            ),
+          );
       }
       invalidateModuleSignOffs(ctx.db, ctx.companyId, "asset", ctx.userId).catch((err) =>
         console.error("[background] asset recheck:", err),

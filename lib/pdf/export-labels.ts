@@ -16,6 +16,8 @@ export interface ExportLabels {
   readonly gdprFiles: { readonly record: string; readonly data: string };
   readonly records: Readonly<Record<ExportRecord, string>>;
   readonly providers: string;
+  /** Before the systems and rooms a process needs to keep running (4.2). */
+  readonly needs: string;
   readonly none: string;
   readonly yes: string;
   readonly no: string;
@@ -77,6 +79,7 @@ const DE: ExportLabels = {
     kpi: "Kennzahlen",
   },
   providers: "Anbieter",
+  needs: "Braucht",
   none: "Keine Einträge.",
   yes: "Ja",
   no: "Nein",
@@ -135,6 +138,7 @@ const EN: ExportLabels = {
     kpi: "KPI measurements",
   },
   providers: "Providers",
+  needs: "Needs",
   none: "No entries.",
   yes: "Yes",
   no: "No",
@@ -194,6 +198,7 @@ const CS: ExportLabels = {
     kpi: "Měření KPI",
   },
   providers: "Poskytovatelé",
+  needs: "Potřebuje",
   none: "Žádné záznamy.",
   yes: "Ano",
   no: "Ne",

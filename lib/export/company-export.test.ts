@@ -181,8 +181,34 @@ describe("the assets, with who provides them", () => {
     const providers = rendered(joins()[0] ?? failed());
     expect(providers.sql).toContain(`"supplier"."customer_company_id" = $1`);
     expect(providers.params).toEqual([COMPANY, "asset-1"]);
+    // What a process needs: through the needed end's company, for these assets only.
+    const needs = rendered(joins()[1] ?? failed());
+    expect(needs.sql).toContain(`"asset"."company_id" = $1`);
+    expect(needs.params).toEqual([COMPANY, "asset-1", "process", true]);
 
-    expect(rows).toEqual([{ name: "Website", type: "application", providers: [] }]);
+    expect(rows).toEqual([
+      { name: "Website", type: "application", providers: [], needs: [] },
+    ]);
+  });
+
+  test("lists needs only under a process still marked as having to keep running", async () => {
+    const process = { id: "asset-1", name: "Vertrieb", type: "process" };
+    const { db, joins } = fakeDb(
+      [process],
+      [
+        { processId: "asset-1", name: "Server" },
+        { processId: "asset-1", name: "ERP" },
+      ],
+    );
+    const rows = await EXPORT_PARTS.assets(db, COMPANY, null);
+
+    // The process end is joined and must be a process and marked, as processLinksOf reads it.
+    const needs = rendered(joins()[1] ?? failed());
+    expect(needs.sql).toContain(`"process_end"."type" = $3`);
+    expect(needs.sql).toContain(`"process_end"."is_critical" = $4`);
+    expect(needs.params).toEqual([COMPANY, "asset-1", "process", true]);
+
+    expect(rows[0]).toMatchObject({ name: "Vertrieb", needs: ["ERP", "Server"] });
   });
 
   test("no assets, no second read", async () => {

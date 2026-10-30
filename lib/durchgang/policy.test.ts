@@ -27,8 +27,13 @@ test("prints the processes that must keep running with their line, and a blank f
       { name: "Lager", how: "", outage: "longer" },
     ]),
   ).toBe(
-    "Vertrieb (höchstens einen Tag ohne IT; braucht ERP, Server): per Telefon; Buchhaltung; Lager (länger als eine Woche ohne IT)",
+    "Vertrieb (höchstens einen Tag ohne IT, braucht ERP und Server): per Telefon; Buchhaltung; Lager (länger als eine Woche ohne IT)",
   );
+  expect(
+    criticalProcessesText("de", [
+      { name: "Vertrieb", how: "", needs: ["ERP", "Server", "Drucker"] },
+    ]),
+  ).toBe("Vertrieb (braucht ERP, Server und Drucker)");
   expect(criticalProcessesText("en", [{ name: "Sales", how: "", needs: ["ERP"] }])).toBe(
     "Sales (needs ERP)",
   );

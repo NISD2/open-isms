@@ -14,7 +14,7 @@ import { TRPCError } from "@trpc/server";
 import { and, asc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { asset, assetSupplierOffering, supplier } from "@/schema";
-import { assetServiceUpdateSchema } from "@/schema/validators";
+import { assetServiceUpdateSchema } from "@/schema/asset-validators";
 import { accountProcedure, router } from "../../init";
 import { insertRow, updateRow } from "../../typed";
 

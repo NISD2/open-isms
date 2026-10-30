@@ -9,7 +9,8 @@
  */
 import type { Page } from "@playwright/test";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
-import { assetInsertSchema, supplierInsertSchema } from "@/schema/validators";
+import { assetInsertSchema } from "@/schema/asset-validators";
+import { supplierInsertSchema } from "@/schema/validators";
 import { fillFields } from "../../e2e/lib/form-driver";
 import { ASSET_DETAILS, SUPPLIER_DETAILS } from "./persona";
 import { type Session, tap } from "./walk";

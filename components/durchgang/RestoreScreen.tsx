@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { OUTAGE_SPANS } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
@@ -27,6 +28,7 @@ export function RestoreScreen({
   onDraft,
   entry,
 }: WorkProps & { entry: Of<"restore"> }) {
+  const spans = useTranslations("durchgang.ui.spans");
   const assets = trpc.asset.list.useQuery();
   const links = trpc.durchgang.processNeeds.useQuery();
   if (!assets.data || !links.data) return null;
@@ -81,7 +83,7 @@ export function RestoreScreen({
                       }
                       className={chip(value.span === span)}
                     >
-                      {entry.copy.options[span]}
+                      {spans(span)}
                     </button>
                   ))}
                   <button

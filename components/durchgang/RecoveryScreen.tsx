@@ -1,5 +1,7 @@
 "use client";
 
+import type { OutageSpan } from "@nisd2/grc-data-model/enums";
+import { useTranslations } from "next-intl";
 import { compare, type SystemStanding, unratedProcesses } from "@/lib/durchgang";
 import { trpc } from "@/lib/trpc/client";
 import { Heading, Lead } from "./ExplainScreens";
@@ -11,15 +13,19 @@ const ORDER = ["too_slow", "unknown", "not_asked", "unrated", "ok"] as const;
 type Copy = Of<"recovery">["copy"];
 
 /** One system's line: who needs it, how long they can wait, how long it takes back. */
-const line = (standing: SystemStanding, copy: Copy): string => {
+const line = (
+  standing: SystemStanding,
+  copy: Copy,
+  spanOf: (span: OutageSpan) => string,
+): string => {
   const { verdict } = standing;
   if (verdict.kind === "not_needed") return "";
   const parts = [`${copy.needs} ${verdict.needs.join(", ")}`];
   if (verdict.kind !== "unrated") {
-    parts.push(`${copy.required} ${copy.spans[verdict.required]}`);
+    parts.push(`${copy.required} ${spanOf(verdict.required)}`);
   }
   if (verdict.kind === "ok" || verdict.kind === "too_slow") {
-    parts.push(`${copy.restore} ${copy.spans[verdict.restore]}`);
+    parts.push(`${copy.restore} ${spanOf(verdict.restore)}`);
   }
   return parts.join(" · ");
 };
@@ -30,6 +36,7 @@ const line = (standing: SystemStanding, copy: Copy): string => {
  * is too slow or unknown is also an open point on the approval (7.3). Nothing is stored here.
  */
 export function RecoveryScreen({ entry }: WorkProps & { entry: Of<"recovery"> }) {
+  const spans = useTranslations("durchgang.ui.spans");
   const facts = trpc.durchgang.recovery.useQuery();
   if (!facts.data) return null;
   const standings = compare(facts.data).filter((s) => s.verdict.kind !== "not_needed");
@@ -68,7 +75,7 @@ export function RecoveryScreen({ entry }: WorkProps & { entry: Of<"recovery"> })
                   <li key={standing.system.id} className="px-5 py-3">
                     <p className="font-medium break-words">{standing.system.name}</p>
                     <p className="text-sm text-muted-foreground">
-                      {line(standing, entry.copy)}
+                      {line(standing, entry.copy, (span) => spans(span))}
                     </p>
                   </li>
                 ))}

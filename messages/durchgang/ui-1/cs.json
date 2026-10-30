@@ -10,6 +10,13 @@
       "unclear": "Zatím tomu nerozumím"
     },
     "ui": {
+      "spans": {
+        "hours": "hodiny",
+        "day": "1 den",
+        "three_days": "3 dny",
+        "week": "1 týden",
+        "longer": "déle"
+      },
       "kinds": {
         "learn": "Pochopit",
         "prepare": "Připravit si",

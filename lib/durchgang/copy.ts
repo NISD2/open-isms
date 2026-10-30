@@ -6,7 +6,6 @@
  * showing up on a customer's screen.
  */
 
-import { OUTAGE_SPANS } from "@nisd2/grc-data-model/enums";
 import { z } from "zod";
 import {
   CRYPTO_CATEGORIES,
@@ -100,21 +99,20 @@ const SCREEN_COPY = {
     how: text,
     example: text,
     suggestions: z.array(text).min(1).optional(),
-    // How long the process may be down at most: every span the column takes needs its label.
+    // How long the process may be down at most; the span words are `durchgang.ui.spans`, one
+    // record for every screen, the asset page, the trail and the export.
     outage: text,
     outageHint: text,
-    outageOptions: z.record(z.enum(OUTAGE_SPANS), text),
   }),
   /** Per process that must keep running, the systems and rooms it needs; the lines for none. */
   needs: z.object({ ...heading, none: text, empty: text, needs: text }),
   /**
-   * The systems the critical processes need, each with how long it takes to bring back: a label
-   * per span, the "unknown" answer, the hint, the line when 4.2 named no system yet, and the
-   * words before the processes that need one.
+   * The systems the critical processes need, each with how long it takes to bring back (the
+   * span words are `durchgang.ui.spans`): the "unknown" answer, the hint, the line when 4.2
+   * named no system yet, and the words before the processes that need one.
    */
   restore: z.object({
     ...heading,
-    options: z.record(z.enum(OUTAGE_SPANS), text),
     unknown: text,
     hint: text,
     none: text,
@@ -133,7 +131,6 @@ const SCREEN_COPY = {
       unrated: text,
       ok: text,
     }),
-    spans: z.record(z.enum(OUTAGE_SPANS), text),
     needs: text,
     required: text,
     restore: text,

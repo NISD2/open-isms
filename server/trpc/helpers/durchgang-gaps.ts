@@ -34,6 +34,16 @@ import { getNis2Assessment } from "./nis2-scope";
 const REPORTING = z.object({ bsiReportingRegistered: z.boolean().optional() }).catch({});
 
 /**
+ * The company's own processes, as a subquery, so a statement on `process_asset` carries the
+ * company itself and never rests on an id checked elsewhere alone.
+ */
+export const ownedProcesses = (db: DbOrTx, companyId: string) =>
+  db
+    .select({ id: asset.id })
+    .from(asset)
+    .where(and(eq(asset.companyId, companyId), eq(asset.type, "process")));
+
+/**
  * 4.2's links, which system each process needs, read through the process end's company. Only
  * the links of processes still marked as having to keep running count (the saves delete them on
  * untick; the filter holds for every reader all the same), and only of processes: a row re-typed

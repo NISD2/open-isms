@@ -27,7 +27,7 @@ import { NIS2_ASSET_TYPES } from "@/lib/compliance/asset-types";
 import type { CryptoPolicyConfig } from "@/lib/compliance/policy-config-defaults";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { trpc } from "@/lib/trpc/client";
-import { assetInsertSchema } from "@/schema/validators";
+import { assetInsertSchema } from "@/schema/asset-validators";
 
 const OTHER_VALUE = "__other__";
 
@@ -48,9 +48,6 @@ const DEFAULT_OMIT = [
   "backupFrequency",
   "backupLocation",
   "lastBackupTestDate",
-  "maxOutage",
-  "restoreTime",
-  "restoreTimeUnknown",
   "rto",
   "rpo",
   "lastVulnScanDate",
@@ -172,8 +169,34 @@ interface AssetsPageProps {
   policyData?: Record<string, unknown> | null;
 }
 
+/**
+ * What the walk recorded about an asset's time, read-only: how long a process may stand still
+ * (4.2), how long anything else takes back or that nobody knows (4.4). Changed in the walk.
+ */
+function WalkTime({
+  asset: a,
+  spanOf,
+}: {
+  asset: Record<string, unknown>;
+  spanOf: (span: string) => string;
+}) {
+  const t = useTranslations("assets.fields");
+  const line =
+    a.type === "process"
+      ? typeof a.maxOutage === "string"
+        ? `${t("maxOutage")}: ${spanOf(a.maxOutage)}`
+        : null
+      : a.restoreTimeUnknown === true
+        ? t("restoreTimeUnknown")
+        : typeof a.restoreTime === "string"
+          ? `${t("restoreTime")}: ${spanOf(a.restoreTime)}`
+          : null;
+  return line ? <p className="mt-1 text-xs text-muted-foreground">{line}</p> : null;
+}
+
 export function AssetsPage({ items, inline, focus, policyData }: AssetsPageProps) {
   const t = useTranslations("assets");
+  const spans = useTranslations("durchgang.ui.spans");
   const router = useRouter();
   const refresh = () => router.refresh();
   const createMut = trpc.asset.create.useMutation({ onSuccess: refresh });
@@ -272,6 +295,7 @@ export function AssetsPage({ items, inline, focus, policyData }: AssetsPageProps
                     <Badge variant="destructive">{t("critical")}</Badge>
                   )}
                   {Boolean(a.isOT) && <Badge variant="secondary">{t("ot")}</Badge>}
+                  <WalkTime asset={a} spanOf={(span) => spans(span)} />
                 </TableCell>
                 <TableCell className="text-right">
                   <Button variant="ghost" size="icon" onClick={() => onEdit(a)}>
