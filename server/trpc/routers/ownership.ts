@@ -15,7 +15,11 @@ import { OtpRateLimitedError, requestOtp, verifyOtp } from "@/lib/auth/otp";
 import type { DbOrTx } from "@/lib/db";
 import { isLocaleCode } from "@/lib/locale";
 import { sendAuthCode } from "@/lib/mail";
-import { findMembershipRole } from "@/lib/organization/membership";
+import {
+  companyOwnerId,
+  findMembershipRole,
+  lockCompanyOwner,
+} from "@/lib/organization/membership";
 import {
   acceptRefusal,
   closeLapsedTransfers,
@@ -24,7 +28,7 @@ import {
   transferExpiry,
 } from "@/lib/organization/ownership-transfer";
 import { rateLimit } from "@/lib/rate-limit";
-import { company, ownershipTransfer, user } from "@/schema";
+import { ownershipTransfer, user } from "@/schema";
 import { mailOwnershipNotice } from "../helpers/ownership-mail";
 import { accountAdminProcedure, accountProcedure, router } from "../init";
 
@@ -33,15 +37,10 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 /** Code mails per company and day: enough to retry, too few to mail-bomb the owner. */
 const CODE_REQUESTS_PER_DAY = 5;
 
-const companyOwnerId = async (db: DbOrTx, companyId: string): Promise<string | null> => {
-  const row = await db.query.company.findFirst({
-    where: eq(company.id, companyId),
-    columns: { ownerId: true },
-  });
-  return row?.ownerId ?? null;
-};
-
-/** The owner of the open company, and nobody else. The owner is always an admin. */
+/**
+ * The owner of the open company, and nobody else. The owner is always an admin. An early refusal:
+ * the owner can change before the procedure's transaction, so `start` checks again under the lock.
+ */
 const ownerProcedure = accountAdminProcedure.use(async ({ ctx, next }) => {
   if ((await companyOwnerId(ctx.db, ctx.companyId)) !== ctx.userId) {
     throw new TRPCError({
@@ -212,6 +211,14 @@ export const ownershipRouter = router({
 
       const now = new Date();
       const created = await ctx.db.transaction(async (tx) => {
+        // The owner may have changed since the middleware asked (an operator's assignment); a
+        // request saved now would hold the company's one open slot for the old owner.
+        if ((await lockCompanyOwner(tx, ctx.companyId)) !== ctx.userId) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "Only the owner of the organization can hand it over.",
+          });
+        }
         await closeLapsedTransfers(tx, { companyId: ctx.companyId, now });
         const [row] = await tx
           .insert(ownershipTransfer)
@@ -273,6 +280,8 @@ export const ownershipRouter = router({
     .mutation(async ({ ctx, input }) => {
       const now = new Date();
       const done = await ctx.db.transaction(async (tx) => {
+        // The company row first, then the transfer: the order every owner change locks in.
+        const currentOwnerId = await lockCompanyOwner(tx, ctx.companyId);
         const transfer = await transferOf(tx, {
           transferId: input.transferId,
           companyId: ctx.companyId,
@@ -280,16 +289,10 @@ export const ownershipRouter = router({
         if (!transfer) {
           throw new TRPCError({ code: "NOT_FOUND", message: "Handover not found." });
         }
-        // Locks the company row, so two handovers cannot both read the same owner.
-        const [current] = await tx
-          .select({ ownerId: company.ownerId })
-          .from(company)
-          .where(eq(company.id, ctx.companyId))
-          .for("update");
         const refusal = acceptRefusal(transfer, {
           userId: ctx.userId,
           now,
-          currentOwnerId: current?.ownerId ?? null,
+          currentOwnerId,
           recipientIsMember:
             (await findMembershipRole(tx, {
               userId: ctx.userId,

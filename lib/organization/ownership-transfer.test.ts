@@ -4,9 +4,12 @@
  * company.
  */
 import { describe, expect, test } from "bun:test";
+import { getTableName } from "drizzle-orm";
+import type { DbOrTx } from "@/lib/db";
 import {
   acceptRefusal,
   isOpen,
+  makeOwner,
   mayCancel,
   TRANSFER_DAYS,
   type TransferRow,
@@ -81,6 +84,43 @@ describe("mayCancel", () => {
   test("a third member cannot call it off, and nobody can once it is closed", () => {
     expect(mayCancel(transfer(), "admin", NOW)).toBe(false);
     expect(mayCancel(transfer({ status: "accepted" }), OWNER, NOW)).toBe(false);
+  });
+});
+
+describe("makeOwner", () => {
+  /** Records the tables updated; the membership update hits `memberships` rows. */
+  const fakeDb = (memberships: number) => {
+    const updated: string[] = [];
+    const db = {
+      update: (table: Parameters<typeof getTableName>[0]) => ({
+        set: () => ({
+          where: () => {
+            updated.push(getTableName(table));
+            return Object.assign(Promise.resolve(), {
+              returning: async () =>
+                Array.from({ length: memberships }, () => ({ userId: "u" })),
+            });
+          },
+        }),
+      }),
+    };
+    return { db: db as unknown as DbOrTx, updated };
+  };
+
+  test("makes a member owner and admin", async () => {
+    const { db, updated } = fakeDb(1);
+    await makeOwner(db, { companyId: "company", userId: RECIPIENT });
+    expect(updated).toEqual(["company_membership", "company"]);
+  });
+
+  // The person left the company between the checks and the write: the transaction must roll
+  // back rather than hand the company to someone outside it.
+  test("throws, and never moves the owner, when the person is not a member", async () => {
+    const { db, updated } = fakeDb(0);
+    await expect(
+      makeOwner(db, { companyId: "company", userId: RECIPIENT }),
+    ).rejects.toThrow("not a member");
+    expect(updated).toEqual(["company_membership"]);
   });
 });
 

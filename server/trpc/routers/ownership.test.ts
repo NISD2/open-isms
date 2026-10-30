@@ -4,6 +4,7 @@
  * and only while it is open. Each refusal is checked to have written nothing.
  */
 import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { getTableName } from "drizzle-orm";
 
 // The auto-audit middleware would otherwise reach for a real database.
 mock.module("@/lib/audit", () => ({ logAudit: () => {} }));
@@ -51,19 +52,30 @@ type Write = { readonly op: "insert" | "update"; readonly values: unknown };
 
 /**
  * Just the drizzle calls the router makes. `members` is who belongs to COMPANY; `selects` answers
- * each `db.select(...)` chain in the order the procedure runs them.
+ * each `db.select(...)` chain in the order the procedure runs them; `locks` records the table of
+ * each `for update` read, in order.
  */
 function fakeDb(input: {
   ownerId: string;
   members: readonly string[];
   selects: unknown[][];
   writes: Write[];
+  locks: string[];
 }) {
   const chain = (result: unknown) => {
     const link: Record<string, unknown> = {};
-    for (const method of ["from", "leftJoin", "where", "orderBy", "limit", "for"]) {
+    const read = { table: "" };
+    for (const method of ["leftJoin", "where", "orderBy", "limit"]) {
       link[method] = () => link;
     }
+    link.from = (table: Parameters<typeof getTableName>[0]) => {
+      read.table = getTableName(table);
+      return link;
+    };
+    link.for = () => {
+      input.locks.push(read.table);
+      return link;
+    };
     // biome-ignore lint/suspicious/noThenProperty: a drizzle query is awaited as a thenable; the fake has to be one too.
     link.then = (
       resolve: (value: unknown) => unknown,
@@ -99,8 +111,12 @@ function fakeDb(input: {
     }),
     update: () => ({
       set: (values: unknown) => ({
-        where: async () => {
+        where: () => {
           input.writes.push({ op: "update", values });
+          // Awaited as is, or asked whether a membership was updated (setMembershipRole).
+          return Object.assign(Promise.resolve(), {
+            returning: async () => [{ userId: MEMBER }],
+          });
         },
       }),
     }),
@@ -121,11 +137,13 @@ function callerAs(
   } = {},
 ) {
   const writes: Write[] = [];
+  const locks: string[] = [];
   const db = fakeDb({
     ownerId: opts.ownerId ?? OWNER,
     members: opts.members ?? [OWNER, MEMBER, ADMIN],
     selects: opts.selects ?? [],
     writes,
+    locks,
   });
   const caller = createCallerFactory(ownershipRouter)({
     db: db as unknown as TRPCContext["db"],
@@ -139,8 +157,11 @@ function callerAs(
     userAgent: null,
     viaKey: false,
   } as TRPCContext);
-  return { caller, writes };
+  return { caller, writes, locks };
 }
+
+/** What the company lock reads: the owner. */
+const ownedBy = (ownerId: string) => [{ ownerId }];
 
 const pendingRow = (overrides: Record<string, unknown> = {}) => ({
   id: TRANSFER,
@@ -163,10 +184,11 @@ beforeEach(() => {
 describe("ownership.start", () => {
   test("the owner, with the right code, asks to hand over to a member", async () => {
     asked.push(MEMBER);
-    const { caller, writes } = callerAs(OWNER, { selects: [[]] });
+    const { caller, writes, locks } = callerAs(OWNER, { selects: [[], ownedBy(OWNER)] });
     expect(await caller.start({ toUserId: MEMBER, otp: "123456" })).toEqual({
       transferId: TRANSFER,
     });
+    expect(locks).toEqual(["company"]);
     const insert = writes.find((w) => w.op === "insert");
     expect(insert?.values).toMatchObject({
       companyId: COMPANY,
@@ -213,6 +235,17 @@ describe("ownership.start", () => {
     expect(writes).toEqual([]);
   });
 
+  // The middleware saw the owner, then an operator assigned a new one before the save. A request
+  // saved now would hold the company's one open slot for someone who no longer owns it.
+  test("nothing is saved when the company changed hands since the owner check", async () => {
+    asked.push(MEMBER);
+    const { caller, writes } = callerAs(OWNER, { selects: [[], ownedBy(ADMIN)] });
+    await expect(caller.start({ toUserId: MEMBER, otp: "123456" })).rejects.toThrow(
+      "Only the owner",
+    );
+    expect(writes).toEqual([]);
+  });
+
   test("a second open handover is refused before the code is spent", async () => {
     asked.push(MEMBER);
     const { caller, writes } = callerAs(OWNER, { selects: [[pendingRow()]] });
@@ -227,11 +260,13 @@ describe("ownership.start", () => {
 describe("ownership.accept", () => {
   test("the recipient takes over an open handover", async () => {
     asked.push(MEMBER, MEMBER);
-    const { caller, writes } = callerAs(MEMBER, {
+    const { caller, writes, locks } = callerAs(MEMBER, {
       role: "member",
-      selects: [[pendingRow()], [{ ownerId: OWNER }]],
+      selects: [ownedBy(OWNER), [pendingRow()]],
     });
     expect(await caller.accept({ transferId: TRANSFER })).toEqual({ accepted: true });
+    // The company row first, as the operator's assignment locks it, so the two never deadlock.
+    expect(locks).toEqual(["company", "ownership_transfer"]);
     expect(writes.map((w) => w.values)).toContainEqual(
       expect.objectContaining({ status: "accepted", decidedBy: MEMBER }),
     );
@@ -244,10 +279,7 @@ describe("ownership.accept", () => {
     asked.push(MEMBER);
     const { caller, writes } = callerAs(MEMBER, {
       role: "member",
-      selects: [
-        [pendingRow({ expiresAt: new Date(Date.now() - 1) })],
-        [{ ownerId: OWNER }],
-      ],
+      selects: [ownedBy(OWNER), [pendingRow({ expiresAt: new Date(Date.now() - 1) })]],
     });
     await expect(caller.accept({ transferId: TRANSFER })).rejects.toThrow(
       "no longer open",
@@ -259,7 +291,7 @@ describe("ownership.accept", () => {
     asked.push(MEMBER);
     const { caller, writes } = callerAs(MEMBER, {
       role: "member",
-      selects: [[pendingRow({ status: "cancelled" })], [{ ownerId: OWNER }]],
+      selects: [ownedBy(OWNER), [pendingRow({ status: "cancelled" })]],
     });
     await expect(caller.accept({ transferId: TRANSFER })).rejects.toThrow(
       "no longer open",
@@ -270,7 +302,7 @@ describe("ownership.accept", () => {
   test("someone else in the company cannot accept it for the recipient", async () => {
     asked.push(ADMIN);
     const { caller, writes } = callerAs(ADMIN, {
-      selects: [[pendingRow()], [{ ownerId: OWNER }]],
+      selects: [ownedBy(OWNER), [pendingRow()]],
     });
     await expect(caller.accept({ transferId: TRANSFER })).rejects.toThrow(
       "addressed to someone else",

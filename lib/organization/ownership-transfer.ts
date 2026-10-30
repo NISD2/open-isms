@@ -81,18 +81,25 @@ export async function closeLapsedTransfers(
  * the old owner keeps the admin role they had and can be changed or removed like any admin from
  * now on. The payer of the billing account (`billing_account.ownerUserId`) is a separate role and
  * does not move with ownership.
+ *
+ * Throws when the person is not a member, so the transaction it runs in rolls back instead of
+ * leaving a company owned by someone outside it. Callers hold the company row lock (the one
+ * `lockCompanyOwner` takes), which a removal takes too.
  */
 export async function makeOwner(
   db: DbOrTx,
   input: { readonly companyId: string; readonly userId: string },
 ): Promise<void> {
-  await db
-    .update(company)
-    .set({ ownerId: input.userId, updatedAt: new Date() })
-    .where(eq(company.id, input.companyId));
-  await setMembershipRole(db, {
+  const promoted = await setMembershipRole(db, {
     userId: input.userId,
     companyId: input.companyId,
     role: "admin",
   });
+  if (!promoted) {
+    throw new Error("makeOwner: the new owner is not a member of the company");
+  }
+  await db
+    .update(company)
+    .set({ ownerId: input.userId, updatedAt: new Date() })
+    .where(eq(company.id, input.companyId));
 }

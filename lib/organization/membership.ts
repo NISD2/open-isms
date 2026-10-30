@@ -35,6 +35,35 @@ export const isMemberOf = (db: DbOrTx, companyId: string) =>
       .where(eq(companyMembership.companyId, companyId)),
   );
 
+/** The company's owner, or null once they are gone. */
+export const companyOwnerId = async (
+  db: DbOrTx,
+  companyId: string,
+): Promise<string | null> => {
+  const row = await db.query.company.findFirst({
+    where: eq(company.id, companyId),
+    columns: { ownerId: true },
+  });
+  return row?.ownerId ?? null;
+};
+
+/**
+ * The owner, read with the company row locked until the transaction ends. Whatever decides on the
+ * owner or changes it (a handover, an assignment, removing a member, changing a role) takes this
+ * lock first, before any other row, so they never interleave and never deadlock.
+ */
+export const lockCompanyOwner = async (
+  tx: DbOrTx,
+  companyId: string,
+): Promise<string | null> => {
+  const [row] = await tx
+    .select({ ownerId: company.ownerId })
+    .from(company)
+    .where(eq(company.id, companyId))
+    .for("update");
+  return row?.ownerId ?? null;
+};
+
 /** The person's role in the company, or null if they are not a member of it. */
 export const findMembershipRole = async (
   db: DbOrTx,
@@ -194,7 +223,10 @@ export const setMembershipJobTitle = async (
     .where(membershipOf(input.userId, input.companyId));
 };
 
-/** Change the person's role in one company. Does nothing if they are not a member of it. */
+/**
+ * Change the person's role in one company. Does nothing if they are not a member of it, and says
+ * so: true when a membership was updated.
+ */
 export const setMembershipRole = async (
   db: DbOrTx,
   input: {
@@ -202,9 +234,11 @@ export const setMembershipRole = async (
     readonly companyId: string;
     readonly role: MembershipRole;
   },
-): Promise<void> => {
-  await db
+): Promise<boolean> => {
+  const updated = await db
     .update(companyMembership)
     .set({ role: input.role })
-    .where(membershipOf(input.userId, input.companyId));
+    .where(membershipOf(input.userId, input.companyId))
+    .returning({ userId: companyMembership.userId });
+  return updated.length > 0;
 };
