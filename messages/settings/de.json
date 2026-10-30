@@ -30,12 +30,18 @@
       "turnedOff": "Ausgeschaltet. Alle Ihre Anmeldungen wurden beendet; melden Sie sich neu an.",
       "wrongCode": "Dieser Code passt nicht. Nehmen Sie den Code, den die App jetzt zeigt.",
       "locked": "Codes aus der App werden gerade nicht angenommen, nach zu vielen falschen Codes oder weil der Schlüssel dieser Installation gewechselt hat. Nehmen Sie einen Wiederherstellungscode.",
-      "tooMany": "Zu viele Versuche. Bitte warten Sie ein paar Minuten."
+      "tooMany": "Zu viele Versuche. Bitte warten Sie ein paar Minuten.",
+      "passwordLabel": "Ihr aktuelles Passwort",
+      "passwordWhy": "So kann niemand, der nur eine offene Anmeldung an Ihrem Rechner vorfindet, eine eigene App einrichten.",
+      "passwordContinue": "Weiter",
+      "wrongPassword": "Das Passwort passt nicht.",
+      "reauth": "Zum Einrichten braucht es eine Anmeldung aus den letzten {minutes} Minuten. Melden Sie sich neu an und richten Sie die App danach ein.",
+      "signInAgain": "Neu anmelden"
     },
     "twoFactorRequired": {
       "label": "Zweiten Faktor für alle verlangen",
-      "description": "Alle in diesem Unternehmen melden sich mit Passwort und einem Code aus einer App an. Wer die App noch nicht eingerichtet hat, richtet sie bei der nächsten Anmeldung ein. Bei Anmeldungen mit Google fragt Google.",
-      "turnedOn": "Ab der nächsten Anmeldung brauchen alle einen Code aus der App.",
+      "description": "Alle in diesem Unternehmen melden sich mit Passwort und einem Code aus einer App an. Beim Einschalten werden alle abgemeldet, die sich mit Passwort anmelden und die App noch nicht eingerichtet haben, und ihre verbundenen Assistenten getrennt. Sie richten die App bei der nächsten Anmeldung ein. Bei Anmeldungen mit Google fragt Google.",
+      "turnedOn": "Eingeschaltet. Wer die App noch nicht hat, wurde abgemeldet und richtet sie bei der nächsten Anmeldung ein.",
       "turnedOff": "Der zweite Faktor ist nicht mehr für alle verlangt."
     },
     "mcp": {

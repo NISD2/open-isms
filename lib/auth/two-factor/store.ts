@@ -4,7 +4,7 @@ import { renderSVG } from "uqr";
 import { revokedByCredentialChange } from "@/lib/auth/credential-change";
 import type { DbOrTx } from "@/lib/db";
 import { getAppUrl } from "@/lib/utils";
-import { user, userTwoFactor } from "@/schema";
+import { companyMembership, user, userTwoFactor } from "@/schema";
 import {
   appUri,
   newAppSecret,
@@ -43,6 +43,31 @@ export const readTwoFactor = async (
  */
 const endSessions = (db: DbOrTx, userId: string) =>
   db.update(user).set(revokedByCredentialChange()).where(eq(user.id, userId));
+
+/**
+ * When a company starts requiring the second factor, the members who sign in with a password and
+ * have no app yet lose every session and assistant key, so one opened on the password alone does
+ * not outlive the rule; their next sign-in asks them to set the app up. Members with no password
+ * sign in with Google, which asks for its own second factor, so they keep theirs. One statement,
+ * scoped to this company's memberships. Returns the people whose sessions ended.
+ */
+export async function endSessionsWithoutSecondFactor(
+  db: DbOrTx,
+  companyId: string,
+): Promise<readonly string[]> {
+  const ended = await db
+    .update(user)
+    .set(revokedByCredentialChange())
+    .where(
+      and(
+        isNotNull(user.passwordHash),
+        sql`${user.id} in (select ${companyMembership.userId} from ${companyMembership} where ${companyMembership.companyId} = ${companyId})`,
+        sql`not exists (select 1 from ${userTwoFactor} where ${userTwoFactor.userId} = ${user.id} and ${userTwoFactor.enabledAt} is not null)`,
+      ),
+    )
+    .returning({ id: user.id });
+  return ended.map((row) => row.id);
+}
 
 /** What a person needs to set the app up, shown once: never stored in this form. */
 export type SetupMaterial = {

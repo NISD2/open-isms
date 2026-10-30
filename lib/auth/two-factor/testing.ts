@@ -47,6 +47,27 @@ export function fakeTwoFactorDb(people: readonly FakePerson[]) {
     companyUpdates: [] as Array<{ set: Record<string, unknown>; companyId: unknown }>,
     /** People whose sessions were ended (user.session_version bumped), in order. */
     sessionsEnded: [] as string[],
+    /** Who belongs to which company (company_membership), for the company's switch. */
+    members: new Map<string, readonly string[]>(),
+    /** What each update of user rows set, to see that sessions and assistant keys both end. */
+    userSets: [] as Array<Record<string, unknown>>,
+  };
+
+  /**
+   * The company-wide update of endSessionsWithoutSecondFactor: the company's members, then each
+   * guard the rendered WHERE carries, so a guard that went missing lets more people through.
+   */
+  const membersWithoutFactor = (where: SQL): string[] => {
+    const { sql, params } = render(where);
+    const members = state.members.get(String(params[0])) ?? [];
+    return members.filter((id) => {
+      const person = people.find((p) => p.id === id);
+      const withPassword =
+        !sql.includes('"password_hash" is not null') || person?.passwordHash != null;
+      const withoutApp =
+        !sql.includes('"enabled_at" is not null') || !state.rows.get(id)?.enabledAt;
+      return withPassword && withoutApp;
+    });
   };
 
   /** Whether `row` meets the rendered WHERE: the user id first, then any guard after it. */
@@ -68,6 +89,8 @@ export function fakeTwoFactorDb(people: readonly FakePerson[]) {
   const rowOf = (where: SQL) => state.rows.get(String(render(where).params[0]));
 
   const db = {
+    /** One connection, so the transaction's statements are the same fake's. */
+    transaction: async <T>(run: (tx: unknown) => Promise<T>): Promise<T> => run(db),
     query: {
       user: {
         findFirst: async ({ where }: { where: SQL }) =>
@@ -103,8 +126,13 @@ export function fakeTwoFactorDb(people: readonly FakePerson[]) {
       set: (set: Record<string, unknown>) => ({
         where: (where: SQL) => {
           if (getTableName(table) === "user") {
-            state.sessionsEnded.push(String(render(where).params[0]));
-            return Object.assign(Promise.resolve([]), { returning: async () => [] });
+            state.userSets.push(set);
+            const ended = render(where).sql.includes('"company_membership"')
+              ? membersWithoutFactor(where)
+              : [String(render(where).params[0])];
+            state.sessionsEnded.push(...ended);
+            const out = ended.map((id) => ({ id }));
+            return Object.assign(Promise.resolve(out), { returning: async () => out });
           }
           const row = rowOf(where);
           const hit = matches(row, where);
@@ -143,7 +171,15 @@ export function fakeTwoFactorDb(people: readonly FakePerson[]) {
         const answer = (where: SQL) => {
           if (name === "user") {
             const person = people.find((p) => p.id === render(where).params[0]);
-            return person ? [{ email: person.email, locale: person.locale ?? null }] : [];
+            return person
+              ? [
+                  {
+                    email: person.email,
+                    locale: person.locale ?? null,
+                    hasPassword: person.passwordHash !== null,
+                  },
+                ]
+              : [];
           }
           if (name === "company_two_factor") {
             return state.companyRequires ? [{ required: true }] : [];
