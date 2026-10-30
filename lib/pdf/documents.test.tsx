@@ -75,12 +75,14 @@ describe("compliance report content", () => {
           requirements: [
             {
               ...first,
-              covered: {
-                by: { kind: "walk" as const, codes: ["2.4", "8.2"] },
-                done: true,
-              },
+              state: "signed" as const,
+              coveredBy: { kind: "walk" as const, codes: ["2.4", "8.2"] },
             },
-            { ...second, covered: { by: { kind: "not_required" as const }, done: true } },
+            {
+              ...second,
+              state: "na" as const,
+              coveredBy: { kind: "not_required" as const },
+            },
           ],
         },
         ...rest,

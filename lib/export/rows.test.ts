@@ -1,7 +1,9 @@
 import { describe, expect, test } from "bun:test";
+import { journeyState } from "@/lib/compliance/journey-position";
 import { exportLabels } from "@/lib/pdf/export-labels";
 import { PDF_LOCALES } from "@/lib/pdf/format";
-import { answerRow, shown, statusCounts, titleOf } from "./rows";
+import { getReportLabels } from "@/lib/pdf/policy-labels";
+import { answerRow, shown, statusCounts, statusLabel, titleOf } from "./rows";
 import { exportNames } from "./value-names";
 
 describe("answerRow", () => {
@@ -39,26 +41,50 @@ describe("answerRow", () => {
 });
 
 describe("statusCounts", () => {
-  const signed = { status: "approved", covered: null };
+  const signed = { state: "signed", coveredBy: null } as const;
   const metInStep = {
-    status: "not_started",
-    covered: { by: { kind: "codes", codes: ["7.3"] }, done: true },
+    state: "signed",
+    coveredBy: { kind: "walk", codes: ["7.3"] },
   } as const;
   const stepUnsigned = {
-    status: "not_started",
-    covered: { by: { kind: "codes", codes: ["7.3"] }, done: false },
+    state: "awaiting",
+    coveredBy: { kind: "walk", codes: ["7.3"] },
   } as const;
-  const notRequired = {
-    status: "not_started",
-    covered: { by: { kind: "not_required" }, done: true },
-  } as const;
-  const declined = { status: "not_applicable", covered: null };
-  const open = { status: "in_progress", covered: null };
+  const notRequired = { state: "na", coveredBy: { kind: "not_required" } } as const;
+  const declined = { state: "na", coveredBy: null } as const;
+  const open = { state: "started", coveredBy: null } as const;
 
   test("keeps signed off, not applicable, not required and open apart", () => {
     expect(
       statusCounts([signed, metInStep, stepUnsigned, notRequired, declined, open]),
     ).toEqual({ approved: 2, notApplicable: 1, notRequired: 1, open: 2 });
+  });
+});
+
+describe("statusLabel", () => {
+  const labels = getReportLabels("en");
+
+  // An outside tester filled 2.1 in the walk: the overview said awaiting sign-off, the export
+  // said "not started", because it printed the status row, which moves only with a signature.
+  test("an item filled in the walk reads as the overview reads it, whatever the status row says", () => {
+    const filled = {
+      state: journeyState("not_started", { kind: "filled" }),
+      coveredBy: null,
+    };
+    expect(statusLabel(filled, labels)).toBe("awaiting sign-off");
+  });
+
+  test("names the walk items that met a requirement, signed or still waiting", () => {
+    const by = { kind: "walk", codes: ["7.1", "7.3"] } as const;
+    expect(statusLabel({ state: "signed", coveredBy: by }, labels)).toBe(
+      "signed off in the walkthrough with 7.1 and 7.3",
+    );
+    expect(statusLabel({ state: "awaiting", coveredBy: by }, labels)).toBe(
+      "in the walkthrough with 7.1 and 7.3, awaiting sign-off",
+    );
+    expect(
+      statusLabel({ state: "na", coveredBy: { kind: "not_required" } }, labels),
+    ).toBe("not required by law");
   });
 });
 

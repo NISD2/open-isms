@@ -9,9 +9,9 @@ import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import type { SignedWording } from "@nisd2/isms-schema/tables/sign-off-history";
 import { asc, desc, eq, type InferSelectModel, inArray } from "drizzle-orm";
 import { legalRefFor } from "@/lib/compliance/czech-law";
-import { isDoneState, isDoneStatus } from "@/lib/compliance/journey-position";
+import { type DotState, isDoneState } from "@/lib/compliance/journey-position";
 import { db } from "@/lib/db";
-import type { CoveredBy, JourneyEntry } from "@/lib/durchgang";
+import { type CoveredBy, type JourneyEntry, journeyEntryOf } from "@/lib/durchgang";
 import { type AnswerNames, exportNames } from "@/lib/export/value-names";
 import {
   getCategory,
@@ -57,13 +57,22 @@ export interface ReportRequirement {
   /** The one-line legal reference in the report's language (`legalRefFor`). */
   legalRef: string | null;
   evidenceType: string;
-  status: string;
   /**
-   * Where the journey has it when that is not the requirement's own work (`journeyStates`): met
-   * inside walk items, or not asked of the company by any statute. Null otherwise, and for
-   * frameworks other than NIS 2.
+   * Where the journey has it (`journeyStates`), the one status every export prints, so an item
+   * filled in the walk reads awaiting sign-off here as it does on the walk's overview. The stored
+   * status row is deliberately not carried: it reads "not started" until management signs, and an
+   * export that printed it told an auditor a filled-in item was never begun (30.10.2026).
    */
-  covered: { readonly by: CoveredBy; readonly done: boolean } | null;
+  state: DotState;
+  /** A legal reviewer approved it on top of the sign-off (status `approved`). */
+  approved: boolean;
+  /**
+   * Why `state` is not the requirement's own work: met inside walk items, or not asked of the
+   * company by any statute. Null otherwise, and for frameworks other than NIS 2.
+   */
+  coveredBy: CoveredBy | null;
+  /** The company's own dated trail from the walk (`internalNotes`), e.g. the method it adopted. */
+  notes: string | null;
   reviewFeedback: string | null;
   signedOffByName: UserName | null;
   signedOffRole: string | null;
@@ -204,7 +213,7 @@ export async function loadReportData(
     const reportReqs: ReportRequirement[] = catReqs.map((req) => {
       const status = statusMap.get(req.id);
       const currentStatus = status?.status ?? "not_started";
-      const entry = states.get(req.code);
+      const { state, coveredBy } = journeyEntryOf(currentStatus, states.get(req.code));
       // A signed requirement prints the wording it was signed against, not today's.
       const signed = status ? signedWording.get(status.id) : undefined;
 
@@ -218,10 +227,10 @@ export async function loadReportData(
         priority: req.priority,
         legalRef: legalRefFor(req, locale),
         evidenceType: req.evidenceType,
-        status: currentStatus,
-        covered: entry?.coveredBy
-          ? { by: entry.coveredBy, done: isDoneState(entry.state) }
-          : null,
+        state,
+        approved: currentStatus === "approved",
+        coveredBy,
+        notes: status?.internalNotes ?? null,
         reviewFeedback: status?.reviewFeedback ?? null,
         signedOffByName: nameFor(status?.signedOffBy ?? null),
         signedOffRole: status?.signedOffRole ?? null,
@@ -270,9 +279,8 @@ export async function loadReportData(
     assessmentDate: assessment.startedAt,
     totalRequirements: allRequirements.length,
     // Done as the journey counts it: signed, approved or not applicable, or met in the walk.
-    completedCount: reported.filter((r) => r.covered?.done || isDoneStatus(r.status))
-      .length,
-    approvedCount: reported.filter((r) => r.status === "approved").length,
+    completedCount: reported.filter((r) => isDoneState(r.state)).length,
+    approvedCount: reported.filter((r) => r.approved).length,
     categories: reportCategories,
     answerNames: names.answers,
   };

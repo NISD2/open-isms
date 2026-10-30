@@ -1,12 +1,13 @@
 import "@/lib/server-guard";
-import { generateObject } from "ai";
 import { createXai } from "@ai-sdk/xai";
-import type { ReportCategory } from "@/lib/pdf/load-report-data";
-import type { Persona } from "./personas";
-import { personaEvaluationSchema, type PersonaEvaluation } from "./panel-schema";
-import { BSIG_SECTIONS } from "./bsig-sections";
-import { formatCategoryForPrompt, type FormatMode } from "./format-category";
+import { generateObject } from "ai";
+import { isDoneState } from "@/lib/compliance/journey-position";
 import { env } from "@/lib/env";
+import type { ReportCategory } from "@/lib/pdf/load-report-data";
+import { BSIG_SECTIONS } from "./bsig-sections";
+import { type FormatMode, formatCategoryForPrompt } from "./format-category";
+import { type PersonaEvaluation, personaEvaluationSchema } from "./panel-schema";
+import type { Persona } from "./personas";
 
 const xai = createXai({ apiKey: env.XAI_API_KEY });
 
@@ -107,18 +108,13 @@ function buildSystemPrompt(
   return parts.join("\n");
 }
 
-function buildUserPrompt(
-  category: ReportCategory,
-  mode: FormatMode,
-): string {
+function buildUserPrompt(category: ReportCategory, mode: FormatMode): string {
   const bsig = BSIG_SECTIONS[category.code];
   if (!bsig) {
     throw new Error(`Unknown category code: ${category.code}`);
   }
 
-  const expectations = bsig.auditExpectations
-    .map((e, i) => `${i + 1}. ${e}`)
-    .join("\n");
+  const expectations = bsig.auditExpectations.map((e, i) => `${i + 1}. ${e}`).join("\n");
 
   return `Evaluate this section for BSIG audit readiness.
 
@@ -132,7 +128,7 @@ ${expectations}
 ${formatCategoryForPrompt(category, mode)}
 
 Total requirements in section: ${category.requirements.length}
-${mode === "data" ? `Completed/approved: ${category.requirements.filter((r) => ["completed", "approved", "not_applicable"].includes(r.status)).length}` : ""}`;
+${mode === "data" ? `Completed/approved: ${category.requirements.filter((r) => isDoneState(r.state)).length}` : ""}`;
 }
 
 export interface RunPersonaInput {

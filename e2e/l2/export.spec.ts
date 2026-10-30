@@ -117,6 +117,29 @@ test.describe("export", () => {
     for (const { token } of tokens) expect(text).not.toContain(token);
   });
 
+  // An outside tester filled 2.1 in the walk (30.10.2026): the walk's overview said awaiting
+  // sign-off, the export "not started", because it printed the status row, which moves only with
+  // a signature. Every export now prints the journey's state; this holds them to one another for
+  // whatever the e2e company has walked.
+  test("every export reads each requirement's status as the walk does, never the status row", async ({
+    page,
+  }) => {
+    const data = await (await page.request.get("/api/export/data")).json();
+    const states: readonly string[] = data.requirements.map(
+      (r: { status: string }) => r.status,
+    );
+    const journey = ["todo", "started", "awaiting", "signed", "na", "rejected"];
+    expect(states.filter((s) => !journey.includes(s))).toEqual([]);
+
+    await page.goto("/de/export/gesamt");
+    const statusCells = page.locator("#status tbody tr td:nth-child(2)");
+    await expect(statusCells.first()).toBeVisible({ timeout: 30_000 });
+    await expect(statusCells.filter({ hasText: "wartet auf Freigabe" })).toHaveCount(
+      states.filter((s) => s === "awaiting").length,
+    );
+    await expect(statusCells.filter({ hasText: "abgeschlossen" })).toHaveCount(0);
+  });
+
   test("everything in one document: every section, the risk matrix, and a way to save it", async ({
     page,
   }) => {

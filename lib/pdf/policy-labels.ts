@@ -5,6 +5,7 @@
  * a small set of document-level labels here, keyed by locale.
  */
 
+import type { DotState } from "@/lib/compliance/journey-position";
 import { type PdfLocale, pdfLocale } from "./format";
 
 export const POLICY_TITLES: Readonly<
@@ -125,6 +126,8 @@ interface ReportLabels {
   /** A requirement met inside these walk items, signed off with them or still waiting. */
   coveredSigned: (codes: string) => string;
   coveredAwaiting: (codes: string) => string;
+  /** A requirement's own state on the journey, in the walk overview's words (`statusLabel`). */
+  states: Readonly<Record<DotState, string>>;
   /** A requirement no statute asks of the company. */
   notRequired: string;
   and: string;
@@ -158,6 +161,14 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     categoryIntake: "Category Intake",
     coveredSigned: (codes) => `signed off in the walkthrough with ${codes}`,
     coveredAwaiting: (codes) => `in the walkthrough with ${codes}, awaiting sign-off`,
+    states: {
+      todo: "not started",
+      started: "in progress",
+      awaiting: "awaiting sign-off",
+      signed: "signed off",
+      na: "does not apply",
+      rejected: "rejected",
+    },
     notRequired: "not required by law",
     and: "and",
     grundschutz: "IT-Grundschutz",
@@ -187,6 +198,14 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     categoryIntake: "Kategorieerfassung",
     coveredSigned: (codes) => `im Durchgang mit ${codes} freigegeben`,
     coveredAwaiting: (codes) => `im Durchgang mit ${codes}, wartet auf Freigabe`,
+    states: {
+      todo: "nicht begonnen",
+      started: "in Bearbeitung",
+      awaiting: "wartet auf Freigabe",
+      signed: "freigegeben",
+      na: "trifft nicht zu",
+      rejected: "abgelehnt",
+    },
     notRequired: "gesetzlich nicht gefordert",
     and: "und",
     grundschutz: "IT-Grundschutz",
@@ -216,49 +235,22 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     categoryIntake: "Odpovědi k oblasti",
     coveredSigned: (codes) => `schváleno v průvodci (${codes})`,
     coveredAwaiting: (codes) => `v průvodci (${codes}), čeká na schválení`,
+    states: {
+      todo: "nezahájeno",
+      started: "probíhá",
+      awaiting: "čeká na schválení",
+      signed: "schváleno",
+      na: "nevztahuje se",
+      rejected: "zamítnuto",
+    },
     notRequired: "zákon nevyžaduje",
     and: "a",
     grundschutz: "IT-Grundschutz (německá metodika BSI)",
   },
 };
 
-const STATUS_LABELS: Readonly<Record<PdfLocale, Readonly<Record<string, string>>>> = {
-  en: {
-    not_started: "not started",
-    in_progress: "in progress",
-    completed: "completed",
-    approved: "approved",
-    rejected: "rejected",
-    not_applicable: "not applicable",
-  },
-  de: {
-    not_started: "nicht begonnen",
-    in_progress: "in Bearbeitung",
-    completed: "abgeschlossen",
-    approved: "freigegeben",
-    rejected: "abgelehnt",
-    not_applicable: "nicht anwendbar",
-  },
-  cs: {
-    not_started: "nezahájeno",
-    in_progress: "probíhá",
-    completed: "dokončeno",
-    approved: "schváleno",
-    rejected: "zamítnuto",
-    not_applicable: "nevztahuje se",
-  },
-};
-
 export function getReportLabels(locale: string): ReportLabels {
   return REPORT_LABELS[pdfLocale(locale)];
-}
-
-export function getStatusLabel(status: string, locale: string): string {
-  return (
-    STATUS_LABELS[pdfLocale(locale)][status] ??
-    STATUS_LABELS.en[status] ??
-    status.replace(/_/g, " ")
-  );
 }
 
 export function getPolicyTitle(categoryCode: string, locale: string): string {

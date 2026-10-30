@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { Fragment, type ReactNode } from "react";
 import { NIS2_ASSET_TYPES } from "@/lib/compliance/asset-types";
 import { RISK_LEVEL_TEXT, RISK_LEVELS } from "@/lib/compliance/bsi-200-3";
 import {
@@ -14,11 +13,10 @@ import type { CompanyExport } from "@/lib/export/company-export";
 import { riskCounts } from "@/lib/export/risk-cells";
 import {
   answerRow,
-  coverageLabel,
   fieldRows,
-  type Row,
   shown,
   statusCounts,
+  statusLabel,
   titleOf,
   type Words,
 } from "@/lib/export/rows";
@@ -26,8 +24,9 @@ import type { ExportNames } from "@/lib/export/value-names";
 import { exportLabels } from "@/lib/pdf/export-labels";
 import { formatReportDate, formatSigner, type PdfLocale } from "@/lib/pdf/format";
 import type { ReportData } from "@/lib/pdf/load-report-data";
-import { getReportLabels, getStatusLabel } from "@/lib/pdf/policy-labels";
+import { getReportLabels } from "@/lib/pdf/policy-labels";
 import type { RouterOutputs } from "@/lib/trpc/client";
+import { Entry, Fields, Group, Section, Table } from "./layout";
 import { RiskCounts } from "./RiskCounts";
 
 export interface CompleteView {
@@ -100,121 +99,6 @@ function groupBy<T>(
     (a, b) => rank(a) - rank(b) || a.localeCompare(b),
   );
   return keys.map((key) => [key, rows.filter((row) => keyOf(row) === key)]);
-}
-
-function Section({
-  id,
-  title,
-  lead,
-  children,
-}: {
-  id: string;
-  title: string;
-  lead?: string;
-  children: ReactNode;
-}) {
-  return (
-    <section id={id} className="mt-16 break-before-page print:mt-0">
-      <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-      {lead && <p className="mt-2 max-w-[68ch] text-sm text-muted-foreground">{lead}</p>}
-      <div className="mt-6">{children}</div>
-    </section>
-  );
-}
-
-/** A record's fields that hold something, label beside value. */
-function Fields({ rows }: { rows: readonly Row[] }) {
-  const filled = rows.flatMap(([label, value]) =>
-    value === null ? [] : [{ label, value }],
-  );
-  if (filled.length === 0) return null;
-  return (
-    <dl className="mt-2 grid grid-cols-[minmax(9rem,13rem)_1fr] gap-x-4 gap-y-1 text-sm">
-      {filled.map(({ label, value }) => (
-        <Fragment key={label}>
-          <dt className="text-muted-foreground">{label}</dt>
-          <dd className="min-w-0 break-words">{value}</dd>
-        </Fragment>
-      ))}
-    </dl>
-  );
-}
-
-/** One register row: its name, what it is, then its fields. */
-function Entry({
-  title,
-  lead,
-  rows,
-}: {
-  title: string;
-  lead?: string | null;
-  rows: readonly Row[];
-}) {
-  return (
-    <article className="break-inside-avoid border-b py-3 last:border-b-0">
-      <h4 className="font-medium">{title}</h4>
-      {lead && <p className="text-sm text-muted-foreground">{lead}</p>}
-      <Fields rows={rows} />
-    </article>
-  );
-}
-
-function Group({
-  title,
-  count,
-  children,
-}: {
-  title: string;
-  count: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="mt-8 first:mt-0">
-      <h3 className="flex items-baseline justify-between border-b-2 border-foreground/80 pb-1 text-base font-semibold">
-        {title}
-        <span className="text-xs font-normal text-muted-foreground">{count}</span>
-      </h3>
-      {children}
-    </div>
-  );
-}
-
-/** A table whose columns keep their widths from table to table, as `widths` sets them. */
-function Table({
-  head,
-  widths,
-  rows,
-}: {
-  head: readonly string[];
-  widths: readonly string[];
-  rows: readonly ReactNode[][];
-}) {
-  return (
-    <table className="w-full table-fixed border-collapse text-left text-sm">
-      <thead>
-        <tr className="border-b-2 border-foreground/80">
-          {head.map((cell, i) => (
-            <th key={cell} className={`py-1.5 pr-3 font-semibold ${widths[i] ?? ""}`}>
-              {cell}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: rows are printed once, never reordered
-          <tr key={i} className="break-inside-avoid border-b align-top">
-            {row.map((cell, j) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: cells of a fixed column layout
-              <td key={j} className="py-1.5 pr-3">
-                {cell}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
 }
 
 /**
@@ -326,9 +210,19 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
                       {t("notApplicable")}: {req.notApplicable.reason}
                     </span>
                   )}
+                  {/* What the walk recorded for it, dated, e.g. the risk method adopted at
+                      2.1: an auditor reads the decision, not only that it waits. */}
+                  {req.notes?.split("\n").map((line, i) => (
+                    <span
+                      // biome-ignore lint/suspicious/noArrayIndexKey: an append-only trail, never reordered; one step done twice on a day repeats a line word for word
+                      key={i}
+                      className="mt-0.5 block text-xs text-muted-foreground"
+                    >
+                      {line}
+                    </span>
+                  ))}
                 </span>,
-                coverageLabel(req.covered, reportLabels) ??
-                  getStatusLabel(req.status, locale),
+                statusLabel(req, reportLabels),
                 [
                   formatSigner(
                     req.signedOffByName,

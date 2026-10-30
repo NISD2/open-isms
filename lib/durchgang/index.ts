@@ -23,7 +23,7 @@ export {
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, marker, ONGOING_COPY, resolveItem } from "./copy";
 export type { CoveredBy, Covering, JourneyEntry, JourneyRow } from "./coverage";
-export { coveredState, journeyStates } from "./coverage";
+export { coveredState, journeyEntryOf, journeyStates } from "./coverage";
 export { alsoCountsFor } from "./credit";
 export type { DpoRecord } from "./dpo";
 export { dpoOf } from "./dpo";
