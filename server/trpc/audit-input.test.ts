@@ -3,8 +3,8 @@
  * none, a successful one keeps it scrubbed and bounded. Built with a recording
  * logAudit, as in audit-scope.test.ts, so module order cannot change the result.
  */
-import { describe, expect, test } from "bun:test";
-import type { AuditEntry } from "@nisd2/isms-trpc/audit";
+import { describe, expect, spyOn, test } from "bun:test";
+import { type AuditDb, type AuditEntry, createLogAudit } from "@nisd2/isms-trpc/audit";
 import {
   AUDIT_INPUT_MAX_BYTES,
   type BaseContext,
@@ -108,10 +108,12 @@ describe("a successful mutation's row", () => {
     const row = logged[0]?.newValue as {
       truncated: boolean;
       bytes: number;
+      fieldCount: number;
       fields: string[];
     };
     expect(row.truncated).toBe(true);
     expect(row.bytes).toBeGreaterThan(AUDIT_INPUT_MAX_BYTES);
+    expect(row.fieldCount).toBe(3);
     expect(row.fields).toEqual(["id", "summary", "owner"]);
     expect(JSON.stringify(row)).not.toContain("xxxx");
   });
@@ -124,5 +126,141 @@ describe("a successful mutation's row", () => {
     await caller.record.save(exact);
 
     expect(logged[0]?.newValue).toEqual(exact);
+  });
+
+  test("huge field names and many fields stay within the names budget", async () => {
+    const { logged, caller } = harness();
+    const input: Record<string, number> = { ["k".repeat(1_000_000)]: 1 };
+    for (let i = 0; i < 50_000; i++) input[`f${i}`] = i;
+
+    await caller.record.save(input);
+
+    const row = logged[0]?.newValue as { fieldCount: number; fields: string[] };
+    expect(row.fieldCount).toBe(50_001);
+    expect(row.fields).toHaveLength(50);
+    expect(row.fields[0]).toHaveLength(64);
+    expect(JSON.stringify(row).length).toBeLessThan(5_000);
+  });
+
+  test("names that would still exceed the budget are dropped, the count kept", async () => {
+    const { logged, caller } = harness();
+    // 64 four-byte characters per name: 50 of them are over 4 KB.
+    const input = Object.fromEntries(
+      Array.from({ length: 60 }, (_, i) => [`${i}${"😀".repeat(70)}`, i]),
+    );
+    input.filler = "z".repeat(AUDIT_INPUT_MAX_BYTES);
+
+    await caller.record.save(input);
+
+    const row = logged[0]?.newValue as Record<string, unknown>;
+    expect(row.fieldCount).toBe(61);
+    expect(row.fields).toBeUndefined();
+  });
+
+  test("a BigInt input leaves a row with its field names", async () => {
+    const { logged, caller } = harness();
+
+    await caller.record.save({ id: RECORD, amount: 10n });
+
+    expect(logged).toHaveLength(1);
+    expect(logged[0]?.newValue).toEqual({
+      truncated: true,
+      bytes: null,
+      fieldCount: 2,
+      fields: ["id", "amount"],
+    });
+  });
+
+  test("a circular input leaves a row, the cycle marked", async () => {
+    const { logged, caller } = harness();
+    const node: Record<string, unknown> = { id: RECORD, title: "Loop" };
+    node.self = node;
+    node.list = [node];
+
+    await caller.record.save(node);
+
+    expect(logged).toHaveLength(1);
+    expect(logged[0]?.newValue).toEqual({
+      id: RECORD,
+      title: "Loop",
+      self: "[CIRCULAR]",
+      list: ["[CIRCULAR]"],
+    });
+  });
+
+  test("a shared object deep in a chain is walked once, not doubled per level", async () => {
+    const { logged, caller } = harness();
+    let level: Record<string, unknown> = { leaf: true };
+    for (let i = 0; i < 64; i++) level = { a: level, b: level };
+
+    await caller.record.save(level);
+
+    expect(logged).toHaveLength(1);
+    expect(JSON.stringify(logged[0]?.newValue)).toContain("[REPEATED]");
+  });
+
+  test("an input the log cannot walk still leaves a marked row", async () => {
+    const { logged, caller } = harness();
+    const input = { id: RECORD };
+    Object.defineProperty(input, "boom", {
+      enumerable: true,
+      get() {
+        throw new Error("getter refused");
+      },
+    });
+
+    await caller.record.save(input);
+
+    expect(logged).toHaveLength(1);
+    expect(logged[0]?.description).toBe("record.save");
+    expect(logged[0]?.newValue).toEqual({ unloggable: true });
+  });
+});
+
+describe("a non-uuid record id on a failed call", () => {
+  test("is dropped from the row and its text never reaches the warning", async () => {
+    const rows: Record<string, unknown>[] = [];
+    // A stand-in for drizzle: logAudit only calls insert(table).values(row).
+    const fakeDb = {
+      insert: () => ({
+        values: async (row: Record<string, unknown>) => {
+          rows.push(row);
+        },
+      }),
+    } as unknown as AuditDb;
+    const t = createTRPCSetup<BaseContext>({
+      logAudit: createLogAudit(fakeDb),
+      hasReviewAccess: () => true,
+    });
+    const router = t.router({
+      refuse: t.protectedProcedure.input(z.unknown()).mutation(() => {
+        throw new TRPCError({ code: "FORBIDDEN" });
+      }),
+    });
+    const caller = t.createCallerFactory(router)({
+      session: { user: { id: MEMBER }, role: "member", companyId: COMPANY },
+      userId: MEMBER,
+      companyId: COMPANY,
+      ip: "unknown",
+      userAgent: null,
+    });
+    const warn = spyOn(console, "warn").mockImplementation(() => {});
+    const sent = "caller text that must not be logged";
+
+    try {
+      await expect(caller.refuse({ id: sent })).rejects.toThrow();
+      await Bun.sleep(0);
+
+      expect(rows).toHaveLength(1);
+      expect(rows[0]?.entityId).toBeNull();
+      expect(rows[0]?.description).toBe("refuse failed (FORBIDDEN)");
+      expect(warn).toHaveBeenCalledTimes(1);
+      expect(JSON.stringify(warn.mock.calls)).not.toContain(sent);
+      expect(JSON.stringify(warn.mock.calls)).toContain(
+        `"entityIdLength":${sent.length}`,
+      );
+    } finally {
+      warn.mockRestore();
+    }
   });
 });

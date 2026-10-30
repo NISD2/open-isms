@@ -32,10 +32,11 @@ export function createLogAudit(db: AuditDb) {
     // requirement.sign_off_invalidated event.
     const entityIdIsUsable = input.entityId === null || UUID.test(input.entityId);
     if (!entityIdIsUsable) {
+      // Its length only: on a failed call the id is whatever text the caller sent.
       console.warn("[audit] dropping non-uuid entityId, row kept", {
         action: input.action,
         entityType: input.entityType,
-        entityId: input.entityId,
+        entityIdLength: input.entityId?.length,
       });
     }
     const entry: AuditEntry = entityIdIsUsable ? input : { ...input, entityId: null };
