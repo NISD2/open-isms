@@ -59,11 +59,6 @@ export interface ReportRequirement {
   evidenceType: string;
   /** The journey's state (`journeyEntryOf`), the one status every export prints. */
   state: DotState;
-  /**
-   * The value on the requirement's own row. It lags the walk, so no export prints it as the status:
-   * only the CSV carries it, in its own column, for scripts that read it before the CSV switched.
-   */
-  storedStatus: StatusRow["status"];
   /** A legal reviewer approved it on top of the sign-off (status `approved`). */
   approved: boolean;
   /**
@@ -228,7 +223,6 @@ export async function loadReportData(
         legalRef: legalRefFor(req, locale),
         evidenceType: req.evidenceType,
         state,
-        storedStatus: currentStatus,
         approved: currentStatus === "approved",
         coveredBy,
         notes: status?.internalNotes ?? null,

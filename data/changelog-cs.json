@@ -1,8 +1,8 @@
 {
   "entries": {
     "2026-10-30-product-export-status-columns": {
-      "title": "Exporty: všude stav z průvodce, uložená hodnota zůstává v CSV",
-      "body": "Datový export ve formátu JSON a záznamy, které asistent s AI čte přes read_records, nyní u každého požadavku uvádějí state, coveredBy a approved místo status a journey, a ukazují tak stejný stav jako průvodce. V CSV je tento stav ve sloupci Status v jazyce exportu; nový sloupec Stored Status hned za ním zachovává uloženou hodnotu, kterou Status obsahoval dříve, pro skripty, které ji čtou, a další sloupce se posouvají o jedno místo doprava. Sloupec Walkthrough se nyní jmenuje Walkthrough Notes a obsahuje datované poznámky z průvodce."
+      "title": "Exporty: všude stav z průvodce",
+      "body": "Od 30. října 2026 obsahuje sloupec Status v CSV stav z průvodce v jazyce čtenáře a sloupec Walkthrough se nyní jmenuje Walkthrough Notes. Datový export ve formátu JSON a záznamy, které asistent s AI čte přes read_records, uvádějí u každého požadavku state, coveredBy a approved místo status a journey. Každý export tak ukazuje stejný stav jako průvodce."
     },
     "2026-09-08-product-requirement-page-and-team-signoff": {
       "title": "Stránka požadavku: vysvětlení, doklady všude, odvolání schválení",

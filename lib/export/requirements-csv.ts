@@ -4,8 +4,7 @@ import type { ReportCategory } from "@/lib/pdf/load-report-data";
 
 /**
  * The CSV's columns. "Status" is the walk's status in the reader's language, as every export
- * prints it. "Stored Status" beside it is the stored value "Status" held before, so a script built
- * on that value keeps a column whose words do not change with the language.
+ * prints it; the requirement's stored status is printed nowhere, because it lags the walk.
  */
 export const REQUIREMENT_CSV_HEADERS = [
   "Category Code",
@@ -14,7 +13,6 @@ export const REQUIREMENT_CSV_HEADERS = [
   "Requirement Title",
   "Priority",
   "Status",
-  "Stored Status",
   "Walkthrough Notes",
   "Signed Off At",
   "Evidence Count",
@@ -34,7 +32,6 @@ export function requirementsCsvTable(
       req.title,
       req.priority,
       requirementStatusLabel(req, language),
-      req.storedStatus,
       req.notes ?? "",
       req.signedOffAt ? new Date(req.signedOffAt).toISOString() : "",
       String(req.evidence.length),
