@@ -17,9 +17,7 @@ import type { Portal } from "./portals";
 /**
  * Where the company's country is set: on the screens that need it, the way the walk asks for
  * everything beyond the three essentials (CompanyEssentials). Setting up a company asks for no
- * country, and the organization page offers none, so a link out to either was a dead end. Picking
- * one saves it, and the screen reloads with that country's authority on top. Only an admin changes
- * the company's data (`assessment.updateCompany`); anyone else is told who sets it.
+ * country, and the organization page offers none, so a link out to either was a dead end.
  */
 export function CountryPicker({
   countries,

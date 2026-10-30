@@ -486,10 +486,11 @@ describe("assessment.updateCompany country", () => {
     expect(writes).toEqual([expect.objectContaining({ country: "AT" })]);
   });
 
-  test("takes only a two-letter ISO code, the one the portal list is keyed by", async () => {
+  test("takes only a country on the portal list, by its two-letter code", async () => {
     const { caller, writes } = companySetup({ role: "admin", accessLevel: "full" });
     await expect(caller.updateCompany({ country: "at" })).rejects.toThrow();
     await expect(caller.updateCompany({ country: "Austria" })).rejects.toThrow();
+    await expect(caller.updateCompany({ country: "US" })).rejects.toThrow();
     expect(writes).toEqual([]);
   });
 

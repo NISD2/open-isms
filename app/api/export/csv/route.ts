@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
 import type { NextRequest } from "next/server";
+import { requirementStatusLabel } from "@/lib/compliance/status-words";
 import { toCsv } from "@/lib/csv";
 import { db } from "@/lib/db";
 import { attachment, exportAccess, logDownload } from "@/lib/export/access";
-import { statusLabel } from "@/lib/export/rows";
+import { pdfLocale } from "@/lib/pdf/format";
 import { loadReportData } from "@/lib/pdf/load-report-data";
-import { getReportLabels } from "@/lib/pdf/policy-labels";
 import { companyAssessment } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
 
   const locale = request.nextUrl.searchParams.get("locale") ?? "en";
   const data = await loadReportData(assessmentId, locale);
-  const labels = getReportLabels(locale);
+  const language = pdfLocale(locale);
 
   const headers = [
     "Category Code",
@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
       req.code,
       req.title,
       req.priority,
-      statusLabel(req, labels),
+      requirementStatusLabel(req, language),
       req.notes ?? "",
       req.signedOffAt ? new Date(req.signedOffAt).toISOString() : "",
       String(req.evidence.length),

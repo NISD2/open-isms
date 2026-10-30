@@ -57,12 +57,7 @@ export interface ReportRequirement {
   /** The one-line legal reference in the report's language (`legalRefFor`). */
   legalRef: string | null;
   evidenceType: string;
-  /**
-   * Where the journey has it (`journeyStates`), the one status every export prints, so an item
-   * filled in the walk reads awaiting sign-off here as it does on the walk's overview. The stored
-   * status row is deliberately not carried: it reads "not started" until management signs, and an
-   * export that printed it told an auditor a filled-in item was never begun (30.10.2026).
-   */
+  /** The journey's state (`journeyEntryOf`), the one status every export prints. */
   state: DotState;
   /** A legal reviewer approved it on top of the sign-off (status `approved`). */
   approved: boolean;

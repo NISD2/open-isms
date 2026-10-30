@@ -72,11 +72,14 @@ export function WalkPath({
     box.scrollTop += top - (box.clientHeight - card.offsetHeight) / 2;
   }, [current]);
 
+  /** Locked: not walkable without the order. */
+  const isClosed = (code: string) => locked && !isFreeStep(code);
   const signOff = approvalOf(WALKS[framework])?.code ?? null;
   // Before the order the step where management signs is locked, and its card says nothing about
   // signing: the tick leads to that step's preview instead, which says sign-off comes with the
   // order (an outside tester, 30.10.2026: the jump "just scrolls to the locked items").
-  const signOffLocked = signOff !== null && locked && !isFreeStep(signOff);
+  const signOffLocked = signOff !== null && isClosed(signOff);
+  const toSignOff = t(signOffLocked ? "ui.home.toSignOffLocked" : "ui.home.toSignOff");
 
   /** A small sign-off tick leads to the step where management signs, and lights it briefly. */
   const showSignOff = () => {
@@ -137,9 +140,9 @@ export function WalkPath({
           const isNext = next?.code === entry.code;
           const here = entry.code === current;
           const href = stepHref(framework, entry.code);
-          // Locked: not walkable without the order. A company already set up has nothing
-          // left to do on its setup step, which stays on the path but opens nothing.
-          const closed = locked && !isFreeStep(entry.code);
+          // A company already set up has nothing left to do on its setup step, which stays on
+          // the path but opens nothing.
+          const closed = isClosed(entry.code);
           const inert = here || closed || (entry.code === SETUP_STEP && settled);
           const shot =
             closed && !here
@@ -214,7 +217,7 @@ export function WalkPath({
                             {signOffLocked ? (
                               <Link
                                 href={stepHref(framework, signOff)}
-                                aria-label={t("ui.home.toSignOffLocked")}
+                                aria-label={toSignOff}
                                 className={SIGN_OFF_TICK}
                               >
                                 <Check className="size-2.5" strokeWidth={3} />
@@ -222,7 +225,7 @@ export function WalkPath({
                             ) : (
                               <button
                                 type="button"
-                                aria-label={t("ui.home.toSignOff")}
+                                aria-label={toSignOff}
                                 onClick={showSignOff}
                                 className={SIGN_OFF_TICK}
                               >
@@ -230,13 +233,7 @@ export function WalkPath({
                               </button>
                             )}
                           </TooltipTrigger>
-                          <TooltipContent>
-                            {t(
-                              signOffLocked
-                                ? "ui.home.toSignOffLocked"
-                                : "ui.home.toSignOff",
-                            )}
-                          </TooltipContent>
+                          <TooltipContent>{toSignOff}</TooltipContent>
                         </Tooltip>
                       )}
                     </>

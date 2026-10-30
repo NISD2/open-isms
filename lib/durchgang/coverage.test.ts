@@ -286,11 +286,6 @@ describe("the approval item counts as walked once signed", () => {
   });
 });
 
-/**
- * The exports print `journeyEntryOf`, never the stored status. An outside tester filled 2.1 in
- * the walk (30.10.2026): the overview said awaiting sign-off, the export "not started", because
- * the status row moves only with a signature.
- */
 describe("an export reads a requirement as the journey does", () => {
   const at = new Date("2026-10-30T10:00:00Z");
   const walk = { sector: "manufacturing", walks: codesOf(company("important")) };

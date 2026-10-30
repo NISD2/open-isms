@@ -106,9 +106,7 @@ test.describe("the walkthrough as the portal's front", () => {
     // The activity log shows examples before the order, and says the walk is recorded already.
     await page.goto("/de/audit");
     await expect(
-      page.getByText("Was Sie im Durchgang tun, wird schon jetzt festgehalten", {
-        exact: false,
-      }),
+      page.getByText("Was Sie im Durchgang tun, wird schon jetzt festgehalten"),
     ).toBeVisible();
 
     // The registers open with example rows, never the company's own.

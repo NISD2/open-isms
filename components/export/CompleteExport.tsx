@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { NIS2_ASSET_TYPES } from "@/lib/compliance/asset-types";
 import { RISK_LEVEL_TEXT, RISK_LEVELS } from "@/lib/compliance/bsi-200-3";
+import { requirementStatusLabel } from "@/lib/compliance/status-words";
 import {
   enteredDay,
   gapLines,
@@ -16,7 +17,6 @@ import {
   fieldRows,
   shown,
   statusCounts,
-  statusLabel,
   titleOf,
   type Words,
 } from "@/lib/export/rows";
@@ -24,7 +24,6 @@ import type { ExportNames } from "@/lib/export/value-names";
 import { exportLabels } from "@/lib/pdf/export-labels";
 import { formatReportDate, formatSigner, type PdfLocale } from "@/lib/pdf/format";
 import type { ReportData } from "@/lib/pdf/load-report-data";
-import { getReportLabels } from "@/lib/pdf/policy-labels";
 import type { RouterOutputs } from "@/lib/trpc/client";
 import { Entry, Fields, Group, Section, Table } from "./layout";
 import { RiskCounts } from "./RiskCounts";
@@ -119,7 +118,6 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
   ]);
   const words: Words = { labels: exportLabels(locale), names, locale };
   const labels = words.labels;
-  const reportLabels = getReportLabels(locale);
   const date = (value: Date | null) => (value ? formatReportDate(value, locale) : null);
   const entries = (count: number) => t("entries", { count });
   const ongoing = ONGOING_COPY.parse(tScreens.raw("ongoing"));
@@ -212,17 +210,13 @@ export async function CompleteExport({ view }: { view: CompleteView }) {
                   )}
                   {/* What the walk recorded for it, dated, e.g. the risk method adopted at
                       2.1: an auditor reads the decision, not only that it waits. */}
-                  {req.notes?.split("\n").map((line, i) => (
-                    <span
-                      // biome-ignore lint/suspicious/noArrayIndexKey: an append-only trail, never reordered; one step done twice on a day repeats a line word for word
-                      key={i}
-                      className="mt-0.5 block text-xs text-muted-foreground"
-                    >
-                      {line}
+                  {req.notes && (
+                    <span className="mt-0.5 block whitespace-pre-line text-xs text-muted-foreground">
+                      {req.notes}
                     </span>
-                  ))}
+                  )}
                 </span>,
-                statusLabel(req, reportLabels),
+                requirementStatusLabel(req, locale),
                 [
                   formatSigner(
                     req.signedOffByName,

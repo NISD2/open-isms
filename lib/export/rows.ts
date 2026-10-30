@@ -2,12 +2,10 @@
  * How an export prints a record, whatever renders it: the PDFs (lib/pdf) and the complete export
  * page (components/export) read the same rows, so a field reads the same on paper and on screen.
  */
-import { isDoneState } from "@/lib/compliance/journey-position";
+import type { JourneyEntry } from "@/lib/durchgang";
 import { humanize } from "@/lib/forms/schema-introspect";
 import type { ExportLabels } from "@/lib/pdf/export-labels";
 import { formatFieldValue, formatReportDate, type PdfLocale } from "@/lib/pdf/format";
-import type { ReportRequirement } from "@/lib/pdf/load-report-data";
-import type { getReportLabels } from "@/lib/pdf/policy-labels";
 import { type CompanyExport, EXPORT_FIELDS, type ExportRecord } from "./company-export";
 import type { AnswerNames, CodedField, ExportNames } from "./value-names";
 
@@ -154,15 +152,12 @@ export function answerRow(
 
 export type StatusKind = "approved" | "notApplicable" | "notRequired" | "open";
 
-/** A requirement as the journey has it: what every export's status reads. */
-type Standing = Pick<ReportRequirement, "state" | "coveredBy">;
-
 /**
  * Where a requirement stands, as a reader of the status table would sort it: signed off (itself,
  * or met inside a walk step that was signed off), decided not applicable, not asked of the
- * company by any statute, or open.
+ * company by any statute, or open. Its words are `requirementStatusLabel`'s.
  */
-export const statusKind = (req: Standing): StatusKind => {
+export const statusKind = (req: JourneyEntry): StatusKind => {
   if (req.coveredBy?.kind === "not_required") return "notRequired";
   if (req.state === "signed") return "approved";
   if (req.state === "na") return "notApplicable";
@@ -171,7 +166,7 @@ export const statusKind = (req: Standing): StatusKind => {
 
 /** How many requirements stand where (`statusKind`). */
 export const statusCounts = (
-  reqs: ReadonlyArray<Standing>,
+  reqs: ReadonlyArray<JourneyEntry>,
 ): Readonly<Record<StatusKind, number>> => {
   const kinds = reqs.map(statusKind);
   const count = (kind: StatusKind) => kinds.filter((k) => k === kind).length;
@@ -182,21 +177,3 @@ export const statusCounts = (
     open: count("open"),
   };
 };
-
-/**
- * A requirement's status as every export prints it, the words of the walk's overview: its journey
- * state, or which walk items met it. The stored status row is not read, as it reads "not started"
- * for an item filled in the walk until management signs.
- */
-export function statusLabel(
-  req: Standing,
-  labels: ReturnType<typeof getReportLabels>,
-): string {
-  const by = req.coveredBy;
-  if (by === null) return labels.states[req.state];
-  if (by.kind === "not_required") return labels.notRequired;
-  const codes = by.codes.join(` ${labels.and} `);
-  return isDoneState(req.state)
-    ? labels.coveredSigned(codes)
-    : labels.coveredAwaiting(codes);
-}

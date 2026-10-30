@@ -276,7 +276,7 @@ async function loadRequirements(db: DbOrTx, companyId: string, window: PageWindo
     statuses
       .map(({ status, ...row }) => {
         const { state, coveredBy } = journeyEntryOf(status, states.get(row.code));
-        return { ...row, status: state, coveredBy };
+        return { ...row, state, coveredBy, approved: status === "approved" };
       })
       // Codes outside the journey share its last place; their code orders them, so pages hold.
       .toSorted(

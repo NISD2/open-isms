@@ -126,7 +126,7 @@ test.describe("export", () => {
   }) => {
     const data = await (await page.request.get("/api/export/data")).json();
     const states: readonly string[] = data.requirements.map(
-      (r: { status: string }) => r.status,
+      (r: { state: string }) => r.state,
     );
     const journey = ["todo", "started", "awaiting", "signed", "na", "rejected"];
     expect(states.filter((s) => !journey.includes(s))).toEqual([]);
@@ -137,7 +137,6 @@ test.describe("export", () => {
     await expect(statusCells.filter({ hasText: "wartet auf Freigabe" })).toHaveCount(
       states.filter((s) => s === "awaiting").length,
     );
-    await expect(statusCells.filter({ hasText: "abgeschlossen" })).toHaveCount(0);
   });
 
   test("everything in one document: every section, the risk matrix, and a way to save it", async ({

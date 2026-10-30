@@ -5,7 +5,6 @@
  * a small set of document-level labels here, keyed by locale.
  */
 
-import type { DotState } from "@/lib/compliance/journey-position";
 import { type PdfLocale, pdfLocale } from "./format";
 
 export const POLICY_TITLES: Readonly<
@@ -123,14 +122,6 @@ interface ReportLabels {
   reviewerFeedback: string;
   signedOff: string;
   categoryIntake: string;
-  /** A requirement met inside these walk items, signed off with them or still waiting. */
-  coveredSigned: (codes: string) => string;
-  coveredAwaiting: (codes: string) => string;
-  /** A requirement's own state on the journey, in the walk overview's words (`statusLabel`). */
-  states: Readonly<Record<DotState, string>>;
-  /** A requirement no statute asks of the company. */
-  notRequired: string;
-  and: string;
   /** The BSI's method a category maps to: German, so a reader outside Germany is told it is. */
   grundschutz: string;
 }
@@ -159,18 +150,6 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     reviewerFeedback: "Reviewer Feedback",
     signedOff: "Signed off",
     categoryIntake: "Category Intake",
-    coveredSigned: (codes) => `signed off in the walkthrough with ${codes}`,
-    coveredAwaiting: (codes) => `in the walkthrough with ${codes}, awaiting sign-off`,
-    states: {
-      todo: "not started",
-      started: "in progress",
-      awaiting: "awaiting sign-off",
-      signed: "signed off",
-      na: "does not apply",
-      rejected: "rejected",
-    },
-    notRequired: "not required by law",
-    and: "and",
     grundschutz: "IT-Grundschutz",
   },
   de: {
@@ -196,18 +175,6 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     reviewerFeedback: "Prüferfeedback",
     signedOff: "Freigegeben",
     categoryIntake: "Kategorieerfassung",
-    coveredSigned: (codes) => `im Durchgang mit ${codes} freigegeben`,
-    coveredAwaiting: (codes) => `im Durchgang mit ${codes}, wartet auf Freigabe`,
-    states: {
-      todo: "nicht begonnen",
-      started: "in Bearbeitung",
-      awaiting: "wartet auf Freigabe",
-      signed: "freigegeben",
-      na: "trifft nicht zu",
-      rejected: "abgelehnt",
-    },
-    notRequired: "gesetzlich nicht gefordert",
-    and: "und",
     grundschutz: "IT-Grundschutz",
   },
   cs: {
@@ -233,18 +200,6 @@ const REPORT_LABELS: Readonly<Record<PdfLocale, ReportLabels>> = {
     reviewerFeedback: "Připomínky revizora",
     signedOff: "Schváleno",
     categoryIntake: "Odpovědi k oblasti",
-    coveredSigned: (codes) => `schváleno v průvodci (${codes})`,
-    coveredAwaiting: (codes) => `v průvodci (${codes}), čeká na schválení`,
-    states: {
-      todo: "nezahájeno",
-      started: "probíhá",
-      awaiting: "čeká na schválení",
-      signed: "schváleno",
-      na: "nevztahuje se",
-      rejected: "zamítnuto",
-    },
-    notRequired: "zákon nevyžaduje",
-    and: "a",
     grundschutz: "IT-Grundschutz (německá metodika BSI)",
   },
 };

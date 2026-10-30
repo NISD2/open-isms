@@ -1,6 +1,6 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
-import { isDoneState } from "@/lib/compliance/journey-position";
-import { answerRow, statusLabel } from "@/lib/export/rows";
+import { requirementStatusLabel } from "@/lib/compliance/status-words";
+import { answerRow, statusKind } from "@/lib/export/rows";
 import {
   Badge,
   BrandBands,
@@ -24,14 +24,13 @@ interface ComplianceReportProps {
   locale: string;
 }
 
-/** Review states map onto the shared tones; anything unrecognised reads as
- *  neutral rather than inventing a colour for it. A legal reviewer's approval keeps its own. */
+/** A legal reviewer's approval and a rejection keep their own tones; done is what the status
+ *  table counts as done (`statusKind`); open and a decision against read neutral. */
 const toneOf = (req: ReportRequirement): StatusTone => {
   if (req.approved) return "approved";
   if (req.state === "rejected") return "rejected";
-  const done =
-    req.state === "signed" || (req.coveredBy !== null && isDoneState(req.state));
-  return done ? "completed" : "neutral";
+  const kind = statusKind(req);
+  return kind === "approved" || kind === "notRequired" ? "completed" : "neutral";
 };
 
 function RequirementSection({ req, locale }: { req: ReportRequirement; locale: string }) {
@@ -46,7 +45,7 @@ function RequirementSection({ req, locale }: { req: ReportRequirement; locale: s
       <View style={styles.recordHeader}>
         <Text style={styles.recordCode}>{req.code}</Text>
         <Text style={styles.recordTitle}>{req.title}</Text>
-        <Badge tone={toneOf(req)}>{statusLabel(req, labels)}</Badge>
+        <Badge tone={toneOf(req)}>{requirementStatusLabel(req, pdfLocale(locale))}</Badge>
       </View>
 
       {req.notApplicable && (
