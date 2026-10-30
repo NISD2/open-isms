@@ -8,6 +8,7 @@ import type { auditLogFor } from "@/lib/platform-admin/users";
 import { trpc } from "@/lib/trpc/client";
 import { CompanyName } from "./CompanyDialog";
 import { ReachLine } from "./ReachLine";
+import { TwoFactorAdmin } from "./TwoFactorAdmin";
 
 const at = new Intl.DateTimeFormat("de-DE", {
   timeZone: "Europe/Berlin",
@@ -268,6 +269,8 @@ function UserDialog({ id, onClose }: { id: string; onClose: () => void }) {
                     </ul>
                   )}
                 </section>
+
+                <TwoFactorAdmin userId={id} />
               </>
             )}
 

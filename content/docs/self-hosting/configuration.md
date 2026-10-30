@@ -38,6 +38,7 @@ Why two endpoints, and what goes wrong with one: [Evidence storage](/docs/self-h
 | Variable | Without it |
 |---|---|
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | No "Sign in with Google". Email and password still works. |
+| `TWO_FACTOR_ENCRYPTION_KEY` | No two-factor sign-in: nobody can set up an authenticator app, and no company can require it. 32 bytes of base64 (`openssl rand -base64 32`). Never change it once people use it, or their codes stop working. |
 | `XAI_API_KEY` | The AI prefill button returns an error instead of filling the form. Manual entry is unaffected. |
 | `RAPIDAPI_KEY` | Company lookup in the applicability wizard falls back to typing the details in. |
 | `CRON_SECRET` | The deadline and course-reminder endpoints have no bearer token to check. Leave those jobs unscheduled. |

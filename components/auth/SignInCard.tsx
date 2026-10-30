@@ -20,8 +20,11 @@ import { signupTags } from "@/lib/analytics/token-routes";
 import { type GoogleSignInError, isGoogleSignInError } from "@/lib/auth/google-link";
 import { localCallbackPath } from "@/lib/auth/local-path";
 import { GoogleMark } from "./GoogleMark";
+import { TwoFactorCodeStep } from "./TwoFactorCodeStep";
+import { TwoFactorSetupStep } from "./TwoFactorSetupStep";
+import { readSignInResult } from "./two-factor-sign-in";
 
-type Step = "auth" | "verify";
+type Step = "auth" | "verify" | "twoFactor" | "twoFactorSetup";
 
 /**
  * A refused Google sign-in comes back through a redirect, not a return value, so its reason
@@ -35,10 +38,13 @@ const GOOGLE_ERROR_MESSAGE_KEYS = {
 
 export function SignInCard({
   supportEmail,
+  contactEmail,
   independentInstall,
 }: {
   /** Where GOOGLE_EMAIL_CHANGED sends people: the same address outbound mail replies to. */
   supportEmail: string;
+  /** Where someone who lost their phone and recovery codes writes: an address a person reads. */
+  contactEmail: string;
   /**
    * A copy run by someone else: its users have no contract with nisd2.eu, so the sign-in does not
    * say they accept our terms (the page's LegalNotice says whose installation it is).
@@ -82,6 +88,22 @@ export function SignInCard({
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
 
+  /**
+   * A password that matched but needs a code from the app next (lib/auth/two-factor/sign-in.ts):
+   * the code step, or the setup step for someone who must have it and has not set it up, takes
+   * over with the password kept, since the code goes to the server together with it. True when it
+   * took over.
+   */
+  const toCodeStep = (result: Parameters<typeof readSignInResult>[0]): boolean => {
+    const read = readSignInResult(result);
+    if (read === "codeRequired") setStep("twoFactor");
+    else if (read === "setupRequired") setStep("twoFactorSetup");
+    else if (read === "unavailable") setError(t("twoFactor.errorUnavailable"));
+    else return false;
+    setLoading(false);
+    return true;
+  };
+
   const domain = email.includes("@") ? email.split("@")[1] : "";
   const isCompanyDomain =
     domain && !/(gmail|yahoo|hotmail|outlook|icloud|web\.de|gmx)\./i.test(domain);
@@ -110,6 +132,7 @@ export function SignInCard({
           router.push(callbackUrl);
           return;
         }
+        if (toCodeStep(existing)) return;
         if (`${existing?.error ?? ""} ${existing?.code ?? ""}`.includes("RATE_LIMITED")) {
           setError(t("errorRateLimited"));
           setLoading(false);
@@ -148,6 +171,7 @@ export function SignInCard({
       });
 
       if (result?.error) {
+        if (toCodeStep(result)) return;
         // NextAuth forwards our thrown CredentialsSignin's code via
         // `result.code` and sets `result.error` to "CredentialsSignin". We
         // join both so EMAIL_NOT_VERIFIED is matched regardless of which
@@ -217,6 +241,9 @@ export function SignInCard({
         redirect: false,
       });
 
+      // A platform admin's own new account must set the app up before the first sign-in.
+      if (result?.error && toCodeStep(result)) return;
+
       // Same joined match as the login branch above.
       if (
         result?.error &&
@@ -271,6 +298,34 @@ export function SignInCard({
       setError(t("errorGeneric"));
     }
     setLoading(false);
+  }
+
+  const backToPassword = () => {
+    setStep("auth");
+    setMode("login");
+    setError("");
+    setInfo("");
+  };
+  if (step === "twoFactor") {
+    return (
+      <TwoFactorCodeStep
+        email={email}
+        password={password}
+        callbackUrl={callbackUrl}
+        contactEmail={contactEmail}
+        onBack={backToPassword}
+      />
+    );
+  }
+  if (step === "twoFactorSetup") {
+    return (
+      <TwoFactorSetupStep
+        email={email}
+        password={password}
+        callbackUrl={callbackUrl}
+        onBack={backToPassword}
+      />
+    );
   }
 
   if (step === "verify") {

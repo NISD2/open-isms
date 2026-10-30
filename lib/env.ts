@@ -204,6 +204,25 @@ const envSchema = z.object({
       return undefined;
     }),
 
+  // The key that encrypts each person's authenticator app secret (lib/auth/two-factor/crypto.ts):
+  // 32 random bytes, base64 (openssl rand -base64 32). Unset means two-factor sign-in is off: nobody
+  // can set it up and no company or platform admin is made to. A value that is not 32 bytes of
+  // base64 switches it off with a warning rather than stopping the app.
+  TWO_FACTOR_ENCRYPTION_KEY: z
+    .preprocess(
+      trimmed,
+      z
+        .string()
+        .refine((value) => Buffer.from(value, "base64").length === 32)
+        .optional(),
+    )
+    .catch(() => {
+      console.warn(
+        "[env] TWO_FACTOR_ENCRYPTION_KEY must be 32 bytes of base64 (openssl rand -base64 32); two-factor sign-in is off",
+      );
+      return undefined;
+    }),
+
   // Standard
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });

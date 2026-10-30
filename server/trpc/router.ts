@@ -45,6 +45,7 @@ import { teamRouter } from "./routers/team";
 import { trainingRouter } from "./routers/training";
 import { trainingCertificateRouter } from "./routers/training-certificate";
 import { trainingPortalRouter } from "./routers/training-portal";
+import { twoFactorRouter } from "./routers/two-factor";
 import { userRouter } from "./routers/user";
 import { vulnerabilityRouter } from "./routers/vulnerability";
 
@@ -101,6 +102,7 @@ export const appRouter = router({
   newsletter: newsletterRouter,
   newsletterPublic: newsletterPublicRouter,
   user: userRouter,
+  twoFactor: twoFactorRouter,
 });
 
 export type AppRouter = typeof appRouter;
