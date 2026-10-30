@@ -36,6 +36,7 @@ import { ROLE_HIERARCHY } from "@/lib/compliance/role-mapping";
 import type { MembershipRole } from "@/lib/organization/membership";
 import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
+import { OwnershipCard, type OwnershipState } from "./OwnershipCard";
 import { type Invite, InviteForm, InvitesCard } from "./TeamInvites";
 
 const MEMBERSHIP_ROLES: readonly MembershipRole[] = [
@@ -66,12 +67,20 @@ interface Props {
   invites: Invite[];
   currentUserId: string;
   isAdmin: boolean;
+  ownership: OwnershipState;
 }
 
-export function TeamPage({ members, invites, currentUserId, isAdmin }: Props) {
+export function TeamPage({ members, invites, currentUserId, isAdmin, ownership }: Props) {
+  // A handover waiting for this person is the one thing on the page they have to act on.
+  const offered = ownership.pending?.toUserId === currentUserId;
+  const ownershipCard = (
+    <OwnershipCard state={ownership} members={members} currentUserId={currentUserId} />
+  );
   return (
     <div className="space-y-6">
+      {offered && ownershipCard}
       <MembersCard members={members} currentUserId={currentUserId} isAdmin={isAdmin} />
+      {isAdmin && !offered && ownershipCard}
       {isAdmin && <InvitesCard invites={invites} />}
       {isAdmin && <InviteForm />}
     </div>
@@ -131,7 +140,7 @@ function MembersCard({
     onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
-  // The creator always stays an admin and there is always at least one, as the server enforces.
+  // The owner always stays an admin and there is always at least one, as the server enforces.
   const adminCount = members.filter((m) => m.role === "admin").length;
 
   const assignRoleMutation = trpc.team.assignRole.useMutation({

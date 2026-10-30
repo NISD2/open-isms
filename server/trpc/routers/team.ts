@@ -13,12 +13,14 @@ import { inviteRedirectPath } from "@/lib/organization/invite-redirect";
 import { isInviteExpired } from "@/lib/organization/invite-state";
 import {
   asMembershipRole,
+  companyOwnerId,
   findMembershipRole,
   isMemberOf,
   joinCompany,
   leaveCompany,
   listCompanyMembers,
   listUserCompanies,
+  lockCompanyOwner,
   openCompany,
   setMembershipJobTitle,
   setMembershipRole,
@@ -26,7 +28,6 @@ import {
 } from "@/lib/organization/membership";
 import {
   categoryAssignment,
-  company,
   companyAssessment,
   companyInvite,
   companyMembership,
@@ -463,15 +464,6 @@ export const teamRouter = router({
         });
       }
 
-      // With several admins, another admin could otherwise remove the person who created the
-      // organization and take it over.
-      if ((await companyOwnerId(ctx.db, ctx.companyId)) === input.userId) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "The person who created the organization cannot be removed.",
-        });
-      }
-
       const assessments = await ctx.db.query.companyAssessment.findMany({
         where: eq(companyAssessment.companyId, ctx.companyId),
         columns: { id: true },
@@ -482,6 +474,13 @@ export const teamRouter = router({
       // partway through left a member stripped of their categories and
       // sign-off rows who still had access to the company.
       await ctx.db.transaction(async (tx) => {
+        // Else another admin could remove the owner, or the member just accepting a handover.
+        if ((await lockCompanyOwner(tx, ctx.companyId)) === input.userId) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "The owner of the organization cannot be removed.",
+          });
+        }
         if (assessmentIds.length > 0) {
           await tx
             .delete(categoryAssignment)
@@ -583,7 +582,7 @@ export const teamRouter = router({
 
   /**
    * Change a member's access role (admin only), so an organization can have a backup admin. The
-   * person who created the organization always stays an admin, and there is always at least one.
+   * owner always stays an admin, and there is always at least one.
    */
   setMemberRole: adminProcedure
     .input(
@@ -593,9 +592,8 @@ export const teamRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const ownerId = await companyOwnerId(ctx.db, ctx.companyId);
-
       return ctx.db.transaction(async (tx) => {
+        const ownerId = await lockCompanyOwner(tx, ctx.companyId);
         // Locking the admin rows serializes two admins demoting each other at once, which could
         // otherwise leave the organization with none.
         const admins = await tx
@@ -625,7 +623,7 @@ export const teamRouter = router({
           if (input.userId === ownerId) {
             throw new TRPCError({
               code: "FORBIDDEN",
-              message: "The person who created the organization stays an admin.",
+              message: "The owner of the organization stays an admin.",
             });
           }
           if (admins.length <= 1) {
@@ -721,18 +719,6 @@ export const teamRouter = router({
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-/** The person who created the organization, or null once they are gone. */
-async function companyOwnerId(
-  db: import("@/lib/db").DbOrTx,
-  companyId: string,
-): Promise<string | null> {
-  const row = await db.query.company.findFirst({
-    where: eq(company.id, companyId),
-    columns: { ownerId: true },
-  });
-  return row?.ownerId ?? null;
-}
 
 const batchAssignmentSchema = z.object({
   roleKeys: z.array(z.string()),

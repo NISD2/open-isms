@@ -11,6 +11,7 @@ import { emailOtp } from "@/schema";
  * Used by:
  *  - Signup email verification (purpose "email_verify")
  *  - Password reset (purpose "password_reset")
+ *  - The owner confirming a handover of their company (purpose "ownership_transfer")
  *
  * Security properties:
  *  - 6-digit codes from a CSPRNG (Node `crypto.randomInt`)
@@ -33,7 +34,7 @@ const RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
 const RATE_LIMIT_MAX = 3;
 const BCRYPT_ROUNDS = 10;
 
-const VALID_PURPOSES = ["email_verify", "password_reset"] as const;
+const VALID_PURPOSES = ["email_verify", "password_reset", "ownership_transfer"] as const;
 export type OtpPurpose = (typeof VALID_PURPOSES)[number];
 
 export class OtpRateLimitedError extends Error {

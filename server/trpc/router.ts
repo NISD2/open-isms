@@ -25,6 +25,7 @@ import { llmRouter } from "./routers/llm";
 import { managementReviewRouter } from "./routers/management-review";
 import { newsletterPublicRouter, newsletterRouter } from "./routers/newsletter";
 import { notificationRouter } from "./routers/notification";
+import { ownershipRouter } from "./routers/ownership";
 import { partnerContractRouter } from "./routers/partner-contract";
 import { patchRouter } from "./routers/patch";
 import { platformAdminRouter } from "./routers/platform-admin";
@@ -59,6 +60,7 @@ export const appRouter = router({
   audit: auditRouter,
   assignment: assignmentRouter,
   team: teamRouter,
+  ownership: ownershipRouter,
   company: companyRouter,
   billing: billingRouter,
   review: reviewRouter,
