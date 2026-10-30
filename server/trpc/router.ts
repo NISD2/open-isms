@@ -30,6 +30,7 @@ import { partnerContractRouter } from "./routers/partner-contract";
 import { patchRouter } from "./routers/patch";
 import { platformAdminRouter } from "./routers/platform-admin";
 import { platformAdminInvitesRouter } from "./routers/platform-admin-invites";
+import { platformAdminUpdatesRouter } from "./routers/platform-admin-updates";
 import { platformAdminUsersRouter } from "./routers/platform-admin-users";
 import { policyRouter } from "./routers/policy";
 import { policyConfigRouter } from "./routers/policy-config";
@@ -95,6 +96,7 @@ export const appRouter = router({
   platformAdmin: platformAdminRouter,
   platformAdminUsers: platformAdminUsersRouter,
   platformAdminInvites: platformAdminInvitesRouter,
+  platformAdminUpdates: platformAdminUpdatesRouter,
   partnerContract: partnerContractRouter,
   gapAssessment: gapAssessmentRouter,
   journey: journeyRouter,

@@ -4,6 +4,7 @@ import { analyticsEnvShape } from "@/lib/analytics/umami-config";
 import { billingEnvShape } from "@/lib/billing/config-schema";
 import { closeEnvShape } from "@/lib/crm/config-schema";
 import { trimmed, withoutBlanks } from "@/lib/env-value";
+import { updateEnvShape } from "@/lib/updates/config-schema";
 
 const envSchema = z.object({
   // Required always
@@ -147,6 +148,9 @@ const envSchema = z.object({
   // where they are trimmed and defaulted but never rejected: a wrong billing
   // value switches billing off, it does not stop the application starting.
   ...billingEnvShape,
+
+  // Self-host update mode and updater token (UPDATE_MODE, UPDATE_API_TOKEN, UPDATER_URL)
+  ...updateEnvShape,
 
   // App URL
   NEXT_PUBLIC_APP_URL: z.string().default("https://www.nisd2.eu"),

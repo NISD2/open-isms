@@ -116,12 +116,8 @@ services:
       # what the release expects and tells you when an update also needs a
       # change here, instead of letting your deployment quietly drift.
       COMPOSE_REVISION: ${COMPOSE_REVISION:-3}
-      # Not implemented: no application code reads this, and setting it has
-      # no effect today. Passed through so the variable exists where it will
-      # be read once it is built. Checking for updates is manual for now, see
-      # nisd2.eu/docs/self-hosting/updating.
-      # Planned: `notify` = one GET a day against the GitHub
-      # releases API, no instance identifier and no telemetry.
+      # off: no outbound traffic; notify: checks GitHub releases API once a day.
+      # Unattended updates are deliberately not planned for a compliance database.
       UPDATE_MODE: ${UPDATE_MODE:-off}
       UPDATE_API_TOKEN: ${UPDATE_API_TOKEN:-}
       # Optional. Each one degrades a single feature, see

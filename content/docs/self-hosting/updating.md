@@ -55,9 +55,18 @@ Same mechanism: pin the previous version and `up -d`. One step back is supported
 
 ## Checking for new versions
 
-There is no update check inside the application. `UPDATE_MODE` exists in `.env` and the compose file and **nothing reads it**, so setting it to `notify` does nothing at all.
+`UPDATE_MODE` in `.env` controls update notifications:
 
-Until that is built, watch [the tags](https://github.com/NISD2/open-isms/tags), or ask the registry directly:
+| Value | Behaviour |
+|---|---|
+| `off` (default) | No outbound update traffic at all. The platform admin area shows the running version and links to the releases page. |
+| `notify` | One request a day to the GitHub releases API. No instance identifier, no telemetry, no payload: it asks what the newest release is and compares locally against `APP_VERSION`. |
+
+Unattended updates (`auto`) are deliberately not planned. They apply migrations to a compliance database with nobody watching and no fresh backup, which is a poor trade for the convenience.
+
+If a release requires a compose change, the app compares `COMPOSE_REVISION` against what the release expects and alerts you in the platform admin area, preventing deployment drift.
+
+You can also check for updates manually on the CLI by watching [the tags](https://github.com/NISD2/open-isms/tags), or asking the registry directly:
 
 ```bash
 curl -s "https://ghcr.io/token?scope=repository:nisd2/open-isms:pull&service=ghcr.io" \
@@ -68,13 +77,13 @@ curl -s "https://ghcr.io/token?scope=repository:nisd2/open-isms:pull&service=ghc
 
 Compare that against what your instance reports at `/api/health`.
 
-When it is built, the intent is one request a day to the GitHub releases API, with no instance identifier and no telemetry: it asks what the newest release is and compares locally. Unattended updates are deliberately not planned. They apply migrations to a compliance database with nobody watching and no fresh backup, which is a poor trade for the convenience.
-
 ## The updater profile
 
 With `--profile updater` the stack runs a small companion container (watchtower) that can pull a new image and recreate the app on request. It exposes an HTTP endpoint on the internal network, authenticated with `UPDATE_API_TOKEN`.
 
-The in-app button that would call it does not exist yet, so today the endpoint is only reachable by something you drive yourself. `docker compose pull && docker compose up -d` does the same job with nothing extra installed, which is why the profile is off by default.
+When `UPDATE_API_TOKEN` is set, an "Install update" button is enabled in the Platform Admin area under the Updates tab (`/platform-admin/updates`). Clicking it asks the updater companion to pull the new image and recreate the container.
+
+Running `docker compose pull && docker compose up -d` on the host does the same job with nothing extra installed, which is why the profile is off by default.
 
 What it does and does not do:
 
